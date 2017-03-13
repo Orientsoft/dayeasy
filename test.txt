@@ -2,3 +2,7 @@ main()
 {
 	print"hello world"
 }
+mathod()
+{
+	print"my name is Gan"
+}
