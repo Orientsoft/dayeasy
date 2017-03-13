@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "个人首页帖子配置";
+}
+
+<div class="ic-btns">
+    <button id="btnSave" class="btn btn-primary">保存</button>
+</div>
+
+<div class="ic-box">
+    <div class="ic-item ic-teachers">
+        <div class="ic-text fs18">
+            教师首页 （已选 <span class="num teachers-num">0</span>）
+        </div>
+        <div class="ic-desc">
+            150x100 [1-6张图]
+        </div>
+        <div data-type="teachers">
+            <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+        </div>
+    </div>
+    <div class="ic-item ic-students">
+        <div class="ic-text fs18">
+            学生首页 （已选 <span class="num students-num">0</span>）
+        </div>
+        <div class="ic-desc">
+            150x100 [1-6张图]
+        </div>
+        <div data-type="students">
+            <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+        </div>
+    </div>
+</div>
+@section style{
+    @Html.CombineLink("v3/css/management/index-config.css")
+}
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js,v3/js/management/page-personal-config.js")
+}

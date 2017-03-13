@@ -1,0 +1,145 @@
+﻿@using System.Text.RegularExpressions
+@using DayEasy.Utility.Extend
+
+@model List<TS_SystemLog>
+@{
+    ViewBag.Title = "日志管理";
+    var status = "status".Query(0);
+}
+<div class="container">
+    <div class="row mb10">
+        <div class="col-sm-2">
+            <label class="checkbox checkbox-inline">
+                @if (status == 0)
+                {
+                    <input type="checkbox" name="status"/>
+                }
+                else
+                {
+                    <input type="checkbox" name="status" checked="checked"/>
+                }
+                查看已解决
+            </label>
+        </div>
+        <div class="col-sm-2">
+            <div class="d-total">
+                共
+                <em>@ViewData["totalCount"]</em>
+                条记录
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-hover table-bordered">
+            <colgroup>
+                <col style="width: 10em"/>
+                <col style="width: 12em"/>
+                <col />
+                <col style="width: 6em"/>
+                <col style="width: 12em"/>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>时间</th>
+                    <th>站点</th>
+                    <th>消息</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var log in Model)
+                    {
+                        <tr class="k-line">
+                            <td>@log.Time.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@log.WebSite</td>
+                            <td>@log.Message</td>
+                            <td>
+                                <label class="label @(log.Status == 0 ? "label-danger" : "label-success")">@(log.Status == 0 ? "未解决" : "已解决")</label>
+                            </td>
+                            <td class="text-center">
+                                <a href="#" class="btn btn-info j-detail">详情</a>
+                                @if (log.Status == 0)
+                                {
+                                    <a href="#" class="btn btn-primary j-resolve" data-id="@log.Id">解决</a>
+                                }
+                            </td>
+                        </tr>
+                        <tr class="hidden">
+                            <td colspan="5" class="d-detail">
+                                @Html.Raw(Regex.Replace(log.Detail, "\\s{2,}", "<br/>"))
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5"><div class="dy-nothing">没有找到相关信息！</div></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 20, Convert.ToInt32(ViewData["totalCount"]), 4)
+    </div>
+</div>
+@section style{
+    <style type="text/css">
+        .page-header {
+            margin-top: 15px;
+        }
+
+        td {
+            -moz-word-break: break-all;
+            -o-word-break: break-all;
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+
+        .d-detail {
+            padding: 10px 15px !important;
+            background-color: #f5f5f5;
+        }
+    </style>
+}
+@section script{
+    <script>
+        (function ($) {
+            $('input[name=status]').bind('change', function () {
+                var status = this.checked;
+                location.href = '/sys/logs' + (status ? '?status=-1' : '');
+            });
+            $('.j-detail').bind('click', function () {
+                var $t = $(this),
+                    $tr = $t.parents('tr').next();
+                if ($tr.hasClass('hidden')) {
+                    $t.removeClass('btn-info').addClass('btn-default').html('收起');
+                    $tr.removeClass('hidden').fadeIn();
+                } else {
+                    $t.removeClass('btn-default').addClass('btn-info').html('详情');
+                    $tr.addClass('hidden').fadeOut();
+                }
+                $t.blur();
+                return false;
+            });
+            $('.j-resolve').bind('click', function () {
+                var $t = $(this),
+                    $tr = $t.parents('tr');
+                $t.attr('disabled', 'disabled').addClass('disabled').html('提交中...');
+                $.post('/sys/logs/resolve', {
+                    id: $t.data('id')
+                }, function (json) {
+                    if (json && json.status) {
+                        $tr.find('td').eq(2).html('<span class="text-success">已解决</span>');
+                        $t.remove();
+                    }
+                });
+                return false;
+            });
+        })(jQuery);
+    </script>
+}

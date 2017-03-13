@@ -1,0 +1,104 @@
+﻿@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Extend
+@model List<DayEasy.Contracts.Dtos.Elective.ElectiveBatchDto>
+@{
+    ViewBag.Title = "选课管理";
+}
+
+<div class="dy-main-wrap">
+    @Html.Partial("~/Views/Educational/_Navigation.cshtml",8)
+    <div class="dy-list dy-list-bg">
+        <div class="dy-title">
+            <h2>选课管理</h2>
+            <div class="d-actions">
+                <a href="@Url.Action("Create")" class="dy-btn dy-btn-info">创建选课</a>
+            </div>
+        </div>
+        <div class="dy-content">
+            @if (Model.Any())
+            {
+                <table class="dy-table">
+                    <colgroup>
+                        <col />
+                        <col style="width: 15em" />
+                        <col style="width: 8em" />
+                        <col style="width: 15em" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="f-tal">选修课标题</th>
+                            <th>创建时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr data-batch="@item.Id">
+                                <td class="f-tal">
+                                    <a href="@Url.Action("Detail", new { batch = item.Id })">@item.Title</a>
+                                </td>
+                                <td>
+                                    <abbr title="@(item.CreationTime.ToString("yyyy年MM月dd日 HH时mm分"))">@item.CreationTime.ToString("yyyy-MM-dd")</abbr>
+                                </td>
+                                <td>
+                                    @switch (item.Status)
+                                    {
+                                        case (byte)ElectiveStatus.Normal:
+                                            <span class="label label-default">未开始</span>
+                                            break;
+                                        case (byte)ElectiveStatus.Started:
+                                        <span class="label label-danger">进行中</span>
+                                            break;
+                                        case (byte)ElectiveStatus.Finished:
+                                        <span class="label label-success">已完成</span>
+                                            break;
+                                    }
+                                </td>
+                                <td>
+                                    @switch (item.Status)
+                                    {
+                                        case (byte)ElectiveStatus.Normal:
+                                            <a href="#" class="btn-start">开启选课</a>
+                                            break;
+                                        case (byte)ElectiveStatus.Started:
+                                        <a href="#" class="btn-close">关闭选课</a>
+                                            break;
+                                        case (byte)ElectiveStatus.Finished:
+                                        <a href="@Url.Action("Export", new { batch = item.Id, title = item.Title })" target="_blank">导出统计</a>
+                                            break;
+                                    }
+                                    <s></s>
+                                    <a href="#" class="text-danger btn-delete">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4">
+                                共<b class="total-num">@ViewBag.TotalCount</b>条数据
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="d-pager">
+                    @Html.ShowPager("pageindex".Query(1), "pagesize".Query(10), (int)ViewBag.TotalCount)
+                </div>
+            }
+            else
+            {
+                <div class="dy-nothing"><i class="iconfont dy-icon-none"></i>当前没有选修课</div>
+            }
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/ea/ui-base.css")
+}
+@section js{
+    @Html.CombineLink("v3/js/ea/elective-list.js")
+}

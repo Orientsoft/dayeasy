@@ -1,0 +1,175 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.Statistic
+@using DayEasy.Contracts.Dtos.User
+@{
+    ViewBag.Title = "学生成绩排名";
+
+    List<GroupDto> groups = null;
+    if (ViewData["teachGroupes"] != null)
+    {
+        groups = ViewData["teachGroupes"] as List<GroupDto>;
+    }
+
+    List<UserDto> students = null;
+    if (ViewData["student"] != null)
+    {
+        students = ViewData["student"] as List<UserDto>;
+    }
+
+    List<UsageDto> usages = null;
+    List<StudentRankDto> studentRanks = null;
+    if (ViewData["studentRank"] != null)
+    {
+        var studentRank = ViewData["studentRank"] as StudentRankDataDto;
+        if (studentRank != null)
+        {
+            usages = studentRank.UsageList;
+            studentRanks = studentRank.StudentRankList;
+        }
+    }
+
+    var lastTime = usages == null ? DateTime.Now.ToString("yyyy-MM-dd HH:mm") : usages.OrderBy(u => u.AddedTime).Last().AddedTime.ToString("yyyy-MM-dd HH:mm");
+
+    var classId = ViewData["groupId"] == null ? string.Empty : ViewData["groupId"].ToString();
+}
+
+<div class="g-mn f-fr">
+    <div class="m-tt after">
+        <h2 class="f-fl  m-hd ">学生成绩排名</h2>
+        <div class="f-fr m-snav">
+            <p>数据统计截止至  @lastTime</p>
+        </div>
+    </div>
+    <div class="m-bd-1">
+        <div class="m-lst">
+            <div class="u-tt">
+                <ul class="after">
+                    <li>
+                        <label>学科：</label>
+                        <span>@ViewData["subjectName"]</span>
+                    </li>
+                    @if (groups != null && groups.Any())
+                    {
+                        <li>
+                            <label>班级：</label>
+                            <select class="form-control" id="classSelect">
+                                @foreach (var group in groups)
+                                {
+                                    <option value="@group.Id" @(classId == group.Id ? "selected=selected" : string.Empty)>@group.Name</option>
+                                }
+                            </select>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="m-lst">
+            @if (students != null && usages != null)
+            {
+                students = students.OrderBy(u => u.StudentNum).ToList();
+                usages = usages.OrderByDescending(u => u.AddedTime).ToList();
+                var count = usages.Count;
+
+                <table class="table table-bordered table-hover teacher-rank">
+                    <thead>
+                        <tr class="f-hover-none">
+                            <th width="8%" class="icon-tr pointer" data-sort="string">学号 <i class="iconr-Triangle"></i></th>
+                            <th width="11%" class="icon-tr pointer" data-sort="string">姓名 <i class="iconr-Triangle"></i></th>
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                if (i < count)
+                                {
+                                    var paper = usages[i];
+                                    var paperTitle = paper.PaperName.Length > 8 ? paper.PaperName.Substring(0, 6) + ".." : paper.PaperName;
+                                    var date = paper.AddedTime.ToString("M月d日");
+
+                                    <th title="@paper.PaperName (@date)">@paperTitle<br />(@date)</th>
+                                }
+                                else
+                                {
+                                    <th><i class="glyphicon glyphicon-minus"></i></th>
+                                }
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var student in students)
+                        {
+                            var ranks = studentRanks == null ? null : studentRanks.Where(u => u.StudentId == student.Id).ToList();
+                            if (ranks == null)
+                            {
+                                continue;
+                            }
+
+                            <tr>
+                                <td>@student.StudentNum</td>
+                                <td><a href="@Url.Action("StudentRankDetail", "Report", new { uid = student.Id, cid = classId })" class="color-bule">@student.Name</a></td>
+                                @for (int i = 0; i < 5; i++)
+                                {
+                                    if (i + 1 < count)
+                                    {
+                                        var currentPaper = usages[i];
+                                        var lastPaper = usages[i + 1];
+
+                                        var currentRank = ranks.FirstOrDefault(u => u.Batch == currentPaper.Batch);
+                                        var lastRank = ranks.FirstOrDefault(u => u.Batch == lastPaper.Batch);
+
+                                        if (currentRank == null)
+                                        {
+                                            <td style="color:#aaaaaa;">缺考</td>
+                                        }
+                                        else
+                                        {
+                                            var currentSort = currentRank.Rank;
+                                            var lastSort = lastRank == null ? 0 : lastRank.Rank;
+
+                                            var showStr = "glyphicon-minus";
+                                            var sort = string.Empty;
+                                            if (currentSort > 0 && lastSort > 0)
+                                            {
+                                                var tempSort = currentSort - lastSort;
+                                                if (tempSort != 0)
+                                                {
+                                                    showStr = tempSort < 0 ? "glyphicon-arrow-up" : "glyphicon-arrow-down";
+                                                    sort = Math.Abs(tempSort).ToString();
+                                                }
+                                            }
+
+                                            <td>
+                                                <div class="dy-score-change">
+                                                    @currentSort <small style="color: #999">(<i class="glyphicon @showStr"></i>@sort)</small>
+                                                </div>
+                                            </td>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <td><i class="glyphicon glyphicon-minus"></i></td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="mt10 mb10 text-center default"><i class="iconfont dy-icon-emoji02" style="font-size:40px;"></i> <span>没有找到相关统计数据！</span></div>
+            }
+        </div>
+    </div>
+</div>
+
+@section script{
+    @Html.CombineLink("plugs/stupidtable/stupidtable.js")
+    <script type="text/javascript">
+        $(function () {
+            $("table").stupidtable();
+
+            $("#classSelect").change(function () {
+                var value = $(this).children("option:selected").val();
+                window.location = '@Url.Action("StudentRank", "Report", new { classId=""})/' + value;
+            });
+        });
+    </script>
+}

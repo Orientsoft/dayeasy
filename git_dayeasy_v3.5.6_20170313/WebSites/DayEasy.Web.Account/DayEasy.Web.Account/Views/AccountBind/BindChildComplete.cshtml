@@ -1,0 +1,49 @@
+﻿@model DayEasy.Contracts.Dtos.User.UserDto
+<div class="bind-child-box">
+    <div class="dy-user" data-uid="@Model.Id">
+        <img src="@Html.MakeThumb(Model.Avatar, "50x50")" alt="@Model.Name" />
+        <span class="dy-user-name">@Model.Name</span>
+        <span class="dy-user-code">No. @Model.Code</span>
+    </div>
+    <div class="dy-relation">
+        <div class="dy-relation-label">请选择您与孩子的关系：</div>
+        <label class="checkbox-group group-radio">
+            <input type="radio" name="relation" value="1"><span>爸爸</span>
+            <i class="iconfont dy-icon-radio"></i>
+        </label>
+        <label class="checkbox-group group-radio">
+            <input type="radio" name="relation" value="2"><span>妈妈</span>
+            <i class="iconfont dy-icon-radio"></i>
+        </label>
+    </div>
+    <div class="dy-form-group">
+        <button type="button" class="dy-btn dy-btn-default" i="close">取消</button>
+        <button type="button" class="dy-btn dy-btn-info" id="btnSubmit">完成</button>
+    </div>
+</div>
+<script>
+    (function ($, S) {
+        $('#btnSubmit').bind('click', function () {
+            var $t = $(this),
+                id = $('.dy-user').data('uid'),
+                type = $('input[name="relation"]:checked').val();
+            $t.blur();
+            if (S.isUndefined(type)) {
+                S.msg('请选择家庭关系！');
+                return false;
+            }
+            $t.disableField('稍后..');
+            $.post('/bind/concat-student', {
+                studentId: id,
+                type: type
+            }, function (json) {
+                if (json.status) {
+                    location.href = S.uri().return_url || (S.sites.main + '/group');
+                } else {
+                    S.msg(json.message);
+                    $t.undisableFieldset();
+                }
+            });
+        });
+    })(jQuery, SINGER);
+</script>

@@ -1,0 +1,359 @@
+﻿@model DayEasy.Application.Services.Dto.VUnionChartsDto
+@{
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = Model.Title + " - 关联报表";
+}
+<script>
+    var comprtype = 0;  // 0 综合概况  1 单科
+</script>
+<div class="dy-wrap">
+    <div class="dy-main" data-batch="@Model.Batch">
+        <div class="d-score-rate base-statistics">
+            <div class="bg-statistics"></div>
+            <div class="head-wrap">
+                <div class="statistics-header f-cb">
+                    <div class="box-left-1">
+                        <div class="box-title">
+                            <div class="title-text">
+                                <h2 class="f-toe html-title-name">@Model.Title</h2>
+                                <!--<p>Zongbei middle school 3 / 2017 of the test statistics</p>-->
+                            </div>
+                            <a class="hp-back" href="@Url.Action("Examinations")"><span>返回</span></a>
+                        </div>
+                    </div>
+                    <div class="box-left-2">
+                        <div class="subject-list js-wrap">
+                            <div class="f-fl comprehensive js-add on">
+                                <span class="adminis dy-adminis-17"></span>
+                                <span class="box-span">
+                                    <i class="adminis dy-adminis-15"></i>
+                                    综合概况
+                                </span>
+                            </div>
+                            <ul class="f-fl subject js-subject html-subject">
+                                @foreach (var subject in Model.Subjects)
+                                {
+                                    <li data-subject="@subject.Key">
+                                        <a href="javascript:void(0);">
+                                            <i class="iconfont dy-icon-subject-@subject.Key "></i>
+                                            @subject.Value
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="g-contents f-cb">
+                <div class="g-side f-fl html-side">
+                    <!--==============================side=================================-->
+                </div>
+                <div class="g-main f-fr js-main">
+                    <div class="head-top f-cb">
+                        <ul class="nav-main f-cb f-fl js-nav-main">
+                            <li data-menu="1" class="on current"><a href="javascript:void(0);"><span>成绩排名</span></a></li>
+                            <li data-menu="2"><a href="javascript:void(0);"><span>平均分对比</span></a></li>
+                            <li data-menu="3"><a href="javascript:void(0);"><span>重点率分析</span></a></li>
+                            <li data-menu="4" class="m-subject hide"><a href="javascript:void(0);"> <span>分数段分布</span></a></li>
+                        </ul>
+                        <div class="f-fl excel">
+                            <a id="excel-export" href="javascript:void(0);">
+                                <i class="iconfont dy-icon-download"></i>
+                                excel 导出
+                            </a>
+                        </div>
+                    </div>
+                    <div class="html-main">
+                        <div class="dy-loading"><i></i></div>
+                    </div>
+                    @*<div class="next-bottom f-cb">
+                            <a class="upper" href="javascript:void(0);"></a>
+                            <a class="next" href="javascript:void(0);"></a>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+
+        <!--成绩排名弹框-->
+        <!--TODO-->
+        <div class="g-pop-base pop-result-ranking">
+            <span class="close"><i class="iconfont dy-icon-close"></i></span>
+            <h2 class="h2-title f-toe">
+                <strong></strong> 各科成绩
+            </h2>
+            <div class="contents" id="SubjectsAll">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--==============================综合管理主体模板=================================-->
+@*各科成绩-弹框*@
+<script type="text/html" id="studentScoresTpl">
+    <div class="overflow-y">
+        <table class="dy-table">
+            <tr>
+                <th width="73">学科</th>
+                <th width="83">A卷</th>
+                <th width="83">B卷</th>
+                <th width="83">总分</th>
+                <th width="74">排名</th>
+            </tr>
+            {{each subjects as subject}}
+            <tr>
+                <td>{{subject.name}}</td>
+                {{if subject.isAb}}
+                <td>{{subject.scoreA < 0 ? "-":subject.scoreA}}</td>
+                <td>{{subject.scoreB < 0 ? "-":subject.scoreB}}</td>
+                {{else}}
+                <td>-</td>
+                <td>-</td>
+                {{/if}}
+                <td>{{subject.score < 0 ? "-":(subject.scoreA+subject.scoreB)}}</td>
+                <td>{{subject.rank < 0 ? "-":subject.rank}}</td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+</script>
+<!--成绩排名-->
+<script type="text/html" id="ranksTpl">
+    <div class="main-base currentstyle">
+        <div class="dy-table-wrap">
+            <div class="dy-table-head table-base table-head">
+                <table class="dy-table">
+                    <tr>
+                        <th class="td1">姓名</th>
+                        <th class="td2">班级</th>
+                        <th class="td2">学校</th>
+                        <th class="td3">排名</th>
+                        <th class="td4">总分</th>
+                        {{each subjects as subject}}
+                        <th class="td5">{{subject.name}}</th>
+                        {{/each}}
+                    </tr>
+                </table>
+            </div>
+            <div class="dy-table-body table-base table-body">
+                <table class="dy-table">
+                    {{each students as value}}
+                    <tr class="choice-contents">
+                        <td class="td1">
+                            <a class="a01 js-students-pop" href="javascript:void(0);" data-uid="{{value.id}}">{{value.name}}</a>
+                        </td>
+                        <td class="class-name td2">{{value.className}}</td>
+                        <td class="class-name td2">{{value.agency}}</td>
+                        {{if value.rank < 0 }}
+                        <td class="miss-exam td3">-</td>
+                        {{else}}
+                        <td class="td3">{{value.rank}}</td>
+                        {{/if}}
+                        <td class="td4">{{value.score < 0 ?'-':value.score}}</td>
+                        {{each subjects as subject}}
+                        <td class="td5">{{value.subjects[subject.id].score < 0 ?'-':value.subjects[subject.id].score}}</td>
+                        {{/each}}
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+    </div>
+</script>
+<!--单科成绩排名-->
+<script type="text/html" id="subjectRanksTpl">
+    <div class="main-base  currentstyle">
+        <div class="dy-table-wrap">
+            <div class="dy-table-head table-base table-head">
+                <table class="dy-table">
+                    <tr>
+                        <th class="td1">姓名</th>
+                        <th class="td2">班级</th>
+                        <th class="td2">学校</th>
+                        {{if isZhe}}
+                        <th class="td4" style="padding: 5px 15px">
+                            排名
+                            <small>(折合)</small>
+                        </th>
+                        <th class="td4" style="padding: 5px 15px">
+                            总分
+                            <small>(折合)</small>
+                        </th>
+                        {{else}}
+                        <th class="td4">
+                            排名
+                        </th>
+                        {{/if}}
+                        <th class="td4">总分</th>
+                        {{if isAb}}
+                        <th class="td5">A卷</th>
+                        <th class="td5">B卷</th>
+                        {{/if}}
+                    </tr>
+                </table>
+            </div>
+            <div class="dy-table-body table-base table-body ">
+                <table class="dy-table">
+                    {{each students as student}}
+                    <tr class="choice-contents">
+                        <td class="td1"><a class="a02" href="javascript:void(0);">{{student.name}}</a></td>
+                        <td class="class-name td2">{{student.className}}</td>
+                        <td class="class-name td2">{{student.agency}}</td>
+                        {{if student.rank < 0 }}
+                        <td class="td3 miss-exam">-</td>
+                        {{else}}
+                        <td class="td4">{{student.rank}}</td>
+                        {{/if}}
+                        {{if isZhe}}
+                        <td class="td4">{{student.score < 0 ?'-':student.score}}</td>
+                        {{/if}}
+                        <td class="td4">{{student.scoreA+student.scoreB < 0?'-':student.scoreA+student.scoreB}}</td>
+                        {{if isAb}}
+                        <td class="td5">{{student.scoreA < 0?'-':student.scoreA }}</td>
+                        <td class="td5">{{student.scoreB< 0?'-':student.scoreB}}</td>
+                        {{/if}}
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+    </div>
+</script>
+<!--平均分对比-->
+<script type="text/html" id="averageTpl">
+    <div class="main-base">
+        <div class="choice-list f-cb">
+            <ul class="f-cb choice-ul f-fl js-choice-li tab-average-menu2">
+                {{if isAb}}
+                <li class="compare-bindbar" data-source="averages">
+                    <em>总平均分</em>
+                </li>
+                <li class="compare-bindbara" data-source="averageA">
+                    <span>A</span><em>卷平均分</em>
+                </li>
+                <li class="compare-bindbarb" data-source="averageB">
+                    <span>B</span><em>卷平均分</em>
+                </li>
+                {{else}}
+                <li class="compare-bindbar" data-source="averages">
+                    <em>平均分</em>
+                </li>
+                <li class="compare-bindbara" data-source="highest">
+                    <em>最高分</em>
+                </li>
+                <li class="compare-bindbarb" data-source="lowest">
+                    <em>最低分</em>
+                </li>
+                {{/if}}
+            </ul>
+        </div>
+        <div class="Statistics-chart">
+            <div class="container02"></div>
+        </div>
+    </div>
+</script>
+<!--重点率分析-->
+<script type="text/html" id="focusRateTpl">
+    <div class="main-base">
+        <div class="grade-line">
+            <dl class="f-cb">
+                <dt>年级重点线：</dt>
+                <dd class="allab" data-sectionab="%">
+                    <input id="FractionAll" value="{{keyScore}}" name="keynumber" type="text" />
+                </dd>
+                <dt>A卷合格分数：</dt>
+                <dd class="ab" data-sectiona="&ge;">
+                    <input id="FractionA" value="{{scoreA}}" name="keynumber" type="text" />
+                </dd>
+                <dt>A卷不合格分数：</dt>
+                <dd class="ba" data-sectionb="&lt;">
+                    <input id="FractionAb" value="{{unScoreA}}" name="keynumber" type="text" />
+                </dd>
+                <dd>
+                    <button class="dy-btn dy-btn-info" id="KeyCalculation">
+                        <i class="iconfont dy-icon-jisuan"></i> 计算
+                    </button>
+                </dd>
+            </dl>
+
+        </div>
+        <div class="choice-list f-cb">
+            <ul class="f-cb choice-ul f-fl js-choice-li tab-average-menu3">
+                <!--li*50>span{A}+em{$}-->
+                <li class="average-menu3-0" data-source="focusRate"><em>各校重点率</em></li>
+                <li class="average-menu3-1" data-source="qualifiedRate"><span>A</span><em>卷合格率</em></li>
+                <li class="average-menu3-2" data-source="failureRate"><span>A</span><em>卷不合格率</em></li>
+            </ul>
+        </div>
+        <div class="Statistics-chart">
+            <div class="container03"></div>
+        </div>
+    </div>
+</script>
+
+<!--分数段分布-->
+<script type="text/html" id="segmentTpl">
+    <div class="menu-main-5">
+        <div class="main-base">
+            <div class="table-chart">
+                <table class="dy-table">
+                    <tr>
+                        <th class="special" width="150">
+                            <div class="out">
+                                <b>分数段</b>
+                                <em>学校</em>
+                            </div>
+                        </th>
+                        {{each segments as segment}}
+                        <th width="90">{{segment}}</th>
+                        {{/each}}
+                    </tr>
+                    {{each agencyList as item i}}
+                    <tr>
+                        <td>{{item.name}}</td>
+                        {{each segments as segment}}
+                        <td>{{item.counts[segment] || 0}}</td>
+                        {{/each}}
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<!--==============================综合管理左侧模板=================================-->
+@*成绩排名*@
+<script type="text/html" id="sideCountTpl">
+    <div class="side-1">
+        <h2 class="g-h2">总考试人数</h2>
+        <div class="number-list">
+            <div class="box2">
+                <b class="f-toe" title="{{$data}}">{{$data}}</b>人
+            </div>
+        </div>
+    </div>
+</script>
+
+@section css{
+    @Html.CombineLink(
+    "v3/fonticon/iconfont.css",
+    "v3/css/site-base.css",
+    "v3/css/dialog.css",
+    "v3/css/ea/statisticsschool/ui-base.css",
+    "v3/css/ea/statisticsschool/result-ranking.css",
+    "v3/css/utils/d-chart.css"
+    )
+}
+
+@section js{
+    @Html.CombineLink(
+    "js/highcharts.min.js",
+    "v3/js/utils/d-charts.js",
+    "/plugs/artDialog/dist/dialog-plus.min.js",
+    "v3/js/base/common.min.js",
+    "js/artTemplate.min.js",
+    "v3/js/ea/union/page-base.js",
+    "v3/js/ea/union/page-charts.js")
+}

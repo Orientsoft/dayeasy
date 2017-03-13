@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link type="image/x-icon" rel="Shortcut Icon" href="/favicon.ico">
+    <!--<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css"/>-->
+    <link rel="stylesheet" href="/v3/source/fonticon/iconfont.css"/>
+    <link rel="stylesheet" href="/v3/source/css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/header-footer.css"/>
+    <link href="/v3/source/css/dialog.css" rel="stylesheet" media="all" />
+    <script src="/v3/js/singer.min.js" type="text/javascript"></script>
+
+
+
+    <style>
+        /*#container{ width:440px;height:220px;}*/
+    </style>
+</head>
+<body>
+
+<div style="width: 600px; height: 400px;">
+    <div id="container-speed" style="width: 300px; height: 200px; float: left"></div>
+</div>
+
+
+<!--数据类型替换-->
+<select name="" id="container-tab-left">
+    <option value="2016">2016级别</option>
+    <option value="2017">2017级别</option>
+    <option value="2018">2018级别</option>
+</select>
+<div style="position:relative;overflow-x:auto;width:440px; ">
+    <div id="container-left" style="height:220px;"></div>
+</div>
+
+<!--数据类型替换-->
+<select name="" id="container-tab-right">
+    <option value="2016">2016级别</option>
+    <option value="2017">2017级别</option>
+    <option value="2018">2018级别</option>
+</select>
+<div style="position:relative;overflow-y:auto;height:224px;width: 457px; ">
+    <div id="container-right" style="width: 440px;"></div>
+</div>
+
+<script src="/v3/js/jquery-1.10.2.min.js"></script>
+<!--<script src="/plugs/artDialog/dist/dialog-plus.min.js?t=20150511" type="text/javascript"></script>-->
+<script src="/v3/js/artTemplate.min.js?t=20150511" type="text/javascript"></script>
+<script src="/v3/source/js/base.js"></script>
+<script src="http://static.dayeasy.dev/plugs/artDialog/dist/dialog-plus.min.js?t=20150511" type="text/javascript"></script>
+<script src="/v3/source/js/base/common.js"></script>
+
+<!--<script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>-->
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
+
+<script>
+    /*教务管理-1学校概况4.1*/
+    (function ($, S){
+
+        /*left*/
+        var bindChartleft;
+        var bindChartright;
+        var bindGaugeOptions;
+        var chartfun;
+        var chart;
+        var dataChartleft = {
+            type: 1,
+            id: 'container-left',
+            colors: ['#b0a1df', '#917fcb', '#dca6d8', '#a894c5', '#d6c4dc', '#a563ad', '#dfd9f2', '#a799d5', '#dca6d8', '#dcd4e8'],
+            className: ['1班', '2班', '3班', '4班', '5班', '6班', '7班', '8班', '9班', '10班', '9班', '10班', '9班', '10班', '9班', '10班', '9班', '10班', '9班', '10班'],
+            umbersof: [80, 50, 70, 90, 80, 40, 80, 70, 60, 90, 60, 90, 60, 90, 60, 90]
+        };
+        var dataChartright = {
+            type: 2,
+            id: 'container-right',
+            colors: ['#72e0e7', '#52cdd5', '#7adaf2', '#a7e8fe', '#00acee'],
+            className: ['2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组', '2017语文备课组'],
+            umbersof: [80, 50, 70, 90, 80, 40, 80, 70, 60, 90, 60, 90, 60, 90, 60, 90]
+        };
+        var dataGaugeOptions={
+            max:'10000',
+            data:[8888]
+        };
+        S._mix(S, {
+
+            chartFun: function (id,data, options){
+                var
+                        opts,
+                        Default,
+                        lenChart = data.className.length * 44,
+                        $id = $('#'+id);
+
+                //类型  1 树状  2横状
+                switch (data.type) {
+                    case 1:
+                        $id.width(lenChart);
+                        break;
+                    case 2:
+                        $id.height(lenChart);
+                        break;
+                    default :
+                        console.log('没有你调用的树状类型类型');
+                }
+                //表格默认属性值
+                Default = {
+                    title: {
+                        text: null
+                    },
+                    colors: data.colors,
+                    xAxis: {
+                        categories: data.className,
+                        text: null
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        column: {
+                            stacking: 'normal',
+                            pointPadding: 0.2,
+                            borderWidth: 0,
+                            pointWidth: 30
+                        },
+                        series: {
+                            pointPadding: 0, //数据点之间的距离值
+                            groupPadding: 0, //分组之间的距离值
+                            borderWidth: 0,
+                            shadow: false,
+                            pointWidth: 24 //柱子之间的距离值
+                        }
+                    },
+                    yAxis: {
+                        stackLabels: {
+                            enabled: true,
+                            style: {
+                                color: '#656d78',
+                                'font-weight': "normal"
+                            }
+                        },
+                        gridLineWidth: 0,
+                        labels: {
+                            enabled: false
+                        },
+                        title: {
+                            text: null
+                        }
+                    },
+                    series: [{
+                        type: 'column',
+                        name: '人数',
+                        colorByPoint: true,
+                        data: data.umbersof,
+                        showInLegend: false
+                    }]
+                }
+                opts = $.extend({}, Default, options || {});
+                chart = Highcharts.chart(id, opts);
+
+            }
+        });
+
+        /**
+         *left
+         * **/
+        bindChartleft = function (data){
+            //获取下拉框选中项的value属性值
+            $("#container-tab-left").change(function() {
+                /*var selectValue = $("#container-tab-left").val();*/
+                S.chartFun('container-left',data);
+            });
+            S.chartFun('container-left',data);
+        }
+
+        /**
+         *right
+         * **/
+        bindChartright = function (data){
+            var options = {
+                chart: {
+                    inverted: true,
+                    polar: false
+                },
+                subtitle: {
+                    text: null
+                }
+            };
+            //获取下拉框选中项的value属性值
+            $("#container-tab-right").change(function() {
+                S.chartFun('container-right',data,options);
+            });
+            S.chartFun('container-right',data, options);
+        }
+        bindChartleft(dataChartleft);
+        bindChartright(dataChartright);
+        /*仪表*/
+        bindGaugeOptions=function(data){
+            /*半圆图效果*/
+            var gaugeOptions = {
+                chart: {
+                    type: 'solidgauge'
+                },
+                title: null,
+                pane: {
+                    center: ['50%', '85%'],
+                    size: '140%',
+                    startAngle: -90,
+                    endAngle: 90,
+                    background: {
+                        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+                        innerRadius: '60%',
+                        outerRadius: '100%',
+                        shape: 'arc'
+                    }
+                },
+                tooltip: {
+                    enabled: false
+                },
+                // the value axis
+                yAxis: {
+                    stops: [
+                        [0.1, '#00acee'], // green
+                        [0.5, '#00acee'], // yellow
+                        [0.9, '#00acee'] // red
+                    ],
+                    lineWidth: 0,
+                    minorTickInterval: null,
+                    tickPixelInterval: 400,
+                    tickWidth: 0,
+                    title: {
+                        y: -70
+                    },
+                    labels: {
+                        y: 16
+                    }
+                },
+                plotOptions: {
+                    solidgauge: {
+                        dataLabels: {
+                            y: 5,
+                            borderWidth: 0,
+                            useHTML: true
+                        }
+                    }
+                }
+            };
+            // The speed gauge
+            $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {
+                yAxis: {
+                    min: 0,
+                    max: data.max,
+                    title: {
+                        text: null
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Speed',
+                    data: data.data,
+                    dataLabels: {
+                        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                        ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>'
+                    },
+                    tooltip: {
+                        valueSuffix: '人'
+                    }
+                }]
+            }));
+
+        }
+        bindGaugeOptions(dataGaugeOptions);
+    })(jQuery, SINGER);
+
+    /*教务管理-2师生画像2*/
+    (function ($, S){
+
+    })(jQuery, SINGER);
+</script>
+</body>
+</html>

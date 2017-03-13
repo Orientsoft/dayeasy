@@ -1,0 +1,32 @@
+﻿@model List<DayEasy.Contracts.Dtos.AdvertDto>
+<!--猜你喜欢 -->
+<div class="recommend-like">
+    <div class="titile">
+        <h2>猜你喜欢</h2>
+        <span class="text">你可能感兴趣的帖子</span>
+    </div>
+    <div class="content">
+        <div class="lst">
+            @foreach (var item in Model)
+            {
+                <div class="like-list f-cb">
+                    <div class="img f-fl">
+                        <a href="@item.TextLink">
+                            <img class="lazyload" data-src="@item.ImageUrl"
+                                 width="150" height="100"
+                                 alt="" />
+                        </a>
+                    </div>
+                    <div class="f-fl con-text">
+                        <div class="head-title f-toe">
+                            <a title="@item.Name" href="@item.TextLink">@item.Name</a>
+                        </div>
+                        <div class="text">
+                            @Html.Raw(item.Text)
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

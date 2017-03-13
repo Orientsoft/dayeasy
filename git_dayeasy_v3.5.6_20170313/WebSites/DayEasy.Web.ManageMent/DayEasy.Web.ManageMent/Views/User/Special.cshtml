@@ -1,0 +1,103 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Core.Config
+@using DayEasy.Utility.Extend
+@model List<SpecialAccount>
+@{
+    ViewBag.Title = "特殊帐号管理";
+    var users = (Dictionary<string, DUserDto>)ViewData["users"];
+}
+<div>
+    @foreach (SpecialAccountType type in Enum.GetValues(typeof(SpecialAccountType)))
+    {
+        <div class="panel panel-default" data-type="@((int)type)">
+            <div class="panel-heading">
+                <h3 class="panel-title">@type.GetText()</h3>
+                <div class="panel-action">
+                    <button class="btn btn-primary btn-sm">
+                        <i class="fa fa-plus"></i>
+                        添加
+                    </button>
+                </div>
+            </div>
+            <div class="panel-body">
+                @{
+        var special = Model.FirstOrDefault(t => t.Type == type);
+        if (special != null)
+        {
+            <ul class="user-list">
+                @foreach (var code in special.UserCodes)
+                {
+                    var user = users[code];
+                    <li class="user-item" data-code="@code">
+                        <div class="user-avatar">
+                            <img src="@Html.MakeThumb(user.Avatar,"50x50")" alt="@user.Name" />
+                        </div>
+                        <div class="dy-user-info">
+                            <p class="user-name"><span>@user.Name</span></p>
+                            <p class="user-code">No.@code</p>
+                        </div>
+                        <i class="fa fa-times" title="删除"></i>
+                    </li>
+                }
+            </ul>
+        }
+                }
+            </div>
+        </div>
+    }
+</div>
+@section script{
+    <script>
+        (function ($, S) {
+            $('.panel-heading .btn').bind('click', function () {
+                var type = $(this).parents('.panel').data('type');
+                var d = S.dialog({
+                    title: '添加特殊用户',
+                    content: '<input class="form-control" placeholder="得一号，多个以,隔开" />',
+                    okValue: '确认添加',
+                    ok: function () {
+                        var codes = $(this.node).find('input').val();
+                        if (!codes || codes.length < 5) {
+                            S.msg('请输入得一号！');
+                            return false;
+                        }
+                        $.post('/user/add-special', {
+                            type: type,
+                            codes: codes
+                        }, function (json) {
+                            if (json.status) {
+                                d.close().remove();
+                                S.alert(json.message, function () {
+                                    location.reload(true);
+                                });
+                            } else {
+                                S.alert(json.message);
+                            }
+                        });
+                        return false;
+                    },
+                    width: 320
+                }).showModal();
+            });
+            $('.user-item>i').bind('click', function () {
+                var $t = $(this);
+                S.confirm("确认要删除该用户的特殊权限吗？", function () {
+                    var type = $t.parents('.panel').data('type'),
+                        code = $t.parents('.user-item').data('code');
+                    $.post('/user/delete-special', {
+                        type: type,
+                        code: code
+                    }, function (json) {
+                        if (json.status) {
+                            S.alert('删除成功！', function () {
+                                location.reload(true);
+                            });
+                        } else {
+                            S.alert(json.message);
+                        }
+                    });
+                });
+            });
+        })(jQuery, SINGER);
+    </script>
+}

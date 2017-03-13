@@ -1,0 +1,111 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+
+      Author:Plato
+      Create Date:2015/11/9  Last Mondify Date:2015/11/9
+      ===================================================
+
+--------------------------------------------------------------*/
+//*--------------------   Part ui    -----------------------
+@import "../../less/base";
+
+//*--------------------  main Style  -----------------------
+.paper-clip {
+  background: white;
+  padding: 20px 0 30px 0;
+  .top-title {
+    padding: 0 30px 30px 0;
+  }
+  .conter-table, .bottom-page {
+    width: 1200-30*2px;
+    margin: 0 auto;
+  }
+  @table-bg: #f5f7fa;
+  .conter-table {
+    .tb-1, .tb-3, .tb-4, .tb-5, .tb-6 {
+      width: (1200-30*2-445)/5px;
+      position: relative;
+    }
+    .tb-2 {
+      width: 445px;
+    }
+    th:nth-child(1), td:nth-child(1) {
+      text-align: center;
+    }
+    th:nth-child(2), td:nth-child(2), th:nth-child(6), td:nth-child(6) {
+      text-align: left;
+    }
+    th:nth-child(3), td:nth-child(3), th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5) {
+      text-align: center;
+    }
+  }
+  .bottom-page {
+    color: #999;
+    b {
+      font-weight: bold;
+    }
+    padding: 0 30px;
+    background: @table-bg;
+    height: 50px;
+    line-height: 50px;
+  }
+}
+
+//*--------------------   ui Style   -----------------------
+
+.slide-bottom {
+  position: relative;
+  strong {
+    position: relative;
+    top: 3px;
+    left: 0;
+    margin-right: 5px;
+  }
+  .inline-block;
+  &:hover {
+    cursor: pointer;
+    .angle-boder {
+      .transition(0.2s);
+      background: #4fc1e9;
+      border: 1px solid #4fc1e9;
+    }
+    .angle-bottom {
+      .angle-bottom(6px, #fff, 6px);
+    }
+  }
+  .angle-boder {
+    border: 1px solid #e6e9ed;
+    padding: 2px 4px;
+    background: white;
+  }
+  .angle-bottom {
+    .angle-bottom(6px, #4fc1e9, 6px);
+  }
+  .f-pa {
+    position: absolute;
+    top: 23px;
+    left: 33px;
+  }
+  ul {
+    .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 7px);
+    background: white;
+    li {
+      padding: 8px 1em;
+      width: 5em;
+      &:hover {
+        background: #e6e9ed;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.slide-hover {
+  .angle-boder {
+    background: #4fc1e9;
+    border: 1px solid #4fc1e9;
+  }
+  .angle-bottom {
+    .angle-bottom(6px, #fff, 6px);
+  }
+}

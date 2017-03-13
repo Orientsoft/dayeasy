@@ -1,0 +1,144 @@
+﻿@using DayEasy.Core
+@using DayEasy.ThirdPlatform.Entity.Config
+@{
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+<div class="parts-login f-cb lg-sliders">
+    <div class="lg-form-wrap">
+        <div class="lg-form-box f-cb">
+            <form class="lg-form" role="form">
+                <div class="lg-form-group">
+                    <div class="error-info">
+                        <i class="iconfont dy-icon-warningsj"></i>
+                        <span class="error-text"></span>
+                    </div>
+                    <div class="lg-input-group">
+                        <span class="lg-icon"><i class="iconfont dy-icon-49"></i></span>
+                        <input type="text" id="txtAccount" class="lg-text" placeholder="邮箱地址/手机账号/得一号">
+                    </div>
+                </div>
+                <div class="lg-form-group">
+                    <div class="lg-input-group">
+                        <span class="lg-icon"><i class="iconfont dy-icon-mima"></i></span>
+                        <input type="password" id="txtPassword" class="lg-text" placeholder="请输入密码">
+                    </div>
+                </div>
+                <div class="lg-form-group mt20 vcode-box" style="display: none;">
+                    <div class="lg-vcode">
+                        <input type="text" id="txtVCode" class="lg-text" placeholder="请输入验证码">
+                        <img id="vcodeImg" src="" alt="验证码" title="点击刷新">
+                    </div>
+                </div>
+                <div class="lg-form-group pull-right f-cb">
+                    <a href="@Consts.Config.AccountSite/find" class="f-fl lg-password a-find">忘记密码?</a>
+                    <a href="@Consts.Config.AccountSite/reg" class="f-fr lg-href a-reg">立即注册 &gt;</a>
+                </div>
+                <div class="lg-form-group mb20">
+                    <button id="btnSmLogin" type="button" class="btn">登 录</button>
+                </div>
+                <div class="lg-form-group lg-plat">
+                    第三方登录：
+                    <a href="javascript:void(0)" title="腾讯QQ" class="third-login" data-type="@((int) PlatformType.Tencent)">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-41"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/fonticon/iconfont.css,v3/css/site-base.css,v3/css/uiparts/parts-login.css")
+}
+@section js{
+    @Html.CombineLink("v3/js/base.js")
+
+    <script type="text/javascript">
+        $(function() {
+            document.domain = document.domain.substr(document.domain.indexOf('.') + 1);
+            var S = SINGER, needVCode = false, showHideVCode, refreshVCode, showErrorMsg, login;
+            showHideVCode = function() {
+                var $frame = $(parent.document).find("#lgPupFrame");
+                var $box = $(".vcode-box");
+                needVCode = ~~(S.cookie.get('__dayeasy_err_c') || '0') > 2;
+                if (needVCode) {
+                    refreshVCode();
+                    $box.show();
+                    $frame.attr("height", "355");
+                } else {
+                    $box.hide();
+                    $frame.attr("height", "303");
+                }
+            };
+            refreshVCode = function() {
+                $("#vcodeImg").attr("src", "/login/vcode?t=" + Math.random());
+            };
+            showHideVCode();
+            showErrorMsg = function(msg) {
+                $(".error-text").html(msg);
+                $(".error-info").addClass("error-show");
+            };
+            login = function() {
+                $(".error-info").removeClass("error-show");
+                var account = $("#txtAccount").val(),
+                    pwd = $("#txtPassword").val(),
+                    vcode = $("#txtVCode").val(),
+                    $btn = $("#btnSmLogin");
+                if (!account || !account.length) {
+                    showErrorMsg("登录帐号不能为空");
+                    return;
+                }
+                var emailReg = /^[\w]+@@[\w]+.[a-zA-Z]+$/;
+                var mobileReg = /^1[3|5|7|8][0-9]{9}$/;
+                var codeReg = /^[\d]{5,}$/g;
+                var pwdReg = /^[a-zA-Z0-9_\.\@@]{6,20}$/;
+                if (!emailReg.test(account) && !mobileReg.test(account) && !codeReg.test(account)) {
+                    showErrorMsg("登录帐号格式不正确");
+                    return;
+                }
+                if (!pwdReg.test(pwd)) {
+                    showErrorMsg("登录密码格式不正确");
+                    return;
+                }
+                if (needVCode && !/^[a-zA-Z0-9]{4}$/.test(vcode)) {
+                    showErrorMsg("验证码格式不正确");
+                    return;
+                }
+                $btn.disableField("登录中...");
+                $.post("/login/login", { account: account, password: pwd, vcode: vcode }, function(json) {
+                    if (!json.status) {
+                        showHideVCode();
+                        showErrorMsg(json.message);
+                        $btn.undisableFieldset();
+                        return;
+                    }
+                    window.top.location.reload();
+                });
+            };
+
+            $("#vcodeImg").bind("click", refreshVCode);
+            $("#btnSmLogin").bind("click", function() {
+                login();
+            });
+            $("#txtAccount").bind("keydown", function(e) {
+                if (e && e.which == 13) login();
+            });
+            $("#txtPassword").bind("keydown", function(e) {
+                if (e && e.which == 13) login();
+            });
+            $(".a-find").bind("click", function() {
+                window.top.location = DEYI.sites.account + "/find";
+                return false;
+            });
+            $(".a-reg").bind("click", function() {
+                window.top.location = DEYI.sites.reg;
+                return false;
+            });
+            $(".third-login").bind("click", function () {
+                var url = DEYI.sites.account + "/login/third-login?type=" + $(this).data("type") + "&back=" + window.top.location.href;
+                window.top.location.href = url;
+                return false;
+            });
+        });
+    </script>
+}

@@ -1,0 +1,161 @@
+.dy-wrap {
+  background-color: #F5F5F5;
+}
+.form-main-list {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background: white;
+}
+.htmleaf-containers {
+  background: white;
+}
+.htmleaf-containers .htmleaf-content {
+  padding-left: 470px;
+}
+.htmleaf-containers .htmleaf-content ul {
+  border: none;
+}
+.htmleaf-containers .htmleaf-content ul li {
+  line-height: 47px;
+  height: 40px;
+}
+.htmleaf-containers .amd-box {
+  border-bottom: 1px solid #eee;
+}
+.rippleEffects {
+  -webkit-animation: none;
+  animation: none;
+}
+.mobile-text {
+  padding: 20px 0 60px;
+}
+.form-group {
+  padding-left: 500px;
+  margin-bottom: 20px;
+}
+.form-group .form-label {
+  display: inline;
+  font-size: 14px;
+  color: #999;
+  float: left;
+  margin-left: -500px;
+  width: 480px;
+  height: 40px;
+  line-height: 40px;
+  text-align: right;
+}
+.form-group .form-item {
+  height: 40px;
+  line-height: 40px;
+}
+.form-group .form-input-w300 {
+  width: 300px;
+}
+.form-group .form-input-w180 {
+  width: 180px;
+}
+.form-group .form-code-img {
+  display: inline-block;
+  vertical-align: middle;
+  height: 38px;
+  cursor: pointer;
+}
+.form-group .form-again-send {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  color: #656d78;
+  background: white;
+  height: 40px;
+  width: 105px;
+  border: 2px solid #e6e9ed;
+}
+.form-group .form-again-send.selected {
+  background: #ccd1d9;
+  color: white;
+  border-color: #ccd1d9;
+}
+.form-group .form-look {
+  color: #aaa;
+}
+.form-group .form-textbox {
+  position: relative;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.form-group .error-input,
+.form-group .success-input {
+  font-family: "iconfont" !important;
+}
+.form-group .error-input:before,
+.form-group .success-input:before {
+  display: block;
+  text-align: center;
+  position: absolute;
+  right: 10px;
+  font-weight: bold;
+  z-index: 10000;
+}
+.form-group .error-input input,
+.form-group .success-input input {
+  padding-right: 30px;
+}
+.form-group .success-input:before {
+  content: '\e63c';
+  color: #48cfad;
+}
+.form-group .success-input input {
+  border-color: #48cfad;
+}
+.form-group .error-input:before {
+  content: '\e63f';
+  color: #ed5565;
+}
+.form-group .error-input input {
+  border-color: #ed5565;
+}
+.form-group .msg-error {
+  color: #ed5565;
+  padding: 2px 0;
+}
+.form-subjects {
+  margin-top: -10px;
+  display: none;
+}
+.form-item .item {
+  float: left;
+  padding: 0 30px;
+  height: 32px;
+  margin-right: 15px;
+  line-height: 32px;
+  border: 1px solid #e6e9ed;
+  position: relative;
+  cursor: pointer;
+}
+.form-item .selected:after,
+.form-item .selected:before {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.form-item .selected:after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-bottom: 22px solid #3bafda;
+  border-left: 23px solid transparent;
+}
+.form-item .selected:before {
+  bottom: -8px;
+  right: 0px;
+  font-family: "iconfont" !important;
+  font-size: 12px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+  color: white;
+  z-index: 2;
+  content: "\e63c";
+}

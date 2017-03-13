@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    <meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<link href="//static.dayeasy.net" rel="dns-prefetch">
+<link href="//file.dayeasy.net" rel="dns-prefetch">
+<link href="//file01.dayeasy.net" rel="dns-prefetch">
+<link href="//file02.dayeasy.net" rel="dns-prefetch">
+<link rel="apple-touch-icon-precomposed" href="/image/logo_114x114.png">
+<link type="image/x-icon" rel="Shortcut Icon" href="/image/logo_114x114.png">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/css/amazeui.min.css"/>
+<link rel="stylesheet" href="/css/site-base.min.css"/>
+<link rel="stylesheet" href="/css/ui-dialog.min.css"/>
+<link rel="stylesheet" href="/fonts/iconfont.css"/>
+    <title>找回密码 - 我的得一 - 触屏版</title>
+    <link rel="stylesheet" href="/css/account/login.min.css"/>
+    <link rel="stylesheet" href="/css/account/login-resetpwdid.min.css"/>
+</head>
+<body>
+
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <a  class="hp-text d-back" href="javascript:void(0);">
+                <div class="hp-left hp-back">
+                   <i class="iconfont dy-icon-left"></i>
+                </div>
+            </a>
+            <h1 class="hp-h1">验证身份</h1>
+            <a href="/page/account/login.html" class="hp-right a02">登录&nbsp;</a></div>
+    </div>
+</header>
+<section class="d-classsCor d-ui-panelslider" data-id="main">
+    <!-- Centered page -->
+    <div class="d-ui-panelslider-page">
+
+        <form id="perForm" name="perForm">
+            <!-- 验证身份 -->
+            <div class="notes-login my-login j-bxo-ona">
+                <div class="form-group d-input">  <!--d-input-err 验证错误提示-->
+                    <div class="form-item">
+                        <div class="form-textbox d-control">
+                            <i class="iconfont dy-icon-id dy-iconfont"></i>
+                            <input  name="mobile" class="d-text "  id="mobile" type="text" maxlength="11" placeholder="手机号">
+                        </div>
+                    </div>
+                    <!--<span class="d-err-tips">手机邮箱不能为空</span>-->
+                </div>
+
+                <!--图片验证-->
+                <!--<div class="form-group d-input d-input-err">&lt;!&ndash;d-input-err 验证错误提示&ndash;&gt;-->
+                    <!--<div class="form-item f-cb">-->
+                        <!--<div class="form-textbox ">-->
+                            <!--<input class="input-dtm-get" type="text" placeholder="验证码" name="formInput">-->
+                        <!--</div>-->
+                        <!--<span class="form-code-img"><img id="identityCode" src="http://account.dayeasy.dev/login/vcode" alt="点击刷新" title="点击刷新"></span>-->
+                    <!--</div>-->
+                    <!--<span class="d-err-tips">密码不能为空</span>-->
+                <!--</div>-->
+                <!--短信验证-->
+                <div class="form-group d-input">
+                    <div class="form-item">
+                        <div class="form-textbox input-dtm-get am-cf d-control">
+                            <i class="iconfont dy-icon-code dy-iconfont"></i>
+                            <input name="vcode" id="vcode"  class="d-text am-fl input-vcode" maxlength="6" type="text" placeholder="动态验证码">
+                            <!--<button id="btnSendCode"  class="form-again-send am-fr" value="获取验证码" data-prompt-position="bottomLeft:0,5" title="点击发送"></button>-->
+                            <input id="btnSendCode" type="button"  class="form-again-send am-fr" value="发送验证码"  title="点击发送" />
+                        </div>
+
+                    </div>
+                    <!--<span class="d-err-tips">密码不能为空</span>-->
+                </div>
+                <div class="form-group ">
+                    <div class="form-item">
+                        <button  id="perSubmit"  type="button" class="d-btn disabled">下一步</button>
+                    </div>
+                </div>
+            </div>
+            <div class="j-bxo-two hide">
+                <div class="d-classsCor d-ui-panelslider my-login" data-id="main">
+                    <!-- Centered page -->
+                    <div class="am-text-center g-user-name">账号：<span class="g-user-id"></span></div>
+                    <!--输入新密码-->
+                    <div class="d-control d-input ">  <!--d-input-err 错误提示添加-->
+                        <i class="iconfont dy-icon-code dy-iconfont"></i>
+                        <input type="password" name="pwd" id="newpwd" class="d-text" maxlength="20" placeholder="输入新密码"/>
+                        <!--<span class="d-err-tips">不能为空</span>-->
+                        <i class="d-btn-pwd d-btn-off"></i>
+                    </div>
+                    <!--确认密码-->
+
+                    <div class="d-control d-input ">  <!--d-input-err 错误提示添加-->
+                        <i class="iconfont dy-icon-code dy-iconfont"></i>
+                        <input type="password" name="pwd" id="pwd" class="d-text" maxlength="20" placeholder="确认密码"/>
+                        <!--<span class="d-err-tips">不能为空</span>-->
+                        <i class="d-btn-pwd d-btn-off"></i>
+                    </div>
+                    <div class="d-control">
+                        <button type="button" id="submibtns" class="d-btn disabled">确认</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</section>
+
+<!-- 基础脚本 -->
+<script src="/js/site-base.min.js"></script>
+<script src="/js/page/validationEnginedeyi.min.js"></script>
+<script src="/js/page/account/resetpwdid.min.js"></script>
+</body>
+</html>

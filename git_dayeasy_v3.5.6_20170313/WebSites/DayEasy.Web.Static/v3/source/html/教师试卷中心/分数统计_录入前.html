@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>分数统计_录入前</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../source/css/testteacher/ui-base.css"/>
+    <link rel="stylesheet" href="../../source/css/testteacher/page-stats.css"/>
+    <link rel="stylesheet" href="../../source/css/uihtml/jquery-tab-3.0.css"/>
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="testteacher-box w1200 f-cb bg-color-grey">
+            <!--主体头部-->
+            @@include('./testteacher/header-title.html')
+            <div class="page-stats">
+                <div class="htmleaf-containers" data-dytab="100">
+                    <div class="htmleaf-content bgcolor-3">
+                        <ul class="dy-tab-nav">
+                            <li class="z-crt"><a href="javascript:void(0);">班内成绩</a></li>
+                            <li><a href="javascript:void(0);">分数段统计</a></li>
+                            <li class="slider">
+                                <span></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-con">
+                        <div class="dy-tab-con">
+                            <div class="tab-con-item" style="display: block;">
+                                内容一
+                            </div>
+                            <div class="tab-con-item">
+                                内容二
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@@include('./footer.html')
+<!--<script src="../../source/js/testteacher/page-slider.js"></script>-->
+<script src="../../source/js/jquery-plug/jquery-tab-3.0.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+@import "base-page";
+a.color-bule{
+  color: @color-blue;
+  &:hover{ color: @color-orange; text-decoration: underline;}
+}
+.m-lst{
+  .teacher-rank{
+    th,td{text-align: center;}
+    th{font-size: 12px; color: #999;font-weight: normal; }
+    td{
+      i.glyphicon{position: relative; }
+      i.glyphicon-arrow-up{ color: @color-orange;}
+      i.glyphicon-arrow-down{ color: @color-blue; top: 3px;}
+      i.glyphicon-minus{ color: @color-grey;top: 2px;}
+      a.color-bule{
+        color: @color-blue;
+        &:hover{ color: @color-orange; text-decoration: underline;}
+      }
+    }
+  }
+  // 覆盖框架 styel
+  .table-hover > tbody > tr:hover{ background: #d9f2ff;}
+  .table-hover > tbody > tr.f-hover-none:hover{ background: none;}
+}

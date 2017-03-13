@@ -1,0 +1,51 @@
+﻿@using DayEasy.Web
+@model DayEasy.Contracts.Dtos.User.PlatformDto
+@{
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+    ViewBag.Title = "帐号绑定";
+}
+<div class="dy-container j-autoHeight"
+     data-left="102"
+     data-min="350"
+     data-type="2">
+    <div class="bd-box">
+        @*<div class="tip"><span class="tip-span">&nbsp;</span>设置帐号</div>*@
+        <div class="bd-main" data-id="@Model.PlatformId">
+            <div class="d-info">
+                <img src="@Model.Profile" alt="用户头像" />
+                <h4>@Model.Nick</h4>
+                <p class="f-tac fs14">绑定已有得一账号，可同步使用数据</p>
+            </div>
+            <!--老用户-->
+            <div class="amend-user">
+                <div class="d-input">
+                    @*<span>已有帐号：</span>*@
+                    <input id="txtAccount" placeholder="请输入手机/邮箱 " type="text" maxlength="50" />
+                </div>
+                <div class="d-input">
+                    @*<span>登录密码：</span>*@
+                    <input id="txtPassword" placeholder="请输入密码" type="password" maxlength="20" />
+                </div>
+                <div class="d-msg">&nbsp;</div>
+            </div>
+            <div class="d-btn">
+              
+                <button class="dy-btn dy-btn-info mb30" id="btnBind" type="button">绑定账号</button>
+                @if (!string.IsNullOrWhiteSpace(@Model.PlatformId))
+                {
+                    <span>&nbsp;</span>
+                    <a class="new-user" href="javascript:void(0);" id="btnNew">没有帐号，创建新用户 ></a>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/account/lg-bind.css")
+}
+@section js
+{
+    @Html.CombineLink("v3/js/account/bind.js")
+}

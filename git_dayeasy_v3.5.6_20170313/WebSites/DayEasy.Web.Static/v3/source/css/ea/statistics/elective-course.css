@@ -1,0 +1,194 @@
+@charset "UTF-8";
+/**
+ * Boz
+ * @date    2016-09-28
+ * 选课
+ */
+.dy-wrap {
+  background-color: #f5f5f5;
+}
+.dy-header,
+.dy-header-tool {
+  margin-bottom: 30px;
+}
+.page-course {
+  overflow: hidden;
+  background: #fff;
+}
+.page-course .h2-title {
+  margin: 10px 0 20px 0;
+  border-left: 5px solid #ed5565;
+  padding-left: 15px;
+  color: #333;
+  font-size: 18px;
+}
+.course-box-list {
+  width: 216px;
+  height: 150px;
+  margin: 0 12px 20px;
+  border: 1px solid #cccccc;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  padding: 15px 10px;
+  position: relative;
+  float: left;
+}
+.course-box-list.default .course-list-bottom .box-default .fr-text em {
+  color: #3bafda;
+}
+.course-box-list.default:hover {
+  border: 1px solid #3bafda;
+}
+.course-box-list.default:hover .box-default,
+.course-box-list.default:hover .course-proportion {
+  display: none;
+}
+.course-box-list.default:hover .course-list-bottom .box-default .fr-text em {
+  color: #3bafda;
+}
+.course-box-list.default:hover .course-list-bottom .box-sign-up {
+  display: block;
+}
+.course-box-list.sign-up .course-list-bottom .box-default .fr-text em {
+  color: #3bafda;
+}
+.course-box-list.sign-up:after {
+  display: block;
+}
+.course-box-list.sign-up:hover {
+  border: 1px solid #fc6e51;
+}
+.course-box-list.sign-up:hover .box-default,
+.course-box-list.sign-up:hover .course-proportion {
+  display: none;
+}
+.course-box-list.sign-up:hover .course-list-bottom .box-withdraw {
+  display: block;
+}
+.course-box-list.pack-full:after {
+  display: block;
+  background-position: 0 -65px;
+}
+.course-box-list::after {
+  display: none;
+  content: ' ';
+  background: url(/v3/image/management/statistics/icon-course.png) no-repeat transparent;
+  background-position: 0 0;
+  width: 66px;
+  height: 65px;
+  position: absolute;
+  top: -1px;
+  right: -1px;
+}
+.course-box-list h3 {
+  font-weight: bold;
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 15px;
+}
+.course-box-list .course-list-top,
+.course-box-list .course-list-main {
+  font-size: 14px;
+  color: #999;
+}
+.course-box-list .course-list-top .iconfont,
+.course-box-list .course-list-main .iconfont {
+  color: #666;
+  font-size: 14px;
+  margin-right: 5px;
+  float: left;
+}
+.course-box-list .course-list-top .box-span,
+.course-box-list .course-list-main .box-span {
+  display: block;
+  float: left;
+  width: 174px;
+}
+.course-box-list .course-list-top {
+  margin-bottom: 10px;
+}
+.course-box-list .course-list-main {
+  margin-bottom: 20px;
+}
+.course-box-list .course-list-bottom .box-default {
+  font-size: 14px;
+  color: #999;
+  height: 20px;
+  line-height: 20px;
+}
+.course-box-list .course-list-bottom .box-default .fl-text em {
+  font-weight: bold;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  padding: 0 2px;
+}
+.course-box-list .course-list-bottom .box-default .fr-text em {
+  font-weight: bold;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  font-size: 18px;
+  color: #999;
+  padding: 0 2px;
+}
+.course-box-list .course-list-bottom .box-withdraw {
+  display: none;
+}
+.course-box-list .course-list-bottom .box-withdraw .course-btn-orange {
+  width: 100%;
+  font-size: 16px;
+  color: #fff;
+  background-color: #fc6e51;
+  border-color: #fc6e51;
+  height: 30px;
+}
+.course-box-list .course-list-bottom .box-withdraw .course-btn-orange:hover {
+  background-color: #e06147;
+  border-color: #e06147;
+}
+.course-box-list .course-list-bottom .box-sign-up {
+  display: none;
+}
+.course-box-list .course-list-bottom .box-sign-up .dy-btn-info {
+  width: 100%;
+  font-size: 16px;
+  height: 30px;
+}
+.course-box-list .course-proportion {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  margin-bottom: 10px;
+  background: #eeeeee;
+  -moz-border-radius: 1.5px;
+  -webkit-border-radius: 1.5px;
+  -o-border-radius: 1.5px;
+  -ms-border-radius: 1.5px;
+  border-radius: 1.5px;
+}
+.course-box-list .course-proportion .span-proportion {
+  -moz-border-radius: 1.5px;
+  -webkit-border-radius: 1.5px;
+  -o-border-radius: 1.5px;
+  -ms-border-radius: 1.5px;
+  border-radius: 1.5px;
+  background: #3bafda;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 4px;
+  display: block;
+}
+.icon-base .icon-course {
+  width: 66px;
+  height: 65px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: url(/v3/image/management/statistics/icon-course.png) no-repeat transparent;
+}

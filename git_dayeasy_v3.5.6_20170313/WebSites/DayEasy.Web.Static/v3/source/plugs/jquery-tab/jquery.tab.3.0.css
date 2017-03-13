@@ -1,0 +1,97 @@
+/**
+ *  jQuery Tab
+ * Created by Platon on 2014/11/20.
+ */
+.htmleaf-containers .htmleaf-content ul {
+  background: white;
+  font-size: 0;
+  position: relative;
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-bottom: 1px solid #e6e9ed;
+}
+.htmleaf-containers .htmleaf-content li {
+  display: inline-block;
+  min-width: 100px;
+  height: 60px;
+  background: white;
+  font-size: 16px;
+  text-align: center;
+  line-height: 60px;
+  color: #999;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.htmleaf-containers .htmleaf-content li a {
+  color: #999;
+  display: block;
+}
+.htmleaf-containers .htmleaf-content li.z-crt a {
+  color: #333;
+}
+.htmleaf-containers .htmleaf-content .slider {
+  text-align: center;
+  /* width: 300px;*/
+  min-width: 100px;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.htmleaf-containers .htmleaf-content .slider span {
+  background: #ed5565;
+  margin: 0px auto;
+  width: 92px;
+  height: 2px;
+  display: block;
+}
+.ripples {
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(79, 193, 233, 0.1);
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  position: absolute;
+  opacity: 1;
+}
+.rippleEffects {
+  -webkit-animation: rippleDrops .6s linear;
+  animation: rippleDrops .6s linear;
+}
+@-webkit-keyframes rippleDrops {
+  100% {
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+@keyframes rippleDrops {
+  100% {
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+.tab-con {
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+.tab-con .dy-tab-con > div {
+  display: none;
+}
+.ggggg {
+  height: 100px;
+}

@@ -1,0 +1,871 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2016/8/10 16:9
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+@import "../../../less/base";
+
+/* Style for our header texts
+	* --------------------------------------- */
+.w1000 {
+  width: 1000px;
+  margin: 0 auto;
+  min-width: 1000px;
+}
+
+.dy-wrap {
+  .background-image('index/bg0.jpg', repeat-y, transparent);
+}
+
+.index-school {
+}
+
+.g-top-school {
+  height: 301px;
+  margin-bottom: 20px;
+  //background-position: center;
+  .background-image('index/index-school/bg-top-school.png', no-repeat, transparent);
+  background-position: center center;
+  .school-introduce {
+    padding-top: 50px;
+    height: 300px;
+    .inline-block;
+    color: white;
+    .school-logo {
+      .inline-block;
+      margin-bottom: 30px;
+    }
+    .school-name {
+      margin-bottom: 30px;
+      position: relative;
+      h2 {
+        font-size: 24px;
+        font-weight: bold;
+        .inline-block;
+        margin-right: 16px;
+      }
+      span {
+        .inline-block;
+        line-height: 24px;
+        height: 24px;
+        .rounded-corners(4px);
+        background: #26c8ae;
+        padding: 0 5px;
+        font-size: 16px;
+        position: absolute;
+        top: 3px;
+        right: -40px;
+      }
+    }
+  }
+  .lick {
+    position: absolute;
+    color: white;
+    top: 30px;
+    right: 30px;
+    width: 116px;
+    dt, dd {
+      float: left;
+      margin-bottom: 7px;
+      height: 25px;
+      line-height: 25px;
+    }
+    dt {
+      font-size: 22px;
+      border-right: 10px;
+      width: 22px;
+      margin-right: 10px;
+    }
+    dd {
+      width: 80px;
+      text-align: left;
+      overflow: hidden;
+    }
+  }
+}
+
+.g-content-school {
+  .m-mainc {
+    width: 700px;
+  }
+  .m-side {
+    width: 280px;
+  }
+}
+
+.sticker, .hot-topic, .other-teachers {
+  background: white;
+  padding: 15px 20px;
+  position: relative;
+  margin-bottom: 20px;
+  .titile {
+    margin-bottom: 20px;
+    h2 {
+      .inline-block;
+      font-size: 16px;
+      font-weight: bold;
+      margin-right: 20px;
+      color: #666;
+    }
+    .text {
+      color: #999999;
+    }
+  }
+}
+
+.sticker {
+  height: 280px;
+  & > .content {
+    li {
+      width: 330px;
+      float: left;
+      height: 105px;
+      &:nth-child(1) {
+        border-bottom: 1px solid #eee;
+        border-right: 1px solid #eee;
+        .box1 {
+          b {
+            color: #ef6757;
+          }
+        }
+      }
+      &:nth-child(2) {
+        border-bottom: 1px solid #eee;
+        .box1 {
+          b {
+            color: #3bafda;
+          }
+        }
+      }
+      &:nth-child(3) {
+        border-right: 1px solid #eee;
+        .box1 {
+          b {
+            color: #20c8ae;
+          }
+        }
+      }
+      &:nth-child(4) {
+        .box1 {
+          b {
+            color: #666666;
+          }
+        }
+      }
+      & > a {
+        width: 329px;
+        height: 90px;
+        display: block;
+        padding-top: 14px;
+        .transition(all 0.1s ease 0s);
+        &:hover {
+          strong, em {
+            color: #3bafda;
+          }
+        }
+        & > div {
+          float: left;
+        }
+      }
+      .box1 {
+        width: 75px;
+        position: relative;
+        padding-left: 16px;
+        .d-user {
+          width: 32px;
+          height: 32px;
+          margin-bottom: 10px;
+        }
+        b {
+          font-weight: bold;
+          color: #ef6757;
+        }
+      }
+      .box2 {
+        width: 60px;
+        strong {
+          color: #666;
+          display: block;
+          margin-bottom: 10px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis
+        }
+        em {
+          font-size: 12px;
+          color: #999;
+          display: block;
+        }
+      }
+      .box3 {
+        width: 194px;
+      }
+    }
+  }
+  //排序效果
+  .sort-sticker {
+    dl {
+      margin-bottom: 10px;
+    }
+    dt, dd {
+      float: left;
+      height: 20px;
+      line-height: 20px;
+    }
+    dt {
+      color: white;
+      font-size: 12px;
+      padding: 0 10px;
+      margin-right: 15px;
+      overflow: hidden;
+    }
+    dd {
+      font-size: 14px;
+      font-weight: bold;
+      span{.inline-block;
+        overflow: hidden;
+        text-align: right;
+        .f-toe(24px);
+        }
+      .iconfont {
+        margin-left: 5px;
+        position: relative;
+        top: -4px;
+      }
+    }
+    .bg0, .bg1, .bg2 {
+      dt {
+        width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        height: 20px;
+        .rounded-corners(10px);
+      }
+    }
+    .bg0 {
+      dt {
+        background: #41aed6;
+      }
+      dd {
+        color: #41aed6;
+      }
+    }
+    .bg1 {
+      dt {
+        background: #26c8ae;
+      }
+      dd {
+        color: #26c8ae;
+      }
+    }
+    .bg2 {
+      dt {
+        background: #ffbe4e;
+      }
+      dd {
+        color: #ffbe4e;
+      }
+    }
+  }
+}
+
+/* 热门语录 */
+.hot-topic {
+}
+
+.hot-topic-content {
+  .hot-list {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  .hd {
+    width: 45px;
+    margin-right: 15px;
+    a {
+      .inline-block;
+      background: white;
+      border: 1px solid #41aed6;
+      font-weight: bold;
+      color: #41aed6;
+      .rounded-corners(4px);
+      &.supported {
+        border: 1px solid #41aed6;
+        background: #41aed6;
+        color: white;
+        cursor: default;
+      }
+    }
+    span {
+      .inline-block;
+      margin-right: 0px;
+      height: 24px;
+      line-height: 24px;
+      padding: 0 0 0 5px;
+      width: 29px;
+      overflow: hidden;
+      float: left;
+      text-align: center;
+    }
+    .iconfont {
+      font-size: 12px;
+      position: relative;
+      top: 4px;
+    }
+  }
+  .main {
+    width: 600px;
+    .tt {
+      margin-bottom: 15px;
+      b, .name {
+        font-weight: bold;
+        .inline-block;
+        float: left;
+      }
+      b {
+        color: #999;
+        margin-right: 5px;
+      }
+      .name {
+        color: #3bafda;
+        &:hover {
+          color: @color-hover-blue;
+        }
+      }
+      span {
+        float: right;
+        color: #999;
+      }
+    }
+    .hot-content {
+      color: #333;
+      line-height: 1.6em;
+    }
+  }
+  .hot-btn {
+    text-align: center;
+    a {
+      color: #3bafda;
+      &:hover {
+        color: @color-hover-blue;
+      }
+      i.iconfont {
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
+.other-teachers {
+  .new-actives .tab-hd{  height:0;}
+}
+
+/* 选项卡 */
+.new-actives {
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+  position: relative;
+  zoom: 1;
+}
+
+.new-actives .tab-hd {
+  height: 29px;
+  margin-bottom: -1px;
+  color: #404040;
+}
+
+.new-actives .step {
+  right: 13px;
+  top: -45px;
+  margin-top: 7px;
+}
+
+.new-actives .step a {
+  background-color: #fff
+}
+
+.new-actives .pageState {
+  position: absolute;
+  padding: 4px 10px 0 94px;
+  top: -43px;
+  right: 44px;
+}
+
+.new-actives .pageState span {
+  font-weight: bold;
+  color: #f60;
+}
+
+.new-actives .tab-bd {
+  //height: 132px;
+  overflow: hidden
+}
+
+.new-actives .tab-bd li {
+  height: 55px;
+  overflow: hidden;
+  float: left;
+  width: 108px;
+  position: relative;
+  margin: 0 12px;
+}
+
+.new-actives .tab-bd ul {
+  //height: 132px;
+  overflow: hidden
+}
+
+.new-actives .tab-bd li a {
+  height: 50px;
+  display: block;
+}
+
+.new-actives .arrow, .arrow s {
+  position: absolute;
+  display: inline-block;
+  font-size: 0;
+  line-height: 0;
+  width: 0;
+  height: 0;
+  border: dashed 8px;
+}
+
+.new-actives .arrow-rthin, .arrow-rthin s {
+  border-color: transparent transparent transparent #666;
+  border-left-style: solid;
+}
+
+.new-actives .arrow-rthin s {
+  border-left-color: #FAFAFA;
+  left: -10px;
+  top: -8px;
+}
+
+.new-actives .arrow-lthin, .arrow-lthin s {
+  border-color: transparent #666 transparent transparent;
+  border-right-style: solid;
+}
+
+.new-actives .arrow-lthin s {
+  border-right-color: #fff;
+  right: -10px;
+  top: -8px;
+}
+
+.new-actives .step {
+  position: absolute;
+  padding-left: 1px;
+}
+
+.new-actives .step a {
+  float: left;
+  width: 14px;
+  height: 12px;
+  margin-left: 12px;
+}
+
+.new-actives .step .arrow-rthin {
+  right: 2px;
+  top: 3px;
+}
+
+.new-actives .step .arrow-lthin {
+  left: 2px;
+  top: 3px;
+}
+
+.new-actives .step s {
+  cursor: pointer;
+}
+
+.new-actives .step a:hover .arrow-rthin {
+  border-left-color: #3bafda;
+}
+
+.new-actives .step a:hover .arrow-lthin {
+  border-right-color: #3bafda;
+}
+
+.new-actives .step a.prevStop,
+.new-actives .step a.nextStop {
+  filter: alpha(opacity=60);
+  opacity: 0.6;
+  cursor: auto
+}
+
+.tab-bd-in {
+  li {
+    width: 105px;
+    float: left;
+    height: 105px;
+    padding: 7px 0;
+    & > a {
+      .transition(all 0.5s ease 0s);
+      &:hover {
+        strong, em {
+          color: #3bafda;
+        }
+      }
+      & > div {
+        float: left;
+      }
+    }
+    .box1 {
+      width: 46px;
+      position: relative;
+      img {
+        display: block;
+        margin-bottom: 10px;
+        .rounded-corners(50%);
+      }
+      i {
+        position: absolute;
+        .background-image('index/v16x16.png', no-repeat, transparent);
+        width: 16px;
+        height: 16px;
+        display: block;
+        top: 21px;
+        left: 22px;
+      }
+      b {
+        color: #ef6757;
+        font-weight: bold;
+      }
+    }
+    .box2 {
+      width: 60px;
+      strong {
+        color: #666;
+        display: block;
+        margin-bottom: 10px;
+        overflow: hidden;
+        height: 15px;
+      }
+      em {
+        font-size: 12px;
+        color: #999;
+        display: block;
+      }
+    }
+    .box3 {
+      width: 194px;
+    }
+  }
+}
+#div{
+  width:400px;
+  height:220px;
+  background:-webkit-linear-gradient(-30deg,rgba(255,255,255,0) 0,
+  rgba(255,255,255,0) 230px,
+  rgba(255,255,255,0.1) 260px,
+  rgba(255,255,255,0.1) 270px,
+  rgba(255,255,255,0) 300px,
+  rgba(255,255,255,0) 310px) no-repeat -270px 0,
+  url(http://www.zaole.net/11.jpg) no-repeat;
+  transition:1s;
+  }
+#div:hover{
+  background-position:200px 0,0 0;
+  }
+.page-course{
+  width:280px;
+  height:280px;
+  .background-image('index/index-school/course.png');
+  a{ display:block;height:100%;width:100%;}
+  }
+.relation, .recent-visit, .often {
+  padding: 15px;
+  margin-bottom: 20px;
+  background: white;
+  h2.title {
+    color: #666;
+    font-weight: bold;
+    font-size: 16px;
+    padding-left: 15px;
+    border-left: 5px solid #ed5565;
+    margin-bottom: 15px;
+    margin-left: -15px;
+  }
+}
+
+// 校友们常去逛的学校
+.often {
+  height: 240px;
+  overflow: hidden;
+  .content {
+    padding-left: 8px;
+    li {
+      a:hover {
+        p {
+          color: @color-hover-blue;
+        }
+      }
+      margin-bottom: 20px;
+      span {
+        height: 16px;
+        width: 16px;
+        text-align: center;
+        line-height: 16px;
+        .inline-block;
+        font-size: 12px;
+        .rounded-corners(50%);
+        margin-right: 10px;
+        background: #eeeeee;
+        color: #666;
+        float: left;
+      }
+      p {
+        overflow: hidden;
+        float: left;
+        width: 216px;
+        height: 15px;
+      }
+      &:nth-child(1) {
+        span {
+          background: #ed5565;
+          color: white;
+        }
+      }
+      &:nth-child(2) {
+        span {
+          background: #3bafda;
+          color: white;
+        }
+      }
+      &:nth-child(3) {
+        span {
+          background: #20c8ae;
+          color: white;
+        }
+      }
+
+    }
+  }
+}
+
+.relation {
+  height: 280px;
+  .box0 {
+    height: 229px;
+    position: relative;
+    .background-image('index/index-school/side-bg.png', no-repeat, transparent);
+  }
+  .user {
+    position: absolute;
+    top: 0;
+    left: 19px;
+    .d-user {
+      float: left;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    span {
+      float: left;
+      position: relative;
+      top: 14px;
+      color: #666;
+    }
+  }
+  .state {
+    position: absolute;
+    top: 62px;
+    left: 63px;
+    .inline-block;
+    padding: 0 5px;
+    background: white;
+    color: #3bafda;
+    &.b-add-relation {
+      cursor: pointer;
+    }
+  }
+  .classmate {
+    position: absolute;
+    color: #999;
+    top: 100px;
+    left: 133px;
+    span {
+      color: #ef6757;
+    }
+  }
+  .school-name {
+    position: absolute;
+    bottom: 14px;
+    right: 20px;
+    color: #666;
+
+    text-align: center;
+    img {
+      .inline-block;
+      position: absolute;
+      top: -53px;
+      right: 18px;
+      background-color: white;
+    }
+    &>div{    width: 224px;
+      white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;
+      height: 15px;
+      padding-right: 7px;
+      text-align:right;
+      }
+  }
+  .box1 {
+    text-align: center;
+    .password {
+      color: #eee;
+      font-size: 110px;
+      margin-bottom: 20px;
+    }
+    p {
+      color: #666;
+      text-align: center;
+      margin: 20px 0;
+    }
+    a {
+      color: #3bafda;
+      &:hover {
+        color: @color-hover-blue;
+      }
+    }
+  }
+}
+
+.relation-wrap {
+  .status-list {
+    float: left;
+    margin: 20px 0;
+    width: 100%;
+    & > li {
+      border: 1px solid @color-hover-blue;
+      color: @color-hover-blue;
+      border-radius: 4px;
+      float: left;
+      margin: 0 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      &.selected,
+      &:hover {
+        background-color: @color-hover-blue;
+        color: @color-default;
+      }
+      &.selected {
+        cursor: default;
+      }
+    }
+  }
+
+  .status-time {
+    float: left;
+    //height: 40px;
+    width: 100%;
+    .d-time {
+      margin: 0 8px;
+      text-align: center;
+      width: 100px;
+    }
+  }
+}
+
+//.recent-visit {
+//  height: 160px;
+//  .content {
+//    a { display: block; .rounded-corners(50%); height: 36px; width: 36px; float: left; overflow: hidden; margin: 0 7px 20px; }
+//    img { display: block; }
+//    }
+//  }
+
+.school-name {
+  .content {
+    padding-left: 8px;
+    li {
+      a:hover {
+        p {
+          color: @color-hover-blue;
+        }
+      }
+      margin-bottom: 20px;
+      span {
+        height: 16px;
+        width: 16px;
+        text-align: center;
+        line-height: 16px;
+        .inline-block;
+        font-size: 12px;
+        .rounded-corners(50%);
+        margin-right: 10px;
+        background: #eeeeee;
+        color: #666;
+        float: left;
+      }
+      p {
+        overflow: hidden;
+        float: left;
+        width: 216px;
+        height: 15px;
+      }
+      &:nth-child(1) {
+        span {
+          background: #ed5565;
+          color: white;
+        }
+      }
+      &:nth-child(2) {
+        span {
+          background: #3bafda;
+          color: white;
+        }
+      }
+      &:nth-child(3) {
+        span {
+          background: #20c8ae;
+          color: white;
+        }
+      }
+
+    }
+  }
+}
+
+//添加关系弹框
+.pop-addRelation {
+  width: 320px;
+  padding: 20px;
+  background: white;
+  .list-checkbox {
+    li {
+      margin: 0 5px 10px;
+      border: 1px solid #3bafda;
+      color: #3bafda;
+      font-size: 12px;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 15px;
+      .inline-block;
+      .rounded-corners(4px);
+      cursor: pointer;
+      &.on, &:hover {
+        background: #3bafda;
+        color: white;
+      }
+    }
+  }
+  .btn {
+    padding-right: 5px;
+    button {
+      height: 24px;
+      &:nth-child(1) {
+        margin-right: 10px;
+      }
+    }
+  }
+}

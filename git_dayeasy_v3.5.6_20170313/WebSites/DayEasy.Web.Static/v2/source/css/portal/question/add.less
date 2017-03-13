@@ -1,0 +1,167 @@
+@import "base";
+
+.q-step {
+  position: relative;
+  overflow: hidden;
+  .step {
+    float: left;
+    width: 180px;
+    margin-bottom: 35px;
+    position: relative;
+    z-index: 15;
+    .step-text {
+      position: relative;
+      line-height: 22px;
+      text-align: center;
+      font-size: 12px;
+      color: @notActiveColor;
+      width: 180px;
+      h4 {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 600;
+        color: #999;
+      }
+      small {
+      }
+      i {
+        position: absolute;
+        left: 125px;
+        top: 2px;
+        width: 15px;
+        height: 15px;
+        .rounded-corners(50%);
+        border: solid 2px @notActive;
+        background-color: @color-default;
+      }
+    }
+  }
+  .step-line {
+    border-left: 2px solid @notActive;
+    bottom: 0;
+    left: 132px;
+    position: absolute;
+    top: 19px;
+    width: 0;
+    z-index: 12;
+    &.active {
+      border-left-color: @active;
+    }
+  }
+  .step-content {
+    padding-top: 20px;
+    overflow: hidden;
+  }
+}
+
+.step-01 {
+}
+
+.step-02 {
+  .step-content {
+    border: 1px solid @qbColor;
+    padding: 10px 20px;
+  }
+}
+
+.step-active {
+  .step {
+    .step-text {
+      cursor: pointer;
+      h4 {
+        color: @activeColor;
+      }
+      small {
+        color: #666;
+      }
+      i {
+        border-color: @active;
+      }
+    }
+  }
+}
+
+.step-content {
+  margin-left: 150px;
+  margin-bottom: 20px;
+  .form-group {
+    margin-bottom: 12px;
+    &:after {
+      clear: both;
+      display: table;
+    }
+  }
+  .q-next {
+    margin-top: 32px;
+  }
+  .q-editor {
+    .form-control,
+    .input-group-addon {
+      border-style: dashed;
+    }
+    .input-group-addon {
+      background-color: @color-default;
+      border: medium none;
+      padding: 0;
+      vertical-align: top;
+      position: relative;
+    }
+    textarea {
+      height: 220px;
+      resize: none;
+      max-width: 100%;
+      overflow-y: visible;
+    }
+    ul, li {
+      list-style: none;
+      margin: 0;
+    }
+    ul {
+      padding: 0;
+    }
+    li {
+      border: 1px dashed @qbColor;
+      border-left: none;
+      margin-bottom: 5px;
+      line-height: 32px;
+      padding: 0 18px;
+      cursor: pointer;
+      &:hover {
+        background-color: #00a2d4;
+        color: #fff;
+      }
+    }
+    .q-help {
+      position: absolute;
+      bottom: 0;
+      li {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+/*reset bootstrap*/
+.form-control,
+.input-group-addon,
+.btn {
+  .rounded-corners(0);
+}
+
+label.control-label {
+  font-weight: 500;
+}
+
+/*ueditor*/
+.q-editor {
+  .edui-default {
+    .edui-editor {
+      border-style: dashed;
+      .rounded-corners(0);
+    }
+
+    .edui-editor-toolbarboxouter {
+      border-bottom-style: dashed;
+    }
+  }
+}

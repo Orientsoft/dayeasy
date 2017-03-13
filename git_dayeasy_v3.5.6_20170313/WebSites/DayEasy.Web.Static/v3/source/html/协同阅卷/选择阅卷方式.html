@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>选择阅卷方式</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/assist/read-together.css"/>
+    <!--<link rel="stylesheet" href="/v3/source/css/assist/page-co-assist.css"/>-->
+</head>
+
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <!-- 选择阅卷方式 -->
+        <div class="w1200 d-read-together">
+            <div class="choice-ab-top">
+                <h2 class="choice-ab-title">您本次负责的题目是</h2>
+                <dl class="choice-selected f-cb">
+                    <dt>A卷</dt>
+                    <dd>1</dd>
+                    <dd>2</dd>
+                    <dd>3</dd>
+                    <dd>4</dd>
+                    <dd>5</dd>
+                    <dd>6</dd>
+                    <dd>7</dd>
+                    <dd>8</dd>
+                    <dd>9</dd>
+                </dl>
+                <dl class="choice-selected">
+                    <dt>B卷</dt>
+                    <dd>10</dd>
+                    <dd>11</dd>
+                    <dd>12</dd>
+                    <dd>13</dd>
+                    <dd>14</dd>
+                    <dd>15</dd>
+                </dl>
+            </div>
+            <div class="choice-ab-bottom">
+                <h2 class="choice-ab-title">请选择您习惯的阅卷方式</h2>
+                <div class="f-cb choice-abroad" data-click-id="choice">
+                    <div class="choice-mode f-fl f-cb on">
+                        <img class="fl" src="/v3/image/assist/choice-1.png" alt=""/>
+                        <div class="choice-ab-text f-fr">
+                            <strong>按卷批阅</strong>
+                            <p>
+                                整张试卷可见，可同时 <br/>
+                                批阅您所负责的题目
+                            </p>
+                        </div>
+                    </div>
+                    <div class="choice-mode f-fr">
+                        <img style="margin-top: 24px" src="/v3/image/assist/choice-2.png" alt=""/>
+                        <div class="choice-ab-text">
+                            <strong>按题批阅</strong>
+                            <p>
+                                只可见自己正在批阅的 <br/>
+                                单道题目
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="f-tac">
+                    <button class="dy-btn dy-btn-info">确认</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 批阅方式确认 A-->
+        <div>
+            <div class="f-tac">
+                <img class="fl" src="/v3/image/assist/choice-1.png" alt="">
+            </div>
+            <p>确认选按按卷批阅吗？确认后将不能修改</p>
+        </div>
+
+        <!-- 批阅方式确认 B-->
+
+        <div>
+            <div class="f-tac">
+                <img class="fl" src="/v3/image/assist/choice-2.png" alt="">
+            </div>
+            <p>确认选按按卷批阅吗？确认后将不能修改</p>
+        </div>
+
+
+    </div>
+</div>
+@@include('./footer.html')
+
+
+</body>
+</html>

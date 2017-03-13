@@ -1,0 +1,173 @@
+﻿@using DayEasy.Contracts.Dtos.Paper
+@using DayEasy.Contracts.Dtos.Question
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Paper.Services.Helper
+@using DayEasy.Utility.Extend
+
+@helper ShowQuestions(List<QuItemDto> sectionQus, List<QuestionDto> questions, List<QuestionTypeDto> questionType, IEnumerable<SectionPerScoreDto> perScores, int qIndex, string sectionType, bool hasEdit = false)
+{
+    var sectionId = "sectionA_";
+    if (sectionType == "B")
+    {
+        sectionId = "sectionB_";
+    }
+
+    var sectionNo = 1;
+    if (sectionQus == null)
+    {
+        return;
+    }
+
+    var perScoresDic = perScores == null ? new List<SectionPerScoreDto>() : perScores.ToList();
+
+    perScoresDic.AddRange(sectionQus.Select(u => new SectionPerScoreDto()
+    {
+        PaperType = u.PaperType,
+        PerScore = 0M,
+        QSectionType = u.Type,
+        Sort = perScoresDic.Count + u.Type
+    }).ToList());
+
+    perScoresDic = perScoresDic.Where(u => u.PaperType == sectionType).DistinctBy(u => u.QSectionType).OrderBy(u => u.Sort).ToList();
+
+    foreach (var qSection in perScoresDic)
+    {
+        var sec = sectionQus.Where(u => u.Type == qSection.QSectionType).ToList();
+
+        if (sec.Count < 1)
+        {
+            continue;
+        }
+
+        var qType = questionType == null ? null : questionType.SingleOrDefault(u => u.Id == qSection.QSectionType);
+        var sectionStr = qType == null ? string.Empty : qType.Name;
+
+        var secId = sectionId + qSection.QSectionType;
+
+        var perScoreObj = perScoresDic.SingleOrDefault(u => u.QSectionType == qSection.QSectionType && u.PaperType == sectionType);
+
+        var perScore = string.Empty;
+        if (perScoreObj != null && perScoreObj.PerScore.HasValue)
+        {
+            if (perScoreObj.PerScore.Value > 0)
+            {
+                perScore = perScoreObj.PerScore.Value.ToString();
+            }
+        }
+
+        <li class="m-bd-2" id="@secId">
+            <h3 class="m-hd f-hover after">
+                <span>@(Consts.Chinese[sectionNo++]).</span>
+                <input class="u-ipt-1" type="text" value="@sectionStr">
+                （共 <span class="qCNum">@sec.Count()</span> 小题，每题
+                <input class="u-ipt-2 q-perscore" type="text" value="@perScore">
+                分，共 <span class="qCScore">0</span> 分）
+                <i class="icon-hande icon-delete s-del" title="删除"></i>
+            </h3>
+            <ul class="paper-qContent" data-qtype="@qSection.QSectionType" data-section="@sectionType">
+                @if (sec.Any())
+                {
+                    foreach (var secQ in sec)
+                    {
+                        var question = questions.SingleOrDefault(u => u.Id == secQ.QId);
+                        if (question == null)
+                        {
+                            continue;
+                        }
+
+                        var qScore = secQ.Score > 0 ? secQ.Score.ToString() : string.Empty;
+                        if (string.IsNullOrEmpty(qScore))
+                        {
+                            qScore = perScore;
+                        }
+
+                        <li class="m-lst-1 f-posr f-hover" data-qid="@question.Id">
+                            <div class="row ml20">
+                                <div class="col-sm-1 sortNum">@(qIndex++).</div>
+                                <div class="col-sm-11 paper-scoreborder pl0">
+                                    @PaperHelper.ShowQuestion(question)
+                                </div>
+                            </div>
+                            <div class="f-posa u-lst">
+                                <span data-qid="@question.Id"><input type="text" class="qScore" value="@qScore">分</span>
+                                @if (hasEdit)
+                                {
+                                    <a href="/question/modify/@question.Id" target="_blank">
+                                        <i class="icon-hande icon-edit" title="编辑"></i>
+                                    </a>
+                                }
+                                <i class="icon-hande icon-delete paper-del" title="删除"></i>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </li>
+    }
+}
+
+@helper ShowQuestions(PaperDetailDto paperInfo, int paperSectionType, bool hasEdit = false)
+{
+    var sortType = paperInfo.PaperBaseInfo.SortType();
+    var section = paperInfo.PaperSections.Where(u => u.PaperSectionType == paperSectionType).OrderBy(u => u.Sort).ToList();
+
+    var sectionType = "A";
+    var sectionId = "sectionA_";
+    if (paperSectionType == (byte)PaperSectionType.PaperB)
+    {
+        sectionId = "sectionB_";
+        sectionType = "B";
+    }
+
+    foreach (var sec in section)
+    {
+        if (sec.Questions == null || sec.Questions.Count < 1)
+        {
+            continue;
+        }
+
+        var secId = sectionId + sec.SectionQuType;
+        var count = sec.Questions.Count;
+        var score = sec.Questions.Sum(q => q.Score);
+
+        <li class="m-bd-2" id="@secId">
+            <h3 class="m-hd f-hover after">
+                <span>@(Consts.Chinese[sec.Sort]).</span>
+                <input class="u-ipt-1" type="text" value="@sec.Description">
+                （共 <span class="qCNum">@count</span> 小题，每题
+                <input class="u-ipt-2 q-perscore" type="text">
+                分，共 <span class="qCScore">@score.ToString("0.#")</span> 分）
+                <i class="icon-hande icon-delete s-del" title="删除"></i>
+            </h3>
+            <ul class="paper-qContent" data-qtype="@sec.SectionQuType" data-section="@sectionType">
+                @if (sec.Questions != null && sec.Questions.Count > 0)
+                {
+                    foreach (var secQ in sec.Questions)
+                    {
+                        <li class="m-lst-1 f-posr f-hover" data-qid="@secQ.Question.Id">
+                            <div class="row ml20">
+                                <div class="col-sm-1 sortNum">
+                                    <b>@(secQ.Sort).</b>
+                                </div>
+                                <div class="col-sm-11 paper-scoreborder pl0">
+                                    @PaperHelper.ShowQuestion(secQ.Question,paperSectionType:(byte)paperSectionType,sortType:sortType)
+                                </div>
+                            </div>
+                            <div class="f-posa u-lst">
+                                <span data-qid="@secQ.Question.Id"><input type="text" class="qScore" value="@secQ.Score.ToString("0.#")">分</span>
+                                @if (hasEdit)
+                                {
+                                    <a href="/question/modify/@secQ.Question.Id" target="_blank">
+                                        <i class="icon-hande icon-edit" title="编辑"></i>
+                                    </a>
+                                }
+                                <i class="icon-hande icon-delete paper-del" title="删除"></i>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </li>
+    }
+}

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>教务管理-4学情补救2</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="/v3/source/css/ea/ui-data.css"/>
+    <link rel="stylesheet" href="/v3/source/css/ea/statistics/page-learning-remedy.css"/>
+
+
+    <script>
+        window.DEYI = window.DEYI || {};
+        window.DEYI.sites = {
+            'main': 'http://www.dayeasy.dev',
+            'apps': 'http://apps.dayeasy.dev',
+            'static': '//static.dayeasy.dev',
+            'reg': 'http://account.dayeasy.dev/reg',
+            'login': 'http://account.dayeasy.dev/login',
+            'account': 'http://account.dayeasy.dev',
+            'file': '//file.dayez.net',
+            'open': 'http://open.dayeasy.dev/'
+        };
+    </script>
+</head>
+<body>
+
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="dy-main-wrap f-cb">
+            @@include('./module/m-supervise-nav.html')
+            <div class="dy-list">
+                <div class="page-elective-draw">
+                    <div class="ui-tab-nav">
+                        <ul class="f-cb">
+                            <li class="on first">最近一周</li>
+                            <li>最近一个月</li>
+                            <li>最近3个月</li>
+                            <li class="last">最近6个月</li>
+                        </ul>
+                    </div>
+                    <div class="tab-nav-contens">
+                        <div class="tab-con-list tab-con-1" style="display: block;">
+                            <!--模块 1-->
+                            <div class="m-course-top f-cb">
+                                <div class="item-left f-fl">
+                                    <ul>
+                                        <li>
+                                            <i class="iconfont dy-icon-50"></i>
+                                            <span class="box-span-1">收集错题</span>
+                                            <span class="box-span-2 f-toe" title="218">11231</span>
+                                        </li>
+                                        <li>
+                                            <i class="iconfont dy-icon-50"></i>
+                                            <span class="box-span-1">错题知识点</span>
+                                            <span class="box-span-2 f-toe" title="218">12564</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="item-right f-fr">
+                                    <!--错题收集-->
+                                    <div class="box-people class-people f-fr">
+                                        <div class="m-title f-cb">
+                                            <strong>收集错题</strong>
+                                            <select name="" id="container-tab-left">
+                                                <option value="2016">2016级别</option>
+                                                <option value="2017">2017级别</option>
+                                                <option value="2018">2018级别</option>
+                                            </select>
+                                        </div>
+                                        <!--数据类型替换-->
+                                        <div class="container-box-x">
+                                            <div id="container-left" style="height:220px;"></div>
+                                        </div>
+
+                                    </div>
+                                    <!--错题收集 End-->
+                                </div>
+                            </div>
+                            <!--模块 1 End-->
+                            <!--模块 2-->
+                            <div class="m-course-top f-cb">
+                                <div class="item-right f-fl">
+                                    <!--错题收集-->
+                                    <div class="box-people class-people f-fr">
+                                        <div class="m-title f-cb">
+                                            <strong>收集错题</strong>
+                                        </div>
+                                        <!--无法达到设计图统计图表要求-->
+
+
+                                    </div>
+                                    <!--错题收集 End-->
+                                </div>
+                                <div class="item-left f-fr">
+                                    <ul class="ul-item-2">
+                                        <li>
+                                            <sapn class="title">错题下载</sapn>
+
+                                        </li>
+                                        <li>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--模块 3 End-->
+                            <!--变式推送/变式下载/微课讲解/试卷下载
+                                模块3
+                            -->
+                            <div class="m-course-3">
+                                <ul class="f-cb">
+                                    <li class="first-item">
+                                        <span class="box-span-1">
+                                            <i class="iconfont dy-icon-eraser"></i>
+                                            变式推送
+                                        </span>
+                                        <span class="box-span-2 f-toe">1232</span>
+                                        <span class="box-span-3">任你考题百变，抓住核心考点便能取胜</span>
+                                    </li>
+                                    <li>
+                                        <span class="box-span-1">
+                                            <i class="iconfont dy-icon-eraser"></i>
+                                            变式下载
+                                        </span>
+                                        <span class="box-span-2 f-toe">20</span>
+                                    </li>
+                                    <li>
+                                        <span class="box-span-1">
+                                            <i class="iconfont dy-icon-eraser"></i>
+                                            试卷下载
+                                        </span>
+                                        <span class="box-span-2 f-toe">232</span>
+                                    </li>
+                                    <li>
+                                        <span class="box-span-1">
+                                            <i class="iconfont dy-icon-eraser"></i>
+                                            变式推送
+                                        </span>
+                                        <span class="box-span-2 f-toe">1</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--变式推送/变式下载/微课讲解/试卷下载 End-->
+                            <!--学科分布/班次分布-->
+                            <div class="m-course-bottom f-cb">
+                                <div class="box-people  f-fl">
+                                    <div class="wrap-chart f-fl">
+                                        <div id="wrong-knowledge" style="min-width:170px;height:170px"></div>
+                                        <img width="32" height="32" class="pos-img" src="/v3/image/ea/teacher-h.png" alt="">
+                                        <span class="pos-text">语文</span>
+                                    </div>
+                                    <div class="chart-text f-fr">
+                                        <ul>
+                                            <li><span class="bg-color-1"></span> 审题不仔细</li>
+                                            <li><span class="bg-color-2"></span>基础知识背诵不牢</li>
+                                            <li><span class="bg-color-3"></span>审题不仔细</li>
+                                            <li><span class="bg-color-4"></span>基础知识背诵不牢</li>
+                                            <li><span class="bg-color-5"></span>审题不仔细</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="box-people  f-fr">
+                                    <div class="wrap-chart f-fl">
+                                        <div id="wrong-knowledge-s" style="min-width:170px;height:170px"></div>
+                                        <img width="32" height="32" class="pos-img" src="/v3/image/ea/teacher-h.png" alt="">
+                                        <span class="pos-text">数学</span>
+                                    </div>
+                                    <div class="chart-text chart-text-s f-fr">
+                                        <ul>
+                                            <li><span class="bg-color-1"></span> 审题不仔细</li>
+                                            <li><span class="bg-color-2"></span>基础知识背诵不牢</li>
+                                            <li><span class="bg-color-3"></span>审题不仔细</li>
+                                            <li><span class="bg-color-4"></span>基础知识背诵不牢</li>
+                                            <li><span class="bg-color-5"></span>审题不仔细</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--学科分布/班次分布 End-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@@include('./footer.html')
+
+
+<script src="/v3/plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
+<!--<script src="/v3/plugs/mCustomScrollbar/jquery.mousewheel.min.js"></script>-->
+
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
+
+
+<script src="/v3/source/js/ea/statistics/page-learning-remedy.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Core
+@{
+    var user = ViewData["User"] as UserDto;
+    var avator = user.Avatar;
+}
+<div class="navbar-inner">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="@Consts.Config.MainSite">
+            <img src="@Url.StaticLink("image/logo.png")" alt="logo" />
+        </a>
+        <ul class="navbar-nav pull-right">
+            <li class="dropdown user">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img alt="" src="@avator" style="height:29px;" />
+                    <span class="username">@user.Name</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><i class="fa fa-user"></i> 我的信息</a></li>
+                    <li><a href="#"><i class="fa fa-calendar"></i> 我的日历</a></li>
+                    <li><a href="#"><i class="fa fa-tasks"></i> 我的任务</a></li>
+                    <li class="divider"></li>
+                    @*<li><a href="" class="thickbox" title="修改密码"><i class="fa fa-key"></i> 修改密码</a></li>*@
+                    <li><a href="@Consts.Config.LoginSite/logout"><i class="fa fa-sign-out"></i> 退出系统</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,181 @@
+﻿@using DayEasy.Contracts.Models.Enum
+@model List<DayEasy.Model.TS_Tag>
+@{
+    ViewBag.Title = "标签管理";
+}
+
+<div>
+    <div class="row">
+    </div>
+    <div class="row mt20">
+        <div class="col-sm-12 pl0">
+            <form method="GET" action="@Url.Action("Index","Tag")">
+                <div class="col-sm-3 pl0 pr0 d-selects">
+                    @Html.DropDownList("t", ViewData["tagType"] as List<SelectListItem>, new { @class = "form-control" })
+                    @Html.DropDownList("s", ViewData["tagStatus"] as List<SelectListItem>, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-3 pl0">
+                    <div class="input-group">
+                        <input type="text" value="@Request["k"]" placeholder="关键字" class="form-control" name="k">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit" id="btn_submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="d-total">
+                        共
+                        <em>@ViewData["totalCount"]</em>
+                        个标签
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <span class="btn btn-blue" id="btn-add">
+                        <i class="fa fa-plus"></i>
+                        添加标签
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>类型</th>
+                    <th>使用次数</th>
+                    <th>全拼</th>
+                    <th>简拼</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var tag in Model)
+                    {
+                        <tr>
+                            <td>@tag.TagName</td>
+                            <td>@Html.GetEnumText(tag.TagType, typeof(TagType))</td>
+                            <td>@tag.UsedCount</td>
+                            <td>@tag.FullPinYin</td>
+                            <td>@tag.SimplePinYin</td>
+                            <td>@Html.GetEnumText(tag.Status, typeof(TagStatus))</td>
+                            <td data-id="@tag.TagID">
+                                <a href="javascript:void(0)" class="a-edit">编辑</a>
+                                @if (tag.Status == (byte)TagStatus.Delete)
+                                {
+                                    <a href="javascript:void(0)" class="a-delete ml20">永久删除</a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0)" class="a-delete ml20">删除</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2">没有找到相关信息！</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 10, Convert.ToInt32(ViewData["totalCount"]), 4)
+    </div>
+</div>
+
+<script type="text/html" id="addTagDiv">
+    <form style="width:500px;" id="addForm">
+        <div class="row">
+            <div class="col-sm-2">类型：</div>
+            <div class="col-sm-10 pl0">
+                @Html.DropDownList("type", ViewData["tagType"] as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-2">名称：</div>
+            <div class="col-sm-10 pl0">
+                <input type="text" class="form-control" name="tagName" />
+            </div>
+        </div>
+    </form>
+</script>
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            //查询
+            $("#s,#t").change(function () {
+                $("#btn_submit").click();
+            });
+
+
+            //添加
+            $("#btn-add").click(function () {
+                var addHtml = $("#addTagDiv").html();
+                $.Dayez.dialog("添加标签", addHtml, function () {
+                    var data = $("#addForm").serialize();
+
+                    $.ajax({
+                        url: "@Url.Action("Add","Tag")",
+                        data: data,
+                        type: "POST",
+                        success: function (res) {
+                            if (res.Status) {
+                                window.location.reload();
+                            } else {
+                                $.Dayez.tip($(".ui-dialog-button"), res.Message, "left");
+                            }
+                        }
+                    });
+                    return false;
+                }, function () { });
+            });
+
+            //删除
+            $(".a-delete").click(function () {
+                var id = $(this).parent("td").data("id");
+
+                $.Dayez.confirm("您确定要删除该标签吗?", function () {
+                    $.post("@Url.Action("Delete","Tag")", { id: id }, function (res) {
+                        if (res.Status) {
+                            window.location.reload();
+                        } else {
+                            $.Dayez.msg(res.Message);
+                        }
+                    });
+                }, function () { });
+            });
+
+            //编辑
+            $(".a-edit").click(function () {
+                var id = $(this).parent("td").data("id");
+                $.post("@Url.Action("Edit","Tag")", { id: id }, function (res) {
+                    $.Dayez.dialog("编辑标签", res, function () {
+                        var data = $("#editForm").serialize();
+                        $.ajax({
+                            url: "@Url.Action("Add","Tag")",
+                            data: data,
+                            type: "POST",
+                            success: function (res) {
+                                if (res.Status) {
+                                    window.location.reload();
+                                } else {
+                                    $.Dayez.tip($(".ui-dialog-button"), res.Message, "left");
+                                }
+                            }
+                        });
+                        return false;
+                    }, function () { });
+                });
+            });
+        });
+    </script>
+}

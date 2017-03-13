@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    @@include('./link-style.html')
+    <title>密码重置 - 我的得一 - 触屏版</title>
+    <link rel="stylesheet" href="/css/account/login.min.css"/>
+</head>
+<body>
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <a href="#" class="d-back">
+                <div class="hp-left hp-back">
+                    <span class="hp-icon hp-icon-arrow-left"></span>
+                    <span class="hp-icon hp-icon-arrow-right"></span>
+                </div>
+            </a>
+            <h1 class="hp-h1">密码重置</h1>
+        </div>
+    </div>
+</header>
+<section class="d-login-main">
+    <div class="notes-login">
+        <div class="d-p">用户名：<span class="d-username">Name</span></div>
+        <!-- 密码 -->
+        <div class="form-group d-input d-input-err">  <!--d-input-err 验证错误提示-->
+            <div class="form-item">
+                <div class="form-textbox">
+                    <input type="text" placeholder="密码（8-20位字符）">
+                </div>
+            </div>
+            <span class="d-err-tips">密码不能使用纯数字或纯字母</span>
+        </div>
+        <!-- 确认密码 -->
+        <div class="form-group d-input d-input-err">  <!--d-input-err 验证错误提示-->
+            <div class="form-item">
+                <div class="form-textbox">
+                    <input type="text" placeholder="确认密码">
+                </div>
+            </div>
+            <span class="d-err-tips">两次密码输入不一致</span>
+        </div>
+
+        <div class="form-group ">
+            <div class="form-item">
+                <a href="/page/account/resetpwd-success.html"><button class="d-btn disabled">下一步</button></a>
+            </div>
+        </div>
+    </div>
+
+</section>
+@@include('./footer.html')
+@@include('./link-script.html')
+</body>
+</html>

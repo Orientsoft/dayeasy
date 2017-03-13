@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+}
+
+@section style{
+    @Html.CombineLink("css/portal/paper.css,css/portal/question/list.css,css/v1/portal/automatic/page.css,css/homework/student.css,v3/css/paper/page-create.css")
+
+    @RenderSection("css", false)
+}
+<script>
+    var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true; deyi.loadFormula = true;
+</script>
+@RenderBody()
+
+@section script{
+    @Html.CombineLink("js/jquery-validate.js,js/base/common.js,v3/js/question/formula.js")
+    <script type="text/javascript">
+        $(function () {
+            singer.loadFormula();
+
+            $(".paper-main").delegate("img.qImg", "click", function (e) {
+                e.stopPropagation();
+
+                var srcStr = $(this).prop("src").replace("_s150xauto", "");
+                $.Dayez.showImg(srcStr);
+
+                return false;
+            });
+        });
+    </script>
+    @RenderSection("js", false)
+}

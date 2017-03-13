@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="dy-body">
+    @RenderBody()
+</section>
+@section js{
+    @Html.CombineLink("js/respond.js,js/Jq-common.js")
+    @RenderSection("js", false)
+}
+@section css{
+    @Html.CombineLink("css/bootstrap.min.css,css/site-base.css,v3/css/site-compatible.css")
+    @RenderSection("css", false)
+}

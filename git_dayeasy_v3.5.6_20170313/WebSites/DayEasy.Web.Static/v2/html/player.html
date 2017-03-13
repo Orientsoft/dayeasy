@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Player</title>
+    <script src="../js/singer.min.js"></script>
+    <script>
+        (function (S) {
+            S._mix(S, {
+                sites: {
+                    'static': 'http://static.dayeasy.dev'
+                }
+            })
+        })(SINGER);
+    </script>
+</head>
+<body>
+<div id="a1"></div>
+<script src="../js/jquery.min.js"></script>
+<script src="../source/plugs/ckplayer/ckplayer.js"></script>
+<script src="../source/js/classroom/player.js"></script>
+<script>
+    singer.play({
+        p: 0,
+        url: 'http://movie.ks.js.cn/flv/other/2014/06/20-2.flv'
+    });
+</script>
+</body>
+</html>

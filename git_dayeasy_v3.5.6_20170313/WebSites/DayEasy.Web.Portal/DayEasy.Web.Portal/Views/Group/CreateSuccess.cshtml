@@ -1,0 +1,40 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model GroupDto
+@{
+    ViewBag.Title = "创建成功 - " + Model.Name;
+}
+<div class="establish w1200 f-cb">
+    <div class="dg-step">
+        <div class="d-title">
+            <h3>圈子创建成功</h3>
+        </div>
+        <div class="dg-info">
+            <div class="dg-avatar">
+                <img src="@Html.MakeThumb(Model.Logo, "150x150")" alt="Alternate Text"/>
+            </div>
+            <div class="dg-name">
+                @if (Model.Type == (byte) GroupType.Share)
+                {
+                    var share = (ShareGroupDto) Model;
+                    <div class="dg-channel dg-channel@((share.ChannelId%100)%5)">@Consts.Channel(share.ChannelId)</div>
+                }
+                <div class="dg-name-wrap">
+                    @Model.Name <strong> [ @Model.Code ]</strong>
+                </div>
+                <div class="dg-type">@(((GroupType) Model.Type).GetText())</div>
+            </div>
+        </div>
+        <div class="dg-share">
+            @Html.Partial("Helper/ShareHelper", Model)
+        </div>
+        <div class="dg-actions">
+            <a class="dy-btn  dy-btn-info" href="/group/@Model.Id">进入圈子</a>
+        </div>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/circle/page-create.css")
+}

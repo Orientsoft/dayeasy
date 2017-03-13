@@ -1,0 +1,179 @@
+@import "../../less/base";
+
+.dy-wrap { background-color: #F5F5F5;}
+
+.form-main{
+  padding: 30px;
+  background: white;
+  margin-top: 30px;
+  min-height: 500px;
+  }
+
+.form-tab{
+  text-align: center;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  .form-menu{
+    width: 200px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 16px;
+    color: #666;
+    .inline-block;
+    .iconfont{ font-size: 20px; color: #bbb; margin-right: 8px;}
+    }
+  .form-menu.on{
+    .iconfont{ color: #ed5565;}
+    position: relative;
+    color:#ed5565 ;
+    &:after{
+      position: absolute;
+      content: ' ';
+      left: 0;
+      bottom: -12px;
+      width: 200px;
+      height: 2px;
+      background: #ed5565;
+      }
+    }
+  }
+
+
+
+
+//错误警告提示
+.msg-error{
+  color: #ed5565;
+  padding: 2px 0;
+  }
+
+
+.form-main-list{ margin-top: 30px; background: white;}
+.htmleaf-containers{
+  background: white;
+  .htmleaf-content{ padding-left: 470px;
+    ul{border: none;
+      li{ line-height: 47px;height: 40px;}
+      }
+    }
+  .amd-box{ border-bottom: 1px solid #eee;}
+  }
+
+.rippleEffects {
+  -webkit-animation:none;
+  animation: none;
+  }
+
+.mobile-text,.mailbox-text{padding: 20px 0 60px;}
+
+.form-group{
+  padding-left: 415px;
+  margin-bottom: 20px;
+  .form-label{
+    display: inline;
+    font-size: 14px;
+    color: #999;
+    float: left;
+    margin-left: -415px;
+    width: 385px;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+    }
+  .form-item{height: 40px; line-height: 40px;}
+  .form-input-w300{ width: 300px;}
+  .form-input-w180{ width: 180px;}
+
+  .form-code-img{
+    display: inline-block;
+    vertical-align: middle;
+    height: 38px;
+    cursor: pointer;
+    }
+  .form-again-send{ display: inline-block; *display: inline; *zoom: 1; color: #656d78;  background: white; height:40px; width: 105px; border: 2px solid #e6e9ed;}
+  .form-again-send.selected{background: #ccd1d9;color: white;border-color: #ccd1d9;}
+  .form-look{ color: #aaa;}
+  .form-textbox{
+    position: relative;
+    .inline-block;
+    }
+
+
+  .error-input ,.success-input{
+    font-family:"iconfont" !important;
+    &:before{
+      display: block;
+      text-align: center;
+      position: absolute;
+      right: 10px;
+      font-weight: bold;
+      z-index: 10000;
+      }
+    input{padding-right: 30px;}
+    }
+
+  .success-input{
+    &:before{
+      content:'\e63c';
+      color: #48cfad;
+      }
+    input{
+      border-color:#48cfad;
+      }
+
+    }
+  .error-input{
+    &:before{
+      content:'\e63f';
+      color: #ed5565;
+      }
+    input{
+      border-color:#ed5565;
+      }
+    }
+
+
+  //错误警告提示
+  .msg-error{
+    color: #ed5565;
+    padding: 2px 0;
+    }
+  }
+.form-subjects{
+  margin-top: -10px;
+  display: none;
+  }
+
+
+//修改完成
+
+.amend-success{
+    margin-top: 85px;
+    .amend-text{ margin-bottom: 60px; color: #666;height: 32px;line-height: 32px;
+      .dy-icon-radiohv{ color: #8cc152; font-size: 30px; margin-right: 12px;}
+      }
+  }
+
+
+//
+//data-prefix-1="1"
+//
+//.concierge-container .input-prefixed:before {
+//  content: attr(data-prefix);
+//  display: block;
+//  text-align: center;
+//  height: 12px;
+//  position: absolute;
+//  left: 0;
+//  width: 54px;
+//  background: #e3e3e3;
+//  color: #999;
+//  z-index: 10000;
+//  padding: 6px 0 12px;
+//  border-color: #d6d6d6;
+//  border-width: 1px;
+//  border-style: solid;
+//  border-right: 0;
+//  border-bottom-left-radius: 4px;
+//  border-top-left-radius: 4px;
+//  }

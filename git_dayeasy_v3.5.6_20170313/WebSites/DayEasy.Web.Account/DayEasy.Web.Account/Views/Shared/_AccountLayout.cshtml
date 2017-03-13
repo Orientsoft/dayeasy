@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="dy-body">
+    <div class="base-style j-autoHeight w1000 after" data-left="192"
+         data-type="2"
+         data-min="200">
+        <div class="login-side f-fl">
+            <div class="side-layer">
+                <h2><i class="login-reg-icon login-reg-3"></i>个人设置</h2>
+                <ul class="da-nav">
+                    <li><a href="/">基本信息</a></li>
+                    <li><a href="/pwd">密码修改</a></li>
+                    <li><a href="/plat">帐号关联</a></li>
+                </ul>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+</section>
+
+@section css{
+    @Html.CombineLink("css/font-awesome.css,css/bootstrap.css,css/site-base.css,css/manage/login-reg.css,v3/css/site-compatible.css")
+    @RenderSection("style", false)
+}
+@section js{
+    @RenderSection("script", false)
+    <script>
+        (function ($, S) {
+            var paths = ['/', '/pwd', '/plat'];
+            var pathname = location.pathname;
+            $('.da-nav').find('li').eq(S.index(pathname, paths)).addClass('z-crt');
+            //获取中部区域高度
+            function mianHeight() {
+                var modHeight = $('.j-autoHeight').height();
+                $('.login-main').css('min-height', modHeight);
+
+            };
+
+            //调用
+            mianHeight();
+
+
+            //窗口改变 加载
+            $(window).resize(function () {
+                mianHeight();
+            });
+        })(jQuery, SINGER);
+    </script>
+}

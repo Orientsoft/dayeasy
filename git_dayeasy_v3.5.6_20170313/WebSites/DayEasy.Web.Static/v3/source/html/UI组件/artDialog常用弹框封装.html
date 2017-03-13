@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>登录弹框</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="/source/css/site-base.css">
+    <style>
+        .page-pop-demo{ text-align:center; padding:50px 0; }
+    </style>
+    <!--在线字体-->
+    <script src="/v3/js/singer.min.js" type="text/javascript"></script>
+    <script src="/v3/source/js/base/d-base.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="page-pop-demo">
+            <button class="dy-btn dy-btn-default alert">alert</button>
+            <button class="dy-btn dy-btn-grey confirm">confirm</button>
+            <button class="dy-btn dy-btn-info msg">msg</button>
+            <button class="dy-btn dy-btn-danger showImage">showImage</button>
+        </div>
+    </div>
+</div>
+@@include('./footer.html')
+<script type="text/javascript">
+    (function ($, S){
+
+        $(document)
+                .on('click', '.alert', function (){
+                    S.alert('alert弹框', function (){
+                        alert('callback');
+                    });
+                })
+                .on('click', '.confirm', function (){
+                    S.confirm('confirm弹框', function (){
+                        alert('ok callback');
+                    }, function (){
+                        alert('cancel callback');
+                    }, ['确定', '取消']);
+                })
+                .on('click', '.msg', function (){
+                    S.msg('6秒后关闭',6000,function(){
+                        alert('cancel');
+                    });
+                })
+                .on('click', '.showImage', function (){
+                    S.showImage('http://placehold.it/350x350');
+                });
+
+
+    })(jQuery, SINGER);
+
+</script>
+</body>
+</html>

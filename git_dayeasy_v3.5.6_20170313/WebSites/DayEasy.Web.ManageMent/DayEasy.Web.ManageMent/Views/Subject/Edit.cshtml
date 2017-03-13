@@ -1,0 +1,52 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using DayEasy.Utility.Helper
+@using DayEasy.Web.ManageMent.Common
+@model TS_Subject
+@{
+    List<TS_QuestionType> qTypeList = null;
+    if (ViewData["qTypeList"] != null)
+    {
+        qTypeList = ViewData["qTypeList"] as List<TS_QuestionType>;
+    }
+}
+<form style="width:500px;" id="editForm">
+    <input type="hidden" value="@Model.Id" name="id" />
+    <div class="row">
+        <div class="col-sm-2">名称：</div>
+        <div class="col-sm-7 pl0">
+            <input type="text" class="form-control" value="@Model.SubjectName" name="subName" />
+        </div>
+        <div class="col-sm-3 pl0">
+            <label class="checkbox-inline">
+                <input type="checkbox" value="1" @Html.IsChecked(Model.IsLoadFormula) name="LoadFormula" />是否加载公式
+            </label>
+        </div>
+    </div>
+    <div class="row mt20">
+        <div class="col-sm-2">状态：</div>
+        <div class="col-sm-10 pl0">
+            @if (ViewData["qTypeStatus"] != null)
+            {
+                @Html.DropDownList("status", ViewData["qTypeStatus"] as List<SelectListItem>, new { @class = "form-control" })
+            }
+        </div>
+    </div>
+    <div class="row mt20">
+        <div class="col-sm-2">题型：</div>
+        <div class="col-sm-10 pl0">
+            @if (qTypeList != null && qTypeList.Count > 0)
+            {
+                var currentTypes = JsonHelper.JsonList<int>(Model.QTypeIDs);
+                for (int i = 1; i <= qTypeList.Count; i++)
+                {
+                    var obj = qTypeList[i - 1];
+
+                    <label class="checkbox-inline" style="width:105px; margin-left:10px;">
+                        <input type="checkbox" name="qType" @Html.IsChecked(currentTypes.Contains(obj.Id)) value="@obj.Id" />@obj.QTypeName
+                    </label>
+                }
+            }
+        </div>
+    </div>
+</form>

@@ -1,0 +1,642 @@
+﻿@using DayEasy.Contracts.Dtos
+@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Extend
+@model UserDto
+@{
+    ViewBag.Title = Model.Name + " - 个人主页";
+    var isOwner = ViewBag.IsOwner ?? false;
+    var isTeacher = Model.IsTeacher();
+    var newImpressions = (ViewData["newImpressions"] as List<string>) ?? new List<string>();
+    var target = (ViewBag.SetTarget ?? false);
+    var user = ViewData["User"] as UserDto;
+}
+
+<div class="page-index-teacher" data-owner="@(isOwner?1:0)" data-uid="@Model.Id" data-target="@(target?1:0)">
+    <div class="g-top-teacher @(isTeacher ? " " : "g-top-student")">
+        <div class="w1000 f-tac f-prz">
+            <div class="teacher-introduce">
+                <div class="f-fl box-left d-user">
+                    <img src="@Html.MakeThumb(Model.Avatar, "100x100")" width="100" height="100" alt="" />
+                    @if (Model.Level > 0)
+                    {
+                        <i class="vip vip-large">V</i>
+                    }
+                </div>
+                <div class="f-fl box-right">
+                    <div class="box1">
+                        <strong>@Model.Name</strong>
+                        @if (isTeacher)
+                        {
+                            <span>@Model.SubjectName</span>
+                        }
+                        <em>NO.@Model.Code</em>
+                    </div>
+                    <div class="box2">
+                        <div class="autograph">
+                            @*Amend*@
+                            @if (isOwner)
+                            {
+                                <input type="text" class="autograph-input" maxlength="25" data-content="@Model.Signature"
+                                       value="@Model.Signature" placeholder="给自己一个牛逼的签名，结识更多牛逼的人" />
+                                    <i class="iconfont dy-icon-index-edit hide"></i>
+                            }
+                            else
+                            {
+                                <span>@Model.Signature</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <dl class="lick">
+                <dt title="有@(ViewBag.VisitCount ?? 0)人来访" class="iconfont dy-icon-viewline"></dt>
+                <dd title="有@(ViewBag.VisitCount ?? 0)人来访">@(ViewBag.VisitCount ?? 0)</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="g-content-teacher w1000 f-cb">
+        <div class="m-mainc f-fl">
+            @if (newImpressions.Any())
+            {
+                <div class="sticker-show last-impression">
+                    <div class="titile">
+                        <h2><strong>@Model.Name</strong> @(Model.IsTeacher() ? "老师" : "同学")收到了以下印象，想要支持下吗？</h2>
+                        <span class="close iconfont dy-icon-close"></span>
+                    </div>
+                    <div class="content">
+                        <div class="sticker-lists f-cb">
+                            <div class="d-tags" data-tags="@(string.Join(";", newImpressions))"></div>
+                        </div>
+                        <div class="">
+                            <button class="dy-btn dy-btn-info b-support">
+                                支 持 <i class="iconfont dy-icon-index-surpport"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!--任教历程-->
+            <div class="my-history f-cb">
+                <div class="titile">
+                    @if (isTeacher)
+                    {
+                        <h2>任教历程</h2>
+                        if (isOwner)
+                        {
+                            <a class="a01 pop-text" id="editHistory" title="点击完善历程" href="javascript:void(0);">完善历程</a>
+                        }
+                    }
+                    else
+                    {
+                        <h2>
+                            成长足迹<small>记录成长的点滴</small>
+                        </h2>
+                        if (isOwner)
+                        {
+                            <a class="a01 pop-text" id="editHistory" title="点击完善资料" href="javascript:void(0);">完善资料</a>
+                        }
+                    }
+                </div>
+                <div class="content process-timeline" id="agencyList"></div>
+            </div>
+            <!--印象贴纸 -->
+            <div class="sticker">
+                <div class="titile">
+                    <h2>印象贴纸 </h2>
+                    <span class="text">@(isOwner ? "贴上自己的印象贴纸，找到同道中人" : "说说你眼中的" + Model.Name + (Model.IsTeacher() ? "老师" : ""))</span>
+                    <a class="a01 pop-text" id="addImpression" title="点击增加贴纸" href="javascript:void(0);">+贴一张</a>
+                </div>
+                <div class="content">
+                    <div class="lit" id="impressionList">
+                    </div>
+                    <div class="sticker-btn hide">
+                        <a href="#">展开更多<i class="iconfont dy-icon-anglebottom"></i></a>
+                    </div>
+                </div>
+            </div>
+            @if (isTeacher)
+            {
+            <!--江湖传说 -->
+                <div class="hot-topic">
+                    <div class="titile">
+                        <h2>江湖传说 </h2>
+                        <span class="text">@(isOwner ? "那些年我的金句" : "那些年" + Model.Name + "老师飙过的金句")</span>
+                        <a href="javascript:void(0);" title="点击增加爆料" id="addQuotations" class="a01 pop-text">+爆个料</a>
+                    </div>
+                    <div class="content">
+                        <!--热门语录-->
+                        <div class="hot-topic-content">
+                            <div class="lst" id="quotationsList"></div>
+                            <div class="hot-btn hide">
+                                <a href="#">展开更多<i class="iconfont dy-icon-anglebottom"></i></a>
+                                <!--dy-icon-angletop-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (isOwner)
+            {
+                Html.RenderPartial("_InterestTopic", (ViewData["topics"] as List<AdvertDto>) ?? new List<AdvertDto>());
+            }
+        </div>
+        <!--side-->
+        <div class="m-side f-fr">
+            @if (isOwner)
+            {
+                var apps = (ViewData["apps"] as List<ApplicationDto>) ?? new List<ApplicationDto>();
+                var groups = (ViewData["groups"] as List<GroupDto>) ?? new List<GroupDto>();
+                groups = groups.OrderBy(g => g.Type).ToList();
+                var row = (int)Math.Ceiling(groups.Count / 3M);
+                <!--应用中心-->
+                <div class="user-tool d-apps">
+                    <h2 class="title">
+                        应用中心
+                    </h2>
+                    <ul class="ul-list f-cb">
+                        @foreach (var app in apps)
+                        {
+                            <li>
+                                <a href="@app.Url" target="_blank">
+                                    <i class="iconfont @app.Icon"></i>
+                                    <span>@app.Text</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <!--我的圈子-->
+                <div class="my-group d-groups">
+                    <h2 class="title">
+                        我的圈子
+                    </h2>
+                    @if (groups.Any())
+                    {
+                        <div class="content f-cb">
+                            <div class="new-actives" style="margin: 0 auto">
+                                @if (groups.Count > 3)
+                                {
+                                    <div class="tab-hd">
+                                        <span class="step">
+                                            <a href="javascript:void(0)" class="prev"><s class="arrow arrow-lthin"><s></s></s></a>
+                                            <a href="javascript:void(0)" class="next"><s class="arrow arrow-rthin"><s></s></s></a>
+                                        </span>
+                                    </div>
+                                }
+                                <div class="tab-bd">
+                                    <div class="tab-bd-in">
+                                        @for (var i = 0; i < row; i++)
+                                        {
+                                            <ul class="last-li">
+                                                @foreach (var dto in groups.Skip(i * 3).Take(3))
+                                                {
+                                                    <li>
+                                                        <a class="m-group" href="/group/@dto.Id">
+                                                            <div class="box1 f-cb">
+                                                                <strong class="@("bg" + dto.Type)">@(dto.Type.GetEnumText<GroupType, byte>())</strong>
+
+                                                                <p class="f-toe">@dto.Name</p>
+                                                                @{
+                                                                    if (dto.ManagerId == Model.Id)
+                                                                    {
+                                                                        dto.MessageCount += dto.PendingCount;
+                                                                    }
+                                                                    if (dto.MessageCount > 0)
+                                                                    {
+                                                                        <span class="num">@(dto.MessageCount > 99 ? "99+" : dto.MessageCount.ToString())</span>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                            <div class="box2">
+                                                                <i class="iconfont dy-icon-teacher"></i>
+                                                                <span class="num" title="圈人数">@dto.Count</span>
+                                                                <i class="iconfont dy-icon-user-outline"></i>
+                                                                <span class="name" title="圈主">@dto.Owner</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                                    }
+                                            </ul>
+                                                                    }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottom f-tar">
+                                <a class="a01" href="/group/find">查找圈子</a>
+                                @if (isTeacher)
+                                {
+                                    <a class="a01" href="/group/create">创建圈子</a>
+                                }
+                            </div>
+                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="content">
+                                                                            <div class="f-tac note-group">
+                                                                                <i class="iconfont dy-icon-none"></i>
+
+                                                                                <p>您还没有圈子</p>
+
+                                                                                <div class="btn">
+                                                                                    <a class="a01" href="/group/find">查找圈子</a>
+                                                                                    @if (isTeacher)
+                                                                                    {
+                                                                                        <a class="a01" href="/group/create">创建圈子</a>
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                </div>
+                                                                    }
+            <!--最近来访-->
+            <div class="recent-visit">
+                <h2 class="title">
+                    @(isOwner ? "最近来访" : "TA的最近来访")
+                </h2>
+                <div class="content f-cb" id="lastVisit"></div>
+            </div>
+            @if (Model.IsStudent())
+            {
+                <div class="user-tool related-students">
+                    <h2 class="title">
+                        可能感兴趣的同学
+                    </h2>
+
+                    <div class="content f-cb">
+                        <div class="new-actives" style="margin: 0 auto">
+                            <div class="tab-hd hide">
+                                <span class="step">
+                                    <a href="javascript:void(0)" class="prev"><s class="arrow arrow-lthin"><s></s></s></a>
+                                    <a href="javascript:void(0)" class="next"><s class="arrow arrow-rthin"><s></s></s></a>
+                                </span>
+                            </div>
+                            <div class="tab-bd">
+                                <div class="tab-bd-in" id="relatedStudents"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="user-tool related-teachers">
+                <h2 class="title">
+                    可能感兴趣的老师
+                </h2>
+
+                <div class="content f-cb">
+                    <div class="new-actives" style="margin: 0 auto">
+                        <div class="tab-hd hide">
+                            <span class="step">
+                                <a href="javascript:void(0)" class="prev"><s class="arrow arrow-lthin"><s></s></s></a>
+                                <a href="javascript:void(0)" class="next"><s class="arrow arrow-rthin"><s></s></s></a>
+                            </span>
+                        </div>
+                        <div class="tab-bd">
+                            <div class="tab-bd-in" id="relatedTeachers"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-tool hot-agencies">
+                <h2 class="title">
+                    近期热门学校
+                </h2>
+
+                <div class="content f-cb">
+                    <div class="new-actives" style="margin: 0 auto">
+                        <div class="tab-hd hide">
+                            <span class="step">
+                                <a href="javascript:void(0)" class="prev"><s class="arrow arrow-lthin"><s></s></s></a>
+                                <a href="javascript:void(0)" class="next"><s class="arrow arrow-rthin"><s></s></s></a>
+                            </span>
+                        </div>
+                        <div class="tab-bd">
+                            <div class="tab-bd-in" id="hotAgencies"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*八斗2017活动广告*@
+@if (user != null && user.Id == Model.Id && user.IsStudent())
+{
+    <div id="bottomBlock" data-isstudentindex="StudentIndex"></div>
+}
+
+
+<!--任教历程/就读历程-->
+<script type="text/html" id="agencyTpl">
+    {{each $data as item}}
+    <div class="process-row{{item.statusCss}}" data-aid="{{item.id}}">
+        <div class="process-time">
+            <div class="time-con">
+                <span class="logoimg">
+                    <img src="{{item.logo}}" width="40" height="40" alt="">
+                </span>
+                <span class="school-name f-toe" title="{{item.agencyName}}">
+                    <a href="/agency/{{item.agencyId}}">{{item.agencyName}}</a>
+                </span>
+                <span class="pic">{{item.stageCn}}</span>
+            </div>
+        </div>
+        <div class="process-noyear">
+            {{if item.status==2}}
+            <span>
+                目标学校
+                <i class="iconfont dy-icon-like"></i>
+                <em id="targetCount">0</em>
+            </span>
+            {{else}}
+            <span>{{item.start}}-{{item.end}}</span>
+            {{/if}}
+        </div>
+    </div>
+    {{/each}}
+</script>
+<!--印象贴纸-->
+<script type="text/html" id="impressionTpl">
+    {{each impressions as item}}
+    <div class="sticker-list f-cb" data-sid="{{item.id}}">
+        <div class="f-fl box0 hd {{tagCss[$index]}}">
+            {{if item.supported}}
+            <div class="supported">
+                <span>{{item.supportCount}}</span>
+                <i class="iconfont dy-icon-index-surpport"></i>
+            </div>
+            {{else}}
+            <a class="b-support" data-qid="{{item.id}}" href="javascript:void(0);" title="点击支持">
+                <span>{{item.supportCount}}</span><i class="iconfont dy-icon-index-surpport"></i>
+            </a>
+            {{/if}}
+            <span class="bg-base" title="{{item.content}}">
+                {{#item.content}}
+                {{if item.isOwner}}
+                <i class="hide" title="删除">x</i>
+                {{/if}}
+            </span>
+        </div>
+        <div class="f-fr box1">
+            <div class="user-img-list f-fl">
+                {{each item.supportLast as id}}
+                <a href="/user/{{users[id].code}}" title="{{users[id].name}}" class="d-user">
+                    <img src="{{users[id].avatar}}" width="24" height="24" alt="" />
+                    {{if users[id].level>0}}
+                    <i class="vip vip-normal"></i>
+                    {{/if}}
+                </a>
+                {{/each}}
+            </div>
+            <div class="sticker-list-pop f-fl">
+                <i class="iconfont dy-icon-angleright b-more-supports"></i> <!--dy-icon-anglebottom-->
+                <div class="pop-cont">
+                    <h2>
+                        <a href="/user/{{users[item.creatorId].code}}" class="d-user" title="{{users[item.creatorId].name}}">
+                            <img src="{{users[item.creatorId].avatar}}" width="30" height="30" alt="" />
+                            {{if users[item.creatorId].level>0}}<i class="vip vip-normal"></i>{{/if}}
+                        </a> 添加了印象
+                    </h2>
+                    <span class="close iconfont dy-icon-close"></span>
+
+                    <p class="f-toe">
+                        <b>{{item.supportCount}}</b>人支持了印象：“{{item.content}}”
+                    </p>
+
+                    <div class="list-wrap">
+                        <ul class="ul-name-list">
+                            {{each item.supportList as id}}
+                            <li>
+                                <a href="/user/{{users[id].code}}" title="{{users[id].name}}">
+                                    <div class="d-user-wrap">
+                                        <div class="d-user">
+                                            <img src="{{users[id].avatar}}" width="36" height="36" alt="" />
+                                            {{if users[id].level>0}}<i class="vip vip-normal"></i>{{/if}}
+                                        </div>
+                                    </div>
+                                    <strong>{{users[id].name}}</strong>
+
+                                    <p class="f-toe">{{users[id].agency}}</p>
+                                </a>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hr"></div>
+    </div>
+    {{/each}}
+</script>
+<!--江湖传说-->
+<script type="text/html" id="quotationsTpl">
+    {{each $data as item}}
+    <div class="hot-list f-cb" data-sid="{{item.id}}">
+        <div class="f-fl hd">
+            {{if item.supported}}
+            <div class="supported">
+                <span>{{item.supportCount}}</span>
+                <i class="iconfont dy-icon-index-surpport"></i>
+            </div>
+            {{else}}
+            <a class="b-support" data-qid="{{item.id}}" href="javascript:void(0);" title="点击支持">
+                <span>{{item.supportCount}}</span><i class="iconfont dy-icon-index-surpport"></i>
+            </a>
+            {{/if}}
+        </div>
+        <div class="f-fr main">
+            <div class="tt f-cb">
+                <b>来自</b>
+                <a class="name" href="/user/{{item.userCode}}">{{item.userName}}</a>
+                <div class="d-action">
+                    {{if item.isOwner}}
+                    <i title="删除语录" class="iconfont dy-icon-delete b-delete hide"></i>
+                    {{/if}}
+                    <span title="{{item.creationTime}}">{{item.time}}</span>
+                </div>
+            </div>
+            <div class="hot-content">
+                {{#item.content}}
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+<!--最近来访-->
+<script type="text/html" id="lastVisitTpl">
+    {{each $data as item}}
+    <a title="{{item.name}}" href="/user/{{item.code}}" class="d-user">
+        <img class="lazyload" data-src="{{item.avatar}}" width="36" height="36" alt="" />
+        {{if item.level>0}}
+        <i class="vip vip-normal"></i>
+        {{/if}}
+    </a>
+    {{/each}}
+</script>
+<!--相关教师-->
+<script type="text/html" id="relatedTeachersTpl">
+    <ul>
+        {{each $data as item}}
+        <li>
+            <a title="{{item.name}}" href="/user/{{item.code}}">
+                <div class="d-user">
+                    <img class="lazyload" data-src="{{item.avatar}}" width="36" height="36" alt="" />
+                    {{if item.level>0}}
+                    <i class="vip vip-normal"></i>
+                    {{/if}}
+                </div>
+                <div class="d-info">
+                    <p class="d-name"><span>{{item.name}}</span><small>{{item.subject}}</small></p>
+                    <p class="d-agency">{{item.agency}}</p>
+                </div>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<!--相关学生-->
+<script type="text/html" id="relatedStudentsTpl">
+    <ul>
+        {{each $data as item}}
+        <li>
+            <a title="{{item.name}}" href="/user/{{item.code}}" class="d-user">
+                <img class="lazyload" data-src="{{item.avatar}}" width="36" height="36" alt="" />
+                {{if item.level>0}}
+                <i class="vip vip-normal"></i>
+                {{/if}}
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<!--近期热门-->
+<script type="text/html" id="hotAgenciesTpl">
+    <ul>
+        {{each data as item}}
+        <li>
+            <a title="{{item.name}}" href="/agency/{{item.id}}">
+                <span>{{start + $index+1}}</span>
+                <p>{{item.name}}</p>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<!--支持者-->
+<script type="text/html" id="teacherTpl">
+    {{each $data as item}}
+    <li>
+        <a class="teacher-list" href="user/{{item.code}}">
+            <div class="box1 d-user">
+                <img class="lazyload"
+                     data-src="{{item.avatar}}" alt=""
+                     width="32"
+                     height="32">
+                {{if item.level>0}}
+                <i class="vip vip-normal"></i>
+                {{/if}}
+            </div>
+            <div class="box2">
+                <div class="f-cb">
+                    <strong>{{item.name}}</strong>
+                    <em>{{item.subject}}</em>
+                </div>
+                <p class="f-toe" title="{{item.agency}}">{{item.agency}}</p>
+            </div>
+        </a>
+    </li>
+    {{/each}}
+</script>
+<!--添加贴纸-->
+<script type="text/html" id="addImpressionTpl">
+    <div class="u-dialog impression-wrap">
+        <h3 class="title">
+            添加贴纸<small>{{text}}</small>
+            <button class="ui-dialog-close" i="close" title="cancel">×</button>
+        </h3>
+        <div class="content">
+            <div class="d-tags"></div>
+            <div class="hot-text f-cb">
+                <div class="box1 f-fl">热门印象：</div>
+                <ul class="box2 f-fl f-cb">
+                    {{each list as item}}
+                    <li>{{item}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="f-tar mt10">
+                <button class="dy-btn dy-btn-grey" i="close">取消</button>
+                <button class="dy-btn dy-btn-info" id="submitBtn">确定</button>
+            </div>
+        </div>
+    </div>
+</script>
+<!--添加金句-->
+<script type="text/html" id="addQuotationsTpl">
+    <div class="u-dialog quotations-wrap">
+        <h3 class="title">
+            添加传说<small>{{text}}</small>
+            <button class="ui-dialog-close" i="close" title="cancel">×</button>
+        </h3>
+        <div class="content">
+            <textarea placeholder="江湖传说" name="" class="mb5 wf100" cols="30" maxlength="200" rows="5"></textarea>
+
+            <p class="f-tar dy-result f-db">
+                你还可以输入<em>200</em>个字
+            </p>
+            <div class="f-tar mt10">
+                <button class="dy-btn dy-btn-grey" i="close">取消</button>
+                <button class="dy-btn dy-btn-info" id="submitBtn">确定</button>
+            </div>
+        </div>
+    </div>
+</script>
+
+@if (!isOwner)
+{
+    <script type="text/html" id="noImpressionTpl">
+        <div class="sticker-show">
+            <div class="titile">
+                <h2>@(Model.Name + (Model.IsTeacher() ? "老师" : ""))还没收到印象贴纸，说说你对Ta的印象吧</h2>
+            </div>
+            <div class="content">
+                <div class="d-tags"></div>
+                <div class="hot-text f-cb">
+                    <div class="box1 f-fl">热门印象：</div>
+                    <ul class="box2 f-fl f-cb">
+                        {{each list as item}}
+                        <li>{{item}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="f-tal">
+                    <button class="dy-btn dy-btn-info b-submit">确定</button>
+                </div>
+            </div>
+        </div>
+    </script>
+}
+
+@section css{
+    @Html.CombineLink(
+    "v3/plugs/intro/introjs.css",
+    "v3/plugs/monthPicker/monthPicker.css",
+    "css/font-awesome.css",
+    "v3/css/home/v1/ui-base.css",
+    "v3/css/home/v1/page-user.css")
+}
+@section js{
+    @Html.CombineLink(
+    "v3/plugs/intro/intro.js",
+    "v3/plugs/monthPicker/monthPicker.js",
+    "js/artTemplate.min.js",
+    "v3/plugs/lazysizes/lazysizes.js",
+    "v3/plugs/SuperSlide/jquery.SuperSlide.2.1.js",
+    "js/base/utils.js",
+    "v3/js/home/page-user.js")
+}

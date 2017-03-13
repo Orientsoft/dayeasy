@@ -1,0 +1,260 @@
+@charset "UTF-8";
+/**
+ * Boz
+ * @date    12:31 2016/11/18
+ * 教务管理-2师生画像2
+ */
+.page-group-manage {
+  background: white;
+  padding-bottom: 20px;
+}
+.tab-nav-manage {
+  height: 60px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #dcdcdc;
+}
+.tab-nav-manage li {
+  margin: 20px 30px;
+  color: #666;
+  font-size: 20px;
+  position: relative;
+}
+.tab-nav-manage li.j-li-tab {
+  cursor: pointer;
+}
+.tab-nav-manage li.on:after {
+  display: block;
+  content: ' ';
+  width: 60px;
+  height: 2px;
+  background: #00adf2;
+  position: absolute;
+  top: 38px;
+}
+.tab-nav-manage li.li-border {
+  margin: 20px 0;
+}
+.tab-nav-manage li.li-border span {
+  width: 1px;
+  height: 20px;
+  background: #dcdcdc;
+  display: block;
+  font-size: 12px;
+}
+.tab-nav-manage .new-group {
+  margin-bottom: 0;
+}
+.tab-nav-manage .new-group .dy-btn {
+  position: relative;
+  top: -10px;
+}
+.tab-con-manage {
+  padding: 0 30px;
+}
+.tab-con-manage .dy-table th {
+  color: #999;
+}
+.tab-con-manage .dy-table td {
+  color: #333;
+}
+.tab-con-manage .dy-table th,
+.tab-con-manage .dy-table td {
+  text-align: center;
+  padding: 13px 5px;
+}
+.tab-con-manage .dy-table .total-num {
+  font-weight: 600;
+  padding: 0 3px;
+  color: #ed5565;
+}
+.tab-con-manage .color-red {
+  color: #d9534f;
+}
+.tab-con-manage .wait-on,
+.tab-con-manage .wait-off {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  color: white;
+  padding: 3px 5px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 12px;
+}
+.tab-con-manage .wait-on {
+  background: #5cb85c;
+}
+.tab-con-manage .wait-off {
+  background: #d9534f;
+}
+.operation-list a {
+  color: #999;
+}
+.operation-list a.a01 {
+  color: #3bafda;
+}
+.operation-list a.a01:hover {
+  color: #4fc1e9;
+}
+.operation-list li {
+  float: left;
+  border-right: 1px solid #d3d3d3;
+  padding: 0 10px;
+}
+.operation-list li.first-item {
+  padding-left: 0;
+}
+.operation-list li.last-item {
+  border-right: none;
+}
+/*
+pop style*/
+.esta-group {
+  width: 300px;
+  height: 200px;
+  background: white;
+}
+.esta-group .list-item {
+  margin-bottom: 15px;
+}
+.esta-group .list-item .itme-lable {
+  height: 40px;
+  line-height: 40px;
+}
+/*
+批量创建圈子 POP*/
+.pop-batch-create {
+  background: white;
+  width: 620px;
+  height: 340px;
+}
+.pop-batch-create .itme-list {
+  margin-bottom: 15px;
+}
+.pop-batch-create .itme-list .amend-on.on .classnum {
+  display: none;
+}
+.pop-batch-create .itme-list .amend-on.on .equal-one {
+  display: none;
+}
+.pop-batch-create .itme-input input {
+  width: 33%;
+}
+.pop-batch-create .itme-input input:nth-child(1) {
+  margin-right: 5px;
+}
+.pop-batch-create .itme-input input:nth-child(2) {
+  margin-left: 5px;
+}
+.pop-batch-create .itme-input input.classnum {
+  width: 46px;
+  text-align: center;
+  margin-right: 6px;
+}
+.pop-batch-create .item-label label {
+  line-height: 40px;
+  height: 40px;
+}
+.pop-batch-create .itme-subjects ul {
+  margin-left: -15px;
+  margin-top: 13px;
+}
+.pop-batch-create .itme-subjects li {
+  float: left;
+  margin-bottom: 10px;
+  margin-left: 15px;
+  min-width: 156px;
+}
+.pop-batch-create .itme-subjects .item-form {
+  overflow-y: auto;
+  max-height: 120px;
+}
+.pop-batch-create .input-width {
+  width: 72px;
+}
+/*
+跳过重复圈子，继续创建*/
+.pop-create-confirm {
+  color: #666;
+  width: 290px;
+  background: white;
+}
+.pop-create-confirm .m-title {
+  margin-bottom: 20px;
+}
+.pop-create-confirm .item-title {
+  margin-bottom: 10px;
+}
+.pop-create-confirm .dy-table th,
+.pop-create-confirm .dy-table td {
+  border: 1px solid #dcdcdc;
+  color: #333;
+}
+/*导入 确认提示*/
+.esta-group-success,
+.pop-create-repeat {
+  color: #666;
+  width: 300px;
+  background: white;
+}
+.esta-group-success .dy-table th,
+.pop-create-repeat .dy-table th,
+.esta-group-success .dy-table td,
+.pop-create-repeat .dy-table td {
+  border: 1px solid #dcdcdc;
+  color: #333;
+}
+.esta-group-success .ul-list-name li,
+.pop-create-repeat .ul-list-name li {
+  color: #333;
+  border: 1px solid #dcdcdc;
+  float: left;
+  margin-right: -1px;
+  padding: 4px 10px;
+  margin-bottom: -1px;
+}
+/*
+不能重复导入 提示*/
+.teacher-list .dy-nothing {
+  background-color: #fff;
+  font-size: 22px;
+  line-height: normal;
+  padding: 50px 0;
+}
+.teacher-list .dy-nothing .dy-nothing-content {
+  font-size: 14px;
+}
+.teacher-list .dy-nothing i.iconfont {
+  display: block;
+  font-size: 41px;
+  height: 74px;
+}
+.wrap-file .input-file-text {
+  width: 300px;
+  line-height: 24px;
+  border: 1px solid #4fc1e9;
+  float: left;
+  overflow: hidden;
+  border-right: none;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 5px;
+  color: #999;
+}
+.wrap-file .uploadBtn {
+  float: left;
+}
+.wrap-file:hover {
+  cursor: pointer;
+}
+.wrap-file:hover .input-file-text {
+  border-color: #4fc1e9;
+}
+.wrap-file:hover .uploadBtn {
+  color: #fff;
+  background-color: #4fc1e9;
+  border-color: #4fc1e9;
+}

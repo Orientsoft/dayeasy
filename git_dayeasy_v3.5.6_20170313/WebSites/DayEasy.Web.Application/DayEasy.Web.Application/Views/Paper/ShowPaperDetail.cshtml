@@ -1,0 +1,202 @@
+﻿@using DayEasy.Contracts.Dtos.Question
+@using DayEasy.Contracts.Enum
+@using DayEasy.Paper.Services.Helper
+@using DayEasy.Utility.Extend
+@model DayEasy.Contracts.Dtos.Paper.PaperDetailDto
+
+<div class="included-questions">
+    @if (Model != null)
+    {
+        bool isAb = Model.PaperBaseInfo.PaperType == (byte)PaperType.AB;
+
+        <div class="included-title">
+            <h3>@Model.PaperBaseInfo.PaperTitle<span class="color-bule" id="addAllQuestion">收录全卷</span></h3>
+        </div>
+        <ul class="list-ul mb30" id="paperSectionTypes">
+            <li class="z-sel" data-type="-1">全部</li>
+            @if (Model.PaperSections != null)
+            {
+                var sections = Model.PaperSections.DistinctBy(u => u.SectionQuType).ToList();
+                if (sections.Any())
+                {
+                    List<QuestionTypeDto> qTypes = null;
+                    if (ViewData["questionTypes"] != null)
+                    {
+                        qTypes = ViewData["questionTypes"] as List<QuestionTypeDto>;
+                    }
+
+                    foreach (var qSection in sections)
+                    {
+                        var qType = qTypes == null ? null : qTypes.SingleOrDefault(u => u.Id == qSection.SectionQuType);
+                        if (qType == null)
+                        {
+                            continue;
+                        }
+                        <li data-type="@qType.Id">@qType.Name</li>
+                    }
+                }
+            }
+        </ul>
+
+        <div class="g-topic after" id="questionsDiv">
+            @if (Model.PaperSections != null)
+            {
+                var pSections = Model.PaperSections.GroupBy(u => u.PaperSectionType).OrderBy(u => u.Key).ToList();
+                var sortType = Model.PaperBaseInfo.SortType();
+
+                foreach (var sectionItem in pSections)
+                {
+                    if (isAb)
+                    {
+                        switch (sectionItem.Key)
+                        {
+                            case (byte)PaperSectionType.PaperA:
+                                <h4 class="text-left ml10">A卷</h4>
+                                break;
+                            case (byte)PaperSectionType.PaperB:
+                                <h4 class="mt30 text-left ml10">B卷</h4>
+                                break;
+                        }
+                    }
+
+                    var quSections = sectionItem.OrderBy(u => u.Sort).ToList();
+                    foreach (var quSection in quSections)
+                    {
+                        if (quSection.Questions == null || quSection.Questions.Count <= 0)
+                        {
+                            continue;
+                        }
+
+                        foreach (var question in quSection.Questions)
+                        {
+                            var qItem = question.Question;
+
+                            <div class="q-item q-item-border col-md-12 col-xs-12 after qtype-@qItem.Type">
+                                <div class="col-md-12 col-xs-12 f-qitem" data-qid="@qItem.Id">
+                                    @PaperHelper.ShowQuestion(qItem, paperSectionType: question.PaperSectionType, sortType: sortType)
+                                    <div class="g-mark" title="">
+                                        <span class="sprite-4 g-icon-15" data-type="@qItem.Type" data-qid="@qItem.Id"></span>
+                                    </div>
+                                </div>
+                                <div class="q-footer col-md-12 col-xs-12">
+                                    <div class="after hide">
+                                        <div class="col-md-12 col-xs-12 pl0 mt10">
+                                            <div class="col-md-12">
+                                                <label class="pull-left">答　案：</label>
+                                                <div class="col-md-10 pl0">@PaperHelper.ShowAnswer(qItem)</div>
+                                            </div>
+                                        </div>
+                                        @if (qItem.Tags != null)
+                                        {
+                                            <div class="col-md-12 col-xs-12 pl0 mt10">
+                                                <div class="col-md-12">
+                                                    <label class="pull-left">标　签：</label>
+                                                    <div class="col-md-10 pl0">
+                                                        @foreach (var tag in qItem.Tags)
+                                                        {
+                                                            <div class="d-tag">
+                                                                <span class="ng-binding">@tag</span>
+                                                                <em></em>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        <div class="col-md-12 col-xs-12  pl0 mt10 ">
+                                            <div class="col-md-12">
+                                                <div class="col-md-3 col-xs-4 pl0 pr0">
+                                                    <label>错误率：</label>
+                                                    <span>
+                                                        @if (qItem.AnswerCount == 0)
+                                                        {
+                                                            @:0%
+                                                        }
+                                                        else
+                                                        {
+                                                            @(((double)qItem.ErrorCount / qItem.AnswerCount).ToString("P"))
+                                                        }
+                                                    </span>
+                                                </div>
+                                                <div class="col-md-3 col-xs-4 pl0 pr0">
+                                                    <label>使用次数：</label>
+                                                    <span>@qItem.UseCount</span>
+                                                </div>
+                                                @*<div class="text-right">
+                                                        <i class="fa fa-user"></i>
+                                                        <span class="ng-binding">@qItem.UserName</span>
+                                                    </div>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xs-12 mt10 f-alwaysshow">
+                                        <div class="col-md-10">
+                                            <label>知识点：</label>
+                                            @if (qItem.Knowledges != null)
+                                            {
+                                                var chooseKp = string.Empty;
+                                                if (ViewData["kp"] != null)
+                                                {
+                                                    chooseKp = ViewData["kp"].ToString();
+                                                }
+
+                                                foreach (var kp in qItem.Knowledges)
+                                                {
+                                                    <span class="q-point-item pl5 pr5" @(!string.IsNullOrEmpty(chooseKp) && kp.Id.StartsWith(chooseKp) ? "style=background:#fcb66f;color:#ffffff;" : "")>
+                                                        @kp.Name
+                                                    </span>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="col-sm-offset-1 col-md-1 col-xs-1 pl0 pr0">
+                                            <div class="g-gduo f-showmore">
+                                                <span>更多</span>
+                                                <i class="sprite-3 g-icon_13"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                }
+            }
+        </div>
+    }
+    else
+    {
+        <div class="included-title">
+            没有找到该试卷的题目！
+        </div>
+    }
+    <a class="btn btn-info posa" href="javascript:void(0);" id="btn_backList">
+        <i class=" glyphicon glyphicon-chevron-left"></i>
+        返回列表
+    </a>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        singer.loadFormula();
+
+        $("#paperSectionTypes li").click(function () {
+            $(this).addClass("z-sel").siblings().removeClass("z-sel");
+
+            var type = $(this).data('type');
+            if (type == "-1") {
+                $("#questionsDiv").children('div').removeClass('hide');
+            } else {
+                $("#questionsDiv").children('div').addClass('hide');
+                $(".qtype-" + type).removeClass("hide");
+            }
+        });
+
+        $(".f-showmore").click(function () {
+
+            $(this).children('i').toggleClass("g-icon_13 g-icon_1");
+            $(this).parents("div.f-alwaysshow").prev('div').toggleClass('hide');
+        });
+    });
+</script>

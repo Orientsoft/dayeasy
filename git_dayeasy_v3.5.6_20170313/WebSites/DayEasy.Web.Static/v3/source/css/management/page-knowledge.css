@@ -1,0 +1,12 @@
+.d-knowledges {
+  background-color: #fff;
+  border: 1px solid #eee;
+  padding: 5px 0;
+  position: absolute;
+  width: 100%;
+}
+.d-knowledges .d-knowledge-item {
+  cursor: pointer;
+  line-height: 24px;
+  padding: 0 8px;
+}

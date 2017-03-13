@@ -1,0 +1,112 @@
+/**
+ * Created by Boz on 2016/5/20.
+ * work  成绩分析
+ */
+@import "../base";
+
+
+/*成绩分析*/
+
+.work-score-paper {
+  .d-h2 {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 13px;
+    }
+  font-size: 14px;
+  .d-chengji {
+    margin: 15px 20px 20px;
+    border: 1px solid #eee;
+    padding: 9px 0;
+    height: 70px;
+    dl {
+      float: left;
+      width: 33.3333%;
+      margin-bottom: 0;
+      margin-top: 0;
+      text-align: center;
+      &.before-box-5{ width: 20%;}
+      }
+
+    dt { color: #999; }
+    dd { color: #3bafda; font-size: 18px; margin-top: 0; }
+    .d-before {
+      position: relative;
+      &:before {
+        background-color: #eee;
+        height: 40px;
+        width: 1px;
+        content: ' ';
+        position: absolute;
+        top: 5px;
+        right: 0;
+        }
+      }
+    }
+
+  /*扫描试卷分析-答题卡 Answer sheet*/
+  .d-dati-ka{
+    margin: 0 20px 20px;
+    .dati-ka-href{
+      height: 22px;
+      a{
+        .inline-block;
+        margin-right: 20px;
+        .iconfont{
+          font-size: 20px;
+          margin-right: 10px;
+          position: relative;
+          top: 2px;
+          }
+        }
+      }
+    }
+  //填空题
+  .d-fenshuduan {
+    padding: 0px 20px;
+    margin-bottom: 20px;
+    }
+  //薄弱知识点
+  .d-boruo-knowledge {
+    margin: 0px 20px 20px;
+    .dy-table {
+      th:nth-child(1), td:nth-child(1) { text-align: left; }
+      }
+    }
+
+  }
+
+/* media */
+/* 横屏 */
+@media screen and (orientation: landscape) {
+
+  }
+
+/* 竖屏 */
+@media screen and (orientation: portrait) {
+
+  }
+
+/* 窗口宽度<960,设计宽度=768 */
+@media screen and (max-width: 959px) {
+  .group-list-title { width: 658px; }
+  }
+
+/* 窗口宽度<768,设计宽度=640 */
+@media screen and (max-width: 767px) {
+  .group-list-title { width: 530px; }
+  }
+
+/* 窗口宽度<640,设计宽度=480 */
+@media screen and (max-width: 639px) {
+  .group-list-title { width: 382px; }
+  }
+
+/* 窗口宽度<480,设计宽度=320 */
+@media screen and (max-width: 479px) {
+  .group-list-title { width: 220px; }
+  }
+
+.dati-ka-href{
+  .dyui-nothing{ border: 1px solid #eee;}
+  }

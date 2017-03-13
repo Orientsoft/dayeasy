@@ -1,0 +1,46 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2015/11/16  Last Mondify Date:2015/11/16
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+/** MAIN STYLE **/
+.page-nonumber {
+  background: white;
+  padding: 30px 30px 0 30px;
+}
+.page-nonumber .h3-nonumber {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+.page-nonumber .list-nonumber li {
+  float: left;
+  width: 190px;
+  height: 32px;
+  position: relative;
+  padding-left: 48px;
+  margin-bottom: 30px;
+}
+.page-nonumber .list-nonumber li img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+.page-nonumber .list-nonumber li span {
+  margin-top: 8px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.htmleaf-container .slider {
+  left: 600px;
+}

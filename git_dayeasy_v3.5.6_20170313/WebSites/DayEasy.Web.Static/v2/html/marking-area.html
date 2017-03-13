@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>手机拍照图片</title>
+    <link rel="stylesheet" href="//static.deyi.com/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <style>
+        html, body {
+            background-color: #eee;
+        }
+
+        .container {
+            width: 780px
+        }
+
+        .d-header {
+            background-color: #666;
+            color: #eee;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            height: 45px;
+            font-size: 16px;
+            text-align: center;
+            line-height: 45px;
+            z-index: 888;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .d-prev, .d-next {
+            position: fixed;
+            top: 45%;
+            font-size: 64px;
+            cursor: pointer;
+        }
+
+        .d-prev {
+            left: 25px;
+            display: none;
+        }
+
+        .d-next {
+            right: 25px;
+        }
+    </style>
+    <script src="../js/singer.min.js"></script>
+</head>
+<body>
+<header class="d-header">
+    <div class="d-current">
+        <span>当前试卷：</span>
+        <span class="j-name"></span>
+    </div>
+</header>
+<div class="container">
+    <div class="image-map">
+        <img src="" alt="试卷"/>
+    </div>
+    <div class="d-prev">
+        <i class="fa fa-angle-left" title="上一张"></i>
+    </div>
+    <div class="d-next">
+        <i class="fa fa-angle-right" title="下一张"></i>
+    </div>
+</div>
+<script src="../js/jquery.min.js"></script>
+<script src="../source/plugs/Jq-areaSelect.js"></script>
+<script>
+    (function (S, $) {
+//        var images = [
+//            {name: '红米1s', url: 'http://file.dayez.net/image/hm1s.jpg'},
+//            {name: '红米2s', url: 'http://file.dayez.net/image/hms2.jpg'},
+//            {name: '华为荣耀', url: 'http://file.dayez.net/image/hwry.jpg'},
+//            {name: 'iphone4', url: 'http://file.dayez.net/image/iphone4.jpg'},
+//            {name: 'iphone6', url: 'http://file.dayez.net/image/iphone6.jpg'},
+//            {name: '小米3', url: 'http://file.dayez.net/image/mi3.jpg'},
+//            {name: '小米4', url: 'http://file.dayez.net/image/mi4.jpg'},
+//            {name: '魅蓝note', url: 'http://file.dayez.net/image/mlnote.jpg'},
+//            {name: '中兴U807', url: 'http://file.dayez.net/image/zxu807.jpg'}
+//        ];
+//        var initPoints = [{
+//            'x': 49.5,
+//            'y': 224,
+//            'width': 81.5,
+//            'height': 34,
+//            'num': '11',
+//            'id': undefined,
+//            'index': '11',
+//            't': true
+//        }, {
+//            'x': 133.5,
+//            'y': 226,
+//            'width': '63.5',
+//            'height': '33',
+//            'num': '12',
+//            'id': undefined,
+//            'index': '12',
+//            't': true
+//        }, {
+//            'x': 199.5,
+//            'y': 226,
+//            'width': '82.5',
+//            'height': '32',
+//            'num': '13',
+//            'id': undefined,
+//            'index': '13',
+//            't': true
+//        }, {
+//            'x': 282.5,
+//            'y': 227,
+//            'width': '74.5',
+//            'height': '33',
+//            'num': '14',
+//            'id': undefined,
+//            'index': '14',
+//            't': true
+//        }, {
+//            'x': 358.5,
+//            'y': 231,
+//            'width': '398.5',
+//            'height': '32',
+//            'num': '15',
+//            'id': undefined,
+//            'index': '15',
+//            't': true
+//        }, {
+//            'x': 55.5,
+//            'y': 275,
+//            'width': '709.5',
+//            'height': '159',
+//            'num': '16',
+//            'id': undefined,
+//            'index': '16',
+//            't': false
+//        }, {
+//            'x': 54.5,
+//            'y': 444,
+//            'width': '710.5',
+//            'height': '159',
+//            'num': '17',
+//            'id': undefined,
+//            'index': '17',
+//            't': false
+//        }, {
+//            'x': 55.5,
+//            'y': 613,
+//            'width': '709.5',
+//            'height': '148',
+//            'num': '18',
+//            'id': undefined,
+//            'index': '18',
+//            't': false
+//        }, {
+//            'x': 53.5,
+//            'y': 771,
+//            'width': '711.5',
+//            'height': '249',
+//            'num': '19',
+//            'id': undefined,
+//            'index': '19',
+//            't': false
+//        }];
+        var images = [
+                    {name: 'iphone6', url: 'http://file.dayez.net/image/iphone6_1.png'},
+                    {name: 'iphone6', url: 'http://file.dayez.net/image/iphone6_2.png'},
+                    {name: 'iphone6', url: 'http://file.dayez.net/image/iphone6_5.png'},
+                    {name: 'iphone6', url: 'http://file.dayez.net/image/iphone6_6.png'},
+                    {name: 'iphone6', url: 'http://file.dayez.net/image/iphone6_8.png'},
+                    {name: 'iphone6', url: 'http://file.dayez.net/image/iphone6_11.jpg'},
+                    {name: 'iphone6', url: 'http://file.dayez.net/image/iphone6_12.jpg'},
+                    {name: 'iphone6', url: 'http://file.dayez.net/image/iphone6_13.jpg'},
+                    {name: '小米4', url: 'http://file.dayez.net/image/mi4_1.jpg'},
+                    {name: '小米4', url: 'http://file.dayez.net/image/mi4_2.jpg'},
+                    {name: '小米4', url: 'http://file.dayez.net/image/mi4_3.png'},
+                    {name: '小米4', url: 'http://file.dayez.net/image/mi4_4.jpg'},
+                    {name: '小米3', url: 'http://file.dayez.net/image/mi3_001.jpg'},
+                    {name: '荣耀', url: 'http://file.dayez.net/image/ry_01.jpg'}
+                ],
+                initPoints = [];
+
+        var $map = $('.image-map'),
+                $img = $map.find('img'),
+                showing = false;
+        S._mix(S, {
+            makeThumb: function (url, width, height) {
+                if (!url || (!width && !height))
+                    return url;
+                width = width || 'size';
+                height = height || 'size';
+                return url.replace(/(\.[a-z]+)$/gi, S.format('_s{0}x{1}', width, height) + '$1');
+            },
+            setImage: function (imageIndex) {
+                imageIndex = imageIndex || 0;
+                if (imageIndex == 0) {
+                    $('.d-prev').hide();
+                    $('.d-next').show();
+                }
+                else if (imageIndex >= images.length - 1) {
+                    $('.d-prev').show();
+                    $('.d-next').hide();
+                } else {
+                    $('.d-prev,.d-next').show();
+                }
+                var item = images[imageIndex];
+                $img.attr('src', S.makeThumb(item.url, 780))
+                        .bind('load', function () {
+                            $(this).areaSelect({
+                                initAreas: initPoints,
+                                deleteMethod: '',//or click
+                                padding: 3,
+                                area: {strokeStyle: '#d9534f', lineWidth: 2},
+                                point: {size: 4, fillStyle: '#d9534f', type: 'rect'},
+                                create: false,
+                                drag: true
+                            });
+                        });
+                $('.j-name').html(item.name);
+            }
+        });
+        S.setImage();
+        var
+                logger = S.getLogger('marking-area'),
+                index = 0,
+                pageIndex = 0,
+                point = {"x": 0, "y": 0, "width": 120, "height": 45},
+                points = [],
+                paddingTop = 20,
+                paddingLeft = 10,
+                bounds = 15,
+                tkWidth = 230,
+                paperWidth = 780,
+                indexList = [
+                    {index: 11, t: true},
+                    {index: 12, t: true},
+                    {index: 13, t: true},
+                    {index: 14, t: true},
+                    {index: 15, t: true},
+                    {index: 16, t: false},
+                    {index: 17, t: false},
+                    {index: 18, t: false},
+                    {index: 19, t: false}
+                ];
+        $(document)
+                .delegate("canvas", "click", function (e) {
+                    if (points.length >= indexList.length) {
+                        return;
+                    }
+                    //组织拖动点击
+                    if ($img.data('AreaSelect').status != 'create') {
+//                        logger.info('鼠标移动：' + mouseMoved);
+                        return;
+                    }
+                    var $t = $(this),
+                            sp = $.extend({}, point),
+                            offset = $t.offset(),
+                            $index = indexList[index],
+                            prev;
+                    if (index > 0) {
+                        prev = points[index - 1];
+                    }
+                    sp.x = e.clientX - offset.left - paddingLeft;
+                    sp.y = e.clientY - offset.top - paddingTop + $(window).scrollTop();
+                    sp.width = paperWidth - sp.x - bounds;
+                    //只能向下标记
+                    if (prev && sp.y < prev.y - point.height) {
+                        S.msg("坐标点不能高于上一个点！");
+                        return;
+                    }
+                    var data = $index;
+                    if (data.t) {
+                        if (paperWidth - sp.x < tkWidth)
+                            sp.width = paperWidth - sp.x - 5;
+                        else
+                            sp.width = tkWidth;
+                    } else {
+                        if (index > 0) {
+                            !prev.t && (prev.height = sp.y - prev.y - 10);
+                        }
+                    }
+                    if (index == indexList.length - 1) {
+                        sp.height = $t.height() - sp.y - 20;
+                    }
+                    //区域判断
+                    if ($.inArea(sp, points)) {
+                        S.msg("标记区域发生重叠，请调整！");
+                        return;
+                    }
+                    sp.num = $index.index;
+                    $img.areaSelect('add', sp);
+                    sp.id = data.id;
+                    sp.index = data.index;
+                    sp.t = data.t;
+                    points.push(sp);
+                    logger.info(S.json(points));
+                    index++;
+                    //标记完成
+                    if (index >= indexList.length) {
+                        $t.unbind('click.areaSelect');
+                        $('.j-finish').removeClass('disabled').removeAttr('disabled');
+                        $map.find('canvas').css('cursor', 'default');
+                        //return;
+                    }
+                })
+                .delegate('.d-prev', 'click', function () {
+                    S.setImage(--pageIndex);
+                })
+                .delegate('.d-next', 'click', function () {
+                    S.setImage(++pageIndex);
+                })
+                .bind('keyup', function (e) {
+                    logger.info(e.keyCode);
+                    switch (e.keyCode) {
+                        case 37:
+                            if (pageIndex <= 0)
+                                return false;
+                            S.setImage(--pageIndex);
+                            break;
+                        case 39:
+                            if (pageIndex >= images.length - 1)
+                                return false;
+                            S.setImage(++pageIndex);
+                            break;
+                    }
+                });
+
+    })(SINGER, jQuery);
+</script>
+</body>
+</html>

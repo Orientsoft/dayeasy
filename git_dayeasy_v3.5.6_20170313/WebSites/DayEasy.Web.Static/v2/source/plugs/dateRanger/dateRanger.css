@@ -1,0 +1,70 @@
+﻿.ui-rangeSlider {
+    height: 22px;
+}
+
+    .ui-rangeSlider .ui-rangeSlider-innerBar {
+        height: 10px;
+        margin: 3px 6px;
+        background: #ebebeb;
+        border-radius: 6px;
+    }
+
+    .ui-rangeSlider .ui-rangeSlider-handle {
+        width: 17px;
+        height: 17px;
+        background: #AAA;
+        background: rgba(100,100,100, 0.3);
+        cursor: col-resize;
+        background: url('./image/icon-sel.png') 0 0 no-repeat;
+    }
+
+    .ui-rangeSlider .ui-rangeSlider-bar {
+        margin: 1px 0;
+        background: #CCC;
+        background: #7fd4ff;
+        height: 15px;
+        cursor: move;
+        cursor: grab;
+        cursor: -moz-grab;
+    }
+
+        .ui-rangeSlider .ui-rangeSlider-bar.ui-draggable-dragging {
+            cursor: -moz-grabbing;
+            cursor: grabbing;
+        }
+
+.ui-rangeSlider-arrow {
+    height: 16px;
+    margin: 2px 0;
+    width: 16px;
+    background-repeat: no-repeat;
+}
+
+.ui-rangeSlider-arrow-inner {
+    display: none;
+}
+
+.ui-rangeSlider-container {
+    height: 22px;
+}
+
+.ui-rangeSlider-withArrows .ui-rangeSlider-container {
+    margin: 0 11px;
+}
+
+.ui-rangeSlider-noArrow .ui-rangeSlider-container {
+    margin: 0;
+}
+
+.ui-rangeSlider-label {
+    margin: 0 2px 2px;
+    background-repeat: no-repeat;
+    white-space: nowrap;
+    bottom: -26px;
+    padding: 3px 6px 7px;
+    cursor: col-resize;
+}
+
+.ui-rangeSlider-label-inner {
+    display: none;
+}

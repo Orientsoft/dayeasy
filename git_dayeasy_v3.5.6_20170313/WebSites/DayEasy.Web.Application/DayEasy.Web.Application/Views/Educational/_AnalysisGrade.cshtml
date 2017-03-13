@@ -1,0 +1,121 @@
+﻿@model DayEasy.Contracts.Dtos.Examination.ExamRanksDto
+<div class="dy-ranks">
+    <div class="dy-actions">
+        <select class="b-class-list">
+            <option value="-1">全部班级</option>
+            @foreach (var cls in Model.Students.GroupBy(t => t.ClassId))
+            {
+                <option value="@cls.Key">@cls.First().ClassName</option>
+            }
+        </select>
+        <div class="input-group btn-search">
+            <input type="text" placeholder="学生姓名" />
+            <i class="iconfont dy-icon-26"></i>
+        </div>
+    </div>
+    <div class="dy-statistic">
+        <span>总人数：<strong>@Model.StudentCount</strong></span>
+        <span>平均分：<strong>@Model.AverageScore.ToString("0.#")</strong></span>
+    </div>
+    <div class="dy-table-wrap">
+        @{
+            var width = 470 + Model.Subjects.Sum(s => s.Value.Count) * 70;
+            width = Math.Max(width, 1140);
+        }
+        <div class="dy-table-head">
+            <table class="dy-table" style="width: @(width + "px")">
+                <colgroup>
+                    <col style="width: 110px" />
+                    <col style="width: 80px" />
+                    <col style="width: 140px" />
+                    <col style="width: 140px" />
+                    @foreach (var subject in Model.Subjects)
+                    {
+                        <col style="width: @(subject.Value.Count*70)px" />
+                    }
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>得一号</th>
+                        <th>班级</th>
+                        <th class="th-group">
+                            <div class="d-table-group">
+                                <span>排名</span>
+                                <span>总分</span>
+                            </div>
+                        </th>
+                        @{
+                            foreach (var subject in Model.Subjects)
+                            {
+                                <th class="th-group">
+                                    <div class="d-table-group col@(subject.Value.Count())">
+                                        @foreach (var item in subject.Value)
+                                        {
+                                            <span>@item</span>
+                                        }
+                                    </div>
+                                </th>
+                            }
+                        }
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="dy-table-body">
+            <table class="dy-table" style="width: @(width + "px")">
+                <colgroup>
+                    <col style="width: 110px" />
+                    <col style="width: 80px" />
+                    <col style="width: 140px" />
+                    <col style="width: 70px" />
+                    <col style="width: 70px" />
+                    @for (var i = 0; i < Model.Subjects.Sum(s => s.Value.Count); i++)
+                    {
+                        <col style="width: 70px" />
+                    }
+                </colgroup>
+                <tbody>
+                    @foreach (var rank in Model.Students)
+                    {
+                        <tr data-class="@rank.ClassId" data-student="@rank.Name">
+                            <td>@rank.Name</td>
+                            <td>@rank.UserCode</td>
+                            <td>@rank.ClassName</td>
+                            <td>@(rank.Rank < 0 ? "-" : rank.Rank.ToString())</td>
+                            <td>@(rank.Score < 0 ? "-" : rank.Score.ToString("0.#"))</td>
+                            @foreach (var subject in Model.Subjects)
+                            {
+                                if (!rank.ScoreDetails.ContainsKey(subject.Key))
+                                {
+                                    continue;
+                                }
+                                var detail = rank.ScoreDetails[subject.Key];
+                                <td>
+                                    @(detail.ScoreA < 0 ? "-" : detail.ScoreA.ToString("0.#"))
+                                </td>
+                                if (subject.Value.Count == 4)
+                                {
+                                    <td>@(detail.ScoreB < 0 ? "-" : detail.ScoreB.ToString("0.#"))</td>
+                                }
+                                <td>@(detail.Score < 0 ? "-" : detail.Score.ToString("0.#"))</td>
+                                <td>@(detail.Rank < 0 ? "-" : detail.Rank.ToString("0.#"))</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="dy-table-foot">
+            <table class="dy-table">
+                <tfoot>
+                    <tr>
+                        <th style="padding-left: 15px">
+                            共<strong>@Model.StudentCount</strong>条数据
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

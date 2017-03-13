@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DayEasy.Contracts.Dtos.Paper.TopicPaperDto>
+
+
+<input type="hidden" value="@ViewData["paperIds"]" id="paperIds" />
+<input type="hidden" value="@ViewData["kpData"]" id="kpData" />
+<table class="table title-table">
+    <tbody>
+        <tr>
+            <th width="70%">
+                试卷标题
+            </th>
+            <th width="30%">
+                题目数
+            </th>
+        </tr>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var paper in Model)
+            {
+                <tr data-pid="@paper.PaperId" class="pointer">
+                    <td>@paper.PaperName</td>
+                    <td>
+                        @paper.QuestionCount
+
+                        @if (ViewData["paperIds"] != null)
+                        {
+                            <span>
+                                （<span class="color-orange" id="num_@paper.PaperId">0</span> <span class="color-orange">道</span>相关知识点）
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@if (Model == null || !Model.Any())
+{
+    <p>没有找到相关试卷，改变搜索条件试试！</p>
+}
+
+<div class="d-pager pt10">
+    @Html.ShowAjaxPager(Convert.ToInt32(Request["pageIndex"]), 20, Convert.ToInt32(ViewData["totalCount"]), "paperDataDiv", 5)
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var color;
+        
+        $("table.title-table tr:not(:first)").hover(function () {
+            color = $(this).css("background");
+            $(this).css("background", "#fafafa");
+        }, function () {
+            $(this).css("background", color).css("color", "");
+        });
+
+        //请求试卷问题包含知识点的题目数量
+        var paperIds = $("#paperIds").val();
+        var kp = $("#kpData").val();
+        if ($.trim(paperIds) && $.trim(kp)) {
+            $.post('@Url.Action("GetPaperKpCount","Paper")', { paperIds: paperIds, kp: kp }, function (res) {
+                if (res && res.length > 0) {
+                    $.each(res, function (index, item) {
+                        $("#num_" + item.QId).text(item.Count);
+                    });
+                }
+            });
+        }
+    });
+</script>

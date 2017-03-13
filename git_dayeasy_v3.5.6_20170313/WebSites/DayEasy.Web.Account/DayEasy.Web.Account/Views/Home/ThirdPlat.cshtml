@@ -1,0 +1,82 @@
+﻿@using DayEasy.ThirdPlatform.Entity.Config
+@model IEnumerable<byte>
+@{
+    ViewBag.Title = "账号关联 - 管理中心";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    bool hasAccount = false, tencent = false, weibo = false;
+    if (Model != null)
+    {
+        hasAccount = Model.Any();
+        tencent = Model.Contains((byte)PlatformType.Tencent);
+        weibo = Model.Contains((byte)PlatformType.Weibo);
+    }
+}
+
+<div class="login-main f-fr login-setup" data-type="@Model">
+    <!-- login-setup 个人设置基本信息 -->
+    <div class="conter-warp">
+        <div class="g-conter">
+            <div class="public ">
+                <h2>账号关联</h2>
+                <div class="after associated-account">
+                    <div class="p1">关联第三方账号可以直接登录我的得一</div>
+                    <div class="f-fl">
+                        <div class="account-qq">
+                            <i class="icon-related icon-deyi"></i>
+                            <span class="f-posr icon-related icon-about">
+                                <button class="btn @(tencent ? "btn-danger" : "btn-info")" data-binded="@(tencent ? 1 : 0)" data-has="@(hasAccount ? 1 : 0)" data-type="@((byte) PlatformType.Tencent)">
+                                    @(tencent ? "解除关联" : "关联账号")
+                                </button>
+                            </span>
+                            <i class="icon-related @(tencent ? "icon-qqhv" : "icon-qq")"></i>
+                        </div>
+                    </div>
+                    <!--
+                        <div class="f-fr">
+                        <div class="account-sina">
+                            <i class="icon-related icon-deyi"></i>
+                            <span class="f-posr icon-related icon-about">
+                                    <button class="btn btn-info" data-binded="@(weibo ? 1 : 0)" data-type="@((byte) PlatformType.Weibo)">
+                                        @(weibo ? "解除关联" : "关联账号")
+                                    </button>
+                                </span>
+                            <i class="icon-related @(weibo ? "icon-xinahv" : "icon-xina")"></i>
+                        </div>
+                    </div>
+                        -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section script{
+    <script type="text/javascript">
+        $(function ($) {
+            //绑定、解绑
+            $(".btn").bind("click", function () {
+                var binded = $(this).data("binded"),
+                    type = $(this).data("type");
+                if (!binded) {
+                    window.location.href = "/plat/bind/" + type;
+                } else {
+                    if (!$(this).data("has")) {
+                        singer.msg("请先设置登录邮箱，及密码后再解除绑定");
+                        return;
+                    }
+                    singer.confirm("确定要解除绑定吗？", function () {
+                        $.post("/plat/unbind", { type: type }, function (json) {
+                            if (json.status) {
+                                singer.msg("操作成功", 1000, function () {
+                                    window.location.reload();
+                                });
+                            } else {
+                                singer.msg(json.message);
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+}

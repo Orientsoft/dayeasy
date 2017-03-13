@@ -1,0 +1,162 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2016/8/18 14:23
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+/* Style for our header texts
+	* --------------------------------------- */
+.dy-wrap {
+  background: url(/v3/image/index/bg0.jpg) repeat-y transparent;
+  position: relative;
+}
+.f-toe {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+  border-width: 2px;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #e6e9ed;
+}
+.page-checkbox-school {
+  top: 50%;
+  left: 50%;
+  width: 560px;
+  height: 580px;
+  position: absolute;
+  margin-top: -290px;
+  margin-left: -290px;
+}
+.page-checkbox-school .head-title {
+  margin-bottom: 40px;
+  text-align: center;
+}
+.page-checkbox-school .head-title h1 {
+  font-size: 30px;
+  color: #666;
+  margin-bottom: 20px;
+}
+.page-checkbox-school .head-title p {
+  font-size: 18px;
+  color: #999;
+}
+.checkbox-school-text {
+  position: relative;
+}
+.checkbox-school-text select {
+  width: 100px;
+}
+.checkbox-school-text input {
+  width: 300px;
+}
+.checkbox-school-text label {
+  height: 40px;
+  line-height: 40px;
+  color: #666;
+  width: 100px;
+  text-align: right;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.checkbox-school-text .li-1 {
+  margin-bottom: 20px;
+}
+.checkbox-school-text .li-2 {
+  margin-bottom: 30px;
+  float: left;
+}
+.checkbox-school-text .li-3 {
+  float: left;
+  margin-left: -4px;
+}
+.checkbox-school-text .li-4 {
+  text-align: center;
+  margin-bottom: 50px;
+  clear: both;
+}
+.checkbox-school-text .li-5 {
+  color: #999;
+  font-size: 16px;
+  text-align: center;
+}
+.checkbox-school-text .li-6,
+.checkbox-school-text .li-7,
+.checkbox-school-text .li-8,
+.checkbox-school-text .li-9 {
+  position: absolute;
+  padding-left: 60px;
+  width: 180px;
+}
+.checkbox-school-text .li-6 a,
+.checkbox-school-text .li-7 a,
+.checkbox-school-text .li-8 a,
+.checkbox-school-text .li-9 a {
+  color: #999;
+}
+.checkbox-school-text .li-6 img,
+.checkbox-school-text .li-7 img,
+.checkbox-school-text .li-8 img,
+.checkbox-school-text .li-9 img {
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  position: absolute;
+  top: -5px;
+  left: 0;
+}
+.checkbox-school-text .li-6 strong,
+.checkbox-school-text .li-7 strong,
+.checkbox-school-text .li-8 strong,
+.checkbox-school-text .li-9 strong {
+  display: block;
+  margin-bottom: 8px;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
+.checkbox-school-text .li-6 p,
+.checkbox-school-text .li-7 p,
+.checkbox-school-text .li-8 p,
+.checkbox-school-text .li-9 p {
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
+.checkbox-school-text .li-6 {
+  bottom: -80px;
+  left: 11px;
+}
+.checkbox-school-text .li-7 {
+  bottom: -60px;
+  right: 11px;
+}
+.checkbox-school-text .li-8 {
+  bottom: -196px;
+  left: 64px;
+}
+.checkbox-school-text .li-9 {
+  bottom: -162px;
+  right: 50px;
+}

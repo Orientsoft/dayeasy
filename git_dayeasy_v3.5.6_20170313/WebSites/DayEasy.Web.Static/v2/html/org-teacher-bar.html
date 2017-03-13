@@ -1,0 +1,12 @@
+﻿<div class="title">
+    <span class="glyphicon glyphicon-home"></span>
+    班级管理
+</div>
+<div>
+    <a href="{{singer.sites.org+'/teacher/'}}" ng-if="info.index!=1">班级列表</a>
+    <span class="active" ng-if="info.index==1">班级列表</span>
+</div>
+<div>
+    <a href="{{singer.sites.org+'/teacher/check'}}" ng-if="info.index!=2">审核学生</a>
+    <span class="active" ng-if="info.index==2">审核学生</span>
+</div>

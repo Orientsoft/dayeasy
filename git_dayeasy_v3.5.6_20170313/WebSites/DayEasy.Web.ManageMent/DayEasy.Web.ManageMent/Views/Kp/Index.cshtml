@@ -1,0 +1,194 @@
+﻿@using DayEasy.Utility.Extend
+@model List<TS_Knowledge>
+@{
+    ViewBag.Title = "知识点管理";
+    var paths = ViewData["paths"] as Dictionary<int, Dictionary<int, string>>;
+    var baseUrl = "keyword".SetQuery(string.Empty);
+}
+
+<div>
+    <div class="row mt20">
+        <div class="col-sm-12 pl0">
+            <form method="GET" action="@Url.Action("Index", "Kp")" id="searchForm">
+                <div class="col-sm-2 pl0">
+                    @Html.DropDownList("stage", ViewData["stages"] as List<SelectListItem>, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-2 pl0">
+                    @Html.DropDownList("subjectId", ViewData["subjects"] as List<SelectListItem>, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <input type="text" value="@Request["keyword"]" placeholder="名称" class="form-control" name="keyword">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit" id="btn_submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <a class="btn btn-blue" href="@(Url.Action("MoveList"))">转移列表</a>
+                    <span class="btn btn-blue" id="btn-add">
+                        <i class="fa fa-plus"></i>
+                        添加顶级
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row mt20 k-list">
+        当前位置： <a href="@("parentId".SetQuery(0,baseUrl))">顶级</a>&nbsp;/
+        @{
+            var pKps = ViewData["parents"] as Dictionary<int, string>;
+            if (pKps != null && pKps.Keys.Count > 0)
+            {
+                int count = 0;
+                foreach (var key in pKps.Keys)
+                {
+                    count++;
+                    if (count == pKps.Count)
+                    {
+                        @:@pKps[key]
+                    }
+                    else
+                    {
+                        @:<a href="@("parentId".SetQuery(key))">@pKps[key]</a>&nbsp;/
+                    }
+                }
+            }
+        }
+    </div>
+    <div class="row mt10">
+        <table class="table table-hover table-bordered">
+            <colgroup>
+                <col />
+                <col style="width: 8em" />
+                <col style="width: 8em" />
+                <col style="width: 6em" />
+                <col style="width: 8em" />
+                <col style="width: 22em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>编码</th>
+                    <th>问题数</th>
+                    <th>排序</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var kp in Model)
+                    {
+                        <tr class="k-line"
+                            data-id="@kp.Id"
+                            data-name="@kp.Name"
+                            data-pid="@kp.PID"
+                            data-sort="@kp.Sort"
+                            data-code="@kp.Code"
+                            data-status="@kp.Status">
+                            <td class="d-knowledge-path">
+                                @if (paths != null && paths.ContainsKey(kp.Id))
+                                {
+                                    var path = paths[kp.Id];
+                                    foreach (var item in path)
+                                    {
+                                        var url = "parentId".SetQuery(item.Key, baseUrl);
+                                        <a href="@url">@item.Value</a><em>/</em>
+                                    }
+                                }
+                                @if (kp.HasChildren)
+                                {
+                                    var url = "parentId".SetQuery(kp.Id, baseUrl);
+                                    <a href="@url" title="查看子类">@kp.Name</a>
+                                }
+                                else
+                                {
+                                    @kp.Name
+                                }
+                            </td>
+                            <td>@kp.Code</td>
+                            <td>
+                                <a href="#" class="b-count">查看</a>
+                            </td>
+                            <td>@kp.Sort</td>
+                            <td>@(Html.EnumText<TempStatus, int>(kp.Status))</td>
+                            <td>
+                                <a href="#" class="b-edit">编辑</a>
+                                @if (kp.Status == (byte)TempStatus.Normal)
+                                {
+                                    <a href="#" data-status="4" class="b-update ml20">删除</a>
+                                    <a href="#" class="b-add ml20">添加子级</a>
+                                }
+                                else
+                                {
+                                    <a href="#" data-status="1" class="b-update ml20">还原</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" style="text-align: center">没有找到相关信息！</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/html" id="editTemplate">
+    <div style="width: 420px" class="form-horizontal">
+        {{if parent}}
+        <div class="form-group">
+            <label class="col-sm-3 control-label">父级：</label>
+            <div class="col-sm-9 pl0">
+                <p class="form-control-static">{{parent.name}}</p>
+            </div>
+        </div>
+        {{/if}}
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称：</label>
+            <div class="col-sm-9 pl0">
+                <input type="text" class="form-control" id="textName" value="{{name}}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">排序：</label>
+            <div class="col-sm-9 pl0">
+                <input type="text" class="form-control" id="textSort" value="{{sort}}" />
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="moveTemplate">
+    <div style="width: 420px" class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-4 control-label">源知识点：</label>
+            <div class="col-sm-8 pl0">
+                <p class="form-control-static">{{name}}<small class="text-gray ml5">[{{code}}]</small></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">目标知识点：</label>
+            <div class="col-sm-8 pl0">
+                <input class="form-control d-target" />
+                <div class="d-knowledges hide">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+@section style{
+    @Html.CombineLink("v3/css/management/page-knowledge.css")
+}
+
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js,v3/js/management/page-knowledge.js")
+}

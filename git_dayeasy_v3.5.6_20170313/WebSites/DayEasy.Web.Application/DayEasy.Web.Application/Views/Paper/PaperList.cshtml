@@ -1,0 +1,87 @@
+﻿@using DayEasy.Contracts.Enum
+@model IEnumerable<DayEasy.Contracts.Dtos.Paper.PaperDto>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var paper in Model)
+    {
+        <div class="box-lg-12">
+            <div class="box-lg-8 font-text">
+                <p>
+                    @if (paper.Status == (byte) PaperStatus.Normal)
+                    {
+                        <a href="@Url.Action("Detail", "Paper", new {id = paper.Id})" target="_blank">@paper.PaperTitle</a>
+                        <em class="font1">[ No.@paper.PaperNo ]</em>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Detail", "Paper", new {id = paper.Id})" target="_blank">@paper.PaperTitle</a>
+                    }
+                </p>
+                <p class="font2">@paper.AddedAt.ToString("yyyy / MM / dd HH:mm")</p>
+            </div>
+            <div class="box-lg-4 f-tar btn-list ">
+                @if (paper.Status == (byte)PaperStatus.Normal)
+                {
+                    <a class="dy-btn dy-btn-default p-dowload" href="javascript:void(0);" data-pid="@paper.Id">
+                        <i class="iconfont dy-icon-download"></i> 下载试卷
+                    </a>
+                    <a class="dy-btn dy-btn-default paper-pub" href="javascript:void(0);" data-pid="@paper.Id">
+                        <i class="iconfont dy-icon-fenxiang2"></i> 推送试卷
+                    </a>
+                }
+                else
+                {
+                    <a class="dy-btn dy-btn-default" href="@Url.Action("Edit", "Paper", new { id = paper.Id })" target="_blank"><i class="iconfont dy-icon-edit"></i> 编辑试卷</a>
+                }
+                <div class="slide-bottom">
+                    <span class="f-fr angle-border"><i class="angle-bottom"></i></span>
+                    <ul class="f-pa angle-bottom-wrap">
+                        @*@if (paper.Status == (byte)PaperStatus.Normal)
+                        {
+                            <li style="padding:0;">
+                                <a href="@Url.Action("Print", "Paper", new { id = paper.Id })" target="_blank" style="height: 48px;text-align: center;line-height: 48px;"><i class="iconfont dy-icon-dayin"></i>打印试卷</a>
+                            </li>
+                        }*@
+                        <li class="paper-del" data-pid="@paper.Id">
+                            <a href="javascript:void(0);"><i class="iconfont dy-icon-delete"></i> 删除试卷</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="box-lg-12" style="border-bottom: 0">
+        @Html.ShowAjaxPager(Convert.ToInt32(ViewData["pageindex"]), 10, Convert.ToInt32(ViewData["totalCount"]), "paperDataList", 5)
+    </div>
+    <input type="hidden" value="@ViewData["totalCount"]" id="totalCount" />
+}
+else
+{
+    <div class="box-lg-12 dy-nothing" style="border-bottom: none;">
+        <i class="iconfont dy-icon-emoji02"></i>没有找到相关试卷!
+    </div>
+}
+
+<script type="text/javascript">
+    (function ($) {
+        //打印试卷  删除试卷 展开
+        $('.slide-bottom').on('click', function () {
+            $(this).toggleClass('slide-hover').find('ul').toggleClass('show');
+        });
+
+        $('body').bind('click', function (e) {
+            if ($(e.target).hasClass("f-fr") || $(e.target).hasClass("slide-bottom") || $(e.target).hasClass("angle-bottom")) {
+                return false;
+            }
+            $('.slide-bottom').removeClass('slide-hover').find('ul').removeClass('show');
+        });
+
+        var total = parseInt($("#totalCount").val());
+        if (isNaN(total)) {
+            total = 0;
+        }
+        $("#totalCountSpan").text(total);
+    })(jQuery, SINGER);
+</script>

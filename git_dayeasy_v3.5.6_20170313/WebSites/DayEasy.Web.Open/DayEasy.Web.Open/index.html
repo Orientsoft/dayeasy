@@ -1,0 +1,331 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit" />
+    <link rel="dns-prefetch" href="//static.dayez.net" />
+    <title>得一科技 - API文档中心</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <link rel="stylesheet" href="//static.dayez.net/css/bootstrap.min.css" media="all" />
+    <style type="text/css">
+        .loading {
+            background: url(http://static.dayez.net/v3/image/loading.gif) no-repeat center center;
+            text-align: center;
+        }
+
+        .doc-container {
+            padding-top: 55px;
+        }
+
+        .bs-docs-nav {
+            text-shadow: 0 -1px 0 rgba(0,0,0,.15);
+            background-color: #563d7c;
+            border-color: #463265;
+            box-shadow: 0 1px 0 rgba(255,255,255,.1);
+        }
+
+            .bs-docs-nav .navbar-nav > li > a {
+                font-size: 18px;
+                color: #fff;
+            }
+
+        .bs-sidebar.affix {
+            top: 40px;
+            width: 263px;
+        }
+
+        .bs-sidenav {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-shadow: 0 1px 0 #fff;
+            background-color: #f7f5fa;
+            border-radius: 5px;
+        }
+
+        .bs-sidebar .nav > li > a {
+            display: block;
+            color: #716b7a;
+            padding: 5px 20px;
+        }
+
+        .bs-sidebar .nav > .active > a,
+        .bs-sidebar .nav > .active:hover > a,
+        .bs-sidebar .nav > .active:focus > a {
+            font-weight: bold;
+            color: #563d7c;
+            background-color: transparent;
+            border-right: 1px solid #563d7c;
+        }
+
+        .bs-sidebar .nav > li > a {
+            display: block;
+            color: #716b7a;
+            padding: 5px 20px;
+        }
+        .bs-sidebar .nav .nav {
+            display: none;
+        }
+        .bs-sidebar .nav .active .nav {
+            display: block;
+        }
+
+        .bs-sidebar .nav .nav > li > a {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            padding-left: 30px;
+            font-size: 90%;
+        }
+
+        h1 {
+            color: #563d7c;
+            font-size: 22px;
+        }
+
+        .doc-content .loading {
+            height: 320px;
+        }
+
+        .b-a {
+            color: #1e90ff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+        <div class="container">
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/index.html">得一科技·Api接口文档</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/test.html">接口测试</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container doc-container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="bs-sidebar hidden-print" role="complementary">
+                    <div class="loading"></div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="doc-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/template" id="doc-content">
+        <h4 class="api-name">{name}</h4>
+        <div class="well">
+            {desc}
+        </div>
+        <h5>1.接口说明</h5>
+        <div>{scenarios}</div>
+        <h5>2.应用场景</h5>
+        <h5>3.接口调用说明</h5>
+        <h6>3.1 请求说明</h6>
+        <table class="table table-bordered">
+            <tr>
+                <td>url</td>
+                <td>{url}{method}</td>
+            </tr>
+            <tr>
+                <td>method</td>
+                <td>{method}</td>
+            </tr>
+            <tr>
+                <td>格式</td>
+                <td>{dataType}</td>
+            </tr>
+            <tr>
+                <td>请求方式</td>
+                <td>{type}</td>
+            </tr>
+        </table>
+        <h6>3.2 请求参数说明</h6>
+        <table class="table table-bordered">
+            <tr>
+                <th>名称</th>
+                <th>类型</th>
+                <th>是否必须</th>
+                <th>描述</th>
+            </tr>
+            {response}
+        </table>
+        <h6>3.3 返回参数说明</h6>
+        <table class="table table-bordered">
+            <tr>
+                <th>名称</th>
+                <th>类型</th>
+                <th>描述</th>
+            </tr>
+            {request}
+        </table>
+    </script>
+    <script src="//static.dayez.net/js/jquery.min.js"></script>
+    <script src="jsonformat.js"></script>
+    <script type="text/javascript">
+        var $navs = $(".nav li a");
+        var getDesc = function (navObj) {
+            var $nav = $(navObj),
+                $content = $(".doc-content"),
+                id = $nav.data("id"),
+                methodJson = $nav.data("method");
+            if (methodJson) {
+                fillMethod(methodJson);
+                return;
+            }
+            if (id) {
+                $content.html('<div class="loading" title="努力加载中.."></div>');
+                getJson("method", {
+                    id: id
+                }, function (data) {
+                    if (!data) {
+                        $content.html("接口数据异常！");
+                        return;
+                    }
+                    $nav.data("method", data);
+                    fillMethod(data);
+                });
+            }
+        };
+        var fillMethod = function (json) {
+            var $content = $(".doc-content"),
+                temp = $("#doc-content").html();
+            temp = temp.replace("{name}", json.name);
+            temp = temp.replace("{desc}", json.description);
+            temp = temp.replace("{scenarios}", json.scenarios);
+            temp = temp.replace("{url}", json.url);
+            temp = temp.replace(/\{method\}/gi, json.method);
+            temp = temp.replace("{dataType}", json.dataType);
+            temp = temp.replace("{type}", json.type);
+            var tb = "", i;
+            for (i in json.response) {
+                tb += "<tr>";
+                tb += "<td>" + json.response[i].name + "</td>";
+                tb += "<td>" + json.response[i].type + "</td>";
+                tb += "<td>" + (json.response[i].isRequire ? "是" : "否") + "</td>";
+                tb += "<td>" + json.response[i].description + "</td>";
+                tb += "</tr>";
+            }
+            temp = temp.replace("{response}", tb);
+            tb = "";
+            for (i in json.request) {
+                tb += "<tr>";
+                tb += "<td>" + json.request[i].name + "</td>";
+                tb += "<td>" + json.request[i].type + "</td>";
+                tb += "<td>" + json.request[i].description + "</td>";
+                tb += "</tr>";
+            }
+            temp = temp.replace("{request}", tb);
+            $content.html(temp);
+            $(window).scrollTop(0);
+        };
+        var getJson = function (method, data, callBack) {
+            data.t = Math.random();
+            $.ajax({
+                url: '/doc/' + method,
+                dataType: 'json',
+                data: data,
+                success: function (json) {
+                    callBack && "function" === typeof callBack && callBack.call(this, json);
+                }
+            });
+        };
+
+        $(document)
+            .ready(function () {
+                //加载接口数据
+                getJson("category", {}, function (json) {
+                    var $box = $(".bs-sidebar"),
+                        $navs = $('<ul class="nav bs-sidenav">'),
+                        $nav,
+                        item;
+                    if (!json || !json.length) return false;
+                    //console.log(json);
+                    for (var i = 0; i < json.length; i++) {
+                        item = json[i];
+                        $nav = $("<li>");
+                        $nav.append('<a href="#">' + json[i].name + '</a>');
+                        if (item.methods && item.methods.length) {
+                            var $method = $('<ul class="nav">');
+                            for (var j = 0; j < item.methods.length; j++) {
+                                $method.append('<li><a href="#" data-id=' + item.methods[j].id + '>' + item.methods[j].name + '</a></li>');
+                            }
+                            $nav.append($method);
+                        }
+                        $navs.append($nav);
+                    }
+                    $box.append($navs);
+                    $("li .nav a:first").click();
+                    return false;
+                });
+            })
+            .delegate(".bs-sidenav>li>a", "click", function () {
+                $(this).siblings(".nav").find("a:first").click();
+                $(this).blur();
+                return false;
+            })
+            .delegate("li .nav a", "click", function () {
+                var $t = $(this),
+                    $li = $t.parent();
+                $t.blur();
+                if ($li.hasClass("active"))
+                    return false;
+                $li.addClass("active").siblings("li").removeClass("active");
+
+                var $pli = $li.parents("li");
+                if (!$pli.hasClass("active")) {
+                    $pli
+                        .addClass("active")
+                        .siblings("li")
+                        .removeClass("active")
+                        .find("li.active")
+                        .removeClass("active");
+                }
+                getDesc($t);
+                return false;
+            })
+            .delegate("li .nav a", "focuz", function () {
+                $(this).blur();
+            })
+            .delegate(".b-data", "click", function () {
+                var html = $(this).data("html");
+                $.get("Description/"+html+".html", {}, function (data) {
+                    $(".doc-content").html(data);
+                    $(window).scrollTop(0);
+                });
+            })
+            .delegate(".b-codes", "click", function () {
+                $.get("Description/status_code.html", {}, function (html) {
+                    $(".doc-content").html(html);
+                    $.get("/doc/codes", {}, function (data) {
+                        var docs = "", i, doc, tmp;
+                        for (i = 0; i < data.length; i++) {
+                            doc = data[i];
+                            docs += "<tr>";
+                            docs += '<td>' + doc.code + '</td>';
+                            docs += '<td>' + doc.type + '</td>';
+                            docs += '<td>' + doc.msg + '</td>';
+                            docs += '<td>' + doc.desc + '</td>';
+                        }
+                        tmp = $("#doc-codes").html();
+                        $("#status-codes").html(tmp.replace('{response}', docs));
+                    });
+                    $(window).scrollTop(0);
+                });
+            });
+    </script>
+</body>
+</html>

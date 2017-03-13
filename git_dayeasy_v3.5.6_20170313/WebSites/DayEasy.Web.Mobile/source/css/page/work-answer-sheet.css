@@ -1,0 +1,74 @@
+/**
+ * Created by Boz on 2016/6/15.
+ * 变式相关
+ */
+strong {
+  font-weight: normal;
+}
+.d-base-header {
+  width: 780px;
+}
+.warp-answer {
+  width: 780px;
+  overflow: auto;
+}
+.answer-sheet {
+  width: 780px;
+  margin: 10px auto 0;
+  position: relative;
+}
+.answer-sheet .total-score {
+  color: Red;
+  font-family: georgia, serif;
+  font-size: 35px;
+  font-weight: 500;
+  position: absolute;
+  right: 400px;
+  z-index: 20;
+  top: 10px;
+}
+.answer-sheet .icon {
+  position: absolute;
+}
+.answer-sheet .icon .score {
+  background-color: #fa8989;
+  border: 1px solid #fa8989;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  left: 48px;
+  padding: 1px 2px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+}
+.answer-sheet .answer-card-img {
+  width: 780px;
+  margin: 0 auto;
+  display: block;
+}
+.answer-sheet .fontsheet {
+  font-size: 24px;
+  line-height: 1em;
+  font-family: 宋体;
+  font-weight: bold;
+  color: #fa8989;
+}
+.p-objective-error {
+  color: Red;
+  font-family: georgia, serif;
+  position: absolute;
+  top: 72px;
+  left: 200px;
+  font-size: 20px;
+  font-weight: 500;
+  width: 240px;
+  z-index: 20;
+  white-space: normal;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.id-img {
+  max-width: 780px;
+}

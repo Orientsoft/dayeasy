@@ -1,0 +1,103 @@
+﻿@using DayEasy.Contracts.Enum
+@model List<DayEasy.Contracts.Dtos.Tutor.TutorDto>
+@{
+    ViewBag.Title = "辅导中心";
+}
+
+<div class="coach-guide">
+    <div class="coach-center j-autoHeight" data-left="132" data-type="2" data-min="400">
+        <div class=" w1000">
+            <div class="title-hd">
+                <a class="btn btn-info" href="@Url.Action("Add","Tutor")">新增辅导</a>
+            </div>
+            @if (Model == null || Model.Count < 1)
+            {
+                <div class="coach-conter">
+                    还没有任何辅导额，赶快点击新增辅导吧！
+                </div>
+            }
+            else
+            {
+                <div class="coach-conter">
+                    <table class="table table-cover">
+                        <tr>
+                            <th width="270">辅导名称</th>
+                            <th width="122">使用人数</th>
+                            <th width="75">难度</th>
+                            <th width="160">组课时间</th>
+                            <th width="123">作者</th>
+                            <th width="100">状态</th>
+                            <th width="75">操作</th>
+                            <th width="76">&nbsp;</th>
+                        </tr>
+                        @foreach (var tutor in Model)
+                        {
+                            <tr data-tutorid="@tutor.Id">
+                                <td><a href="@Url.Action("TutorItem", "StudentWork", new {Area=string.Empty, id = tutor.Id })" target="_blank">@tutor.Title</a></td>
+                                <td><a href="@Url.Action("Records", "Tutor", new { id = tutor.Id })">@tutor.UseCount</a></td>
+                                <td>@Html.GetEnumText(tutor.Difficulty, typeof(DiffLevel))</td>
+                                <td>@tutor.AddedAt.ToString("yyyy-MM-dd")</td>
+                                <td>@tutor.Author</td>
+                                @switch (tutor.Status)
+                                {
+                                    case (byte)TutorStatus.Draft:
+                                        <td>草稿</td>
+                                        <td><a href="@Url.Action("Add", "Tutor", new { id = tutor.Id })">编辑</a></td>
+                                        break;
+                                    case (byte)TutorStatus.Grounding:
+                                    <td class="color-green">已上架</td>
+                                    <td><a href="javascript:void(0);" class="f-actionStatus" data-status="@((byte)TutorStatus.Undercarriage)">下架</a></td>
+                                        break;
+                                    case (byte)TutorStatus.Undercarriage:
+                                    <td class="color-grey">已下架</td>
+                                    <td><a href="javascript:void(0);" class="f-actionStatus" data-status="@((byte)TutorStatus.Grounding)">上架</a></td>
+                                        break;
+                                    default:
+                                    <td class="color-red">未上架</td>
+                                    <td><a href="javascript:void(0);" class="f-actionStatus" data-status="@((byte)TutorStatus.Grounding)">上架</a></td>
+                                        break;
+                                }
+                                <td><a href="@Url.Action("FeedBack", "Tutor", new { id = tutor.Id })">反馈</a></td>
+                            </tr>
+                        }
+                    </table>
+                    <div class="f-tac">
+                        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 10, Convert.ToInt32(ViewData["totalCount"]), 5, false)
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+@section style{
+    @Html.CombineLink("css/v2.0/coachbackstage/coach-guide.css,css/v2.0/coachbackstage/ui-base.css")
+}
+
+@section script
+{
+    @Html.CombineLink("js/base/common.js,js/Jq-common.js")
+    <script type="text/javascript">
+        $(function () {
+            $(".f-actionStatus").click(function () {
+                var tutorId = $(this).parents('tr').data('tutorid');
+                var status = $(this).data('status');
+
+                var statusStr = $(this).text();
+                $.Dayez.confirm('您确定要' + statusStr + "该辅导吗？", function () {
+                    $.post('@Url.Action("UpdateStatus","Tutor")', { tutorId: tutorId, status: status }, function (res) {
+                        if (res.Status) {
+                            singer.msg("操作成功！");
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 2000);
+                        } else {
+                            singer.msg(res.Message);
+                        }
+                    });
+                }, function () { });
+            });
+        });
+    </script>
+}

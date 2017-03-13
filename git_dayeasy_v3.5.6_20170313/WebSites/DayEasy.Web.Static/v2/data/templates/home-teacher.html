@@ -1,0 +1,376 @@
+<!--=================学生动态模版=======================-->
+<script id="lead" type="text/html">
+    <!--首次默认推送模块-->
+    <div class="s-wpar">
+        <div class="dy-system-4 dy-base s-tiont-1">
+            <img src="{{sites.static}}/image/home/dft-t.png" alt="我们为您准备了日常教学中的4种利器" />
+        </div>
+    </div>
+</script>
+<!--========发布消息=========-->
+<!--成功发布课堂-->
+<script id="t4-000-1" type="text/html">
+    <div class="dy-system-3 dy-base">
+        <h3 class="dy-h3">成功发布课堂： <a class="blues" target="_blank" href="{{sites.class}}">{{Details.SourceName}}</a> </h3>
+        <div class="classroom">
+            <ul class="ul1">
+                <li>
+                    <div class="testing padd-lr40 bg-grey after ">
+                        <div class="f-fl mr10"><img style="width:100px; height:100px;" src="{{Details.FrontCover}}" alt=""></div>
+                        <div>
+                            <p>范围：{{Details.ClassName}}</p>
+                        </div>
+                        <div>
+                            <p class="time-li">截止时间：{{Details.ExpireTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <ul class="ul after mt10">
+                        <li class="time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</script>
+<!--成功发布作业-试卷-->
+<script id="t4-000-0" type="text/html">
+    <div class="dy-system-4 dy-base">
+        <h3 class="dy-h3">成功发布作业：<a class="blues" target="_blank"  href="/paper/detail/{{Details.SourceId}}">{{Details.SourceName}}</a></h3>
+        <ul class="ul">
+            <li>
+                <div class="homework padd-lr40 bg-grey after">
+                    <dl class="dl">
+                        <!--<dt class="blue mb5 mt5"><a target="_blank"  href="/paper/detail/{{Details.SourceId}}" class="blue">{{Details.SourceName}}</a></dt>-->
+                        <dd>发布范围：{{Details.ClassName}}</dd>
+                        <!--<dd class="time-li">
+                            截止时间：{{Details.ExpireTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}
+                        </dd>-->
+                    </dl>
+                </div>
+                <div class="homework padd-lr40 bg-grey after">
+                    <dl class="dl">
+                        <dd>附加消息：{{Details.Remarks}}</dd>
+                    </dl>
+                </div>
+            </li>
+            <li>
+                <ul class="ul1 after mt10">
+                    <li class="time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</script>
+<!--====批改作业完成==========-->
+<script id="t4-002-0" type="text/html">
+    <div class="dy-system-4 dy-base">
+        <h3 class="dy-h3">作业统计完成：<a class="blues" target="_blank"  href="/paper/detail/{{Details.SourceId}}">{{Details.SourceName}}</a><a class="blue iconv  f-fr" target="_blank" href="/work/teacher/statistics-question?batch={{Details.Batch}}&paper_id={{Details.SourceId}}"><i class="icon_view"></i>马上查看~</a></h3>
+        <ul class="ul">
+            <li>
+                <div class="homework padd-lr40 bg-grey after">
+                    <dl class="dl">
+                        <!--<dt class="blue mb5 mt5"><a class="blue" target="_blank"  href="/paper/detail/{{Details.SourceId}}">{{Details.SourceName}}</a></dt>-->
+                        <dd>范围：{{Details.ClassName}}</dd>
+                        <dd class="time-li">
+                            截止时间：
+                            <a href="javascript:;">{{Details.ExpireTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</a>
+                        </dd>
+                    </dl>
+                </div>
+            </li>
+            <li class="time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+        </ul>
+
+    </div>
+</script>
+
+<script id="t4-002-1" type="text/html">
+    <div class="dy-system-4 dy-base">
+        <h3 class="dy-h3">随堂检测统计完成：<a class="blues" target="_blank"  href="/paper/detail/{{Details.SourceId}}?app=classroom">{{Details.SourceName}}</a><a class="blue iconv f-fr" target="_blank" href="/work/teacher/statistics-question?batch={{Details.Batch}}&paper_id={{Details.SourceId}}&app=classroom"><i class="icon_view"></i>马上查看~</a></h3>
+        <ul class="ul">
+            <li>
+                <div class="homework padd-lr40 bg-grey after">
+                    <dl class="dl">
+                        <!--<dt class="blue mb5 mt5"><a class="blue" target="_blank"  href="/paper/detail/{{Details.SourceId}}?app=classroom">{{Details.SourceName}}</a></dt>-->
+                        <dd>范围：{{Details.ClassName}}</dd>
+                        <dd class="time-li">
+                            截止时间：
+                            <a href="javascript:;">{{Details.ExpireTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</a>
+                        </dd>
+
+                    </dl>
+                </div>
+            </li>
+            <li class="time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+        </ul>
+    </div>
+</script>
+<!--**** 分享 ***-->
+<!--视频-->
+<script id="t4-003-3" type="text/html">
+    <div class="dy-system-3 dy-base">
+        {{if Status==0}}
+        <h3 class="dy-h3">{{Details.TeacherName}}分享视频：<a class="blues" href="javascript:void(0);" onclick="seeVideo('{{Details.SourceId}}')">{{Details.SourceName}}</a></h3>
+        <div class="classroom">
+            <ul class="ul1">
+                <li>
+                    <div class="testing padd-lr40 bg-grey after ">
+                        <div class="f-fl mr10 posr">
+                            <img src="{{Details.FrontCover}}" style="width:120px; height:90px;" width="120" height="90" alt="">
+                            <span class="dy-bg"></span>
+                            <i class="glyphicon glyphicon-play-circle" onclick="seeVideo('{{Details.SourceId}}')"></i>
+                        </div>
+                        <div class="f-fr after w380">
+                            <div>
+                                <p>主讲人：{{Details.Speaker}}</p>
+                            </div>
+                            <div>
+                                <p>适用年级：{{Details.Grade}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <ul class="ul after">
+                        <li class="time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                        <li class="f-tar yellow"><a href="javascript:void(0);" data-newid="{{NewsId}}" class="thumbs iconm"><i class="icon_mb"></i> {{ NewsId | supportFormat:NewsId }}（<b>{{GoodCount}}</b>）</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        {{else}}
+        <h3 class="dy-h3">{{Details.TeacherName}}分享视频：<a class="blues" href="javascript:void(0);">{{Details.SourceName}}</a></h3>
+        <div class="classroom">
+            <ul class="ul1">
+                <li>
+                    <div class="testing padd-lr40 bg-grey after ">
+                        <p class="not-clh">该消息已被删除！</p>
+                    </div>
+                </li>
+                <li>
+                    <ul class="ul after">
+                        <li class="time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                        <!--<li class="f-tar yellow"><a href="javascript:void(0);" data-newid="{{NewsId}}" class="thumbs iconm"><i class="icon_mb"></i> {{ NewsId | supportFormat:NewsId }}（<b>{{GoodCount}}</b>）</a></li>-->
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        {{/if}}
+    </div>
+</script>
+<!--试卷分享-->
+<script id="t4-003-0" type="text/html">
+    <div class="dy-system-7 dy-base">
+        {{if Status==0}}
+        <h3 class="dy-h3">{{Details.TeacherName}}分享了试卷：<a target="_blank"  href="/paper/detail/{{Details.SourceId}}" class="blues">{{Details.SourceName}}</a><a class="blue iconl f-fr" target="_blank"  href="/paper/detail/{{Details.SourceId}}"><i class="icon_look"></i>马上围观~</a></h3>
+
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class=" padd-lr40 boder bg-grey">
+                        <ul>
+                            <!--<li><a class="blue" target="_blank"  href="/Paper/Detail/{{Details.SourceId}}">{{Details.SourceName}}</a></li>-->
+                            <li class="span-10">
+                                知识点：
+                                {{each Details.Knowledges as value i}}
+                                <span class="mr10">{{value}}</span>
+                                {{/each}}
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                            <li class="f-tar mt10 yellow"><a href="javascript:void(0);" data-newid="{{NewsId}}" class="thumbs iconm"><i class="icon_mb"></i> {{ NewsId | supportFormat:NewsId }}（<b>{{GoodCount}}</b>）</a> </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {{else}}
+        <h3 class="dy-h3">{{Details.TeacherName}}分享了试卷：<a class="blues" href="javascript:void(0);">{{Details.SourceName}}</a></h3>
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class=" padd-lr40 boder bg-grey">
+                        <p class="not-clh">该消息已被删除！</p>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</script>
+
+<!--题目分享-->
+<script id="t4-003-2" type="text/html">
+    <div class="dy-system-7 dy-base">
+        {{if Status==0}}
+        <h3 class="dy-h3">{{Details.TeacherName}}分享了一道题到全校：</h3>
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class="padd-lr40 bg-grey after">
+                        {{include 'questionBody'}}
+                    </li>
+                    <li class=" padd-lr40 bg-grey after">
+                        <ul class="ul">
+                            <li class="points">
+                                <span class="blue">知识点：</span>
+                                {{each Details.Question.Kpoints as value i}}
+                                <span>{{value.Name}}</span>
+                                {{/each}}
+                            </li>
+                            <li>&nbsp;</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                            <li class="f-tar mt10 yellow"><a href="javascript:void(0);" data-newid="{{NewsId}}" class="thumbs iconm"><i class="icon_mb"></i> {{ NewsId | supportFormat:NewsId }}（<b>{{GoodCount}}</b>）</a> </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {{else}}
+        <h3 class="dy-h3">{{Details.TeacherName}}分享了一道题到全校：</h3>
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class="padd-lr40 bg-grey after">
+                        <p class="not-clh">该消息已被删除！</p>
+                    </li>
+
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</script>
+<!--如何出一次考试（作业）？-->
+<script id="t4-010-1" type="text/html">
+    <div class="dy-system-3 dy-base alones" id="layer-1">
+        <div class="alones-top">
+            <div class="alones-bottom">
+                <div class="alones-mian">
+                    <h3>如何出一次考试?</h3>
+                    <p> 1. 进入试卷库，点击【在线出卷】<i class="icon_sbp1"></i></p>
+                    <p> 2. 输入试卷基本信息<i class="icon_sbp2"></i></p>
+                    <p> 3. 通过知识点筛选，可在【我的】【校内】【全网】题库中选择题目<i class="icon_sbp3"></i></p>
+                    <p>4. 保存试卷></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!--如何通过“扫描工具”布置作业？-->
+<script id="t4-010-2" type="text/html">
+    <div class="dy-system-3 dy-base alones" id="layer-1">
+        <div class="alones-top">
+            <div class="alones-bottom">
+                <div class="alones-mian">
+                    <h3>如何出一次考试?</h3>
+                    <p> 1. 进入试卷库，点击【在线出卷】<i class="icon_sbp1"></i></p>
+                    <p> 2. 输入试卷基本信息<i class="icon_sbp2"></i></p>
+                    <p> 3. 通过知识点筛选，可在【我的】【校内】【全网】题库中选择题目<i class="icon_sbp3"></i></p>
+                    <p>4. 保存试卷></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!--如何发布在线考试（作业）？-->
+<!-- 我想批改作业 -->
+<script id="t4-010-3" type="text/html">
+    <div class="dy-system-3 dy-base alones " id="layer-3">
+        <div class="alones-top">
+            <div class="alones-bottom">
+                <div class="alones-mian">
+                    <h3>如何发布在线考试（作业）？</h3>
+                    <p>1. 进入试卷库，选择对应试卷，点击【发布】并选择对应班级和截止时间<i class="icon_sbp1"></i></p>
+                    <p>2. 学生通过电脑或平板完成作业（练习）<i class="icon_sbp2"></i></p>
+                    <p>3. 老师利用平板电脑进行批阅<i class="icon_sbp3"></i></p>
+                    <p>4. 在作业中心【已结束】中或平板电脑上均可查看统计报表</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!--如何发布自己的在线课堂？-->
+<script id="t4-010-4" type="text/html">
+    <div class="dy-system-3 dy-base alones" id="layer-4">
+        <div class="alones-top">
+            <div class="alones-bottom">
+                <div class="alones-mian">
+                    <h3>如何发布自己的在线课堂？</h3>
+                    <p>1. 在课堂【视频库】中上传自己的视频并完善视频基本信息<i class="icon_sbp1"></i></p>
+                    <p>2. 点击【在线出课】挑选需要的视频或检测试卷，保存课堂<i class="icon_sbp2"></i></p>
+                    <p>3. 在【课堂夹】中发布选中的课堂，选择截止时间和发布班级<i class="icon_sbp3"></i></p>
+                    <p>4. 在课堂【已结束】中可查看学生完成情况和统计结果以及学生提问</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!--我想开小灶-->
+<script id="t4-010-5" type="text/html">
+</script>
+<!-- 我想组卷 -->
+<script id="t4-010-4" type="text/html">
+    <div class="dy-system-4 dy-base">
+        <h3 class="dy-h3">作业  <span class="blue">测试组卷</span> 可查看结果：<a class="blue iconv f-fr" href="javascript:void(0);"><i class="icon_view"></i>马上查看~</a></h3>
+        <ul class="ul">
+            <li>
+                <div class="homework padd-lr40 bg-grey after">
+                    <dl class="dl">
+                        <dt class="blue mb5 mt5">甘道夫</dt>
+                        <dd>范围：测试年级</dd>
+                        <dd>
+                            截止时间：
+                            <a href="javascript:;">2014-12-19 11:24:00</a>
+                        </dd>
+
+                    </dl>
+                </div>
+            </li>
+            <li>2014-12-19 11:24:00</li>
+        </ul>
+    </div>
+</script>
+<!-- 我想开小灶 -->
+<script id="t4-010-5" type="text/html">
+    <div class="dy-system-4 dy-base">
+        <h3 class="dy-h3">作业  <span class="blue">测试我想开小灶</span> 可查看结果：<a class="blue iconv f-fr" href="javascript:void(0);"><i class="icon_view"></i>马上查看~</a></h3>
+        <ul class="ul">
+            <li>
+                <div class="homework padd-lr40 bg-grey after">
+                    <dl class="dl">
+                        <dt class="blue mb5 mt5">甘道夫</dt>
+                        <dd>范围：测试年级</dd>
+                        <dd class="time-li">
+                            截止时间：
+                            <a href="javascript:;">2014-12-19 11:24:00</a>
+                        </dd>
+                    </dl>
+                </div>
+            </li>
+            <li>2014-12-19 11:24:00</li>
+        </ul>
+    </div>
+</script>

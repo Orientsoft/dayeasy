@@ -1,0 +1,149 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+
+      Author:Plato
+      Create Date:2016/02/1 10:14  Last Mondify Date:2016/02/1 10:14
+      ===================================================
+
+--------------------------------------------------------------*/
+@import        (reference) "ui-base.less";
+@import "../../less/ui-bbs";
+
+//*--------------------   Part ui    -----------------------
+
+//*--------------------  main Style  -----------------------
+.comment-post {
+  background: white;
+  padding: 20px 30px;
+  margin-top: 30px;
+  .h-title {
+    font-size: 20px;
+    margin-bottom: 30px;
+    .dy-icon-edit2 {
+      font-size: 20px;
+      color: #3bafda;
+      margin-right: 20px;
+    }
+    span, strong {
+      font-size: 16px;
+    }
+    span {
+      color: #bbb;
+      .inline-block;
+      margin: 0 15px;
+    }
+    strong {
+      color: #999;
+    }
+  }
+  .box-input {
+    margin-bottom: 20px;
+    input {
+      width: 500px;
+    }
+  }
+  .comment-vote {
+    position: relative;
+    padding: 20px;
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+    .edit-vote {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 5;
+      span {
+        color: @color-blue;
+        .inline-block;
+        margin: 0px 10px;
+        cursor: pointer;
+        &:hover {
+          color: @color-hover-blue;
+        }
+      }
+    }
+    .vote-title {
+      font-weight: bold;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .vote-checkbox {
+      li {
+        margin-bottom: 20px;
+        line-height: 20px;
+      }
+      label {
+        .inline-block;
+        width: 250px;
+        margin-right: 10px;
+        text-align: right;
+      }
+      em {
+        .inline-block;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        background: red;
+        width: 30px;
+        height: 16px;
+        position: relative;
+        top: 3px;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+//*--------------------   ui Style   -----------------------
+//添加投票弹框
+.pop-vote {
+  padding: 20px 30px;
+  background: white;
+  width: 550px;
+  .ul-layer {
+    input.w400 {
+      width: 400px;
+    }
+    input.w240 {
+      width: 240px;
+    }
+    & > li {
+      margin-bottom: 20px;
+    }
+  }
+  ol.option {
+    li {
+      position: relative;
+      margin-bottom: 10px;
+      .font-color {
+        color: @color-blue;
+        cursor: pointer;
+        &:hover {
+          color: @color-hover-blue;
+        }
+      }
+      .dy-icon-close {
+        font-size: 12px;
+        color: #bbb;
+        cursor: pointer;
+        &:hover {
+          color: #ed5565;
+        }
+      }
+      input[type="text"] {
+        width: 370px;
+        margin-right: 20px;
+      }
+    }
+  }
+  .box-label {
+    .inline-block;
+    width: 80px;
+    text-align: right;
+  }
+  .font2 {
+    color: #bbb;
+  }
+  .group-radio {
+    margin-right: 20px;
+  }
+}

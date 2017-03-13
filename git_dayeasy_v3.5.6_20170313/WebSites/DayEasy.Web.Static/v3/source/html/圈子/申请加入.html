@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>圈子-申请加入</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="/v3/source/css/circle/page-apply.css"/>
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="apply-join w1200 f-cb">
+            <div class="cont-min">
+                <h2 class="h2-circle">我的圈子</h2>
+
+                <div class="join-box f-cb">
+                    <div class="f-fl join-box-left">
+                        <div class="d-group-item">
+                            <div class="d-group-avatar">
+                                <img src="/v3/image/temp/cat.png" alt="江南二月风雨过，梅花开尽杏花开…">
+                            </div>
+                            <div class="d-group-wrap">
+                                <h4>江南二月风雨过，梅花开尽杏花开…</h4>
+
+                                <div class="d-group-tags">
+                                    <span>审核模式</span>
+                                </div>
+                                <div class="d-group-channel">传统文化</div>
+                                <div class="d-group-summary">
+                                    简介：谁那么有诗情画意啊。。。谁那么有诗情画意啊。。。谁那么有诗情画意啊。。。谁那么有诗情画意啊。。。
+                                </div>
+                            </div>
+                            <div class="d-group-footer">
+                                <span class="d-group-count"><i class="iconfont dy-icon-50"></i>3</span>
+                                <span class="d-group-owner"><i class="iconfont dy-icon-40"></i>美女</span>
+                                <span class="d-group-enter">No.GS90922</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="f-fr join-box-right">
+                        <!--默认状态-->
+                        <div>
+                            <ul>
+                                <li>
+                                    <textarea placeholder="输入附加信息" name="message" class="textarea mb5 mt10" cols="30" rows="5" maxlength="100"></textarea>
+                                    <p class="f-tar f-db dy-result">
+                                        你还可以输入<em>100</em>个字
+                                    </p>
+                                </li>
+                            </ul>
+                            <input class="dy-btn dy-btn-info" type="submit" value="提交申请">
+                        </div>
+                        <!--默认状态 End-->
+                        <!--完成后显示内容-->
+                        <!--<div class="operation">-->
+                        <!--<p class="mb"><i class="iconfont dy-icon-13"></i>你的加圈请求已发送成功，请等候圈主的审核。</p>-->
+                        <!--<a href="">返回圈子首页</a>-->
+                        <!--</div>-->
+                        <!--完成后显示内容 End-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+@@include('./footer.html')
+<script>
+
+    $(function () {
+        //base  限制字符
+        $.maxLength($('.textarea'), $('.limit-number'), 140);
+    })
+
+
+</script>
+</body>
+</html>

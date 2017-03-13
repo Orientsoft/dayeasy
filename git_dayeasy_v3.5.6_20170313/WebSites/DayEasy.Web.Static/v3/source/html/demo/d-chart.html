@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>得一简易图表</title>
+</head>
+<link rel="stylesheet" href="/v3/css/site-base.css"/>
+<link rel="stylesheet" href="/v3/css/utils/d-chart.css"/>
+<body>
+<div class="container01" style="margin: 35px auto;"></div>
+<div class="container02" style="margin: 35px auto;"></div>
+</body>
+<script src="/v3/js/jquery-1.10.2.min.js"></script>
+<script src="../../js/utils/d-charts.js"></script>
+
+<script>
+    var getValue = function (max) {
+        return (Math.random() * max).toFixed(2);
+    };
+    var data1 = [], data2 = [];
+    for (var i = 1; i < 4; i++) {
+        data1.push({
+            name: i + '班',
+            value: getValue(150)
+        });
+        data2.push({
+            name: i + '班',
+            value: getValue(100)
+        });
+    }
+
+    console.log(data1);
+    $('.container01').chart({
+        type: 'score',
+        data: data1,
+//        showAverage: false,
+        max: 150,
+//        direct:'v',
+        xTitle: '班级',
+        yTitle: '分数',
+        width: 800,
+        height: 250
+    });
+    $('.container02').chart({
+        type: 'percent',
+        data: data2,
+        max: 100,
+        direct: 'v',
+        xTitle: '班级',
+        yTitle: '百分比',
+//        showAverage: true,
+        width: 820,
+        height: 300
+    });
+</script>
+</html>

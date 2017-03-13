@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+@section css
+{
+    @Html.CombineLink("css/portal/question/list.css,v3/css/testteacher/ui-base.css")
+
+    @RenderSection("style", false)
+}
+<script>
+    var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true; deyi.loadFormula = true;
+</script>
+@RenderBody()
+
+@section js
+{
+    @Html.CombineLink("js/base/common.js,js/portal/question/formula.js")
+    <script type="text/javascript">
+        $(function () {
+            singer.loadFormula();
+            $(document).delegate('.q-image,.qImg', 'click', function (e) {
+                e.stopPropagation();
+                var src = $(this).find('img').attr('src') || $(this).prop("src");
+                src = src.replace(/_s(\d+)x[^\.]*/gi, '');
+                singer.showImage(src);
+                return false;
+            });
+        });
+    </script>
+    @RenderSection("script", false)
+}
+
+

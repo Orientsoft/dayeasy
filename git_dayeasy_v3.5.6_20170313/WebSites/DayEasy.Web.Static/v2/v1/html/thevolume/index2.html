@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>出卷修改</title>
+
+<link href="http://static.dayeasy.dev/source/css/font-awesome.css" rel="stylesheet" media="all" />
+<link href="http://static.dayeasy.dev/source/css/bootstrap.css" rel="stylesheet" media="all" />
+<link href="http://static.dayeasy.dev/source/css/site-base.css" rel="stylesheet" media="all" />
+<link href="http://static.dayeasy.dev/source/css/portal/paper.css" rel="stylesheet" media="all" />
+<link href="http://static.dayeasy.dev/source/css/portal/question/list.css" rel="stylesheet" media="all" />
+<link href="http://static.dayeasy.dev/source/plugs/artDialog/css/ui-dialog.css" rel="stylesheet" media="all" />
+<link href="http://static.dayeasy.dev/source/plugs/ztree/css/ztree.css" rel="stylesheet" media="all" />
+
+<link rel="stylesheet" href="/source/demo/thevolume/css/thevolume2.css">
+
+
+<script src="http://static.dayeasy.dev/js/singer.min.js" type="text/javascript"></script>
+<script src="http://static.dayeasy.dev/source/js/base/base-v2.js" type="text/javascript"></script>
+
+<script src="http://static.dayeasy.dev/source/js/jquery.js" type="text/javascript"></script>
+<script src="http://static.dayeasy.dev/source/js/base/site-base.js" type="text/javascript"></script>    
+<script src="http://static.dayeasy.dev/plugs/artDialog/dist/dialog-plus.min.js" type="text/javascript"></script>
+<script src="http://static.dayeasy.dev/source/js/jquery-validate.js" type="text/javascript"></script>
+<script src="http://static.dayeasy.dev/source/js/base/common.js" type="text/javascript"></script>
+<script src="http://static.dayeasy.dev/source/js/Jq-common.js" type="text/javascript"></script>
+<script src="http://static.dayeasy.dev/source/js/portal/question/formula.js" type="text/javascript"></script>
+
+<script src="http://static.dayeasy.dev/source/plugs/dragSort/jquery.dragsort-0.5.2.js" type="text/javascript"></script>
+<script src="http://static.dayeasy.dev/plugs/ztree/js/jquery.ztree.min.js" type="text/javascript"></script>
+<script src="http://static.dayeasy.dev/source/js/base/utils.js" type="text/javascript"></script>
+<script src="http://static.dayeasy.dev/source/js/portal/paper.js" type="text/javascript"></script>
+
+
+
+
+</head>
+<body>
+
+<div class="dy-container bo-input-r paper-main paper-main-border j-autoHeight" data-left="132" data-min="400" data-type="2" style="min-height: 400px; overflow: hidden; height: auto;">  
+
+
+
+
+<!--==============================Notes=================================-->
+<div class="g-bd volume">
+
+
+
+
+
+	<!-- 搜索 -->
+	<div class="m-sch m-box-1">
+		<div class="u-sch after">
+			<div class="f-fl">
+				<select class="form-control u-ipt">
+					<option value="">选择知识点</option>
+					<option value="">选择知识点</option>
+					<option value="">选择知识点</option>
+				</select>
+			</div>	
+			<div class="input-group f-fl u-btn">
+			  <input type="text" class="form-control" placeholder="题干/标签">
+			  <span class="input-group-addon trs">搜索</span>
+			</div>
+		</div>
+	</div>		
+	
+	<!-- 难度 -->
+	<div class="m-snav m-box-2">
+		<ul class="ul">
+			<li><label>难度：</label><span class="f-fc f-fl sp">不限</span>
+				<div class="q-star" style="cursor: pointer;">
+					<img alt="1" src="http://static.dayeasy.dev/plugs/raty/images/star-on.png" title="容易">
+					<img alt="2" src="http://static.dayeasy.dev/plugs/raty/images/star-on.png" title="普通">
+					<img alt="3" src="http://static.dayeasy.dev/plugs/raty/images/star-on.png" title="一般">
+					<img alt="4" src="http://static.dayeasy.dev/plugs/raty/images/star-off.png" title="困难">
+					<img alt="5" src="http://static.dayeasy.dev/plugs/raty/images/star-off.png" title="极难">
+				<input name="score" type="hidden" value="3"></div>
+			</li>
+			<li><label>范围：</label>
+				<a href="javascript:;">我的</a>
+				<a href="javascript:;">校内</a>
+				<a class="z-sel" href="javascript:;">全网</a>
+			</li>
+			<li><label>排序：</label>
+				<a href="javascript:;">错误率最高</a>
+				<a href="javascript:;">错误率最低</a>
+				<a class="z-sel" href="javascript:;">使用最多</a>
+				<a href="javascript:;">使用最少</a>
+			</li>
+		</ul>
+	</div>
+	
+
+	<!-- 选择题型 -->
+	<div class="m-box-3 after">
+		<p class="p1 f-fl">您目前所选题型 <span class="f-fc">单项选择</span> ，已选择题目数 <span class="f-fc">15</span> 道</p>
+		<div class="u-box-1 f-fr text-right">
+            <input type="button" class="btn btn-primary trs mr20" value="取消选题">
+            <input type="button" class="btn btn-default trs" value="选题完成" >
+		</div>
+	</div>	
+	
+	<div class="m-nav">
+		<div class="m-box">
+			<div class="u-box-1 f-fl">
+				题型：<span class="f-fc">单项选择</span>
+				题数：<span class="f-fc">15</span>
+			</div>
+			<div class="u-box-2 f-fl">
+				<div class="m-sch m-box-1">
+					<div class="u-sch after">
+						<div class="f-fl">
+							<select class="form-control u-ipt">
+								<option value="">选择知识点</option>
+								<option value="">选择知识点</option>
+								<option value="">选择知识点</option>
+							</select>
+						</div>	
+						<div class="input-group f-fl u-btn">
+						  <input type="text" class="form-control" placeholder="题干/标签">
+						  <span class="input-group-addon trs">搜索</span>
+						</div>
+					</div>
+				</div>		
+			</div>
+			<div class="u-box-3 f-fr">
+				<div class="u-box-1 f-fr text-right">
+		            <input type="button" class="btn btn-primary trs mr20" value="取消选题">
+		            <input type="button" class="btn btn-default trs" value="选题完成" >
+				</div>
+			</div>
+		</div>	
+	</div>
+
+
+</div>
+
+
+
+<!--==============================End=================================-->
+
+
+<div class="" style="height: 6000px;"></div>
+
+
+</div>	
+<!-- source/js/base/base-v2.js -->
+<script src="/source/js/sea/sea.js" data-main="/source/js/sea/paper/init" type="text/javascript"></script>
+
+<!-- <script src="source/js/sea/sea.js" data-main="report/init"></script> -->
+</body>
+</html>

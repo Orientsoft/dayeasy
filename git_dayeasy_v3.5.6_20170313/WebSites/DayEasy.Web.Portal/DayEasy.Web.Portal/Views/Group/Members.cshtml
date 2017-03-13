@@ -1,0 +1,115 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@model List<MemberDto>
+
+@{
+    ViewBag.Title = "圈子成员";
+    var group = (GroupDto)ViewData["group"];
+    var user = (UserDto)ViewData["User"];
+    var isOwner = ViewBag.IsManager ?? false;
+    var page = (int)(ViewBag.Page ?? 1);
+    var total = (int)(ViewBag.Total ?? 0);
+}
+
+<div class="home-circles w1200 f-cb" data-gid="@group.Id" data-manager="@isOwner">
+    <div class="top-img">
+        <img width="1200" height="120" src="@group.GroupBanner" alt="" />
+    </div>
+    <div class="top-title">
+        <a class="f-pa" href="/group/@group.Id">
+            <i class="iconfont dy-icon-fanhui"></i>返回
+        </a>
+        <div class="group-avatar">
+            <div class="dg-avatar">
+                <img width="150" height="150" src="@(string.IsNullOrWhiteSpace(group.Logo) ? Url.StaticLink("v3/image/temp/header.png") : Html.MakeThumb(group.Logo, "150x150"))" alt="" />
+            </div>
+        </div>
+        <div class="dg-name">
+            <strong>@group.Name</strong>
+            <span> [ @group.Code ]</span>
+        </div>
+        <div class="dg-nav-list">
+            <ul>
+                <li><a href="/group/setting/@group.Id">设置</a></li>
+                <li class="active">成员</li>
+            </ul>
+        </div>
+    </div>
+    <div class="dg-page">
+        <table class="table dy-table">
+            <colgroup>
+                <col style="width: 5em" />
+                <col style="width: 20em" />
+                <col style="width: 10em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>成员</th>
+                    <th>得一号</th>
+                    <th>角色</th>
+                    <th>发帖数</th>
+                    <th>加圈时间</th>
+                    <th>最近活跃时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var member in Model)
+                {
+                    var name = (group.Type == (byte)GroupType.Share ? member.Nick : member.Name);
+                    <tr data-id="@member.Id" data-name="@name">
+                        <td>@((Model.IndexOf(member) + 1) + (page - 1) * 15)</td>
+                        <td>
+                            <div class="dg-user">
+                                <a href="/user/@member.Code" target="_blank">
+                                    <span class="d-user">
+                                        <img src="@Html.MakeThumb(@member.Avatar, "30x30")" alt="" />
+                                        @if (member.Level > 0)
+                                        {
+                                            <i class="vip vip-normal"></i>
+                                        }
+                                    </span>
+                                    <span class="dg-name @(member.Id == user.Id ? "dg-name-active" : "")">
+                                        @name
+                                    </span>
+                                </a>
+
+                                @if (group.ManagerId == member.Id)
+                                {
+                                    <span class="dg-role dg-role-creator">圈主</span>
+                                }
+                            </div>
+                        </td>
+                        <td>No.@member.Code</td>
+                        <td>@member.RoleDesc</td>
+                        <td>@member.TopicCount</td>
+                        <td><abbr title="@member.AddedTime.ToString("yyyy-MM-dd HH:mm")">@member.AddedTime.ToString("yyyy-MM-dd")</abbr></td>
+                        <td><abbr title="@member.LastActive.ToString("yyyy-MM-dd HH:mm")">@member.LastActive.ToString("yyyy-MM-dd")</abbr></td>
+                        <td>
+                            @if (member.Id != group.ManagerId && isOwner)
+                            {
+                                <a class="dy-btn dy-btn-danger dy-btn-sm b-delete" href="javascript:void(0)">删除</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">总人数<strong>@total</strong></td>
+                    <td colspan="6" style="text-align: right;padding-right: 15px">
+                        @Html.ShowPager(page, 15, total)
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/circle/page-setting.css")
+}
+@section js{
+    @Html.CombineLink("plugs/webuploader/webuploader.js,js/base/utils.js,v3/js/group/page-setting.js")
+}

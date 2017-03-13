@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Tag Canvas</title>
+    <style>
+        .container {
+            width: 1000px;
+            margin: 20px auto;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .cloud-item {
+            color: #666;
+            font-family: "Microsoft YaHei", serif;
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+            font-size: 14px;
+            height: 40px;
+            line-height: 20px;
+            padding-left: 50px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cloud-item img {
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -o-border-radius: 50%;
+            -ms-border-radius: 50%;
+            border-radius: 50%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 40px;
+            height: 40px;
+        }
+
+        .cloud-item .cloud-desc {
+            color: #999;
+        }
+
+        .cloud-item .cloud-desc em {
+            color: #ed5565;
+            font-style: normal;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <canvas id="logo-list" width="1000" height="600"></canvas>
+    <div id="linkContainer" style="display: none;">
+        <a class="cloud-item" style="border-radius: 50%;" target="_blank" href="http://www.baidu.com">
+            <img width="40" height="40" src="https://unsplash.it/50/50">
+
+            <div class="cloud-title">名称名称</div>
+            <div class="cloud-desc"><em>362</em>名师生</div>
+        </a>
+    </div>
+</div>
+<script src="../../js/jquery-1.10.2.min.js"></script>
+<script src="../../source/plugs/jquery-tagcanvas.js"></script>
+<script>
+    (function ($) {
+        $('#logo-list').tagcanvas({
+            interval: 40,
+            maxSpeed: 0.005,
+            fadeIn: 100,
+            depth: 0.0,
+            initial: [0.9, -0.1],
+            stretchX: 1.9,
+            imageScale: 0.5,
+            outlineMethod: 'none',
+            activeCursor: 'default'
+        }, 'linkContainer');
+    })(jQuery);
+</script>
+</body>
+</html>

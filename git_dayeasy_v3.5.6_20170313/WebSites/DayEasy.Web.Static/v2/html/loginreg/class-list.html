@@ -1,0 +1,124 @@
+﻿<!doctype html>
+<html lang=zh-cn>
+<head>
+    <meta charset="UTF-8">
+    <title>班级列表</title>
+    <link rel="stylesheet" href="../../source/css/font-awesome.css"/>
+    <link rel="stylesheet" href="../../source/css/bootstrap.css"/>
+    <!--<link href="http://static.dayeasy.dev/source/css/bootstrap.css" rel="stylesheet" media="all"/>-->
+    <link rel="stylesheet" href="../../source/css/site-base.css"/>
+    <link rel="stylesheet" href="../../source/css/manage/login-reg.css"/>
+</head>
+<body>
+<div class=" base-style w1000 after">
+    <!--==============================左侧信息菜单栏=================================-->
+    <div class="login-side f-fl">
+        <div class="side-layer">
+            <h2><i class="login-reg-icon login-reg-3"></i>个人设置</h2>
+            <ul>
+                <li><a href="">基本信息</a></li>
+                <li><a href="">密码修改</a></li>
+            </ul>
+            <h2><i class="login-reg-icon login-reg-4"></i>班级管理</h2>
+            <ul>
+                <li  class="z-crt"><a href="">班级列表</a></li>
+            </ul>
+            <h2><i class="login-reg-icon login-reg-2"></i>机构管理</h2>
+            <ul>
+                <li><a href="">基本信息</a></li>
+                <li><a href="">教师职工</a></li>
+                <li><a href="">认证审核</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--==============================左侧信息菜单栏 End=================================-->
+    <div class="login-main f-fr class-list"> <!-- class-list 班级管理class挂钩 -->
+        <div class="conter-warp">
+            <div class="g-conter">
+                <div class="public ">
+                    <h2>班级列表</h2>
+                    <div class="after mb20">
+                        <div class="f-fl f-tac col-1">2014级</div>
+                        <div class="f-fl col-2">
+                            <ul class="ul-list f-cb">
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="after mb20">
+                        <div class="f-fl f-tac col-1">2014级</div>
+                        <div class="f-fl col-2">
+                            <ul class="ul-list  f-cb">
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                                <li><a href="">0班 ></a><i class="f-delete">x</i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="btn btn-warning ml90 f-addto-click">添加班级</button>
+                    <!--添加班级-->
+                    <div class="add-to-class f-cb hide">
+                        <div class="layer-list f-cb mb20">
+                            <div class="f-fl f-tac col-1">2014级</div>
+                            <div class="f-fl col-2">
+                                <ul class="ul-list after">
+                                    <li><a href="">0班</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="layer-list f-cb mb20">
+                            <div class="f-fl f-tac col-1">2014级</div>
+                            <div class="f-fl col-2">
+                                <ul class="ul-list after">
+                                    <li><a href="">0班</a></li>
+                                    <li><a href="">0班</a></li>
+                                    <li><a href="">0班</a></li>
+                                    <li class="z-sel"><a href="">0班</a></li>
+                                    <li><a href="">0班</a></li>
+                                    <li><a href="">0班</a></li>
+                                    <li class="z-sel"><a href="">0班</a></li>
+                                    <li><a href="">0班</a></li>
+                                    <li><a href="">0班</a></li>
+                                    <li><a href="">0班</a></li>
+                                    <li><a href="">0班</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="f-fr boder-top">没有我要的班级,点击此 <a class="color-bule" href="">创建班级</a></p>
+                        <i class="f-close">x</i>
+                    </div>
+                    <!--添加班级 end-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://static.dayeasy.dev/source/js/jquery.js" type="text/javascript"></script>
+<script>
+    $(function() {
+        var $obj=$('.add-to-class');
+        $('.f-addto-click').click(function() { $obj.toggleClass('show');});
+        $obj.find('.f-close').click(function(){
+            $obj.removeClass('show').addClass('hide');
+        });
+    });
+
+</script>
+</body>
+</html>

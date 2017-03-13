@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "批阅中心";
+    //数据源：/work/teacher/marking-list?page=0&size=10
+}
+
+<div class="dy-main">
+    <div class="page-marking-center w1200 f-cb">
+        <!--主体-->
+        <div class="main-marking">
+            <div class="box draft-center-list">
+                <div class="dy-loading">
+                    <i></i>
+                </div>
+            </div>
+        </div>
+        <!--右侧-->
+        <div class="sidebar-marking">
+            <h2 class="h2-title">小助手</h2>
+            <ul class="box-text-list">
+                <div class="dy-loading">
+                    <i></i>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!--模板-->
+<script type="text/html" id="markingTpl">
+    <!--列表内容区域-->
+   
+        {{each $data as value}}
+        {{if value.isJoint}}
+        <div class="box-lg-12 draft-list">
+            <div class="box-lg-8 font-text">
+                <p>
+                    <label class="sign-base sign-2">协同批阅</label>
+                    <a target="_blank" href="{{value.hrefTest}}" title="{{value.paperTitle}}">
+                        <span class="title-name">{{value.paperTitle}}</span>
+                    </a>
+                </p>
+                <div class="box font2">
+                    <div class="box-lg-4">
+                        {{value.time}}
+                    </div>
+                </div>
+            </div>
+            <div class="box-lg-4 f-tar btn-list">
+                {{if value.alloted}}
+                <a class="dy-btn dy-btn-default" target="_blank" href="{{value.hrefIsJointTrue}}">开始批阅</a>
+                {{else}}
+                <a class="dy-btn dy-btn-default" target="_blank" href="{{value.hrefAllot}}">分配题目</a>
+                {{/if}}
+            </div>
+        </div>
+        {{else}}
+        <div class="box-lg-12 draft-list">
+            <div class="box-lg-8 font-text">
+                <p>
+                    <label class="sign-base sign-1">普通批阅</label>
+                    <a href="{{value.hrefTest}}" target="_blank" title="{{value.paperTitle}}">
+                        <span class="title-name">{{value.paperTitle}}</span>
+                    </a>
+                    <a class="class-name" href="{{value.hrefGroup}}" target="_blank">(<em>{{value.groupName}}</em>)</a>
+                </p>
+                <div class="box font2">
+                    <div class="box-lg-4">
+                        {{value.time}}
+                    </div>
+                    <div class="box-lg-4">
+                        {{if value.paperType==1}}
+                        <span>
+                            <b>{{value.aCount}}</b>份已提交
+                        </span>
+                        {{/if}}
+                        {{if value.paperType==2}}
+                        <span>
+                            <b>{{value.aCount}}</b>份<b>A</b>卷
+                        </span>、
+                        <span>
+                            <b>{{value.bCount}}</b>份<b>B</b>卷已提交
+                        </span>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <div class="box-lg-4 f-tar btn-list">
+                {{if value.paperType==1}}
+                <a class="dy-btn dy-btn-default" target="_blank" href="{{value.hrefIsJointFalse}}&type=0">开始批阅</a>
+                {{/if}}
+                {{if value.paperType==2}}
+                {{if value.status==0}}
+                <a class="dy-btn dy-btn-default" target="_blank" href="{{value.hrefIsJointFalse}}&type=1"> 批阅A卷</a>
+                <a class="dy-btn dy-btn-default" target="_blank" href="{{value.hrefIsJointFalse}}&type=2"> 批阅B卷</a>
+                {{/if}}
+                {{if value.status==1}}
+                <a class="dy-btn dy-btn-default disabled" disabled="disabled"> A卷已批阅</a>
+                <a class="dy-btn dy-btn-default" target="_blank"  href="{{value.hrefIsJointFalse}}&type=2"> 批阅B卷</a>
+                {{/if}}
+                {{if value.status==2}}
+                <a class="dy-btn dy-btn-default" target="_blank"  href="{{value.hrefIsJointFalse}}&type=1"> 批阅A卷</a>
+                <a class="dy-btn dy-btn-default disabled" disabled="disabled"> B卷已批阅</a>
+                {{/if}}
+
+                {{/if}}
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+ 
+</script>
+  @*没有数据状态*@
+<script type="text/html" id="markingTplNot">
+    <div class="dy-nothing-marking">
+        <i class="iconfont dy-icon-no"></i>
+        <p>暂时没有需要批阅的试卷</p>
+        <span>完成批阅的试卷可在&nbsp; &nbsp;【&nbsp; <a href="/report/class-reports">报表中心</a> &nbsp;】 &nbsp;&nbsp;查看统计</span>
+    </div>
+</script>
+@section css{
+  @Html.CombineLink("v3/css/testteacher/page-marking-center.css")
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js", "v3/js/testteacher/marking-center.js")
+}

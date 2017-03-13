@@ -1,0 +1,70 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+
+      Author:Plato
+      Create Date:2015/12/8  Last Mondify Date:2015/12/8
+      ===================================================
+
+--------------------------------------------------------------*/
+
+
+//*--------------------   Part ui    -----------------------
+@import "../../less/base";
+//*--------------------  main Style  -----------------------
+.dy-header,.dy-header-tool,.dy-footer{ display: none;}
+.page-assist-top{
+  height: 60px; line-height: 60px; background: white; font-size: 18px; color: #666; margin-bottom: 30px; .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 7px);
+  .assist-top-title{width: 1200px;margin: 0px auto;}
+  }
+.page-co-assist{
+  margin-bottom: 100px;
+  background: white;
+  padding: 20px 0;
+  .h2-title{ margin-bottom: 30px;}
+  .assist-topic-list{ padding: 0px 30px 30px;
+    .h3-title-ab{ color: #bbb; margin-bottom: 20px; font-weight: normal;}
+    .topic-list-con{
+      position: relative;
+      .topic-list-1{ float: left;  border: 1px dashed #eee;    margin-bottom: 46px;    margin-right: 20px;
+      .question-contents{position: relative;
+        .dy-icon-quxiao{ position: absolute; right: 0; top: 0; color: #ed5969; font-size: 16px;}
+        }
+
+        }
+      .question-no-list{ background: white;  padding: 10px 0 10px 10px;
+        &>span{.inline-block; background: #e6e9ed; color: #999;height: 28px; line-height: 28px; padding:0 10px; .rounded-corners(2px); margin-right: 10px; }
+        }
+      .z-sel-topic{
+        border: 1px dashed #4fc1e9;
+        border-bottom:none;
+          .marking-teacher{ display: block;}
+        .question-contents{z-index: 2;}
+
+        }
+      .marking-teacher{
+        display: none;
+        z-index: 1;
+        position: absolute;
+        width: 1140px;
+        top: 48px;
+        background: white;
+        border: 1px dashed #4fc1e9;
+        left: -1px;
+        padding: 10px;
+        .list-box{
+          li{float: left;height: 24px;line-height: 24px; margin-right: 20px;
+            img{
+              margin-right: 8px;
+              .rounded-corners(50%);
+              }
+            span{ position: relative; top: -6px;}
+            }
+          .dy-icon-59{ font-size: 24px; color: #3bafda;}
+          .font-bule{ color: #3bafda; margin-left: 8px; text-outline: -4px;}
+          }
+        }
+      }
+    }
+
+  }
+//*--------------------   ui Style   -----------------------

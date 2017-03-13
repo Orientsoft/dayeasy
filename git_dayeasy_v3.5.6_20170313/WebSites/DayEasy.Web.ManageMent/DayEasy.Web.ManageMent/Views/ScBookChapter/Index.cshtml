@@ -1,0 +1,327 @@
+﻿@{
+    ViewBag.Title = "教材章节";
+    Dictionary<int, string> subjects = null;
+    if (ViewData["subjects"] != null)
+    {
+        subjects = (Dictionary<int, string>)ViewData["subjects"];
+    }
+}
+
+<div class="row">
+    <div class="col-md-2">
+        <select class="form-control" id="ddlStage">
+            <option value="1" selected="selected">小学</option>
+            <option value="2">初中</option>
+            <option value="3">高中</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <select class="form-control" id="ddlSubject">
+            <option value="-1" selected="selected">-请选择学科-</option>
+            @if (subjects != null && subjects.Any())
+            {
+                foreach (var subject in subjects)
+                {
+                    <option value="@subject.Key">@subject.Value</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-md-3">
+        <div class="input-group">
+            <input id="txtTitle" type="text" placeholder="创建教材版本" class="form-control">
+            <span class="input-group-btn">
+                <button id="btnCreate" class="btn btn-default" type="submit"><i class="fa fa-plus"></i></button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="row mt10">
+    <div class="col-md-12">
+        <table class="table">
+            <colgroup>
+                <col style="width: 5%" />
+                <col style="width: 35%" />
+                <col style="width: 10%" />
+                <col style="width: 10%" />
+                <col style="width: 20%" />
+                <col style="width: 20%" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>名称</th>
+                    <th>编号</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody class="sbook-list"></tbody>
+        </table>
+    </div>
+    <div class="col-md-12 del-box" style="display: none;">已删除</div>
+    <div class="col-md-12 del-box mt5" style="display: none;">
+        <table class="table">
+            <colgroup>
+                <col style="width: 5%" />
+                <col style="width: 35%" />
+                <col style="width: 10%" />
+                <col style="width: 10%" />
+                <col style="width: 20%" />
+                <col style="width: 20%" />
+            </colgroup>
+            <tbody class="del-sbook-list"></tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/html" id="edit-template">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="input-group">
+                <input type="text" value="{{title}}" placeholder="教材名称" class="form-control edit-title">
+                <span class="input-group-btn">
+                    <button class="btn btn-default b-ok" type="submit"><i class="fa fa-check"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <span class="b-oper b-cancel">取消</span>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="sbook-template">
+    {{if list && list.length}}
+    {{each list as sb}}
+    {{if (isDelete && sb.status == 4) || (!isDelete && sb.status != 4) }}
+    <tr data-id="{{sb.id}}">
+        <td>{{sb.sort || $index + 1}}</td>
+        <td data-code="{{sb.code}}" data-title="{{sb.title}}">
+            <a href="/sys/sbooks/chapters?code={{sb.code}}">{{sb.title}}</a>
+        </td>
+        <td>{{sb.code}}</td>
+        <td>
+            {{if sb.status == 4}}
+            已删除
+            {{/if}}
+            {{if sb.status == 0}}
+            <span style="color:#28b779">已上架</span>
+            {{/if}}
+            {{if sb.status == 1}}
+            <span style="color:#ff6700">待上架</span>
+            {{/if}}
+        </td>
+        <td>{{sb.addedAt}}</td>
+        <td>
+            {{if sb.status != 4}}
+            <span class="b-oper b-shelves" data-status="{{sb.status == 0 ? 1 : 0}}">
+                {{sb.status == 0 ? '下架' : '上架'}}
+            </span>&nbsp;&nbsp;|&nbsp;
+            <span class="b-oper b-edit">编辑</span>&nbsp;&nbsp;|&nbsp;
+            <span class="b-oper b-del">删除</span>
+            {{/if}}
+            {{if sb.status == 4}}
+            -
+            {{/if}}
+        </td>
+    </tr>
+    {{/if}}
+    {{/each}}
+    {{/if}}
+</script>
+
+@section style{
+    <style type="text/css">
+        .del-box {
+            color: #999;
+        }
+
+        .b-oper, a {
+            cursor: pointer;
+            color: #65cafc;
+        }
+
+            .b-oper:hover, a:hover {
+                color: #28b779;
+            }
+
+        .b-del:hover {
+            color: #ed5565;
+        }
+
+        .sbook-list .col-md-8, .sbook-list .col-md-4 {
+            padding-left: 0 !important;
+        }
+    </style>
+}
+
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js")
+    <script type="text/javascript">
+        $(function () {
+            var S = SINGER, list, edit, hasBook = false, hasDelBook = false;
+
+            list = function () {
+                var stage = $("#ddlStage").val(),
+                    subject = $("#ddlSubject").val();
+                if (!stage || !stage.length || !subject || !subject.length || subject < 1) return;
+                var $box = $(".sbook-list"),
+                    $delBox = $(".del-sbook-list"),
+                    msg = '<tr><td colspan="4" style="text-align:center;">{0}</td></tr>';
+                $(".del-box").hide();
+                $delBox.html('');
+                $box.html(S.format(msg, '正在加载，请稍后...'));
+
+                $.post('/sys/sbooks/sbook-list', { stage: stage, subject: subject }, function (json) {
+                    if (!json.status) {
+                        $box.html(S.format(msg, json.message));
+                        return;
+                    }
+                    if (!json.data || !json.data.length) {
+                        $box.html(S.format(msg, '没有任何教材'));
+                        return;
+                    }
+                    hasBook = false;
+                    hasDelBook = false;
+                    for (var i = 0; i < json.data.length; i++) {
+                        if (hasBook && hasDelBook) break;
+                        if (!hasBook && json.data[i].status != 4) hasBook = true;
+                        if (!hasDelBook && json.data[i].status == 4) hasDelBook = true;
+                    }
+                    if (hasBook) {
+                        var html = template('sbook-template', { list: json.data, isDelete: false });
+                        $box.html(html);
+                    } else {
+                        $box.html(S.format(msg, '全部教材均已删除'));
+                    }
+                    if (hasDelBook) {
+                        var dHtml = template('sbook-template', { list: json.data, isDelete: true });
+                        $delBox.html(dHtml);
+                        $(".del-box").show();
+                    }
+                });
+            }
+            edit = function (title, id, callback) {
+                title = S.trim(title);
+                if (!title || !title.length) return;
+                $.post("/sys/sbooks/sbook-edit", {
+                    stage: $("#ddlStage").val(),
+                    subject: $("#ddlSubject").val(),
+                    title: title,
+                    id: id
+                }, function (json) {
+                    if (!json.status) {
+                        S.msg(json.message);
+                        return;
+                    }
+                    if (callback && S.isFunction(callback))
+                        callback.call(null, json.data);
+                    else
+                        S.msg("操作成功，请刷新页面");
+                });
+            }
+
+            $("#ddlStage").bind("change", list);
+            $("#ddlSubject").bind("change", list);
+            $("#btnCreate").bind("click", function () {
+                var title = $("#txtTitle").val();
+                if (!title || !title.length) return;
+                S.confirm('确认添加教材《' + title + '》？', function () {
+                    edit(title, '', function (data) {
+                        if (hasBook || hasDelBook) {
+                            data.sort = 1;
+                            if (hasBook) data.sort += $(".sbook-list tr").length;
+                            if (hasDelBook) data.sort += $(".del-sbook-list tr").length;
+                        }
+                        if (!hasBook) $(".sbook-list").html('');
+                        hasBook = true;
+                        var tmpList = [];
+                        tmpList.push(data);
+                        var html = template('sbook-template', { list: tmpList, type: 0 });
+                        $(".sbook-list").append(html);
+                        $("#txtTitle").val("");
+                    });
+                });
+            });
+            $(".sbook-list")
+                .delegate('.b-shelves', 'click', function () {
+                    var $this = $(this);
+                    var $tr = $this.parents('tr');
+                    var $text = $tr.find('td').eq(3);
+                    if (!$tr) return;
+                    var id = $tr.data('id'),
+                        title = $tr.find('td').eq(1).data('title'),
+                        status = $this.data('status'),
+                        text = $this.text();
+                    if (!id || !id.length) return;
+                    S.confirm('确认'+text+'教材《' + title + '》?', function() {
+                        $.post('/sys/sbooks/sbook-status', { id: id, status: status }, function(json) {
+                            if (!json.status) {
+                                S.msg(json.message);
+                                return;
+                            }
+                            var _html = status == "1"
+                                ? '<span style="color:#ff6700">待上架</span>'
+                                : '<span style="color:#28b779">已上架</span>';
+                            $text.html(_html);
+                            $this.data("status", (status == "1" ? "0" : "1")).text(status == "1" ? "上架" : "下架");
+                        });
+                    });
+                })
+                .delegate('.b-del', 'click', function () {
+                    var $tr = $(this).parents('tr');
+                    if (!$tr) return;
+                    var id = $tr.data('id'),
+                        title = $tr.find('td').eq(1).data('title');
+                    if (!id || !id.length) return;
+                    S.confirm('确认删除教材《' + title + '》？', function () {
+                        $.post("/sys/sbooks/sbook-del", { id: id }, function (json) {
+                            if (!json.status) {
+                                S.msg(json.message);
+                                return;
+                            }
+                            var $tds = $tr.find('td');
+                            $tds.eq(3).html('已删除');
+                            $tds.last().html('-');
+                            var delTr = $.extend({}, $tr);
+                            $tr.remove();
+                            $('.del-sbook-list').append(delTr);
+                            if (!hasDelBook) {
+                                hasDelBook = true;
+                                $(".del-box").show();
+                            }
+                        });
+                    });
+                })
+                .delegate('.b-edit', 'click', function () {
+                    var $tr = $(this).parents('tr');
+                    if (!$tr) return;
+                    var $td = $tr.find('td').eq(1);
+                    var title = $td.data("title");
+                    var _html = template('edit-template', { title: title });
+                    $td.html(_html);
+                })
+                .delegate('.b-ok', 'click', function () {
+                    var $td = $(this).parents("td");
+                    if (!$td) return;
+                    var title = $td.find(".edit-title").val();
+                    if (!title || !title.length || title == $td.data("title")) return;
+                    var id = $td.parent().data("id");
+                    var code = $td.data("code");
+                    edit(title, id, function (data) {
+                        var _html = '<a href="/sys/sbooks/chapters?code=' + code + '">' + title + '</a>';
+                        $td.data("title", title).html(_html);
+                    });
+                }).delegate('.b-cancel', 'click', function () {
+                    var $td = $(this).parents("td");
+                    if (!$td) return;
+                    var title = $td.data("title"),
+                        code = $td.data("code");
+                    var _html = '<a href="/sys/sbooks/chapters?code=' + code + '">' + title + '</a>';
+                    $td.html(_html);
+                });
+        });
+    </script>
+}

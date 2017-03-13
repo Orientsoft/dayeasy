@@ -1,0 +1,217 @@
+@import "eb-base";
+.ed-home-main{
+  border: 1px solid @color-border-grey;
+  //  主体左侧
+  .home-main-left{
+    width: 670px;
+    padding-top: 20px;
+    float: left;
+    border-right: 1px solid @color-border-grey;
+    border-bottom: 1px solid @color-border-grey;
+    .m-header{
+      position: relative;
+      z-index: 5;
+      padding: 10px 15px;
+      .input-soso{
+        position: relative;
+        width: 486px;
+        height: 40px;
+        border: 2px solid @color-border-orange;
+        .so-prompt{
+          width: 384px;
+          background: @color-white;
+          border: 2px solid @color-border-grey;
+          border-top: none;
+          position: absolute;
+          bottom: -112px;
+          left: 0;
+          li{
+            width: 380px;
+            height: 36px;
+            cursor: pointer;
+            padding: 10px;
+            white-space:nowrap;
+            text-overflow:ellipsis;
+            -o-text-overflow:ellipsis;
+            overflow: hidden;
+            &:hover{
+              background: @color-border-orange;
+            }
+          }
+        }
+        .form-control{
+          max-width: 382px;
+          height: 36px;
+        }
+        .btn-default{
+          width: 100px;
+          position: relative;
+          right: -1px;
+          border: none;
+          text-align: center;
+          display: inline-block;
+          background: @color-border-orange;
+          color: @color-333;
+          font-size: 18px;
+        }
+      }
+      .so-p-1{
+        margin-top: 12px;
+        font-size: 14px;
+        b{
+          margin: 0 5px;
+          color: @color-border-orange;
+          display: inline-block;}
+      }
+    }
+    .m-content{
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid @color-border-grey;
+      .u-header{
+        padding: 5px 15px;
+        background: @color-bg-base;
+        .table-2{
+          margin-right: 5px;}
+        .table-3{
+          text-align: right;
+          padding-top: 5px;
+          width: 193px;
+          ul li{
+            float: right;
+            margin-right: 10px;
+          }
+          input{
+            vertical-align: sub;
+            margin-right: 5px;}
+        }
+      }
+      .u-content{
+        padding:20px 0;
+        .u-list{
+          border-bottom: 1px dashed #e6e6e6;
+          margin: 10px 15px;
+          padding-bottom: 15px;
+          .f-content{padding: 20px 0;}
+          .u-label{
+            a{
+              color: @color-white;
+              text-decoration: none;
+              padding: 5px 10px;
+              display: inline-block;}
+            a.color-orange{
+              background: @color-border-orange;}
+            a.color-pink{
+              background: @color-pink;
+            }
+          }
+          .u-right{
+            li{float: left;
+              cursor: pointer;
+              display: inline-block;
+              margin-right: 10px;
+              &:hover,&:hover a,&:hover i{
+                color: @color-pink;
+              }
+              a{
+                text-decoration: none;
+                color: @color-blue;
+              }
+              i{
+                color: @color-blue;
+                margin-right: 5px;
+                }
+            }
+          }
+        }
+      }
+    }
+  }
+  // 右侧主体
+  .home-main-right{
+    width: 302px;
+    float: right;
+  }
+}
+//弹出框
+.eb-pop-box{
+  width: 606px;
+  position: relative;
+  padding: 20px;
+  background: #ffffff;
+  i{
+    cursor: pointer;
+    color: #d3d3d3;
+    &:hover{
+      color: @color-border-orange;
+    }
+  }
+  .pop-input{
+
+    width: 100%;
+    max-width: 100%;
+  }
+  .pop-close{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+    cursor: pointer;
+
+  }
+  h2{
+    font-size: 18px;
+    color: #454a4c;}
+  .f-width-l{
+    width: 78px;
+  }
+  .f-width-r{
+    width: 460px;
+  textarea{padding: 5px;}
+  }
+  .pop-box-1{
+    .f-dl{
+      margin: 5px 0;
+      dt{float : left;
+        margin-bottom: 5px;
+        margin-right: 5px;
+      }
+      dd{
+        cursor: pointer;
+        margin-right: 10px;
+        margin-bottom: 5px;
+        float : left;
+        color: @color-blue;
+        &:hover{
+          color: @color-pink;
+        }
+      }
+    }
+  }
+  .pop-box-2{
+    .u-list-add{
+      .u-list{
+        li{
+          position: relative;
+          float: left;
+          margin-right: 20px;}
+        li.f-fr{
+          margin-right: 0;
+          float: right;}
+      }
+    }
+  }
+  .f-position{
+    width: 111.563px;
+    background: @color-white;
+    border: 1px solid @color-border-grey;
+    position: absolute;
+    left: 0;
+    bottom:-11px;
+    text-align: center;
+  }
+}
+
+#limit{
+  width: 100%;
+  max-width: 100%;
+}

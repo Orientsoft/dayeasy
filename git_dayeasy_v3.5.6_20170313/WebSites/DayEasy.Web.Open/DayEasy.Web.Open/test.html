@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit" />
+    <link rel="dns-prefetch" href="//static.dayez.net" />
+    <title>api接口测试</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <link rel="stylesheet" href="//static.dayez.net/css/bootstrap.min.css" media="all" />
+    <style type="text/css">
+        .page-header h3, .page-header h5 {
+            margin-left: 45px;
+        }
+
+        .page-header {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 85%;
+        }
+
+        .must {
+            color: Red;
+            margin: 0 3px;
+            vertical-align: -3px;
+        }
+
+        .result {
+            border: solid 1px #eee;
+            -ms-border-radius: 3px;
+            border-radius: 3px;
+            min-height: 160px;
+            background-color: #fff;
+            padding: 5px 15px;
+            -webkit-box-shadow: 2px 2px 1px #ddd;
+            -ms-box-shadow: 2px 2px 1px #ddd;
+            box-shadow: 2px 2px 1px #ddd;
+        }
+
+        small {
+            margin-left: 12px;
+        }
+
+        .none {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header well">
+        <h3>API接口测试工具<small><a href="/">&lt;&lt;返回文档页面</a></small></h3>
+    </div>
+    <div class="col-sm-6">
+        <div class="well form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">API类目</label>
+                <div class="col-sm-4">
+                    <select name="api-category" id="api-category" class="form-control">
+                        <option value="-1">加载中...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">API</label>
+                <div class="col-sm-4">
+                    <select name="api-method" id="api-method" class="form-control">
+                        <option value="-1">加载中...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">提交方式</label>
+                <div class="col-sm-10">
+                    <div class="radio-inline">
+                        <label><input type="radio" name="api-type" checked="checked" value="GET" />GET</label>
+                    </div>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="api-type" value="POST" />POST</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">返回结果</label>
+                <div class="col-sm-4">
+                    <select name="api-result" id="api-dataType" class="form-control">
+                        <option value="">Json</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">app key</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control input-medium" id="api-key" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">app secret</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control input-big" id="api-secret" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">登录凭证</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control input-big" id="api-token" />
+                </div>
+            </div>
+            <div class="page-header"><h4>接口参数</h4></div>
+            <div class="row j_params">
+
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-primary j_submit">提交测试</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="well">
+            <div class="page-header">
+                <h4>参数提取</h4>
+            </div>
+            <div>
+                <textarea name="" class="form-control" id="api-url" cols="40" rows="5"></textarea>
+            </div>
+            <div class="page-header">
+                <h4>返回结果<small>运行时间：<code class="run-time">--</code>ms</small></h4>
+            </div>
+            <div>
+                <div class="result form-control-static">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="//static.dayez.net/js/jquery.min.js"></script>
+    <script src="jsonformat.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            var ajaxApi, apiTools = {}, setHttpType;
+
+            //设置请求方式
+            setHttpType = function (type) {
+                type = type.toUpperCase();
+                if (type && (type === "POST" || type === "GET")) {
+                    var index = (type === "POST" ? 1 : 0),
+                        $checkList = $('input[name="api-type"]'),
+                        checkBox = $checkList.get(index),
+                        uncheckBox = $checkList.get(1 - index);
+                    uncheckBox.setAttribute('disabled', 'disabled');
+                    uncheckBox.checked = false;
+                    checkBox.removeAttribute('disabled');
+                    checkBox.checked = true;
+                }
+            };
+
+            //ajax封装
+            ajaxApi = function (url, method, data, callback, error) {
+                url = url || "/doc/execute";
+                method = (!method ? "GET" : method);
+                data = $.extend({ timer: Math.random() }, data || {});
+                callback = ("function" === typeof callback ? callback : function () { });
+                error = ("function" === typeof error ? error : function () { });
+                $.ajax({
+                    url: url,
+                    type: method,
+                    dataType: "JSON",
+                    data: data,
+                    success: function (json) {
+                        callback.call(this, json);
+                    },
+                    error: function (a, b) {
+                        error.call(this, a);
+                    },
+                    complete: function (a, b) {
+                        $(".j_submit")
+                            .removeClass("disabled")
+                            .removeAttr("disabled", "disabled")
+                            .html("提交测试");
+                    }
+                });
+            };
+
+            //获取Api分类
+            apiTools.getCate = function () {
+                var $cate = $("#api-category");
+                ajaxApi("/doc/category", "", {}, function (data) {
+                    if (!data || !data.length) return;
+                    $cate.empty();
+                    for (var i in data) {
+                        if (data[i].id >= 1000) continue;
+                        $cate.append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                    }
+                    apiTools.getApi();
+                });
+            };
+
+            //获取Api列表
+            apiTools.getApi = function () {
+                var cid = parseInt($("#api-category option:selected").val());
+                if (cid <= 0) return;
+                var $api = $("#api-method");
+                $api.find("option").remove();
+                ajaxApi("/doc/methods", "", { cid: cid }, function (data) {
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            $api.append('<option value=' + data[i].id + '>' + data[i].name + '</option>');
+                        }
+                        $api.change();
+                    }
+                });
+            };
+
+            //获取Api方法
+            apiTools.getMethod = function () {
+                var mid = parseInt($("#api-method option:selected").val());
+                if (mid < 0) return;
+                var $params = $(".j_params");
+                $params.html("");
+                ajaxApi("/doc/method", "", { id: mid }, function (data) {
+                    if (!data || !data.response) {
+                        $params.empty();
+                    }
+                    setHttpType(data.type);
+                    $params.data("method", data.method);
+                    if (data.response.length > 0) {
+                        var _html = "";
+                        for (var i = 0; i < data.response.length; i++) {
+                            var _t = data.response[i];
+                            var desc = _t.description.replace(/(<[^>]+>)|(\\s+)|(\\r\\n)/gi, '');
+                            _html += '<div class="form-group" data-name="' + _t.name + '">';
+                            _html += '<label class="col-sm-2 control-label"><i class="' + (_t.isRequire ? "must" : "none") + '">*</i><abbr title="' + desc + '">' + _t.name + '</abbr></label>';
+                            _html += '<div class="col-sm-6">';
+                            _html += '<input type="text" class="form-control" />';
+                            _html += '</div><div class="col-sm-4">';
+                            _html += '<p class="form-control-static">数据类型[' + _t.type + ']</p>';
+                            _html += '</div></div>';
+                        }
+                        $params.append(_html);
+                    }
+                });
+            };
+
+            //执行测试
+            apiTools.test = function () {
+                var $btn = $(".j_submit"),
+                    $url = $("#api-url"),
+                    $result = $(".result");
+                $url.val("");
+                $result.html("");
+                $btn.blur();
+                $btn.addClass("disabled").attr("disabled", "disabled").html("提交中...");
+                var method = $(".j_params").data("method"),
+                    type = $("input[name=api-type]:checked").val(),
+                    dataType = "Json",
+                    key = $("#api-key").val(),
+                    secret = $("#api-secret").val(),
+                    token = $("#api-token").val(),
+                    params = [];
+                var $params = $(".j_params .form-group");
+                for (var i = 0; i < $params.length; i++) {
+                    var $item = $params.eq(i),
+                        val = $item.find("input[type=text]").val();
+                    params.push($item.data("name") + "=" + encodeURIComponent(val));
+                }
+                $(".run-time").html("--");
+                ajaxApi("", "POST", {
+                    type: type,
+                    method: method,
+                    dataType: dataType,
+                    key: key,
+                    secret: secret,
+                    token: token,
+                    parms: params.join('&')
+                }, function (data) {
+                    $url.val(data.url);
+                    //console.log(data.result);
+                    $result.html((new JsonFormat(data.result)).toString());
+                    $(".run-time").html(data.time);
+                }, function (a) {
+
+                });
+            };
+
+            $(document)
+                .ready(function () {
+                    apiTools.getCate();
+                })
+                .delegate("#api-category", "change", function () {
+                    apiTools.getApi();
+                })
+                .delegate("#api-method", "change", function () {
+                    apiTools.getMethod();
+                })
+                .delegate(".j_submit", "click", function () {
+                    apiTools.test();
+                });
+        })(jQuery);
+    </script>
+</body>
+</html>

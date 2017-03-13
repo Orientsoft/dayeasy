@@ -1,0 +1,305 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Core.Domain
+@using DayEasy.Utility
+@using DayEasy.Utility.Extend
+
+@model DayEasy.Contracts.Dtos.AgencyItemDto
+@{
+    ViewBag.Title = Model.Name + " - 学校主页";
+    var user = ViewData["User"] as UserDto;
+}
+
+
+<div class="index-school" data-agency="@Model.Id">
+    <div class="g-top-school">
+        <div class="w1000 f-tac f-prz">
+            <div class="school-introduce">
+                <img class="school-logo" src="@Html.MakeThumb(Model.Logo, "110x110")" height="110" width="110" alt="" />
+
+                <div class="school-name">
+                    <h2>@Model.Name</h2>
+                    <span>@(Model.Stage.GetEnumText<StageEnum, byte>())</span>
+                </div>
+                <p>@(string.IsNullOrWhiteSpace(Model.Summary) ? "天才训练营，传说中的游乐场" : Model.Summary)</p>
+            </div>
+            <dl class="lick">
+                <dt title="有@(Model.TargetCount)人想去" class="iconfont dy-icon-index-zan"></dt>
+                <dd title="有@(Model.TargetCount)人想去">@Model.TargetCount</dd>
+                <dt title="有@(Model.VisitCount)人来访" class="iconfont dy-icon-viewline"></dt>
+                <dd title="有@(Model.VisitCount)人来访">@Model.VisitCount</dd>
+                <dt title="有@(Model.UserCount)名师生" class="iconfont dy-icon-teacher"></dt>
+                <dd title="有@(Model.UserCount)名师生">@Model.UserCount</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="g-content-school w1000 f-cb">
+        <div class="m-mainc f-fl">
+            <!--人气名师-->
+            <div class="sticker">
+                <div class="titile">
+                    <h2>人气名师</h2>
+                    <span class="text">寻找陪伴你的良师益友</span>
+                </div>
+                <div class="content">
+                    <div class="dy-loading"><i></i></div>
+                </div>
+            </div>
+            <!--热门语录-->
+            <div class="hot-topic">
+                <div class="titile">
+                    <h2>热门语录</h2>
+                    <span class="text">那些年学校老师飙过的金句</span>
+                </div>
+                <div class="content">
+                    <!--热门语录-->
+                    <div class="hot-topic-content">
+                        <div class="lst" id="quotation-list">
+                        </div>
+                        <div class="hot-btn hide" id="quotation-more">
+                            <a href="#">展开更多<i class="iconfont dy-icon-anglebottom"></i></a> <!--dy-icon-angletop-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--其他老师-->
+            <div class="other-teachers">
+                <div class="titile">
+                    <h2>学校名师</h2>
+                </div>
+                <div class="new-actives" style="margin: 0 auto">
+                    <div class="tab-hd hide">
+                        <!--<span class="pageState"></span>-->
+                        <span class="step">
+                            <a href="javascript:void(0)" class="prev"><s class="arrow arrow-lthin"><s></s></s></a>
+                            <a href="javascript:void(0)" class="next"><s class="arrow arrow-rthin"><s></s></s></a>
+                        </span>
+                    </div>
+                    <div class="tab-bd">
+                        <div class="tab-bd-in" id="b-teachers">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--side-->
+        <div class="m-side f-fr">
+            <div class="relation">
+                <h2 class="title">
+                    与我的关系
+                </h2>
+                @if (user == null)
+                {
+                    <div class="box1">
+                        <i class="iconfont dy-icon-lock password"></i>
+                        <p>登录后才能查看哦</p>
+                        <a href="@(Consts.Config.LoginSite + "?return_url=" + Utils.RawUrl().UrlEncode())">去登录</a>
+                    </div>
+                }
+                else
+                {
+                    var relation = ViewData["relation"] as DKeyValue<byte, int>;
+
+                    <div class="box0">
+                        <div class="user">
+                            <div class="d-user">
+                                <img src="@Html.MakeThumb(user.Avatar, "40x40")" width="40" height="40" alt="" />
+                                @if (user.Level > 0)
+                                {
+                                    <i class="vip vip-normal"></i>
+                                }
+                            </div>
+                            <span>@user.Name</span>
+                        </div>
+                        @if (relation != null)
+                        {
+                            if (user.IsTeacher())
+                            {
+                                <span class="state">@(relation.Key == (byte)UserAgencyStatus.Current ? "在教" : "曾教")</span>
+                            }
+                            else
+                            {
+                                switch (relation.Key)
+                                {
+                                    case (byte)UserAgencyStatus.History:
+                                    case (byte)UserAgencyStatus.Current:
+                                        <span class="state">@(relation.Key == (byte)UserAgencyStatus.Current ? "在读" : "曾读")</span>
+                                        <p class="classmate">
+                                            同届同学<span>@relation.Value</span>人
+                                        </p>
+                                        break;
+                                    case (byte)UserAgencyStatus.Target:
+                                        <span class="state">目标</span>
+                                        <p class="classmate">
+                                            相同目标<span>@relation.Value</span>人
+                                        </p>
+                                        break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <span class="state b-add-relation" data-role="@(user.IsTeacher() ? 4 : 2)">添加关系</span>
+                        }
+                        <div class="school-name">
+                            <img src="@Html.MakeThumb(Model.Logo, "40x40")" width="40" height="40" alt="" />
+                            <div>@Model.Name</div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="recent-visit">
+                <h2 class="title">
+                    最近来访
+                </h2>
+                <div class="content f-cb" id="visit-history"></div>
+            </div>
+            <div class="often">
+                <h2 class="title">
+                    校友们常去逛的学校
+                </h2>
+                <div class="content" id="b-agencies"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="hotImpressions">
+    <ul>
+        {{each $data as item index}}
+        <li>
+            <a href="/user/{{item.code}}" title="进入Ta的主页">
+                <div class="box1">
+                    <div class="d-user">
+                        <img src="{{item.avatar}}" alt="" width="32" height="32" />
+                        {{if item.level>0}}<i class="vip vip-normal"></i>{{/if}}
+                    </div>
+                    <b>TOP {{index+1}}</b>
+                </div>
+                <div class="box2">
+                    <strong>{{item.name}}</strong>
+                    <em>{{item.subject}}</em>
+                </div>
+                <div class="box3 sort-sticker">
+                    {{each item.impressions as impression}}
+                    <dl class="f-cb">
+                        <dt>{{impression.key}}</dt>
+                        <dd><span>{{impression.value}}</span> <i class="iconfont dy-icon-index-surpport"></i></dd>
+                    </dl>
+                    {{/each}}
+                </div>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<script type="text/html" id="hotQuotations">
+    {{each quotations as item}}
+    <div class="hot-list f-cb {{item.supported?'praise':''}}">
+        <!--praise-->
+        <div class="f-fl hd">
+            <a href="javascript:void(0);" class="b-support{{item.supported?' supported':''}}" data-qid="{{item.id}}" title="{{item.supported?'':'点击支持'}}">
+                <span>{{item.supportCount}}</span>
+                <i class="iconfont dy-icon-index-surpport"></i>
+            </a>
+        </div>
+        <div class="f-fr main">
+            <div class="tt f-cb">
+                <b>来自</b>
+                <a class="name" href="/user/{{users[item.userId].code}}">{{users[item.userId].name}}</a>
+                <span>{{item.creationTime}}</span>
+            </div>
+            <div class="hot-content">
+                {{#item.content}}
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+<script type="text/html" id="otherTeacher">
+    <ul>
+        {{each $data as item}}
+        <li>
+            <a href="/user/{{item.code}}">
+                <div class="box1 d-user">
+                    <img src="{{item.avatar}}" alt="" width="32" height="32">
+                    {{if item.level>0}}<i class="vip vip-normal"></i>{{/if}}
+                </div>
+                <div class="box2">
+                    <strong>{{item.name}}</strong>
+                    <em>{{item.subject}}</em>
+                </div>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<script type="text/html" id="lastVisit">
+    {{each $data as item}}
+    <a title="{{item.name}}" href="/user/{{item.code}}" class="d-user">
+        <img src="{{item.avatar}}" width="36" height="36" alt="{{item.name}}" />
+        {{if item.level>0}}<i class="vip vip-normal"></i>{{/if}}
+    </a>
+    {{/each}}
+</script>
+<script type="text/html" id="hotAgencies">
+    <ul class="f-cbli">
+        {{each $data as item index}}
+        <li>
+            <a title="{{item.name}}" href="/agency/{{item.id}}">
+                <span>{{index+1}}</span>
+                <p>{{item.name}}</p>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+@if (user != null)
+{
+    <script type="text/html" id="addRelationTpl">
+        <div class="relation-wrap">
+            <ul class="status-list">
+                @if (user.IsTeacher())
+                {
+                    <li data-status="0">当前在职</li>
+                    <li data-status="1">曾经就职</li>
+                }
+                else
+                {
+                    <li data-status="0">当前在读</li>
+                    <li data-status="1">曾经就读</li>
+                    if (ViewBag.UserStage >= 0 && Model.Stage == ViewBag.UserStage + 1)
+                    {
+                        <li data-status="2">目标学校</li>
+                    }
+                }
+            </ul>
+            <div class="status-time">
+                <div class="current hide">
+                    @(user.IsTeacher() ? "入职" : "入学")时间：
+                    <input type="text" class="d-time t-start" readonly="readonly" />
+                </div>
+                <div class="history hide">
+                    <input type="text" class="d-time t-start" readonly="readonly" />
+                    至
+                    <input type="text" class="d-time t-end" readonly="readonly" />
+                </div>
+            </div>
+        </div>
+    </script>
+}
+
+@section css{
+    @Html.CombineLink("v3/plugs/monthPicker/monthPicker.css", "v3/css/home/v1/ui-base.css", "v3/css/home/v1/page-index-school.css")
+}
+
+@section js{
+    @Html.CombineLink(
+    "v3/plugs/monthPicker/monthPicker.js",
+    "js/artTemplate.min.js",
+    "v3/plugs/SuperSlide/jquery.SuperSlide.2.1.js",
+    "v3/js/home/page-agency.js")
+}

@@ -1,0 +1,883 @@
+@import "../base";
+
+@media-width: 640;
+body {
+  .background-image('teachersday/bg.png');
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.wrap-teacher-day {
+  margin: 0 auto;
+  position: relative;
+  .page-title {
+    padding-top: 1em;
+    margin-bottom: 1em;
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+    .title-img-1 {
+      margin-bottom: 1em;
+      img {
+        width: 80%;
+      }
+    }
+    .title-img-2 {
+      img {
+        width: 53%;
+      }
+    }
+    margin-bottom: 40px;
+  }
+  .input-text {
+    font-size: 26px;
+    position: relative;
+    padding-top: 1em;
+    margin-bottom: 1em;
+    img {
+      width: 80%;
+    }
+    ul {
+      position: absolute;
+      top: 17px;
+      left: 250px;
+      li {
+        margin-bottom: 40px;
+      }
+    }
+    input {
+      background: transparent;
+      font-size: 26px;
+      width: 292px;
+      height: 50px;
+      border: none;
+      color: white;
+
+    }
+    .list-1 {
+      select {
+
+        bacground: transparent;
+        background: none;
+        -webkit-appearance: none;
+        background: rgba(0, 0, 0, 0);
+        background: transparent;
+        width: 119px;
+        color: white;
+        border: none;
+        height: 47px;
+        option {
+          color: #ccc;
+        }
+      }
+      .select1 {
+        margin-right: 55px;
+      }
+
+    }
+    .list-2, .list-3 {
+      input {
+        margin-top: -1px;
+      }
+    }
+  }
+  .btn-text {
+    margin-bottom: 1em;
+    img {
+      width: (200/640)*100%;
+    }
+  }
+  .p-text {
+    text-align: center;
+    font-size: 18px;
+    padding-bottom: 20px;
+    color: white;
+    line-height: 1.4em;
+  }
+
+  //entrance-0.html
+  .title-img-3, .title-img-saying {
+    img {
+      width: 60%;
+      margin: 0 auto;
+    }
+    margin-bottom: 20px;
+  }
+  .title-img-3{
+    img{width: 40%;}
+    }
+  .title-img-4 {
+    img {
+      width: 68.5%;
+      margin: 0 auto;
+    }
+    margin-bottom: 1em;
+  }
+  .entrance-text {
+    font-size: 30px;
+    b {
+      font-size: 48px;
+    }
+    text-transform: uppercase;
+    width: 80%;
+    margin: 0 auto 1em;
+    text-align: center;
+    -webkit-text-stroke: 1px white;
+    color: white;
+    text-shadow: 3px 3px 0 #7768a5,
+      -1px -1px 0 #7768a5,
+      1px -1px 0 #7768a5,
+    -1px 1px 0 #7768a5,
+    1px 1px 0 #7768a5;
+  }
+  //scancode-3.html
+  .scancode-bg {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+  }
+  .code-img-pos {
+    position: absolute;
+    top: 450px;
+    left: 50%;
+    margin-left: -454/2px;
+    .spanimg1 {
+      margin-right: 54px;
+    }
+    .spanimg1, .spanimg2 {
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    }
+  }
+  //share-5.html
+  .teacher-submit-phone {
+    margin-bottom: 30px;
+    position: relative;
+    .cell-phone {
+      width: 190px;
+      height: 52px;
+      position: absolute;
+      background: transparent;
+      color: white;
+      border: none;
+      top: 4px;
+      left: 269px;
+      font-size: 26px;
+    }
+    .img1 {
+      width: 93.75%;
+      margin: 0 auto;
+    }
+    .img2 {
+      position: absolute;
+      right: 5.15%;
+      width: 15.625%;
+      top: 0;
+    }
+  }
+  .share-text {
+    font-size: 24px;
+    color: white;
+    padding-left: 34%;
+    margin-bottom: 30px;
+  }
+  .share-btn-text {
+    text-align: center;
+    img {
+      .inline-block;
+    }
+    .img1 {
+      margin-right: 4.68745%;
+      width: 26.25%;
+    }
+    .img2 {
+      width: 31.25%;
+    }
+  }
+}
+
+//make.html
+.teacher-day-tool {
+  .canvas-btn {
+    margin-bottom: 25px;
+    text-align: center;
+    img {
+      .inline-block;
+    }
+    .btn-img-text {
+      margin-right: 25px;
+    }
+    .btn-img-photo {
+      margin-right: 25px;
+    }
+    .btn-img-ok {
+    }
+  }
+}
+
+.scrollbarwrap {
+  height: 412px;
+  top: 215px;
+  position: absolute;
+  right: 30px;
+  z-index: 2;
+}
+
+.canvas-con {
+  position: relative;
+  padding-top: 10px;
+  margin-bottom: 15px;
+  padding-right: 45px;
+  canvas {
+    width: 94%;
+  }
+}
+
+/* media */
+/* 横屏 */
+
+/* 竖屏 */
+@media screen and (orientation: portrait) {
+}
+
+/* 窗口宽度<960,设计宽度=768 */
+@media screen and (max-width: 959px) {
+  .wrap-teacher-day {
+    width: 640px;
+  }
+}
+
+/* 窗口宽度<768,设计宽度=640 */
+@media screen and (max-width: 767px) {
+  .wrap-teacher-day {
+    width: 640px;
+    .title-img-3{
+      img{width: 70%;}
+      }
+  }
+}
+
+/* 窗口宽度<640,设计宽度=480 */
+@media screen and (max-width: 639px) {
+  .wrap-teacher-day {
+    width: 480px;
+    .title-img-3{
+      img{width: 70%;}
+      }
+    .input-text {
+      font-size: 18px;
+      ul {
+        top: 12px;
+        left: 186px;
+        li {
+          font-size: 14px;
+          margin-bottom: 29px;
+        }
+      }
+
+      .list-1 {
+        select {
+          width: 90px;
+          height: 36px;
+          font-size: 18px;
+        }
+        .select1 {
+          margin-right: 40px;
+        }
+      }
+      .list-2, .list-3 {
+        input {
+          margin-top: 2px;
+        }
+      }
+      .list-4 {
+        input {
+          margin-top: 1px;
+        }
+      }
+      input {
+        font-size: 18px;
+        width: 228px;
+        height: 36px;
+      }
+    }
+    .p-text {
+      font-size: 14px;
+    }
+    .entrance-text {
+      font-size: 22px;
+      text-shadow: 2px 2px 0 #7768a5,
+        -1px -1px 0 #7768a5,
+        1px -1px 0 #7768a5,
+      -1px 1px 0 #7768a5,
+      1px 1px 0 #7768a5;
+      b {
+        font-size: 36px;
+      }
+    }
+    .code-img-pos {
+      top: 336px;
+      left: 50%;
+      margin-left: -340/2px;
+      .spanimg1 {
+        margin-right: 40px;
+      }
+      .spanimg1, .spanimg2 {
+        img {
+          width: 150px;
+          height: 150px;
+        }
+      }
+    }
+    //share-5.html
+    .teacher-submit-phone {
+      margin-bottom: 16px;
+    }
+    .share-text {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .teacher-submit-phone .cell-phone {
+      width: 150px;
+      height: 39px;
+      top: 3px;
+      left: 199px;
+      font-size: 18px;
+    }
+    //模板 效果
+    .picScroll .bd li img {
+      width: 68px;
+      height: 102px;
+    }
+    .scrollbarwrap {
+      right: 25px;
+      height: 280px;
+    }
+
+    //滑动
+    .scroll_track, .scrollbar {
+      width: 8px;
+    }
+    .canvas-con {
+      padding-top: 10px;
+      margin-bottom: 15px;
+      padding-right: 0;
+      canvas {
+        display: block;
+        width: 75%;
+        margin: 0 auto;
+      }
+    }
+
+    .scrollbarwrap {
+      right: 22px;
+      top: 135px;
+    }
+    .scroll_thumb {
+      height: 20px;
+      width: 20px;
+      left: -5px;
+      &:before {
+        width: 12px;
+        height: 12px;
+        top: 3px;
+        left: 3px;
+      }
+    }
+    .scrollbar-add, .scrollbar-minus {
+      left: -17px;
+    }
+    .scrollbar-add {
+      top: -51px;
+      width: 40px;
+      padding: 5px 0;
+    }
+    .scrollbar-minus {
+      bottom: -51px;
+      width: 40px;
+      padding: 5px 0;
+    }
+
+  }
+
+  .canvas-con {
+    padding-top: 10px;
+    margin-bottom: 15px;
+    padding-right: 45px;
+    canvas {
+      display: block;
+      width: 90%;
+      margin: 0 auto;
+    }
+    .scrollbarwrap {
+      height: 280px;
+      right: 30px;
+    }
+  }
+
+  /*弹框*/
+  .pop-input-text {
+    padding-top: 25px;
+    width: 375px;
+    height: 300px;
+    .rounded-corners(10%);
+    border: 6px solid white;
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
+    img {
+      .inline-block;
+    }
+    .img-title {
+      margin-bottom: 20px;
+      width: 190px;
+    }
+    .textarea-text {
+      .rounded-corners(16px);
+      padding: 10px 15px;
+      font-size: 18px;
+      color: white;
+      .inline-block;
+      text-align: left;
+      width: 260px;
+      height: 110px;
+      border: 2px solid white;
+      margin-bottom: 20px;
+      background: transparent;
+    }
+    .pop-btn {
+      img {
+        width: 75px;
+        height: 45px;
+        margin-right: 35px;
+      }
+
+    }
+  }
+}
+
+/* 窗口宽度<480,设计宽度=360 */
+@media screen and(max-width: 479px) {
+  .wrap-teacher-day {
+    width: 360px;
+    .title-img-3{
+      img{width: 50%;}
+      }
+    /*二维码页面*/
+    .code-img-pos {
+      top: 257px;
+      left: 50%;
+      margin-left: -128px;
+      .spanimg1 {
+        margin-right: 48px;
+      }
+      .spanimg1, .spanimg2 {
+        img {
+          width: 100px;
+          height: 100px;
+        }
+      }
+    }
+    /*二维码页面 End*/
+    /*信息输入页面*/
+    .input-text {
+      font-size: 14px;
+      ul {
+        top: 8.5px;
+        left: 139px;
+        li {
+          font-size: 12px;
+          margin-bottom: 21px;
+        }
+      }
+      .list-1 {
+        select {
+          width: 66px;
+          height: 29px;
+          font-size: 14px;
+        }
+        .select1 {
+          margin-right: 34px;
+        }
+      }
+      input {
+        font-size: 14px;
+        height: 29px;
+        margin-left: 5px;
+        width: 165px;
+      }
+      .list-2 {
+        input {
+          margin-top: 0px;
+        }
+      }
+      .list-3 {
+        input {
+          margin-top: 0.5px;
+        }
+      }
+      .list-4 {
+        input {
+          margin-top: 0px;
+        }
+      }
+    }
+    .p-text {
+      font-size: 12px;
+      margin: 0 auto;
+    }
+    /*信息输入页面 END*/
+    /*海报生成页面*/
+    .teacher-day-tool {
+      .canvas-btn {
+        margin-bottom: 0px;
+        text-align: center;
+        img {
+          .inline-block;
+          width: 56px;
+        }
+        .btn-img-text {
+          margin-right: 15px;
+        }
+        .btn-img-photo {
+          margin-right: 15px;
+        }
+        .btn-img-ok {
+        }
+      }
+
+    }
+
+    .picScroll .bd li img {
+      width: 50px;
+      height: auto;
+    }
+    .picScroll .bd li.on img {
+      border: 2px solid white;
+      width: 51px;
+    }
+
+    /*海报生成页面 End*/
+    /*海报生成页面 End*/
+    /*弹框*/
+
+    /*海报生成页面 End*/
+    .share-text {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .title-img-saying img {
+      width: 60%;
+      height: auto;
+    }
+    .teacher-submit-phone .cell-phone {
+      width: 108px;
+      height: 29px;
+      top: 3px;
+      left: 152px;
+      font-size: 18px;
+    }
+    .scrollbar-add, .scrollbar-minus {
+      left: -19px;
+    }
+    .scrollbar-add {
+      top: -45px;
+      width: 46px;
+      padding: 4px 0;
+    }
+    .scrollbar-minus {
+      bottom: -45px;
+      width: 46px;
+      padding: 4px 0;
+    }
+    .scrollbarwrap {
+      height: 207px;
+      top: 114px;
+      right: 16px;
+    }
+    .canvas-con {
+      padding-top: 20px;
+      margin-bottom: 10px;
+      padding-right: 0;
+      canvas {
+        display: block;
+        width: 75%;
+        margin: 0 auto;
+      }
+    }
+
+  }
+
+  .pop-input-text {
+    padding-top: 15px;
+    width: 283px;
+    height: 226px;
+    .rounded-corners(10%);
+    border: 3px solid white;
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
+    img {
+      .inline-block;
+    }
+    .img-title {
+      margin-bottom: 10px;
+      width: 150px;
+    }
+    .textarea-text {
+      .rounded-corners(16px);
+      padding: 5px 15px;
+      font-size: 12px;
+      color: white;
+      .inline-block;
+      text-align: left;
+      width: 175px;
+      height: 75px;
+      border: 2px solid white;
+      margin-bottom: 15px;
+      background: transparent;
+    }
+    .pop-btn {
+      img {
+        width: 56px;
+        height: auto;
+        margin-right: 13px;
+      }
+
+    }
+  }
+
+  /*弹框 end*/
+}
+
+/* 窗口宽度<480,设计宽度=320 */
+@media screen and (max-width: 359px) {
+  .wrap-teacher-day {
+    width: 320px;
+    .title-img-3{
+      img{width: 40%;}
+      }
+    .input-text {
+      font-size: 12px;
+      ul {
+        top: 8.5px;
+        left: 122px;
+        li {
+          font-size: 12px;
+          margin-bottom: 21px;
+        }
+      }
+      .list-1 {
+        select {
+          width: 56px;
+          height: 22px;
+          font-size: 14px;
+        }
+        .select1 {
+          margin-right: 34px;
+        }
+      }
+      input {
+        font-size: 12px;
+        height: 26px;
+        margin-left: 5px;
+      }
+      .list-2 {
+        input {
+          margin-top: 0px;
+        }
+      }
+      .list-3 {
+        input {
+          margin-top: -3px;
+        }
+      }
+      .list-4 {
+        input {
+          margin-top: -2px;
+        }
+      }
+    }
+    .p-text {
+      font-size: 12px;
+      width: 80%;
+      margin: 0 auto;
+    }
+    .entrance-text {
+      font-size: 16px;
+      text-shadow: 1px 1px 0 #7768a5,
+        -1px -1px 0 #7768a5,
+        1px -1px 0 #7768a5,
+      -1px 1px 0 #7768a5,
+      1px 1px 0 #7768a5;
+      b {
+        font-size: 24px;
+      }
+    }
+    .code-img-pos {
+      top: 220px;
+      left: 50%;
+      margin-left: -220/2px;
+      .spanimg1 {
+        margin-right: 26px;
+      }
+      .spanimg1, .spanimg2 {
+        img {
+          width: 100px;
+          height: 100px;
+        }
+      }
+    }
+    .teacher-submit-phone {
+      margin-bottom: 16px;
+    }
+    .input-text input {
+      font-size: 12px;
+      width: 144px;
+      height: 26px;
+    }
+    .share-text {
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+    .title-img-saying img {
+          width: 40%;
+          height: auto;
+          }
+    .scrollbarwrap {
+      height: 207px;
+      top: 68px;
+      right: 23px;
+    }
+    .picScroll .bd li img {
+      width: 47px;
+      height: 68px;
+    }
+    .picScroll .bd li.on img {
+      border: 2px solid white;
+      width: 51px;
+    }
+    .teacher-day-tool {
+      .canvas-btn {
+        margin-bottom: 0px;
+        text-align: center;
+        img {
+          .inline-block;
+          width: 50px;
+          height: 30px;
+        }
+        .btn-img-text {
+          margin-right: 25px;
+        }
+        .btn-img-photo {
+          margin-right: 25px;
+        }
+        .btn-img-ok {
+        }
+      }
+    }
+    .canvas-con {
+      padding-top: 10px;
+      margin-bottom: 10px;
+      padding-right: 0px;
+      canvas {
+        display: block;
+        margin: 0 auto;
+        width: 65%;
+      }
+    }
+    .teacher-submit-phone .cell-phone {
+      width: 100px;
+      height: 27px;
+      font-size: 14px;
+      top: 1px;
+      left: 133px;
+    }
+
+    //滑动
+    .scroll_track, .scrollbar {
+      width: 7px;
+    }
+    .scroll_thumb {
+      height: 16px;
+      width: 16px;
+      left: -5px;
+      &:before {
+        width: 12px;
+        height: 12px;
+        top: 1px;
+        left: 1px;
+      }
+    }
+    .scrollbar-add, .scrollbar-minus {
+      left: -14px;
+    }
+    .scrollbar-add {
+      top: -40px;
+      width: 35px;
+      padding: 4px 0;
+    }
+    .scrollbar-minus {
+      width: 35px;
+      bottom: -40px;
+      padding: 4px 0;
+    }
+  }
+
+  /*弹框*/
+  .pop-input-text {
+    padding-top: 15px;
+    width: 283px;
+    height: 226px;
+    .rounded-corners(10%);
+    border: 3px solid white;
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
+    img {
+      .inline-block;
+    }
+    .img-title {
+      margin-bottom: 10px;
+      width: 150px;
+    }
+    .textarea-text {
+      .rounded-corners(16px);
+      padding: 5px 15px;
+      font-size: 12px;
+      color: white;
+      .inline-block;
+      text-align: left;
+      width: 175px;
+      height: 75px;
+      border: 2px solid white;
+      margin-bottom: 15px;
+      background: transparent;
+    }
+    .pop-btn {
+      img {
+        width: 50px;
+        height: 30px;
+        margin-right: 25px;
+      }
+
+    }
+  }
+
+}
+
+.share-pop {
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  .background-image('teachersday/sharemask.png', no-repeat, #000);
+  background-size: 100% auto;
+}

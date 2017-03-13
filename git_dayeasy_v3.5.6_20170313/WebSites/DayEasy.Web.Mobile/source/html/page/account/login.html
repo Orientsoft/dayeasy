@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    @@include('./link-style.html')
+    <title>登录注册 - 我的得一 - 触屏版</title>
+    <link rel="stylesheet" href="/css/account/login.min.css"/>
+</head>
+<body>
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <h1 class="hp-h1">我的得一</h1>
+            <a href="/page/account/role.html" class="hp-right a02">注册&nbsp;</a></div>
+    </div>
+</header>
+<section class="d-login-main">
+    <div class="my-login">
+        <form name="loginForm" id="form_login">
+            <div class="d-control d-input ">
+                <i class="iconfont dy-icon-id dy-iconfont"></i>
+                <input type="text" id="account" name="account" class="d-text"
+                       required autofocus placeholder="邮箱地址/手机号/得一号"/>
+                <span class="d-err-tips"></span>
+            </div>
+            <div class="d-control d-input ">
+                <i class="iconfont dy-icon-code dy-iconfont"></i>
+                <input type="password" name="pwd" id="pwd" class="d-text"
+                       required placeholder="密码"/>
+                <span class="d-err-tips"></span>
+                <i class="d-btn-pwd d-btn-off"></i>
+            </div>
+            <!--一个月免注册-->
+            <!--<div class="d-control d-remember-wrap">
+            <i class="fa fa-check-circle d-remember"></i>
+            一个月内免登陆
+            </div>-->
+            <div class="d-control">
+                <button class="d-btn disabled" disabled>登录</button>
+            </div>
+            <div class="lg-plat">
+                <div class="d-forgot"><a href="/page/account/resetpwdid.html">忘记密码？</a></div>
+            </div>
+        </form>
+
+
+        <div class="lg-form-group">
+            <div class="login-icon-text">
+                <span>第三方登录</span>
+            </div>
+            <div class="login-icon">
+                <a class="login-qq" href="#"><i class="iconfont dy-icon-qq"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 基础脚本 -->
+@@include('./link-script.html')
+<script src="/js/page/account/login.min.js"></script>
+
+</body>
+</html>

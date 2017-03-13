@@ -1,0 +1,328 @@
+﻿@{
+    ViewBag.Title = "编辑题目";
+}
+<script>var deyi = window.DEYI = window.DEYI || {}; deyi.loadFormula = true;</script>
+<div class="dy-container p-container j-autoHeight"
+     data-left="182"
+     data-min="340"
+     data-type="2">
+    <div class="q-header">
+        <i></i>
+        <h3>编辑题目</h3>
+        <a href="#" class="btn btn-default btn-return">返回</a>
+    </div>
+    <div class="q-container" ng-controller="modifyCtrl">
+        <form name="questionForm"
+              novalidate
+              role="form"
+              class="q-form form-horizontal">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-6 control-label">学段：</label>
+                    <div class="col-md-6">
+                        <select name="stage"
+                                class="form-control"
+                                ng-model="question.stage"
+                                required>
+                            <option ng-repeat="s in stages"
+                                    value="{{s.id}}"
+                                    ng-bind="s.name"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <label class="col-md-5 control-label">题型：</label>
+                    <div class="col-md-7">
+                        <select name="qType"
+                                class="form-control"
+                                ng-model="question.type"
+                                ng-change="QTypeChg()"
+                                required>
+                            <option ng-repeat="t in qTypes"
+                                    value="{{t.id}}"
+                                    ng-bind="t.name"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">知识点：</label>
+                <div class="col-md-8">
+                    @*<div class="form-control d-points">
+                        </div>*@
+                    <input type="text" id="kPoints" class="form-control ml10" placeholder="输入知识点"/>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-info btn-sm"
+                            ng-click="save('knowledge')"
+                            ng-disabled="saving">
+                        保存知识点
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">标签(可选)：</label>
+                <div class="d-tags mt5"></div>
+            </div>
+            <section>
+                <div class="qth-title">
+                    <h4>题干</h4>
+                </div>
+                <div class="qth-content">
+                    <!--题干编辑-->
+                    <div class="qth-body qth-editor">
+                        <div class="form-control text-view"
+                             ng-bind-html="trustHtml(question.body)"
+                             ng-click="editText(question)">
+                        </div>
+                        @*<textarea class="form-control" ng-model="question.body"></textarea>*@
+                        <div class="btn-image"
+                             title="添加图片"
+                             ng-click="uploadImg(question)"
+                             ng-if="!question.images || !question.images.length">
+                            <i class="fa fa-image"></i>
+                        </div>
+                        <div class="image-view"
+                             ng-if="question.images && question.images.length">
+                            <img alt="" ng-src="{{getImageUrl(question.images[0])}}" />
+                            <span class="qth-close"
+                                  ng-click="del(0,question.images)">×</span>
+                            <div class="image-raw">
+                                <img ng-src="{{question.images[0]}}" />
+                            </div>
+                        </div>
+                    </div>
+                    <!--题干选项-->
+                    <div class="qth-options" ng-if="showSection(2) && !showSection(1)">
+                        <div class="qth-option qth-editor" ng-repeat="a in question.answers">
+                            <div class="qth-tag"
+                                 ng-class="a.isCorrect?'correct-tag':''"
+                                 ng-click="setCorrect(a,question.answers)"
+                                 title="{{a.isCorrect?'取消设置':'设置正确答案'}}">
+                                <i></i><span ng-bind="optionWords[$index]"></span>
+                            </div>
+                            <div class="form-control text-view"
+                                 ng-bind-html="trustHtml(a.body)"
+                                 ng-click="editText(a)">
+                            </div>
+                            @*<textarea class="form-control" ng-model="a.body"></textarea>*@
+                            @*<span class="qth-close"
+                                ng-if="question.answers.length>2"
+                                ng-click="del($index,question.answers)"
+                                title="删除选项">×</span>*@
+                            <div class="btn-image"
+                                 title="添加图片"
+                                 ng-click="uploadImg(a)"
+                                 ng-if="!a.images || !a.images.length">
+                                <i class="fa fa-image"></i>
+                            </div>
+                            <div class="image-view"
+                                 ng-if="a.images && a.images.length">
+                                <img alt="" ng-src="{{getImageUrl(a.images[0])}}" />
+                                <span class="qth-close"
+                                      ng-click="del(0,a.images)"
+                                      title="删除图片">×</span>
+                                <div class="image-raw">
+                                    <img ng-src="{{a.images[0]}}" />
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="qth-option"
+                                 ng-if="question.answers.length<10">
+                                <span class="qth-add"
+                                      title="添加选项"
+                                      ng-click="add(question.answers)">+</span>
+                            </div>*@
+                    </div>
+                </div>
+            </section>
+            <section ng-if="showSection(1)">
+                <div class="qth-title">
+                    <h4>小问</h4>
+                </div>
+                <div class="qth-content">
+                    <!--小问编辑-->
+                    <div class="qth-detail" ng-repeat="d in question.details">
+                        <div class="detail-index">
+                            <i ng-bind="$index+1"></i>
+                            <div class="detail-line"></div>
+                        </div>
+                        <div class="detail-content">
+                            <div class="qth-detail-body qth-editor">
+                                <div class="form-control text-view"
+                                     ng-bind-html="trustHtml(d.body)"
+                                     ng-click="editText(d)">
+                                </div>
+                                @*<textarea class="form-control" ng-model="d.body"></textarea>*@
+                                @*<span class="qth-close"
+                                    ng-click="del($index,question.details)"
+                                    title="删除小问">×</span>*@
+                                <div class="btn-image"
+                                     title="添加图片"
+                                     ng-click="uploadImg(d)"
+                                     ng-if="!d.images || !d.images.length">
+                                    <i class="fa fa-image"></i>
+                                </div>
+                                <div class="image-view"
+                                     ng-if="d.images && d.images.length">
+                                    <img alt="" ng-src="{{getImageUrl(d.images[0])}}" />
+                                    <span class="qth-close"
+                                          ng-click="del(0,d.images)"
+                                          title="删除图片">×</span>
+                                    <div class="image-raw">
+                                        <img ng-src="{{d.images[0]}}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!--小问选项编辑-->
+                            <div class="qth-options" ng-if="showSection(2) && d.answers">
+                                <div class="qth-option qth-editor" ng-repeat="a in d.answers">
+                                    <div class="qth-tag"
+                                         title="{{a.isCorrect?'取消设置':'设置正确答案'}}"
+                                         ng-click="setCorrect(a,d.answers)"
+                                         ng-class="a.isCorrect?'correct-tag':''">
+                                        <i></i><span ng-bind="optionWords[$index]"></span>
+                                    </div>
+                                    <div class="form-control text-view"
+                                         ng-bind-html="trustHtml(a.body)"
+                                         ng-click="editText(a)">
+                                    </div>
+                                    @*<textarea class="form-control" ng-model="a.body"></textarea>*@
+                                    @*<span class="qth-close"
+                                        ng-if="d.answers.length>2"
+                                        ng-click="del($index,d.answers)"
+                                        title="删除选项">×</span>*@
+                                    <div class="btn-image"
+                                         title="添加图片"
+                                         ng-click="uploadImg(a)"
+                                         ng-if="!a.images || !a.images.length">
+                                        <i class="fa fa-image"></i>
+                                    </div>
+                                    <div class="image-view"
+                                         ng-if="a.images && a.images.length">
+                                        <img alt="" ng-src="{{getImageUrl(a.images[0])}}" />
+                                        <span class="qth-close"
+                                              ng-click="del(0,a.images)"
+                                              title="删除图片">×</span>
+                                        <div class="image-raw">
+                                            <img ng-src="{{a.images[0]}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="qth-option" ng-if="d.answers.length<10">
+                                        <span class="qth-add"
+                                              title="添加选项"
+                                              ng-click="add(d.answers)">+</span>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="qth-detail">
+                            <span class="qth-add" title="添加小问" ng-click="add(question.details)">+</span>
+                        </div>*@
+                </div>
+            </section>
+            <!--答案-->
+            <section ng-if="showSection(4)">
+                <div class="qth-title">
+                    <h4>答案</h4>
+                </div>
+                <div class="qth-content">
+                    <!--答案编辑-->
+                    <div class="qth-answer qth-editor">
+                        <div class="form-control text-view"
+                             ng-bind-html="trustHtml(question.answers[0].body)"
+                             ng-click="editText(question.answers[0])">
+                        </div>
+                        @*<textarea class="form-control" ng-model="question.answers[0].body"></textarea>*@
+                        <div class="btn-image"
+                             title="添加图片"
+                             ng-click="uploadImg(question.answers[0])"
+                             ng-if="!question.answers[0].images || !question.answers[0].images.length">
+                            <i class="fa fa-image"></i>
+                        </div>
+                        <div class="image-view"
+                             ng-if="question.answers[0].images && question.answers[0].images.length">
+                            <img alt="" ng-src="{{getImageUrl(question.answers[0].images[0])}}" />
+                            <span class="qth-close"
+                                  ng-click="del(0,question.answers[0].images)"
+                                  title="删除图片">×</span>
+                            <div class="image-raw">
+                                <img ng-src="{{question.answers[0].images[0]}}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--解析-->
+            <section ng-if="question.analysis">
+                <div class="qth-title">
+                    <h4>解析</h4>
+                </div>
+                <div class="qth-content">
+                    <!--答案编辑-->
+                    <div class="qth-answer qth-editor">
+                        <div class="form-control text-view"
+                             ng-bind-html="trustHtml(question.analysis.body)"
+                             ng-click="editText(question.analysis)">
+                        </div>
+                        @*<textarea class="form-control" ng-model="question.answers[0].body"></textarea>*@
+                        <div class="btn-image"
+                             title="添加图片"
+                             ng-click="uploadImg(question.analysis)"
+                             ng-if="!question.analysis.images || !question.analysis.images.length">
+                            <i class="fa fa-image"></i>
+                        </div>
+                        <div class="image-view"
+                             ng-if="question.analysis.images && question.analysis.images.length">
+                            <img alt="" ng-src="{{getImageUrl(question.analysis.images[0])}}" />
+                            <span class="qth-close"
+                                  ng-click="del(0,question.analysis.images)"
+                                  title="删除图片">×</span>
+                            <div class="image-raw">
+                                <img ng-src="{{question.analysis.images[0]}}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--难度系数-->
+            <section class="col-md-offset-9 col-md-3">
+                <div class="q-diff">
+                    <label>难易程度：</label>
+                    <div class="q-star"></div>
+                </div>
+            </section>
+            <div class="col-md-offset-2 form-actions">
+                @*<button type="button"
+                            class="btn btn-default"
+                            ng-click="save('copy')"
+                            ng-disabled="saving">
+                        <i class="fa fa-spinner fa-spin" ng-if="saving && saveAs"></i>
+                        <span ng-bind="(saving && saveAs) ?'保存中...':'另存为'"></span>
+                    </button>*@
+                <button type="button"
+                        class="btn btn-primary"
+                        ng-click="save('normal')"
+                        ng-disabled="saving">
+                    <i class="fa fa-spinner fa-spin" ng-if="saving && !saveAs"></i>
+                    <span ng-bind="(saving && !saveAs)?'保存中...':'保　存'"></span>
+                </button>
+            </div>
+            <div class="hidden">
+                <div id="btn-upload"></div>
+            </div>
+        </form>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/question/modify.css,plugs/tokeninput/token-input.css")
+    @*plugs/ztree/css/ztree.css,*@
+}
+@section js{
+    <script src="/Content/ueditor/ueditor-config.min.js"></script>
+    <script src="/Content/ueditor/ueditor-all.min.js"></script>
+    <script src="/Content/ueditor/d-formula.min.js"></script>
+    @Html.CombineLink("js/portal/question/formula.js,plugs/webuploader/webuploader.js,plugs/raty/jquery-raty.js,js/base/utils.js,v3/js/question/base.js,v3/js/question/modify.js,plugs/tokeninput/jquery.tokeninput.js")
+    @*plugs/ztree/js/jquery.ztree.min.js,*@
+}

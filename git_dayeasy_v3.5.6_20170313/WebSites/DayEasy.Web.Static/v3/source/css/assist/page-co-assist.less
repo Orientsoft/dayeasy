@@ -1,0 +1,84 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+
+      Author:Plato
+      Create Date:2015/12/8  Last Mondify Date:2015/12/8
+      ===================================================
+
+--------------------------------------------------------------*/
+
+
+//*--------------------   Part ui    -----------------------
+@import "../../less/base";
+//*--------------------  main Style  -----------------------
+.dy-header,.dy-header-tool,.dy-footer{ display: none;}
+.page-assist-top{
+  height: 60px; line-height: 60px; background: white; font-size: 18px; color: #666; margin-bottom: 30px; .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 7px);
+  .assist-top-title{width: 1200px;margin: 0px auto;}
+  }
+.page-co-assist{
+  background: white;
+  padding: 20px 0;
+  .h2-title{ margin-bottom: 30px;}
+     .task-list{ margin:0px 30px 30px; border-bottom: 1px solid #eee;}
+    .task-list{
+      .h3-title{  color: #666; font-weight: normal; position: relative;
+        .dy-btn-info{    position: absolute; top: -8px; right: 0;}
+          span{ border-left: 5px solid #ed5565;.inline-block; padding-left: 10px;}
+        }
+      ul.topic-list{
+          margin-bottom: 10px;
+          li{ float: left;.inline-block; background: #e6e9ed;height: 28px; line-height: 28px; width: 32px; text-align: center; margin-right: 10px; margin-bottom: 10px; }
+        }
+      ul.teacher-name-list{
+        li{ float: left; margin-right: 20px;
+            img{.rounded-corners(50%); float: left; margin-right: 10px; margin-bottom: 10px; width: 32px; height: 32px;}
+          span{.inline-block;height: 32px; line-height: 32px; float: right;}
+          }
+        }
+      }
+    .operation-box{  margin: 0px 30px 20px; border: 1px solid #eee; border-top: none;
+      .titile-op{    color: #666; font-size: 16px; display: inline-block; background: white; position: absolute; top: -9px; left: 20px;padding: 0px 10px; }
+      .border-box{border-top: 1px solid #eee;padding: 20px; width: 50%; float: left;position: relative;}
+      //left
+      .border-1{
+        border-right: 1px solid #eee;
+        .volume-box{
+          .titile-ab{ color: #bbb; margin-bottom: 10px;}
+          .topic-type-box{ margin-bottom: 20px;
+            p{ margin-bottom: 5px;}
+            }
+          .group-checkbox span{ color: #999;}
+          .select-list{
+            li{ float: left;.inline-block; background: #e6e9ed;height: 28px; line-height: 28px; width: 32px; text-align: center; margin-right: 10px; margin-bottom: 10px; color: #999; cursor: pointer;}
+            li.z-sel{ background: #4fc1e9; color: white;}
+            }
+         }
+        //禁止使用
+        .choice-shop{
+          .select-list{
+            li,li.z-sel{ background: #e6e9ed; color: #ccd1d9;}
+            }
+
+          }
+
+        }
+      //right
+      .border-2{
+        ul.teacher-name-list{}
+          li{ float: left; margin: 0 26px 15px;  background: #eff1f4; position: relative;padding: 10px 20px; cursor: pointer;
+            img{.rounded-corners(50%); float: left; margin-right: 10px; width: 32px; height: 32px; }
+            span{.inline-block;height: 32px; line-height: 32px; float: right;}
+            em.z-crt{ position: absolute;bottom: 30px;right: 25px;
+                .iconfont{position: absolute; top: 0; left: 0; }
+                .dy-icon-31{ color: white; z-index: 1; font-size: 36px;}
+                .dy-icon-13{ color: @color-hover-blue;  z-index: 2; font-size: 34px;}
+              }
+            }
+        }
+
+
+      }
+
+  }
+//*--------------------   ui Style   -----------------------

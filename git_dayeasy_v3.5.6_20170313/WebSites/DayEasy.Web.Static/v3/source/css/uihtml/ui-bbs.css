@@ -1,0 +1,84 @@
+.comment-bxo {
+  padding: 10px 30px;
+}
+.comment-bxo .parents-conter {
+  overflow: hidden;
+}
+.comment-bxo .parents-conter .ul-list-one {
+  position: relative;
+  bottom: -1px;
+}
+.comment-bxo .parents-conter .ul-list-one > li {
+  border-bottom: 1px solid #eee;
+}
+.comment-bxo .boder-focus-color {
+  border-color: #4fc1e9;
+  -moz-transform: all 0.5s ease 0s;
+  -webkit-transform: all 0.5s ease 0s;
+  -o-transform: all 0.5s ease 0s;
+  -ms-transform: all 0.5s ease 0s;
+  transform: all 0.5s ease 0s;
+}
+.comment-bxo .comment-input {
+  position: relative;
+}
+.comment-bxo .comment-input textarea {
+  margin-bottom: 10px;
+  display: block;
+  line-height: 1.6em;
+  width: 100%;
+}
+.comment-bxo .comment-input > img {
+  position: absolute;
+  left: 0;
+  top: 25px;
+  width: 40px;
+  height: 40px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+.comment-bxo .comment-input .show-height {
+  height: 23px;
+}
+.comment-bxo .comment-text .comment-list {
+  color: #999;
+}
+.comment-bxo .comment-text .comment-list > li {
+  position: relative;
+  padding-left: 60px;
+  margin-top: 20px;
+}
+.comment-bxo .comment-text .comment-list > li > img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+.comment-bxo .comment-text .comment-list .name-color {
+  color: #333;
+}
+.comment-bxo .comment-text .comment-list .comment-time {
+  margin-left: 12px;
+  font-size: 85%;
+  color: #9d9d9d;
+}
+.comment-bxo .comment-children .comment-text .comment-list li {
+  margin-top: 10px;
+}
+.comment-bxo .add-to-comment span {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.comment-bxo .add-to-comment span:hover {
+  color: #333;
+}

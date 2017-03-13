@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    @@include('./link-style.html')
+    <title> 我的圈子 - 我的得一 - 触屏版</title>
+    <!-- 左右滑动UI 样式 -->
+    <link rel="stylesheet" href="/css/page/ui-panel-slider.min.css"/>
+    <link rel="stylesheet" href="/css/group/group-home.min.css"/>
+</head>
+<body data-role="3">
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <a class="hp-text group-soso" href="javascript:void(0);">
+                <div class="hp-left hp-back">
+                    <i class="iconfont dy-icon-search"></i>
+                </div>
+            </a>
+            <h1 class="hp-h1 d-group-name">我的圈子</h1>
+            <a data-slide-id="right-panel-link" href="#right-panel" class="d-head-user-face">
+                <img src="#" width="60" height="60" class="default-icon d-user-avatar">
+            </a>
+        </div>
+    </div>
+</header>
+<section class="d-group d-ui-panelslider" data-id="main">
+    <!--搜索组件 1-->
+    <div class="d-soso-one hide">
+        <div class="dy-input-group f-cb">
+            <div class="select-wrap">
+                <div class="select-main">
+                    <span data-type="-1">全部</span><i class="iconfont dy-icon-anglebottom"></i>
+                </div>
+                <ul class="select-option" style="display: none;">
+                    <li data-type="0">班级圈</li>
+                    <li data-type="2">分享圈</li>
+                </ul>
+                <input type="hidden" name="groupType" value="" id="valoption">
+            </div>
+            <input type="text" class="dy-form-field">
+            <span class="dy-input-group-btn">
+              <button class="dy-btn dy-btn-default btn-soso" type="button"><span class="iconfont dy-icon-search"></span>
+              </button>
+            </span>
+        </div>
+    </div>
+    <!--圈子列表-->
+    <div class="d-group-list">
+        <dl class="hide">
+            <dt>
+                <i class="group group-g-avatar04"></i>班级圈
+            </dt>
+        </dl>
+        <dl class="hide">
+            <dt>
+                <i class="group group-g-avatar05"></i>同事圈
+            </dt>
+        </dl>
+        <dl class="hide">
+            <dt>
+                <i class="group group-g-avatar06"></i>分享圈
+            </dt>
+        </dl>
+    </div>
+    <!--搜索圈子列表-->
+    <div class="d-group-soso-list hide">
+    </div>
+    <!--你还没有班级圈-->
+    <div class="d-group-no-class hide">
+        <i class="iconfont dy-icon-classcircle"></i>
+        <p class="g-text">您还没有加入任何圈子</p>
+    </div>
+    <!--没有搜索到内容-->
+    <div class="d-group-no-soso hide">
+        <i class="iconfont dy-icon-classcircle"></i>
+        <p class="g-text">没有搜索到相关的圈子</p>
+    </div>
+    <!-- Right panel -->
+    <div id="right-panel" class="panel">
+        <!--导航菜单-->
+        <!--用户头像-->
+        <div class="user-info-box">
+                <span class="user-home">
+                    <a href="javascript:void(0);" title="个人主页">
+                        <img src="" width="100" height="100" class="default-icon d-user-avatar">
+                    </a>
+                </span>
+            <strong class="user-name">name</strong>
+            <p class="user-id"><span class="d-user-code"> </span>/<span class="d-user-role">学生</span></p>
+        </div>
+        <!--导航列表-->
+        <div class="dyui-related-posts">
+            <ul class="user-tool">
+                <li>
+                    <a href="">
+                        <i class="iconfont dy-icon-circle d-icon"></i>
+                        我的圈子
+                    </a>
+                </li>
+                <!--<li>-->
+                <!--<a href="javascript:void(0);">-->
+                <!--<i class="iconfont dy-icon-exam d-icon"></i>-->
+                <!--考试中心-->
+                <!--</a>-->
+                <!--</li>-->
+                <li class="last">
+                    <a href="/page/account/setting.html">
+                        <i class="iconfont dy-icon-set d-icon"></i>
+                        个人设置
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--退出圈子-->
+        <div class="d-logout">
+            <i class="iconfont dy-icon-exit"></i> 退出登录
+        </div>
+    </div>
+</section>
+<!-- 基础脚本 -->
+@@include('./link-script.html')
+<script type="text/html" id="groupTemp">
+    <dd>
+        <a href="/page/group/item.html?id={{id}}&name={{name}}">
+            <img src="{{logo}}" width="80" height="80" alt="{{name}}">
+
+            <p class="group-number">
+                <span class="group-name">{{name}}</span>
+                {{if messageCount>0}}
+                <em class="number">{{messageCount}}</em>
+                {{/if}}
+            </p>
+
+            <div class="group-count am-text-truncate">{{code}}</div>
+            <div class="group-count group-member am-text-truncate ">{{owner}}</div>
+        </a>
+    </dd>
+</script>
+<script src="/js/page/jquery.panelslider.min.js"></script>
+<script src="/js/page/group/home.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+@charset "UTF-8";
+/**
+ * Boz
+ * @date    12:31 2016/11/18
+ * 教务管理-2师生画像2
+ */
+@import "../../../less/base";
+
+.login-chart {
+  background-color: @color-default;
+  height: 360px;
+  margin-bottom: 20px;
+  padding: 20px;
+  .page-area-draw{
+    caption{ border-bottom:1px solid #eee; padding-left:8px; color:#999;}
+    tr{
+      color:#666;
+      &:nth-child(1){ color:#666;}
+      &:nth-child(2){ color:#333;}
+      }
+    td{padding:5px 10px;border-bottom:none; text-align:center;
+      }
+    }
+}
+
+.ui-tab-nav {
+  border-bottom: 2px solid #00acee;
+  margin-bottom: 10px;
+  li {
+    float: left;
+    width: 240px;
+    height: 50px;
+    line-height: 50px;
+    background: white;
+    text-align: center;
+    margin-right: 6.5px;
+    cursor: pointer;
+    color: #666;
+    font-weight: bold;
+    font-size: 16px;
+    &.first {
+      margin-right: 7px;
+    }
+    &.last {
+      margin-right: 0;
+    }
+    &.on {
+      background: #00acee;
+      color: white;
+    }
+  }
+}
+
+.tab-nav-content {
+  .tab-con-list {
+    display: none;
+  }
+}
+
+.panel-title {
+  font-size: 16px;
+  color: #666;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.box-painting {
+  margin-bottom: 20px;
+  .teacher-painting, .student-painting {
+    width: 479px;
+    background: white;
+    height: 450px;
+    padding: 20px;
+  }
+  .teacher-painting {
+    .dy-table {
+      .num {
+        color: #2cc49e;
+      }
+    }
+  }
+  .student-painting {
+    .dy-table {
+      .num {
+        color: #e8525d;
+      }
+    }
+  }
+  .dy-table-wrap {
+  }
+  .dy-table {
+    text-align: center;
+    td {
+      border: 1px solid #ccc;
+    }
+    .text {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .num {
+      font-size: 30px;
+    }
+  }
+  .wrap-chart {
+    position: relative;
+    #container-chart-left, #container-chart-right {
+      position: relative;
+      z-index: 2;
+      tspan{ font-weight:normal !important;}
+    }
+    .pos-img {
+      position: absolute;
+      z-index: 1;
+      top: -6px;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 75px;
+      margin: auto;
+    }
+  }
+}
+
+/*
+打卡达人列表*/
+
+.punch-master {
+  .dl-list {
+    margin-right: 20px;
+    float: left;
+    background: white;
+    width: 313px;
+    height: 329px;
+    padding: 20px;
+    @specialColor1:#e8525d;
+    @specialColor2:#2cc49e;
+    @specialColor3:#486378;
+    &.special-box-1{
+      .panel-title{ color:@specialColor1;}
+      span.text-1{ color:@specialColor1;}
+      dd tr{border-color:#f8cbce;}
+      }
+    &.special-box-2{
+      .panel-title{ color:@specialColor2;}
+      span.text-1{ color:@specialColor2;}
+      dd tr{border-color:#bfede2;}
+      }
+    &.special-box-3{
+      .panel-title{ color:@specialColor3;}
+      span.text-1{ color:@specialColor3;}
+      dd tr{border-color:#c8d0d6;}
+      }
+    &.last {
+      margin-right: 0;
+    }
+    dd {
+      tr {
+        border-bottom: 1px dashed #dcdcdc;
+        padding: 15px 0;
+        height: 64px;
+        &:nth-last-child(1) {
+          border-bottom: none;
+        }
+      }
+      td {
+        img {
+          .rounded-corners(50%);
+          width: 36px;
+          height: 36px;
+        }
+      }
+      .dy-nothing {
+        margin-top: 30px;
+      }
+    }
+    span.text-1 {
+      margin-bottom: 7px;
+    }
+    span.text-2 {
+      display: block;
+      color: #999;
+      font-size: 12px;
+    }
+  }
+}
+/*没有数据*/
+.chart-show-not{
+  height: 300px;
+  position: absolute;
+  width: 439px;
+  top: 68px;
+  left: 160px;
+  }

@@ -1,0 +1,282 @@
+﻿@using DayEasy.Contracts.Dtos.Paper
+@using DayEasy.Contracts.Dtos.Question
+@using DayEasy.Contracts.Dtos.SchoolBook
+@using DayEasy.Utility.Helper
+@{
+    ViewBag.Title = "选择题目";
+
+    List<QuestionTypeDto> qtypes = null;
+    if (ViewData["qTypeList"] != null)
+    {
+        qtypes = ViewData["qTypeList"] as List<QuestionTypeDto>;
+    }
+
+    var paperBase = new PaperBaseDto();
+    paperBase.CompleteUrl = Url.Action("CreatePaper", "Paper");
+    if (ViewData["paperBase"] != null)
+    {
+        var temp = ViewData["paperBase"] as PaperBaseDto;
+        if (temp != null)
+        {
+            paperBase = temp;
+        }
+    }
+    List<SchoolBookDto> sbooks = null;
+    if (ViewData["sbooks"] != null)
+    {
+        sbooks = (List<SchoolBookDto>)ViewData["sbooks"];
+    }
+
+    var paperBaseStr = JsonHelper.ToJson(paperBase);
+}
+<script>singer.config({ global: { goTop: false } });</script>
+<div class="dy-container paper-main">
+    <div class="after g-menu mt30">
+        <input type="hidden" value="@paperBase.SubjectId" id="subjectId" />
+        <input type="hidden" value="@paperBase.Stage" id="stage" />
+        <input type="hidden" value="@paperBaseStr" id="paperBase" />
+        <input type="hidden" value="@(sbooks != null && sbooks.Any() ? 1 : 0)" id="hasSbook" />
+
+        @if (sbooks != null && sbooks.Any())
+        {
+            //已经查询了教材资料 待 二叉树改版后一起修改，取消 _CpTree 中的下拉框教材查询
+            <div class="q-bars">
+                <div>
+                    <span class="q-bar b-kp half active" data-type="0">知识点</span>
+                    <span class="q-bar b-cp half" data-type="1">章节</span>
+                </div>
+                <div class="kp-box">
+                    @Html.Partial("_KpTree")
+                </div>
+                <div class="cp-box" style="display: none;">
+                    @Html.Partial("_CpTree")
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="kp-box">
+                @Html.Partial("_KpTree")
+            </div>
+        }
+
+        <div class="g-bd g-volu f-fr">
+            <div class="topic-tab">
+                <div class="topic-tab-menu">
+                    <ul class="after">
+                        <li class="z-sel"><a href="javascript:void(0);">按题选择</a></li>
+                        <li><a href="javascript:void(0);">按卷选择</a></li>
+                    </ul>
+                </div>
+                <div class="topic-tab-content">
+                    <div class="tab-con topic-tab-content-1 show">
+                        @*难度*@
+                        <div class="m-snav m-box-2">
+                            <div class="g-input f-fr">
+                                <input type="hidden" value="-1" id="starValue" />
+                                <input type="hidden" value="-1" id="sortValue" />
+                                <input type="hidden" value="-1" id="qtypeValue" />
+                                <input type="hidden" value="-1" id="qSourceTypeValue" />
+                                @*<input type="hidden" value="@((byte)ShareRange.Public)" id="shareValue" />*@
+
+                                <input type="text" placeholder="题干/标签/知识点" id="queryKey">
+                                <span class="sprite-3 g-icon_4" id="btn_Search"></span>
+                            </div>
+                            <ul class="ul">
+                                <li>
+                                    <label class="g-lh">难度：</label>
+                                    <a href="javascript:void(0);" class="z-sel" id="noStar">不限</a>
+                                    <div class="q-star"></div>
+                                </li>
+                                @if (qtypes != null && qtypes.Count > 0)
+                                {
+                                    <li>
+                                        <label>题型：</label>
+                                        <div class="f-fl g-h" id="qtypes">
+                                            <a href="javascript:void(0);" data-qtype="-1" class="z-sel" id="noStar">不限</a>
+                                            @for (int i = 0; i < qtypes.Count; i++)
+                                            {
+                                                var qtype = qtypes[i];
+                                                if (i < 6)
+                                                {
+                                                    <a href="javascript:void(0);" data-qtype="@qtype.Id">@qtype.Name</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="javascript:void(0);" data-qtype="@qtype.Id" class="qtype-more hide">@qtype.Name</a>
+
+                                                    if (i == qtypes.Count - 1)
+                                                    {
+                                                        <span class="f-fl pointer" id="showMoreType">
+                                                            <span style="padding-right: 0;">更多</span> <i class="sprite-3 g-icon_13"></i>
+                                                        </span><!-- 点击展开 class更换.g-icon_1 -->
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </li>
+                                }
+
+                                <li id="qSourceType">
+                                    <label>来源：</label>
+                                    <a class="z-sel" href="javascript:void(0);" data-sourcetype="-1">题库</a>
+                                    <a href="javascript:void(0);" data-sourcetype="中考">中考题</a>
+                                    <a href="javascript:void(0);" data-sourcetype="压轴">压轴题</a>
+                                    <a href="javascript:void(0);" data-sourcetype="1">我的题目</a>
+                                    <div class="g-source hide" style="clear: both;margin-top: 27px;margin-left: 94px;margin-bottom: 5px;">
+                                        <ul class="ul-1">
+                                            <li>
+                                                <a href="javascript:void(0);" id="selectYear">
+                                                    <span data-year="-1">全部年份</span>
+                                                    <i class="sprite-3 g-icon_2"></i>
+                                                </a>
+                                                <div class="bubble-area w95 hide" id="yearDiv">
+                                                    <ul>
+                                                        <li>
+                                                            <div class="f-fl u-g-1">
+                                                                <span data-year="-1">全部年份</span>
+                                                            </div>
+                                                        </li>
+                                                        @for (int i = 0; i < 6; i++)
+                                                        {
+                                                            var year = DateTime.Now.Year - i - 1;
+                                                            <li>
+                                                                <div class="f-fl u-g-1">
+                                                                    <span data-year="@year">@year</span>
+                                                                </div>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" id="selectArea">
+                                                    <span data-area="-1">全国</span>
+                                                    <i class="sprite-3 g-icon_2"></i>
+                                                </a>
+                                                <div class="bubble-area hide" id="areaDiv">
+                                                    <ul></ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                @*<li id="shareRange">
+                                        <label>范围：</label>
+                                        <a href="javascript:void(0);" data-value="@((byte)ShareRange.Self)">我的</a>
+                                        <a href="javascript:void(0);" data-value="@((byte)ShareRange.School)">校内</a>
+                                        <a class="z-sel" href="javascript:void(0);" data-value="@((byte)ShareRange.Public)">全网</a>
+                                    </li>*@
+                                <li class="li-last" id="questionSort">
+                                    <label>排序：</label>
+                                    <a class="z-sel" href="javascript:void(0);" data-sort="-1">默认</a>
+                                    <a href="javascript:void(0);" data-sort="1">错误率 ↓</a>
+                                    <a href="javascript:void(0);" data-sort="2">使用次数 ↓</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="g-topic after" id="questionListDiv"></div>
+                    </div>
+                    <div class="tab-con topic-tab-content-2">
+                        <div id="choosePaperDiv">
+                            <div class="m-snav m-box-2">
+                                <div class="g-input f-fr">
+                                    <input type="hidden" value="-1" id="gradeValue" />
+                                    <input type="hidden" value="-1" id="sourceValue" />
+                                    <input type="text" placeholder="标题/标签" id="paperQueryKey">
+                                    <span class="sprite-3 g-icon_4" id="btn_PaperSearch"></span>
+                                </div>
+                                <ul class="ul">
+                                    @if (ViewData["gradeList"] != null)
+                                    {
+                                        var gradeList = ViewData["gradeList"] as List<SelectListItem>;
+
+                                        if (gradeList != null)
+                                        {
+                                            <li id="gradeChange">
+                                                <label>年级：</label>
+                                                <a class="z-sel" href="javascript:void(0);" data-value="-1">全部</a>
+
+                                                @foreach (var item in gradeList)
+                                                {
+                                                    <a href="javascript:void(0);" data-value="@item.Value">@item.Text</a>
+                                                }
+                                            </li>
+                                        }
+                                    }
+                                    <li class="li-last" id="sourceChange">
+                                        <label>来源：</label>
+                                        <a class="z-sel" href="javascript:void(0);" data-value="-1">全部</a>
+                                        <a href="javascript:void(0);" data-value="0">我的试卷</a>
+                                        @*<a href="javascript:void(0);" data-value="1">校内试卷</a>*@
+                                        <a href="javascript:void(0);" data-value="2">中考真卷</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div id="paperDataDiv"></div>
+                        </div>
+                        <div id="paperDetails">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/paper/page-choosequ.css")
+}
+
+@section js{
+    @Html.CombineLink("plugs/raty/jquery-raty.js,v3/js/paper/chooseQu.js,v3/js/paper/paperBar.js,js/artTemplate.min.js")
+    <script type="text/javascript">
+        var options = { paperBaseInfo: $("#paperBase").val() };
+        $(function () {
+            var $TopicTab = $('.topic-tab');
+            $TopicTab.find('.topic-tab-menu li').bind('click', function () {
+                var $this = $(this);
+                $this.addClass('z-sel').siblings().removeClass('z-sel');
+                $TopicTab.find('.topic-tab-content').find('.tab-con').eq($this.index()).addClass('show').siblings().removeClass('show');
+
+                if ($("#hasSbook").val() == "1") {
+                    var $kp = $(".b-kp"), $cp = $(".b-cp"), $kpBox = $(".kp-box"), $cpBox = $(".cp-box");
+                    if ($this.index() == 0) {
+                        $cp.show();
+                        $kp.addClass('half');
+                    } else {
+                        $cp.removeClass("active").hide();
+                        $cpBox.hide();
+                        $kp.removeClass('half').addClass("active").show();
+                        $kpBox.show();
+                    }
+                }
+
+                if ($this.index() == 0) {
+                    $("#btn_Search").click();
+                } else {
+                    $("#choosePaperDiv").removeClass("hide");
+                    $("#paperDetails").empty();
+                    $("#btn_PaperSearch").click();
+                }
+            });
+            $(".q-bar").bind("click", function () {
+                var $this = $(this);
+                if ($this.hasClass("active")) return;
+                $(".q-bar").removeClass("active");
+                $this.addClass("active");
+                var t = $this.data("type"),
+                    $kpBox = $(".kp-box"),
+                    $cpBox = $(".cp-box");
+                if (t == "1") {
+                    $kpBox.hide();
+                    $cpBox.show();
+                } else {
+                    $cpBox.hide();
+                    $kpBox.show();
+                }
+            });
+        });
+    </script>
+}

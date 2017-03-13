@@ -1,0 +1,14 @@
+/**
+ * Created by Boz on 2016/5/19.
+ * 加入圈子成功-跳转页面
+ */
+/*通知*/
+.group-information {
+  background: white;
+}
+.information-contents {
+  padding: 20px 18px;
+}
+.information-contents img {
+  max-width: 100%;
+}

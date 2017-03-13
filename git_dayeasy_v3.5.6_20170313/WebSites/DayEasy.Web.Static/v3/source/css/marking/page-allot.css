@@ -1,0 +1,288 @@
+/**
+ * 协同任务分配
+ * Created by shay on 2016/7/4.
+ */
+body {
+  background-color: #f5f5f5;
+}
+.d-box {
+  background-color: #fff;
+  margin: 30px auto 20px;
+  padding: 20px 0;
+  width: 1200px;
+}
+.d-box .d-title {
+  font-size: 18px;
+  padding-left: 20px;
+  margin-bottom: 30px;
+  border-left: 5px solid #ed5565;
+}
+.d-box .d-title small {
+  font-size: 14px;
+  color: #666;
+  margin-left: 5px;
+}
+.d-task-header {
+  background-color: #fff;
+  color: #999;
+  font-size: 16px;
+  font-weight: 600;
+  left: 20px;
+  padding: 0 8px;
+  position: absolute;
+  top: -11px;
+  z-index: 20;
+}
+/*任务列表*/
+.d-task-list {
+  margin: 30px;
+}
+.d-task-list .d-task-item {
+  border: solid 2px #e6e9ed;
+  padding: 15px 0;
+  margin-bottom: 30px;
+  position: relative;
+}
+.d-task-list .d-questions-wrap,
+.d-task-list .d-teachers-wrap {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+}
+.d-task-list .d-task-border {
+  top: 20px;
+  bottom: 20px;
+  right: 39%;
+}
+.d-task-list .d-questions-wrap {
+  overflow: hidden;
+  width: 61%;
+  padding: 0 25px 0 35px;
+}
+.d-task-list .d-questions-wrap .d-section {
+  color: #bbb;
+  font-weight: 600;
+  left: 8px;
+  margin-top: -1em;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 1em;
+}
+.d-task-list .d-questions-wrap .d-type {
+  margin: 10px 0;
+  color: #999;
+}
+.d-task-list .d-teachers-wrap {
+  width: 38%;
+  overflow: hidden;
+}
+.d-task-list .d-teachers-wrap .d-teachers li {
+  margin: 5px 0 5px 25px;
+}
+.d-task-list .d-task-remove {
+  background-color: #fff;
+  color: #999;
+  padding: 0 8px;
+  position: absolute;
+  right: 15px;
+  top: -10px;
+  cursor: pointer;
+}
+.d-task-list .d-task-remove:hover {
+  color: #d9534f;
+}
+.d-task-list .d-task-header {
+  color: #3bafda;
+}
+/*分配任务区域*/
+.d-task-area {
+  margin: 0 30px;
+  border: solid 2px #e6e9ed;
+  position: relative;
+}
+.d-task-area .d-task-left,
+.d-task-area .d-task-right {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+}
+.d-task-area .d-task-left {
+  width: 64%;
+  padding: 25px;
+  position: relative;
+}
+.d-task-area .d-task-right {
+  width: 35%;
+}
+.d-task-area .d-task-choose,
+.d-task-area .d-task-teachers {
+  position: relative;
+}
+.d-task-area .d-task-choose .d-task-header,
+.d-task-area .d-task-teachers .d-task-header {
+  left: 10px;
+}
+.d-task-area .d-task-choose {
+  height: 260px;
+  padding: 25px;
+}
+.d-task-area .d-task-choose .dy-nothing {
+  background-color: #fff;
+  font-size: 18px;
+}
+.d-task-area .d-task-choose h4 {
+  color: #bbb;
+  margin-bottom: 12px;
+}
+.d-task-area .d-task-choose .d-questions {
+  margin-bottom: 15px;
+}
+.d-task-area .d-task-teachers {
+  min-height: 200px;
+  padding: 25px 0;
+  border-top: 2px solid #e6e9ed;
+}
+.d-task-section {
+  color: #999;
+  margin-bottom: 20px;
+}
+.d-task-section h4 {
+  color: #bbb;
+  line-height: 25px;
+}
+.d-task-section .d-task-type {
+  margin: 10px 0;
+  cursor: pointer;
+}
+.d-task-section .d-task-type i {
+  font-size: 20px;
+  color: #e6e9ed;
+  vertical-align: middle;
+}
+.d-task-section .d-task-type span {
+  margin-left: 3px;
+}
+.d-task-section .d-task-type.checked i {
+  color: #3bafda;
+}
+.d-task-section .d-task-type.checked i:before {
+  content: '\e62c';
+}
+.d-task-section .d-task-questions {
+  overflow: hidden;
+}
+/*问题列表*/
+.d-questions {
+  overflow: hidden;
+}
+.d-questions li {
+  float: left;
+  height: 30px;
+  min-width: 30px;
+  padding: 0 8px;
+  line-height: 30px;
+  background-color: #e6e9ed;
+  margin: 4px 8px 4px 0;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  cursor: pointer;
+}
+.d-questions li.checked {
+  background-color: #3bafda;
+  color: #fff;
+}
+/*教师列表*/
+.d-teachers {
+  overflow: hidden;
+}
+.d-teachers li {
+  background-color: #e6e9ed;
+  float: left;
+  margin: 0 0 20px 25px;
+  padding: 3px 6px;
+  height: 36px;
+  line-height: 30px;
+  position: relative;
+  cursor: pointer;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+}
+.d-teachers li img {
+  width: 25px;
+  height: 25px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.d-teachers li span {
+  vertical-align: middle;
+  margin-left: 3px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 4em;
+}
+.d-teachers li i {
+  background-color: #fff;
+  border: 1px solid #e6e9ed;
+  border-radius: 50%;
+  bottom: -2px;
+  color: #e6e9ed;
+  font-size: 11px;
+  height: 20px;
+  line-height: 20px;
+  position: absolute;
+  right: -7px;
+  text-align: center;
+  width: 20px;
+  z-index: 10;
+}
+.d-teachers li.checked {
+  background-color: #3bafda;
+  color: #fff;
+}
+.d-teachers li.checked i {
+  border-color: #3bafda;
+  color: #3bafda;
+}
+.d-teachers li.d-add-box {
+  background-color: transparent;
+  padding: 3px 0;
+  line-height: 36px;
+}
+.d-teachers li.d-add-box em {
+  color: #3bafda;
+  font-size: 26px;
+  vertical-align: middle;
+}
+.d-task-border {
+  position: absolute;
+  right: 403px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #e6e9ed;
+}
+.d-task-actions {
+  margin: 20px 0 10px 0;
+  text-align: center;
+}
+.d-task-actions button {
+  margin-left: 15px;
+}

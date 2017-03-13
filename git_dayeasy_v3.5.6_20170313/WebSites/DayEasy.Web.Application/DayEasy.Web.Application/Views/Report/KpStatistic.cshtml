@@ -1,0 +1,187 @@
+﻿@using DayEasy.Contracts.Enum
+@model DayEasy.Contracts.Dtos.Statistic.KpStatisticDataDto
+@{
+    ViewBag.Title = "知识点掌握情况";
+
+    var roles = (List<UserRole>)ViewData["Roles"];
+
+    string startTime = string.Empty;
+    string endTime = string.Empty;
+    if (Model != null)
+    {
+        startTime = Model.OutStartTimeStr;
+        endTime = Model.OutEndTimeStr;
+    }
+}
+
+<div class="g-mn f-fr">
+    <div class="m-tt after">
+        <h2 class="f-fl  m-hd ">知识点掌握情况</h2>
+    </div>
+    <div class="m-bd-1">
+        <div class="m-sch mb10">
+            <form action="@Url.Action("KpStatistic","Report")" method="GET" id="searchForm">
+                @if (ViewData["groups"] != null)
+                {
+                    @Html.DropDownList("cid", ViewData["groups"] as List<SelectListItem>)
+                }
+                @if (roles.Contains(UserRole.Student) || roles.Contains(UserRole.Parents))
+                {
+                    @Html.DropDownList("sub", ViewData["subjects"] as List<SelectListItem>, new { @class = "mr10" })
+                }
+                <span class="ml10">时间：</span>
+                <input type="text" id="start" name="start" value="@startTime" class="input-sm" onfocus="WdatePicker({ maxDate: '%y-%M-%d', dateFmt: 'yyyy-MM-dd',firstDayOfWeek:1, disabledDays: [1,2,3,4,5,6],specialDays:[0] })" />
+                <span>-</span>
+                <input type="text" id="end" name="end" value="@endTime" class="input-sm" onfocus="WdatePicker({ minDate: '#F{$dp.$D(\'start\')}', maxDate: '%y-%M-{%d+6}', dateFmt: 'yyyy-MM-dd', firstDayOfWeek: 1, disabledDays: [1, 2, 3, 4, 5, 0], specialDays: [6] })" />
+                <input type="button" class="btn btn-primary btn-sm ml10" value="确定" id="btnSure" />
+            </form>
+        </div>
+        <div id="Slide">
+            @if (Model != null && Model.KpData != null && Model.KpData.Count > 0)
+            {
+                string showText = "错题人次：";
+                if (roles.Contains(UserRole.Student) || roles.Contains(UserRole.Parents))
+                {
+                    showText = "错题数：";
+                }
+
+                foreach (var kpStatistic in Model.KpData)
+                {
+                    int errorCount = kpStatistic.ErrorCount;
+                    int answerCount = kpStatistic.AnswerCount;
+                    if (kpStatistic.SonKps != null)
+                    {
+                        errorCount += kpStatistic.SonKps.Sum(u => u.ErrorCount);
+                        answerCount += kpStatistic.SonKps.Sum(u => u.AnswerCount);
+
+                        kpStatistic.SonKps.ForEach(u =>
+                        {
+                            if (u.SonKps != null)
+                            {
+                                errorCount += u.SonKps.Sum(c => c.ErrorCount);
+                                answerCount += u.SonKps.Sum(c => c.AnswerCount);
+                            }
+                        });
+                    }
+                    string topPercent = "--";
+                    if (errorCount != 0 && answerCount != 0) {
+                         topPercent = ((double)errorCount / answerCount).ToString("P0");
+                    }
+
+
+                    <div class="m-lst-poi">
+                        <ul class="ul z-lst-u">
+                            <li>
+                                <div class="f-fl m-lst-1">
+                                    @if (kpStatistic.SonKps != null)
+                                    {
+                                        <i class="icon_arrowRight"></i>
+                                    }
+                                </div>
+                                <div class="f-fr m-lst-2">
+                                    <p class="p1">@kpStatistic.KpName</p>
+                                    <div class="z-sel f-show">错误率：<span>@topPercent</span>@showText<span>@errorCount</span></div>
+                                </div>
+                            </li>
+                        </ul>
+                        @if (kpStatistic.SonKps != null)
+                        {
+                            foreach (var sonKp in kpStatistic.SonKps)
+                            {
+                                errorCount = sonKp.ErrorCount;
+                                answerCount = sonKp.AnswerCount;
+                                if (sonKp.SonKps != null)
+                                {
+                                    errorCount += sonKp.SonKps.Sum(u => u.ErrorCount);
+                                    answerCount += sonKp.SonKps.Sum(u => u.AnswerCount);
+                                }
+                                var secPercent = ((double)errorCount / answerCount).ToString("P0");
+
+                                <div class="tab-1">
+                                    <!--========2级分类=========-->
+                                    <div class="tab-2">
+                                        <ul class="ul f-ml s-show">
+                                            <li>
+                                                <div class="f-fl m-lst-1">
+                                                    @if (sonKp.SonKps != null)
+                                                    {
+                                                        <i class="icon_arrowRight"></i>
+                                                    }
+                                                </div>
+                                                <div class="f-fr m-lst-2 m-w-1">
+                                                    <p class="p1">@sonKp.KpName</p>
+                                                    <div class="z-sel">错误率：<span>@secPercent</span>@showText<span>@errorCount</span></div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        @if (sonKp.SonKps != null)
+                                        {
+                                            foreach (var kp in sonKp.SonKps)
+                                            {
+                                                var percent = ((double)kp.ErrorCount / kp.AnswerCount).ToString("P0");
+
+                                                <div class="tab-3">
+                                                    <ul class="ul f-ml f-mb">
+                                                        <li>
+                                                            <div class="f-fl m-lst-1"></div>
+                                                            <div class="f-fr m-lst-2 m-w-1">
+                                                                <p class="p1">@kp.KpName</p>
+                                                                <div class="z-sel">错误率：<span>@percent</span>@showText<span>@kp.ErrorCount</span></div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                }
+            }
+            else
+            {
+                if (roles.Contains(UserRole.Student) || roles.Contains(UserRole.Parents))
+                {
+                    <div class="m-lst-poi fs16 default">
+                        <i class="iconfont dy-icon-emoji02"></i>  这段时间您还没有做练习额～
+                    </div>
+                }
+                else
+                {
+                    <div class="m-lst-poi fs16 default">
+                        <i class="iconfont dy-icon-emoji02"></i> 这段时间您还没有布置练习额~
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@section script{
+    @Html.CombineLink("plugs/My97DatePicker/WdatePicker.min.js")
+    <script type="text/javascript">
+        $(function () {
+            var obtn = $('#Slide').find('.m-lst-poi');
+            obtn.find('.z-lst-u').click(function (event) {
+                $(this).parents('.m-lst-poi').find('.tab-1').slideToggle();
+                $(this).find('.m-lst-1 i').toggleClass('icon_arrowRight icon_arrowDown');
+            });
+            obtn.on('click', '.tab-2', function (event) {
+                $(this).find('.tab-3').slideToggle().end().find('.m-lst-1 i').toggleClass('icon_arrowRight icon_arrowDown');
+            });
+
+            $("#sub,#cid").change(function () {
+                $("#start").val('');
+                $("#end").val('');
+                $("#searchForm").submit();
+            });
+
+            $("#btnSure").click(function () {
+                $("#searchForm").submit();
+            });
+        });
+    </script>
+}

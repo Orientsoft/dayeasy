@@ -1,0 +1,276 @@
+﻿@using DayEasy.Core
+@model ViewDataDictionary
+@{
+    ViewBag.Title = "在线阅卷";
+}
+<div class="dy-container">
+    <div>
+        <!--顶部-->
+        <div class="m-header-box hide"></div>
+        <!--错误消息-->
+        <div class="dy-nothing m-message hide">资料加载失败</div>
+        <!--批阅-->
+        <div class="m-body hide">
+            <div id="mkBox" class="cur-0" data-t="0">
+                <img id="markingImage" src="" alt="答卷图片">
+                <!-- 半对打分板 -->
+                <div id="semiBox" style="display: none;" class="simplepop"></div>
+            </div>
+            <!--得分版-->
+            <div class="m-goal">
+                <div class="mg-title">
+                    <span class="gt-info">各题得分</span>
+                    <span class="gt-btn">全扣</span>
+                </div>
+                <div class="mg-scroll">
+                    <div class="mg-list"></div>
+                </div>
+                <div class="mg-score-box" style="display: none;">
+                    <div class="arrow arrow-left"></div>
+                    <div class="mg-scores"></div>
+                </div>
+            </div>
+            <!--工具-->
+            <div class="m-tools">
+                <ul>
+                    <li title="擦除"><div class="tool tool-clear" data-t="clear"><i></i></div></li>
+                    <li><div class="tool tool-full active" data-t="0"><i></i></div></li>
+                    <li><div class="tool tool-semi" data-t="1"><i></i></div></li>
+                    <li><div class="tool tool-error" data-t="2"><i></i></div></li>
+                    <li title="批注"><div class="tool tool-remark" data-t="remark"><i></i></div></li>
+                    <li title="设置"><div class="tool tool-setting" data-t="setting"><i></i></div></li>
+                    <li title="放大"><div class="tool tool-zoom" data-t="zoom"><i></i></div></li>
+                </ul>
+                <!--批注-->
+                <div class="remarks" style="display: none;">
+                    <div class="arrow arrow-right"></div>
+                    <div class="title t-text active" data-t="3">文字</div>
+                    <div class="content c-text">
+                        <ol data-t="3">
+                            <li data-v="rk-1.png" class="ti ti-1"></li>
+                            <li data-v="rk-2.png" class="ti ti-2"></li>
+                            <li data-v="rk-3.png" class="ti ti-3"></li>
+                            <li data-v="rk-4.png" class="ti ti-4"></li>
+                        </ol>
+                    </div>
+                    <div class="title t-brow" data-t="5">符号</div>
+                    <div class="content c-brow hide">
+                        <ol data-t="5">
+                            <li data-v="smile.png"><img src="@Consts.Config.StaticSite/v1/image/icon/marking/brow/smile.png" /></li>
+                            <li data-v="cry.png"><img src="@Consts.Config.StaticSite/v1/image/icon/marking/brow/cry.png" /></li>
+                            <li data-v="praise.png"><img src="@Consts.Config.StaticSite/v1/image/icon/marking/brow/praise.png" /></li>
+                            <li data-v="doubt.png"><img src="@Consts.Config.StaticSite/v1/image/icon/marking/brow/doubt.png" /></li>
+                            <li data-v="line.png"><img src="@Consts.Config.StaticSite/v1/image/icon/marking/brow/icon_line.png" /></li>
+                            <li data-v="wavy.png"><img src="@Consts.Config.StaticSite/v1/image/icon/marking/brow/icon_wavy.png" /></li>
+                            <li data-v="oval.png"><img src="@Consts.Config.StaticSite/v1/image/icon/marking/brow/icon_oval.png" /></li>
+                        </ol>
+                    </div>
+                    <div class="title t-custom" data-t="4">自定义</div>
+                    <div class="content c-custom hide">
+                        <div class="custom-edit hide">
+                            <textarea class="txt-custom" placeholder="说点什么吧..." maxlength="30" id="txtCustom"></textarea>
+                            <div class="custom-info">
+                                <div class="custom-msg">30个字符以内</div>
+                                <div class="custom-btn">
+                                    <button type="button" class="btn-custom" id="btnUsageCustom">确认</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-history">
+                            <div class="ht edit">说点什么...</div>
+                            <div class="list">
+                                <div class="ht item" title="点击使用">做题要仔细 !</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 设置 -->
+                <div class="m-setting" style="display: none;">
+                    <div class="arrow arrow-right"></div>
+                    <div class="box mb-first">
+                        <div class="box-lg-12 mb-title">批阅设置</div>
+                    </div>
+                    <div class="box">
+                        <div class="box-lg-4">最小分值：</div>
+                        <div class="box-lg-8">
+                            <select id="ddlMinScore">
+                                <option value="0.5">0.5分</option>
+                                <option value="1" selected="selected">1分</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box-lg-4">
+                            <img src="@Consts.Config.StaticSite/v1/image/icon/marking/semi.png" alt="半对图标" />
+                        </div>
+                        <div class="box-lg-8">
+                            <label class="checkbox-group group-radio">
+                                <input name="rdoSemi" type="radio" value="0" class="dy-icon-radiohv" checked="checked"><span>手动扣分</span>
+                                <i class="iconfont dy-icon-radio dy-icon-radiohv"></i>
+                            </label>
+                            <br />
+                            <label class="checkbox-group group-radio">
+                                <input name="rdoSemi" type="radio" value="1"><span>自动扣分</span>
+                                <i class="iconfont dy-icon-radio"></i>
+                            </label>
+                            &nbsp;
+                            <select id="ddlSemiScore" disabled="disabled">
+                                <option value="50%">扣一半</option>
+                                <option value="-1">-1分</option>
+                                <option value="-2">-2分</option>
+                                <option value="-3">-3分</option>
+                                <option value="-4">-4分</option>
+                                <option value="-5">-5分</option>
+                                <option value="100%">全扣</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box-lg-4">
+                            <img src="@Consts.Config.StaticSite/v1/image/icon/marking/error.png" alt="错误图标" />
+                        </div>
+                        <div class="box-lg-8">
+                            <label class="checkbox-group group-radio">
+                                <input name="rdoError" type="radio" value="0" class="dy-icon-radiohv" checked="checked"><span>手动扣分</span>
+                                <i class="iconfont dy-icon-radio dy-icon-radiohv"></i>
+                            </label>
+                            <br />
+                            <label class="checkbox-group group-radio">
+                                <input name="rdoError" type="radio" value="1"><span>自动扣分</span>
+                                <i class="iconfont dy-icon-radio"></i>
+                            </label>
+                            &nbsp;
+                            <select id="ddlErrorScore" disabled="disabled">
+                                <option value="100%">全扣</option>
+                                <option value="-1">-1分</option>
+                                <option value="-2">-2分</option>
+                                <option value="-3">-3分</option>
+                                <option value="-4">-4分</option>
+                                <option value="-5">-5分</option>
+                                <option value="50%">扣一半</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box mb-last">
+                        <div class="f-tar m-update-area"><span id="btnUpdateMkArea" class="m-abtn">更改题目标记区域</span></div>
+                        <div class="box-lg-12 f-tac">
+                            <button id="btnCancelSetting" class="dy-btn dy-btn-default">取消</button>
+                            &nbsp;&nbsp;
+                            <button id="btnSaveSetting" class="dy-btn dy-btn-info">完成</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--左右切换图标-->
+            <div class="m-change m-change-left" data-v="-1"><i class="iconfont dy-icon-pre"></i></div>
+            <div class="m-change m-change-right" data-v="1"><i class="iconfont dy-icon-next"></i></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="question-template">
+    {{each questions as q}}
+    <div class="mg-item num-{{q.sort}}" data-id="{{q.id}}" data-total="{{q.score}}">
+        <span class="gi-sort">{{q.sort}}</span>
+        <span class="gi-division-1"></span>
+        <input class="gi-input" type="text" maxlength="6" value="{{q.score}}" data-index="{{$index + 1}}" />
+        <span class="gi-score">分</span>
+        <div class="gi-total">
+            <span class="gi-division-2">/</span>
+            <span class="gi-ts">{{q.score}}</span>
+            <i class="fa fa-caret-right"></i>
+        </div>
+    </div>
+    {{/each}}
+</script>
+<script type="text/html" id="m-header-box">
+    <div class="m-header dy-box">
+        <div class="box-lg-5 fs16 f-toe">
+            <span class="m-abtn m-back"><i class="iconfont dy-icon-fanhui fs24"></i> 返回</span>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <span class="disabled">{{paperTitle}}</span>
+        </div>
+        <div class="box-lg-2 f-tac fs20">
+            <span class="stu-name"></span>&nbsp;&nbsp;
+            <em class="stu-score">0</em><em>分</em>
+        </div>
+        <div class="box-lg-5 f-tar fs14">
+            <span class="m-abtn btn-students">
+                <i class="iconfont dy-icon-liebiao"></i> <span>学生列表</span>
+                ( <span class="em-schedule-currect">0</span>/<span>{{pictures && pictures.length ? pictures.length : 0}}</span> )
+            </span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="dy-btn dy-btn-default btn-mk-save">保存进度</button>&nbsp;&nbsp;
+            {{if isAb && markingStatus == 0}}
+            <button class="dy-btn dy-btn-danger b-update-status" data-status="{{sectionType}}">结束阅卷</button>
+            {{else}}
+            <button class="dy-btn dy-btn-danger b-complete">结束阅卷</button>
+            {{/if}}
+            <div class="mk-save-tip" style="display: none;">
+                <div class="arrow arrow-top"></div>
+                <div>切换答卷可自动保存进度哦~</div>
+            </div>
+        </div>
+        <div class="box-lg-12 m-students" style="display: none;">
+            <div class="arrow arrow-top"></div>
+            <div class="m-students-scroll">
+                <div class="ms-submits-box">
+                    <div class="ms-tips">
+                        <i class="i-undo"></i>未批阅&nbsp;&nbsp;
+                    </div>
+                    <div>
+                        <span class="m-alt-span">学生列表：</span>
+                    </div>
+                    <ul class="ms-submits">
+                        {{each pictures}}
+                        <li data-id="{{$value.pictureId}}" data-jointid="{{$value.jointPictureId}}" data-idx="{{$index + 1}}">
+                            <span>{{$value.studentName}}</span>
+                            {{if $value.exceptionType == null && !$value.isMarking}}
+                            <i class="i-undo"></i>
+                            {{/if}}
+                            {{if $value.exceptionType != null}}
+                            {{if $value.exceptionType == 0}}
+                            <i class="fa fa-exclamation i-declare"></i>
+                            {{/if}}
+                            {{if $value.exceptionType == 4}}
+                            <i class="fa fa-exclamation i-processed"></i>
+                            {{/if}}
+                            {{/if}}
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{if unSubmits && unSubmits.length}}
+                <div class="ms-unsubmits-box">
+                    <div><span class="m-alt-span">未提交名单：</span></div>
+                    <div class="ms-unsubmits">
+                        {{each unSubmits}}
+                        <span>{{$value}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</script>
+@section css{
+    @Html.CombineLink("css/font-awesome.css,plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css,v3/css/assist/ui-base.css,v3/css/portal/marking-v3.css")
+    <style>
+        .a-exception {
+            font-size: 13px;
+            color: #65cafc;
+        }
+
+        .m-students .joint-arrow-top {
+            left: 795px !important;
+        }
+
+        .joint-save-tip {
+            right: -27px !important;
+        }
+    </style>
+}
+@section js{
+    @Html.CombineLink("js/jquery-ui.min.js,js/artTemplate.min.js,js/mousewheel.js,plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js,v3/js/portal/marking-core.js,v3/js/portal/marking-default.js")
+    @Html.Partial("MarkingComplete")
+}

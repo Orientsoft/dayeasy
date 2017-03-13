@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "联系我们";
+}
+
+<div class="w1200 page-contact-us">
+    <!--联系我们-->
+    <div class="conus-title">
+        <h2>联系我们</h2>
+        <span>CONTACT US</span>
+    </div>
+    <!--公众信息-->
+    <div class="conus-content">
+        <dl class="conus-content-dl">
+            <dt>公众平台</dt>
+            <dd>
+                <div class="conus-tab-1">关注“我的得一”微信公众号 <em class="conus-font-1">mydayeasy</em></div>
+                <div class="conus-tab-2">私信新浪微博 <a class="conus-font-2 a01" href="http://weibo.com/3101751281/profile" target="_blank" title="新浪私信"><i class="iconfont dy-icon-57"></i>  @@得一科技</a>
+                </div>
+            </dd>
+
+            <dt>联系客服</dt>
+            <dd>
+
+                <div class="conus-tab-1">
+                    联系客服QQ（点击直接联系） <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1773670794&amp;site=qq&amp;menu=yes" class="conus-font-2 a01" target="_blank" title="点击联系QQ">
+                        <i class="iconfont dy-icon-41"></i> 1773670794
+                    </a>
+                </div>
+                <div class="conus-tab-2">发送邮件到Email <em class="conus-font-2">service@dayeasy.net</em></div>
+            </dd>
+
+            <dt>商务合作</dt>
+            <dd>
+                <div class="conus-tab-1">
+                    商务合作联系QQ（点击直接联系） <a class="conus-font-2 a01" href="http://wpa.qq.com/msgrd?v=3&amp;uin=987235840&amp;site=qq&amp;menu=yes" target="_blank" title="点击联系QQ">
+                        <i class="iconfont dy-icon-41"></i> 987235840
+                    </a>
+                </div>
+            </dd>
+
+            <dt>人才招聘</dt>
+            <dd>
+                <div class="conus-tab-2">发送邮件到Email <em class="conus-font-2">dayeasy_hr@163.com</em></div>
+            </dd>
+        </dl>
+    </div>
+    <!--微信二维码-->
+    <div class="conus-weixin">
+        <div class="conus-so">
+            <div class="dyanmic-button">
+                <span id="buy-ticket" target="_blank" class="buy-ticket">扫</span>
+                <div class="one-bg round"></div>
+                <div class="two-bg round"></div>
+                <div class="three-bg round"></div>
+                <div class="four-bg round"></div>
+            </div>
+
+            一&nbsp;扫
+        </div>
+
+        <div class="conus-code">
+
+            <div class="container-desc">
+                <div class="bb">
+                    <i class="iconfont icon-jquery">
+                        <img src="@Url.StaticLink("v3/image/qrcode/wechat250x250.png")" width="200" height="200" alt="我的得一二维码">
+                    </i>
+                </div>
+            </div>
+            <div class="conus-code-text">扫描二维码关注得一</div>
+        </div>
+
+    </div>
+</div>
+
+@Html.CombineLink("v3/css/helper/page-contact-us.css")

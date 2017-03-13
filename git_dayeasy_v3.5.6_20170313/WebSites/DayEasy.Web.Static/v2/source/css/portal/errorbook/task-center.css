@@ -1,0 +1,140 @@
+.ed-task-main {
+  border: 1px solid #ccc;
+  margin: 20px auto;
+  padding: 15px;
+}
+.ed-task-main h2.h2 {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+.ed-task-main h3.h3 {
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+.ed-task-main .u-paper-answer {
+  margin-bottom: 15px;
+  border-bottom: 1px dashed #ccc;
+}
+.ed-task-main .u-paper-answer .u-more {
+  color: #65cafc;
+}
+.ed-task-main .u-paper-answer .u-more i.glyphicon-exclamation-sign {
+  margin-right: 3px;
+}
+.ed-task-main .u-paper-answer .u-open {
+  display: none;
+  background-color: #f7f7f7;
+  padding: 10px 0px;
+  margin-top: 8px;
+}
+.ed-task-main .u-paper-answer .p-title {
+  position: relative;
+}
+.ed-task-main .u-paper-answer .p-title h4 {
+  line-height: 45px;
+  margin-top: 20px;
+  font-weight: 600;
+}
+.ed-task-main .u-paper-answer .p-static {
+  position: absolute;
+  right: 70px;
+  top: 25px;
+}
+.ed-task-main .u-paper-answer .p-static em {
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  padding: 0 4px;
+}
+.ed-task-main .u-paper-answer .p-static .totalScore {
+  margin-left: 30px;
+}
+.ed-task-main .u-paper-answer .p-static .totalScore em {
+  color: red;
+  font-family: georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  padding: 0 6px;
+}
+.ed-task-main .u-paper-answer .u-point {
+  line-height: 25px;
+}
+.ed-task-main .u-paper-answer .u-point span {
+  margin-right: 8px;
+  color: #999;
+}
+.ed-task-main .m-topic .u-number {
+  line-height: 26px;
+  color: #ffa64c;
+}
+.ed-task-main .m-topic .span-unified span {
+  cursor: pointer;
+  padding: 4px 10px;
+  margin: 0 10px;
+  border: 1px solid #65cafc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.ed-task-main .m-topic .span-unified span.z-crt {
+  background: #65cafc;
+  color: #ffffff;
+  display: inline-block;
+}
+.ed-task-main .m-topic .task-cent-teb {
+  font-size: 14px;
+  position: relative;
+  background: #f7f7f7;
+  padding: 15px;
+  display: none;
+}
+.ed-task-main .m-topic .task-cent-teb i.f-posa-close {
+  font-size: 12px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  font-style: normal;
+  background: #ffffff;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  line-height: 13px;
+  border: 1px solid #e6e6e6;
+  float: right;
+  display: inline-block;
+}
+.ed-task-main .m-topic .task-cent-teb i.f-posa-close:hover {
+  background: #ffa64c;
+  color: #ffffff;
+}
+.ed-task-main .m-topic .task-cent-teb .tab-con {
+  display: none;
+}
+.ed-task-main .m-topic .task-cent-teb .teb-list-1 .u-share {
+  padding: 5px 10px;
+  color: #ffffff;
+  background: #b3b3b3;
+  text-decoration: none;
+  margin-left: 5px;
+}
+.ed-task-main .m-topic .task-cent-teb .teb-list-1 .u-share:hover {
+  background: #ffa64c;
+}
+.ed-task-main .m-topic .task-cent-teb .teb-list-1 .u-share a.z-crt {
+  background: #ffa64c;
+}
+.ed-task-main .m-topic .task-cent-teb .teb-list-2 .u-list-name li {
+  float: left;
+  cursor: pointer;
+  color: #65cafc;
+  margin-right: 15px;
+  margin-bottom: 5px;
+}
+.ed-task-main .m-topic .task-cent-teb .teb-list-2 .u-list-name li:hover {
+  color: #fc9797;
+}
+.ed-task-main .m-topic .task-cent-teb .teb-list-3 {
+  line-height: 1.6em;
+}

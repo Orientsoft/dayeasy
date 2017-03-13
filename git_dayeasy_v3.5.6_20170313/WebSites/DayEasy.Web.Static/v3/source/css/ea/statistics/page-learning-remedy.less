@@ -1,0 +1,322 @@
+@charset "UTF-8";
+/**
+ * Boz
+ * @date    12:31 2016/11/18
+ * 教务管理-2师生画像2
+ */
+@import "../../../less/base";
+.page-elective-draw{
+  }
+/*ui TAB*/
+.ui-tab-nav{
+  border-bottom:2px solid #00acee;
+  margin-bottom:10px;
+  li{
+    float:left;
+    width:240px;
+    height:50px;
+    line-height:50px;
+    background:white;
+    text-align:center;
+    margin-right:6.5px;
+    cursor:pointer;
+    color:#666;
+    font-weight:bold;
+    font-size:16px;
+    &.first{
+      margin-right:7px;
+      }
+    &.last{
+      margin-right:0;
+      }
+    &.on{
+      background:#00acee;
+      color:white;
+      }
+    }
+  }
+.tab-nav-contens{
+  .tab-con-list{
+    display:none;
+    }
+  }
+/*数据列表*/
+.m-course-top{
+  .item-left{
+    width:300px;
+    ul{
+      margin-left:-5px;
+      margin-bottom:-20px;
+      &.ul-item-2{
+        li{
+          padding:20px;
+          }
+        .title{
+          display:block;
+          color:#666;
+          font-size:16px;
+          margin-bottom:5px;
+          font-weight:bold;
+          }
+        }
+      }
+    li{
+      margin-bottom:20px;
+      display:inline-block;
+      float:left;
+      background:#fff;
+      position:relative;
+      width:300px;
+      height:150px;
+      padding:48px 10px 45px 130px;
+      .iconfont{
+        position:absolute;
+        top:57px;
+        left:80px;
+        font-size:36px;
+        color:#999;
+        &.dy-icon-icowrongnotebook{ color:#2cc49e; }
+        &.dy-icon-icon41{ color:#e8525d; }
+        }
+      .box-span-1{
+        font-size:16px;
+        font-weight:bold;
+        color:#666;
+        margin-bottom:10px;
+        }
+      .box-span-2{
+        font-size:40px;
+        color:#333;
+        display:block;
+        cursor:pointer;
+        }
+      }
+    }
+  .item-right{
+    width:660px;
+    background:white;
+    height:320px;
+    .box-people{
+      float:left;
+      width:660px;
+      height:320px;
+      background:#fff;
+      }
+    .class-people{
+      .container-box-x{
+        position:relative;
+        overflow-x:auto;
+        width:500px;
+        padding:10px;
+        margin:0 auto;
+        }
+      }
+    .m-title{
+      color:#666;
+      height:60px;
+      line-height:60px;
+      padding:0 20px;
+      strong{
+        float:left;
+        font-size:16px;
+        font-weight:bold;
+        }
+      select{
+        float:right;
+        float:right;
+        position:relative;
+        top:15px;
+        height:30px;
+        line-height:30px;
+        padding:4px 8px;
+        .rounded-corners(4px);
+        }
+      }
+    }
+  }
+//变式推送/变式下载/微课讲解/试卷下载
+.m-course-3{
+  ul{
+    margin-left:-20px;
+    margin-bottom:20px;
+    }
+  li{
+    width:230px;
+    height:120px;
+    padding:20px 13px;
+    background:white;
+    margin-left:20px;
+    float:left;
+    &:hover{
+      .box-span-2{ font-size:36px;}
+      .box-span-3{
+        display:block;
+        }
+      }
+
+    }
+  span{
+    display:block;
+    .iconfont{
+      &.dy-icon-change{ color:#60d3b6;}
+      &.dy-icon-download{ color:#ffcb2d;}
+      &.dy-icon-video{ color:#e8525d;}
+      &.dy-icon-buchongiconsvg10{ color:#486378;}
+      }
+    }
+  .box-span-1{
+    font-size:16px;
+    margin-bottom:5px;
+    color:#666;
+    .iconfont{
+      font-size:14px;
+      margin-right:10px;
+      }
+    text-align:center;
+    }
+  .box-span-2{
+    color:#333;
+    font-size:44px;
+    margin-bottom:10px;
+    text-align:center;
+    .transition(all 0.5s ease 0s);
+    }
+  .box-span-3{
+    display:none;
+    font-size:12px;
+    color:#999;
+    text-align:center;
+    }
+  }
+/*分科分布/班次分布*/
+.d-chart-item{
+  .inline-block;
+  width:480px;
+  height:200px;
+  background-color:@color-default;
+  margin-bottom:20px;
+  position:relative;
+  .highcharts-container{z-index: 2 !important;}
+  .chart-empty{ position:absolute; top:18px; left:65px;
+    .not-text{
+      color:#999;
+      font-size:18px;
+      margin-left:60px;
+      width:300px;
+      position:absolute;
+      top:70px;
+      left:158px; }
+    }
+  &:nth-child(2n){
+    margin-left:20px;
+    }
+  .chart-center{
+    position:absolute;
+    left:128px;
+    top:65px;
+    line-height:35px;
+    font-size:16px;
+    font-weight:600;
+    z-index: 0;
+    color:@d-color-gray;
+    i{
+      font-size:28px;
+      display:block;
+      font-weight:normal;
+      }
+    }
+  &.not-chart{
+    .chart-center{ color:#ccc; }
+    }
+  }
+.d-chart-center{
+  color:@color-default;
+  border-radius:50%;
+  text-align:center;
+  }
+#analysisChart{
+  .d-chart-center{
+    background-color:#2cc49e;
+    font-size:14px;
+    width:50px;
+    height:50px;
+    line-height:50px;
+    //border-radius:0;
+    //width:90px;
+    //height:90px;
+    //.background-image('ea/d-chart-center.png');
+    }
+  .dy-nothing{
+    }
+  }
+#downloadChart,
+#passChart{
+  .d-chart-center{
+    font-size:9px;
+    width:30px;
+    height:30px;
+    line-height:30px;
+
+    }
+  .dy-nothing{
+    height:90px;
+    line-height:90px;
+    .iconfont{
+      position:relative;
+      left:0;
+      top:10px;
+      }
+    }
+  }
+#downloadChart{
+  .d-chart-center{
+    background-color:#e8525d;
+    }
+  }
+#passChart{
+  .d-chart-center{
+    background-color:#ffcb2d;
+    }
+  }
+.d-chart-tip{
+  background-color:#2cc49e;
+  color:#fff;
+  text-align:center;
+  position:relative;
+  padding:4px 8px;
+  top:70px;
+  left:0;
+  font-size:14px;
+  border:solid 1px #2cc49e;
+  z-index:10;
+  }
+#downloadChart,
+#passChart{
+  .d-chart-tip{
+    top:55px;
+    font-size:12px;
+    padding:2px 4px;
+    }
+  }
+#downloadChart .d-chart-tip{
+  background-color:#a563ad;
+  border-color:#a563ad;
+  }
+#passChart .d-chart-tip{
+  background-color:#52cdd5;
+  border-color:#52cdd5;
+  }
+.amend-total{ position:absolute; width:100%; height:100%; top:0; left:0;
+  @poswidth:69px;
+  .total-left, .total-right{ position:absolute; width:64px; height:16px; text-align:center; top:117px; }
+  .total-left{ left:@poswidth; }
+  .total-right{ right:@poswidth; }
+  }
+
+.highcharts-legend-item{
+  margin-bottom:15px !important;
+  margin-top: -3px !important;
+  span{ font-weight:normal !important;}
+  rect{.rounded-corners(2px); width:10px !important; height:10px !important; margin-top:10px !important;}
+  }
+

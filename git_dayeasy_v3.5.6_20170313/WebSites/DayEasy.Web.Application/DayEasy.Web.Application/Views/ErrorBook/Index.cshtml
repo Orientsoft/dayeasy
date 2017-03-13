@@ -1,0 +1,242 @@
+﻿@{
+    ViewBag.Title = "错题库";
+    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+}
+
+<script type="text/javascript">
+    var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true; deyi.loadFormula = true;
+</script>
+<div class="dy-container">
+    <div class="j-autoHeight box"
+         data-left="132"
+         data-type="2"
+         data-min="400">
+        <div class="row e-book">
+            <div class="col-md-12 l-box">
+                <!-- 头部搜索 -->
+                <div class="search row">
+                    <div class="col-md-offset-3 col-md-6">
+                        <div class="input-group input-group-lg">
+                            <input type="text" id="txtSearchKey" class="form-control" placeholder="找错题？搜搜看">
+                            <span class="input-group-btn">
+                                <button id="btnSearch" class="btn btn-default" type="button">搜索</button>
+                            </span>
+                        </div>
+                        <div class="search-keys" style="display:none;"></div>
+                    </div>
+                    <div class="col-md-3 total-box">
+                        共&nbsp;<em class="e-total">0</em> &nbsp;道错题
+                    </div>
+                </div>
+
+                <!-- 筛选条件 -->
+                <div class="screen">
+                    <div class="sing">
+                        <span>学科</span> <i class="fa fa-caret-down"></i>
+                        <div class="list sn-subjects" style="display:none;"></div>
+                    </div>
+                    <div class="sing">
+                        <span>题型</span> <i class="fa fa-caret-down"></i>
+                        <div class="list sn-types" style="display:none;">
+                            <div class="item" data-val="-1">请选择学科</div>
+                        </div>
+                    </div>
+                    <div class="sing">
+                        <span>时间范围</span> <i class="fa fa-caret-down"></i>
+                        <div class="list sn-times" style="display:none;">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <input type="text" id="txtStarDate"
+                                           class="form-control input-sm"
+                                           placeholder="起始时间"
+                                           readonly="readonly"
+                                           onfocus="WdatePicker({ minDate: '2014/01/01', maxDate: '#F{$dp.$D(\'txtEndDate\')||\'new Date()\'}', dateFmt: 'yyyy/MM/dd' })" />
+                                </div>
+                                <div class="col-md-2 text-center" style="line-height:30px;">-</div>
+                                <div class="col-md-5">
+                                    <input type="text" id="txtEndDate"
+                                           class="form-control input-sm"
+                                           placeholder="截止时间"
+                                           readonly="readonly"
+                                           onfocus="WdatePicker({ minDate: '#F{$dp.$D(\'txtStarDate\')||\'2014/01/01\'}', maxDate: new Date(), dateFmt: 'yyyy/MM/dd' })" />
+                                </div>
+                            </div>
+                            <div class="btns text-right">
+                                <div class="sn-time-reset">清空</div>
+                                <button type="button" class="st-cancel btn btn-sm btn-default">取消</button>
+                                &nbsp;
+                                <button type="button" class="st-ok btn btn-sm btn-primary">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sing">
+                        <span>错因分析</span> <i class="fa fa-caret-down"></i>
+                        <div class="list sn-reason" style="display:none;">
+                            <div class="item" data-val="-1">不限</div>
+                            <div class="item" data-val="1">已分析错误因</div>
+                            <div class="item" data-val="0">未分析错误因</div>
+                        </div>
+                    </div>
+                    <div class="sing collection-v3">
+                        <span>全部错题</span> <i class="iconfont dy-icon-anglebottom"></i>
+                        <div class="list sn-collect" style="display:none;">
+                            <div class="item" data-val="1">已过关</div>
+                            <div class="item" data-val="0">未过关</div>
+                        </div>
+                    </div>
+                    @*<div class="sing" style="position: absolute;right: 0;">
+                        <span>试卷错题</span> <i class="fa fa-caret-down"></i>
+                        <div class="list sn-source" style="display:none;">
+                            <div class="item" data-val="1">课本错题</div>
+                        </div>
+                    </div>*@
+                </div>
+         
+                <!-- 加载 -->
+                <div class="loading text-center">
+                    <i class="fa fa-spin fa-spinner fa-2x"></i>&nbsp;&nbsp;
+                    正在加载，请稍后...
+                </div>
+                <div class="v-empty text-center dy-nothing" style="display:none;">
+                    <i class="iconfont dy-icon-emoji02"></i> <span> 没有相关数据</span>
+                </div>
+
+                <!-- 错题列表 -->
+                <div class="q-list" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- 分页 -->
+        <div class="d-pager" style="display:none;">
+            <ul class="pagination"></ul>
+        </div>
+
+        <!-- 错题下载 -->
+        <div class="d-dowload" style="display:none;">
+            <div class="dw-title dw-power-p" title="点击展开">
+                错题下载
+                <div class="dw-icon">0</div>
+            </div>
+            <div class="dw-body" style="display:none;">
+                <div class="dw-title dw-power-c" title="点击收起">错题下载</div>
+                <div class="dw-content">
+                    <div class="dc-tb dc-top">已选&nbsp;<span class="dc-num">0</span>&nbsp;道题</div>
+                    <div class="dc-items"></div>
+                    <div class="dc-tb dc-bottom">
+                        <form action="/work/dowload_eq" method="POST" id="dwForm" target="_blank">
+                            <input id="txtDwData" name="data" value="" class="hide" />
+                        </form>
+                        <span class="dw-dowload" style="font-size:14px;">下载</span>
+                        &nbsp;&nbsp;
+                        <span class="dw-reset" style="font-size:14px;">清空</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--单个错题-->
+<script type="text/template" id="eb-item">
+    {{each list as item i}}
+    <div class="q-item" data-id="{{item.id}}" data-subject="{{item.subject_name}}">
+        <div class="q-main">
+            {{include 'q-template' item.question}}
+        </div>
+        {{if item.reason && item.reason.tag_list && item.reason.tag_list.length}}
+        <div class="d-tags">
+            {{each item.reason.tag_list as tag}}
+            <div class="d-tag">{{tag.name}}</div>
+            {{/each}}
+        </div>
+        {{/if}}
+        <div class="q-bottom row">
+            <div class="col-md-8 infos">
+                <span class="de-time">{{item.time}}</span>
+                <span class="text-muted ml10">[{{item.subject_name}}]</span>
+                {{if source_type == 0}}
+                <a href="/work/pub-paper/{{item.batch}}" target="_blank">{{item.paper_title}}</a>
+                {{/if}}
+                {{if source_type != 0}}
+                <span class="text-muted">{{item.paper_title}}</span>
+                {{/if}}
+            </div>
+            <div class="col-md-4 text-right opers fz14">
+                <span class="oi collection-icon span-pass" data-pass="{{(item.status & 2) > 0 ? 1 : 0}}">
+                    {{if (item.status & 2) > 0}}
+                    <i class="iconfont dy-icon-48"></i> 已过关
+                    {{/if}}
+                    {{if (item.status & 2) == 0}}
+                    <i class="iconfont dy-icon-five-star"></i> 过关
+                    {{/if}}
+                </span>&nbsp;&nbsp;
+                {{if source_type == 0}}
+                {{#item.id | showDowloadHtml}}
+                {{/if}}
+                <a href="/errorBook/detail/{{item.id}}" class="oi collection-icon" target="_blank">查看详情 <i class="fa fa-angle-double-right"></i></a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+<script type="text/template" id="q-template">
+    <!--题干-->
+    <div class="q-body">
+        {{#body}}
+    </div>
+    {{include 'q-image'}}
+    {{if show_option}}
+    {{include 'q-detail'}}
+    {{include 'q-option'}}
+    {{/if}}
+</script>
+<script type="text/template" id="q-detail">
+    {{if details && details.length}}
+    <!--小问-->
+    <div class="q-details">
+        {{each details as detail i}}
+        <div class="q-detail">
+            <div class="q-body">{{#detail.body}}</div>
+            {{include 'q-image' detail}}
+            {{include 'q-option' detail}}
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-option">
+    {{if answers && answers.length>1}}
+    <!--选项-->
+    <div class="q-options clearfix {{answers | optionModel}}">
+        {{each answers as answer j}}
+        <div class="q-option">
+            <div class="q-body">
+                <span class="q-option-word">{{answer.sort | optionWord}}.</span>
+
+                <div class="q-option-body">{{#answer.body}}</div>
+            </div>
+            {{include 'q-image' answer}}
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-image">
+    {{if images && images.length}}
+    <div class="q-image">
+        {{each images as img j}}
+        <img src="{{img}}" alt="" />
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+
+@section style {
+    @Html.CombineLink("css/portal/question/list.css,css/portal/errorbook/list.css")
+}
+@section script{
+    @Html.CombineLink("js/portal/question/formula.js,js/base/utils.js,js/artTemplate.min.js,js/portal/question/base.js,js/base/common.js,v3/js/errorbook/list.js")
+    @Html.CombineLink("plugs/My97DatePicker/WdatePicker.min.js")
+    
+
+}

@@ -1,0 +1,119 @@
+.main {
+  border: 1px solid #cccccc;
+  color: #555555;
+  padding: 10px 30px;
+  margin: 10px 0;
+}
+h3 {
+  color: #888;
+}
+h3 .title-icon {
+  background-color: #ffab00;
+  margin-right: 8px;
+  width: 1px;
+}
+.c-name {
+  color: #555555;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 0;
+}
+.comment-list {
+  margin-top: 25px;
+}
+.comment-item {
+  margin-bottom: 25px;
+}
+.comment-item .comment-avatar {
+  float: left;
+  width: 48px;
+  height: 48px;
+}
+.comment-item .comment-avatar img {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+.comment-item .comment-avatar .comment-user {
+  text-align: center;
+  margin-top: 8px;
+  line-height: 25px;
+  height: 25px;
+  overflow: hidden;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.comment-item .comment-main {
+  position: relative;
+  margin-left: 64px;
+  border: 1px solid #dedede;
+  border-radius: 2px;
+}
+.comment-item .comment-main:before,
+.comment-item .comment-main:after {
+  position: absolute;
+  top: 11px;
+  left: -8px;
+  right: 100%;
+  width: 0;
+  height: 0;
+  display: block;
+  content: " ";
+  border-color: transparent;
+  border-style: solid solid dotted;
+  border-width: 8px 8px 8px 0;
+  pointer-events: none;
+}
+.comment-item .comment-main:before {
+  border-right-color: #dedede;
+  z-index: 1;
+}
+.comment-item .comment-main:after {
+  border-right-color: #f8f8f8;
+  margin-left: 1px;
+  z-index: 2;
+}
+.comment-item .comment-header {
+  padding: 10px 15px;
+  background: #f8f8f8;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+.comment-item .comment-header .comment-header-title {
+  color: #888;
+  margin-right: 8px;
+}
+.comment-item .comment-header .comment-header-right {
+  position: absolute;
+  top: 3px;
+  right: 15px;
+}
+.comment-item .comment-body {
+  padding: 15px;
+  overflow: hidden;
+}
+.comment-item .comment-body > :last-child {
+  margin-bottom: 0;
+}
+.comment-empty {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 35px;
+  margin-top: 35px;
+  text-align: center;
+}
+.comment-empty i {
+  margin-right: 5px;
+}
+.set-top {
+  cursor: pointer;
+  display: block;
+  line-height: 28px;
+}
+.sq-top {
+  color: #d9534f;
+  font-weight: 600;
+}

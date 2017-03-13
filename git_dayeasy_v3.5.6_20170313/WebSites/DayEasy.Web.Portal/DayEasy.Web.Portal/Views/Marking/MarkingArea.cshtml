@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "阅卷区域标记";
+    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+}
+<div class="dy-container">
+    <div class="m-back" title="返回列表"><i class="fa fa-chevron-left"></i> 返 回</div>
+    <div>
+        <div class="area-alt">
+            依次点击试卷中主观题题号，标记题目区域。
+        </div>
+        <div class="map">
+            <div class="image-map">
+                <img src="" alt="试卷" />
+            </div>
+            <div class="index-map">
+                <div class="index-title">
+                    待标记题号
+                    <small class="js-change">换一张试卷？</small>
+                </div>
+                <div class="index-loading">
+                    加载中...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section style{
+    @Html.CombineLink("css/v1/marking/page.css,v3/css/portal/marking-area.css")
+}
+@section script{
+    @Html.CombineLink("v3/js/Jq-areaSelect.js,v3/js/portal/marking-area.js")
+}

@@ -1,0 +1,126 @@
+﻿@model DayEasy.Contracts.Dtos.Topic.VoteDto
+
+@if (Model != null && Model.VoteOptions != null)
+{
+    var colorArr = new[] { "fc6e51", "ffce54", "ccd1d9" };
+
+    <h3 class="h3-title">【投票】@Model.Title</h3>
+
+    if (Model.FinishedAt < DateTime.Now || Model.HadVoted)//投票已经结束了 or 已经投票了
+    {
+        if (Model.IsPublic || ViewData["isMine"] != null)
+        {
+            var totalCount = Model.VoteOptions.Sum(u => u.Count);
+
+            <div class="vote-display">
+                <table class="wf100 box-table">
+                    @foreach (var option in Model.VoteOptions.OrderBy(u => u.Sort))
+                    {
+                        var percent = 4 + (totalCount == 0 ? 0 : (double)option.Count / totalCount) * 100;
+                        var sort = Model.VoteOptions.GroupBy(u => u.Count).Count(u => u.Key > option.Count);
+                        if (sort > 2)
+                        {
+                            sort = 2;
+                        }
+
+                        <tr>
+                            <td class="pr10" width="240" align="right">@option.OptionContent</td>
+                            <td class="f-cb" width="500">
+                                <div class="box-strip" style="width: @(percent)%; background: #@colorArr[sort];">
+                                    <span class="f-fl">@option.Count</span>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="voting-content">
+                @foreach (var option in Model.VoteOptions.OrderBy(u => u.Sort))
+                {
+                    <label class="checkbox-group group-radio">
+                        <span>@option.OptionContent</span>
+                    </label>
+                    <br />
+                }
+                <div class="f-tal mt20">
+                    @if (Model.HadVoted)
+                    {
+                        <div class="vote-success"><i class="iconfont dy-icon-13"></i>投票成功</div>
+                    }
+                    else
+                    {
+                        <div>@(Model.FinishedAt.HasValue ? Model.FinishedAt.Value.ToString("yyyy-MM-dd") : "") 已结束</div>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        if (Model.IsSingleSelection)//单选
+        {
+            <div class="voting-content">
+                @foreach (var option in Model.VoteOptions.OrderBy(u => u.Sort))
+                {
+                    <label class="checkbox-group group-radio">
+                        <input type="radio" name="options" value="@option.Id"><span>@option.OptionContent</span>
+                        <i class="iconfont dy-icon-radio"></i>
+                    </label>
+                    <br />
+                }
+                <div class="f-tal mt20">
+                    <button class="dy-btn dy-btn-default f-castvote">投票</button>
+                </div>
+            </div>
+        }
+        else//多选
+        {
+            <div class="voting-content">
+                @foreach (var option in Model.VoteOptions.OrderBy(u => u.Sort))
+                {
+                    <label class="checkbox-group group-checkbox">
+                        <input type="checkbox" name="options" value="@option.Id"><span>@option.OptionContent</span>
+                        <i class="iconfont dy-icon-checkbox"></i>
+                    </label>
+                    <br />
+                }
+                <div class="f-tal mt20">
+                    <button class="dy-btn dy-btn-default f-castvote">投票</button>
+                </div>
+            </div>
+        }
+
+        <script type="text/javascript">
+            $(function () {
+                $(".f-castvote").click(function () {
+                    var selOptions = [];
+
+                    var selectObjs = $("input[name='options']:checked");
+                    $.each(selectObjs, function (index, item) {
+                        selOptions.push($(item).val());
+                    });
+
+                    if (selOptions.length < 1) {
+                        singer.msg("请先选择选项！");
+                        return false;
+                    }
+
+                    $.post('@Url.Action("CastVote", "Topic", new { id = Model.Id })', { options: JSON.stringify(selOptions) }, function (res) {
+                        if (res.Status) {
+                            singer.msg("投票成功！");
+
+                            setTimeout(function () { window.location.reload(); }, 2000);
+                        } else {
+                            singer.msg(res.Message);
+                        }
+                    });
+                });
+            });
+        </script>
+    }
+}
+
+

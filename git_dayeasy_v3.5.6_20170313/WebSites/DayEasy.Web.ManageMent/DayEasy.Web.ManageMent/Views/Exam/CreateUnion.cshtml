@@ -1,0 +1,71 @@
+﻿@using DayEasy.Utility.Extend
+@model List<DayEasy.Contracts.Dtos.Examination.ExamDto>
+
+@{
+    ViewBag.Title = "创建关联";
+}
+<div class="row mt20">
+    <div class="dy-actions col-md-12">
+        <div class="col-md-10 dy-selected-wrap">
+            <span>已选择<em>0</em>次协同</span>
+            <a href="javascript:void(0)" class="b-clear ml10">清空</a>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary disabled" id="createBtn" disabled>
+                <i class="fa fa-object-group"></i>
+                确认关联
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row mt20">
+    <div class="dy-table-wrap">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th></th>
+                <th>考试名称</th>
+                <th>所属机构</th>
+                <th>涵盖科目</th>
+                <th>考试类型</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.IsNullOrEmpty())
+            {
+                <tr>
+                    <td colspan="5" style="padding: 0">
+                        <div class="dy-nothing">没有大型考试记录！</div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var dto in Model)
+                {
+                    <tr data-eid="@dto.Id">
+                        <td>
+                            <input type="checkbox" name="ckbJoint"/>
+                        </td>
+                        <td>@dto.Name</td>
+                        <td>@dto.AgencyName</td>
+                        <td>@dto.Subjects</td>
+                        <td>@(Html.EnumText<ExamType, byte>(dto.Type))</td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager("pageindex".Query(1), 15, (int) ViewBag.TotalCount, 4)
+    </div>
+</div>
+@section style{
+    @Html.CombineLink("v3/css/management/page-exam.css")
+}
+@section script{
+    @Html.CombineLink("v3/js/management/page-union-create.js")
+}
+
+

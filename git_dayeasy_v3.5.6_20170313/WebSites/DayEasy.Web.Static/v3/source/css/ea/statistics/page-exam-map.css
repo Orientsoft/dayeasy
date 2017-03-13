@@ -1,0 +1,198 @@
+@charset "UTF-8";
+/**
+ * Boz
+ * @date    12:31 2016/11/18
+ * 教务管理-2师生画像2
+ */
+/*ui TAB*/
+.ui-tab-nav {
+  border-bottom: 2px solid #00acee;
+  margin-bottom: 10px;
+}
+.ui-tab-nav li {
+  float: left;
+  width: 240px;
+  height: 50px;
+  line-height: 50px;
+  background: white;
+  text-align: center;
+  margin-right: 6.5px;
+  cursor: pointer;
+  color: #666;
+  font-weight: bold;
+  font-size: 16px;
+}
+.ui-tab-nav li.first {
+  margin-right: 7px;
+}
+.ui-tab-nav li.last {
+  margin-right: 0;
+}
+.ui-tab-nav li.on {
+  background: #00acee;
+  color: white;
+}
+.tab-nav-contens .tab-con-list {
+  display: none;
+}
+/*数据列表*/
+.m-course-top {
+  height: 220px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+.m-course-top .item-left {
+  width: 625px;
+}
+.m-course-top .item-left ul {
+  margin-left: -5px;
+}
+.m-course-top .item-left li {
+  display: inline-block;
+  float: left;
+  background: #fff;
+  position: relative;
+  width: 310px;
+  height: 108px;
+  padding: 26px 20px 25px 145px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+.m-course-top .item-left li .iconfont {
+  position: absolute;
+  top: 30px;
+  left: 80px;
+  font-size: 36px;
+  color: #999;
+}
+.m-course-top .item-left li .iconfont.dy-icon-person1 {
+  color: #ffcb2d;
+}
+.m-course-top .item-left li .iconfont.dy-icon-laifang {
+  color: #2cc49e;
+}
+.m-course-top .item-left li .iconfont.dy-icon-buchongiconsvg10 {
+  color: #486378;
+}
+.m-course-top .item-left li .iconfont.dy-icon-icon41 {
+  color: #e95b65;
+}
+.m-course-top .item-left li .box-span-1 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 10px;
+}
+.m-course-top .item-left li .box-span-2 {
+  font-size: 40px;
+  color: #333;
+  display: block;
+  cursor: pointer;
+}
+.m-course-top .item-right {
+  width: 340px;
+  background: white;
+  height: 220px;
+  background: url(/v3/image/ea/chart-icon.png) no-repeat transparent;
+  padding: 75px 5px 75px 168px;
+}
+.m-course-top .item-right .box-span-1 {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+.m-course-top .item-right .box-span-2 {
+  font-size: 48px;
+  color: #333;
+  width: 162px;
+  display: block;
+  cursor: pointer;
+}
+/*分科分布/班次分布*/
+.m-course-bottom .box-people {
+  float: left;
+  width: 480px;
+  height: 310px;
+  background: #fff;
+}
+.m-course-bottom .class-people .container-box-x {
+  position: relative;
+  overflow-x: auto;
+  width: 480px;
+  padding: 10px;
+}
+.m-course-bottom .teacher-people .container-box-y {
+  position: relative;
+  overflow-y: auto;
+  height: 224px;
+  width: 457px;
+}
+.m-course-bottom .m-title {
+  color: #666;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 20px;
+}
+.m-course-bottom .m-title strong {
+  float: left;
+  font-size: 16px;
+  font-weight: bold;
+}
+.m-course-bottom .m-title strong small {
+  font-size: 12px;
+  color: #999999;
+  font-weight: 500;
+  margin-left: 12px;
+}
+.m-course-bottom .m-title select {
+  float: right;
+  position: relative;
+  top: 15px;
+  height: 30px;
+  line-height: 30px;
+  padding: 4px 8px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+}
+/*
+学科分布没有数据*/
+#container-chart-left {
+  position: relative;
+}
+#container-chart-left .chart-show-not {
+  position: absolute;
+  top: 25px;
+  left: 162px;
+}
+/*
+导航条*/
+.container-box-x::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background-color: #f5f5f5;
+}
+.container-box-x::-webkit-scrollbar-thumb {
+  background-color: #999;
+  -moz-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -ms-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+.container-box-x::-webkit-scrollbar-track {
+  -moz-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -ms-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+.container-box-x::-webkit-scrollbar-thumb {
+  background-color: #d8d8d8;
+}
+#container-chart-left tspan {
+  font-weight: normal !important;
+}

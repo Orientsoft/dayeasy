@@ -1,0 +1,88 @@
+﻿@using DayEasy.Contracts.Dtos.Message
+@using DayEasy.Utility.Timing
+@{
+    ViewBag.Title = "消息中心";
+    var count = (int) (ViewBag.TotalCount ?? 0);
+    var page = (int) (ViewBag.CurrentPage ?? 1);
+}
+@model IEnumerable<SystemMessageDto>
+
+<div class="ui-base-box page-my-setting w1200 f-cb ">
+    <h2 class="h2-circle">消息中心<small class="dy-result">共 <em class="msg-count">@count</em> 条</small></h2>
+    <div class="news-centermy-list">
+        @if (Model == null || !Model.Any())
+        {
+            <div class="dy-nothing">没有最新消息！</div>
+        }
+        else
+        {
+            foreach (var message in Model)
+            {
+                <div class="box con-list @(string.IsNullOrWhiteSpace(message.Link) ? "" : "dy-message-link")" data-id="@message.Id" data-link="@message.Link">
+                    <div class="box-lg-1 user-img">
+                        @if (!string.IsNullOrWhiteSpace(message.SenderAvatar))
+                        {
+                            <img src="@Html.MakeThumb(message.SenderAvatar, "64x64")" width="64" height="64" alt=""/>
+                        }
+                        else
+                        {
+                            <i class="iconfont dy-icon-9"></i>
+                        }
+                    </div>
+                    <div class="box-lg-11">
+                        <div class="box content-box">
+                            <div class="box-lg-12 name-title">
+                                <em>@message.MessageTitle</em>
+                                <span>@message.CreateOn.ShowTime()</span>
+                                <i class="iconfont dy-icon-cha dy-message-delete" title="删除"></i>
+                            </div>
+                            <div class="box-lg-12 message-content">
+                                @Html.Raw(message.MessageContent)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div>
+                @Html.ShowPager(page, 15, count)
+            </div>
+        }
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/centermy/ui-base.css,v3/css/centermy/page-my-setting.css")
+}
+@section js{
+    <script>
+        (function ($, S) {
+            $('.con-list').hover(function () {
+                $(this).toggleClass('hover');
+            });
+            $('.dy-message-link').bind('click', function () {
+                var link = $(this).data('link');
+                if (!link) return false;
+                S.open(link);
+                return false;
+            });
+            $('.dy-message-delete').bind('click', function (e) {
+                e.stopPropagation();
+                var $item = $(this).parents('.con-list'),
+                    id = $item.data('id');
+                S.confirm("确认删除这条消息？", function () {
+                    $.post('/msg/del', { id: id }, function (json) {
+                        if (json.status) {
+                            S.msg('删除成功！', 2000, function () {
+                                $item.remove();
+                                var count = parseInt($(".msg-count").text() || "1") - 1;
+                                if (count < 0) count = 0;
+                                $(".msg-count").text(count);
+                            });
+                        } else {
+                            S.msg(json.message);
+                        }
+                    });
+                });
+            });
+        })(jQuery, SINGER);
+    </script>
+}

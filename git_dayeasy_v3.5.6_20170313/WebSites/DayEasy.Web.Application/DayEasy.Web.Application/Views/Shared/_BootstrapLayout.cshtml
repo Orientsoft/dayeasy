@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+
+    ViewData["isbootstrap"] = true;
+}
+<section class="dy-body">
+    @RenderBody()
+</section>
+@section css{
+    @Html.CombineLink("css/font-awesome.css,css/bootstrap.css,css/site-base.css")
+    @RenderSection("style", false)
+}
+@section js{
+    @RenderSection("script", false)
+}

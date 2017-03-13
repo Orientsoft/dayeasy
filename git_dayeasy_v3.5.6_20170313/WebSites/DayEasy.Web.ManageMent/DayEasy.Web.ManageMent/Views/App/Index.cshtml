@@ -1,0 +1,128 @@
+﻿@using System.Linq
+
+@model List<TS_Application>
+@{
+    ViewBag.Title = "应用程序管理";
+}
+
+<div>
+    <div class="row">
+        <span class="btn btn-blue" id="btn-add">
+            <i class="fa fa-plus"></i>
+            添加应用
+        </span>
+        <label class="checkbox checkbox-inline">
+            查看已删除
+            <input type="checkbox" name="lookDelete" @(ViewBag.HasDelete ? "checked=\"checked\"" : "") />
+        </label>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>排序</th>
+                    <th>名称</th>
+                    <th>链接地址</th>
+                    <th>二级域名</th>
+                    <th>作用角色</th>
+                    <th>状态</th>
+                    <th>应用类型</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+
+                    foreach (var app in Model)
+                    {
+                        var roles = Enum.GetValues(typeof(UserRole)).Cast<UserRole>().Where(u => ((byte)u & app.AppRoles) > 0).ToList();
+                        <tr data-id="@app.Id" data-name="@app.AppName">
+                            <td>@app.Sort</td>
+                            <td>@app.AppName</td>
+                            <td>@app.AppURL</td>
+                            <td>@Html.BooleanText(app.IsSLD ?? false)</td>
+                            <td>
+                                @if (roles.Count > 0)
+                                {
+                                    foreach (var role in roles)
+                                    {
+                                        <span class="mr5">@Html.GetEnumText((byte)role, typeof(UserRole))</span>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @(Html.EnumText<NormalStatus, int>(app.Status))
+                            </td>
+                            <td>@(Html.EnumText<ApplicationType, byte>(app.AppType))</td>
+                            <td>
+                                @if (app.AppType != (byte)ApplicationType.Normal)
+                                {
+                                    <a href="@Url.Action("Configure", "App", new { id = app.Id })" class="a-configure mr10">分配</a>
+                                }
+                                <a href="#" class="a-edit mr10">编辑</a>
+                                @if (app.Status == (byte)NormalStatus.Delete)
+                                {
+                                    <a class="a-delete text-danger" href="#">永久删除</a>
+                                }
+                                else
+                                {
+                                    <a class="a-delete text-warning" href="#">删除</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/template" id="addAppDiv">
+    <div style="width:450px;font-size:14px;">
+        <form id="addForm">
+            <div class="row">
+                <div class="col-sm-3 text-right">名称：</div>
+                <div class="col-sm-6 pl0"><input type="text" class="form-control" name="Name" /></div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3 text-right">链接地址：</div>
+                <div class="col-sm-6 pl0">
+                    <input type="text" class="form-control" name="Link" />
+                </div>
+                <div class="col-sm-3 pl0">
+                    <label class="checkbox-inline mt10">
+                        <input type="checkbox" value="1" name="IsSLD" />二级域名
+                    </label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3 text-right">图标：</div>
+                <div class="col-sm-6 pl0">
+                    <input type="text" class="form-control" name="Icon" />
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3 text-right">排序：</div>
+                <div class="col-sm-6 pl0">
+                    <input type="text" class="form-control" id="sort" name="sort" />
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3 text-right">应用类型：</div>
+                <div class="col-sm-6 pl0">@Html.DropDownList("Type", ViewData["appType"] as List<SelectListItem>, new { @class = "form-control" })</div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3 text-right">应用角色：</div>
+                <div class="col-sm-9 pl0">
+                    <input type="hidden" name="role" />
+                    @Html.CheckBoxButtonList("roleGroup", ViewData["roles"] as List<SelectListItem>, new { @class = "checkbox-inline" })
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+
+@section script{
+    @Html.CombineLink("v3/js/management/page-app.js")
+}

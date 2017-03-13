@@ -1,0 +1,196 @@
+﻿@using System.Text.RegularExpressions
+@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.Topic
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Core.Config
+@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Helper
+@model GroupChannel
+@{
+    var currentChannel = Model;
+
+    ViewBag.Title = currentChannel.Name + " - 频道主页";
+
+    List<GroupChannel> channels = null;
+    if (ViewData["Channels"] != null)
+    {
+        channels = ViewData["Channels"] as List<GroupChannel>;
+    }
+    var parentChannel = channels == null ? null : channels.SingleOrDefault(u => u.ParentId == 0);
+
+
+    List<TopicDto> newTopics = null;
+    if (ViewData["newTopics"] != null)
+    {
+        newTopics = ViewData["newTopics"] as List<TopicDto>;
+    }
+
+    List<GroupDto> newGroups = null;
+    if (ViewData["newGroups"] != null)
+    {
+        newGroups = ViewData["newGroups"] as List<GroupDto>;
+    }
+
+    var isGroup = Request["t"] == "group";
+
+    var classStr = "channel-theme-classmate";
+    if (currentChannel != null)
+    {
+        if (currentChannel.Id >= 200 && currentChannel.Id < 300)
+        {
+            classStr = "channel-theme-parent";
+        }
+        else if (currentChannel.Id >= 300)
+        {
+            classStr = "channel-theme-coach";
+        }
+    }
+}
+
+<div class="dy-main">
+    <div class="@classStr">
+        <div class="channel-title">
+            <div class="w1200 channel-top">
+                <h2 class="h2-title">
+                    @(parentChannel == null ? string.Empty : parentChannel.Name)
+                    <span>@(parentChannel == null ? string.Empty : parentChannel.Desc)</span>
+                </h2>
+                <ul class="ul-list">
+                    @if (channels != null)
+                    {
+                        if (parentChannel != null)
+                        {
+                            <li class="@(currentChannel.Id == parentChannel.Id ? "on" : "")"><a href="@Url.Action("Index", "Topic", new { id = parentChannel.Id, t = isGroup ? "group" : "" })">全部</a></li>
+                        }
+
+                        foreach (var channel in channels.Where(u => u.ParentId > 0).OrderBy(u => u.Sort))
+                        {
+                            <li class="@(currentChannel.Id == channel.Id ? "on" : "")"><a href="@Url.Action("Index", "Topic", new { id = channel.Id, t = isGroup ? "group" : "" })">@channel.Name</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="channel-page w1200 f-cb">
+            <div class="channel-main f-fl">
+                <ul class="menu-title f-cb">
+                    <li class="@(isGroup ? "" : "on")"><a href="@Url.Action("Index", "Topic", new { id = Model.Id })">最新帖子</a></li>
+                    <li class="@(isGroup ? "on" : "")"><a href="@Url.Action("Index", "Topic", new { id = Model.Id, t = "group" })">圈子</a></li>
+                </ul>
+                <div class="dynamic-list">
+                    @if (newTopics != null)
+                    {
+                        foreach (var newTopic in newTopics)
+                        {
+                            <div class="topic-item">
+                                <div class="dt-title f-cb">
+                                    <div class="dt-states">
+                                        @if (currentChannel.Id == parentChannel.Id)
+                                        {
+                                            <strong class="dt-state dt-state3">@Consts.Channel(newTopic.ClassType)</strong>
+                                        }
+                                        @if (newTopic.StateList.Contains(TopicState.Pick))
+                                        {
+                                            <div class="dt-state dt-state1">精华</div>
+                                        }
+                                    </div>
+                                    <h3>
+                                        <a title="@newTopic.Title" href="@Url.Action("TopicDetail", "Topic", new { id = newTopic.Id })">@newTopic.Title</a>
+                                    </h3>
+                                </div>
+                                <div class="dt-info">
+                                    <div class="dt-creator">
+                                        <img src="@Html.MakeThumb(newTopic.UserPhoto, "35X35")" width="35" height="35" alt="@newTopic.UserName" />
+                                        <span class="dt-black">@newTopic.UserName</span>
+                                        <span class="dt-gray">@newTopic.AddedAt.ToString("yyyy-MM-dd")</span>
+                                    </div>
+                                    <div class="dt-statistic">
+                                        <span><i class="iconfont dy-icon-viewline"></i>@newTopic.ReadNum</span>
+                                        <span><i class="iconfont dy-icon-messageline"></i>@newTopic.ReplyNum</span>
+                                        <span><i class="iconfont dy-icon-zan"></i>@newTopic.PraiseNum</span>
+                                    </div>
+                                </div>
+                                <div class="dt-summary@(newTopic.ImgList.IsNullOrEmpty()?"":" has-image")">
+                                    <div class="dt-summary-wrap">@ShowContent(newTopic.Content, newTopic.ImgList.IsNullOrEmpty() ? 90 : 70)</div>
+                                    @if (!newTopic.TagList.IsNullOrEmpty())
+                                    {
+                                        <div class="dt-tags">
+                                            @foreach (var tag in newTopic.TagList)
+                                            {
+                                                <span>@tag</span>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                                @if (!newTopic.ImgList.IsNullOrEmpty())
+                                {
+                                    <div class="dt-image">
+                                        <img src="@newTopic.ImgList[0]" alt="帖子图片" />
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
+
+                    @if (newGroups != null)
+                    {
+                        <div class="channel-circle">
+                            <dl class="d-group-list">
+                                @GroupHelper.ShowGroupList(newGroups, 0)
+                            </dl>
+                        </div>
+                    }
+
+                    <div class="box-lg-12 f-tac mt20 mb20">
+                        @Html.ShowPager(Convert.ToInt32(ViewData["pageIndex"]), 14, Convert.ToInt32(ViewData["totalCount"]), 5, false)
+                    </div>
+                </div>
+            </div>
+            <div class="side-comment f-fr">
+                @Html.Partial("_topicSide", ViewData["hotTopics"], new ViewDataDictionary { { "title", "热帖排行榜" } })
+                @Html.Partial("_groupSide", ViewData["hotGroups"], new ViewDataDictionary { { "title", "热门圈子" } })
+
+                <div class="layer-block diffe3">
+                    <div class="box">
+                        <div class="box-lg-12 f-tac mt30 mb20"><img class="f-ib" src="@Consts.Config.StaticSite/v3/image/qrcode/wechat.png" width="160" height="160" alt="" /></div>
+                        <div class="box-lg-12 f-tac mb30">关注得一，微信扫一扫</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/home/ui-base.css,v3/css/home/channel-page.css,v3/css/topic/page-list.css")
+}
+
+@section js{
+    <script>var deyi = window.DEYI = window.DEYI || {}; deyi.loadFormula = true;</script>
+    @Html.CombineLink("js/portal/question/formula.js")
+    <script type="text/javascript">
+        deyi.loadFormula = true;
+        $(function () {
+            singer.loadFormula();
+        });
+    </script>
+}
+
+@helper ShowContent(string content, int length = 0)
+{
+    var result = string.Empty;
+    if (!string.IsNullOrEmpty(content))
+    {
+        result = RegexHelper.ClearHtml(content);
+        result = RegexHelper.ClearTrn(result);
+        result = Regex.Replace(result, "(\\s+)|(&nbsp;)+", " ");
+
+        if (length > 0 && result.Length > length)
+        {
+            result = result.Substring(0, length) + "...";
+        }
+    }
+
+    @Html.Raw(result)
+}

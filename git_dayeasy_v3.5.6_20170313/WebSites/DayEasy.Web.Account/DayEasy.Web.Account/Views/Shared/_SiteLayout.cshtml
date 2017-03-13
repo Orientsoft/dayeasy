@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="dy-body">
+    @RenderBody()
+</section>
+@section nav{
+    @RenderSection("nav",false)
+}
+@section css{
+    @Html.CombineLink("css/font-awesome.css,css/bootstrap.css,css/site-base.css,v3/css/site-compatible.css")
+    @RenderSection("css", false)
+}
+@section js{
+    @Html.CombineLink("js/Jq-common.min.js")
+    @RenderSection("js", false)
+}

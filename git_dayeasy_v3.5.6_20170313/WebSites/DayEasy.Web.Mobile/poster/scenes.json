@@ -1,0 +1,446 @@
+[
+  {
+    "image": "/image/scenes/01.png",
+    "preview": "/image/scenes/s_01.png",
+    "position": {
+      "x": 85,
+      "y": 320
+    },
+    "word": {
+      "text": "如果突然不拖堂了还有点不习惯",
+      "color": "#ffffff",
+      "lineHeight": 25,
+      "font": "normal 16px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 245,
+        "max": 16
+      }
+    },
+    "teacher": {
+      "text": "To {school} {name}",
+      "color": "#f3c720",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 220
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#0f0c02",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 505
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/02.png",
+    "preview": "/image/scenes/s_02.png",
+    "position": {
+      "x": 85,
+      "y": 320
+    },
+    "word": {
+      "text": "你总能在我受挫的时候给我信心",
+      "color": "#ffffff",
+      "lineHeight": 25,
+      "font": "normal 16px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 245,
+        "max": 14
+      }
+    },
+    "teacher": {
+      "text": "To {school} {name}",
+      "color": "#f3c720",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 220
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#0f0c02",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 505
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/03.png",
+    "preview": "/image/scenes/s_03.png",
+    "position": {
+      "x": 85,
+      "y": 320
+    },
+    "word": {
+      "text": "虽然抱怨，但我知道您是为了我",
+      "color": "#ffffff",
+      "lineHeight": 25,
+      "font": "normal 16px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 245,
+        "max": 14
+      }
+    },
+    "teacher": {
+      "text": "To {school} {name}",
+      "color": "#f3c720",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 220
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#0f0c02",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 505
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/04.png",
+    "preview": "/image/scenes/s_04.png",
+    "position": {
+      "x": 85,
+      "y": 320
+    },
+    "word": {
+      "text": "因为你，所以成长才能一帆风顺",
+      "color": "#ffffff",
+      "lineHeight": 25,
+      "font": "normal 16px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 245,
+        "max": 14
+      }
+    },
+    "teacher": {
+      "text": "To {school} {name}",
+      "color": "#f3c720",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 220
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#0f0c02",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 505
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/05.png",
+    "preview": "/image/scenes/s_05.png",
+    "position": {
+      "x": 85,
+      "y": 320
+    },
+    "word": {
+      "text": "每次和你聊天总是笑到难以自持",
+      "color": "#ffffff",
+      "lineHeight": 25,
+      "font": "normal 16px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 245,
+        "max": 14
+      }
+    },
+    "teacher": {
+      "text": "To {school} {name}",
+      "color": "#f3c720",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 220
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#0f0c02",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 505
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/06.png",
+    "preview": "/image/scenes/s_06.png",
+    "position": {
+      "x": 85,
+      "y": 320
+    },
+    "word": {
+      "text": "只有你，付出再多依然不求回报",
+      "color": "#ffffff",
+      "lineHeight": 25,
+      "font": "normal 16px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 245,
+        "max": 14
+      }
+    },
+    "teacher": {
+      "text": "To {school} {name}",
+      "color": "#f3c720",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 60,
+        "y": 220
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#0f0c02",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 505
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/07.png",
+    "preview": "/image/scenes/s_07.png",
+    "position": {
+      "x": 125,
+      "y": 265
+    },
+    "word": {
+      "text": "你们现在不听，等你走上社会就知道感谢我了！",
+      "color": "#ffffff",
+      "lineHeight": 28,
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 340,
+        "max": 7
+      }
+    },
+    "teacher": {
+      "text": "{school} {name}",
+      "color": "#ffffff",
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 470
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#ffffff",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 500
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/08.png",
+    "preview": "/image/scenes/s_08.png",
+    "position": {
+      "x": 155,
+      "y": 280
+    },
+    "word": {
+      "text": "我就耽误大家一分钟，那个谁把门关一下！",
+      "color": "#ffffff",
+      "lineHeight": 28,
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 340,
+        "max": 7
+      }
+    },
+    "teacher": {
+      "text": "{school} {name}",
+      "color": "#ffffff",
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 470
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#ffffff",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 500
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/09.png",
+    "preview": "/image/scenes/s_09.png",
+    "position": {
+      "x": 155,
+      "y": 270
+    },
+    "word": {
+      "text": "别以为我不知道你们在下面搞什么，站讲台上尽收眼底！",
+      "color": "#ffffff",
+      "lineHeight": 28,
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 340,
+        "max": 7
+      }
+    },
+    "teacher": {
+      "text": "{school} {name}",
+      "color": "#ffffff",
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 470
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#ffffff",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 500
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/10.png",
+    "preview": "/image/scenes/s_10.png",
+    "position": {
+      "x": 155,
+      "y": 256
+    },
+    "word": {
+      "text": "连草稿本都没有，真可怜，要不你去门口银行贷款买一本？",
+      "color": "#ffffff",
+      "lineHeight": 28,
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 340,
+        "max": 7
+      }
+    },
+    "teacher": {
+      "text": "{school} {name}",
+      "color": "#ffffff",
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 470
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#ffffff",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 500
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/11.png",
+    "preview": "/image/scenes/s_11.png",
+    "position": {
+      "x": 130,
+      "y": 275
+    },
+    "word": {
+      "text": "我在上面讲，你们在下面说！谁话多到讲台上来讲！",
+      "color": "#ffffff",
+      "lineHeight": 28,
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 340,
+        "max": 7
+      }
+    },
+    "teacher": {
+      "text": "{school} {name}",
+      "color": "#ffffff",
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 470
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#ffffff",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 500
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/12.png",
+    "preview": "/image/scenes/s_12.png",
+    "position": {
+      "x": 170,
+      "y": 285
+    },
+    "word": {
+      "text": "看看你们一个个的，上课风都吹得倒，下课狗都撵不到！",
+      "color": "#ffffff",
+      "lineHeight": 28,
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 340,
+        "max": 7
+      }
+    },
+    "teacher": {
+      "text": "{school} {name}",
+      "color": "#ffffff",
+      "font": "bold 14px 微软雅黑",
+      "point": {
+        "x": 30,
+        "y": 470
+      }
+    },
+    "from": {
+      "text": "by {creator}",
+      "color": "#ffffff",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 500
+      }
+    }
+  }
+]

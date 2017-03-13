@@ -1,0 +1,81 @@
+<div class="htmleaf-containers">
+    <div class="htmleaf-content bgcolor-3">
+        <ul class="dy-tab-nav">
+            <li data-tabindex="0" class="z-crt"><a href="javascript:void(0);">错题列表</a></li>
+            <li data-tabindex="1"><a href="javascript:void(0);">学生列表</a></li>
+            <li class="slider">
+                <span></span>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-con">
+        <div class="dy-tab-con">
+            @*********错题列表*********@
+            <div class="tab-con-item error-list-item" style="display: block;">
+                <div class="main-nav-list">
+                    <div class="box box-list">
+                        <div class="box-lg-1 label-title">
+                            时间范围：
+                        </div>
+                        <div class="box-lg-11 conten-list-text">
+                            <ul>
+                                <li class="on" data-value="30">最近1个月</li>
+                                <li data-value="90">最近3个月</li>
+                                <li data-value="180">最近6个月</li>
+                                <li data-value="365">最近1年</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box box-list">
+                        <div class="box-lg-1 label-title">
+                            错题题型：
+                        </div>
+                        <div class="box-lg-11 conten-list-text">
+                            <ul>
+                                <li data-errortypeid="0" class="on">全部</li>
+                                {{each $data as value}}
+                                <li data-errortypeid="{{value.Id}}">{{value.Name}}</li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box box-list">
+                        <div class="box-lg-1 label-title">
+                            排列顺序：
+                        </div>
+                        <div class="box-lg-11 conten-list-text">
+                            <ul>
+                                <li class="on">时间顺序</li>
+                                <li>错误率升序</li>
+                                <li>错误率降序</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box box-list">
+                        <div class="box-lg-1 label-title">
+                            知识点筛选：
+                        </div>
+                        <div class="box-lg-11 conten-list-text questions-number">
+                            <b class="more js-more-btn">展开 <i class="iconfont dy-icon-anglebottom"></i></b>
+                            <!--dy-icon-angletop-->
+                            <ul class="js-more-conten">
+                                <li class="on">全部</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="con-subject-list">
+                    <div class="dy-loading">
+                        <i></i>
+                    </div>
+                </div>
+            </div>
+            @*********学生错题列表*********@
+            <div class="tab-con-item student-list-item">
+                <div class="student-inio f-cb"></div>
+            </div>
+
+        </div>
+    </div>
+</div>

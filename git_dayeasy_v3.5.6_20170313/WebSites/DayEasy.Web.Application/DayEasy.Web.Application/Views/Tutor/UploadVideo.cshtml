@@ -1,0 +1,217 @@
+﻿@using DayEasy.Core
+@{
+    ViewBag.Title = "视频上传";
+}
+
+<div class="dy-container cr-create">
+    <div class="main j-autoHeight" data-left="132" data-type="2" data-min="400">
+        <div class="row">
+            <div class="col-md-4">
+                <h4><i class="title-icon">&nbsp;</i>视频上传</h4>
+            </div>
+            <div class="col-md-8 text-right">
+                <a class="btn btn-sm btn-default" id="btnOut">退出</a>
+            </div>
+        </div>
+
+        <div class="create">
+            <div class="info">
+                <div class="row">
+                    <div class="col-sm-2 text-right">视频名称：</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="videoName" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">视频描述：</div>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="2" id="videoDesc"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">适用年级：</div>
+                    <div class="col-sm-10">
+                        @Html.DropDownList("grade", ViewData["GradeList"] as List<SelectListItem>, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">视频时长：</div>
+                    <div class="col-sm-10">
+                        <select id="selMin">
+                            @for (int i = 1; i <= 60; i++)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select><label class="ml5">分</label>
+                        <select id="selSec">
+                            @for (int i = 1; i <= 60; i++)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select><label class="ml5">秒</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">视频封面：</div>
+                    <div class="col-sm-10">
+                        <div class="hidden uploadimg">
+                            <div id="btn-upload"></div>
+                        </div>
+                        <ul class="hide" style="display: table;list-style: none;border: 1px dotted #ccc;padding: 5px 5px 0 5px;margin-bottom: 5px;" id="showImg">
+                            <li>
+                                <p class="imgWrap"><img src="" style="max-height:110px"></p>
+                            </li>
+                        </ul>
+                        <input type="hidden" value="" id="faceImg" />
+                        <div class="webuploader-pick" id="upImg">添加文件</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">视频文件：</div>
+                    <div class="col-sm-10">
+                        <div class="uploadContainer">
+                            <ul class="filelist"></ul>
+                            <p style="margin:0;">
+                                <div id="filePicker">添加文件</div>
+                                <span class="uploadBtn">开始上传</span>
+                                <span id="info"></span>
+                            </p>
+                            <div id="imgValues"></div>
+                        </div>
+                        <script>
+                            window.uploaderConfig = {
+                                type: 2,
+                                auto: false,
+                                multiple: false,
+                                fileNum: 1,
+                                limit: 100,
+                                staticSite: '@Consts.Config.StaticSite',
+                                mimeTypes: 'video/*',
+                                ext: 'flv,swf,mp4,mp3',
+                                title: 'Video'
+                            };
+                        </script>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right"></div>
+                    <div class="col-sm-10">
+                        <input type="button" class="btn btn-primary" id="btn_Save" value="上传" />
+                        <input type="hidden" value="@ViewData["baseData"]" id="baseData" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section style
+{
+    @Html.CombineLink("plugs/webuploader/webuploader.css,css/classroom/cr-index.css")
+}
+@section script{
+    <script type="text/javascript">
+        window.uploaderConfig = window.uploaderConfig || {};
+        window.uploaderConfig.callback = function (file, response) {
+            if (response.state == 1) {
+                var videoName = $("#videoName").val();
+                if (!$.trim(videoName)) {
+                    $("#videoName").focus();
+                    return false;
+                }
+                if (videoName.length > 50) {
+                    singer.msg("视频名称太长了,最多50个字！");
+                    return false;
+                }
+                var videoUrl = response.urls[0];
+                if (!$.trim(videoUrl)) {
+                    singer.msg("视频上传失败了，请稍后重试！");
+                    return false;
+                }
+                var grade = $("#grade").children("option:selected").val();
+                if ($.trim(grade) == "-1") {
+                    singer.msg("请选择适用年级！");
+                    return false;
+                }
+                var videoDesc = $("#videoDesc").val();
+                var min = $("#selMin").children("option:selected").val();
+                var sec = $("#selSec").children("option:selected").val();
+                var faceImg = $("#faceImg").val();
+
+                $.post("@Url.Action("SaveVideo", "Tutor")", { videoName: videoName, videoUrl: videoUrl, videoDesc: videoDesc, min: min, sec: sec, faceImg: faceImg, grade: grade }, function (res) {
+                    if (res.Status) {
+                        var form = $('<form></form>');
+                        form.attr('action', '@Url.Action("Add","Tutor")');
+                        form.attr('method', 'post');
+                        form.attr('target', '_self');
+                        //paperBaseHidden
+                        var paperBaseHidden = $('<input type="hidden" name="paperBase" />');
+                        paperBaseHidden.attr('value', $("#baseData").val());
+                        form.append(paperBaseHidden);
+
+                        var videoHidden = $('<input type="hidden" name="videoId" />');
+                        videoHidden.attr('value', res.Data);
+                        form.append(videoHidden);
+
+                        form.appendTo("body");
+                        form.submit();
+                    } else {
+                        singer.msg(res.Message);
+                    }
+                });
+            }
+        }
+    </script>
+
+    @Html.CombineLink("plugs/webuploader/webuploader.js,plugs/webuploader/web-uploader.js,js/base/utils.js")
+    <script type="text/javascript">
+        $(function () {
+            $(".uploadBtn").addClass("hide");
+
+            singer.uploader.on("uploadSuccess", function (file, response) {
+                if (response.state) {
+                    $("#showImg").removeClass("hide").find("img").attr("src", response.urls[0]);
+                    $("#faceImg").val(response.urls[0]);
+                }
+                singer.uploader.reset();
+            });
+
+            $("#upImg").click(function () {
+                $(".uploadimg .webuploader-element-invisible").click();
+            });
+
+            $("#btn_Save").click(function () {
+                var videoName = $("#videoName").val();
+                if (!$.trim(videoName)) {
+                    $("#videoName").focus();
+                    return false;
+                }
+                if (videoName.length > 50) {
+                    singer.msg("视频名称太长了,最多50个字！");
+                    return false;
+                }
+                var grade = $("#grade").children("option:selected").val();
+                if ($.trim(grade) == "-1") {
+                    singer.msg("请选择适用年级！");
+                    return false;
+                }
+
+                $(".uploadBtn").click();
+            });
+
+            //退出
+            $("#btnOut").click(function() {
+                var form1 = $('<form></form>');
+                form1.attr('action', '@Url.Action("Add","Tutor")');
+                form1.attr('method', 'post');
+                form1.attr('target', '_self');
+                //paperBaseHidden
+                var paperBaseHidden = $('<input type="hidden" name="paperBase" />');
+                paperBaseHidden.attr('value', $("#baseData").val());
+                form1.append(paperBaseHidden);
+
+                form1.appendTo("body");
+                form1.submit();
+            });
+        });
+    </script>
+}

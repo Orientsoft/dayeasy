@@ -1,0 +1,214 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model GroupDto
+@{
+    ViewBag.Title = Model.Name + " - " + Model.Type.GetEnumText<GroupType, byte>();
+    var isManager = ViewBag.IsManager ?? false;
+    var members = (List<MemberDto>)ViewData["Members"];
+    var pendingList = (List<PendingUserDto>)(ViewData["PendingList"] ?? new List<PendingUserDto>());
+    var user = (UserDto)ViewData["User"];
+    var isMember = members.Any(m => m.Id == user.Id);
+}
+<div class="home-circles w1200 f-cb" data-gid="@Model.Id">
+    <div class="top-img f-pr">
+        <img width="1200" height="120" src="@Model.GroupBanner" alt="" />
+    </div>
+    <div class="top-title">
+        <div class="group-avatar">
+            <img width="150" height="150" src="@Html.MakeThumb(Model.Logo, "150x150")" alt="" />
+        </div>
+        <div class="dg-info">
+            <div class="dg-name">
+                <div class="dg-name-wrap">
+                    @Model.Name <strong> [ @Model.Code ]</strong>
+                </div>
+                <div class="dg-type">@(((GroupType)Model.Type).GetText())</div>
+            </div>
+            @if (isMember)
+            {
+                <div>
+                    @if (Model.Type == (byte)GroupType.Class && (user.Role & (byte)UserRole.Teacher) > 0)
+                    {
+                        <button class="dy-btn dy-btn-danger btn-notice">
+                            <i class="iconfont dy-icon-edit2"></i>
+                            发通知
+                        </button>
+                    }
+                    @if (Model.Type == (byte)GroupType.Colleague)
+                    {
+                        <button class="dy-btn dy-btn-danger" id="btn-joinMark">
+                            协同阅卷
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+        <div class="dg-tools">
+            <a class="dt-item dt-share" title="分享" href="javascript:void(0);">
+                <i class="iconfont dy-icon-fenxiang"></i>
+            </a>
+            <a class="dt-item dt-member" title="成员" href="/group/members/@Model.Id">
+                <i class="iconfont dy-icon-50"></i>
+            </a>
+            <a class="dt-item dt-setting" title="设置" href="/group/setting/@Model.Id">
+                <i class="iconfont dy-icon-9"></i>
+            </a>
+            <div class="d-share-wrap hide">
+                @Html.Partial("Helper/ShareHelper", Model)
+            </div>
+        </div>
+    </div>
+    <div class="mian-conter f-cb" data-type="@Model.Type" data-user-id="@user.Id" data-user-name="@user.Name">
+        @switch (Model.Type)
+        {
+            case (byte)GroupType.Class:
+                @Html.Partial("ClassIndex", Model)
+                break;
+            case (byte)GroupType.Colleague:
+            @Html.Partial("ColleagueIndex", Model)
+                break;
+        }
+        <!--side-->
+        <div class="side">
+            @if (pendingList.Any())
+            {
+                <div class="side-item apply-circle">
+                    <h2>加圈申请</h2>
+                    <ul>
+                        @foreach (var pending in pendingList)
+                        {
+                            <li data-id="@pending.RecordId">
+                                <img width="50" height="50" src="@Html.MakeThumb(pending.Avatar, "50x50")" alt="" />
+                                <div class="box">
+                                    <div class="box-lg-12 tab-box-1">
+                                        @pending.Name <span>@pending.RoleDesc.Substring(0, 2)</span><abbr title="@pending.AddedAt.ToString("yyyy年MM月dd日HH时mm分")">@pending.AddedAt.ToString("yyyy-MM-dd")</abbr>
+                                    </div>
+                                    <div class="box-lg-12 tab-box-2 f-wwb">@(string.IsNullOrWhiteSpace(pending.Message) ? "没有附加消息！" : pending.Message)</div>
+                                </div>
+                                <div class="posa-box">
+                                    <button class="dy-btn dy-btn-info" data-pass="true" title="通过申请">通过</button>
+                                    <button class="dy-btn dy-btn-danger" data-pass="false" title="拒绝申请">拒绝</button>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="side-item member-circle">
+                <h2>圈成员</h2>
+                <div class="ove-y">
+                    <ul>
+                        @foreach (var member in members)
+                        {
+                            <li class="du-member @(member.Id == user.Id ? "z-crt" : "")" data-id="@member.Id" data-name="@member.Name">
+                                <a href="/user/@member.Code" target="_blank">
+                                    @if (isManager && Model.ManagerId != member.Id && member.Id != user.Id)
+                                    {
+                                        <i class="iconfont dy-icon-close bm-delete" title="删除成员"></i>
+                                    }
+                                    <div class="du-avatar">
+                                        <img width="60" height="60" alt="" src="@Html.MakeThumb(member.Avatar, "60x60")">
+                                    </div>
+                                    <div class="du-name">
+                                        <h3>@member.Name</h3>
+                                        @if (member.IsStudent() && member.Parents != null && member.Parents.Any())
+                                        {
+                                            <div class="du-parents">
+                                                @foreach (var parent in member.Parents)
+                                                {
+                                                    <img title="@parent.Name" src="@Html.MakeThumb(parent.Avatar, "30x30")" alt="@parent.Name" />
+                                                }
+                                            </div>
+                                        }
+                                        <div class="du-role @(member.IsTeacher() ? "du-role-teacher" : "")">
+                                            <span class="du-code">NO.@member.Code /</span>
+                                            <span class="du-role-desc">@member.RoleDesc.Substring(0, 2)</span>
+                                        </div>
+                                    </div>
+                                    <div class="du-group-role">
+                                        @(Model.ManagerId == member.Id ? "圈主" : "成员")
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/circle/page-index.css,plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css,v3/css/testteacher/ui-base.css")
+    <style>
+        .ove-y {
+            max-height: 664px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dynamic-list .dy-nothing {
+            background-color: #f8f8f8;
+            margin: 15px auto;
+            width: 95%;
+            line-height: 200px;
+        }
+
+        .bd_weixin_popup .bd_weixin_popup_main {
+            padding: 8px 0 !important;
+        }
+    </style>
+}
+@section js{
+    <script id="dynamic-item" type="text/html">
+        <div class="box-list">
+            <a class="head-img" href="/user/visit/{{sender.id}}" target="_blank">
+                <img width="64" height="64" src="{{sender.avatar}}" alt="" />
+            </a>
+            <ul>
+                <li>
+                    <div class="box">
+                        <div class="box-lg-9 tab-box-1">
+                            <strong class="{{typeCss}}">{{type}}</strong>
+                            {{if title}}
+                            {{if link}}
+                            <a target="_blank" href="{{link}}">{{title}}</a>
+                            {{else}}
+                            <span>{{title}}</span>
+                            {{/if}}
+                            {{/if}}
+                        </div>
+                        <div class="box-lg-3 tab-box-2{{dynamicType==5?' d-joint-box':''}}">
+                            {{if groupType==0}}
+                            <span class="d-comment" title="评论"><i class="iconfont dy-icon-messageline"></i>{{commentCount}}</span>
+                            <span title="{{liked?'取消点赞':'点赞'}}" class="d-like {{liked?'z-crt':''}}"><i class="iconfont dy-icon-zan"></i>{{goodCount}}</span>
+                            {{else if groupType==1}}
+                            {{if dynamicType==5}}
+                            {{$data | jointHelper}}
+                            {{else}}
+                            @if (isMember)
+                            {
+                                <span title="转推"><a data-pid="{{paperId}}" class="b-repub" href="#"><i class="iconfont dy-icon-fenxiang2"></i></a></span>
+                            }
+                            {{/if}}
+                            {{/if}}
+                        </div>
+                        <div class="box-lg-12 tab-box-3">
+                            <a href="javascript:void(0);">{{sender.name}}</a>
+                            {{time}}
+                        </div>
+                        <div class="box-lg-12 tab-box-4 f-wwb">
+                            {{#message}}
+                        </div>
+                        {{if groupType==0}}
+                        <div class="box-lg-12 d-like-list">{{#likeList}}</div>
+                        {{/if}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </script>
+    @Html.CombineLink("js/artTemplate.min.js,js/base/site-base.js,plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js,v3/js/dy-comment.js,v3/js/group/page-index.js")
+}

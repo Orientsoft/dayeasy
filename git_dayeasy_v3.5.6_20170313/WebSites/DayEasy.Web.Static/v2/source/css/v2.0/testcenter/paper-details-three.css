@@ -1,0 +1,433 @@
+/*--------------------------------------------------------------
+                        考试中心 成绩分析
+
+      Author:Plato
+      Create Date:15.08.21    Last Mondify Date:15.08.25
+      ===================================================
+
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+/*--------------------------------------------------------------
+                         IMG url
+--------------------------------------------------------------*/
+.icon-test-center {
+  background-image: url("../../../../image/v2.0/testcenter.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.icon-test-center.icon-test-center-slash {
+  background-position: -297px 0;
+  width: 39px;
+  height: 25px;
+  position: absolute;
+  top: 6px;
+  left: 175px;
+}
+.icon-test-center.icon-test-center-dot {
+  background-position: -260px 0;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: -8px;
+  top: -11px;
+}
+.icon-test-center.icon-test-center-people {
+  background-position: -208px 0;
+  width: 29px;
+  height: 33px;
+}
+.icon-test-center.icon-test-center-peoplehv {
+  background-position: -179px 0;
+  width: 29px;
+  height: 33px;
+}
+/*--------------------  main Style  -----------------------*/
+.paper-details-con {
+  background: url("../../../../image/v2.0/a-dashed.png") 96px 0 repeat-y;
+  font-size: 14px;
+}
+.paper-details-con .image-dashed {
+  margin-bottom: 25px;
+}
+.paper-details-con .image-dashed .td-1 {
+  position: relative;
+  padding-bottom: 50px;
+}
+.paper-details-con .image-dashed .td-1 span.dashed {
+  height: 0;
+  border-top: 1px dashed #b2b2b2;
+  position: relative;
+  display: block;
+}
+.paper-details-con .image-dashed .td-1 .fraction {
+  text-align: right;
+  width: 98px;
+  padding: 5px;
+  top: -4px;
+  height: 32px;
+  line-height: 21px;
+  right: 22px;
+}
+.paper-details-con .image-dashed .td-1 .fraction .angle-bottom {
+  bottom: 17px;
+  left: 4px;
+}
+.paper-details-con .image-dashed .td-1 .fraction i {
+  border-top: 6px solid transparent;
+  border-left: 10px solid #e6e6e6;
+  border-bottom: 6px solid transparent;
+}
+.paper-details-con .image-dashed .td-1 .fraction em {
+  border-top: 6px solid transparent;
+  border-left: 10px solid #ffffff;
+  border-bottom: 6px solid transparent;
+  right: -15px;
+  top: 1px;
+}
+.paper-details-con .image-dashed .td-2 {
+  min-width: 162px;
+}
+.paper-details-con .champion .td-2 {
+  position: relative;
+  top: -8px;
+  min-width: 82px;
+}
+.paper-details-con .champion .td-3 li {
+  width: 89px;
+  float: left;
+  margin-bottom: 10px;
+}
+.paper-details-con .champion .td-3 li img {
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -o-border-radius: 6px;
+  -ms-border-radius: 6px;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto 5px;
+  width: 50px;
+  height: 50px;
+}
+.paper-details-con .champion .td-3 span {
+  text-align: center;
+  display: block;
+  height: 16px;
+  line-height: 16px;
+}
+.paper-details-con .champion .td-3 .sp-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.paper-details-con .champion .td-3 .sp-worship {
+  color: #7ed2fc;
+}
+.paper-details-con .champion .td-3 .sp-worship em {
+  max-width: 32px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  position: relative;
+  top: 3px;
+}
+.paper-details-con .average .td-1 {
+  top: 5px;
+}
+.paper-details-con .average .td-1 span.dashed {
+  top: 13px;
+}
+.paper-details-con .average .td-1 .icon-test-center-dot {
+  top: 3px;
+}
+.paper-details-con .average .dashed-last {
+  border-bottom: 1px dashed #b2b2b2;
+  display: block;
+  position: absolute;
+  bottom: -19px;
+  width: 65px;
+}
+.paper-details-con .average .td-2 {
+  position: relative;
+  background: #fcb66f;
+  padding: 10px 10px;
+  margin: 0 15px;
+  color: #ffffff;
+  font-size: 16px;
+  left: 15px;
+}
+.paper-details-con .average .td-2 b {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+  margin-left: 15px;
+  font-size: 24px;
+  font-weight: normal;
+}
+.paper-details-con .average .td-2 .angle-left {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-right: 10px solid #fcb66f;
+  border-bottom: 5px solid transparent;
+  top: 13px;
+  left: -8px;
+}
+.paper-details-con .average .td-3 .ul-list {
+  width: 700px;
+}
+.paper-details-con .average .td-3 li {
+  margin: 5px;
+  position: relative;
+}
+/*--------------------------------------------------------------
+                         ui Style
+--------------------------------------------------------------*/
+.paper-details-h2 {
+  height: 25px;
+  position: relative;
+  font-size: 16px;
+}
+.paper-details-h2 .sp-left {
+  width: 176px;
+  border-bottom: 2px solid #fcb66f;
+  display: block;
+  float: left;
+}
+.paper-details-h2 .sp-left strong {
+  font-weight: normal;
+  text-align: right;
+  position: relative;
+  top: -10px;
+  left: 0;
+  display: block;
+  color: #555;
+}
+.paper-details-h2 .sp-left b {
+  position: relative;
+  top: 6px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  max-width: 72px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
+.paper-details-h2 i {
+  display: block;
+  float: left;
+  width: 20px;
+}
+.paper-details-h2 .sp-right {
+  width: 787px;
+  border-top: 2px solid #fcb66f;
+  display: block;
+  float: right;
+  position: relative;
+  top: 6px;
+}
+.paper-details-h2 b {
+  font-weight: normal;
+  color: #fcb66f;
+  font-size: 24px;
+}
+.knowledge-analysis {
+  width: 940px;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.8em;
+}
+.knowledge-analysis .tab-menu {
+  position: relative;
+  z-index: 2;
+  width: 304px;
+}
+.knowledge-analysis .tab-menu li {
+  background: #fcb66f;
+  height: 50px;
+  line-height: 50px;
+  color: white;
+  padding: 0 30px;
+  cursor: pointer;
+}
+.knowledge-analysis .tab-menu li span.f-fl {
+  width: 70%;
+  overflow: hidden;
+  height: 50px;
+}
+.knowledge-analysis .tab-menu li span.f-fr {
+  width: 30%;
+  overflow: hidden;
+  text-align: right;
+  height: 50px;
+}
+.knowledge-analysis .tab-menu li.z-crt {
+  background: white;
+  color: #555;
+  -moz-box-shadow: -7px 1.732px 10px 0px rgba(0, 0, 0, 0.16);
+  -webkit-box-shadow: -7px 1.732px 10px 0px rgba(0, 0, 0, 0.16);
+  -o-box-shadow: -7px 1.732px 10px 0px rgba(0, 0, 0, 0.16);
+  -ms-box-shadow: -7px 1.732px 10px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: -7px 1.732px 10px 0px rgba(0, 0, 0, 0.16);
+}
+.knowledge-analysis .tab-menu li.z-crt .f-fr {
+  color: #fa9632;
+}
+.knowledge-analysis .tab-content {
+  width: 636px;
+  position: relative;
+  z-index: 1;
+}
+.knowledge-analysis .tab-content .tab-list {
+  width: 636px;
+  display: none;
+  position: absolute;
+  background: white;
+  min-height: 50px;
+  -moz-box-shadow: 1px 1.732px 10px 0px rgba(0, 0, 0, 0.16);
+  -webkit-box-shadow: 1px 1.732px 10px 0px rgba(0, 0, 0, 0.16);
+  -o-box-shadow: 1px 1.732px 10px 0px rgba(0, 0, 0, 0.16);
+  -ms-box-shadow: 1px 1.732px 10px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 1px 1.732px 10px 0px rgba(0, 0, 0, 0.16);
+}
+.knowledge-analysis .tab-content .tab-list > .row {
+  padding: 0 -1px 0 13px;
+}
+.knowledge-analysis .tab-content .tab-list .hd-title {
+  position: relative;
+  text-align: center;
+}
+.knowledge-analysis .tab-content .tab-list .hd-title span {
+  font-size: 12px;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+  background-color: white;
+}
+.knowledge-analysis .tab-content .tab-list .hd-title hr {
+  height: 1px;
+  background: #ccc;
+  position: absolute;
+  top: -8px;
+  left: 31px;
+  z-index: 1;
+  width: 605px;
+  border: none;
+}
+.knowledge-analysis .tab-content .tab-list .boder-bottom li {
+  font-size: 16px;
+  line-height: 2em;
+  border-bottom: 1px solid #e6e6e6;
+}
+.knowledge-analysis .tab-content .tab-list .customized {
+  padding: 14px 0;
+  line-height: 1.4em;
+}
+.knowledge-analysis .tab-content .tab-list .customized .td-1 img {
+  width: 60px;
+  height: 55px;
+  display: block;
+  margin: 0 auto;
+}
+.knowledge-analysis .tab-content .tab-list .customized .td-2 {
+  padding: 8px 0;
+}
+.knowledge-analysis .tab-content .tab-list .customized .td-2 a {
+  display: block;
+  height: 38px;
+  overflow: hidden;
+}
+.knowledge-analysis .tab-content .tab-list .customized .td-3 {
+  text-align: center;
+}
+.knowledge-analysis .tab-content .tab-list .customized .td-3 del {
+  color: #fa9632;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin-bottom: 5px;
+}
+.knowledge-analysis .tab-content .tab-list .customized .td-3 .btn-box {
+  color: white;
+  background: #fcb66f;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 12px;
+  padding: 4px 7px;
+}
+.knowledge-analysis .tab-content .tab-list .customized .td-4 {
+  height: 38px;
+  overflow: hidden;
+}
+.knowledge-analysis .tab-content .tab-1 {
+  display: block;
+}
+.knowledge-analysis .f-limit {
+  height: 100px;
+  overflow: hidden;
+}
+span.fraction {
+  display: block;
+  background: #ffffff;
+  position: absolute;
+  padding: 10px 8px;
+  color: #fcb66f;
+  font-size: 14px;
+  border: 1px solid #e6e6e6;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+}
+span.fraction .angle-bottom {
+  position: relative;
+  bottom: -10px;
+  left: 21px;
+  display: block;
+}
+span.fraction .angle-bottom i {
+  position: absolute;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  border-style: solid dashed dashed dashed;
+  border-width: 6px 6px 0 6px;
+  border-color: #e7e7e7 transparent transparent;
+  top: 1px;
+}
+span.fraction .angle-bottom em {
+  position: absolute;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  border-style: solid dashed dashed dashed;
+  border-width: 6px 6px 0 6px;
+  border-color: #ffffff transparent transparent;
+}
+span.pop-t1 {
+  width: 95px;
+}
+span.pop-t2 {
+  width: 100px;
+}
+.list-item {
+  display: none;
+}

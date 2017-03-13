@@ -1,0 +1,257 @@
+/*--------------------------------------------------------------
+                        Product Name 错题医院-入口index
+      Author:Plato
+      Create Date:2017/01/19  Last Mondify Date:2017/01/19
+      ===================================================
+--------------------------------------------------------------*/
+@import "../../less/base";
+.dy-header-tool{ margin-bottom:30px; }
+.page-questionerror-index{
+  margin-bottom:30px;
+  }
+// ======================= 错题列表===================== //
+.user-info{
+  padding:0 20px;
+  background:#3bafda;
+  color:white;
+  height:60px;
+  line-height:60px;
+  .info-left{
+    .return{ margin-right:25px; cursor:pointer;
+      color:white;
+      &:hover{
+        color:#d8d8d8;
+        }
+      }
+    .user-header{
+      position:relative;
+      top:11px;
+      margin-right:10px;
+      overflow:hidden;
+      height:40px;
+      width:40px;
+      .inline-block;
+      .rounded-corners(50%);
+      img{ width:40px; height:40px;
+        .inline-block;
+        }
+      }
+    .user-name{ font-size:18px; font-weight:bold; }
+    }
+  .info-right{
+    .in-total{
+      b{ font-size:30px; .inline-block; margin:0 10px; }
+      }
+    }
+  }
+.htmleaf-containers .htmleaf-content .slider span{
+  background:#00adf2;
+  width:66px;
+  }
+.main-nav-list{
+  margin:25px 20px;
+  /*内容导航-搜索条件*/
+  .box-list{
+    color:#999; margin-bottom:15px;
+    border-bottom:1px dashed #eee;
+    padding:15px 0 0 0;
+    .box-lg-1{ width:94px; }
+    .box-lg-11{ width:776px; }
+    .label-title{ font-weight:normal; text-align:right; }
+    &:after{ content:""; display:block; clear:both; height:0; }
+    .conten-list-text{
+      padding-left:10px;
+      li{ color:#5c5c5c;
+        display:inline-block;
+        *display:inline; *zoom:1;
+        padding-right:10px;
+        text-decoration:none;
+        margin-bottom:15px;
+        cursor:pointer;
+        &.on{ color:#33bbff; }
+        &:hover{
+          color:#33bbff;
+          }
+        }
+      .more{
+        position:absolute;
+        right:-72px; top:-5px;
+        padding:0 8px;
+        height:24px;
+        line-height:24px;
+        color:#999;
+        .rounded-corners(4px);
+        cursor:pointer;
+        border:1px solid #999;
+        .inline-block;
+        .iconfont{ font-size:12px; }
+        }
+      }
+    .questions-number{
+      em{
+        margin-left:5px;
+        }
+      }
+    }
+  }
+.con-subject-list{
+  border-top:20px solid #f5f5f5;
+  .dy-loading{
+    margin-top:0;
+    }
+  }
+.tab-con-subject{
+  margin:20px;
+  .box-top{
+    margin-bottom:15px;
+    .h3-title{
+      border-left:5px solid #ed5565;
+      padding-left:10px;
+      color:#666;
+      font-size:16px;
+      }
+    .wrong-number{
+      color:#ed5565;
+      em{ margin-left:5px; }
+      }
+    }
+  .box-bottom{
+    margin-top:20px;
+    padding:10px 0;
+    border-top:1px dashed #eee;
+    border-bottom:1px dashed #eee;
+    &:hover{
+      border-top:1px dashed #ed5565;
+      border-bottom:1px dashed #ed5565;
+      }
+    span{ color:#999; margin-right:10px; }
+    .tiem{ margin-right:25px; }
+    .name-text{ }
+    .in-download{ color:@color-blue;
+      cursor:pointer;
+      &.on{ color:#ed5565; }
+      &:hover{
+        color:@color-hover-blue;
+        }
+      &.dw-active{
+        color:#ed5565;
+        }
+      }
+
+    .see-contents{ color:#666;
+      &:hover{
+        color:@color-hover-blue;
+        }
+      }
+    }
+  }
+.box-fixed-download{
+  border-top:3px solid #ed5565;
+  position:fixed;
+  bottom:0;
+  width:100%;
+  z-index:10000;
+  background:white;
+  height:135px;
+  padding:50px 0;
+  .in-total{
+    color:#ed5565;
+    font-size:16px;
+    b{
+      font-size:30px;
+      font-weight:bold;
+      .inline-block;
+      padding:0 12px;
+      }
+    margin-right:40px;
+    }
+  .dy-btn-info{ height:30px; line-height:28px; vertical-align:text-bottom; }
+  }
+// ======================= 错题列表===================== //
+.left-menu{ left:100px !important; }
+.student-inio{
+  padding:20px 30px;
+  margin-left:-30px;
+  .list-inio{
+    width:110px;
+    height:140px;
+    float:left;
+    cursor:pointer;
+    overflow:hidden;
+    border:1px solid #eee;
+    .rounded-corners(10px);
+    margin:0 0 20px 25px;
+    .transition(all 0.5s ease 0s);
+    &:hover{
+      background:#eee;
+      }
+    .top-header{
+      height:93px;
+      text-align:center;
+      padding-top:14px;
+      border-bottom:1px dashed #eee;
+      img{ .inline-block; margin-bottom:9px; width:40px; height:40px; .rounded-corners(50%); }
+      span{ font-size:16px; display:block; }
+      }
+    .bottom-text{
+      line-height:17px;
+      position:relative;
+      top:5px;
+      padding-top:10px;
+      text-align:center;
+      color:#999;
+      b{ font-size:24px; color:#333; max-width:90px;
+        .inline-block;
+        }
+      }
+    }
+  }
+.box-not-warning{
+  color:#999;
+  line-height:2em;
+  .iconfont{
+    margin-right:5px;
+    position:relative;
+    top:1px;
+    }
+  }
+.tab-con{ clear:both; }
+.btn-key-clear{
+  position:relative;
+  top:-5px;
+  font-size:14px;
+  margin-left:20px;
+  }
+.add-Class-not{
+  .add-Class-icon{ font-size:140px; margin-bottom:140px; display:block; font-weight:normal; }
+  .dy-nothing-content{
+    font-size:30px;
+    font-weight:bold;
+    }
+  }
+.class-nothing{
+  .dy-nothing{
+    height:348px;
+    line-height:348px;
+    }
+  .add-Class-icon{ font-size:140px; margin-bottom:100px; display:block; font-weight:normal; color:#ececec; }
+  .dy-nothing-content{
+    font-size:30px;
+    font-weight:bold;
+    color:#ececec;
+    }
+  }
+.js-load-more{
+  cursor:pointer;
+  &:hover{
+    background:rgba(213, 213, 213, 0.39);
+    color:#33bbff;
+    }
+  }
+/*
+主题干覆盖*/
+.q-item {
+  border: 0;
+  box-shadow: 0 0 0 #ffffff;
+  margin: 0;
+  }

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>注册</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/source/plugs/jquery-tab/jquery.tab.3.0.css">
+    <link rel="stylesheet" href="/v3/source/css/account/register-new.css"/>
+
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <form action="#">
+            <div class="form-list form-main-list w1200 f-cb">
+                <!--TAB-->
+                <div class="mobile-text">
+                    <div class="form-group">
+                        <label class="form-label">身份：</label>
+                        <!--.mobile-text-->
+                        <div class="form-item">
+                            <div class="item  selected">学生</div>
+                            <div class="item teacher">教师</div>
+                            <div class="item">家长</div>
+                        </div>
+                    </div>
+                    <div class="form-group form-subjects">
+                        <div class="form-item">
+                            <select name="选择学科">
+                                <option value="">选择学科</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">账号：</label>
+
+                        <div class="form-item">
+                            <div class="form-textbox success-input">  <!--正确 success-input-->
+                                <input class="form-input-w300 " type="text" placeholder="邮箱地址/手机号" name=""/>
+                            </div>
+                        </div>
+                        <P class="msg-error">账号错误</P>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">设置密码：</label>
+                        <div class="form-item">
+                            <div class="form-textbox error-input"> <!--错误 error-input-->
+                                <input class="form-input-w300" type="password" placeholder="输入密码" name=""/>
+                            </div>
+                        </div>
+                        <P class="msg-error">密码少于6位</P>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">验证码：</label>
+                        <div class="form-item">
+                            <div class="form-textbox mr10">
+                                <input class="form-input-w180" type="text" placeholder="输入验证码"/>
+                            </div>
+                            <img class="form-code-img mr10" src="/v3/image/temp/vcode.gif" alt="点击刷新" title="点击刷新">
+                            <span class="form-look ml10">看不清?<a href="#" class="pointer a01">换一张</a></span>
+                        </div>
+                        <P class="msg-error">验证码错误</P>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">动态验证码：</label>
+                        <div class="form-item">
+                            <div class="form-textbox mr10">
+                                <input class="form-input-w180" type="text" placeholder="输入动态码"/>
+                            </div>
+                            <button class="form-again-send mr10" title="点击发送">发送验证码</button>
+                            <!--<button class="form-again-send mr10 selected" title="点击发送">重新发送(60s)</button>-->
+                        </div>
+                        <P class="msg-error">动态码错误</P>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-item mb30">
+                            <label class="checkbox-group group-checkbox">
+                                <input type="checkbox" name="options"><span>我已阅读并同意</span>
+                                <i class="iconfont dy-icon-checkbox"></i>
+                            </label>
+                            <a class="a01" href="">《得一平台使用条款》</a>
+                        </div>
+                        <div class="form-item">
+                            <button class="dy-btn dy-btn-info">确认注册</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@@include('./footer.html')
+
+<script>
+
+    (function ($){
+
+        $('.mobile-text').find(".form-item .item").click(function (){
+            var $this     = $(this),
+                $isTeacher = $('.form-subjects').stop(true, true);
+            $this.addClass('selected').siblings().removeClass('selected');
+            $this.is('.teacher') ? $isTeacher.slideDown() : $isTeacher.slideUp();
+        });
+
+    })(jQuery);
+
+</script>
+</body>
+</html>

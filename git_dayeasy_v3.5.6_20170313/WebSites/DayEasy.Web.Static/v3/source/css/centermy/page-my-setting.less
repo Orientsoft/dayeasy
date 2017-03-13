@@ -1,0 +1,93 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2015/11/19 Last Mondify Date:2015/11/19
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+@import "../../less/base";
+
+/**UI STYLE**/
+
+/** MAIN STYLE **/
+.page-my-setting {
+  .news-centermy-list {
+    padding: 0 30px;
+    .dy-nothing {
+      background-color: rgba(240, 240, 240, 0.4);
+    }
+  }
+  .con-list {
+    border-bottom: 1px solid @border-color;
+    position: relative;
+    color: #999;
+    padding: 20px 0;
+    .linkColor(#999);
+    .transition(all 0.5s ease 0s);
+
+    .dy-message-delete {
+      margin-left: 15px;
+      font-size: 14px;
+      display: none;
+      color: @color-danger;
+      cursor: pointer;
+    }
+    .sp-mlr {
+      margin-right: 10px;
+      .inline-block;
+    }
+    .content-box {
+      margin-top: 8px;
+      line-height: 1.6em;
+    }
+    &.dy-message-link {
+      cursor: pointer;
+    }
+    &.hover {
+      .linkColor(#4fc1e9);
+      .dy-message-delete {
+        .inline-block;
+      }
+      .name-title {
+        em {
+          color: #4fc1e9;
+        }
+      }
+      .message-content {
+        color: #333;
+      }
+    }
+    .user-img {
+      img {
+        display: block;
+        .rounded-corners(50%);
+      }
+      .dy-icon-9 {
+        font-size: 56px;
+        width: 56px;
+        height: 56px;
+        margin: 0px auto;
+        display: block;
+        .transition(all 0.5s ease 0s);
+      }
+    }
+    .name-title {
+      margin-bottom: 10px;
+      em {
+        .transition(all 0.5s ease 0s);
+      }
+      span {
+        .inline-block;
+        margin: 0px 10px;
+        color: #bbb;
+        .transition(all 0.5s ease 0s);
+      }
+    }
+  }
+}
+
+
+

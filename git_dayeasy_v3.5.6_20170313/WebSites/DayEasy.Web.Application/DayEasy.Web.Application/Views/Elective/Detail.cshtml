@@ -1,0 +1,93 @@
+﻿@using DayEasy.Utility.Extend
+@model DayEasy.Contracts.Dtos.Elective.CourseDto
+@{
+    ViewBag.Title = "选课详情";
+}
+
+<div class="dy-main-wrap">
+    @Html.Partial("~/Views/Educational/_Navigation.cshtml", 8)
+    <div class="dy-list dy-list-bg">
+        <div class="dy-title">
+            <h2>
+                <a href="@Url.Action("Index")" class="a01">选课管理</a>
+                <small>&gt; @Model.Title</small>
+            </h2>
+        </div>
+        <div class="dy-content">
+            <table class="dy-table">
+                <colgroup>
+                    <col />
+                    <col style="width: 12em" />
+                    <col style="width: 15em" />
+                    <col style="width: 8em" />
+                    <col style="width: 8em" />
+                    <col style="width: 8em" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="f-tal">课程名称</th>
+                        <th>任课教师</th>
+                        <th>上课地点</th>
+                        <th>限报人数</th>
+                        <th>已报人数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Courses)
+                    {
+                        <tr data-batch="@item.Id">
+                            <td class="f-tal">@item.Name</td>
+                            <td>@item.Teacher</td>
+                            <td>@item.Address</td>
+                            <td>@item.Capacity</td>
+                            <td>
+                                <span class="@(item.SelectedCount<item.Capacity?"text-danger":"text-success")">@item.SelectedCount</span>
+                            </td>
+                            <td>
+                                @if (string.IsNullOrWhiteSpace(item.ClassList))
+                                {
+                                    <a href="#" class="btn-class-range">全部班级</a>
+                                }
+                                else
+                                {
+                                    <a href="#" class="btn-class-range text-danger" data-class="@(item.ClassList.UrlEncode())">部分班级</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="8">
+                            共<b class="total-num">@Model.Courses.Count</b>条数据
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="classRangeTpl">
+    <div class="d-class-list">
+        {{each $data as grade}}
+        <div class="d-class-item">
+            <dl>
+                <dt>{{grade.grade}}年入学</dt>
+                {{each grade.classList as item}}
+                <dd title="{{item.name}}">
+                    <span>{{item.name}}</span>
+                </dd>
+                {{/each}}
+            </dl>
+        </div>
+        {{/each}}
+    </div>
+</script>
+
+@section css{
+    @Html.CombineLink("v3/css/ea/ui-base.css,v3/css/ea/elective-create.css")
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js,v3/js/ea/elective-detail.js")
+}

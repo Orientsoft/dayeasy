@@ -1,0 +1,71 @@
+.fr-box-share {
+  width: 400px;
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 27px 29px;
+}
+.fr-box-share .close-share {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #ccc;
+  font-size: 9px;
+  cursor: pointer;
+}
+.fr-box-share .close-share:hover {
+  color: #999;
+}
+.fr-box-share .font-color-bule {
+  color: #3bafda;
+}
+.fr-box-share .font-color-bule:hover {
+  color: #4fc1e9;
+}
+.fr-box-share .dy-icon-42 {
+  font-size: 16px;
+  margin-right: 11px;
+}
+.fr-box-share .ul-list-letter li {
+  float: left;
+  width: 33.33333333%;
+}
+.fr-box-share .ul-list-letter li a {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  background: none !important;
+  color: #a9a9a9;
+  font-size: 17px !important;
+}
+.fr-box-share .ul-list-letter li a:before {
+  font-size: 40px;
+  position: relative;
+  top: 6px;
+  left: -8px;
+}
+.fr-box-share .ul-list-letter li a span {
+  position: relative;
+  top: -6px;
+  right: 0;
+}
+.fr-box-share .ul-list-letter li a:hover .dy-icon-44 {
+  color: #8cc152;
+}
+.fr-box-share .ul-list-letter li a:hover .dy-icon-47 {
+  color: #da4453;
+}
+.fr-box-share .ul-list-letter li a:hover .dy-icon-45 {
+  color: #3bafda;
+}
+.fr-box-share .dy-icon-44:before {
+  color: #a0d468;
+}
+.fr-box-share .dy-icon-47:before {
+  color: #ed5565;
+}
+.fr-box-share .dy-icon-45:before {
+  color: #4fc1e9;
+}
+.fr-box-share .mb25 {
+  margin-bottom: 25px;
+}

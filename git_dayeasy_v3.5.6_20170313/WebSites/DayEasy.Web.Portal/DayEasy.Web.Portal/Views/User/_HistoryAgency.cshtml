@@ -1,0 +1,142 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Core.Config
+@using DayEasy.Utility.Extend
+@model List<UserAgencyDto>
+@{
+    var user = (ViewData["User"] as UserDto) ?? new UserDto();
+    var isTeacher = user.IsTeacher();
+}
+
+<div class="my-history-pop">
+    <!--当前任教-->
+    <!--教学历程-->
+    @foreach (var item in Model)
+    {
+        var start = item.Start.ToString("yyyy.MM");
+        var end = item.End.HasValue ? item.End.Value.ToString("yyyy.MM") : "至今";
+        var logo = (string.IsNullOrWhiteSpace(item.Logo) ? Consts.DefaultAvatar(RecommendImageType.AgencyLogo) : item.Logo);
+        <div class="con-list" data-aid="@item.Id">
+            <img src="@logo" width="32" height="32" alt="" />
+            <div class="head-text">
+                <strong class="school-name f-toe" title="@item.AgencyName">@item.AgencyName</strong>
+                <span class="xue-duan stage-@item.Stage">@(item.Stage.GetEnumText<StageEnum, byte>())</span>
+                @if (item.Status == (byte)UserAgencyStatus.Current)
+                {
+                    <span class="d-current-agency">
+                        <i class="iconfont dy-icon-school"></i>
+                        当前@(isTeacher ? "任教" : "在读")
+                    </span>
+                }
+                @if (item.Status == (byte)UserAgencyStatus.Target)
+                {
+                    <span class="d-current-agency d-target">
+                        <i class="iconfont dy-icon-school"></i>
+                        目标学校
+                    </span>
+                }
+                <ul class="current-class">
+                    @if (item.Status != (byte)UserAgencyStatus.Current)
+                    {
+                        <li title="删除" class="b-delete"><i class="iconfont dy-icon-delete"></i></li>
+                    }
+                    @if (item.Status != (byte)UserAgencyStatus.Target)
+                    {
+                        <li class="on b-edit" title="编辑时间"><i class="iconfont dy-icon-index-edit"></i></li>
+                    }
+                </ul>
+            </div>
+            @if (item.Status != (byte)UserAgencyStatus.Target)
+            {
+                <div class="time-class">
+                    <span>@start</span> - <span>@end</span>
+                </div>
+                <!--编辑-->
+                <div class="edit-box hide">
+                    <div class="edit-date">
+                        @if (item.Status == (byte)UserAgencyStatus.Current)
+                        {
+                            @(isTeacher ? "入职时间：" : "入学时间：")
+                            <input type="text" class="d-time t-start" value="@start.Replace(".", "-")" readonly />
+                        }
+                        else
+                        {
+                            <input type="text" class="d-time t-start" value="@start.Replace(".", "-")" readonly />
+                            @:至 <input type="text" class="d-time t-end" value="@end.Replace(".", "-")" readonly />
+                        }
+                    </div>
+                    <div class="btn f-tar">
+                        <button class="dy-btn dy-btn-grey dy-btn-sm btn-cancel">取 消</button>
+                        <button class="dy-btn dy-btn-info dy-btn-sm ml10 btn-submit">确 认</button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="time-class">
+                    <span>@start</span>
+                </div>
+            }
+        </div>
+    }
+    <div class="con-list">
+        <span class="add-school"><i>+</i>添加学校</span>
+        <!--编辑-->
+        <div class="edit-box hide">
+            <div class="select_wrapper">
+                <div class="input-part">
+                    <input type="text" placeholder="搜索学校">
+                    <button class="iconfont dy-icon-26" type="button"></button>
+                </div>
+                <ul class="select_inner hide">
+                    <li>
+                        <a class="f-toe" href=""><span class="stage-2">初中</span>成都石室中学(锦江校区)</a>
+                    </li>
+                    <li>
+                        <a class="f-toe" href="">
+                            <span class="stage-2">初中</span>成都七中
+                        </a>
+                    </li>
+                    <li>
+                        <a class="f-toe" href=""><span class="stage-1">小学</span>成都市金沙小学清波分校</a>
+                    </li>
+                    <li>
+                        <a class="f-toe" href=""><span class="stage-1">小学</span>成都华兴外国语实验学校</a>
+                    </li>
+                    <li>
+                        <a class="f-toe" href=""><span class="stage-1">小学</span>成都市沙湾路小学</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="selected-wrap hide">
+                <div class="agency-wrap">
+                    <div class="agency" title="金莎小学金莎小学金莎小学金莎小学金莎小学">
+                        <span class="stage-1">小学</span>
+                        <span class="name">金莎小学金莎小学金莎小学金莎小学金莎小学</span>
+                    </div>
+                    <i class="iconfont dy-icon-index-edit"></i>
+                </div>
+                <div class="agency-status">
+                    <label class="checkbox-group group-checkbox">
+                        <input type="checkbox" name="options"><span>我当前在此学校</span>
+                        <i class="iconfont dy-icon-checkbox"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="edit-date hide">
+                <div class="current hide">
+                    @(isTeacher ? "入职" : "入学")时间：<input type="text" class="d-time t-start" readonly />
+                </div>
+                <div class="history">
+                    <input type="text" class="d-time t-start" readonly /> 至 <input type="text" class="d-time t-end" readonly />
+                </div>
+            </div>
+            <div class="btn f-tar">
+                <button class="dy-btn dy-btn-grey dy-btn-sm btn-cancel">取 消</button>
+                <button class="dy-btn dy-btn-info dy-btn-sm ml10 disabeld btn-submit" disabled>确 认</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.CombineLink("v3/js/home/page-user-agency.js")

@@ -1,0 +1,114 @@
+﻿@using System.Web.Mvc
+@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@functions {
+    public new static WebViewPage Page = (PageContext.Page as WebViewPage);
+    public new static HtmlHelper<object> Html = Page.Html;
+    //public new static UrlHelper Url = page.Url;
+}
+
+@helper ShowGroupList(List<GroupDto> groups, long userId, bool apply = true)
+{
+    foreach (var group in groups.ToList())
+    {
+        var groupApply = apply;
+        if (group.Type == (byte)GroupType.Share && ((ShareGroupDto)group).JoinAuth == (byte)GroupJoinAuth.Public)
+        {
+            groupApply = false;
+        }
+        var link = Consts.Config.MainSite + "/group/" + (groupApply ? "apply/" : string.Empty) + group.Id;
+        var word = (groupApply ? "加入圈子" : "进入圈子");
+        <dd>
+            <a href="@link" class="d-group-item" title="@word" target="_blank">
+                <div class="d-group-avatar">
+                    <img src="@Html.MakeThumb(group.Logo, "100x100")" alt="@group.Name" />
+                </div>
+                <div class="d-group-wrap">
+                    <h4>@group.Name</h4>
+                    @if (group.Type == (byte)GroupType.Share)
+                    {
+                        var share = (ShareGroupDto)group;
+                        <div class="d-group-tags">
+                            @foreach (var tag in share.TagList)
+                            {
+                                <span>@tag</span>
+                            }
+                        </div>
+                        <div class="d-group-channel">@(Consts.Channel(share.ChannelId))</div>
+                    }
+                    else
+                    {
+                        <div class="d-group-agency">@group.AgencyName</div>
+                    }
+                    <div class="d-group-summary">简介：@Html.Raw(string.IsNullOrWhiteSpace(group.GroupSummary) ? "圈主很懒，没有写东西就跑了..." : group.GroupSummary)</div>
+                    @if (userId > 0)
+                    {
+                        if (group.ManagerId == userId)
+                        {
+                            group.MessageCount += group.PendingCount;
+                        }
+                        if (group.MessageCount > 0)
+                        {
+                            <div class="d-message-count">@(group.MessageCount > 99 ? "99+" : group.MessageCount.ToString())</div>
+                        }
+                    }
+                </div>
+                <div class="d-group-footer">
+                    @if (group.Type == (byte)GroupType.Share)
+                    {
+                        var share = (ShareGroupDto)group;
+                        <span class="d-group-count" title="帖子数"><i class="iconfont dy-icon-chujuan"></i>@share.TopicNum</span>
+                    }
+                    <span class="d-group-count" title="成员数"><i class="iconfont dy-icon-50"></i>@group.Count</span>
+                    <span class="d-group-owner" title="圈主"><i class="iconfont dy-icon-user-outline"></i>@group.Owner</span>
+                    @if (!groupApply)
+                    {
+                        <span class="d-group-enter">@word<em>&gt;&gt;</em></span>
+                    }
+                    else
+                    {
+                        <span class="d-group-enter"><i>+</i>@word</span>
+                    }
+                </div>
+            </a>
+        </dd>
+    }
+}
+@helper ShowGroup(GroupDto group)
+{
+    <div class="d-group-item d-group-single">
+        <div class="d-group-avatar">
+            <img src="@Html.MakeThumb(group.Logo,"100x100")" alt="@group.Name" />
+        </div>
+        <div class="d-group-wrap">
+            <h4>@group.Name</h4>
+            @if (group.Type == (byte)GroupType.Share)
+            {
+                var share = (ShareGroupDto)group;
+                <div class="d-group-tags">
+                    @foreach (var tag in share.TagList)
+                    {
+                        <span>@tag</span>
+                    }
+                </div>
+                <div class="d-group-channel">@(Consts.Channel(share.ChannelId))</div>
+            }
+            else
+            {
+                <div class="d-group-agency">@group.AgencyName</div>
+            }
+            <div class="d-group-summary">简介：@Html.Raw(string.IsNullOrWhiteSpace(group.GroupSummary) ? "圈主很懒，没有写东西就跑了..." : group.GroupSummary)</div>
+        </div>
+        <div class="d-group-footer">
+            @if (group.Type == (byte)GroupType.Share)
+            {
+                var share = (ShareGroupDto)group;
+                <span class="d-group-count" title="帖子数"><i class="iconfont dy-icon-chujuan"></i>@share.TopicNum</span>
+            }
+            <span class="d-group-count" title="成员数"><i class="iconfont dy-icon-50"></i>@group.Count</span>
+            <span class="d-group-owner" title="圈主"><i class="iconfont dy-icon-user-outline"></i>@group.Owner</span>
+            <span class="d-group-enter">No.@group.Code</span>
+        </div>
+    </div>
+}

@@ -1,0 +1,226 @@
+﻿@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model List<DayEasy.Contracts.Management.Dto.VMarkingDto>
+
+@{
+    ViewBag.Title = "考试推送列表";
+}
+<div>
+    <div class="row mt20">
+        <form method="GET" action="@Url.Action("MarkingList", "Joint")" id="searchForm">
+            <div class="col-sm-3 pl0 d-selects" style="width: 235px">
+                @Html.DropDownList("subjectId", ViewData["subjects"] as List<SelectListItem>, new { @class = "form-control" })
+                @Html.DropDownList("markingStatus", ViewData["status"] as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+            <div class="dy-agency-wrap hide">
+                <input type="hidden" name="agencyId" id="agencyId" value="@("agencyId".Query(string.Empty))" />
+                <div class="dy-agency-item">
+                </div>
+            </div>
+            <div class="col-sm-3 pl0">
+                <div class="dy-keyword-wrap">
+                    <div class="input-group">
+                        <input type="text"
+                               value="@Request["keyword"]"
+                               id="keyword"
+                               placeholder="机构名称/试卷标题/编号/得一号"
+                               class="form-control"
+                               autocomplete="off"
+                               name="keyword">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit" id="btn_submit"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                    <div class="dy-agencies hide">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <label class="checkbox">
+                    @if ("showAll".Query(string.Empty) != "true")
+                    {
+                        <input type="checkbox" id="showAll" name="showAll" value="true" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="showAll" name="showAll" checked="checked" value="true" />
+                    }
+                    所有
+                </label>
+            </div>
+            <div class="fl">
+                <div class="d-total">
+                    共<em>@ViewBag.TotalCount</em>次考试推送
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover table-bordered">
+            <colgroup>
+                <col style="width: 5em" />
+                <col />
+                <col style="width: 13em" />
+                <col style="width: 9em" />
+                <col style="width: 6em" />
+                <col style="width: 7em" />
+                <col style="width: 5.5em" />
+                <col style="width: 6em" />
+                <col style="width: 4em" />
+                <col style="width: 4em" />
+            </colgroup>
+            <thead>
+            <tr>
+                <th>科目</th>
+                <th>试卷信息</th>
+                <th>班级圈</th>
+                <th>发起人</th>
+                <th class="text-center">人数</th>
+                <th>发起时间</th>
+                <th>类型</th>
+                <th>批阅状态</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr data-batch="@item.Batch">
+                        <td>@Html.LabelText(item.Subject, item.SubjectId)</td>
+                        <td>
+                            <a href="@Consts.Config.AppSite/paper/detail/@item.PaperId" target="_blank">@item.PaperTitle</a><br/>
+                            <small style="color: #999">No. @item.PaperCode</small>
+                        </td>
+                        <td>
+                            <div class="dy-user-wrap" title="@item.Group.Name">
+                                <div class="dy-user-avatar b-user-active">
+                                    @if (!string.IsNullOrWhiteSpace(item.Group.Logo))
+                                    {
+                                        <img width="35" height="35" src="@Html.MakeThumb(item.Group.Logo, "35x35")"/>
+                                    }
+                                    else
+                                    {
+                                        <h3 class="d-text-avatar d-text-avatar-round d-text-avatar-small">
+                                            @item.Group.Name
+                                        </h3>
+                                    }
+                                </div>
+                                <div class="dy-user-info">
+                                    <p class="dy-user-name" style="max-width: 9em">
+                                        @item.Group.Name
+                                    </p>
+                                    <p>No.@item.Group.Code</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dy-user-wrap" title="@item.User.Name">
+                                <div class="dy-user-avatar b-user-active">
+                                    @if (!string.IsNullOrWhiteSpace(item.User.Avatar))
+                                    {
+                                        <img width="35" height="35" src="@Html.MakeThumb(item.User.Avatar, "35x35")"/>
+                                    }
+                                    else
+                                    {
+                                        <h3 class="d-text-avatar d-text-avatar-round d-text-avatar-small">
+                                            @item.User.Name
+                                        </h3>
+                                    }
+                                </div>
+                                <div class="dy-user-info">
+                                    <p class="dy-user-name">
+                                        @item.User.Name
+                                    </p>
+                                    <p>No.@item.User.Code</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            @if (item.CountA > 0)
+                            {
+                                <a href="@Url.Action("MarkingPictures", new {batch = item.Batch, type = 1})" target="_blank" title="查看试卷">@item.CountA</a>
+                            }
+                            else
+                            {
+                                <span>0</span>
+                            }
+                            <i class="sj-split">|</i>
+                            @if (item.CountB > 0)
+                            {
+                                <a href="@Url.Action("MarkingPictures", new {batch = item.Batch, type = 2})" target="_blank" title="查看试卷">@item.CountB</a>
+                            }
+                            else
+                            {
+                                <span>0</span>
+                            }
+                        </td>
+                        <td><abbr title="@item.Time.ToString("yyyy年MM月dd日 HH时mm分ss秒")">@item.Time.ToString("yyyy-MM-dd")</abbr></td>
+                        <td>
+                            @if (item.PublishType == PublishType.Print)
+                            {
+                                <label class="label label-primary">考试</label>
+                            }
+                            else
+                            {
+                                <label class="label label-default">推送</label>
+                            }
+                        </td>
+                        <td>
+                            @if (item.PublishType == PublishType.Print)
+                            {
+                                @(Html.EnumText<MarkingStatus, byte>((byte) item.MarkingStatus))
+                            }
+                        </td>
+                        <td>
+                            @(Html.EnumText<NormalStatus,int>(item.Status))
+                        </td>
+
+                        <td class="dy-actions">
+                            @if (item.Status == (byte) NormalStatus.Normal)
+                            {
+                                if (item.MarkingStatus == MarkingStatus.AllFinished)
+                                {
+                                    if (item.PublishType == PublishType.Print)
+                                    {
+                                        <a class="b-export" href="@Url.Action("ExportMarking", new {batch = item.Batch})" target="_blank" title="导出报表">
+                                            <i class="fa fa-cloud-download"></i>
+                                        </a>
+                                    }
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0);" class="b-recall text-danger" title="撤回">
+                                        <i class="fa fa-undo"></i>
+                                    </a>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="10" style="padding: 0">
+                        <div class="dy-nothing">没有找到相关信息！</div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 15, (int)ViewBag.TotalCount, 4)
+    </div>
+</div>
+
+@section style{
+    @Html.CombineLink("v3/css/management/page-group.css", "v3/css/management/page-marking.css")
+}
+
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js,v3/js/management/agency-helper.js,v3/js/management/page-marking.js")
+}

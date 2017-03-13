@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Left Menu</title>
+    <link rel="stylesheet" href="../css/reset.min.css"/>
+    <link rel="stylesheet" href="../source/css/site-base.css"/>
+    <link rel="stylesheet" href="//static.deyi.com/css/font-awesome.min.css"/>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html, body, .d-left-nav {
+            background-color: #222;
+            height: 100%;
+            min-height: 100%;
+        }
+
+        header, footer {
+            color: #ddd;
+        }
+
+        header {
+            height: 45px;
+            background-color: #222222;
+            border-color: #080808;
+            position: relative;
+            z-index: 128;
+        }
+
+        .d-logo {
+            position: absolute;
+            left: 12px;
+            top: 5px;
+            height: 35px;
+            width: 230px;
+            overflow: hidden;
+        }
+
+        .d-logo .d-text-avatar {
+            width: 230px;
+            height: 35px;
+            line-height: 35px;
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+        }
+
+        .d-top-nav {
+            float: right;
+            padding-right: 20px;
+        }
+
+        .d-top-nav li {
+            float: left;
+            position: relative;
+            line-height: 45px;
+            height: 45px;
+            cursor: pointer;
+        }
+
+        .d-top-nav li .dropdown-menu {
+            background-clip: padding-box;
+            background-color: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+            display: none;
+            float: left;
+            font-size: 14px;
+            list-style: outside none none;
+            margin: 0;
+            padding: 5px 0;
+            position: absolute;
+            top: 100%;
+            z-index: 1000;
+            left: auto;
+            right: -5px;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .dropdown-menu a {
+            color: #333333;
+            display: block;
+            font-weight: normal;
+            line-height: 1.42857;
+            padding: 3px 20px;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu a:hover {
+            color: #fff;
+            background-color: #428bca;
+            text-decoration: none;
+        }
+
+        .dropdown-menu a i {
+            padding-right: 3px;
+        }
+
+        .dropdown-menu s {
+            background-color: #e5e5e5;
+            height: 1px;
+            margin: 9px 0;
+            overflow: hidden;
+            display: block;
+        }
+
+        .d-top-nav li.hover {
+            color: #fff;
+        }
+
+        .d-top-nav li.hover .dropdown-menu {
+            display: block;
+        }
+
+        .d-top-nav .d-text-avatar {
+            display: inline-block;
+            font-size: 16px;
+            height: 35px;
+            line-height: 35px;
+            margin: 0;
+            width: 35px;
+        }
+
+        footer {
+            height: 35px;
+            line-height: 35px;
+            padding-right: 15px;
+            text-align: right;
+            margin-top: -35px;
+            position: relative;
+            z-index: 128;
+            border: none;
+        }
+
+        footer a {
+            color: #eee;
+            text-decoration: none;
+        }
+
+        .d-container {
+            background-color: #fff;
+            margin-top: -45px;
+            padding-bottom: 35px;
+            min-height: 100%;
+            position: relative;
+            z-index: 12;
+        }
+
+        .d-left-nav {
+            background-color: #222;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 225px;
+        }
+
+        .d-container-wrap {
+            padding-top: 45px;
+            color: #eee;
+        }
+
+        .d-page-content {
+            margin-left: 225px;
+            min-height: 350px;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            color: #666;
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin: 20px 0 15px;
+            padding: 0;
+        }
+
+        .page-title small {
+            color: #888;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 0;
+        }
+    </style>
+</head>
+<body>
+<script src="../js/singer.min.js"></script>
+<header>
+    <div class="d-logo">
+        <a href="/">
+            <img src="http://static.dayeasy.net/image/logo.png" alt="我的得一"/>
+        </a>
+    </div>
+    <div class="d-top-nav">
+        <ul>
+            <li class="hover">
+                <h1 class="d-text-avatar d-text-avatar-small d-text-avatar-round">猴哥</h1>
+                <span>猴哥</span>
+                <i class="fa fa-angle-down"></i>
+
+                <div class="dropdown-menu">
+                    <a href=""><i class="fa fa-user"></i>我的资料</a>
+                    <a href=""><i class="fa fa-calendar"></i>我的日历</a>
+                    <s></s>
+                    <a href="#"><i class="fa fa-sign-out"></i>退出系统</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</header>
+<div class="d-container">
+    <div class="d-left-nav">
+        <div class="d-container-wrap">
+            <div>Menu</div>
+        </div>
+    </div>
+    <div class="d-page-content">
+        <div class="d-container-wrap">
+            <div class="d-navigation">
+                <h3 class="page-title">
+                    <span>系统日志</span>
+                    <small>系统日志管理</small>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    &copy; 2015 <a href="http://www.dayeasy.net">dayeasy.net</a>
+</footer>
+</body>
+</html>

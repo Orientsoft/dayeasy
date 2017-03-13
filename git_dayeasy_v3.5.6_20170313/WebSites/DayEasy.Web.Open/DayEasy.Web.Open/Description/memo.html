@@ -1,0 +1,20 @@
+﻿<div class="hero-unit">
+    <h4 class="api_main_intro">保存学习笺</h4>
+
+    <div class="data well">
+    </div>
+</div>
+<script>
+    var data = {
+        title: "学习笺标题",
+        type: "学习笺类型 0：讲解笺；1：任务笺",
+        tags: ["标签"],
+        word: "文字内容",
+        pictures: ["图片地址1", "图片地址2"],
+        speech: {
+            url: "音频地址",
+            seconds: "音频时长(秒)"
+        }
+    };
+    $(".data").html((new JsonFormat(data)).toString());
+</script>

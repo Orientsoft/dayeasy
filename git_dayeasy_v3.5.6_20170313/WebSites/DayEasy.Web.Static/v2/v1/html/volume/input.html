@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>DayEasy</title>
+    <link href="http://static.dayeasy.dev/source/css/font-awesome.css" rel="stylesheet" media="all"/>
+    <link href="http://static.dayeasy.dev/source/css/bootstrap.css" rel="stylesheet" media="all"/>
+    <link href="http://static.dayeasy.dev/source/css/site-base.css" rel="stylesheet" media="all"/>
+    <link rel="stylesheet" href="http://static.dayeasy.dev/source/mention/style/css/v1/portal/automatic/page.css">
+    <!-- <link rel="stylesheet" href="http://static.dayeasy.dev/v1/css/portal/automatic/page.min.css"> -->
+    <script src="http://static.dayeasy.dev/v1/js/jquery/jquery-1.8.0.min.js"></script>
+    
+</head>
+<body>
+<div class="g-wrap">
+<div class="g-m-i w1000">
+    <div class="g-u-t">
+        <h2>答案录入</h2>
+    </div>
+    <div class="g-u-m">
+        <h3>A卷</h3>
+        <div class="g-u-z g-u-1">
+            <fieldset>
+                <legend>单项选择</legend>
+                <div class="g-u-d after">
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd class="z-sel">  <!-- 选中当前style -->
+                            <input type="text" class="form-control" value="A">
+                            <input type="text" class="form-control" value="B">
+                            <input type="text" class="form-control" value="A" class="z-dis"> <!-- 不可用 z-dis -->
+                            <input type="text" class="form-control" value="B" class="z-dis">
+                            <input type="text" class="form-control" value="A" class="z-crt"> <!-- 选中  z-crt-->
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd>
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd>
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd>
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd>
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd>
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                        </dd>
+                    </dl>
+                </div>
+            </fieldset>
+        </div>
+        <div class="g-u-z g-u-2">
+            <fieldset>
+                <legend>不定项选择</legend>
+                <div class="g-u-d after">
+                    <dl>
+                        <dt>33</dt>
+                        <dd>
+                            <input type="text" class="form-control" value="A  C  B">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>34</dt>
+                        <dd>
+                            <input disabled="disabled" type="text" class="form-control z-dis" value="A  B  C  D  E  F"> <!-- 不可用 z-dis-->
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>35</dt>
+                        <dd>
+                            <input type="text" class="form-control z-crt" value="A  B  C  D  E  F"><!-- 获取焦点 选中 z-crt-->
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>34</dt>
+                        <dd>
+                            <input type="text" class="form-control" value="A  B  C  D  E  F">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>34</dt>
+                        <dd>
+                            <input type="text" class="form-control" value="A  B  C  D  E  F">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>34</dt>
+                        <dd>
+                            <input type="text" class="form-control" value="A  B  C  D  E  F">
+                        </dd>
+                    </dl>
+                </div>
+            </fieldset>
+        </div>
+        <div class="g-u-z g-u-3">
+            <fieldset>
+                <legend>填空题</legend>
+                <div class="g-u-d">
+                    <div class="row">
+                        <div class="col-sm-1 w30">37</div>
+                        <div class="col-sm-11"><input type="text"class="form-control"/></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-1 w30">38</div>
+                        <div class="col-sm-11">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-1 w30">39</div>
+                        <div class="col-sm-11">编辑器</div>
+                        <div class="row ml">
+                            <div class="col-sm-12">
+                                <div class="col-sm-1">
+                                    【答案】
+                                </div>
+                                <div class="col-sm-1">
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">
+                                    【解析】
+                                </div>
+                                <div class="col-sm-12">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-1 w30">40</div>
+                        <div class="col-sm-11"><input type="text" class="form-control"/></div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="g-u-z g-u-1">
+            <fieldset>
+                <legend>完型填空</legend>
+                <div class="g-u-d after">
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd class="z-sel">  <!-- 选中当前style -->
+                            <input type="text" class="form-control" value="A">
+                            <input type="text" class="form-control" value="B">
+                            <input type="text" class="form-control" value="A" class="z-dis"> <!-- 不可用 z-dis -->
+                            <input type="text" class="form-control" value="B" class="z-dis">
+                            <input type="text" class="form-control" value="A" class="z-crt"> <!-- 选中  z-crt-->
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd>
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd>
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd>
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd>
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>1 - 5</dt>
+                        <dd>
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                            <input class="form-control" type="text">
+                        </dd>
+                    </dl>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="g-u-b f-tac">
+            <a class="btn btn-warning" href="javascript:void(0);" >保存</a> 
+            <a class="btn btn-warning ml20" href="javascript:void(0);" >取消</a>
+    </div>
+</div>
+</div>
+
+<script>
+    $(function () {
+        $("#btnSureAnswer ,#btnCancelAnswer").click(function () {
+            $("#chooseQuDiv").removeClass('hide');
+            $("#inputAnswerDiv").empty();
+        });
+
+
+        $("input,textarea").focus(function () {
+            $(this).addClass('z-crt');
+        });
+
+        $("input,textarea").blur(function () {
+            $(this).removeClass('z-crt');
+        });
+
+
+    });
+</script>
+</body>
+</html>

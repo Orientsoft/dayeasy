@@ -1,0 +1,48 @@
+﻿@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Helper
+@model List<SelectListItem>
+@if (ViewData["grade"] != null)
+{
+    Model.Foreach(u =>
+    {
+        if (u.Value == ViewData["grade"].ToString())
+        {
+            u.Selected = true;
+        }
+    });
+}
+@{
+    var tags = (ViewData["tags"] ?? string.Empty).ToString().Replace("\"", "'");
+}
+
+<script type="text/html" id="savePaper">
+    <div class="row" style="width:380px;">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="paperName" class="col-sm-3 pl0 control-label">*试卷名称：</label>
+                <div class="col-sm-9 pl0">
+                    <input type="text" class="form-control pull-left" name="paperName" value="{name}" id="paperName" placeholder="请输入试卷标题">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="grade" class="col-sm-3 pl0 control-label">*适用年级：</label>
+                <div class="col-sm-9 pl0">
+                    @Html.DropDownList("grade", Model, new { @class = "form-control" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                    <label class="col-sm-3 pl0 control-label">校内可见：</label>
+                    <div class="col-sm-9 checkbox-inline">
+                        <input type="checkbox" checked="checked" class="mt10" id="shareSchool" name="shareSchool" />
+                    </div>
+                </div>*@
+            <div class="form-group mb5">
+                <label class="col-sm-3 pl0 control-label">试卷标签：</label>
+                <div class="col-sm-9 pl0">
+                    <div class="d-tags after" data-tags="@(tags)"></div>
+                </div>
+            </div>
+            <p id="saveTip" class="text-right mb0 pb0 fs14" style="margin-bottom:-15px;color:#eea236;">生成试卷后，试卷不可再编辑</p>
+        </form>
+    </div>
+</script>

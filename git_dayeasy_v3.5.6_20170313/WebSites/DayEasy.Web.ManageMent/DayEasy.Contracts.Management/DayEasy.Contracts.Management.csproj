@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{992CCC70-65D1-411E-9D6A-B0980F6454EC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DayEasy.Contracts.Management</RootNamespace>
+    <AssemblyName>DayEasy.Contracts.Management</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DayEasy.AutoMapper, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_service\DayEasy.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Contracts">
+      <HintPath>..\..\..\_service\DayEasy.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_service\DayEasy.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Utility, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_service\DayEasy.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dto\AgencyDto.cs" />
+    <Compile Include="Dto\AgencyEditDto.cs" />
+    <Compile Include="Dto\AgencyInputDto.cs" />
+    <Compile Include="Dto\AgencySearchDto.cs" />
+    <Compile Include="Dto\AppDto.cs" />
+    <Compile Include="Dto\AsyncMissionDto.cs" />
+    <Compile Include="Dto\AsyncMissionSearchDto.cs" />
+    <Compile Include="Dto\GroupSearchDto.cs" />
+    <Compile Include="Dto\HomePageDataDto.cs" />
+    <Compile Include="Dto\IndexAdvertDto.cs" />
+    <Compile Include="Dto\JointExceptionDto.cs" />
+    <Compile Include="Dto\JointMarkingDto.cs" />
+    <Compile Include="Dto\JointSearchDto.cs" />
+    <Compile Include="Dto\JointUnSubmitDto.cs" />
+    <Compile Include="Dto\KnowledgeDto.cs" />
+    <Compile Include="Dto\KnowledgeSearchDto.cs" />
+    <Compile Include="Dto\ManagerSearchDto.cs" />
+    <Compile Include="Dto\PaperSearchDto.cs" />
+    <Compile Include="Dto\QuestionTypeDto.cs" />
+    <Compile Include="Dto\SubjectDto.cs" />
+    <Compile Include="Dto\TopicSearchDto.cs" />
+    <Compile Include="Dto\UpdateGroupInputDto.cs" />
+    <Compile Include="Dto\UserActiveDto.cs" />
+    <Compile Include="Dto\UserAppDto.cs" />
+    <Compile Include="Dto\UserManagerDto.cs" />
+    <Compile Include="Dto\UserSearchDto.cs" />
+    <Compile Include="Dto\VMarkingDto.cs" />
+    <Compile Include="Enum\JointExceptionStatus.cs" />
+    <Compile Include="Enum\ManagerRole.cs" />
+    <Compile Include="IManagementContract.Agency.cs" />
+    <Compile Include="IManagementContract.AsyncMission.cs" />
+    <Compile Include="IManagementContract.cs" />
+    <Compile Include="IManagementContract.Elective.cs" />
+    <Compile Include="IManagementContract.Group.cs" />
+    <Compile Include="IManagementContract.Joint.cs" />
+    <Compile Include="IManagementContract.Knowledge.cs" />
+    <Compile Include="IManagementContract.Paper.cs" />
+    <Compile Include="IManagementContract.Topic.cs" />
+    <Compile Include="IManagementContract.User.cs" />
+    <Compile Include="Mongo\MKnowledgeMover.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

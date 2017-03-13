@@ -1,0 +1,259 @@
+﻿@using DayEasy.Contracts.Management.Enum
+@using DayEasy.Utility.Extend
+@model List<DayEasy.Contracts.Management.Dto.UserManagerDto>
+@{
+    ViewBag.Title = "系统管理员列表";
+}
+
+<div class="row mt20">
+    <form id="searchForm" method="GET" action="@Url.Action("Index","Manager")">
+        <div class="col-md-3">
+            <div class="input-group">
+                <input type="text" value="@Request["keyword"]" placeholder="名字/邮箱/得一号" class="form-control" name="keyword" id="txtKey">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit" id="btn_submit"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-2 pl0">
+            <div class="d-total">
+                共<em>@ViewData["totalCount"]</em>位管理员
+            </div>
+        </div>
+        <div class="col-md-7 text-right">
+            <span class="btn btn-blue" id="btnAddManager">
+                <i class="fa fa-plus"></i>
+                添加管理员
+            </span>
+        </div>
+    </form>
+</div>
+
+<div class="row mt20">
+    <table class="table table-hover">
+        <colgroup>
+            <col style="width: 4em;" />
+            <col style="width: 8em" />
+            <col style="width: 10em" />
+            <col style="width: 200px" />
+            <col />
+            <col style="width: 6em" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>昵称</th>
+                <th>邮箱</th>
+                <th>权限</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                var i = 1;
+                foreach (var item in Model)
+                {
+                    <tr data-id="@item.UserId" data-role="@item.Role">
+                        <td>@(i++)</td>
+                        <td>@item.TrueName</td>
+                        <td>@(item.NickName.IsNotNullOrEmpty() && item.NickName.Length > 8 ? (item.NickName.Substring(0, 7) + "...") : item.NickName)</td>
+                        <td>@item.Email</td>
+                        <td>
+                            @if (item.Role == (long)ManagerRole.None)
+                            {
+                                <div class="d-tag">无权限</div>
+                            }
+                            else if (item.Role == (long)ManagerRole.Admin)
+                            {
+                                <div class="d-tag">超级管理员</div>
+                            }
+                            else
+                            {
+                                int tag = 0;
+                                foreach (ManagerRole role in Enum.GetValues(typeof(ManagerRole)))
+                                {
+                                    if (role == ManagerRole.Admin)
+                                    {
+                                        continue;
+                                    }
+                                    if ((item.Role & (long)role) > 0)
+                                    {
+                                        <div class="d-tag @("d-tag-"+tag)">@(role.GetText())</div>
+                                    }
+                                    tag++;
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a href="javascript:void(0);" title="编辑权限" class="a-update"><i class="fa fa-edit"></i></a>
+                            |
+                            <a href="javascript:void(0);" title="移除管理" class="a-remove"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="6">没有相关数据！</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="d-pager">
+    @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 25, Convert.ToInt32(ViewData["totalCount"]), 4)
+</div>
+
+<script type="text/html" id="templateAddManager">
+    <div style="width:300px;padding: 15px;">
+        <input type="text" value="" placeholder="邮箱/得一号" class="form-control" name="txtEmail" id="keyword">
+    </div>
+</script>
+
+<script type="text/html" id="templateEditRole">
+    <div style="width: 500px; padding: 15px;" id="divRoles">
+        <div class="row">
+            @foreach (ManagerRole role in Enum.GetValues(typeof(ManagerRole)))
+            {
+                if (role == ManagerRole.Admin)
+                {
+                    continue;
+                }
+                <div class="col-md-4">
+                    <label class="checkbox">
+                        <input type="checkbox" name="role" value="@((long) role)" />
+                        @role.GetText()
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+</script>
+
+@section style{
+    <style type="text/css">
+        .d-tag {
+            background: #cccccc none repeat scroll 0 0;
+            color: #fff;
+            float: left;
+            font-size: 13px;
+            line-height: 22px;
+            padding: 0 5px;
+            margin: 0 10px 10px 0;
+        }
+
+        .d-tag-1 {
+            background-color: #88b9b9;
+        }
+
+        .d-tag-2 {
+            background-color: #de958f;
+        }
+
+        .d-tag-3 {
+            background-color: #a9c365;
+        }
+
+        .d-tag-4 {
+            background-color: #99b3dd;
+        }
+
+        .d-tag-5 {
+            background-color: #e06726;
+        }
+
+        .d-tag-6 {
+            background-color: #6f5499;
+        }
+
+        .d-tag-7 {
+            background-color: #d7893e;
+        }
+
+        .d-tag-8 {
+            background-color: #28b779;
+        }
+    </style>
+}
+
+@section script{
+    <script type="text/javascript">
+        (function ($, S) {
+            //添加管理员
+            $("#btnAddManager").bind("click", function () {
+                var $html = $($("#templateAddManager").html());
+                $.Dayez.dialog("添加管理员", $html, function () {
+                    var keyword = $('#keyword').val();
+                    if (!keyword) {
+                        S.msg('请输入邮箱或得一号！');
+                        return false;
+                    }
+                    $.post("/user/manager/set", { keyword: keyword }, function (json) {
+                        if (json.status) {
+                            S.alert('设置成功！', function () {
+                                window.location.reload();
+                            });
+                        } else {
+                            S.msg(json.message);
+                        }
+                    });
+                    return false;
+                }, function () { });
+            });
+
+            //移除管理员
+            $(".a-remove").bind("click", function () {
+                var $tr = $(this).parents("tr");
+                var name = $tr.find("td").eq(1).text();
+                $.Dayez.confirm("确认要移除" + name + "的管理员身份？", function () {
+                    $.post("/user/manager/remove", { id: $tr.data("id") }, function (json) {
+                        if (json.status) {
+                            S.alert('移除成功！', function () {
+                                window.location.reload();
+                            });
+                        } else {
+                            S.msg(json.message);
+                        }
+                    });
+                }, function () { });
+            });
+
+            //编辑权限
+            $(".a-update").bind("click", function () {
+                var $tr = $(this).parents("tr");
+                var id = $tr.data("id"),
+                    role = parseInt($tr.data("role")),
+                    $html = $($('#templateEditRole').html()),
+                    $checks = $html.find('input[type="checkbox"][name="role"]');
+                for (var i = 0; i < $checks.length; i++) {
+                    var item = $checks.get(i);
+                    if ((role & ~~item.value) > 0)
+                        item.checked = true;
+                    else {
+                        item.checked = false;
+                    }
+                }
+
+                $.Dayez.dialog("管理员权限设置", $html, function () {
+                    var r = 0;
+                    $html.find("input:checked").each(function (i, item) {
+                        r |= parseInt($(item).val());
+                    });
+                    $.post("/user/manager/update", { id: id, role: r }, function (json) {
+                        if (json.status) {
+                            S.alert('编辑成功！', function () {
+                                window.location.reload();
+                            });
+                        } else {
+                            S.msg(json.message);
+                        }
+                    });
+
+                    return false;
+                }, function () { });
+            });
+        })(jQuery, SINGER);
+    </script>
+}

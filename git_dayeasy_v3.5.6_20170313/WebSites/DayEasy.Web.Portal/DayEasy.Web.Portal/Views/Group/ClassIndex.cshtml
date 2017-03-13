@@ -1,0 +1,38 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@model DayEasy.Contracts.Dtos.Group.GroupDto
+@{
+    var user = (UserDto)ViewData["User"];
+    var classes = (IDictionary<string, string>)(ViewData["classes"] ?? new Dictionary<string, string>());
+}
+<!--动态-->
+<div class="mainc">
+    <div class="title">
+        <h2 class="active">最新动态</h2>
+    </div>
+    <div class="dynamic-list">
+        <div class="dy-loading"><i></i></div>
+    </div>
+</div>
+@if (user.IsTeacher())
+{
+    <div class="pop-notice hide">
+        <p class="f-tar dy-result f-db">
+            你还可以输入<em>140</em>个字
+        </p>
+        <textarea placeholder="输入附加信息" class="textarea wf100 mb10 mt10" cols="30" rows="5" maxlength="140"></textarea>
+        @if (classes.Any())
+        {
+            <div class="mb20" style="color: #888">
+                <div class="mb10">同时发布到：</div>
+                @foreach (var group in classes)
+                {
+                    int col = (group.Value.Length > 15 ? 12 : 6);
+                    <label class="checkbox-group group-checkbox box-lg-@col mb5">
+                        <input type="checkbox" name="options" value="@group.Key"><span>@group.Value</span>
+                        <i class="iconfont dy-icon-checkbox"></i>
+                    </label>
+                }
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,325 @@
+@import "../../less/base";
+
+.g-main-list {
+  position: relative;
+  .section-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  & > .dw-actions-top {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    padding: 0;
+  }
+}
+
+.dw-statistics {
+  background-color: @color-default;
+  padding: 15px 30px 30px;
+  dl {
+    margin-top: 15px;
+    padding-left: 140px;
+  }
+  dt, dd {
+    margin-right: 15px;
+    .inline-block;
+  }
+  dt {
+    width: 110px;
+    margin-left: -129px;
+    color: @d-color-gray;
+  }
+  dd {
+    border: solid 1px @border-color;
+    padding: 2px 12px;
+    margin-bottom: 10px;
+    .rounded-corners(2px);
+    small {
+      font-size: 85%;
+      margin-left: 5px;
+      font-family: arial, serif;
+    }
+    &.nothing {
+      border: none !important;
+      color: @d-color-light-gray !important;
+      padding: 0 !important;
+    }
+  }
+  hr {
+    margin-left: 140px;
+    height: 1px;
+    margin-top: 5px;
+    border: none;
+    border-top: solid 1px @border-color;
+  }
+  .dw-knowledge {
+    dd {
+      border-color: @d-color-blue;
+      color: @d-color-blue;
+    }
+  }
+  .dw-tags {
+    dd {
+      border-color: @d-color-red;
+      color: @d-color-red;
+    }
+  }
+}
+
+.statistics-box {
+  margin-bottom: 15px;
+  overflow: hidden;
+  .bx-title {
+    font-weight: 600;
+    padding-left: 10px;
+    margin: 15px 0;
+    border-left: 5px solid #ee5e6d;
+    font-size: 16px;
+    height: 24px;
+    line-height: 26px;
+    .title-sm {
+      font-size: 12px;
+      color: #bbb;
+    }
+  }
+  .kp-box {
+    float: left;
+    background-color: #fff;
+    width: 430px;
+    min-height: 120px;
+    .stb-item {
+      border-color: #65cafc;
+      color: #65cafc;
+    }
+    .stb-shadow {
+      background-color: #65cafc;
+    }
+  }
+  .tag-box {
+    float: right;
+    width: 430px;
+    min-height: 120px;
+    background-color: #fff;
+    .stb-item {
+      border-color: #ee5e6d;
+      color: #ee5e6d;
+    }
+    .stb-shadow {
+      background-color: #ee5e6d;
+    }
+  }
+  .stb-item {
+    border: 1px solid #000;
+    width: 400px;
+    height: 30px;
+    line-height: 28px;
+    position: relative;
+    padding: 0 15px;
+    margin: 0 auto 15px;
+    border-radius: 16px;
+    overflow: hidden;
+    .stb-num {
+      position: absolute;
+      right: 15px;
+      color: #555;
+    }
+    .stb-shadow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      opacity: 0.1;
+    }
+  }
+  .dy-nothing {
+    line-height: 120px;
+    height: 120px;
+    background-color: #fff;
+  }
+}
+
+.dw-variant-list {
+  background-color: @color-default;
+  padding: 15px 20px;
+}
+
+.dw-variant-item {
+  margin-top: 15px;
+  position: relative;
+  .dwv-source {
+    position: relative;
+    background-color: #fcfcfc;
+    border: solid 1px @border-color;
+    border-left: solid 3px #ed5565;
+    line-height: 30px;
+    color: @d-color-light-gray;
+    strong {
+      font-size: 16px;
+      color: @d-color-gray;
+      font-weight: 600;
+      padding: 0 15px;
+      .text-shadow(1px 1px 1px #bbb);
+    }
+    span {
+      margin-left: 15px;
+      i {
+        color: @d-color-blue;
+        cursor: pointer;
+      }
+      b {
+        color: @d-color-red;
+      }
+      em {
+        margin-right: 12px;
+      }
+      &.knowledge {
+        .inline-block;
+        max-width: 315px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+        white-space: nowrap;
+      }
+    }
+    .dy-btn {
+      height: 30px;
+      line-height: 28px;
+      float: right;
+      padding: 0 8px;
+      i {
+        vertical-align: middle;
+        margin-right: 3px;
+      }
+    }
+    .dw-send-icon {
+      height: 46px;
+      width: 46px;
+      position: absolute;
+      top: -8px;
+      right: 0;
+      .background-image('work/sended.png', no-repeat, transparent);
+    }
+  }
+  .dwv-source-box {
+    display: none;
+    background-color: @color-default;
+    border: 1px solid @border-color;
+    .box-shadow(0 0 2px 2px @border-color);
+    left: 0;
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    z-index: 521;
+    i {
+      .angle-top(12px, #eee, 12px);
+      position: absolute;
+      top: -12px;
+      left: 210px;
+    }
+    em {
+      .angle-top(12px, #fff, 12px);
+      position: absolute;
+      top: -11px;
+      left: 210px;
+    }
+    &.hover {
+      display: block;
+    }
+  }
+  .dwv-list {
+    .dy-nothing {
+      height: 120px;
+      line-height: 120px;
+    }
+  }
+  .dwv-item {
+    border: solid 1px @border-color;
+    margin: 12px 0;
+    padding: 0 15px 15px;
+    .dwv-actions {
+      position: relative;
+    }
+    .dwv-actions-more {
+      display: none;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 521;
+      .dy-btn {
+        background-color: #e6e9ed;
+        color: @d-color-gray;
+        padding: 0 8px;
+        height: 34px;
+        line-height: 32px;
+        margin-right: 15px;
+        font-size: 12px;
+        i {
+          font-size: 12px;
+        }
+      }
+    }
+    &.hover {
+      .dwv-actions-more {
+        display: block;
+      }
+    }
+  }
+  .dwv-answer {
+    background-color: #f9f9f9;
+    border: 1px solid @border-color;
+    margin: 15px 0 0;
+    padding: 15px 15px 15px 100px;
+    position: relative;
+    line-height: 150%;
+    h5 {
+      left: 25px;
+      position: absolute;
+      top: 15px;
+      color: @d-color-light-gray;
+    }
+    i {
+      .angle-top(12px, @border-color, 12px);
+      position: absolute;
+      top: -12px;
+      left: 50px;
+    }
+    em {
+      .angle-top(12px, #f9f9f9, 12px);
+      position: absolute;
+      top: -11px;
+      left: 50px;
+    }
+  }
+}
+
+.dw-actions {
+  background-color: @color-default;
+  padding: 15px 0 30px;
+  text-align: center;
+}
+
+.send-variant {
+  small {
+    color: @border-color;
+    font-size: 85%;
+    margin-left: 4px;
+  }
+}
+
+.dwv-classes {
+  width: 280px;
+  .checkbox-group {
+    margin: 6px 0;
+    .iconfont {
+      top: 2px;
+    }
+  }
+}
+
+.q-item {
+  padding: 0;
+  float: left;
+  width: 100%;
+}

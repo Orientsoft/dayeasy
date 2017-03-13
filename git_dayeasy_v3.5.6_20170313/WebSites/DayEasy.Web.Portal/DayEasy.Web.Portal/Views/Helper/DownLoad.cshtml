@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "下载工具";
+}
+<div class="container j-autoHeight"
+     data-min="350"
+     data-left="100">
+    <div class="g-bd g-download">
+        <div class="m-t after">
+            <h2 class="h2">工具下载</h2>
+        </div>
+        <div class="m-g">
+            <div class="m-1 m-x after">
+                <div class="f-fl m-a"><img src="@Url.StaticLink("v1/image/icon/download/logo1.png")"></div>
+                <div class="f-fr m-b">
+                    <div class="u-1 after">
+                        <h3>得一阅卷 • 扫描工具 （在线批阅，必备神器）</h3>
+                        <a href="@Url.Action("DownMarkingTool", "Helper")" target="_blank">WIN下载</a>
+                    </div>
+                    <p class="p1">
+                        试卷扫描套打，一键完成；<br>
+                        试卷同步云端，随时随地都可以阅卷！
+                    </p>
+                </div>
+            </div>
+            <div class="m-1 m-x after">
+                <div class="f-fl m-a"><img src="@Url.StaticLink("v1/image/icon/download/chrome.png")"></div>
+                <div class="f-fr m-b">
+                    <div class="u-1 after">
+                        <h3>谷歌浏览器（Chrome）</h3>
+                        <a href="http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandaloneSetup41.0.2272.89.1426235198.exe" target="_blank">WIN下载</a>
+                    </div>
+                    <p class="p1">
+                        在线访问最佳体验，赶快下一个吧！
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css
+{
+    @Html.CombineLink("css/v1/download/page.css")
+}
+
+@section js{
+    <script type="text/javascript">
+        $(function () {
+            var x = 10;
+            var y = 20;
+            $("img.u-img").mouseover(function (e) {
+
+                this.myTitle = this.title;
+                this.title = "";
+                var tooltip = "<div id='tooltip'><img src='" + this.myTitle + "' alt='二维码预览'/><\/div>";
+
+                $("body").append(tooltip);
+                $("#tooltip")
+                    .css({
+                        "top": (e.pageY + y) + "px",
+                        "left": (e.pageX + x) + "px"
+                    }).show("fast");
+            }).mouseout(function () {
+                this.title = this.myTitle;
+                $("#tooltip").remove();
+            }).mousemove(function (e) {
+                $("#tooltip")
+                    .css({
+                        "top": (e.pageY + y) + "px",
+                        "left": (e.pageX + x) + "px"
+                    });
+            });
+        });
+    </script>
+}

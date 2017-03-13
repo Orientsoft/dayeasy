@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "选课";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-course w1200" data-batch="@ViewBag.Batch">
+    <h2 class="h2-title"></h2>
+    <div class="page-course-main f-cb">
+        <div class="dy-loading"><i></i></div>
+    </div>
+</section>
+<script id="html-course" type="text/html">
+    {{each data as value i}}
+    <div class="course-box-list {{value.status}}" data-id="{{value.id}}">
+        <h3 class="f-toe">{{value.name}}</h3>
+        <div class="course-list-top f-cb"><i class="iconfont dy-icon-49"></i><span class="f-toe  box-span">{{value.teacher}}</span></div>
+        <div class="course-list-main f-cb"><i class="iconfont dy-icon-adress"></i><span class="f-toe  box-span">{{value.address}}</span></div>
+        <div class="course-proportion" data-current="{{value.selectedCount}}" data-total="{{value.capacity}}">
+            <span class="span-proportion d-process"></span>
+        </div>
+        <div class="course-list-bottom" data-state="signUp">
+            <div class="box-default f-cb">
+                <span class="fl-text f-fl">共 <em>{{value.capacity}}</em> 人</span>
+                <span class="fr-text f-fr">剩余名额：<em>{{value.capacity - value.selectedCount}}</em> 人</span>
+            </div>
+            <div class="box-withdraw">
+                <button class="dy-btn course-btn-orange btn-quit">我要退课</button>
+            </div>
+            <div class="box-sign-up">
+                <button class="dy-btn  dy-btn-info btn-course">我要报名</button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+@section css{
+    @Html.CombineLink("v3/css/ea/statistics/elective-course.css")
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js,v3/js/ea/statistics/page-course.js")
+}

@@ -1,0 +1,409 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.Statistic
+@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Helper
+@model DayEasy.Application.Services.Dto.VWorkDto
+@{
+    ViewBag.Title = "分数排名";
+
+    var notices = new List<string>();
+    if (ViewData["noticeMobiles"] != null)
+    {
+        notices = (List<string>)ViewData["noticeMobiles"];
+    }
+    var isPush = Model.PublishType == (byte)PublishType.Test;
+}
+
+<div class="coach-bxo w1200 f-cb">
+    @if (Model == null || Model.Batch == null || Model.PaperId == null)
+    {
+        <div class="dy-nothing">参数错误，请刷新重试！</div>
+    }
+    else
+    {
+        var ranks = (List<StudentRankInfoDto>)(ViewData["ranks"] ?? new List<StudentRankInfoDto>());
+        var groups = (List<GroupDto>)ViewData["groups"];
+
+        var isAb = Model.IsAb;
+        var colleague = Model.ColleagueId;
+        var hasTrend = ranks.Any(r => r.LastRank.HasValue);
+
+        <input type="hidden" id="txtBatch" value="@Model.Batch" />
+        <input type="hidden" id="txtJointBatch" value="" />
+        <input type="hidden" id="txtPaperId" value="@Model.PaperId" />
+        <input type="hidden" id="txtPaperTitle" value="@Model.PaperTitle" />
+        <input type="hidden" id="txtIsAb" value="@(isAb ? 1 : 0)" />
+        <input type="hidden" id="txtScoreT" value="@Model.Score" />
+        <input type="hidden" id="txtScoreA" value="@Model.ScoreA" />
+        <input type="hidden" id="txtScoreB" value="@Model.ScoreB" />
+
+        @Html.Partial("_WorkHeader", Model)
+        if (!ranks.Any())
+        {
+            <div class="dy-nothing">
+                <i class="iconfont dy-icon-emoji02"></i>
+                @(Model.PublishType == (byte)PublishType.Print ? "没有学生提交！" : "没有学生信息")
+            </div>
+        }
+        else
+        {
+            var maxRank = ranks.Max(r => r.Rank);
+            StudentRankInfoDto lastTItem = null,
+                firstBItem = null;
+            if (maxRank > 10)
+            {
+                lastTItem = ranks.LastOrDefault(r => r.Rank < 11);
+            }
+            if (maxRank > 20)
+            {
+                firstBItem = ranks.LastOrDefault(r => r.Rank <= (maxRank - 10));
+            }
+
+            <div class="page-stats">
+                <div class="htmleaf-containers" data-dytab="120">
+                    <div class="htmleaf-content bgcolor-3 amend-ul-stats">
+                        <ul class="dy-tab-nav">
+                            <li class="z-crt"><a href="javascript:void(0);">班内成绩</a></li>
+                            <li><a href="javascript:void(0);" id="aLoadAvge">分数段统计</a></li>
+                            @if (!isPush)
+                            {
+                                <li><a href="javascript:void(0);" id="detailScores">每题得分</a></li>
+                            }
+                            <li class="slider">
+                                <span></span>
+                            </li>
+                        </ul>
+                        <div class="btn-posr">
+                            <a class="dy-btn dy-btn-info" href="export?batch=@Model.Batch&paper_id=@Model.PaperId"><i class="iconfont dy-icon-download"></i> 导出成绩</a>
+                        </div>
+                    </div>
+                    <div class="tab-con">
+                        <div class="dy-tab-con">
+                            <!--班内成绩-->
+                            <div class="tab-con-item slide-table" style="display: block;">
+                                <div class="box f-tar btn-stats">
+                                    <button class="dy-btn dy-btn-default ck-edit">
+                                        <i class="iconfont dy-icon-edit"></i>
+                                        编辑
+                                    </button>
+                                    <button class="dy-btn dy-btn-default ck-cancel ">
+                                        <i class="iconfont dy-icon-quxiao"></i>
+                                        取消
+                                    </button>
+                                    <button class="dy-btn dy-btn-info ck-complete ">
+                                        <i class="iconfont dy-icon-13"></i>
+                                        完成
+                                    </button>
+                                </div>
+                                <div class="f-pr">
+                                    <label class="checkbox-group group-checkbox f-pa-fixed">
+                                        <input type="checkbox" class="cbx-stu-info" data-id="0" id="cbxAllPower" title="全选">
+                                        <i class="iconfont dy-icon-checkbox" id="iAllPower"></i>
+                                    </label>
+                                    <table class="dy-table amend-table-stats tablesorter" id="tabScore">
+                                        <colgroup>
+                                            <col style="width: 3em" />
+                                            <col style="width: 10em" />
+                                            <col style="width: 8em" />
+                                            <col style="width: 8em" />
+                                            <col style="width: 7em" />
+                                            <col style="width: 7em" />
+                                            @if (isAb)
+                                            {
+                                                <col style="width: 7em" />
+                                            }
+                                            <col style="text-align: center" />
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    &nbsp;
+                                                </th>
+                                                <th>学号<i class="iconfont-paixu"></i></th>
+                                                <th>姓名</th>
+                                                <th>排名<i class="iconfont-paixu"></i></th>
+                                                <th class="f-tac">总分</th>
+                                                @if (isAb)
+                                                {
+                                                    <th class="f-tac">A卷总分</th>
+                                                    <th class="f-tac">B卷总分</th>
+                                                }
+                                                <th>短信通知</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var rank in ranks)
+                                            {
+                                                var defTotal = rank.TotalScore.HasValue ? rank.TotalScore.Value.ToString("0.#") : "-";
+                                                var trend = "";
+                                                if (hasTrend && rank.Rank != -1)
+                                                {
+                                                    trend = "(-)";
+                                                    if (rank.LastRank.HasValue)
+                                                    {
+                                                        var _rank = rank.LastRank.Value - rank.Rank;
+                                                        trend = "<span class='{1}'>(<i class='iconfont {2}'></i>{0})</span>".FormatWith(
+                                                            Math.Abs(_rank),
+                                                            (_rank < 0 ? "trend-down" : "trend-up"),
+                                                            (_rank < 0 ? "dy-icon-arrow-down" : "dy-icon-arrow-up"));
+                                                    }
+                                                }
+
+                                                var _class = "";
+                                                bool tTen = false, bTen = false;
+                                                if (maxRank > 10)
+                                                {
+                                                    if (rank.Rank < 11)
+                                                    {
+                                                        _class = "rt10";
+                                                        if (lastTItem != null && ranks.IndexOf(rank) == ranks.IndexOf(lastTItem))
+                                                        {
+                                                            tTen = true;
+                                                            _class += " last-rt10";
+                                                        }
+                                                    }
+                                                }
+                                                if (maxRank > 20)
+                                                {
+                                                    if ((maxRank - 10) < rank.Rank)
+                                                    {
+                                                        _class = "rb10";
+                                                    }
+                                                    if (firstBItem != null && ranks.IndexOf(rank) == ranks.IndexOf(firstBItem))
+                                                    {
+                                                        //注：表格设置为TD下边框，所以设置后十名的第一个TR的上一行
+                                                        bTen = true;
+                                                        _class += " first-rb10";
+                                                    }
+                                                }
+
+                                                <tr data-id="@rank.Id" data-uid="@rank.StudentId" class="@_class">
+                                                    <td>
+                                                        <label class="checkbox-group group-checkbox" style="vertical-align: top">
+                                                            <input type="checkbox" class="cbx-stu-info" data-id="@rank.StudentId" data-name="@rank.StudentName">
+                                                            <i class="iconfont dy-icon-checkbox i-stu-info"></i>
+                                                        </label>
+                                                    </td>
+                                                    <td>@(rank.StudentNum.IsNotNullOrEmpty() ? rank.StudentNum : "-")</td>
+                                                    <td>
+                                                        @if (Model.PublishType == (byte)PublishType.Print)
+                                                        {
+                                                            <a class="table-line" target="_blank" href="@Url.Action("MarkingDetail", "StudentWork", new {batch = Model.Batch, paperId = Model.PaperId, studentId = rank.StudentId})">@rank.StudentName</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            @rank.StudentName
+                                                    }
+                                                    </td>
+                                                    <td>
+                                                        @Html.Raw((rank.Rank > 0 ? rank.Rank + trend : "-"))
+                                                    </td>
+                                                    <td class="td-total-score f-tac" data-def="@defTotal">
+                                                        @if (isAb)
+                                                        {
+                                                            @defTotal
+                                                        }
+                                                        else
+                                                        {
+                                                            <input class="txt-edit-score" type="text" disabled="disabled" data-type="t"
+                                                                   value="@defTotal" />
+                                                        }
+                                                    </td>
+                                                    @if (isAb)
+                                                    {
+                                                        <td>
+                                                            <input class="txt-edit-score" type="text" disabled="disabled" data-type="a"
+                                                                   value="@(rank.SectionAScore.HasValue ? rank.SectionAScore.Value.ToString("0.#") : "-")" />
+                                                        </td>
+                                                        <td>
+                                                            <input class="txt-edit-score" type="text" disabled="disabled" data-type="b"
+                                                                   value="@(rank.SectionBScore.HasValue ? rank.SectionBScore.Value.ToString("0.#") : "-")" />
+                                                        </td>
+                                                    }
+                                                    <td>
+                                                        @if (rank.Mobiles == null || !rank.Mobiles.Any())
+                                                        {
+                                                            <span class="notic-mobile">未绑定手机</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            foreach (var mobile in rank.Mobiles)
+                                                            {
+                                                                if (notices.Any() && notices.Contains(mobile))
+                                                                {
+                                                                    <span class="notic-mobile notice-success" title="已发送">
+                                                                        @(mobile.Length == 11 ? (mobile.Sub(0, 3, "****") + mobile.Substring(7)) : mobile)
+                                                                        <i class="iconfont dy-icon-radiohv"></i>
+                                                                    </span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="notic-mobile" title="待发送">
+                                                                        @(mobile.Length == 11 ? (mobile.Sub(0, 3, "****") + mobile.Substring(7)) : mobile)
+                                                                    </span>
+                                                                }
+                                                            }
+                                                        }
+                                                        @if (tTen)
+                                                        {
+                                                            <div class="bubble-ten">前十名</div>
+                                                        }
+                                                        @if (bTen)
+                                                        {
+                                                            <div class="bubble-ten">后十名</div>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="box-total">
+                                    总人数<b>@ranks.Count</b>
+                                </div>
+                                <div class="stats-btn">
+                                    已选择 <span class="selected-number">0</span> 人
+                                    &nbsp;&nbsp;
+                                    <button id="btnPraise" class="dy-btn dy-btn-info" disabled="disabled">给予表扬</button>
+                                    &nbsp;&nbsp;
+                                    <button id="btnSendScore" class="dy-btn dy-btn-info" disabled="disabled">发送短信</button>
+                                    <span class="font">&nbsp;&nbsp;请先勾选需要操作的学生</span>
+                                </div>
+                            </div>
+                            <!--分数段统计-->
+                            <div class="tab-con-item stats-list">
+                                <div class="dy-loading" id="boxAvgLoading">
+                                    <i></i>
+                                </div>
+                                <div id="boxAvgData" style="display: none;">
+                                    <div class="off-stats box f-cb">
+                                        @if (groups.Any())
+                                        {
+                                            <div class="f-fl">
+                                                统计共享：
+                                                <select id="ddlShares">
+                                                    <option value="" @(colleague == string.Empty ? "selected=selected" : "")>不共享</option>
+                                                    @foreach (var g in groups)
+                                                    {
+                                                        <option value="@g.Id" @(colleague == g.Id ? "selected=selected" : "")>@g.Name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        }
+                                        @if (isAb)
+                                        {
+                                            <div class="f-fr">
+                                                <select id="ddlChangeTab">
+                                                    <option value="0">总分</option>
+                                                    <option value="1">A卷总分</option>
+                                                    <option value="2">B卷总分</option>
+                                                </select>
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <div class="avg-wrap"></div>
+                                </div>
+                            </div>
+
+                            <!--每题得分-->
+                            <div class="tab-con-item q-scores">
+                                <div class="dy-loading"><i></i></div>
+                                <div class="dy-table-wrap hide">
+                                    <div class="dy-table-head">
+                                        <div class="dy-table-caption">
+                                            <div class="caption-name">姓名</div>
+                                        </div>
+                                        <table class="dy-table">
+                                            <colgroup>
+                                                <col style="width: 120px" />
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <div class="dy-table-body">
+                                        <div class="dy-table-left">
+                                            <table class="dy-table">
+                                                <colgroup>
+                                                    <col style="width: 120px" />
+                                                </colgroup>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                        <table class="dy-table">
+                                            <colgroup></colgroup>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+<script type="text/html" id="segmentTpl">
+    <div class="table-th">
+        <table class="dy-table" id="tabAvgTh">
+
+            {{if isUnion}}
+            <tr>
+                <th class="table-th-td">&nbsp;</th>
+            </tr>
+            {{/if}}
+            <tr>
+                <th class="table-th-td">分数段</th>
+            </tr>
+            {{each segments as segment}}
+            <tr>
+                <th class="table-th-td">{{segment}}</th>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+    <div class="ove-x" style="width:818px;">
+        <table class="dy-table" id="tabAvg">
+            <thead>
+                {{if isUnion}}
+                <tr>
+                    {{each groups as group}}
+                    <th style="width:190px">{{group.agency}}</th>
+                    {{/each}}
+                </tr>
+
+                {{/if}}
+                <tr>
+                    {{each groups as group}}
+                    <th style="width:190px">
+                        {{group.name}}
+                    </th>
+                    {{/each}}
+                </tr>
+            </thead>
+            <tbody>
+                {{each segments as segment}}
+                <tr>
+                    {{each counts as count}}
+                    <td>{{count[segment]}}</td>
+                    {{/each}}
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</script>
+@section css{
+    @Html.CombineLink("plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css,css/v2.0/markingcenter/ui-base.css,v3/css/work/ui-base.css,v3/css/utils/bootstrap-switch.css,v3/plugs/jquery-tab/jquery.tab.3.0.css,v3/css/testteacher/page-stats.css")
+}
+
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js,plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js,v3/plugs/jquery-tab/jquery.tab.3.0.js,v3/plugs/jquery-tablesorter/jquery.tablesorter.js,v3/plugs/jquery-tablesorter/jquery.tablesorter.widgets.js,v3/js/homework/work-base.js,v3/js/homework/st-score.js")
+}

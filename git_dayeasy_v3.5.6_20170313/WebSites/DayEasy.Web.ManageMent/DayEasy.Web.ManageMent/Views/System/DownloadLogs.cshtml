@@ -1,0 +1,167 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Timing
+@model List<TS_DownloadLog>
+
+@{
+    ViewBag.Title = "下载日志";
+    var downnloadTypes = new[]
+    {
+        "错题", "变式题", "试题", "试卷", "考试统计", "分数段排名", "教务管理-年级排名",
+        "教务管理-班级分析", "教务管理-学科分析"
+    };
+    var type = "type".Query(string.Empty);
+    var users = (Dictionary<long, UserDto>)(ViewData["userDict"] ?? new Dictionary<long, UserDto>());
+}
+<div>
+    <div class="row mt20">
+        <form method="GET" action="@Url.Action("DownloadLogs", "System")" id="searchForm">
+            <div class="col-sm-2 pl0 d-selects">
+                @Html.DropDownList("type", ViewData["types"] as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-3 pl0">
+                <div class="input-group">
+                    <input type="text" value="@Request["keyword"]" placeholder="姓名/得一号" class="form-control" name="keyword">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit" id="btn_submit"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="d-total">
+                    共<em>@ViewBag.Total</em>条下载记录
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row mt20">
+        <table class="table table-bordered table-hover">
+            <colgroup>
+                <col style="width: 8em" />
+                <col style="width: 6em" />
+                <col />
+                <col style="width: 8em" />
+                <col style="width: 12em" />
+                <col style="width: 12em" />
+                <col style="width: 12em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th style="text-align:center">类型</th>
+                    <th style="text-align:center">用户角色</th>
+                    <th>用户信息</th>
+                    <th style="text-align:center">数量</th>
+                    <th>下载时间</th>
+                    <th>下载耗时</th>
+                    <th>更多</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var log in Model)
+                    {
+                        UserDto user = null;
+                        if (users.ContainsKey(log.UserId))
+                        {
+                            user = users[log.UserId];
+                        }
+                        <tr data-uid="@log.Id">
+                            <td style="text-align: center">
+                                @(Html.EnumText<DownloadType, byte>(log.Type))
+                            </td>
+                            <td style="text-align:center">
+                                @if (user != null)
+                                {
+                                    if (user.IsTeacher())
+                                    {
+                                        <label class="label label-success">教师</label>
+                                    }
+                                    else if (user.IsStudent())
+                                    {
+                                        <label class="label label-info">学生</label>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @if (user != null)
+                                {
+                                    <div class="dy-user-wrap">
+                                        <a title="查看用户活跃信息" class="dy-user-avatar b-user-active" href="#">
+                                            @if (!string.IsNullOrWhiteSpace(user.Avatar))
+                                            {
+                                                <img width="35" height="35" src="@Html.MakeThumb(user.Avatar, "35x35")" />
+                                            }
+                                            else
+                                            {
+                                                <h3 class="d-text-avatar d-text-avatar-round d-text-avatar-small">
+                                                    @user.Name
+                                                </h3>
+                                            }
+                                        </a>
+                                        <div class="dy-user-info">
+                                            <p class="dy-user-name">
+                                                @user.Name
+                                                @if ((user.Role & (byte)UserRole.Teacher) > 0)
+                                                {
+                                                    <small>@user.SubjectName</small>
+                                                }
+                                            </p>
+                                            <p>No.@user.Code</p>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>游客</div>
+                                }
+                            </td>
+                            <td style="text-align:center">@log.Count</td>
+                            <td>
+                                <abbr title="@Clock.Normalize(log.AddedAt).ToString("yyyy年MM月dd日 HH时mm分ss秒")">@Clock.Normalize(log.AddedAt).ToString("yyyy-MM-dd HH:mm")</abbr>
+                            </td>
+                            <td>
+                                @((log.CompleteTime - log.AddedAt).Milliseconds) ms
+                            </td>
+                            <td>
+                                <a href="#" class="j-more">查看</a>
+                                <div class="hide">
+                                    <div class="well" style="overflow:hidden">
+                                        <div class="col-md-2">网页来源：</div>
+                                        <div class="col-md-10"><a href="@log.RefererUrl" target="_blank">@log.RefererUrl</a></div>
+                                        <div class="col-md-2">用户环境：</div>
+                                        <div class="col-md-10">@log.UserAgent</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">没有找到相关信息！</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 15, (int)ViewBag.Total, 4)
+    </div>
+</div>
+@section script{
+    <script>
+        (function ($, S) {
+            $('.j-more').bind('click', function () {
+                var html = $(this).next().html();
+                var d = S.dialog({
+                    title: '查看下载详情',
+                    content: html,
+                    width: 650
+                });
+                d.showModal();
+            });
+        })(jQuery, SINGER);
+    </script>
+}

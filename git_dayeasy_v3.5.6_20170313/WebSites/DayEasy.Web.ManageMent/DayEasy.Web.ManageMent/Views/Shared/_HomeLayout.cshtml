@@ -1,0 +1,182 @@
+﻿@using DayEasy.Core
+@using System.Web.Mvc
+@{
+    Layout = "_BaseLayout.cshtml";
+    var pageNav = ViewBag.PageNav ?? 0;
+}
+<script>singer.config({ global: { goTop: false } });</script>
+<div class="dy-wrap">
+    <!--[if lt IE 9]>
+    <style>
+        .dy-header{border-bottom: 1px solid #f0f0f0;}
+        .ul-fixed{border: 1px solid #f0f0f0;}
+        .circle-list .top-one .img-mack{background: #a0d468;-ms-filter:"alpha(opacity=1)";filter:alpha(opacity=100);zoom:1;}
+    </style>
+    <![endif]-->
+    <div class="dy-header hidden-print">
+        <div class="site-nav  f-cb">
+            <ul class="ul-left f-fl ul-nav-box">
+                <li class="menu-1">
+                    <h1 class="logo">
+                        <a href="@Consts.Config.MainSite">
+                            <img width="130" height="40" src="@Url.StaticLink("/v3/image/logo.png")" alt="" />
+                        </a>
+                    </h1>
+                </li>
+                <li class="@(pageNav == 0 ? "z-crt" : "") menu-1">
+                    <a class="havechild" href="@Consts.Config.MainSite"><i class="iconfont dy-icon-shouye"></i>首页</a>
+                </li>
+                <li class="@(pageNav == 3 ? "z-crt" : "") menu-1">
+                    <a href="javascript:void(0)" class="havechild" data-menu>
+                        <i class="iconfont dy-icon-liebiao"></i>
+                        频道分类
+                    </a>
+                    <ul class="g-ul-2">
+                        @{
+                            var channels = Consts.Channels.Where(t => t.Level == 1).OrderBy(t => t.Sort);
+                            foreach (var channel in channels)
+                            {
+                                <li class="@Html.GetActiveClass("/topic/" + channel.Sort, "z-crt")">
+                                    <a href="@(Consts.Config.MainSite + "/topic/" + channel.Id)">@channel.Name</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </li>
+                <li class="@(pageNav == 1 ? "z-crt" : "") menu-1">
+                    <a class="havechild" href="@(Consts.Config.MainSite + "/group")"><i class="iconfont dy-icon-49"></i>我的圈子</a>
+                </li>
+            </ul>
+            @RenderSection("nav", false)
+            <ul class="ul-right f-fr ul-user-box"></ul>
+        </div>
+    </div>
+    <div class="dy-main">
+        @RenderBody()
+    </div>
+</div>
+<div class="dy-footer hidden-print">
+    <div class="container">
+        <div class="copy-left">
+            @*<p>客服热线： 400 - 123456</p>*@
+            <p>
+                <a href="@Consts.Config.MainSite/helper/contact-us">联系我们</a>
+            </p>
+            <p class="footer-tag-list">
+                @*<a href="/helper/about-us">关于我们</a>*@
+                @*<a href="@Consts.Config.MainSite/helper/contact-us">联系我们</a>*@
+                @*<a href="@Consts.Config.MainSite/helper/product-center">产品中心</a>*@
+                @*<a href="@Consts.Config.MainSite/helper">常见问题</a>*@
+                <a href="http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandaloneSetup41.0.2272.89.1426235198.exe">建议使用 chrome 进行访问</a>
+            </p>
+            <p>
+                <span>Copyright &copy; 2013-2017 </span>&nbsp;&nbsp;
+                <a href="@Consts.Config.MainSite">四川得一科技有限公司 Dayeasy.net</a>&nbsp;&nbsp;
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备14013147号</a>
+            </p>
+        </div>
+        <div class="copy-right" style="width: auto;">
+            <ul>
+                @*<li class="bg-android-download">
+                        <a class="android" href="javascript:void(0)">
+                            <i class="iconfont dy-icon-31"></i>
+                            <i class="iconfont dy-icon-30"></i>
+                            <div class="app-qrcode">
+                                <img width="132" height="132" src="@Url.StaticLink("/v3/image/qrcode/android.png")" alt="得一教育扫描安卓下载" />
+                            </div>
+                        </a>
+                    </li>
+                *@
+                <li class="bg-app-qrcode">
+                    <a href="javascript:void(0)">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-38"></i>
+                        <div class="app-qrcode">
+                            <img width="132" height="132" src="@Url.StaticLink("/v3/image/qrcode/wechat.png")" alt="得一教育扫描关注">
+                        </div>
+                    </a>
+                </li>
+                <li class="bg-qq">
+                    <a class="qq" href="tencent://message/?uin=1773670794&Site=QQ&Menu=yes">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-41"></i>
+                    </a>
+                </li>
+                <li class="bg-weibo">
+                    <a href="http://weibo.com/3101751281/profile" target="_blank">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-57"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/fonticon/iconfont.css,v3/css/site-base.css,v3/css/header-footer.css,v3/css/dialog.css")
+    @RenderSection("css", false)
+}
+@section js{
+    @Html.CombineLink("v3/js/base.js,plugs/artDialog/dist/dialog-plus.min.js,js/Jq-common.js")
+    @RenderSection("js", false)
+    <script type="text/javascript">
+        $(function () {
+            var sites = DEYI.sites || {};
+            var msgCount = function () {
+                var $messageCount = $('.dy-message-count');
+                if (!$messageCount || !$messageCount.length)
+                    return;
+                $.get(sites.main + '/message/count', {}, function (data) {
+                    if (~~data > 99)
+                        data = '99+';
+                    $messageCount.html(data);
+                    if (data > 0) {
+                        $messageCount.addClass('po-detail-ba');
+                    }
+                });
+            };
+            var ckLogin = function () {
+                $.ajax({
+                    type: "GET",
+                    url: sites.main + "/check-login",
+                    dataType: "jsonp",
+                    success: function (json) {
+                        if (json.apps && json.apps.length) {
+                            var $content = $('<li class="menu-1"></li>');
+                            $content.append('<a class="havechild" href="javascript:void(0);" data-menu><i class="iconfont dy-icon-yingyong"></i>应用中心</a>');
+                            var $apps = $('<ul class="g-ul-2"></ul>');
+                            for (var i = 0; i < json.apps.length; i++) {
+                                var app = json.apps[i];
+                                $apps.append('<li><a href="' + app.url + '">' + app.text + '</a></li>');
+                            }
+                            $content.append($apps);
+                            $(".ul-nav-box").append($content);
+                        } else {
+                            $(".ul-nav-box").append('<li class=" menu-1"><a href="' + sites.main + '/work" class="havechild"><i class="iconfont dy-icon-yingyong"></i>应用中心</a></li>');
+                        }
+                        var $box = $(".ul-user-box");
+                        if (json.user) {
+                            $box.append('<li class="info"><a href="' + sites.account + '/msg"><i class="iconfont dy-icon-11"></i><span class="dy-message-count">0</span></a></li>');
+                            var $user = $('<li class="head-user">');
+                            var head = json.user.avatar || sites.static + "/v3/image/default/user_s40x40.jpg";
+                            // $user.append('<a class="user-img" href="' + sites.account + '"><img width="40" height="40" src="' + head + '" alt="" /></a>');
+                            $user.append('<a class="user-img" href="javascript:void(0);"><img width="40" height="40" src="' + head + '" alt="" /></a>');
+                            var $ul = $('<ul class="ul-fixed">');
+                            $ul.append('<li class="mt-padd"><a href="' + sites.account + '"><i class="iconfont dy-icon-9"></i>设置</a></li>');
+                            $ul.append('<li><a class="d-logout" href="javascript:void(0);"><i class="iconfont dy-icon-56"></i>退出</a></li>');
+                            $user.append($ul);
+                            $box.append($user);
+                            msgCount();
+                            if (json.user.role && (json.user.role & 4) > 0) {
+                                $(".footer-tag-list").append('<a target="_blank" href="' + sites.open + 'download?type=20">扫描工具</a>');
+                            }
+                        } else {
+                            $box.append('<li class="head-user-notlogged"><a href="' + sites.account + '/login">登录</a><b>/</b><a href="' + sites.account + '/reg">注册</a></li>');
+                        }
+                    }
+                });
+            };
+            ckLogin();
+        });
+    </script>
+}

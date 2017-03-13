@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    @@include('./link-style.html')
+    <title>注册成功 - 我的得一 - 触屏版</title>
+    <link rel="stylesheet" href="/css/account/login.min.css"/>
+    <style>
+        html,body{height: 100%;}
+        .d-login-mains{text-align: center; width: 300px; height: 200px; position: absolute; left: 50%; margin-left: -150px; top: 50%; margin-top: -100px;background: #3bafda ;color: #fff;; font-size: 15px;  }
+        .d-login-mains p  a{ color: #fff;}
+        .d-p-icon{ margin-top: 46px;}
+        .d-p-icon .fa-smile-o { font-size: 30px; }
+    </style>
+
+</head>
+<body>
+
+<div class="d-login-mains">
+    <p class="d-p-icon">
+        <i class="fa fa-smile-o"></i><br>恭喜你注册成功 <br/>
+    </p>
+    <p><span id="totalSecond">6</span>秒后自动返回 <a   title="登录页" id="href" href="/page/account/login.html">登录</a></p>
+</div>
+@@include('./footer.html')
+<script>
+     //设定倒数秒数
+    var t = 6;
+    timer = setInterval(function (){
+        t--;
+        if(t == 0){
+            location.href = document.getElementById("href").href;
+            clearInterval(timer);
+        } else {
+            document.getElementById('totalSecond').innerHTML = t+'&nbsp;';
+        }
+
+    }, 1000)
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Paper.Services.Helper
+@model DayEasy.Contracts.Dtos.Paper.PaperDetailDto
+
+@{
+    ViewBag.Title = "试卷详细 - " + (Model == null ? "" : Model.PaperBaseInfo.PaperTitle);
+    var user = ViewData["User"] as UserDto;
+}
+<div class="dy-container paper-boder paper-main paper-detailborder j-autoHeight" data-left="132"
+     data-min="400"
+     data-type="2">
+    @if (Model == null)
+    {
+        <div class="row text-center mt10">
+            <span class="fs18"><i class="fa fa-warning"></i>&emsp;没有找到相关试卷信息,请稍后重试！</span>
+        </div>
+    }
+    else
+    {
+        var baseInfo = Model.PaperBaseInfo;
+        var sections = Model.PaperSections.GroupBy(u => u.PaperSectionType).OrderBy(u => u.Key).ToList();
+        bool hasScore = baseInfo.PaperScores.TScore > 0;
+        bool isAb = baseInfo.PaperType == (byte)PaperType.AB;
+        var isCreator = baseInfo.AddedBy == user.Id;
+        var sortType = Model.PaperBaseInfo.SortType();
+        <div class="ed-task-main ">
+            <div class="u-paper-answer">
+                <div class="row">
+                    <div class="col-md-12 mt10">
+                        <div class="text-right u-more" data-pid="@baseInfo.Id" data-title="@baseInfo.PaperTitle">
+                            <a class="color-bule" target="_blank" href="@Url.Action("AnswerSheet", "Paper", new {paperId = baseInfo.Id})">
+                                <i class="icon-test icon-test-2"></i><span>答题卡</span>
+                            </a>
+                            <a class="color-bule" target="_blank" href="@Url.Action("Answer", "Paper", new {id = baseInfo.Id})">
+                                <i class="icon-test icon-test-2"></i><span>答案</span>
+                            </a>
+                            @*@if (baseInfo.Status == (byte)PaperStatus.Normal)
+                                {
+                                <a class="color-bule" href="javascript:void(0);" id="pub_paper"><i class="icon-test icon-test-3"></i><span>发布</span></a>
+                                <a class="color-bule" href="javascript:void(0);" id="down_paper"><i class="icon-test icon-test-4"></i><span>下载</span></a>
+                                }*@
+                        </div>
+                    </div>
+                </div>
+                <div class="p-title">
+                    <h4 class="text-center">@baseInfo.PaperTitle</h4>
+                </div>
+                <div class=" u-open">
+                    <i class="f-posa-close">X</i>
+                    @if (hasScore)
+                    {
+                        <div class="row">
+                            <div class="col-sm-3">总分：<span class="rightAnswer">@baseInfo.PaperScores.TScore.ToString("0.#")分</span></div>
+                            <div class="col-sm-3">试卷编号：@Model.PaperBaseInfo.PaperNo</div>
+                        </div>
+                    }
+
+                    <div class="row mt10">
+                        <div class="col-sm-3">出卷人：@baseInfo.UserName</div>
+                        <div class="col-sm-3">组卷时间：@baseInfo.AddedAt.ToString("yyyy-MM-dd")</div>
+                    </div>
+                    @if (baseInfo.Tags != null && baseInfo.Tags.Count > 0)
+                    {
+                        <div class="row mt10">
+                            <div class="col-sm-12">
+                                标签：
+                                @foreach (var tag in baseInfo.Tags)
+                                {
+                                    <text>@tag &emsp;</text>
+                                }
+                            </div>
+                        </div>
+                    }
+                    @if (baseInfo.Kps != null && baseInfo.Kps.Count > 0)
+                    {
+                        <div class="row mt10">
+                            <div class="col-sm-12 u-point">
+                                考查知识点：
+                                @foreach (var kp in baseInfo.Kps)
+                                {
+                                    <span>@kp.Value</span>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="pb10">
+            <div class="row" id="paperDetailDiv">
+                @foreach (var sectionItem in sections)
+                {
+                    if (isAb)
+                    {
+                        var title = string.Empty;
+                        var score = 0M;
+                        switch (sectionItem.Key)
+                        {
+                            case (byte)PaperSectionType.PaperA:
+                                title = "A卷";
+                                score = baseInfo.PaperScores.TScoreA;
+                                break;
+                            case (byte)PaperSectionType.PaperB:
+                                title = "B卷";
+                                score = baseInfo.PaperScores.TScoreB;
+                                break;
+                        }
+                        <h4>
+                            <span>
+                                @title
+                                @if (score > 0)
+                                {
+                                    <small>@score.ToString("0.#分")</small>
+                                }
+                            </span>
+                        </h4>
+                    }
+
+                    var quSections = sectionItem.OrderBy(u => u.Sort).ToList();
+                    foreach (var quSection in quSections)
+                    {
+                        <h5>@Consts.Chinese[quSection.Sort]、@quSection.Description</h5>
+
+                        if (quSection.Questions != null && quSection.Questions.Count > 0)
+                        {
+                            <ul class="paper-qlist paper-detail ml20">
+                                @foreach (var question in quSection.Questions)
+                                {
+                                    var qItem = question.Question;
+                                    <li class="paper-detailline">
+                                        <div class="row">
+                                            @if (isCreator && qItem.UserId == user.Id && Model.PaperBaseInfo.Status == (byte)NormalStatus.Normal)
+                                            {
+                                                <div class="pq-edit" title="编辑题干">
+                                                    <i class="fa fa-pencil"></i>
+                                                </div>
+                                            }
+                                            @PaperHelper.ShowQuestion(qItem, question.Score, question.Sort, paperSectionType: question.PaperSectionType,sortType:sortType)
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
+@section css{
+    @Html.CombineLink("v3/css/paper/page-detail.css")
+}
+@section js{
+    @Html.CombineLink("v3/js/paper/page-detail.js")
+}

@@ -1,0 +1,200 @@
+/*--------------------------------------------------------------
+                      dayeasy Icon 管理
+
+      Author:Plato
+      Create Date:15.08.19	  Last Mondify Date:15.08.20
+      ===================================================
+
+--------------------------------------------------------------*/
+@import "base.less";
+
+
+
+/*--------------------------------------------------------------
+                         IMG url
+--------------------------------------------------------------*/
+@imgurl-v2-0:~"../../../../image/v2.0";
+
+
+/*--------------------------------------------------------------
+                 dayeasy input  The default Amend
+--------------------------------------------------------------*/
+.stitches-default-input(@x: 0, @y: 0, @width: 0, @height: 0) {
+  background-position: @x @y;
+  width: @width;
+  height: @height;
+}
+
+.default-input(){
+  background-image: url("@{imgurl-v2-0}/ie-default.png");
+  background-repeat: no-repeat;
+  display: block;
+}
+
+
+//-----input checkbox default
+.icon-checkbox-default(){
+  .stitches-default-input(0, -19px, 21px, 19px);
+}
+//-----input checkbox
+.icon-checkbox (){
+  .stitches-default-input(0, 0, 21px, 19px);
+}
+//-----notes
+//<span class="f-checkbox default-input icon-checkbox-default  f-fr">
+//<input type="checkbox" name="" />
+//</span>
+
+////todo 多项选项
+//.f-checkbox{
+//  display: block;
+//  input{
+//    .opacity(0);
+//    width: 100%;
+//    height: 100%;
+//    cursor: pointer;
+//    margin-top: 0;
+//  }
+//}
+
+
+//$('.f-checkbox').on('click', function(event) {
+//event.preventDefault();
+//$(this).toggleClass('icon-checkbox');
+//});
+
+//-----notes End
+
+
+/*--------------------  学生 考试中心 testcenter -----------------------*/
+.stitches-test-center(@x: 0, @y: 0, @width: 0, @height: 0) {
+  background-position: @x @y;
+  width: @width;
+  height: @height;
+}
+
+.icon-test-center(){
+  background-image: url("@{imgurl-v2-0}/testcenter.png");
+  background-repeat: no-repeat;
+  .inline-block;
+}
+
+//----- 错误 ×
+  .icon-test-center-false(){
+    .stitches-test-center(0, 0, 31px, 35px);
+  }
+
+//----- 对 √
+  .icon-test-center-true(){
+    .stitches-test-center(-31px, 0, 51px, 29px);
+  }
+
+
+//----- 下载 图标
+  .icon-test-center-download(){
+    .stitches-test-center(-82px, 0, 16px, 16px);
+  }
+  //----- 下载 图标 蓝色
+  .icon-test-center-downloadbule(){
+    .stitches-test-center(-82px, -17px, 16px, 18px);
+  }
+.icon-test-center-markgrey(){
+    .stitches-test-center(-98px, 0, 16px, 16px);
+  }
+
+//----- 标记 bule
+  .icon-test-center-markblue(){
+    .stitches-test-center(-114px, 0, 16px, 16px);
+  }
+//-----人数 图标
+  .icon-test-center-number(){
+    .stitches-test-center(-130px, 0, 16px, 18px);
+  }
+//-----向下 圆按钮
+  .icon-test-center-down(){
+    .stitches-test-center(-146px, 0, 17px, 17px);
+  }
+.icon-test-center-right(){
+  .stitches-test-center(-280px, 0, 17px, 17px);
+}
+
+//-----公开 消息
+  .icon-test-center-opensolutions(){
+    .stitches-test-center(-163px, 0, 16px, 16px);
+  }
+
+
+//-----Human mark
+  .icon-test-center-people(){
+    .stitches-test-center(-208px, 0, 29px, 33px);
+  }
+//-----Human mark hover
+.icon-test-center-peoplehv(){
+  .stitches-test-center(-179px, 0, 29px, 33px);
+}
+
+//----三角向下
+  .icon-test-center-dowtrian(){
+    .stitches-test-center(-248px, 0, 12px, 7px);
+  }
+//----三角向上
+.icon-test-center-uptrian(){
+  .stitches-test-center(-237px, 0, 11px, 7px);
+}
+//-----○标记
+  .icon-test-center-dot(){
+    .stitches-test-center(-260px, 0, 20px, 20px);
+  }
+
+//-----斜线
+  .icon-test-center-slash(){
+    .stitches-test-center(-297px, 0, 39px, 25px);
+  }
+
+
+
+/*--------------------  教师 批阅中心 markingcenter  -----------------------*/
+.stitches-markingcenter(@x: 0, @y: 0, @width: 0, @height: 0) {
+  background-position: @x @y;
+  width: @width;
+  height: @height;
+}
+
+.icon-markingcenter() {
+  background: url("@{imgurl-v2-0}/testcenter-teacher.png") 0 0 no-repeat;
+  background-repeat: no-repeat;
+  .inline-block;
+}
+
+//-----下载 bule
+.download-bule (){
+  .stitches-markingcenter(0, 0, 16px, 16px);
+}
+
+//-----气泡 Yolk
+.marking-center-bubble() {
+  .stitches-markingcenter(-16px, 0, 34px, 15px);
+}
+
+//----- 人数数量 Yolk
+.marking-center-closevillain (){
+  .stitches-markingcenter(-50px, 0, 16px, 18px);
+}
+
+//-----扇形统计
+.marking-center-sector() {
+  .stitches-markingcenter(-66px, 0, 21px, 21px);
+}
+
+//-----
+.marking-center-spreadmore (){
+  .stitches-markingcenter(-87px, 0, 16px, 10px);
+}
+
+
+/*--------------------  考试中心 成绩分析-----------------------*/
+.a-dashed(@x:0,@y:0){
+  background:  url("@{imgurl-v2-0}/a-dashed.png") @x @y repeat-y;
+}
+
+

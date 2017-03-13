@@ -1,0 +1,12 @@
+﻿.sidebar-toggler h3 {
+    line-height: 23px;
+    color: #666;
+}
+.sidebar-toggler i {
+    background: #d9d9d9 none repeat scroll 0 0;
+    font-size: 23px;
+    position: absolute;
+    padding: 2px 5px 0;
+    top: 5px;
+    right: 1px;
+}

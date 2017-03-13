@@ -1,0 +1,138 @@
+﻿<div class="g-tree cp-tree  f-fl after">
+    <select class="form-control" id="ddlSbook">
+        <option value="-1">章节教材加载中...</option>
+    </select>
+    <ul class="top-level-ul"></ul>
+    <input type="hidden" value="" id="txtChapterKps" />
+</div>
+
+
+
+
+<script type="text/html" id="cpt-template">
+    {{if list && list.length}}
+    {{each list as cpt}}
+    <li class="menu-{{deep}}">
+        <p>
+            <i class="sprite-2 g-icon_3"></i>
+            <a href="javascript:void(0);" data-kpid="{{cpt.kps}}">{{cpt.title}}</a>
+        </p>
+        <ul class="menu-{{deep+1}}" data-deep="{{deep+1}}" data-code="{{cpt.code}}" data-loaded="{{cpt.isLast ? 1 : 0}}">
+            {{if cpt.isLast}}
+            {{include 'kp-template' cpt}}
+            {{/if}}
+        </ul>
+    </li>
+    {{/each}}
+    {{/if}}
+</script>
+<script type="text/html" id="kp-template">
+    {{each knowledgeList as kp}}
+    <li>
+        <p>
+            <a href="javascript:void(0);" data-kpid="{{kp.id}}">{{kp.name}}</a>
+        </p>
+    </li>
+    {{/each}}
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        var S = SINGER,
+            cpLoaded = false,
+            getSbooks,
+            getChapters;
+
+        getSbooks = function () {
+            if (cpLoaded) return;
+            cpLoaded = true;
+            var stage = $("#stage").val(),
+                subjectId = $("#subjectId").val();
+            $.post("/paper/SchoolBooks", { stage: stage, subject: subjectId }, function (json) {
+                if (!json.status) {
+                    S.msg("章节教材加载失败，请刷新重试");
+                    return;
+                }
+                var $ddl = $("#ddlSbook");
+                if (!json.data || !json.data.length) {
+                    $ddl.html('<option value="-1">无可用章节教材</option>');
+                    return;
+                }
+                $ddl.html('<option value="-1">--请选择--</option>');
+                for (var i = 0; i < json.data.length; i++) {
+                    $ddl.append('<option value="' + json.data[i].code + '">' + json.data[i].title + '</option>');
+                }
+            });
+        }
+        getChapters = function ($box, deep, code) {
+            code += '';
+            if (!code || !code.length) return;
+            $.post("/paper/SbChapters", { code: code }, function (json) {
+                $box.data("loaded", "1");
+                if (!json.status) {
+                    S.msg(json.message);
+                    return;
+                }
+                var list = json.data;
+                for (var i = 0; i < list.length; i++) {
+                    var cpt = list[i];
+                    cpt.kps = "";
+                    if (!cpt.knowledgeList || !cpt.knowledgeList.length) continue;
+                    for (var j = 0; j < cpt.knowledgeList.length; j++) {
+                        cpt.kps += cpt.knowledgeList[j].id + ",";
+                    }
+                    if (cpt.kps && cpt.kps.length > 0) cpt.kps = cpt.kps.substring(0, cpt.kps.length - 1);
+                }
+                var html = template('cpt-template', { list: list, deep: deep });
+                $box.html(html);
+                $box.find('li:first-child').addClass('boder-n');
+            });
+        }
+
+        $(".b-cp").bind("click", getSbooks);
+        $("#ddlSbook").bind("change", function () {
+            var code = $(this).val();
+            if (code == "-1") return;
+            getChapters($(".top-level-ul"), 1, code);
+        });
+        $(".top-level-ul")
+            .delegate("i", "click", function () {
+                var $this = $(this);
+                var $p = $this.parent();
+                var $ul = $p.siblings("ul");
+                if ($this.hasClass("g-icon_6")) {
+                    $this.removeClass("g-icon_6");
+                    $p.removeClass('boder-a');
+                    $ul.hide().find('li:first-child').removeClass('boder-n');
+                    return;
+                }
+                console.log(2);
+                $this.addClass("g-icon_6");
+                $p.addClass('boder-a');
+                $ul.show().find('li:first-child').addClass('boder-n');
+                if ($ul.data("loaded") == "1") return;
+                getChapters($ul, $ul.data("deep"), $ul.data("code"));
+            })
+            .delegate("a", "click", function() {
+                var $this = $(this);
+                var kps = $this.data("kpid") + '';
+                if (!kps || !kps.length) {
+                    S.msg("当前章节未添加知识点");
+                    return;
+                }
+                $('.cp-tree').find('ul li p').removeClass("z-crt");
+                $this.parents('p').addClass('z-crt');
+
+                $("#txtChapterKps").val(kps);
+
+                if ($(".topic-tab-content-1").hasClass('show')) {
+                    $('#btn_Search').click();//处理事件
+                }
+//                else {
+//                    $("#choosePaperDiv").removeClass("hide");
+//                    $("#paperDetails").empty();
+//                    $("#btn_PaperSearch").click();
+//                }
+            });
+    });
+</script>

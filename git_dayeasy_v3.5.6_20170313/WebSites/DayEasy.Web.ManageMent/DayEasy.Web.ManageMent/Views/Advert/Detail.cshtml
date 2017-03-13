@@ -1,0 +1,196 @@
+﻿@using DayEasy.Contracts.Dtos
+@model AdvertDto
+@{
+    ViewBag.Title = "图文详细";
+    List<AdvertCategoryDto> categorys = null;
+    if (ViewData["categorys"] != null)
+    {
+        categorys = (List<AdvertCategoryDto>) ViewData["categorys"];
+    }
+    var imageUrl = string.Empty;
+    if (Model != null)
+    {
+        imageUrl = Model.ImageUrl;
+    }
+}
+<h4 class="ad-title">
+    <span>图文详细</span>
+</h4>
+
+<form class="form-horizontal ad-detail">
+    <div class="form-group">
+        <label for="ddlCategory" class="col-sm-2 control-label">自定义分类</label>
+        <div class="col-sm-10">
+            <select id="ddlCategory" class="form-control">
+                <option value="">默认分类</option>
+                @if (categorys != null && categorys.Any())
+                {
+                    foreach (var category in categorys)
+                    {
+                        <option value="@category.Id"
+                                @(Model != null && category.Id == Model.Category ? "selected=selected" : "")>
+                            @category.CategoryName
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtIndex" class="col-sm-2 control-label">自定义排序</label>
+        <div class="col-sm-10">
+            <input id="txtIndex" value="@(Model!=null ? Model.Index : 0)" type="text" class="form-control" placeholder="0-系统排序">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtName" class="col-sm-2 control-label">别名</label>
+        <div class="col-sm-10">
+            <input id="txtName" value="@(Model!=null ? Model.Name : "")" type="text" class="form-control" placeholder="自定义名称">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtForeignKey" class="col-sm-2 control-label">关联ID</label>
+        <div class="col-sm-10">
+            <input id="txtForeignKey" value="@(Model!=null ? Model.ForeignKey : "")" type="text" class="form-control" placeholder="关联ID">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtText" class="col-sm-2 control-label">文本</label>
+        <div class="col-sm-10">
+            <input id="txtText" value="@(Model!=null ? Model.Text : "")" type="text" class="form-control" placeholder="广告文本">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtTextLink" class="col-sm-2 control-label">文本链接</label>
+        <div class="col-sm-10">
+            <input id="txtTextLink" value="@(Model!=null ? Model.TextLink : "")" type="text" class="form-control" placeholder="文本超链接">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtImageUrl" class="col-sm-2 control-label">图片链接</label>
+        <div class="col-sm-10">
+            <input id="txtImageUrl" value="@(Model!=null ? Model.ImageUrl : "")" type="text" class="form-control" placeholder="广告图片链接">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">图片预览</label>
+        <div class="col-sm-10">
+            <div class="img-preview" title="点击上传图片">
+                <img src="@imageUrl" alt="图片加载失败" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input id="txtId" value="@(Model!=null ? Model.Id : "")" type="hidden">
+            <button id="btnSave" type="button" class="btn btn-primary">保存</button>
+        </div>
+    </div>
+</form>
+
+<div class="hidden">
+    <div id="btn-upload"></div>
+</div>
+
+@section style{
+    <style type="text/css">
+        .ad-title {
+            margin: 15px 0 20px;
+            padding: 0 15px;
+        }
+        .ad-title span {
+            border-left: 8px solid #ed5565;
+            display: inline-block;
+            height: 22px;
+            padding-left: 8px;
+        }
+        .ad-detail input,select,textarea {
+            max-width: 500px;
+        }
+        .img-preview {
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            padding: 9px;
+            width: 500px;
+            height: auto;
+            min-height: 150px;
+            max-height: 500px;
+            cursor: pointer;
+        }
+        .img-preview img {
+            max-width: 480px;
+            max-height: 480px;
+        }
+    </style>
+}
+@section script{
+    @Html.CombineLink("plugs/webuploader/webuploader.js,js/base/utils.js")
+    <script type="text/javascript">
+        (function($, S) {
+            $("#txtImageUrl").bind("change", function() {
+                var url = $(this).val();
+                $(".img-preview img").attr("src", url);
+            });
+
+            $('.img-preview').bind('click', function () {
+                $(".webuploader-element-invisible").click();
+            });
+
+            S.uploader.on("uploadSuccess", function (file, response) {
+                console.log(file);
+                if (response.state) {
+                    var url = response.urls[0];
+                    $("#txtImageUrl").val(url);
+                    $('.img-preview img').attr('src', url);
+                }
+                S.uploader.reset();
+            });
+
+            $("#btnSave").bind("click", function() {
+                var id = $("#txtId").val(),
+                    index = $("#txtIndex").val(),
+                    name = $("#txtName").val(),
+                    text = $("#txtText").val(),
+                    imgUrl = $("#txtImageUrl").val(),
+                    category = $("#ddlCategory").val(),
+                    textLink = $("#txtTextLink").val(),
+                    foreignKey = $("#txtForeignKey").val();
+                if ((!text || !text.length) && (!imgUrl || !imgUrl.length) && (!foreignKey || !foreignKey.length)) {
+                    S.msg("广告文本、图片链接、关联ID 至少填写一项");
+                    return;
+                }
+                if (!index || !index.length) index = 0;
+                else {
+                    if (!/^[\d]{1,4}$/.test(index)) {
+                        S.msg("自定义排序范围：1~9999");
+                        return;
+                    }
+                }
+                $.post("/operate/advert/edit", {
+                    id: id,
+                    index: index,
+                    name: name,
+                    text: text,
+                    category: category,
+                    imageUrl: imgUrl,
+                    textLink: textLink,
+                    foreignKey: foreignKey
+                }, function(json) {
+                    if (!json.status) {
+                        S.msg(json.message);
+                        return;
+                    }
+                    if (!id || !id.length) {
+                        S.confirm("添加成功，是否返回列表？", function() {
+                            location.href = "/operate/advert";
+                        }, function() {
+                            location.href = "/operate/advert/detail";
+                        });
+                        return;
+                    }
+                    S.msg("保存成功");
+                });
+            });
+        })(jQuery, SINGER);
+    </script>
+}

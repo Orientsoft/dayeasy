@@ -1,0 +1,13 @@
+.automatic{}
+.automatic .g-bd{width: 1000px; margin: 0 auto;border: 1px solid #eeefec;border-radius: 6px;background: white;}
+.automatic .g-bd .g-doc{}
+.automatic .g-bd .g-doc .m-hd{}
+.automatic .g-bd .g-doc .m-bd{}
+.automatic .g-bd .g-doc .m-bd .m-lst{}
+.automatic .g-bd .g-doc .m-bd .m-lst li{float: left;border-radius: 6px;border: 3px solid #b3b3b3;padding: 30px 15px; margin-bottom: 15px;}
+.automatic .g-bd .g-doc .m-bd .m-lst li span{display: inline-block;*display: inline;*zoom: 1;background: #b3b3b3; height: 4px; margin-bottom: 15px; width: 100%;}
+.automatic .g-bd .g-doc .m-bd .m-lst .u-lst-1{}
+
+.automatic .g-bd .g-doc .m-bd .m-lst .u-lst-2{margin-left: 60px;}
+
+.automatic .g-bd .g-doc .m-bd .m-lst .z-sel{} /*选中状态*/

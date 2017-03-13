@@ -1,0 +1,133 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+
+      Author:Plato
+      Create Date:2015/12/8  Last Mondify Date:2015/12/8
+      ===================================================
+
+--------------------------------------------------------------*/
+.dy-header,
+.dy-header-tool,
+.dy-footer {
+  display: none;
+}
+.page-assist-top {
+  height: 60px;
+  line-height: 60px;
+  background: white;
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 7px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 7px;
+  -o-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 7px;
+  -ms-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 7px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 7px;
+}
+.page-assist-top .assist-top-title {
+  width: 1200px;
+  margin: 0px auto;
+}
+.page-co-assist {
+  margin-bottom: 100px;
+  background: white;
+  padding: 20px 0;
+}
+.page-co-assist .h2-title {
+  margin-bottom: 30px;
+}
+.page-co-assist .assist-topic-list {
+  padding: 0px 30px 30px;
+}
+.page-co-assist .assist-topic-list .h3-title-ab {
+  color: #bbb;
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+.page-co-assist .assist-topic-list .topic-list-con {
+  position: relative;
+}
+.page-co-assist .assist-topic-list .topic-list-con .topic-list-1 {
+  float: left;
+  border: 1px dashed #eee;
+  margin-bottom: 46px;
+  margin-right: 20px;
+}
+.page-co-assist .assist-topic-list .topic-list-con .topic-list-1 .question-contents {
+  position: relative;
+}
+.page-co-assist .assist-topic-list .topic-list-con .topic-list-1 .question-contents .dy-icon-quxiao {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #ed5969;
+  font-size: 16px;
+}
+.page-co-assist .assist-topic-list .topic-list-con .question-no-list {
+  background: white;
+  padding: 10px 0 10px 10px;
+}
+.page-co-assist .assist-topic-list .topic-list-con .question-no-list > span {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  background: #e6e9ed;
+  color: #999;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+  margin-right: 10px;
+}
+.page-co-assist .assist-topic-list .topic-list-con .z-sel-topic {
+  border: 1px dashed #4fc1e9;
+  border-bottom: none;
+}
+.page-co-assist .assist-topic-list .topic-list-con .z-sel-topic .marking-teacher {
+  display: block;
+}
+.page-co-assist .assist-topic-list .topic-list-con .z-sel-topic .question-contents {
+  z-index: 2;
+}
+.page-co-assist .assist-topic-list .topic-list-con .marking-teacher {
+  display: none;
+  z-index: 1;
+  position: absolute;
+  width: 1140px;
+  top: 48px;
+  background: white;
+  border: 1px dashed #4fc1e9;
+  left: -1px;
+  padding: 10px;
+}
+.page-co-assist .assist-topic-list .topic-list-con .marking-teacher .list-box li {
+  float: left;
+  height: 24px;
+  line-height: 24px;
+  margin-right: 20px;
+}
+.page-co-assist .assist-topic-list .topic-list-con .marking-teacher .list-box li img {
+  margin-right: 8px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+.page-co-assist .assist-topic-list .topic-list-con .marking-teacher .list-box li span {
+  position: relative;
+  top: -6px;
+}
+.page-co-assist .assist-topic-list .topic-list-con .marking-teacher .list-box .dy-icon-59 {
+  font-size: 24px;
+  color: #3bafda;
+}
+.page-co-assist .assist-topic-list .topic-list-con .marking-teacher .list-box .font-bule {
+  color: #3bafda;
+  margin-left: 8px;
+  text-outline: -4px;
+}

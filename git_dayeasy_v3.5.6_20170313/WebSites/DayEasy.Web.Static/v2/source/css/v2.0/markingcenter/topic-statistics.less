@@ -1,0 +1,230 @@
+/*--------------------------------------------------------------
+                        题目统计 推送
+
+      Author:Plato
+      Create Date:15.08.20    Last Mondify Date:15.08.20
+      ===================================================
+测试 http://www.dayeasy.dev/work/teacher/statistics-score?batch=f9a1791012e148469c86fe64e63521f3&paperId=7fcba522f63a4644b2fd4620fd268b0c
+--------------------------------------------------------------*/
+@import "ui-variables";
+@import      (reference)"../../icon-base.less";
+
+/*--------------------------------------------------------------
+                         IMG url
+--------------------------------------------------------------*/
+.icon-markingcenter {
+  .icon-markingcenter();
+}
+
+//----- 人数数量 Yolk
+.icon-markingcenter.marking-center-closevillain {
+  .marking-center-closevillain();
+  margin-left: 5px;
+  vertical-align: sub;
+}
+
+//-----统计图标
+.icon-markingcenter.marking-center-sector {
+  .marking-center-sector();
+}
+
+.icon-markingcenter.marking-center-bubble {
+  .marking-center-bubble();
+  text-align: center;
+  line-height: 15px;
+  font-size: 12px;
+  font-style: normal;
+  position: absolute;
+  border-bottom: 0;
+  right: -37px;
+  color: @color-default;
+}
+
+/*--------------------  main Style  -----------------------*/
+.topic-head {
+  font-size: 14px;
+  h2 {
+    font-size: 24px;
+    .inline-block;
+    position: relative;
+  }
+}
+
+.topic-content {
+  background: @ul-bg-grey;
+  .topic-main {
+    .topic-main-con {
+
+    }
+  }
+}
+
+/*--------------------------------------------------------------
+                         ui Style
+--------------------------------------------------------------*/
+
+.head-h2 {
+  h2 {
+    font-size: 16px;
+    border-bottom: 2px solid #aaa;
+    margin-bottom: 0;
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    position: relative;
+    top: 1px;
+    padding-right: 20px;
+    .inline-block;
+  }
+}
+
+.fill-inthe-blanks {
+  background: @color-default;
+  margin-bottom: 10px;
+  padding:20px 30px 10px;
+  .td-1,.td-2.td-4,.td-5,.td-6,.td-7{
+    line-height: 48px;
+  }
+  .td-1,.td-2,.td-3,.td-4{
+    float: left;}
+  .td-5,.td-6,.td-7{
+    float: right;}
+  .td-1 {
+    width: 36px;
+    text-align: center;
+    font-size: 16px;
+    color: @ul-font-orange;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    top: -14px;
+  }
+  .td-2 {
+    width: 45px;
+    text-align: center;
+    position: relative;
+    .fan-icon-statistics{
+      display: none;
+      margin-top: 40px;
+    }
+    i.marking-center-sector{
+      position: absolute;
+      top: -14px;
+      left: 3px;
+      margin-top: 13px;
+      cursor: pointer;
+    }
+    .fan-icon-statistics{
+      .statistics-lca{
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+      }
+      p.f-tal{
+        font-size: 14px;
+        margin-top: 20px;
+      }
+
+    }
+  }
+  .td-heigh{
+    height: 21px;
+  }
+  .td-3 {
+    //width: 528px;
+    width: 486px;
+    //height: 48px;
+
+    .ul-list {
+      li {
+        float: left;
+        margin-bottom: 10px;
+        width: 48px;
+        height: 48px;
+      }
+      img {
+        .rounded-corners(3px);
+        display: block;
+        width: 32px;
+        height: 32px;
+        margin: 0 auto;
+      }
+      span {
+        text-align: center;
+        display: block;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+        -o-text-overflow:ellipsis;
+        overflow: hidden;
+      }
+    }
+    .list-2{
+      display: none;
+      padding-left: 25px;
+    }
+    .ul-height{
+      .transition(all 0.5s ease 0s);
+    }
+    .ul-height-auto{
+      height: auto;
+    }
+  }
+  .td-4 {
+    width: 32px;
+    text-align: center;
+    .fill-btn{
+      border: 1px solid #e6e6e6;
+      display: block;
+      color: @ul-color-bule;
+      .rounded-corners(3px);
+      position: relative;
+      height: 32px;
+      width: 32px;
+      line-height: 32px;
+      text-align: center;
+    }
+    .fill-btnhv:before{
+      content: "";
+    }
+  }
+  .td-5{text-align: center;
+      width: 140px;
+    font-size: 14px;
+    color: @ul-font-orange;
+    font-weight: bold;
+  }
+  .td-6{text-align: center;
+    width: 110px;
+    a.font-color-bule{
+      color: #7ed2fc;}
+  }
+  .td-7{
+    text-align: center;
+    width: 91px;
+    a.font-color-bule{
+      color: #7ed2fc;}
+  }
+}
+.width-hide-show{
+  .td-2{
+    width: 250px;
+    border-right: none;
+    .fan-icon-statistics{
+      display: block;}
+  }
+  .td-heigh{
+    height: auto;
+    border-right: 1px solid #ddd;
+  }
+  .td-3{
+    width: 450px;
+    .list-1{ display: none;}
+    .list-2{ display: block;}
+  }
+  .td-5{
+    display: none;
+  }
+  .td-4{
+    display: none;
+  }
+}

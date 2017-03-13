@@ -1,0 +1,76 @@
+<script id="questionTemplate" type="text/html">
+    <div class="q-detail">
+        <div class="q-body">{questionBody}</div>
+        <div class="q-image q-img" title="查看大图">
+            <img alt="题干图片" nsrc="{qImgSrc}"/>
+            <i class="fa fa-search-plus"></i>
+        </div>
+        <!--小问-->
+        <div class="q-details"></div>
+        <!--大题选项-->
+        <div class="q-options q-options-horizontal">
+            <div class="q-option">
+                <div class="q-body">
+                    <span class="q-option-word">{sortTag}.</span>
+
+                    <div class="q-option-body">{answerBody}</div>
+                </div>
+                <div class="q-image a-img" title="查看大图">
+                    <img alt="选项图片" nsrc="{aImgSrc}"/>
+                    <i class="fa fa-search-plus"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="q-template">
+    <!--题干-->
+    <div class="q-body">
+        {{#body}}
+    </div>
+    {{include 'q-image'}}
+    {{include 'q-detail'}}
+    {{if show_option}}
+    {{include 'q-option'}}
+    {{/if}}
+</script>
+<script type="text/template" id="q-detail">
+    {{if details && details.length}}
+    <!--小问-->
+    <div class="q-details">
+        {{each details as detail i}}
+        <div class="q-detail">
+            <div class="q-body">{{#detail.body}}</div>
+            {{include 'q-image' detail}}
+            {{include 'q-option' detail}}
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-option">
+    {{if answers && answers.length>1}}
+    <!--选项-->
+    <div class="q-options clearfix {{answers | optionModel}}">
+        {{each answers as answer j}}
+        <div class="q-option">
+            <div class="q-body">
+                <span class="q-option-word">{{answer.sort | optionWord}}.</span>
+
+                <div class="q-option-body">{{#answer.body}}</div>
+            </div>
+            {{include 'q-image' answer}}
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-image">
+    {{if images && images.length}}
+    <div class="q-image">
+        {{each images as img j}}
+        <img src="{{img}}" alt=""/>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>

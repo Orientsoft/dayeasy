@@ -1,0 +1,147 @@
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{ padding: 0; margin: 0; }
+
+header, footer {position: relative;z-index: 1;}
+.row{ margin: 0; }
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12{ padding: 0; margin: 0; }
+
+
+/*icon*/
+.icon_arrowDown ,.icon_arrowRight ,.icon_ranklist,.icon_ranklist_blue,.icon_statistics,.icon_statistics_blue{ display: inline-block; *display: inline; *zoom: 1;
+  background:  url(/v1/image/icon/tablecenter/icon-tab-cor.png) 0 0 no-repeat;
+}
+.iconr-Triangle{background: url(/v1/image/icon/tablecenter/iconr-Triangle.png) 2px 4px no-repeat; display: inline-block; width: 12px; height: 14px; cursor: pointer;}
+.iconr-Triangle:hover{ background-position: 2px -10px;position: relative;top: 4px;}
+.icon_arrowDown{ background-position: 0 0; width: 9px; height: 6px; }
+.icon_arrowRight{ background-position: 0 -7px; width: 6px; height: 9px; }
+.icon_ranklist{ background-position: 0 -17px; width: 22px; height: 17px;position: relative;top: 2px; }
+.icon_statistics{ background-position: 0 -53px; width: 23px; height: 16px; }
+.g-sd .m-snav .m-lst li.iconst:hover i{ background-position: 0 -70px; width: 23px; height: 16px; }
+.g-sd .m-snav .m-lst li.iconra:hover i{ background-position: 0 -35px; width: 22px; height: 17px; }
+
+
+
+.z-crt .icon_statistics{ background-position: 0 -70px; width: 23px; height: 16px; }
+.z-crt .icon_ranklist{ background-position: 0 -35px; width: 22px; height: 17px; }
+
+.orange{ color: #ffbf7f; }
+.g-bd{ font:12px arial,"微软雅黑"; outline:0; position: relative; min-height: 100%; padding:38px 0 30px; }
+
+//左侧目录导航栏
+@import "left";
+
+/*main*/
+.g-mn{ width: 752px; }
+//内容主体，界面变换区域
+//知识点掌握情况  本周错题TOP10
+
+.g-sd ,.g-mn{ border-radius: 6px; }
+.g-bd .s-bgi{ position:fixed; top:0; left:0; height:100%; width:100%; z-index:0; background-position:center 0; background: url(/image/bgimage/bg3.jpg) 0 0 no-repeat; }
+
+
+//知识点掌握情况   错题周报告 Top10
+@import "knowledge";
+
+//教师_成绩排名.psd Amend 2015-06-10 11:44:17
+@import "teacher-rank";
+
+//教师_成绩排名.psd Amend 2015-06-10 16:13:45
+@import "teacher-a";
+.aaa{
+  height: auto !important;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+//气泡组件
+.bubble{
+  position: relative;
+  z-index: 100;
+  background: white;
+  .table{
+    margin-bottom: 0;
+  }
+  .font-size-18{ font-size: 18px;}
+  .u-left{
+    width: 223px;
+    border-right: 1px solid @color-boder;
+    .u-lis-z{
+      &> li{ margin-bottom: 5px;}
+      a.corol-bule{ font-size: 12px;}
+      dl.u-dl-z{
+        width: 50%;
+        margin-bottom: 0;
+        dt{ font-size: 12px; color: @color-grey; font-weight: normal;}
+        dd{ font-size: 14px;}
+      }
+      table.u-tab{
+        caption{ padding-top: 0; padding-bottom: 0; color: #444;}
+        & > tbody > tr > td{
+          padding:3px 0;
+          border-top:none;
+          span{color: @color-grey;
+            font-size: 12px;}
+        }
+      }
+    }
+  }
+  .u-right{
+    width: 145px;
+
+
+
+    table.u-tab{
+      & > tbody > tr > th{ font-weight: normal; color: @color-grey;}
+      & > tbody > tr > th ,& > tbody > tr > td{border-top:none;padding: 3px 0;}
+    }
+  }
+}
+.m-bule-1{
+  width: 388px;
+  max-height: 216px;
+  .u-right{
+    height: auto !important;
+    max-height: 190px;
+    overflow-y: auto;
+  }
+}
+.m-bule-2{
+  width: 353px;
+  max-height: 143px;
+
+  .u-left {
+    width: 193px;
+    table.u-tab > tbody > tr > td { padding: 3px; }
+  }
+  .u-right{
+    height: auto !important;
+    max-height: 114px;
+    overflow-y: auto;
+    table.u-tab{
+      & > tbody > tr > th ,& > tbody > tr > td{padding: 3px;}
+    }
+  }
+
+}
+
+
+
+
+.m-bd-1{
+  .m-lst{
+    .u-tt{
+      margin-bottom: 15px;
+      ul li{
+        float: left;
+//        line-height: 24px;
+        margin-right: 20px;
+        label{color: @color-grey; display: inline-block; float: left;}
+        select{ display: inline-block; float: left; width: 128px; position: relative; top: -6px;padding: 3px 6px;height: 26px;}
+      }
+    }
+  }
+}
+
+.g-mn{ margin-bottom: 10px;}
+
+//http://static.dayeasy.dev

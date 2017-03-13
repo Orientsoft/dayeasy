@@ -1,0 +1,194 @@
+﻿@using DayEasy.Core
+@{
+    ViewBag.Title = "产品中心";
+}
+<div id="fullpageContainer">
+    <div class="section" id="indexsection">
+        <div id="topbar">
+            <div class="wrapper">
+                <img src="@Url.StaticLink("/image/helper/product-center/logo.png")">
+                <div class="login">
+                    <a href="@Consts.Config.LoginSite">登陆</a> | <a href="@Consts.Config.RegisterSite">注册</a>
+                </div>
+            </div>
+        </div>
+        <div id="videoPlay" class="bannertext"><img src="@Url.StaticLink("/image/helper/product-center/bannertext.png")"></div>
+        <div class="arrowDown" title="鼠标向下滚动"></div>
+    </div>
+    <div class="section">
+        <div class="slide">
+            <div class="wrapper animate">
+                <h1>我的得一</h1>
+                <img class="img_0100_1" src="@Url.StaticLink("/image/helper/product-center/img_0100_1.png")">
+                <img class="img_0100_2" src="@Url.StaticLink("/image/helper/product-center/img_0100_2.png")">
+            </div>
+        </div>
+        <div class="slide">
+            <div class="wrapper">
+                <div>
+                    <h2><span>得一题库</span></h2>
+                    <h3><span>不止是多</span></h3>
+                    <ul><li>海量题库，每一道题目都是精品</li><li>每一名教师都是创作题目的艺术家</li><li>私题管理，同校分享</li></ul>
+                </div>
+                <div class="animate">
+                    <img class="img_0102" src="@Url.StaticLink("/image/helper/product-center/img_0102.png")">
+                    <img class="img_0102_1" src="@Url.StaticLink("/image/helper/product-center/img_0102_1.png")">
+                    <img class="img_0102_2" src="@Url.StaticLink("/image/helper/product-center/img_0102_2.png")">
+                </div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="wrapper">
+                <div>
+                    <h2><span>得一试卷</span></h2>
+                    <h3><span>快从哪里来</span></h3>
+                    <ul><li>模板出卷，一键酷爽</li><li>智能组卷，机器人在帮你哦</li></ul>
+                </div>
+                <div class="animate">
+                    <img class="img_0103_01" src="@Url.StaticLink("/image/helper/product-center/img_0103_01.png")">
+                    <img class="img_0103_02" src="@Url.StaticLink("/image/helper/product-center/img_0103_02.png")">
+                    <img class="img_0103_03" src="@Url.StaticLink("/image/helper/product-center/img_0103_03.png")">
+                    <img class="img_0103_04" src="@Url.StaticLink("/image/helper/product-center/img_0103_04.png")">
+                </div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="wrapper">
+                <div>
+                    <h2><span>作业中心</span></h2>
+                    <h3><span>精准统计、报表呈现</span></h3>
+                    <ul><li>您做过的每一份作业，“得一”都存着</li><li>强大的统计，想您所想</li><li>作业定时发布，从此高枕无忧</li></ul>
+                </div>
+                <div class="animate">
+                    <img class="img_0105_01" src="@Url.StaticLink("/image/helper/product-center/img_0105_01.png")">
+                    <img class="img_0105_02" src="@Url.StaticLink("/image/helper/product-center/img_0105_02.png")">
+                    <img class="img_0105_03" src="@Url.StaticLink("/image/helper/product-center/img_0105_03.png")">
+                </div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="wrapper">
+                <div>
+                    <h2><span>作业统计</span></h2>
+                    <h3><span>会说话的数据</span></h3>
+                    <ul><li>班级总况,全面统计</li><li>学生个况,深度解析</li><li>弹指间,掌控全局</li></ul>
+                </div>
+                <div class="animate">
+                    <img class="img_0106_01" src="@Url.StaticLink("/image/helper/product-center/img_0106_01.png")">
+                    <img class="img_0106_02" src="@Url.StaticLink("/image/helper/product-center/img_0106_02.png")">
+                </div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="wrapper">
+                <div>
+                    <h2><span>得一课堂</span></h2>
+                    <h3><span>24小时陪伴你读书</span></h3>
+                    <ul><li>翻转课堂，效率提升</li><li>微检测、微视频：于细微处看大世界</li><li>任何时间、任何地点都永久在线的课堂</li></ul>
+                </div>
+                <div class="animate">
+                    <img class="img_0104_01" src="@Url.StaticLink("/image/helper/product-center/img_0104_01.png")">
+                    <img class="img_0104_02" src="@Url.StaticLink("/image/helper/product-center/img_0104_02.png")">
+                </div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="wrapper">
+                <div>
+                    <h2><span>错题库</span></h2>
+                    <h3><span style="font-size:18px">曾经有一份珍贵的错题放在我的面前</span></h3>
+                    <ul><li>不用您抄错题，我们都帮您记下了</li><li>关联知识点，对症下药</li><li>变式再练：有多少错可以重来</li></ul>
+                </div>
+                <div class="animate">
+                    <img class="img_0108_01" src="@Url.StaticLink("/image/helper/product-center/img_0108_01.png")">
+                    <img class="img_0108_02" src="@Url.StaticLink("/image/helper/product-center/img_0108_02.png")">
+                    <img class="img_0108_03" src="@Url.StaticLink("/image/helper/product-center/img_0108_03.png")">
+                    <img class="img_0108_04" src="@Url.StaticLink("/image/helper/product-center/img_0108_04.png")">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="slide">
+            <div class="wrapper animate">
+                <h1>阅卷系统</h1>
+                <img class="img_0200" src="@Url.StaticLink("/image/helper/product-center/img_0200.png")">
+            </div>
+        </div>
+        <div class="slide">
+            <div class="wrapper">
+                <div>
+                    <h2><span>阅卷系统</span></h2>
+                    <h3><span>阅卷，从此轻松起来</span></h3>
+                    <ul><li>高速扫描、自动批阅</li><li>实时统计、套打反馈</li><li>阅卷，动动鼠标就可以了</li></ul>
+                </div>
+                <div class="animate">
+                    <img class="img_0201_01" src="@Url.StaticLink("/image/helper/product-center/img_0201_01.png")">
+                    <img class="img_0201_02" src="@Url.StaticLink("/image/helper/product-center/img_0201_02.png")">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="slide">
+            <div class="wrapper">
+                <h1>得一平板</h1>
+                <img src="@Url.StaticLink("/image/helper/product-center/img_0300.png")">
+            </div>
+        </div>
+        <div class="slide">
+            <div class="wrapper">
+                <div>
+                    <h2><span>得一平板</span></h2>
+                    <h3><span>移动互联你的学习</span></h3>
+                    <ul><li>方寸之间、学有所成</li><li>强大的移动学习终端</li><li>定制APP，为您专享</li></ul>
+                </div>
+                <div>
+                    <img src="@Url.StaticLink("/image/helper/product-center/img_0301.png")" style="position:absolute;right:15px;top:-10%;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section footerSection">
+        <div class="titleContainer">
+            <h1>来自互联网的教育力量,得一科技</h1>
+            <h2>更多功能等你来体验</h2>
+        </div>
+
+        <div class="buttnContainer">
+            <input onclick="window.location.href='@Consts.Config.MainSite'" type="button" value="马上体验">
+        </div>
+        <div id="footer">
+            <a href="@Consts.Config.MainSite/helper/contact-us" target="_blank"> 联系我们</a> | 建议使用 <a href="http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandaloneSetup41.0.2272.89.1426235198.exe">Chrome浏览器</a> | 蜀ICP备14013147号 | © 2013-2017 <a href="@Consts.Config.MainSite">DayEasy.net</a>
+        </div>
+    </div>
+</div>
+<div id="popup" style="display:none">
+    <div id="popupVideo">
+    </div>
+    <div id="icon_close"></div>
+    <div class="shade"></div>
+</div>
+@section css{
+    @Html.CombineLink("plugs/fullpage/jquery-fullpage.min.css,css/helper/video-js.min.css,css/helper/product-center.css")
+
+}
+@section js{
+
+
+
+    @Html.CombineLink("js/jquery.easing.min.js,plugs/fullpage/jquery-fullpage.min.js,js/helper/video.min.js,plugs/ckplayer/ckplayer.min.js,js/mousewheel.min.js")
+    @Html.CombineLink("js/helper/bigvideo.js,js/helper/imagesloaded.pkgd.min.js,js/helper/imagesloaded.js,js/helper/product-center.js")
+    <script type="text/javascript">
+        var flashvars = {
+            f: singer.sites.file + '/video/dayeasy-demo.mp4',
+            c: 0,
+            p: 1,
+            loaded: 'loadedHandler'
+        };
+        var video = [singer.sites.file + '/video/dayeasy-demo.mp4->video/mp4'];
+        CKobject.embed(singer.sites.static + '/plugs/ckplayer/ckplayer.swf', 'popupVideo', 'ckplayer_video', '889', '500', false, flashvars, video);
+
+   
+    </script>
+}

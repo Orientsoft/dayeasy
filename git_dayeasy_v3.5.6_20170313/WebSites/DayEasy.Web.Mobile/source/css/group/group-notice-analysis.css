@@ -1,0 +1,138 @@
+/**
+ * Created by Boz on 2016/5/20.
+ * 加入圈子成功-跳转页面
+ */
+/*班级圈详情列表*/
+.work-notice-analysis {
+  font-size: 14px;
+}
+.work-notice-analysis .h2-title {
+  font-size: 16px;
+  color: #333;
+  margin: 15px 20px;
+  font-weight: normal;
+}
+.head-title-analysis {
+  background-color: #f5fbfd;
+  padding: 20px 20px 15px 0;
+  color: #999;
+  border-bottom: 1px solid #eee;
+}
+.head-title-analysis .td-left {
+  width: 31.25%;
+  text-align: center;
+  margin-top: 32.5px;
+}
+.head-title-analysis .td-left b {
+  color: #3bafda;
+  font-size: 26px;
+  width: 90px;
+  display: inline-block;
+}
+.head-title-analysis .td-right {
+  border-left: 1px solid #eee;
+  width: 68.5%;
+}
+.head-title-analysis .td-right dl {
+  margin: 0;
+  width: 50%;
+  float: left;
+  margin-bottom: 20px;
+}
+.head-title-analysis .td-right dt {
+  font-weight: normal;
+  text-align: center;
+}
+.head-title-analysis .td-right dd {
+  color: #3bafda;
+  font-size: 18px;
+  text-align: center;
+  word-wrap: normal;
+  /* for IE */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.table-analysis {
+  padding: 0px 20px;
+}
+#ove-x {
+  width: 100%;
+  overflow: auto;
+}
+.d-ranking {
+  padding: 0 20px;
+}
+.d-ranking dl {
+  margin-bottom: 10px;
+}
+.d-ranking dt,
+.d-ranking dd {
+  margin: 0;
+}
+.d-ranking dt {
+  float: left;
+  color: #333;
+}
+.d-ranking dd {
+  float: right;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  padding: 0px 7.5px;
+  color: #666;
+}
+.d-ranking dd.on {
+  color: #000;
+  color: #3bafda;
+}
+.d-ranking .subject {
+  font-weight: bold;
+  width: 20%;
+}
+.d-ranking .tab-menu {
+  width: 80%;
+  text-align: right;
+  margin-bottom: 5px;
+}
+.d-ranking .tab-menu span {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin: 0 5px;
+  border: 1px solid #eee;
+  color: #bbb;
+  padding: 0 6px;
+}
+.d-ranking .tab-menu span.on {
+  color: #000;
+  color: #3bafda;
+  border-color: #3bafda;
+}
+.d-ranking .tab-score-conten table {
+  width: 100%;
+  display: none;
+  margin-bottom: 15px;
+}
+.d-ranking .tab-score-conten table.on {
+  display: inline-table;
+}
+.d-analysis-table {
+  width: 100%;
+}
+.d-analysis-table th,
+.d-analysis-table td {
+  border: 1px solid #eee;
+  padding: 5px;
+  text-align: center;
+}
+.d-analysis-table th {
+  color: #666;
+}
+.d-analysis-table td {
+  color: #999;
+}
+.g-segment th,
+.g-segment td {
+  width: 50%;
+}

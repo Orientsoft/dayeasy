@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    @@include('./link-style.html')
+    <title>重置密码选择 - 我的得一 - 触屏版</title>
+    <link rel="stylesheet" href="/css/account/login.min.css"/>
+</head>
+<body>
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <div class="hp-left hp-back">
+                <span class="hp-icon hp-icon-arrow-left"></span>
+                <span class="hp-icon hp-icon-arrow-right"></span>
+            </div>
+            <h1 class="hp-h1">选择密码重置方式</h1>
+        </div>
+    </div>
+</header>
+<section class="d-login-main">
+    <div class="d-resetpwd-choose">
+        <div class="hp-section">
+            <div class="hp-reset-choose">
+                <!-- 选择登陆 -->
+                <div class="hp-list hp-cf">
+
+                    <a class="hp-sms" href="/page/account/resetpwd-sms.html">
+                        <p><i class="fa fa-comments"></i></p>
+
+                        <span class="hp-name">短信</span>
+                    </a>
+                    <a class="hp-email" href="/page/account/resetpwd-email.html">
+                        <p><i class="fa fa-envelope-o"></i></p>
+                        <span class="hp-name">邮箱</span>
+                    </a>
+                </div>
+            </div>
+            <!-- 第三方登录 -->
+            <div class="lg-form-group">QQ登录：<a style=" color: #4fc1e9;" href="javascript:void(0)"><span class="fa fa-qq"></span></a></div>
+        </div>
+    </div>
+</section>
+<script src="/js/page/login.min.js"></script>
+</body>
+</html>

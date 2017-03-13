@@ -1,0 +1,43 @@
+/*--------------------------------------------------------------
+                        题目统计 推送
+
+      Author:Plato
+      Create Date:15.08.25    Last Mondify Date:15.08.25
+      ===================================================
+
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+                        教师 推批阅中心 Variables
+
+      Author:Plato
+      Create Date:15.08.20    Last Mondify Date:15.08.20
+      ===================================================
+
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+                         IMG url
+--------------------------------------------------------------*/
+.icon-markingcenter {
+  background: url("../../../../image/v2.0/testcenter-teacher.png") 0 0 no-repeat;
+  background-repeat: no-repeat;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.icon-markingcenter.marking-center-bubble {
+  background-position: -16px 0;
+  width: 34px;
+  height: 15px;
+  text-align: center;
+  line-height: 15px;
+  font-size: 12px;
+  font-style: normal;
+  position: absolute;
+  border-bottom: 0;
+  right: -37px;
+  color: #ffffff;
+}
+/*--------------------  main Style  -----------------------*/
+/*--------------------------------------------------------------
+                         ui Style
+--------------------------------------------------------------*/

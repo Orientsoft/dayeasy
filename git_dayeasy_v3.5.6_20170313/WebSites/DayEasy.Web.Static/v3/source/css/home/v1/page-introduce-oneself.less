@@ -1,0 +1,73 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2016/8/18 10:36
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+@import "../../../less/base";
+
+/* Style for our header texts
+	* --------------------------------------- */
+.dy-wrap {
+  .background-image('index/bg0.jpg', repeat-y, transparent);
+  position: relative;
+  }
+.introduce-oneself {
+  .absolute-center(530px,580px);
+  .head-title {
+    margin-bottom: 40px;
+    text-align: center;
+    h1 { font-size: 30px; color: #666; margin-bottom: 20px; }
+    p { font-size: 18px; color: #999; }
+    }
+  .wrap-base {
+    margin-bottom: 20px;
+    h2 { color: #999; margin-bottom: 10px; }
+    li { border: 1px solid #3bafda; float: left; color: #3bafda; margin-right: 10px; text-align: center; cursor: pointer; font-size: 16px;
+      &.on{ color: white; background: #3bafda;}
+      }
+    }
+  .wrap-box-1, .wrap-box-2 {
+    li { height: 40px; line-height: 40px;}
+    }
+  .wrap-box-1 {
+    li:nth-child(1){ width: 180px;}
+    li:nth-child(2){ width: 140px;}
+    li:nth-child(3){ width: 170px;}
+    }
+  .wrap-box-2 {
+    li:nth-child(1),li:nth-child(2){ width: 150px;}
+    li:nth-child(3){ width: 190px;}
+    }
+  .wrap-box-3 {
+    @ns:120px;
+    @nsz:60px;
+    height: 215px;
+    li{ margin-bottom: 10px;position: absolute; }
+    li:nth-child(1){width: @ns;height: @ns; line-height: @ns; top: 0; left: 0;}
+    li:nth-child(2){top: 0; left: @ns+10;  width: @ns; height: @nsz;line-height: @nsz;}
+    li:nth-child(3){width: @ns;height: @ns; line-height: @ns; top: 0; left:  @ns*2+10*2;}
+    li:nth-child(4){  width: @ns; height: @nsz;line-height: @nsz; top: 0; left:  @ns*3+10*3;}
+    li:nth-child(5){  width: @ns; height: @nsz;line-height: @nsz;top: @ns+10; left: 0;}
+    li:nth-child(6){width: @ns;height: @ns; line-height: @ns;top: @nsz+10; left: @ns+10;}
+    li:nth-child(7){width: @ns; height: @nsz;line-height: @nsz; top: @ns+10; left: @ns*2+10*2;}
+    li:nth-child(8){width: @ns;height: @ns; line-height: @ns; top: @nsz+10; left:  @ns*3+10*3;}
+    }
+  .wrap-box-4{
+    li{height: 80px;line-height: 80px;}
+    li:nth-child(1){    width: 180px; padding: 19px 40px; line-height: 24px;}
+    li:nth-child(2){ width: 140px;}
+    li:nth-child(3){ width: 170px;padding: 19px 35px; line-height: 24px;}
+    }
+  &.student{
+    .wrap-box-3{
+      li:nth-child(6),li:nth-child(3),li:nth-child(8){padding: 35px 12px 0; line-height: 25px;}
+      li:nth-child(6){
+        padding-top:45px;}
+      }
+    }
+  }

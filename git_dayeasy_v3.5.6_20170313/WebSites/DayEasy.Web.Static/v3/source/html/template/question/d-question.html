@@ -1,0 +1,58 @@
+<script type="text/template" id="q-template">
+    <div class="q-item">
+        <div class="q-main">
+            <!--题干-->
+            <div class="q-body">
+                {{if sort}}
+                <span class="q-sort">{{sort}}.</span>
+                {{/if}}
+                {{#body}}
+            </div>
+            {{include 'q-image'}}
+            {{include 'q-detail'}}
+            {{include 'q-option'}}
+        </div>
+    </div>
+</script>
+<script type="text/template" id="q-detail">
+    {{if details && details.length}}
+    <!--小问-->
+    <div class="q-details">
+        {{each details as detail i}}
+        <div class="q-detail">
+            <div class="q-body">{{#detail.body}}</div>
+            {{include 'q-image' detail}}
+            {{include 'q-option' detail}}
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-option">
+    {{if answers && answers.length>1}}
+    <!--选项-->
+    <div class="q-options clearfix {{answers | optionModel}}">
+        {{each answers as answer j}}
+        {{if answer.body != '' || answer.images.length>0}}
+        <div class="q-option">
+            <div class="q-body">
+                <span class="q-option-word">{{answer.sort | optionWord}}.</span>
+
+                <div class="q-option-body">{{#answer.body}}</div>
+            </div>
+            {{include 'q-image' answer}}
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-image">
+        {{if images && images.length}}
+    <div class="q-image">
+        {{each images as img j}}
+        <img src="{{img}}" alt=""/>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>

@@ -1,0 +1,218 @@
+@import "../base";
+
+/*-- 统计相关 --*/
+.dy-body .dy-container {
+  margin-top: 25px;
+}
+
+.d-statistics-wrap {
+  float: left;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 35px;
+  .d-paper-title {
+    border-bottom: 1px dashed @gray-light;
+    padding-bottom: 15px;
+    text-align: center;
+    .d-paper-score {
+      position: absolute;
+      right: 15px;
+      top: 40px;
+      font-size: 14px;
+      color: @gray-light;
+    }
+  }
+  .q-item {
+    border: none;
+    overflow: hidden;
+    .box-shadow(none);
+    .q-main {
+      cursor: default;
+    }
+  }
+  .q-statistic {
+    line-height: 25px;
+    margin-top: 15px;
+    overflow: hidden;
+    float: left;
+    width: 100%;
+    .qs-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: @color-primary;
+      cursor: pointer;
+      i {
+        margin-left: 8px;
+      }
+    }
+    .qs-wrap {
+      margin-top: 12px;
+      border-top: 1px dashed @border-color;
+      position: relative;
+      overflow: hidden;
+      display: none;
+      .qs-chart-wrap {
+        margin-top: 25px;
+        .qs-chart {
+        }
+      }
+      .qs-vr {
+        position: absolute;
+        top: 55px;
+        bottom: 25px;
+        left: 460px;
+        border-right: 1px dashed @border-color;
+      }
+      .qs-users {
+        float: left;
+        margin-top: 55px;
+        margin-bottom: 25px;
+        .qs-users-title {
+          font-size: 15px;
+          color: @color-warning;
+          margin-bottom: 15px;
+          span {
+            color: @gray;
+            padding-left: 5px;
+          }
+          em {
+            font-style: normal;
+            color: @color-danger;
+          }
+        }
+        ul {
+          position: relative;
+          overflow: hidden;
+        }
+        li {
+          border: 1px solid @border-color;
+          color: @gray-light;
+          float: left;
+          margin-right: 12px;
+          margin-bottom: 12px;
+          padding: 0 8px;
+          a {
+            padding: 3px 6px;
+          }
+        }
+      }
+      .qs-sub {
+        margin-top: 15px;
+        padding-left: 0;
+        .qs-users-title {
+          color: @gray;
+        }
+        li {
+          cursor: pointer;
+          &:hover {
+            border: 1px solid #7ed2fc;
+          }
+          &:hover a {
+            color: #7ed2fc;
+          }
+        }
+      }
+    }
+  }
+  .d-empty {
+    line-height: 35px;
+    padding-left: 15px;
+    color: @gray-light;
+  }
+  .d-group {
+    line-height: 32px;
+    margin: 20px 25px 0;
+    /*bozhuang 2015-03-16 18:15:09  显示问题修改*/
+    // padding: 0 15px;
+    .d-group-title {
+      border-bottom: 1px dashed @border-color;
+      color: @color-primary;
+      font-size: 15px;
+      line-height: 42px;
+    }
+    .d-content {
+      margin-top: 20px;
+    }
+    ul {
+      position: relative;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+    li {
+      float: left;
+      margin: 0 15px 12px 0;
+      padding: 3px 12px;
+      line-height: 22px;
+      border: 1px solid @border-color;
+    }
+    .d-ranking {
+      .order-wrap {
+        margin-bottom: 12px;
+      }
+      .order-control {
+        color: @color-primary;
+        cursor: pointer;
+        i {
+          display: inline-block;
+          margin-left: 3px;
+        }
+      }
+      .active {
+        color: @color-warning;
+        cursor: default;
+      }
+      .table {
+        /*bozhuang 2015-03-16 18:15:09  显示问题修改*/
+        // width: 500px;
+        text-align: center;
+        margin-bottom: 0;
+        thead {
+          background-color: #f8f8f8;
+          font-weight: 600;
+          th {
+            text-align: center;
+          }
+        }
+        tbody {
+          td {
+            border-top-style: dashed;
+            font-family: "宋体", serif;
+            .linkColor(@color-primary, @color-warning, underline);
+          }
+        }
+      }
+    }
+    .d-section, .d-average {
+      .table {
+        /*bozhuang 2015-03-16 18:15:09  显示问题修改*/
+        // width: 330px;
+        text-align: center;
+        margin-bottom: 0;
+        thead {
+          background-color: #f8f8f8;
+          font-weight: 600;
+        }
+        tbody {
+          td {
+            border-top-style: dashed;
+            font-family: "宋体";
+            .linkColor(@color-primary, @color-warning, underline);
+          }
+        }
+      }
+    }
+  }
+  .d-loading {
+    line-height: 35px;
+    text-align: center;
+    margin-top: 15px;
+    i {
+      margin-right: 6px;
+    }
+  }
+  #pass-open, #pass-hide {
+    color: @color-primary;
+    cursor: pointer;
+  }
+}

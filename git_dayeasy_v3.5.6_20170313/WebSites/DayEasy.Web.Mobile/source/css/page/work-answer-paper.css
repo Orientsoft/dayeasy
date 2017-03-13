@@ -1,0 +1,109 @@
+/**
+ * Created by Boz on 2016/5/23.
+ * 试卷分析
+ */
+.work-answer-paper {
+  padding: 0;
+}
+.work-answer-paper .d-textarea {
+  margin-bottom: 10px;
+}
+.answer-paper-nav {
+  min-width: 100%;
+  background: url(/image/bg/bg1_work.jpg) no-repeat #fff;
+  background-size: cover;
+}
+.answer-paper-nav ul {
+  width: 100%;
+  padding-left: 0;
+}
+.answer-paper-nav li {
+  float: left;
+  line-height: 40px;
+  position: relative;
+  list-style: none;
+}
+.answer-paper-nav li.on a {
+  color: #fff;
+  font-size: 16px;
+}
+.answer-paper-nav a {
+  padding: 0 15px;
+  color: rgba(255, 255, 255, 0.6);
+  display: block;
+  font-size: 14px;
+}
+.topic-list {
+  padding-left: 0;
+  background: #f6f6f6;
+}
+.topic-list li {
+  list-style: none;
+  /* background: #10;*/
+  background: white;
+}
+.team_pos {
+  position: absolute;
+  right: 0;
+  height: 26px;
+  width: 42px;
+  border-radius: 13px 0 0 13px;
+  background: #43a1ff;
+  color: #fff;
+  font-size: 12px;
+  line-height: 25px;
+  padding-left: 12px;
+}
+.goto-topic-detail-btn {
+  width: 98%;
+  margin: 0px auto;
+  font-size: 12px;
+  color: #999;
+  padding: 5px;
+  display: block;
+  background: #f6f6f6;
+  border-radius: 5px;
+  line-height: 29px;
+  border-top: 1px solid #eee;
+}
+.goto-topic-detail-btn .topic-tab .tab-1 span.bg {
+  display: inline-block;
+  color: #3bafda;
+}
+.goto-topic-detail-btn .topic-tab .tab-2 {
+  padding-left: 10px;
+}
+/**
+ * 妹子 tab 默认 主题修改
+ *
+ * @name boz
+ */
+.am-tabs-d2 .am-tabs-nav li {
+  background: #fcfcfc;
+}
+.am-tabs-d2 .am-tabs-nav > .am-active:after {
+  border-bottom-color: transparent;
+}
+.am-tabs-d2 .am-tabs-bd {
+  border: none;
+}
+.dy-questions-btn .tab-conten {
+  line-height: 1.8em;
+  background: #fafbfc;
+}
+.dy-questions-btn .tab-conten .g-answer-title {
+  width: 70px;
+  text-align: right;
+}
+.dy-questions-btn .tab-conten .g-answer-body {
+  width: 73%;
+}
+.ui-dialog-grid {
+  min-width: 100%;
+}
+.ui-dialog {
+  min-width: 320px;
+}
+.ui-dialog-body {
+  padding: 0px;
+}

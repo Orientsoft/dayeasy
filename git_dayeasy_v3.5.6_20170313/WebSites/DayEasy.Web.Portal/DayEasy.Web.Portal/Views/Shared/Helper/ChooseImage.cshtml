@@ -1,0 +1,69 @@
+﻿@model List<RecommendImageItem>
+@using DayEasy.Core.Config
+<!--图片选择器-->
+<div class="d-choose-box">
+
+    <div class="d-choose-nav">
+        <ul>
+            <li class="active">推荐背景</li>
+            <!--<li>自定义背景</li>-->
+        </ul>
+        <button class="ui-dialog-close" i="close" title="关闭">×</button>
+    </div>
+    <div class="d-pannel">
+        <ul class="d-image-list">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var img in Model)
+                {
+                    var active = img.ImageUrl == ViewBag.Image;
+                    <li data-image="@img.ImageUrl" class="@(active ? "active" : "")">
+                        <img src="@img.PreviewUrl" alt="@img.Title" />
+                        <b></b>
+                        <i class="iconfont dy-icon-13"></i>
+                    </li>
+                }
+            }
+            else
+            {
+                <div class="dy-nothing">没有相关推荐图片</div>
+            }
+        </ul>
+        <div class="d-pannel-bottom">
+            <div class="d-control-left disabled"></div>
+            <div class="d-page-list">
+                <div class="d-page"></div>
+                <div class="d-page active"></div>
+            </div>
+            <div class="d-control-right"></div>
+        </div>
+    </div>
+    <div class="d-pannel hide">
+        <div class="d-update-image">
+            <button class="dy-btn dy-btn-info">上传图片</button>
+        </div>
+        <div class="d-image-desc">
+            图片大小为:宽1200像素,高120像素;支持图片格式:.jpg,.gif,.png;文件大小不能超过500k。
+        </div>
+    </div>
+</div>
+<script>
+    (function ($, S) {
+        $('.d-choose-nav li').bind('click', function () {
+            var $t = $(this);
+            if ($t.hasClass('active'))
+                return false;
+            $t.addClass('active').siblings().removeClass('active');
+            $('.d-pannel').toggleClass('hide');
+            return false;
+        });
+        $('.d-image-list li').bind('click', function () {
+            var $t = $(this);
+            if ($t.hasClass('active'))
+                return false;
+            $t.addClass('active').siblings().removeClass('active');
+            S.setImage($t.data('image'));
+            return false;
+        });
+    })(jQuery, SINGER);
+</script>

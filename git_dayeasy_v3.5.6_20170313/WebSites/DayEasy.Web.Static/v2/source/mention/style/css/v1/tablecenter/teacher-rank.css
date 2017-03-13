@@ -1,0 +1,59 @@
+.trs {
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+.wsn {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
+.boxsh {
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1), 0 0px 0px rgba(0, 0, 0, 0.18);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1), 0 0px 0px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1), 0 0px 0px rgba(0, 0, 0, 0.18);
+}
+a.color-bule {
+  color: #3ab6f4;
+}
+a.color-bule:hover {
+  color: #ff8104;
+  text-decoration: underline;
+}
+.m-lst .teacher-rank th,
+.m-lst .teacher-rank td {
+  text-align: center;
+}
+.m-lst .teacher-rank th {
+  font-size: 12px;
+  color: #999;
+  font-weight: normal;
+}
+.m-lst .teacher-rank td i.glyphicon {
+  position: relative;
+}
+.m-lst .teacher-rank td i.glyphicon-arrow-up {
+  color: #ff8104;
+}
+.m-lst .teacher-rank td i.glyphicon-arrow-down {
+  color: #3ab6f4;
+  top: 3px;
+}
+.m-lst .teacher-rank td i.glyphicon-minus {
+  color: #8d8d8d;
+  top: 2px;
+}
+.m-lst .teacher-rank td a.color-bule {
+  color: #3ab6f4;
+}
+.m-lst .teacher-rank td a.color-bule:hover {
+  color: #ff8104;
+  text-decoration: underline;
+}
+.m-lst .table-hover > tbody > tr:hover {
+  background: #d9f2ff;
+}
+.m-lst .table-hover > tbody > tr.f-hover-none:hover {
+  background: none;
+}

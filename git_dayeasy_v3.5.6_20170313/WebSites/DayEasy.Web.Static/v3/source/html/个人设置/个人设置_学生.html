@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>个人设置_学生</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/setting/page-personal-setting.css"/>
+</head>
+<body>
+
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="page-personal-setting w1200 f-cb">
+            <div class="top-title">
+                <div class="user-img">
+                    <!-- colored -->
+                    <div class="ih-item circle colored effect13 from_left_and_right">
+                        <a href="#">
+                            <div class="img">
+                                <img src="/v3/image/temp/header.png" width="160" height="160" alt="img">
+                                <input class="file-input" type="file" name="">
+                            </div>
+                            <div class="info">
+                                <div class="info-back">
+                                    <h3>更换头像</h3>
+                                    <p>头像大小160*160</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <p class="setting-user-name f-tac">甘道夫</p>
+                    <!-- end colored -->
+                </div>
+            </div>
+            <ul class="mian-cont f-cbli">
+                <li>
+                    <label>登陆邮箱</label>
+                    <p>
+                        <input type="text" value="dayeasy@teacher.com"/>
+                        <i class="iconfont dy-icon-edit2"></i>
+                        <i class="iconfont dy-icon-13"></i>
+                    </p>
+                </li>
+                <li>
+                    <label>昵称</label>
+                    <p>
+                        <input type="text" value="maike"/>
+                        <i class="iconfont dy-icon-edit2"></i>
+                        <i class="iconfont dy-icon-13"></i>
+                    </p>
+                </li>
+                <li>
+                    <label>真实姓名</label>
+                    <p>
+                        <input type="text" value="张全蛋"/>
+                    </p>
+                </li>
+                <li>
+                    <label>手机</label>
+                    <p>
+                        <input type="text" value="136 5898 5412"/>
+                        <i class="iconfont dy-icon-edit2"></i>
+                        <i class="iconfont dy-icon-13"></i>
+                    </p>
+                </li>
+                <li>
+                    <label>得一号</label>
+                    <p>
+                        <input type="text" value="7489489"/>
+                    </p>
+                </li>
+                <li>
+                    <label>角色</label>
+                    <p>
+                        <input type="text" disabled="disabled" value="家长"/>
+                    </p>
+                </li>
+                <li>
+                    <label>密码</label>
+                    <p>
+                        <input type="text" value="******"/>
+                        <i class="iconfont dy-icon-edit2"></i>
+                        <i class="iconfont dy-icon-13"></i>
+                    </p>
+                </li>
+                <li>
+                    <label>第三方账号</label>
+                    <p class="padding">
+                        <!--无绑定-->
+                        <a href=""><i class="iconfont dy-icon-41"></i><span>绑定QQ</span></a>
+                        <!--已绑定-->
+                        <!--<em>我是昵称</em><a href=""> <span></span>绑定QQ</a>-->
+                </li>
+                <li class="family-Setup">
+                    <label>家庭关联账号</label>
+                    <p class="padding">
+                        <span>
+                            <b>爸爸</b>
+                            <em>1115489@qq.com</em>
+                        </span>
+                        <span>
+                            <b>妈妈</b>
+                            <em>王尼美</em>
+                        </span>
+                </li>
+
+
+
+            </ul>
+        </div>
+
+
+
+
+    </div>
+</div>
+@@include('./footer.html')
+<script src="/v3/source/js/setting/ui-setting.js"></script>
+
+</body>
+</html>

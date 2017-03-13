@@ -1,0 +1,197 @@
+@charset "UTF-8";
+/**
+ * Boz
+ * @date    2016-09-28
+ * 选课
+ */
+@import "../../../less/base";
+@import (reference) "../../../less/ui-deyi";
+
+//dy-icon-49  ren
+// 默认
+.deyi-bg-base();
+.deyi-header-bottom();
+.page-course {
+  overflow: hidden;
+  background: @color-default;
+  .h2-title {
+    margin: 10px 0 20px 0;
+    border-left: 5px solid #ed5565;
+    padding-left: 15px;
+    color: #333;
+    font-size: 18px;
+  }
+}
+
+.course-box-list {
+  width: 216px;
+  height: 150px;
+  margin: 0 12px 20px;
+  border: 1px solid #cccccc;
+  .rounded-corners(10px);
+  padding: 15px 10px;
+  position: relative;
+  float: left;
+
+  //我要报名
+  &.default {
+    .course-list-bottom .box-default .fr-text em {
+      color: #3bafda;
+    }
+    &:hover {
+      border: 1px solid #3bafda;
+      .box-default, .course-proportion {
+        display: none;
+      }
+      .course-list-bottom {
+        .box-default .fr-text em {
+          color: #3bafda;
+        }
+        .box-sign-up {
+          display: block;
+        }
+      }
+    }
+  }
+  //已报名-我要退出
+  &.sign-up {
+    .course-list-bottom .box-default .fr-text em {
+      color: #3bafda;
+    }
+    &:after {
+      display: block;
+    }
+    &:hover {
+      border: 1px solid #fc6e51;
+      .box-default, .course-proportion {
+        display: none;
+      }
+      .course-list-bottom {
+        .box-withdraw {
+          display: block;
+        }
+      }
+    }
+  }
+  //报名满
+  &.pack-full {
+    &:after {
+      display: block;
+      background-position: 0 -65px;
+    }
+  }
+  &::after {
+    display: none;
+    content: ' ';
+    .background-image('management/statistics/icon-course.png', no-repeat, transparent);
+    background-position: 0 0;
+    width: 66px;
+    height: 65px;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+  }
+  h3 {
+    font-weight: bold;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  .course-list-top, .course-list-main {
+    font-size: 14px;
+    color: #999;
+    .iconfont {
+      color: #666;
+      font-size: 14px;
+      margin-right: 5px;
+      float: left;
+    }
+    .box-span {
+      display: block;
+      float: left;
+      width: 174px;
+    }
+  }
+  .course-list-top {
+    margin-bottom: 10px;
+  }
+  .course-list-main {
+    margin-bottom: 20px;
+  }
+  .course-list-bottom {
+    .box-default {
+      font-size: 14px;
+      color: #999;
+      height: 20px;
+      line-height: 20px;
+      .fl-text {
+        em {
+          font-weight: bold;
+          .inline-block;
+          padding: 0 2px;
+        }
+      }
+      .fr-text {
+        em {
+          font-weight: bold;
+          .inline-block;
+          font-size: 18px;
+          color: #999;
+          padding: 0 2px;
+        }
+      }
+    }
+    .box-withdraw {
+      display: none;
+      .course-btn-orange {
+        width: 100%;
+        font-size: 16px;
+        color: #fff;
+        background-color: #fc6e51;
+        border-color: #fc6e51;
+        height: 30px;
+        &:hover {
+          background-color: #e06147;
+          border-color: #e06147;
+        }
+      }
+    }
+    .box-sign-up {
+      display: none;
+      .dy-btn-info {
+        width: 100%;
+        font-size: 16px;
+        height: 30px;
+      }
+    }
+  }
+  .course-proportion {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    margin-bottom: 10px;
+    background: #eeeeee;
+    .rounded-corners(1.5px);
+    .span-proportion {
+      .rounded-corners(1.5px);
+      background: #3bafda;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20%;
+      height: 4px;
+      display: block;
+    }
+  }
+}
+
+.icon-base {
+  .icon-course {
+    width: 66px;
+    height: 65px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    .background-image('management/statistics/icon-course.png');
+  }
+}

@@ -1,0 +1,186 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using DayEasy.Utility.Helper
+@using DayEasy.Web.ManageMent.Common
+@model List<TS_Subject>
+@{
+    ViewBag.Title = "科目管理";
+
+    List<TS_QuestionType> qTypeList = null;
+    if (ViewData["qTypeList"] != null)
+    {
+        qTypeList = ViewData["qTypeList"] as List<TS_QuestionType>;
+    }
+}
+
+<div>
+    <div class="row">
+        <span class="btn btn-blue" id="btn-add">
+            <i class="fa fa-plus"></i>
+            添加科目
+        </span>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover table-bordered">
+            <colgroup>
+                <col style="width:5em" />
+                <col />
+                <col style="width:8em" />
+                <col style="width:4em" />
+                <col style="width:8em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>题型</th>
+                    <th>是否加载公式</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var subject in Model)
+                    {
+                        var subs = JsonHelper.JsonList<int>(subject.QTypeIDs);
+                        var currentSubs = qTypeList.Where(u => subs.Contains(u.Id)).ToDictionary(k => k.Id, v => v.QTypeName);
+
+                        <tr>
+                            <td>@subject.SubjectName</td>
+                            <td>
+                                @if (currentSubs.Count > 0)
+                                {
+                                    foreach (var current in currentSubs)
+                                    {
+                                        <span class="mr5 mb5" style="display: inline-block">
+                                            @Html.LabelText(current.Value, 0)
+                                        </span>
+                                    }
+                                }
+                            </td>
+                            <td>@Html.BooleanText(subject.IsLoadFormula)</td>
+                            <td>@(Html.EnumText<TempStatus, int>(subject.Status))</td>
+                            <td data-subid="@subject.Id">
+                                <a href="javascript:void(0)" class="a-edit">编辑</a>
+                                @if (subject.Status == (byte)TempStatus.Delete)
+                                {
+                                    <a href="javascript:void(0)" class="a-delete ml20 text-danger">永久删除</a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0)" class="a-delete ml20 text-warning">删除</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2">没有找到相关信息！</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/html" id="addSubjectDiv">
+    <form style="width:500px;" id="addForm">
+        <div class="row">
+            <div class="col-sm-2">名称：</div>
+            <div class="col-sm-7 pl0">
+                <input type="text" class="form-control" name="subName" />
+            </div>
+            <div class="col-sm-3 pl0">
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="1" name="LoadFormula" />是否加载公式
+                </label>
+            </div>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-2">题型：</div>
+            <div class="col-sm-10 pl0">
+                @if (qTypeList != null && qTypeList.Count > 0)
+                {
+                    for (int i = 1; i <= qTypeList.Count; i++)
+                    {
+                        var obj = qTypeList[i - 1];
+
+                        <label class="checkbox-inline" style="width:105px; margin-left:10px;">
+                            <input type="checkbox" name="qType" value="@obj.Id" />@obj.QTypeName
+                        </label>
+                    }
+                }
+            </div>
+        </div>
+    </form>
+</script>
+
+@section script
+{
+    <script type="text/javascript">
+        $(function () {
+            //编辑
+            $(".a-edit").click(function () {
+                var id = $(this).parent("td").data("subid");
+                $.post("@Url.Action("Edit","Subject")", { id: id }, function (res) {
+                    $.Dayez.dialog("编辑科目", res, function () {
+                        var data = $("#editForm").serialize();
+                        $.ajax({
+                            url: "@Url.Action("Add","Subject")",
+                            data: data,
+                            type: "POST",
+                            success: function (res) {
+                                if (res.status) {
+                                    window.location.reload();
+                                } else {
+                                    $.Dayez.tip($(".ui-dialog-button"), res.message, "left");
+                                }
+                            }
+                        });
+                        return false;
+                    }, function () { });
+                });
+            });
+
+            //添加
+            $("#btn-add").click(function () {
+                var addHtml = $("#addSubjectDiv").html();
+                $.Dayez.dialog("添加科目", addHtml, function () {
+                    var data = $("#addForm").serialize();
+
+                    $.ajax({
+                        url: "@Url.Action("Add","Subject")",
+                        data: data,
+                        type: "POST",
+                        success: function (res) {
+                            if (res.status) {
+                                window.location.reload();
+                            } else {
+                                $.Dayez.tip($(".ui-dialog-button"), res.message, "left");
+                            }
+                        }
+                    });
+                    return false;
+                }, function () { });
+            });
+
+            //删除
+            $(".a-delete").click(function () {
+                var id = $(this).parent("td").data("subid");
+
+                $.Dayez.confirm("您确定要删除该科目?", function () {
+                    $.post("@Url.Action("Delete","Subject")", { id: id }, function (res) {
+                        if (res.status) {
+                            window.location.reload();
+                        } else {
+                            $.Dayez.msg(res.message);
+                        }
+                    });
+                }, function () { });
+            });
+        });
+    </script>
+}

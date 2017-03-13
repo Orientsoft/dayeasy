@@ -1,0 +1,80 @@
+.comment-box {
+  margin: 15px 0;
+  .cm-item {
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 15px;
+    padding: 0 0 15px 50px;
+    position: relative;
+    .img-head {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .cm-data {
+      color: #999;
+      display: block;
+      overflow: hidden;
+      .cm-txt {
+        width: 100%;
+        padding: 5px;
+        margin: 0;
+        color: #666;
+        font-size: 14px;
+        resize: none;
+        overflow: hidden;
+      }
+      .cm-txt-alt {
+        width: 100%;
+        margin: 5px 0;
+        text-align: right;
+        font-size: 12px;
+        em {
+          color: #d9534f;
+          font-family: georgia, serif;
+          font-size: 120%;
+          font-style: italic;
+          font-weight: 600;
+          padding: 0 3px;
+        }
+      }
+
+      .cm-name {
+        color: #666;
+        font-weight: 600;
+      }
+      .cm-time {
+        font-size: 12px;
+        margin-left: 10px;
+      }
+      .cm-content {
+        padding: 10px 0;
+      }
+      .cm-operation {
+        font-size: 12px;
+        text-align: right;
+        .iconfont {
+          font-size: 12px;
+        }
+        span {
+          cursor: pointer;
+          &:hover {
+            color: #333;
+          }
+        }
+      }
+    }
+  }
+  .cm-replys {
+    .cm-item {
+      border: 0;
+      margin: 15px 0 0;
+      padding-bottom: 0;
+    }
+  }
+  textarea {
+    max-width: 1200px;
+  }
+}

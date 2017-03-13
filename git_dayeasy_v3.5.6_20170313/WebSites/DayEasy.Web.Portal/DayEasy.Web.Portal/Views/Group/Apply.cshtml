@@ -1,0 +1,67 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@model DayEasy.Contracts.Dtos.Group.GroupDto
+@{
+    ViewBag.Title = "申请加入圈子";
+    var currentUser = (UserDto)ViewData["User"];
+    var user = (UserDto)ViewData["UserOrChild"];
+}
+<div class="apply-join w1200 f-cb" data-uid="@user.Id">
+    <div class="cont-min">
+        <h2 class="h2-circle">加入圈子</h2>
+        <div class="join-box f-cb">
+            <div class="f-fl join-box-left">
+                @GroupHelper.ShowGroup(Model)
+            </div>
+            <div class="f-fr join-box-right">
+                @if (ViewBag.Pending == null || !ViewBag.Pending)
+                {
+                    <!--默认状态-->
+                    <div data-group="@Model.Id">
+                        <ul>
+                            @if (string.IsNullOrWhiteSpace(user.Name) && Model.Type != (byte)GroupType.Share)
+                            {
+                                <li>
+                                    <p class="mb10">需要完善@(currentUser.IsParents() ? "学生" : "你")的真实姓名：</p>
+                                    <input type="text" id="trueName" />
+                                </li>
+                            }
+                            else {
+                                <input type="hidden" id="trueName" value="@user.Name" />
+                            }
+                            <li>
+                                <textarea placeholder="输入附加信息"
+                                          name="message"
+                                          class="textarea mb5 mt10"
+                                          cols="30" rows="5"
+                                          maxlength="100">
+                                </textarea>
+                                <p class="f-tar f-db dy-result">
+                                    你还可以输入<em>100</em>个字
+                                </p>
+                            </li>
+                        </ul>
+                        <input class="dy-btn dy-btn-info" type="submit" value="提交申请" />
+                    </div>
+                }
+                else
+                {
+                    <div class="operation">
+                        <p class="mb">
+                            <i class="iconfont dy-icon-13"></i>你的加圈请求已发送成功，请等候圈主的审核。
+                        </p>
+                        <a href="@Consts.Config.MainSite">返回首页</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/circle/page-apply.css")
+}
+
+@section js{
+    @Html.CombineLink("v3/js/group/page-apply.js")
+}

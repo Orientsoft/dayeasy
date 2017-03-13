@@ -1,0 +1,120 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Extend
+@model List<GroupDto>
+@{
+    ViewBag.Title = "查找圈子";
+    var user = ViewData["User"] as UserDto;
+    var userId = 0L;
+    if (user != null)
+    {
+        userId = user.Id;
+    }
+    var groupType = "groupType".Query(-1);
+    var types = new List<SelectListItem>
+    {
+        new SelectListItem {Text = "全部", Value = "-1", Selected = (groupType < 0 || groupType > 2)}
+    };
+    types.AddRange(from GroupType type in Enum.GetValues(typeof(GroupType))
+                   where (user != null && user.IsTeacher()) || type != GroupType.Colleague
+                   select new SelectListItem
+                   {
+                       Text = type.GetText(),
+                       Value = ((int)type).ToString(),
+                       Selected = groupType == (int)type
+                   });
+}
+
+<div class="find-circles w1200 f-cb">
+    <div class="cont-min">
+        <div class="tab-menu mb30">
+            <!--
+            <ul class="ul-list f-cb hidden">
+                <li><a href="javascript:void(0);">文章</a></li>
+                <li class="z-sel"><a href="javascript:void(0);">圈子</a></li>
+                <li><a href="javascript:void(0);">找人</a></li>
+            </ul>
+                -->
+
+            <div class="dy-soso-two">
+                <form action="/group/find" method="GET">
+                    <div class="select-wrap">
+                        <div class="select-main">
+                            <span>@types.First(t => t.Selected).Text</span><i class="iconfont dy-icon-anglebottom"></i>
+                        </div>
+                        <ul class="select-option">
+                            @foreach (var item in types)
+                            {
+                                <li data-type="@item.Value">@item.Text</li>
+                            }
+                        </ul>
+                        <input type="hidden" name="groupType" value="" id="valoption">
+                    </div>
+                    <script>
+                        (function ($) {
+                            var $selectBtn = $('.select-main'),
+                                $select = $('.select-option'),
+                                $ali = $select.find('li');
+
+                            $('.select-wrap').hover(function () {
+                                $select.stop(true, true).slideDown();
+                            }, function () {
+                                $select.stop(true, true).slideUp();
+                            });
+
+                            $ali.click(function () {
+                                var val = $(this).data('type');
+                                var oText = $(this).text();
+                                $selectBtn.find('span').text(oText);
+                                $('#valoption').val(val);
+                                $select.slideUp(10);
+                            });
+                        })(jQuery);
+
+                    </script>
+
+
+                    <input name="keyword"
+                           class="input-box"
+                           autofocus
+                           id="keywordText"
+                           type="text"
+                           autocomplete="off"
+                           value="@ViewBag.Keyword"
+                           placeholder="请输入圈子信息" />
+                    <span class="span-box">
+                        <button type="submit" id="submitBtn"></button>
+                        搜索
+                    </span>
+                </form>
+            </div>
+            <div class="dy-result"><span>共找到<em>@(ViewBag.Total ?? 0)</em>个圈子</span></div>
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="tab-con">
+                <dl class="d-group-list">
+                    @GroupHelper.ShowGroupList(Model, 0)
+                </dl>
+                <div class="f-tac">
+                    @Html.ShowPager((int)(ViewBag.Page ?? 0), (int)(ViewBag.Size ?? 15), (int)(ViewBag.Total ?? 0))
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="dy-nothing">
+                <i class="iconfont dy-icon-emoji02"></i>
+                @(((string)(ViewBag.Keyword ?? string.Empty)).IsNullOrEmpty() ? "请输入圈子信息进行搜索！" : "没有相关的圈子信息！")
+            </div>
+        }
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/circle/page-find.css")
+}
+@section js{
+    @Html.CombineLink("v3/js/group/page-find.js")
+}

@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head lang="en"><meta charset="UTF-8"><title>年月选择器</title><link rel="stylesheet" href="../../plugs/monthPicker/monthPicker.css"></head><body><div style="width: 600px;margin:20px auto"><input type="text" id="picker" readonly="readonly"></div><script src="../../../js/jquery-1.10.2.min.js"></script><script src="../../plugs/monthPicker/monthPicker.js"></script><script>(function ($) {
+        var now = new Date().getFullYear(), years = [];
+        for (var i = 0; i < 50; i++) {
+            years.push(now - i);
+        }
+        $('#picker').monthPicker({
+            years: years,
+            topOffset: 15
+//            onMonthSelect: function (m, y) {
+//                console.log('Month: ' + m + ', year: ' + y);
+//            }
+        });
+    })(jQuery);</script></body></html>

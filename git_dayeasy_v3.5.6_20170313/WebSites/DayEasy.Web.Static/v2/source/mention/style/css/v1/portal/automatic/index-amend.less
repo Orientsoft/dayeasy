@@ -1,0 +1,185 @@
+
+
+//在线出卷  选择题型
+/*题库优化 2015-05-13 14:34:52 */
+*:focus {outline: none;}
+.g-volu{width: 785px;font-size: 14px;background: white;border-left: 1px solid #e6e6e6;border-bottom: 1px solid #e6e6e6;}
+.trs{-webkit-transition: all 0.5s ease 0s;-moz-transition: all 0.5s ease 0s;-ms-transition:  all 0.5s ease 0s;-o-transitionall: 0.5s ease 0s;transition:  all 0.5s ease 0s;}
+.dy-container .included-questions .btn-info{  color: white;}
+
+//tab选项卡
+.topic-tab{
+  .topic-tab-menu{
+    height: 38px;
+    background: #b1e3fc;
+    border-bottom: 2px solid #63c6f7;
+    ul{
+      text-align: center;
+    li{
+      display: inline-block;
+    }
+      li a{
+        height: 38px;
+        line-height: 38px;
+        padding: 0 26px;
+        display: block;
+        color: #79848a;
+        font-size: 16px;
+      }
+      li.z-sel a{
+        color: white;
+        background:#63c6f7;
+      }
+    }
+  }
+  .topic-tab-content{
+    .tab-con{
+      display: none;
+    }
+    //.topic-tab-content-1{}
+    //.topic-tab-content-2{}
+  }
+}
+//试卷标题 2015-07-24 15:30:12
+.title-table > tbody > tr > th{border-top: none;font-weight: normal;  font-size: 15px;  background: #e6e6e6;}
+.title-table > tbody > tr > td{  border-top: none;  font-size: 14px; }
+.title-table{
+  .color-orange{
+    color: #fa9632;
+  }
+}
+
+//收录
+.included-questions{
+  position: relative;
+  padding: 30px 0;
+  .included-title{
+    text-align: center;
+    padding-bottom: 30px;
+    h3{
+      font-size: 16px;}
+    .color-bule{ color: #65cafc;
+      margin-left: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      &:hover{
+        color: #36acea;
+      }
+    }
+  }
+  .list-ul{
+    text-align: center;
+    li{display: inline-block;
+      padding: 0 12.5px;
+      cursor: pointer;
+      &:hover{
+        color: #36acea;
+      }
+    }
+    li.z-sel{
+      color: #65cafc;
+    }
+  }
+  .posa{
+    position: absolute;
+    top: 25px;
+    left: 24px;
+    border-radius: 3px;
+  }
+}
+
+
+/*soso组件*/
+.g-volu .u-sch{ border-radius: 6px;width: 500px; margin: 0 auto; border: 2px solid #ffa64c;}
+.g-volu .u-sch .u-btn span:hover{background: #fb9329;}
+.g-volu .m-snav{}
+.g-volu .m-box-2{background: #fefefe;margin-bottom: 15px; position: relative; z-index: 2;}
+.g-volu .m-box-2 .g-input { border: 1px solid #e6e6e6; padding: 7px 10px; width: 210px;  margin-top: 10px; margin-right: 10px; .trs; }
+.g-volu .m-box-2 .g-input input{border: none;width: 169px;.trs;}
+.g-volu .m-box-2 .focus { width: 280px; border: 1px solid #7fd4ff;}
+.g-volu .m-box-2 .focus input{ width: 238px;}
+.g-volu .m-box-2 .ul .g-lh{line-height: 16px;}
+.g-volu .m-box-2 .ul{clear: both;background: white; padding:5px 12px;  position: relative;z-index: 200;}
+.g-volu .m-box-2 .ul .g-h{width: 694px;}
+.g-volu .m-box-2 .ul .g-h a ,.g-volu .m-box-2 .ul .g-h span{padding: 6px 5px 4px;}
+.g-volu .m-box-2 .ul >li{color:#999;border-bottom: 1px dashed #d0d0d0;padding: 5px 0 0;}
+.g-volu .m-box-2 .ul li:after{ content:""; display:block; clear:both; height:0; }
+.g-volu .m-box-2 .ul li a{color: #5c5c5c;display: inline-block;*display: inline;*zoom: 1;margin-right: 10px;float: left; padding: 6px 5px 4px;}
+.g-volu .m-box-2 .ul li label{float: left;padding: 6px 0 4px;width: 46px;text-align: right;}
+.g-volu .m-box-2 .ul li span.sp{margin-right: 10px;}
+.g-volu .m-box-2 .ul .q-star{float: left;margin-top: 4px;}
+.g-volu .m-box-2 .ul .f-fc{color: #33bbff;}
+.g-volu .m-box-2 .ul li a.z-sel{background: #7fd4ff;color: #fff;font-size: 14px;padding: 6px 5px 4px;}
+.g-volu .m-box-2 .ul li a.z-sel:hover{color: white;}
+.g-volu .m-box-2 .ul li a:hover{color: #5cb8e5;}
+.g-volu .m-box-2 .ul >li.li-last{border: none;}
+.g-volu .m-box-2 .g-source .ul-1 li{float: left; position: relative;}
+
+
+.g-menu{background: #f7f7f7;border: 1px solid #e6e6e6;border-radius: 6px;padding-bottom: 50px;}
+
+//搜索树引用
+@import "../../plugin/left-tree";
+//右侧加题浮动栏目
+@import "../../plugin/right-slide";
+
+
+
+//主内容区域图标
+.sprite-3{ background-image: url(/v1/image/icon/thevolume/spritesheet-3.png); background-repeat: no-repeat; display: inline-block;*display: inline;*zoom: 1; }
+.g-icon_12{ width: 19px; height: 16px; background-position: 0 0; }
+.g-icon_13{ width: 12px; height: 8px; background-position: -19px 0; cursor: pointer;margin-left: 5px;}
+.g-icon_1{ width: 12px; height: 8px; background-position: -31px 0; cursor: pointer;}
+.g-icon_2{width: 10px;height: 5px;background-position: -43px 0;position: relative;margin-top: 7px;top: -1px;margin-left: 2px;}
+.g-icon_4{ width: 14px; height: 14px; background-position: -53px 0;}
+.g-icon_4:hover{cursor: pointer;}
+.focus .g-icon_4{background-position: -67px 0;}
+
+/*题目内容区域*/
+.g-mark{position: absolute;top: -16px;right: -9px;font-size: 10px;cursor: pointer}
+.sprite-4{background-image: url(/v1/image/icon/thevolume/g-icon.png);background-repeat: no-repeat;display: inline-block;*display: inline;*zoom: 1;}
+.g-icon-14{ width: 81px; height: 81px; background-position: 0px 0px;}
+.g-icon-15{ width: 81px; height: 81px; background-position: 0px -81px; }
+
+.q-item .q-footer label{color: #33bbff;}
+.g-topic{position: relative;background: white;z-index: 1;}
+.g-topic .g-span{background: #fc9797;color: white;padding: 0 8px;}
+.g-topic .g-gduo{display: inline-block;*display: inline;*zoom: 1;cursor: pointer;}
+.q-item{border:none;margin-bottom: 0;-webkit-box-shadow: none; box-shadow: none;}
+.q-item-border {border-top: 4px solid #b1e3fc; background: #fefefe;}
+.g-topic .q-item .q-footer {border-top: 1px dashed #dcdcdc;line-height: 16px;padding: 4px 0 0 8px;color: #888888;position: relative;}
+
+
+.q-item .q-footer label {color: #428bca;padding: 0 0px;}
+
+
+//全国日期搜索地区 气泡
+
+.bubble-area{width: 340px;  position: absolute; top: 21px; left: 0px; background: white;padding: 15px; -webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;
+  -webkit-box-shadow: 1px 1px 4px 0px #999;
+  -moz-box-shadow: 1px 1px 4px 0px #999;
+  box-shadow: 1px 1px 4px 0px #999;
+  li {
+    label{ color: #999; font-size: 14px;}
+    .u-g-1{width: 256px;
+      span{display: inline-block;*display: inline;*zoom: 1;padding: 6px 5px 4px;margin-bottom: 0; color: #676767;
+        &:hover{ background: #7fd4ff; cursor: pointer; color: #fff;}
+      }
+    }
+  }
+}
+.w95{ width: 110px;overflow: hidden;
+  li{
+    .u-g-1{ width: 80px;text-align: center;}
+  }
+}
+
+
+.aaa{
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+}
+

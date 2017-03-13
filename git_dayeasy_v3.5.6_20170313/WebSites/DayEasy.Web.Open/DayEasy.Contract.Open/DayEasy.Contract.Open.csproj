@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{021AA724-B880-4CC1-9511-0E888A05C299}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DayEasy.Contract.Open</RootNamespace>
+    <AssemblyName>DayEasy.Contract.Open</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DayEasy.AutoMapper, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_service\DayEasy.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Contracts">
+      <HintPath>..\..\..\_service\DayEasy.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Core">
+      <HintPath>..\..\..\_service\DayEasy.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.EntityFramework, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_service\DayEasy.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Services">
+      <HintPath>..\..\..\_service\DayEasy.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Utility">
+      <HintPath>..\..\..\_service\DayEasy.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contracts\IOpenContract.Activity.cs" />
+    <Compile Include="Contracts\IOpenContract.cs" />
+    <Compile Include="Contracts\IOpenContract.Marking.cs" />
+    <Compile Include="Contracts\IOpenContract.Message.cs" />
+    <Compile Include="Contracts\IOpenContract.User.cs" />
+    <Compile Include="Contracts\IOpenContract.Work.cs" />
+    <Compile Include="Dtos\UploaderResultDto.cs" />
+    <Compile Include="Dtos\VTeacherGodDto.cs" />
+    <Compile Include="Dtos\VTeacherGodInputDto.cs" />
+    <Compile Include="Dtos\VTeacherMobileInputDto.cs" />
+    <Compile Include="Helper\HandinPicturesTask.cs" />
+    <Compile Include="Helper\PosterHelper.cs" />
+    <Compile Include="Helper\PwdDecode.cs" />
+    <Compile Include="OpenServiceModule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\OpenService.Activity.cs" />
+    <Compile Include="Services\OpenService.Core.cs" />
+    <Compile Include="Services\OpenService.cs" />
+    <Compile Include="Services\OpenService.Marking.cs" />
+    <Compile Include="Services\OpenService.User.cs" />
+    <Compile Include="Services\OpenService.Work.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DayEasy.Models.Open\DayEasy.Models.Open.csproj">
+      <Project>{07124db9-6f32-44a8-94cf-f99a8b18a8ee}</Project>
+      <Name>DayEasy.Models.Open</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

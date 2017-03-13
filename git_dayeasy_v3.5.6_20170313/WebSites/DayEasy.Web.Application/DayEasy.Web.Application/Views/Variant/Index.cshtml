@@ -1,0 +1,221 @@
+﻿
+@using DayEasy.Contracts.Dtos.Question
+@model ViewDataDictionary
+@{
+    ViewBag.Title = "变式推送";
+    
+    QuestionDto question = null;
+    List<QuestionDto> historys = null, sysVariant = null, teacherVariant = null;
+    if (Model["question"] != null)
+    {
+        question = Model["question"] as QuestionDto;
+    }
+    if (Model["historys"] != null)
+    {
+        historys = Model["historys"] as List<QuestionDto>;
+    }
+    if (Model["sysVariant"] != null)
+    {
+        sysVariant = Model["sysVariant"] as List<QuestionDto>;
+    }
+    if (Model["teacherVariant"] != null)
+    {
+        teacherVariant = Model["teacherVariant"] as List<QuestionDto>;
+    }
+}
+<script>var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true; deyi.loadFormula = true;</script>
+<div class="dy-main">
+    @if (question == null)
+    {
+        <div class="dy-nothing">题目信息加载失败</div>
+    }
+    else
+    {
+        <div class="page-push-change w1200 f-cb">
+            <input type="hidden" id="txtPaperId" value="@Model["paperId"]" />
+            <input type="hidden" id="txtQuestionId" value="@Model["questionId"]" />
+            <div class="show-questions">
+                @PaperHelper.ShowQuestion(question)
+            </div>
+            <div class="main-push-chang f-cb">
+                <div class="clear"></div>
+                @if ((historys != null && historys.Any()) || (sysVariant != null && sysVariant.Any()) || (teacherVariant != null && teacherVariant.Any()))
+                {
+                    if (historys != null && historys.Any())
+                    {
+                        <h2 class="h2-title bold mb30 f-cb ">推荐历史</h2>
+                        <div class="dy-questions-list f-cb">
+                            @foreach (var h in historys)
+                            {
+                                <div class="box cont-list">
+                                    <div class="box-lg-12 questions-con">
+                                        @PaperHelper.ShowQuestion(h)
+                                    </div>
+                                    <div class="box-lg-12 questions-btn f-cb">
+                                        <button class="dy-btn dy-btn-default f-fl"><i class="iconfont dy-icon-jiexi"></i> 答案解析</button>
+                                    </div>
+                                    <div class="box-lg-12 questions-bottom-cont" style="display: none;">
+                                        <div class="box questions-list-cont">
+                                            <div class="box-lg-1 w80">参考答案：</div>
+                                            <div class="box-lg-11">
+                                                @PaperHelper.ShowAnswer(h)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <h2 class="h2-title bold mb30 f-cb ">推送变式</h2>
+                        if (teacherVariant != null && teacherVariant.Any())
+                        {
+                            <p class="color-grey">名师推荐：</p>
+                            <div class="dy-questions-list f-cb">
+                                @foreach (var t in teacherVariant)
+                                {
+                                    <div class="box cont-list">
+                                        <div class="box-lg-12 questions-con">
+                                            @PaperHelper.ShowQuestion(t)
+                                            <label class="checkbox-questions">
+                                                <input type="checkbox" name="cbxVariantId" value="@t.Id" />
+                                                <i class="iconfont dy-icon-checkboxhv"></i>
+                                            </label>
+                                        </div>
+                                        <div class="box-lg-12 questions-btn f-cb">
+                                            <button class="dy-btn dy-btn-default f-fl"><i class="iconfont dy-icon-jiexi"></i> 答案解析</button>
+                                        </div>
+                                        <div class="box-lg-12 questions-bottom-cont" style="display: none;">
+                                            <div class="box questions-list-cont">
+                                                <div class="box-lg-1 w80">参考答案：</div>
+                                                <div class="box-lg-11">
+                                                    @PaperHelper.ShowAnswer(t)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        if (sysVariant != null && sysVariant.Any())
+                        {
+                            <br/><br/>
+                            <p class="color-grey">系统推荐：</p>
+                            <div class="dy-questions-list f-cb">
+                                @foreach (var s in sysVariant)
+                                {
+                                    <div class="box cont-list">
+                                        <div class="box-lg-12 questions-con">
+                                            @PaperHelper.ShowQuestion(s)
+                                            <label class="checkbox-questions">
+                                                <input type="checkbox" name="cbxVariantId" value="@s.Id" />
+                                                <i class="iconfont dy-icon-checkboxhv"></i>
+                                            </label>
+                                        </div>
+                                        <div class="box-lg-12 questions-btn f-cb">
+                                            <button class="dy-btn dy-btn-default f-fl"><i class="iconfont dy-icon-jiexi"></i> 答案解析</button>
+                                        </div>
+                                        <div class="box-lg-12 questions-bottom-cont" style="display: none;">
+                                            <div class="box questions-list-cont">
+                                                <div class="box-lg-1 w80">参考答案：</div>
+                                                <div class="box-lg-11">
+                                                    @PaperHelper.ShowAnswer(s)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        <div class="f-tac mt30 mb30">
+                            <input id="btnPush" class="dy-btn dy-btn-info" type="submit" value="推送变式" />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="dy-nothing"><i class="iconfont dy-icon-emoji02"></i>暂无可推送变式题</div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section css {
+    @Html.CombineLink("plugs/artDialog/css/ui-dialog.css,css/portal/question/list.css,v3/css/testteacher/ui-base.css,v3/css/testteacher/page-topic-stats.css,v3/css/testteacher/page-push-change.css")
+    <style type="text/css">
+        .q-item {
+            border: medium none;
+            box-shadow: none;
+            margin-bottom: 0;
+            padding: 0;
+            position: relative;
+        }
+    </style>
+}
+@section js{
+    @Html.CombineLink("js/portal/question/formula.js,js/base/utils.js,js/portal/question/base.js,plugs/artDialog/dist/dialog-plus.min.js,js/Jq-common.js")
+    <script type="text/javascript">
+        $(function ($) {
+            //解析公式
+            setTimeout(singer.loadFormula, 120);
+            var length = 0;
+            //显隐答案
+            $(".dy-btn-default").bind("click", function () {
+                $(this).toggleClass("dy-btn-info");
+                var $box = $(this).parents(".cont-list").find(".questions-bottom-cont");
+                $(this).is('.dy-btn-info')
+                    ? $box.stop().slideDown()
+                    : $box.stop().slideUp();
+            });
+            //复选框
+            $('.checkbox-questions').on('click', function () {
+                var $cbx = $(this).find("input[name='cbxVariantId']");
+                if ($(this).hasClass('checkboxhv')) {
+                    $(this).removeClass("checkboxhv");
+                    $cbx.removeAttr("checked");
+                    length -= 1;
+                } else {
+                    if (length > 2) {
+                        singer.msg("最多选择3道变式题");
+                        return;
+                    }
+                    $(this).addClass("checkboxhv");
+                    $cbx.attr("checked", "checked");
+                    length += 1;
+                }
+            });
+            //推送
+            $("#btnPush").bind("click", function () {
+                var pid = $("#txtPaperId").val(),
+                    qid = $("#txtQuestionId").val();
+                var vids = [];
+                $("input[name='cbxVariantId'][checked='checked']").each(function () {
+                    vids.push($(this).val());
+                });
+                if (!vids.length) {
+                    singer.msg("请选择变式题");
+                    return;
+                }
+                if (vids.length > 3) {
+                    singer.msg("最多选择3道变式题");
+                    return;
+                }
+                $.post("/variant/add", {
+                    paper_id: pid,
+                    question_id: qid,
+                    vid: singer.json(vids)
+                }, function (json) {
+                    if (json.status) {
+                        singer.msg("推送成功", 2000, function () {
+                            window.location.reload();
+                        });
+                    } else {
+                        singer.msg(json.message);
+                    }
+                });
+            });
+        })
+    </script>
+}

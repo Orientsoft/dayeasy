@@ -1,0 +1,102 @@
+﻿@import "../base";
+@import "base-center";
+//<!--**
+//  个人设置 账号关联
+//**-->
+.associated-account {
+  .p1 {
+    margin-bottom: 35px;
+  }
+  .account-qq, .account-sina {
+    width: 300px;
+    height: 90px;
+    background: white;
+    padding: 17px 30px;
+    .border-radius(3px);
+  }
+  .account-qq {
+    .f-posr {
+      position: relative;
+      margin: 0 22px;
+      button {
+        position: absolute;
+        top: 11px;
+        left: -3px;
+        .border-radius(3px);
+      }
+      em.to-associate {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: -3px;
+        width: 82px;
+        text-align: center;
+        height: 34px;
+        line-height: 34px;
+        font-style: normal;
+        font-size: 16px;
+      }
+    }
+  }
+  .account-sina {
+    .f-posr {
+      position: relative;
+      margin: 0 22px;
+      button {
+        position: absolute;
+        top: 11px;
+        left: -3px;
+        .border-radius(3px);
+      }
+      em.to-associate {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: -3px;
+        width: 82px;
+        text-align: center;
+        height: 34px;
+        line-height: 34px;
+        font-style: normal;
+        font-size: 16px;
+      }
+    }
+  }
+}
+.stitches-(@x: 0, @y: 0, @width: 0, @height: 0) {
+  background-position: @x @y;
+  width: @width;
+  height: @height;
+}
+.icon-related {
+  background-image: url(../../../image/loginreg/icon-related.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+
+  &.icon-about {
+    .stitches-(0, 0, 74px, 56px);
+  }
+
+  &.icon-deyi {
+    .stitches-(-74px, 0, 56px, 56px);
+  }
+
+  &.icon-qq {
+    .stitches-(-130px, 0, 56px, 56px);
+  }
+
+  &.icon-qqhv {
+    .stitches-(-186px, 0, 56px, 56px);
+  }
+
+  &.icon-xina {
+    .stitches-(-242px, 0, 56px, 56px);
+  }
+
+  &.icon-xinahv {
+    .stitches-(-298px, 0, 56px, 56px);
+  }
+}
+

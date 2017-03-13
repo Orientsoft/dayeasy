@@ -1,0 +1,28 @@
+html,
+body,
+.dy-body {
+  height: 100%;
+}
+.hidden-print {
+  display: none;
+}
+body {
+  background: none;
+}
+#content > ul > li {
+  overflow: hidden;
+  overflow-y: auto;
+}
+.q-item {
+  border: 0 none;
+  box-shadow: 0 0 0 #d0d0d0;
+  display: inline-block;
+  margin: 0;
+}
+#footer > ul a.active {
+  background: url(/v3/image/site-compatible/steppage_head.png) no-repeat transparent;
+  background-position: 0px -238px;
+}
+.icon-test-center {
+  background: url(/v3/image/site-compatible/testcenter.png) no-repeat transparent;
+}

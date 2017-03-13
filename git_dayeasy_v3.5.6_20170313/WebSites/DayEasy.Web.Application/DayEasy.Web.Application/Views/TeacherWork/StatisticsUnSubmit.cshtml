@@ -1,0 +1,47 @@
+﻿@using DayEasy.Contracts.Dtos
+@using DayEasy.Contracts.Enum
+@model DayEasy.Application.Services.Dto.VWorkDto
+@{
+    ViewBag.Title = "未提交学生名单";
+    var word = (Model.PublishType == (byte) PublishType.Print ? "提交" : "标记");
+}
+<div class="coach-bxo w1200 f-cb bg-color-grey">
+    @if (Model == null || Model.Batch == null || Model.PaperId == null || ViewData["unsubmits"] == null)
+    {
+        <div class="dy-nothing">参数错误，请刷新重试！</div>
+    }
+    else
+    {
+        var students = (List<NameDto>)ViewData["unsubmits"];
+        @Html.Partial("_WorkHeader", Model)
+        if (!students.Any())
+        {
+            <div class="dy-nothing">
+                <i class="iconfont dy-icon-emoji02"></i>
+                学生全部都已经@(word)了哦！
+            </div>
+        }
+        else
+        {
+            <div class="page-nonumber">
+                <h3 class="h3-nonumber">@students.Count 人未@(word)</h3>
+                <ul class="list-nonumber f-cb">
+                    @foreach (var s in students)
+                    {
+                        <li>
+                            <img src="@s.Id" width="32" height="32" alt="" />
+                            <span>@s.Name</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    }
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/work/ui-base.css,v3/css/testteacher/page-nonumber.css")
+}
+@section js{
+    @Html.CombineLink("v3/js/homework/work-base.js")
+}

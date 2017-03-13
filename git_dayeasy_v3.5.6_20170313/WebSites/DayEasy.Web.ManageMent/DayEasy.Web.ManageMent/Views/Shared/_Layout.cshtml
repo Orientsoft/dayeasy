@@ -1,0 +1,73 @@
+﻿@using DayEasy.Core
+@using StackExchange.Profiling
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 得一后台管理系统</title>
+    @Html.CombineLink("css/font-awesome.min.css,v3/css/management/bootstrap.css,v3/css/dialog.css,v3/css/management/common.css,v3/css/management/site-base.css")
+    @RenderSection("style", false)
+    <!--[if lt IE 9]>
+        @Html.CombineLink("js/html5shiv.min.js,js/respond.js")
+    <![endif]-->
+    <script>
+        window.DEYI = window.DEYI || {};
+        window.DEYI.sites = {
+            'main': '@Consts.Config.MainSite',
+            'apps': '@Consts.Config.AppSite',
+            'static': '@Consts.Config.StaticSite',
+            'reg': '@Consts.Config.RegisterSite',
+            'login': '@Consts.Config.LoginSite',
+            'account': '@Consts.Config.AccountSite',
+            'file': '@Consts.Config.FileSite'
+        };
+    </script>
+</head>
+<body class="fixed-top">
+    @Html.CombineLink("js/singer.min.js,v3/js/base/d-base.js")
+    <header class="header navbar navbar-inverse navbar-fixed-top">
+        @Html.Partial("_Header")
+    </header>
+    <div class="page-container row-fluid">
+        @Html.Partial("_Menu")
+        <div class="page-content">
+            <div id="portlet-config" class="modal hide">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"></button>
+                    <h3>portlet Settings</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Here will be a configuration form</p>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12" id="navigation">
+                        @Html.Partial("_Theme")
+                        <h3 class="page-title">
+                            <span>标题</span>　<small>介绍</small>
+                        </h3>
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <span>首页</span>
+                            </li>
+                            <li>
+                                <span>菜单组</span>
+                            </li>
+                            <li><span>菜单</span></li>
+                        </ul>
+                    </div>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_Footer")
+    @Html.CombineLink("js/jquery.min.js,v3/js/management/bootstrap.js,plugs/artDialog/dist/dialog-plus.min.js,js/Jq-common.js,v3/js/management/common.js,v3/js/management/base.js")
+    @RenderSection("script", false)
+    @MiniProfiler.RenderIncludes()
+</body>
+</html>

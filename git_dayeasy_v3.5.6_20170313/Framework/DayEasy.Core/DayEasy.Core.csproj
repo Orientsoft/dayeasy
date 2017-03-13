@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E7B154D5-F72E-4EFD-A228-325941125AE3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DayEasy.Core</RootNamespace>
+    <AssemblyName>DayEasy.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\_service\</OutputPath>
+    <DefineConstants>TRACE;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\_service\DayEasy.Core.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cache\CacheLevel.cs" />
+    <Compile Include="Cache\CacheManager.cs" />
+    <Compile Include="Cache\DCache.cs" />
+    <Compile Include="Cache\DEntityCache.cs" />
+    <Compile Include="Cache\ICache.cs" />
+    <Compile Include="Cache\ICacheProvider.cs" />
+    <Compile Include="Cache\InternalCacher.cs" />
+    <Compile Include="Cache\RuntimeMemoryCache.cs" />
+    <Compile Include="Config\DataBaseConfig.cs" />
+    <Compile Include="Config\DayEasyConfig.cs" />
+    <Compile Include="Config\GroupChannelConfig.cs" />
+    <Compile Include="Config\PersonalConfig.cs" />
+    <Compile Include="Config\RecommendImageConfig.cs" />
+    <Compile Include="Config\SpecialAccountConfig.cs" />
+    <Compile Include="Config\TemplateType.cs" />
+    <Compile Include="Consts.cs" />
+    <Compile Include="CoreModule.cs" />
+    <Compile Include="DBootstrap.cs" />
+    <Compile Include="Dependency\CurrentIocManager.cs" />
+    <Compile Include="Dependency\IIocManager.cs" />
+    <Compile Include="Domain\DKeyValue.cs" />
+    <Compile Include="Domain\DTransaction.cs" />
+    <Compile Include="Domain\Entities\DEntity.cs" />
+    <Compile Include="Domain\DPage.cs" />
+    <Compile Include="Domain\Entities\EntityDto.cs" />
+    <Compile Include="Domain\Repositories\DRepository.cs" />
+    <Compile Include="Domain\DSort.cs" />
+    <Compile Include="Domain\Entities\IDEntity.cs" />
+    <Compile Include="Domain\Repositories\IRepository.cs" />
+    <Compile Include="Domain\Uow\IUnitOfWork.cs" />
+    <Compile Include="Domain\TransactionalBehavior.cs" />
+    <Compile Include="DService.cs" />
+    <Compile Include="Events\ActionEventHandler.cs" />
+    <Compile Include="Events\EntityChangedEventHelper.cs" />
+    <Compile Include="Events\EventData\ChangedEventData.cs" />
+    <Compile Include="Events\EventData\EventData.cs" />
+    <Compile Include="Events\EventData\CreatedEventData.cs" />
+    <Compile Include="Events\EventData\DeletedEventData.cs" />
+    <Compile Include="Events\EventData\UpdatedEventData.cs" />
+    <Compile Include="Events\EventsManager.cs" />
+    <Compile Include="Events\IEntityChangedEventHelper.cs" />
+    <Compile Include="Events\EventData\IEventData.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="Events\IEventsManager.cs" />
+    <Compile Include="Events\Unregister.cs" />
+    <Compile Include="IBootstrap.cs" />
+    <Compile Include="IDependency.cs" />
+    <Compile Include="Modules\DependsOnAttribute.cs" />
+    <Compile Include="Modules\DModule.cs" />
+    <Compile Include="Modules\DModuleInfo.cs" />
+    <Compile Include="Modules\DModuleManager.cs" />
+    <Compile Include="Modules\IModuleManager.cs" />
+    <Compile Include="Modules\ModuleExtend.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\DAssemblyFinder.cs" />
+    <Compile Include="Reflection\DefaultTypeFinder.cs" />
+    <Compile Include="Reflection\IAssemblyFinder.cs" />
+    <Compile Include="Reflection\ITypeFinder.cs" />
+    <Compile Include="Wcf\IWcfService.cs" />
+    <Compile Include="Wcf\WcfHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DayEasy.Utility\DayEasy.Utility.csproj">
+      <Project>{5f4e96d9-894a-4da7-b831-034632007b4e}</Project>
+      <Name>DayEasy.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

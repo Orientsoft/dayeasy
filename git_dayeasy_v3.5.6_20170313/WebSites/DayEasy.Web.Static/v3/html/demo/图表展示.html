@@ -1,0 +1,183 @@
+<!DOCTYPE html><head><meta charset="utf-8"><title>ECharts</title></head><body><!-- 为ECharts准备一个具备大小（宽高）的Dom --><div id="main" style="width: 928px; height:400px; margin: 0 auto"></div><!-- ECharts单文件引入 --><!--<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>--><script src="../../plugs/echarts/echarts.js"></script><script type="text/javascript">// 基于准备好的dom，初始化echarts图表
+    var myChart = echarts.init(document.getElementById('main'));
+
+    var option = {
+        title  : {
+            subtext: '分数'
+        },
+        tooltip: {
+            trigger: 'axis',
+            show   : true
+        },
+        legend : {
+            data: ['平均分：43.5']
+        },
+        toolbox: {
+            show   : true,
+            feature: {
+                dataView   : {show: true, readOnly: false},
+                restore    : {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        xAxis  : [
+            {
+                type: 'category',
+                data: ['2016级1班', '2016级2班', '2016级3班', '2016级4班', '2016级5班', '2016级6班', '2016级7班', '2016级8班', '2016级9班', '2016级10班', '2016级11班'],
+                show: true
+
+            }
+        ],
+        yAxis  : [
+            {
+                type: 'value'
+            }
+        ],
+        series : [
+            {
+                name    : '班级拍，排名',
+                type    : 'bar',
+                itemStyle: {
+                    normal: {
+                        color:'#6ebc45',
+                        label: {
+                            show: true,
+                            position: 'top',
+                            color:'#333'
+                        }
+                    }
+                },
+                data    : [135.5, 115.5, 128.5, 100.5, 88, 143.5, 75.5, 125.5, 121.5, 115.5, 75.5],
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            },
+        ]
+    };
+    // 为echarts对象加载数据
+
+    //
+    //    var  option = {
+    //        tooltip : {
+    //            trigger: 'item'
+    //        },
+    //        legend: {
+    //            data:['scatter1','scatter2']
+    //        },
+    //        toolbox: {
+    //            show : true,
+    //            feature : {
+    //                mark : {show: true},
+    //                dataView : {show: true, readOnly: false},
+    //                restore : {show: true},
+    //                saveAsImage : {show: true}
+    //            }
+    //        },
+    //        calculable : true,
+    //        xAxis : [
+    //            {
+    //                type : 'value'
+    //            }
+    //        ],
+    //        yAxis : [
+    //            {
+    //                type : 'value',
+    //                splitArea : {show : true}
+    //            }
+    //        ],
+    //        series : [
+    //            {
+    //                name:'scatter1',
+    //                type:'scatter',
+    //                symbol: 'emptyCircle', //'circle', 'rectangle', 'triangle', 'diamond', 'emptyCircle', 'emptyRectangle', 'emptyTriangle', 'emptyDiamond'
+    //                symbolSize: function (value){
+    //                    if (value[0] < 2) {
+    //                        return 2;
+    //                    }
+    //                    else if (value[0] < 8) {
+    //                        return Math.round(value[2] * 3);
+    //                    }
+    //                    else {
+    //                        return 20;
+    //                    }
+    //                },
+    //                itemStyle: {
+    //                    normal: {
+    //                        color: 'lightblue',
+    //                        borderWidth: 4,
+    //                        label : {show: true}
+    //                    },
+    //                    emphasis: {
+    //                        color: 'lightgreen'
+    //                    }
+    //                },
+    //                data: (function () {
+    //                    var d = [];
+    //                    var len = 20;
+    //                    while (len--) {
+    //                        d.push([
+    //                            (Math.random()*10).toFixed(2) - 0,
+    //                            (Math.random()*10).toFixed(2) - 0,
+    //                            (Math.random()*10).toFixed(2) - 0
+    //                        ]);
+    //                    }
+    //                    return d;
+    //                })()
+    //            },
+    //            {
+    //                name:'scatter2',
+    //                type:'scatter',
+    //                symbol: 'image://../../doc/asset/ico/favicon.png',     // 系列级个性化拐点图形
+    //                symbolSize: function (value){
+    //                    return Math.round(value[2] * 3);
+    //                },
+    //                itemStyle: {
+    //                    emphasis : {
+    //                        label : {show: true}
+    //                    }
+    //                },
+    //                data: (function () {
+    //                    var d = [];
+    //                    var len = 20;
+    //                    while (len--) {
+    //                        d.push([
+    //                            (Math.random()*10).toFixed(2) - 0,
+    //                            (Math.random()*10).toFixed(2) - 0,
+    //                            (Math.random()*10).toFixed(2) - 0
+    //                        ]);
+    //                    }
+    //                    d.push({
+    //                        value : [5,5,1000],
+    //                        itemStyle: {
+    //                            normal: {
+    //                                borderWidth: 8,
+    //                                color: 'orange'
+    //                            },
+    //                            emphasis: {
+    //                                borderWidth: 10,
+    //                                color: '#ff4500'
+    //                            }
+    //                        },
+    //                        symbol: 'emptyTriangle',
+    //                        symbolRotate:90,
+    //                        symbolSize:30
+    //                    })
+    //                    return d;
+    //                })(),
+    //                markPoint : {
+    //                    symbol: 'emptyCircle',
+    //                    itemStyle:{
+    //                        normal:{label:{position:'top'}}
+    //                    },
+    //                    data : [
+    //                        {name : '有个东西', value : 1000, xAxis: 5, yAxis: 5, symbolSize:80}
+    //                    ]
+    //                }
+    //            }
+    //        ]
+    //    };
+
+
+    myChart.setOption(option);</script></body>

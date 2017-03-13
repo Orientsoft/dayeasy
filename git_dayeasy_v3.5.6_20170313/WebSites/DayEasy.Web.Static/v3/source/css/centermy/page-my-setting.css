@@ -1,0 +1,142 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2015/11/19 Last Mondify Date:2015/11/19
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+/**UI STYLE**/
+/** MAIN STYLE **/
+.page-my-setting .news-centermy-list {
+  padding: 0 30px;
+}
+.page-my-setting .news-centermy-list .dy-nothing {
+  background-color: rgba(240, 240, 240, 0.4);
+}
+.page-my-setting .con-list {
+  border-bottom: 1px solid #eee;
+  position: relative;
+  color: #999;
+  padding: 20px 0;
+  -moz-transition: all 0.5s ease 0s,;
+  -webkit-transition: all 0.5s ease 0s,;
+  -o-transition: all 0.5s ease 0s,;
+  -ms-transition: all 0.5s ease 0s,;
+  transition: all 0.5s ease 0s,;
+  -moz-transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+.page-my-setting .con-list a:link,
+.page-my-setting .con-list a:active,
+.page-my-setting .con-list a:visited {
+  color: #999;
+  text-decoration: none;
+}
+.page-my-setting .con-list a:hover {
+  color: #4fc1e9;
+  text-decoration: none;
+}
+.page-my-setting .con-list .dy-message-delete {
+  margin-left: 15px;
+  font-size: 14px;
+  display: none;
+  color: #d9534f;
+  cursor: pointer;
+}
+.page-my-setting .con-list .sp-mlr {
+  margin-right: 10px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.page-my-setting .con-list .content-box {
+  margin-top: 8px;
+  line-height: 1.6em;
+}
+.page-my-setting .con-list.dy-message-link {
+  cursor: pointer;
+}
+.page-my-setting .con-list.hover a:link,
+.page-my-setting .con-list.hover a:active,
+.page-my-setting .con-list.hover a:visited {
+  color: #4fc1e9;
+  text-decoration: none;
+}
+.page-my-setting .con-list.hover a:hover {
+  color: #4fc1e9;
+  text-decoration: none;
+}
+.page-my-setting .con-list.hover .dy-message-delete {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.page-my-setting .con-list.hover .name-title em {
+  color: #4fc1e9;
+}
+.page-my-setting .con-list.hover .message-content {
+  color: #333;
+}
+.page-my-setting .con-list .user-img img {
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+.page-my-setting .con-list .user-img .dy-icon-9 {
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
+  margin: 0px auto;
+  display: block;
+  -moz-transition: all 0.5s ease 0s,;
+  -webkit-transition: all 0.5s ease 0s,;
+  -o-transition: all 0.5s ease 0s,;
+  -ms-transition: all 0.5s ease 0s,;
+  transition: all 0.5s ease 0s,;
+  -moz-transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+.page-my-setting .con-list .name-title {
+  margin-bottom: 10px;
+}
+.page-my-setting .con-list .name-title em {
+  -moz-transition: all 0.5s ease 0s,;
+  -webkit-transition: all 0.5s ease 0s,;
+  -o-transition: all 0.5s ease 0s,;
+  -ms-transition: all 0.5s ease 0s,;
+  transition: all 0.5s ease 0s,;
+  -moz-transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+.page-my-setting .con-list .name-title span {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin: 0px 10px;
+  color: #bbb;
+  -moz-transition: all 0.5s ease 0s,;
+  -webkit-transition: all 0.5s ease 0s,;
+  -o-transition: all 0.5s ease 0s,;
+  -ms-transition: all 0.5s ease 0s,;
+  transition: all 0.5s ease 0s,;
+  -moz-transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}

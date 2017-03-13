@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>教务管理-2师生画像2</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="/v3/source/css/ea/ui-data.css"/>
+    <link rel="stylesheet" href="/v3/source/css/ea/statistics/page-elective-draw.css"/>
+
+
+    <script>
+        window.DEYI = window.DEYI || {};
+        window.DEYI.sites = {
+            'main': 'http://www.dayeasy.dev',
+            'apps': 'http://apps.dayeasy.dev',
+            'static': '//static.dayeasy.dev',
+            'reg': 'http://account.dayeasy.dev/reg',
+            'login': 'http://account.dayeasy.dev/login',
+            'account': 'http://account.dayeasy.dev',
+            'file': '//file.dayez.net',
+            'open': 'http://open.dayeasy.dev/'
+        };
+    </script>
+</head>
+<body>
+
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="dy-main-wrap f-cb">
+            @@include('./module/m-supervise-nav.html')
+            <div class="dy-list">
+                <div class="page-elective-draw">
+                    <div class="ui-tab-nav">
+                        <ul class="f-cb">
+                            <li class="on first">最近一周</li>
+                            <li>最近一个月</li>
+                            <li>最近3个月</li>
+                            <li class="last">最近6个月</li>
+                        </ul>
+                    </div>
+                    <div class="tab-nav-contens">
+                        <div class="tab-con-list tab-con-1" style="display: block;">
+                            <!--师生登录情况-->
+                            <div id="container-area-draw" class="mb20" style="min-width:400px;height:400px"></div>
+                            <!--End-->
+                            <!--画像-->
+                            <div class="box-painting f-cb">
+                                <div class="teacher-painting f-fl">
+                                    <table class="dy-table">
+                                        <tr>
+                                            <td>
+                                                <div class="text">平均登录次数</div>
+                                                <div class="num">5.6</div>
+                                            </td>
+                                            <td>
+                                                <div class="text">平均完成批阅(次)</div>
+                                                <div class="num">5.6</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="wrap-chart">
+                                        <div id="container-chart-left" style="min-width:300px;height:300px"></div>
+                                        <img class="pos-img" src="/v3/image/ea/teacher-h.png" alt="">
+                                    </div>
+
+                                </div>
+                                <div class="student-painting f-fr">
+                                    <table class="dy-table">
+                                        <tr>
+                                            <td>
+                                                <div class="text">平均登录次数</div>
+                                                <div class="num">5.6</div>
+                                            </td>
+                                            <td>
+                                                <div class="text">平均登录次数</div>
+                                                <div class="num">5.6</div>
+                                            </td>
+                                            <td>
+                                                <div class="text">平均登录次数</div>
+                                                <div class="num">30</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="wrap-chart">
+                                        <div id="container-chart-right" style="min-width:300px;height:300px"></div>
+                                        <img class="pos-img" src="/v3/image/ea/student-h.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--画像 End-->
+                            <!--打卡达人-->
+                            <div class="punch-master f-cb">
+                                <dl class="dl-list">
+                                    <dt>打卡达人</dt>
+                                    <dd>
+                                        <table>
+                                            <colgroup>
+                                                <col style="width: 5em"/>
+                                                <col style="width: 5em"/>
+                                                <col style="width: 30em"/>
+                                                <col style="width: 10em"/>
+                                            </colgroup>
+                                            <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-list">
+                                    <dt>勤劳榜</dt>
+                                    <dd>
+                                        <table>
+                                            <colgroup>
+                                                <col style="width: 5em"/>
+                                                <col style="width: 5em"/>
+                                                <col style="width: 30em"/>
+                                                <col style="width: 10em"/>
+                                            </colgroup>
+                                            <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </dd>
+                                </dl>
+                                <dl class="dl-list last">
+                                    <dt>人气老师</dt>
+                                    <dd>
+                                        <table>
+                                            <colgroup>
+                                                <col style="width: 5em"/>
+                                                <col style="width: 5em"/>
+                                                <col style="width: 30em"/>
+                                                <col style="width: 10em"/>
+                                            </colgroup>
+                                            <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <img class="f-fl"
+                                                         width="36" height="36"
+                                                         src="/v3/image/default/user_s160x160.png" alt="">
+                                                </td>
+                                                <td>
+                                                    李老师
+                                                </td>
+                                                <td>
+                                                    <span class="f-db f-tac text-1">121</span>
+                                                    <span class="f-db f-tac text-2">登录次数</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <!--打卡达人 ENd-->
+                        </div>
+                        <!--<div class="tab-con-list tab-con-2">2</div>-->
+                        <!--<div class="tab-con-list tab-con-3">3</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@@include('./footer.html')
+
+
+<script src="/v3/plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
+<!--<script src="/v3/plugs/mCustomScrollbar/jquery.mousewheel.min.js"></script>-->
+
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
+
+
+<script src="/v3/source/js/ea/statistics/page-elective-draw.js"></script>
+</body>
+</html>

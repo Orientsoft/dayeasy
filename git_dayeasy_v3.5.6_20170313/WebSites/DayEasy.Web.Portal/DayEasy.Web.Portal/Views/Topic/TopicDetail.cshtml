@@ -1,0 +1,300 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@model DayEasy.Contracts.Dtos.Topic.TopicDto
+
+@{
+    ViewBag.Title = (Model == null ? string.Empty : Model.Title) + " - 帖子详情";
+}
+
+<div class="dy-main">
+    <div class="details-page w1200 f-cb">
+        @if (Model != null)
+        {
+            <div class="details-main f-fl">
+
+                <div class="detail-menu-list">
+                    @if (Model.StateList.Contains(TopicState.Recommend))
+                    {
+                        <i class="icon-essence"></i>
+                    }
+                    @if (Model.StateList.Contains(TopicState.Pick))
+                    {
+                        <i class="icon-thetop"></i>
+                    }
+
+                </div>
+                @if (ViewData["isMine"] != null || ViewData["isManager"] != null)
+                {
+                    <div class="slide-bottom posta">
+                        <span class="angle-border"><i class="angle-bottom"></i></span><em class="fontClor">设置</em>
+                        <ul class="f-pa angle-bottom-wrap">
+                            @if (ViewData["isMine"] != null)
+                            {
+                                <li class="paper-del">
+                                    <a href="@Url.Action("EditTopic", "Topic", new { id = Model.Id })">编辑</a>
+                                </li>
+                            }
+
+                            <li>
+                                <a href="javascript:void(0);" id="a_delete">删除</a>
+                            </li>
+
+                            @if (ViewData["isManager"] != null)
+                            {
+                                <li>
+                                    <a href="javascript:void(0);" id="a_pick" data-state="@((byte)TopicState.Pick)">
+                                        @(Model.StateList.Contains(TopicState.Pick) ? "取消加精" : "加精")
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" id="a_recommend" data-state="@((byte)TopicState.Recommend)">@(Model.StateList.Contains(TopicState.Recommend) ? "取消置顶" : "置顶")</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <script type="text/javascript">
+                        $(function () {
+                            $("#a_delete").click(function () {
+                                singer.confirm('您确定要删除这篇帖子吗？', function () {
+                                    $.post('@Url.Action("TopicDelete", "Topic", new { id = Model.Id })', {}, function (res) {
+                                        if (res.Status) {
+                                            window.location = '@Url.Action("Index", "Topic", new { id = Model.ClassType })';
+                                        } else {
+                                            singer.msg(res.Message);
+                                        }
+                                    });
+                                }, function () { });
+                            });
+
+                            $("#a_pick,#a_recommend").click(function () {
+                                var state = $(this).data('state');
+                                $.post('@Url.Action("TopicUpdateState", "Topic", new { id = Model.Id })', { state: state }, function (res) {
+                                    if (res.Status) {
+                                        window.location.reload();
+                                    } else {
+                                        singer.msg(res.Message);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                }
+
+                <div class="dynamic-list">
+                    <div class="box-list">
+                        <div class="box">
+                            <div class="box-lg-12 tab-box-1">
+                                @*<strong class="color-bg-grassgreen f-csp f-fl" onclick="javascript: window.location = '@Url.Action("Index", "Topic", new { id = Model.ClassType })';">@Consts.Channel(Model.ClassType)</strong>*@
+                                <h2 class="dynamic-h2-title f-fl">@Model.Title</h2>
+                            </div>
+                            <div class="box-lg-12 tab-box-3">
+                                <div class="box-lg-2 width-lg-1">
+                                    <img src="@Html.MakeThumb(Model.UserPhoto, "100x100")" width="32" height="32" alt="" />
+                                    <a class="teacher-name" href="javascript:void(0);">@Model.UserName</a>
+                                </div>
+                                <div class="box-lg-2 width-lg-2">@Model.AddedAt.ToString("yyyy-MM-dd")</div>
+                                <div class="box-lg-2 width-lg-3">
+                                    <i class="iconfont dy-icon-viewline"></i> @Model.ReadNum
+                                </div>
+                                <div class="box-lg-2 width-lg-4">
+                                    <i class="iconfont dy-icon-messageline"></i>@Model.ReplyNum
+                                </div>
+                                <div class="box-lg-2 width-lg-5"><i class="iconfont dy-icon-zan"></i> @Model.PraiseNum</div>
+                            </div>
+                            @if (Model.TagList != null)
+                            {
+                                <div class="box-lg-12 tab-box-2">
+                                    @foreach (var tag in Model.TagList)
+                                    {
+                                        <span>@tag</span>
+                                    }
+                                </div>
+                            }
+                            <div class="box-lg-12 tab-box-4 default-style" id="topic-content">
+                                @Html.Raw(Model.Content)
+                            </div>
+                        </div>
+                        <div class="box tab-box-5">
+                            @if (Model.HasVote)
+                            {
+                                ViewDataDictionary viewData = null;
+                                if (ViewData["isMine"] != null)
+                                {
+                                    viewData = new ViewDataDictionary
+                                    {
+                                        {"isMine", true}
+                                    };
+                                }
+                                <div class="vote-text">
+                                    @Html.Partial("_vote", Model.VoteDetail, viewData)
+                                </div>
+                            }
+
+                            <div class="box-lg-12 f-tac">
+                                @if (Model.hadPraised)
+                                {
+                                    <button class="dy-btn dy-btn-default zan-color" title="已赞">
+                                        <i class="iconfont dy-icon-zan"></i> @Model.PraiseNum
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button class="dy-btn dy-btn-default" id="btn_praise" title="赞一个">
+                                        <i class="iconfont dy-icon-zan"></i> @Model.PraiseNum
+                                    </button>
+
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            $("#btn_praise").click(function () {
+                                                $.post('@Url.Action("PraiseTopic", "Topic", new { id = Model.Id })', {}, function (res) {
+                                                    if (res.Status) {
+                                                        window.location.reload();
+                                                    } else {
+                                                        singer.msg(res.Message);
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
+                                }
+
+                            </div>
+
+                            <div class="box-lg-12 bdsharebuttonbox">
+                                <span class="f-fl share-to">分享至</span>
+                                <ul class="f-cb ul-list-letter">
+                                    <li>
+                                        <a class="bds_weixin iconfont dy-icon-44" data-cmd="weixin" title="分享到微信" href="javascript:void(0);"></a>
+                                    </li>
+                                    <li>
+                                        <a class="bds_tsina iconfont dy-icon-47" data-cmd="tsina" title="分享到新浪微博" href="javascript:void(0);"></a>
+                                    </li>
+                                    <li>
+                                        <a class="bds_sqq iconfont dy-icon-45" data-cmd="sqq" title="分享到QQ好友" href="javascript:void(0);"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @{ Html.RenderAction("CommentList", "Topic", new { sourceId = "topic_" + Model.Id }); }
+            </div>
+        }
+        else
+        {
+            <div class="details-main f-fl">
+                <div class="box-lg-12 dy-nothing" style="border-bottom: none;">
+                    <i class="iconfont dy-icon-emoji02"></i>没有找到帖子的详细信息!
+                </div>
+            </div>
+        }
+        <div class="side-comment f-fr">
+            @if (ViewData["group"] != null)
+            {
+                var group = ViewData["group"] as ShareGroupDto;
+                if (group != null)
+                {
+                    <div class="layer-block diffe4">
+                        <div class="box">
+                            <div class="box-lg-12 communi-cation f-cb">
+                                <img class="f-fl" src="@(string.IsNullOrWhiteSpace(group.Logo) ? Url.StaticLink("/v3/image/temp/cat.png") : Html.MakeThumb(group.Logo, "64x64"))" width="64" height="64" alt="" />
+                                <div class="font-title f-fr">
+                                    <a class="f-toe ahv01" title="@group.Name" href="@Url.Action("Item", "Group", new { id = group.Id })">
+                                        @group.Name
+                                    </a>
+                                </div>
+                                <div class="font-member f-fr">
+                                    成员：@group.Count
+                                </div>
+
+                                <div class="font-member f-fr">
+                                    圈主：@group.Owner
+                                </div>
+                            </div>
+                            <div class="box-lg-12 communi-content">@Html.Raw(group.GroupSummary)</div>
+                            <div class="box-lg-12 label-list">
+                                @if (group.TagList != null)
+                                {
+                                    foreach (var tag in group.TagList)
+                                    {
+                                        <span>@tag</span>
+                                    }
+                                }
+                            </div>
+                            <div class="box-lg-12 f-tac">
+                                @if (ViewData["isMember"] == null)
+                                {
+                                    <a class="dy-btn dy-btn-default" href="@Url.Action("Apply", "Group", new { id = group.Id })" target="_blank"><i class="iconfont-jia">+</i> 加入</a>
+                                }
+                                else
+                                {
+                                    <a class="dy-btn dy-btn-default" href="@Url.Action("Item", "Group", new { id = group.Id })">进入圈子</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+            @Html.Partial("_topicSide", ViewData["otherTopics"], new ViewDataDictionary { { "title", "相关文章" }, { "iconClass", "dy-icon-article" } })
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/home/ui-base.css,v3/css/home/details-page.css,v3/css/topic/page-item.css")
+}
+
+@section js{
+    <script>var deyi = window.DEYI = window.DEYI || {}; deyi.loadFormula = true;</script>
+    @Html.CombineLink("v3/js/dy-comment.js,js/portal/question/formula.js")
+    <script type="text/javascript">
+        (function ($) {
+            singer.loadFormula();
+
+            //冒泡工具函数
+            function stopPropagation(e) {
+                if (e.stopPropagation)
+                    e.stopPropagation();
+                else
+                    e.cancelBubble = true;
+            }
+            var slideBottom = $(".slide-bottom");
+            $(document).bind('click', function () {
+                if (slideBottom.hasClass('slide-hover')) {
+                    slideBottom
+                        .removeClass('slide-hover')
+                        .find('ul').removeClass('show');
+                }
+            });
+            slideBottom.bind('click', function (e) {
+                stopPropagation(e);
+                $(this).toggleClass('slide-hover')
+                    .find('ul').toggleClass('show');
+            });
+
+            window._bd_share_config = {
+                "common": {
+                    "bdText": $("#topic-title").text(),
+                    "bdDesc": '',
+                    "bdUrl": window.location.href,
+                    "bdPic": $("#topic-content").find('img').first().attr('src'),
+                    "bdStyle": 0,
+                    'onBeforeClick': function (cmd, config) {
+                        config.bdDesc = '';
+                        return config;
+                    }
+                },
+                "share": [{
+                    //"bdSize": 24,
+                    ////随便给一个地址：避免使用插件自带样式
+                    //                "bdCustomStyle": ''
+                }]
+            }
+            with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+        })(jQuery);
+    </script>
+}

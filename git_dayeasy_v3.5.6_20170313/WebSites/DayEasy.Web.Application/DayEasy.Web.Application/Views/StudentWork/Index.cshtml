@@ -1,0 +1,186 @@
+﻿@using DayEasy.Contracts.Dtos.Statistic
+@using DayEasy.Contracts.Enum
+@using DayEasy.Contracts.Dtos.User
+@model List<DayEasy.Contracts.Dtos.Publish.StudentWorksDto>
+@{
+    ViewBag.Title = "考试中心";
+
+    var subjectList = new List<SelectListItem>();
+    if (ViewData["subjects"] != null)
+    {
+        subjectList = ViewData["subjects"] as List<SelectListItem>;
+    }
+
+    List<StudentScoreDto> studentScores = null;
+    if (ViewData["studentScores"] != null)
+    {
+        studentScores = ViewData["studentScores"] as List<StudentScoreDto>;
+    }
+
+    Dictionary<string, decimal> classScores = null;
+    if (ViewData["classScores"] != null)
+    {
+        classScores = ViewData["classScores"] as Dictionary<string, decimal>;
+    }
+}
+
+<div class="dy-main j-autoHeight" data-left="132" data-min="600" data-type="2">
+    <div class="paper-clip w1200 f-cb">
+        <div class="top-title f-cb">
+            <h2 class="h2-title f-fl">考试中心</h2>
+            <div class="input-part f-fr">
+                <form method="GET" action="@Url.Action("Index","StudentWork")" id="searchForm">
+                    <input type="hidden" name="sj" value="" id="subjectId" />
+                    <input type="text" value="@Request["key"]" class="form-control" placeholder="关键字/搜索" name="key">
+                    <button class="iconfont dy-icon-26" type="button" onclick="javascript:searchForm.submit();"></button>
+                </form>
+            </div>
+        </div>
+        <div class="conter-table">
+            <table class="dy-table">
+                <tr>
+                    <th class="tb-1">
+                        <div class="slide-bottom">
+                            <strong class="f-fl">学科</strong>
+                            <span class="f-fr angle-boder"><i class="angle-bottom"></i></span>
+                            @if (subjectList != null)
+                            {
+                                <ul class="f-pa hide">
+                                    @foreach (var subject in subjectList)
+                                    {
+                                        <li data-value="@subject.Value">@subject.Text</li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </th>
+                    <th class="tb-2">
+                        试卷名
+                    </th>
+                    <th class="tb-3">
+                        班内排名
+                    </th>
+                    <th class="tb-4">
+                        得分
+                    </th>
+                    <th class="tb-5">
+                        平均分
+                    </th>
+                    <th class="tb-6">
+                        日期
+                    </th>
+                </tr>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var paper in Model)
+                    {
+                        var subject = subjectList == null ? null : subjectList.SingleOrDefault(u => u.Value == paper.SubjectId.ToString());
+                        var subjectName = subject == null ? "-" : subject.Text;
+
+                        var classSort = -1;
+                        decimal currentScore = -1M,
+                            averageScore = -1M;
+
+                        if (paper.IsFinished || paper.SourceType != (byte)PublishType.Print)
+                        {
+                            var studentScore = studentScores == null ? null : studentScores.FirstOrDefault(u => u.Batch == paper.Batch);
+
+                            classSort =
+                                studentScore == null
+                                    ? (paper.SourceType == (byte)PublishType.Print ? -2 : -1)
+                                    : studentScore.Rank;
+                            currentScore = studentScore == null ? -1 : studentScore.Score;
+
+                            averageScore = (classScores != null && classScores.Keys.Contains(paper.Batch))
+                                ? classScores[paper.Batch]
+                                : -1M;
+                        }
+                        else if (paper.SourceType == (byte)PublishType.Print)
+                        {
+                            classSort = -3;
+                        }
+
+                        var url = (paper.SourceType == (byte)PublishType.Print
+                            ? Url.Action("AnswerPaperDetail", "StudentWork", new { batch = paper.Batch })
+                            : Url.Action("PubPaperDetail", "StudentWork", new { batch = paper.Batch }));
+                        <tr>
+                            <td>@subjectName</td>
+                            <td>
+                                <a class="a01 mr10" href="@url" target="_blank">
+                                    @paper.PaperName
+                                </a>
+                                @if (paper.SourceType != (byte)PublishType.Print)
+                                {
+                                    <span class="free-bubble free-bg-yellow free-sm">推送试卷<i></i></span>
+                                }
+                            </td>
+                            <td class="@(classSort == -2 ? "text-danger" : (classSort < 0 ? "text-gray" : ""))">
+                                @switch (classSort)
+                                {
+                                    case -3:
+                                        @:待批阅
+                                        break;
+                                    case -2:
+                                        @:未提交
+                                        break;
+                                    case -1:
+                                        @:待录入
+                                        break;
+                                    default:
+                                        @classSort
+                                        break;
+                                }
+                            </td>
+                            <td class="@(currentScore<0?"text-gray":"")">@(currentScore < 0 ? "-" : currentScore.ToString("0.#"))</td>
+                            <td class="@(averageScore<0?"text-gray":"")">@(averageScore < 0 ? "-" : averageScore.ToString("0.#"))</td>
+                            <td>@paper.StartTime.ToString("yyyy-MM-dd")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" style="padding:0">
+                            <div class="dy-nothing">
+                                <i class="iconfont dy-icon-emoji02"></i>没有找到相关信息！
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="bottom-page">
+            <span class="f-fl">试卷总数 <b>@ViewData["totalCount"]</b></span>
+            <div class="d-pager f-fr">
+                @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 10, Convert.ToInt32(ViewData["totalCount"]), 5, false)
+            </div>
+        </div>
+    </div>
+</div>
+@section style{
+    @Html.CombineLink("v3/css/testpaper/paper-clip.css")
+}
+@section script
+{
+    @Html.CombineLink("v3/plugs/activity2017/teacherday/load-activity-2017-1.js")
+    <script type="text/javascript">
+        $(function () {
+            $('.conter-table .tables').find('tr:not(:first)').hover(function () {
+                $(this).css('background-color', '#fafafa');
+            }, function () {
+                $(this).css('background-color', '#fff');
+            });
+
+            $('.slide-bottom').on('click', function (event) {
+                event.preventDefault();
+                $(this).toggleClass('slide-hover').find('ul').toggleClass('show');
+            });
+
+            $('.slide-bottom ul li').click(function () {
+                var subject = $(this).data('value');
+                $("#subjectId").val(subject);
+                $("#searchForm").submit();
+            });
+        });
+    </script>
+}

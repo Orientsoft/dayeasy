@@ -1,0 +1,239 @@
+﻿@using DayEasy.Application.Services.Dto
+@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Extend
+@model  DayEasy.Contracts.Dtos.Statistic.StudentScoreDto
+@{
+    ViewBag.Title = "成绩报表";
+    var dto = ViewData["workDto"] as VWorkDto;
+    var isPrint = dto != null && dto.PublishType == (byte)PublishType.Print;
+    var noScore = (isPrint ? "未提交" : "待录入");
+}
+
+<div class="dy-main">
+    <div class="coach-bxo w1200 f-cb">
+        @Html.Partial("_DetailHeader", dto)
+        <div class="g-main-list" data-batch="@Model.Batch" data-paper="@Model.PaperId" data-print="@(isPrint?"1":"0")">
+            <div class="d-score-box">
+                <h2>成绩排名</h2>
+                <div class="d-score-wrap">
+                    <i class="angle-left"></i>
+                    <i class="angle-right"></i>
+                    <span class="d-score-title">我的成绩</span>
+                    <span class="d-score-item first-child">
+                        总分：
+                        @if (Model.Score < 0)
+                        {
+                            <small>@noScore</small>
+                        }
+                        else
+                        {
+                            <em>@Model.Score.ToString("0.#")</em>
+                        }
+                    </span>
+                    @if (dto != null && dto.IsAb)
+                    {
+                        <span class="d-score-item">
+                            A卷：
+                            @if (Model.ScoreA < 0)
+                            {
+                                <small>@noScore</small>
+                            }
+                            else
+                            {
+                                <em>@Model.ScoreA.ToString("0.#")</em>
+                            }
+                        </span>
+                        <span class="d-score-item">
+                            B卷：
+                            @if (Model.ScoreB < 0)
+                            {
+                                <small>@noScore</small>
+                            }
+                            else
+                            {
+                                <em>@Model.ScoreB.ToString("0.#")</em>
+                            }
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="d-score-item">A卷：<small>未区分AB卷</small></span>
+                        <span class="d-score-item">B卷：<small>未区分AB卷</small></span>
+                    }
+                </div>
+                <hr />
+                <div class="d-score-ranks">
+                    <div class="d-ranks-item d-rank">
+                        <h3>班级排名</h3>
+                        <div class="d-class-rank">
+                            <div class="dy-loading"><i></i></div>
+                        </div>
+                        <div class="d-rank-change"></div>
+                    </div>
+                    <div class="d-ranks-item d-rank">
+                        <h3>年级排名</h3>
+                        <div class="d-grade-rank">
+                            <div class="dy-loading"><i></i></div>
+                        </div>
+                        <div class="d-rank-change"></div>
+                    </div>
+                    <div class="d-ranks-item">
+                        <div class="d-ranks-item mt20">
+                            <h3>班级平均</h3>
+                            <table class="dy-table d-class-average">
+                                <colgroup>
+                                    <col style="width: 85px" />
+                                    <col style="width: 85px" />
+                                    <col style="width: 85px" />
+                                </colgroup>
+                                <tr>
+                                    <td>总分</td>
+                                    <td>A卷</td>
+                                    <td>B卷</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="d-ranks-item">
+                            <h3>年级平均</h3>
+                            <table class="dy-table d-grade-average">
+                                <colgroup>
+                                    <col style="width: 85px" />
+                                    <col style="width: 85px" />
+                                    <col style="width: 85px" />
+                                </colgroup>
+                                <tr>
+                                    <td>总分</td>
+                                    <td>A卷</td>
+                                    <td>B卷</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-score-box">
+                <h2>分数段</h2>
+                <div class="d-segments">
+                    <div class="dy-loading"><i></i></div>
+                </div>
+                <div class="d-column-mine"><i></i>我所在分数段</div>
+            </div>
+            <div class="d-score-box">
+                <h2>排名大比拼</h2>
+                <div class="d-ranks">
+                    <div class="dy-loading"><i></i></div>
+                </div>
+                <div class="d-column-mine">
+                    <i></i>我的排名
+                </div>
+                <div class="dy-loading"><i></i></div>
+                <div class="d-compare-box hide">
+                    <div class="dy-table-head">
+                        <h3>排名得分对比</h3>
+                    </div>
+                    <table class="dy-table d-rank-compare ml30">
+                        <colgroup>
+                            <col style="width: 75px" />
+                            <col style="width: 90px" />
+                            <col style="width: 125px" />
+                            <col style="width: 90px" />
+                            <col style="width: 130px" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <td>学生</td>
+                                <td>名次</td>
+                                <td>名次差距</td>
+                                <td>得分</td>
+                                <td>得分差距</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="d-mine">
+                                    <i class="iconfont dy-icon-40"></i>我
+                                </td>
+                                <td class="compare">18</td>
+                                <td rowspan="2">
+                                    <em>-</em>名
+                                </td>
+                                <td class="compare">112</td>
+                                <td rowspan="2">
+                                    <em>-</em>分
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="d-other">
+                                    <i class="iconfont dy-icon-40"></i>对方
+                                </td>
+                                <td class="compare">-</td>
+                                <td class="compare">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="dy-table-head">
+                        <h3>错题对比</h3>
+                    </div>
+                    <div class="dy-table-body">
+                        <div class="dy-table-left">
+                            <table class="dy-table">
+                                <colgroup>
+                                    <col style="width: 75px" />
+                                </colgroup>
+                                <tr>
+                                    <td>题号</td>
+                                </tr>
+                                <tr>
+                                    <td class="d-mine">
+                                        <i class="iconfont dy-icon-40"></i>我
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="d-other">
+                                        <i class="iconfont dy-icon-40"></i>对方
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <table class="dy-table d-error-compare"></table>
+                    </div>
+                    <div class="dy-table-head">
+                        <h3>知识点得分率对比</h3>
+                    </div>
+                    <div class="dy-table-body">
+                        <div class="dy-table-left">
+                            <table class="dy-table">
+                                <colgroup>
+                                    <col style="width: 75px" />
+                                </colgroup>
+                                <tr>
+                                    <td>
+                                        <div class="d-knowledge-name">知识点</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="d-mine">
+                                        <i class="iconfont dy-icon-40"></i>我
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="d-other">
+                                        <i class="iconfont dy-icon-40"></i>对方
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <table class="dy-table d-knowledge-compare"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section style{
+    @Html.CombineLink("v3/css/work/student-report.css")
+}
+@section script{
+    @Html.CombineLink("js/highcharts.min.js,plugs/highcharts/highcharts-more.js,plugs/highcharts/solid-gauge.js,v3/js/homework/work-base.js,v3/js/homework/student-report.js")
+}

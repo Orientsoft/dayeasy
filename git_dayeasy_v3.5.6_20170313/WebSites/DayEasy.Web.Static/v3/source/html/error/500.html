@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>404</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <style>
+        .dy-header{ margin-bottom: 200px;}
+        .error-box{position: absolute; top: 50%; left:50%;width: 666px; height:200px; margin-left: -333px;margin-top: -167.5px;}
+        .error-box-one{text-align:center;font-size:24px;margin-top:50px;color:#333;}
+        .error-box-two{text-align:center;margin-top:20px;color:#999;font-size:14px;}
+        .error-box-two a{color: #999;}
+        .error-box-two a:hover{color:#4fc1e9;}
+    </style>
+</head>
+<body>
+
+<div class="dy-wrap f-pr">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="w1200 f-cb ">
+            <div class="error-box">
+
+                <div class="error-box-one" >
+                    505 服务器错误
+                </div>
+                <div class="error-box-two">
+                    <span id="totalSecond">6</span>
+                    秒后自动返回 <a  title="返回首页" href="http://www.dayeasy.net">首页</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+@@include('./footer.html')
+<script  type="text/javascript">
+
+    var second = document.getElementById('totalSecond').textContent;
+    if (navigator.appName.indexOf("Explorer") > -1)
+    {
+        second = document.getElementById('totalSecond').innerText;
+    } else {
+        second = document.getElementById('totalSecond').textContent;
+    }
+    setInterval("redirect()", 1000);
+    function redirect() {
+        if (second < 0) {
+            location.href = 'http://www.dayeasy.net';
+        } else {
+            if (navigator.appName.indexOf("Explorer") > -1) {
+                document.getElementById('totalSecond').innerText = second--;
+            } else {
+                document.getElementById('totalSecond').textContent = second--;
+            }
+        }
+    }
+
+
+</script>
+</body>
+</html>

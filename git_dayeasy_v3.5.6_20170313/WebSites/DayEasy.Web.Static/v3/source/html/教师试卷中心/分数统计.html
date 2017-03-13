@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>分数统计_录入前</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../v3/css/site-base.css"/>
+
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="testteacher-box w1200 f-cb bg-color-grey">
+            <!--主体头部-->
+            @@include('./testteacher/header-title.html')
+            <div class="page-stats">
+                <div class="htmleaf-containers" data-dytab="100">
+                    <div class="htmleaf-content bgcolor-3 amend-ul-stats">
+                        <ul class="dy-tab-nav">
+                            <li class="z-crt"><a href="javascript:void(0);">班内成绩</a></li>
+                            <li><a href="javascript:void(0);">分数段统计</a></li>
+                            <li class="slider">
+                                <span></span>
+                            </li>
+                        </ul>
+                        <div class="btn-posr">
+                            <button class="dy-btn dy-btn-info"><i class="iconfont dy-icon-download"></i> 导出成绩</button>
+                        </div>
+                    </div>
+                    <div class="tab-con">
+                        <div class="dy-tab-con">
+                            <div class="tab-con-item slide-table" style="display: block;">
+                                <form  class="" action="#">
+                                    <div class="box f-tar btn-stats">
+                                        <button class="dy-btn dy-btn-default ck-edit">
+                                            <i class="iconfont dy-icon-edit"></i>
+                                            编辑
+                                        </button>
+                                        <button class="dy-btn dy-btn-default ck-cancel ">
+                                            <i class="iconfont dy-icon-quxiao"></i>
+                                            取消
+                                        </button>
+                                        <button class="dy-btn dy-btn-info ck-complete ">
+                                            <i class="iconfont dy-icon-13"></i>
+                                            完成
+                                        </button>
+                                    </div>
+
+                                    <table class="dy-table amend-table-stats ">
+                                        <tr>
+                                            <th width="20%" class="tab1">
+                                                <label class="checkbox-group group-checkbox">
+                                                    <input type="checkbox"  id="CheckedAll"><span> 序号</span>
+                                                    <i class="iconfont dy-icon-checkbox"></i>
+                                                </label>
+                                            </th>
+                                            <th width="20%" class="tab2">姓名</th>
+                                            <th width="20%" class="tab3">总分</th>
+                                            <th width="20%" class="tab4">A卷总分</th>
+                                            <th width="20%" class="tab5">B卷总分</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="checkbox-group group-checkbox">
+                                                    <input type="checkbox" name="items">
+                                                    <span> 1</span>
+                                                    <i class="iconfont dy-icon-checkbox"></i>
+                                                </label>
+                                            </td>
+                                            <td>张全蛋</td>
+                                            <td>
+                                                <input type="text" value="100" disabled="disabled"/>
+                                            </td>
+                                            <td>
+                                                <input type="text"  value="60" disabled="disabled"/>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="40" disabled="disabled"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="checkbox-group group-checkbox">
+                                                    <input type="checkbox" name="items">
+                                                    <span> 1</span>
+                                                    <i class="iconfont dy-icon-checkbox"></i>
+                                                </label>
+                                            </td>
+                                            <td>张全蛋</td>
+                                            <td>
+                                                <input type="text" value="100" disabled="disabled"/>
+                                            </td>
+                                            <td>
+                                                <input type="text"  value="60" disabled="disabled"/>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="40" disabled="disabled"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5">总人数 <b>10</b> </th>
+                                        </tr>
+                                    </table>
+                                    <div class="stats-btn">
+                                        已选择 <span class="selected-number">6</span> 人
+                                        <button class="dy-btn dy-btn-info">给予表扬</button>
+                                    </div>
+                                </form>
+
+
+                            </div>
+                            <div class="tab-con-item stats-list">
+                                <h2 class="h2-title">分数段统计</h2>
+                                <div class="off-stats">统计共享：
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div class="switch" tabindex="0">
+                                                <input id="notification1" type="checkbox" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ove-x">
+                                    <table class="dy-table">
+                                    <tr>
+                                        <th width="190">分数段</th>
+                                        <th width="190">2015级 1班</th>
+                                        <th width="190">2015级 2班</th>
+                                        <th width="190">2015级 3班</th>
+                                        <th width="190">2015级 4班</th>
+                                        <th width="190">2015级 5班</th>
+                                    </tr>
+                                    <tr>
+                                        <td>100</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                    </tr>
+                                    <tr>
+                                        <td>90 - 99</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                    </tr>
+                                    <tr>
+                                        <td>80 - 89</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                    </tr>
+                                    <tr>
+                                        <td>70 - 79</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                    </tr>
+                                    <tr>
+                                        <td>60 - 69</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                    </tr>
+                                    <tr>
+                                        <td>60 分以下</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                    </tr>
+                                    <tr>
+                                        <td>平均分</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                    </tr>
+                                    <tr>
+                                        <td>最高分</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                    </tr>
+                                    <tr>
+                                        <td>最低分</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                        <td>16</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="6">总分 <b>100</b> </th>
+                                    </tr>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--POP-->
+
+            <!--共享至同事圈-->
+                <div class="share-pop hide">
+                    <div class="radio-list">
+                        <label class="checkbox-group group-radio">
+                            <input type="radio" name="options"><span>2015级2班</span>
+                            <i class="iconfont dy-icon-radio"></i>
+                        </label>
+                        <label class="checkbox-group group-radio">
+                            <input type="radio" name="options"> <span>2015级2班</span>
+                            <i class="iconfont dy-icon-radio"></i>
+                        </label>
+                        <label class="checkbox-group group-radio">
+                            <input type="radio" name="options"> <span>2015级2班</span>
+                            <i class="iconfont dy-icon-radio"></i>
+                        </label>
+                        <label class="checkbox-group group-radio">
+                            <input type="radio" name="options"> <span>2015级2班</span>
+                            <i class="iconfont dy-icon-radio"></i>
+                        </label>
+                    </div>
+                    <div class="give-praise-ben">
+                        <button class="dy-btn dy-btn-default">取消</button>
+                        <button class="dy-btn dy-btn-info">确认</button>
+                    </div>
+                </div>
+            <!--共享至同事圈 End-->
+
+
+        <!--POP END-->
+    </div>
+</div>
+@@include('./footer.html')
+<script type="text/html" id="give-praise-pop">
+    <!--给予表扬-->
+    <div class="give-praise-pop">
+        <p class="f-tar dy-result f-db mb5">你还可以输入<em>140</em>个字</p>
+        <textarea placeholder="《期中考试》以下同学这次考试表现得不错，特别表扬！" name="" class="mb5 wf100" cols="30" maxlength="140" rows="5"></textarea>
+        <p class="name-list">
+            <span>张全蛋</span>、
+            <span>张全蛋</span>、
+            <span>张全蛋</span>、
+            <span>张全蛋</span>、
+            <span>张全蛋</span>……等36人
+        </p>
+        <!--<div class="give-praise-ben">-->
+            <!--<button class="dy-btn dy-btn-default">取消</button>-->
+            <!--<button class="dy-btn dy-btn-info">确认</button>-->
+        <!--</div>-->
+    </div>
+    <!--给予表扬 End-->
+</script>
+<link rel="stylesheet" href="/v3/source/css/testteacher/ui-base.css"/>
+<link rel="stylesheet" href="/v3/source/css/testteacher/page-stats.css"/>
+<link rel="stylesheet" href="/v3/source/css/utils/bootstrap-switch.css"/>
+<link rel="stylesheet" href="/v3/plugs/scrollbar/perfect-scrollbar.min.css"/>
+<link rel="stylesheet" href="/v3/source/plugs/jquery-tab/jquery.tab.3.0.css"/>
+<script src="/v3/source/plugs/jquery-tab/jquery.tab.3.0.js"></script>
+<!--<script src="/v3/source/js/testteacher/page-slider.js"></script>-->
+<script src="/v3/source/js/utils/bootstrap-switch.js"></script>
+<script src="/v3/plugs/scrollbar/perfect-scrollbar.min.js"></script>
+
+<script>
+    $(function () {
+            (function($,S){
+                // demo
+                var demoHtml=template('give-praise-pop',{});
+                $('.stats-btn').find('button').click(function(){
+                    S.confirm(demoHtml);
+                });
+                // v2
+                var     $Parent = $('.slide-table'),
+                        $input=$Parent.find('input[type="text"]'),
+                        $oedit  = $Parent.find('.ck-edit');
+                //编辑
+                $oedit.click(function() {
+                    $Parent.addClass('current');
+                    $input.removeAttr('disabled');
+                });
+                //取消 完成
+                $(".ck-cancel , .ck-complete").bind("click", function() {
+                    $Parent.removeClass('current');
+                    $input.attr('disabled','disabled');
+                    if($(this).hasClass('ck-cancel')){
+                        $input.each(function(){
+                            $(this).val(this.defaultValue);
+                        })
+                    }
+
+                });
+                //序号全选
+//                $('#CheckedAll').click(function(){
+//                    $('[name=items]:checkbox')
+//                                .attr("checked", this.checked)
+//                                .siblings('.iconfont').toggleClass('dy-icon-checkboxhv');
+//
+//                });
+
+            })(jQuery,SINGER);
+
+        $(".amend-table-stats input[type=text]").focus(function () {
+            $(this)
+                    .addClass("focus")
+                    .val() == this.defaultValue && $(this).val("");
+        }).blur(function () {
+            $(this)
+                    .removeClass("focus")
+                    .val() == ''&& $(this).val(this.defaultValue);
+        });
+        $('.stats-list .dy-table tr')
+                .find('th:not(:first)').addClass('f-tac')
+                .end().find('td:not(:first)').addClass('f-tac');
+
+        //开关调用
+        $('.control-group input[type="checkbox"]').bootstrapSwitch();
+
+        /**
+         * 表格滚动条
+         */
+        $('.ove-x').perfectScrollbar();
+
+    })
+
+
+</script>
+
+</body>
+</html>
+
+

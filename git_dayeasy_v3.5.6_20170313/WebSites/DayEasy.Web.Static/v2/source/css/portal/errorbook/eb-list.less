@@ -1,0 +1,266 @@
+
+.w1000 {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.border-6 {
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+
+
+
+//公用部分组件
+// Delete google style
+input,button,select,textarea{outline:none}
+textarea{resize:none}
+//错题库版块公用样式
+//todo 待定修改
+.ellipsis{white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;}
+//.row, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6,
+//.col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+//  margin: 0;
+//  padding: 0;
+//}
+
+//.col-lg-offset-6 {
+//  margin-left: 50%;
+//}
+
+h1, .h1, h2, .h2, h3, .h3{
+  margin: 0;
+}
+a.color-blue {
+  text-decoration: none;
+  color: @color-blue;
+  &:hover{
+    color: @color-pink;
+  }
+}
+.color-pink{
+  color: @color-pink;
+}
+//.font-14{font-size: 14px;}
+.after:after{ content:" "; display:block; clear:both; height:0; }
+//btn 按钮
+.ed-background-wrap{
+  .btn{
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;}
+}
+.btn-primary{
+  background: #7fd4ff;
+  border-color: #7fd4ff;
+  color: white;
+  &:hover{background: #48c0fc;border-color: #48c0fc;}
+}
+.btn-default{
+  background: #ffffff;
+  color: #444;
+  border-color: #ffffff;
+  &:hover{
+    background: #dcdcdc;
+    border-color: #dcdcdc;
+  }
+  &:focus{
+    border-color: #dcdcdc;
+  }
+}
+
+//评论 css 组件
+.ed-comment{
+  font-size: 14px;
+  padding: 15px;
+  background: #fafafa;
+  border: 1px solid #e6e6e6;
+  .brs3{
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+  .fz12{
+    font-size: 12px;
+  }
+  .ed-comment-list{
+    border-bottom: 1px dashed #dbdbdb;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    textarea {
+      margin-bottom: 6px;
+      border: 1px solid #e6e6e6;
+      padding: 5px;
+      width: 100%;
+      max-width: 100%;
+    }
+    .comment-top{
+      .u-img{
+        width: 50px;
+        margin-right: 15px;
+      }
+      .name-type{
+        width: 860px;
+        .u-dl{
+          dt{
+            color: #007aa9;
+            margin-bottom: 5px;
+          }
+          dd{
+            margin-bottom: 8px;}
+          dd.error-label{
+            span{
+              padding: 3px 15px;
+              margin-bottom: 5px;
+              margin-right: 5px;
+              color: #ffffff;
+              background: #b3b3b3;
+              display: inline-block;
+            }
+          }
+        }
+        .f-time{
+          color: #a1c6d4;}
+        .f-operation{
+          a{color: #007aa9;}
+        }
+      }
+
+    }
+    .comment-bottom{
+      border: 1px solid #e6e6e6;
+      background: #ebebeb;
+      padding: 10px;
+      .comment-close{
+        cursor: pointer;
+        font-style: normal;
+        background: #ffffff;
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        line-height: 10px;
+        border: 1px solid #e6e6e6;
+        float: right;
+        display: inline-block;
+        &:hover{
+          background: #ffa64c;
+          color: #ffffff;
+        }
+      }
+      .f-width-100{
+        width: 100%;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #dbdbdb;
+        .btn-primary{
+          padding: 0px 12px;
+          position: relative;
+          top: -3px;
+        }
+      }
+      .comments-list{
+        border-bottom: 1px dashed #dbdbdb;
+        padding-bottom: 4px;
+        margin-bottom: 15px;
+        font-size: 12px;
+        .u-img{
+          margin-right: 10px;
+        }
+        .f-width{
+          width: 860px;}
+        .cont-right{
+          line-height: 1.6em;
+          margin-bottom: 5px;
+          .occupation-name{
+            color: #007aa9;
+            width: 32px;
+          }
+        }
+        .comment-cc{
+          padding: 5px 0;
+        }
+      }
+      .comments-detail{
+        margin-bottom: 6px;
+        .comments-list{
+          padding: 5px 0;
+          margin: 5px 0;
+          .f-width{
+            width: 800px;
+          }
+        }
+      }
+      .last-child{
+        border-bottom:none;
+      }
+
+      .f-more,.d-more{
+        font-size: 12px;
+        cursor: pointer;
+        text-align: center;
+        &:hover{
+          color: @color-blue;
+        }
+      }
+    }
+
+  }
+  .last-child{
+    border-bottom:none;
+  }
+}
+//膜拜弹出框组件
+.pop-details{
+  width: 700px;
+  color: #79848a;
+  .u-img{
+    margin-bottom: 10px
+  }
+  .u-worship{
+    .click-worship{
+      margin-bottom: 10px;
+      color: #919699;
+      .glyphicon-thumbs-up{
+        margin-right: 3px;}
+    }
+    .z-crt{
+      color: #fa9632;
+    }
+
+  }
+  .u-witness{
+    ul li{
+      margin-bottom: 5px;
+      color: #65cafc;
+      margin-right: 5px;
+      float: left;
+    }
+  }
+}
+
+
+
+
+
+//错题库下载
+@import "eb-download";
+//错题库主页
+@import "eb-home";
+//错题库详情
+@import "ed-details";
+// 试卷详情
+@import "task-center";
+
+.ed-background-wrap {
+  background: @color-bg-wrap;
+}
+
+.ed-background-main {
+  background: @color-bg-main;
+}
+
+
+
+.dy-container .reason-box .btn-info{
+  color: white;}

@@ -1,0 +1,196 @@
+﻿@using DayEasy.Core
+@using DayEasy.Core.Config
+@using DayEasy.Utility.Extend
+@model List<TS_Agency>
+@{
+    ViewBag.Title = "机构管理";
+    var areas = (ViewData["areas"] as Dictionary<int, string>) ?? new Dictionary<int, string>();
+}
+
+<div>
+    <div class="row mt20">
+        <form method="GET" action="@Url.Action("Index", "Agency")" id="searchForm">
+            <div class="col-sm-3 pl0 d-selects">
+                @Html.DropDownList("stage", ViewData["stages"] as List<SelectListItem>, new { @class = "form-control" })
+                @Html.DropDownList("level", ViewData["levels"] as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-3 pl0">
+                <div class="input-group">
+                    <input type="text" value="@Request["keyword"]" placeholder="机构名称" class="form-control" name="keyword">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit" id="btn_submit"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="d-total">
+                    共<em>@ViewData["totalCount"]</em>所机构
+                </div>
+            </div>
+            <div class="col-sm-4 text-right">
+                <button class="btn btn-blue btn-add" type="button">
+                    <i class="fa fa-plus"></i>
+                    添加机构
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover">
+            <colgroup>
+                <col />
+                <col style="width: 8em" />
+                <col style="width: 8em" />
+                <col style="width: 8em" />
+                <col style="width: 8em" />
+                <col style="width: 6em" />
+                <col style="width: 12em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>机构信息</th>
+                    <th>认证等级</th>
+                    <th>访问人数</th>
+                    <th>目标人数</th>
+                    <th>排序</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        var logo = string.IsNullOrWhiteSpace(item.AgencyLogo) ? Consts.DefaultAvatar(RecommendImageType.AgencyLogo) : item.AgencyLogo;
+                        <tr data-agency="@item.Id" data-name="@item.AgencyName"
+                            data-summary="@item.Summary" data-logo="@logo"
+                            data-sort="@item.Sort">
+                            <td>
+                                <div class="dy-agency">
+                                    <img src="@(Html.MakeThumb(logo, "35x35"))" />
+                                    <div class="dy-agency-name">@(Html.EnumText<StageEnum, byte>(item.Stage)) @item.AgencyName</div>
+                                    <div class="dy-agency-area">
+                                        @(areas.ContainsKey(item.AreaCode) ? areas[item.AreaCode] : string.Empty)
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@(Html.EnumText<CertificationLevel, byte>(item.CertificationLevel))</td>
+                            <td>@item.VisitCount</td>
+                            <td>@item.TargetCount</td>
+                            <td>@item.Sort</td>
+                            <td>@(Html.EnumText<NormalStatus, int>(item.Status))</td>
+                            <td>
+                                <a href="#" title="编辑" class="b-edit"><i class="fa fa-edit"></i></a>
+                                @if (item.CertificationLevel == 0)
+                                {
+                                    <s></s>
+                                    <a href="#" class="b-certificate" title="认证"><i class="fa fa-diamond"></i></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7">没有找到相关信息！</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 15, Convert.ToInt32(ViewData["totalCount"]), 4)
+    </div>
+</div>
+<!--上传logo-->
+<div class="hidden">
+    <div id="btn-upload"></div>
+</div>
+
+<script type="text/html" id="edit-template">
+    <div style="width: 420px;">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">机构名称</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" value="{{name}}" id="name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">机构简介</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" value="{{summary}}" id="summary">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">机构排序</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" value="{{sort}}" id="sort">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">机构Logo</label>
+                <div class="col-sm-8">
+                    <input type="hidden" value="{{logo}}" id="logo">
+                    <img alt="机构Logo" title="点击上传" class="pointer b-update-logo" width="50" height="50" src="{{logo}}" />
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+<script type="text/html" id="addTpl">
+    <div class="form form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-3">机构名称：</label>
+            <div class="col-md-6">
+                <input type="text" id="agencyName" class="form-control" placeholder="请输入机构名称"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">机构类型：</label>
+            <div class="col-md-5">
+                <select class="form-control" id="agencyType">
+                    <option value="-1">选择类型</option>
+                    @foreach (AgencyType type in Enum.GetValues(typeof (AgencyType)))
+                    {
+                        <option value="@((byte)type)">@type.GetText()</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">所在区域：</label>
+            <div class="col-md-9" id="areaSelector">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">所属学段：</label>
+            <div class="col-md-6">
+                @foreach (StageEnum stage in Enum.GetValues(typeof(StageEnum)))
+                {
+                    <label class="checkbox checkbox-inline">
+                        <input type="checkbox" name="stage" value="@((byte)stage)" />
+                        @stage.GetText()
+                    </label>
+                }
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary btn-submit">确认添加</button>
+        </div>
+    </div>
+</script>
+@section style{
+    <style>
+        .area-item {
+            float: left;
+            width: 7em;
+            margin-right: 8px;
+        }
+    </style>
+}
+@section script{
+    @Html.CombineLink("plugs/webuploader/webuploader.js,js/artTemplate.min.js,js/base/utils.js,v3/js/management/page-agency.js")
+}

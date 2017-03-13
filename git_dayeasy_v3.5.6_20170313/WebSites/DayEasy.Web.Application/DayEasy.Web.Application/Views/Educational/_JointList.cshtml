@@ -1,0 +1,19 @@
+﻿@model List<DayEasy.Contracts.Dtos.Examination.ExamSubjectDto>
+
+<ul class="dy-joint-list">
+    @foreach (var joint in Model)
+    {
+        <li>
+            <div class="d-paper-info">
+                <span class="d-subject d-subject@(joint.SubjectId)">@joint.Subject</span>
+                <strong title="@joint.PaperTitle">@joint.PaperTitle</strong>
+            </div>
+            <div class="d-group-info">
+                <img class="image-rounded" src="@Html.MakeThumb(joint.Creator.Avatar, "30x30")" alt="@joint.Creator.Name" />
+                <span class="d-creator" title="@joint.Creator.Name">@joint.Creator.Name</span>
+                <img src="@Html.MakeThumb(joint.Group.Logo, "30x30")" alt="@joint.Group.Name" />
+                <span class="d-group" title="@joint.Group.Name">@joint.Group.Name</span>
+            </div>
+        </li>
+    }
+</ul>

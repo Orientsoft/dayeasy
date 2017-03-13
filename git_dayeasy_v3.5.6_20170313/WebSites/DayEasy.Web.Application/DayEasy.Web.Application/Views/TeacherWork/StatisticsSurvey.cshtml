@@ -1,0 +1,244 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.Statistic
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Helper
+@model DayEasy.Application.Services.Dto.VWorkDto
+@{
+    ViewBag.Title = "考试概况";
+}
+
+<div class="coach-bxo w1200 f-cb">
+    @if (Model == null || Model.Batch == null || Model.PaperId == null)
+    {
+        <div class="dy-nothing">参数错误，请刷新重试！</div>
+    }
+    else
+    {
+        @Html.Partial("_WorkHeader", Model)
+
+        <input type="hidden" id="txtBatch" value="@Model.Batch" />
+        <input type="hidden" id="txtPaperId" value="@Model.PaperId" />
+
+        <div class="suv-box">
+
+            <!--题目作答-->
+            <div class="suv-item suv-questions">
+                <div class="suv-title">题目作答情况<div class="arrow-lg"></div></div>
+                <div class="ss-tip">
+                    示例：<div class="ss-qitem"><span class="ssq-num">题号</span>得分率</div>
+                </div>
+                <div class="dy-loading"><i></i></div>
+            </div>
+
+            <!--分数段-->
+            <div class="suv-item suv-score-group">
+                <div class="suv-title">班级统计情况<div class="arrow-lg"></div></div>
+                <div class="ss-group-box hide"></div>
+                <div class="dy-loading"><i></i></div>
+            </div>
+
+            <!--需要关注的学生-->
+            <div class="suv-item suv-students">
+                <div class="suv-title">需要关注的学生<div class="arrow-lg"></div></div>
+                <div class="dy-loading"><i></i></div>
+            </div>
+
+            <!--需要关注的知识点-->
+            <div class="suv-item suv-kps">
+                <div class="suv-title">需要关注的知识点<div class="arrow-lg"></div></div>
+                <div class="dy-loading"><i></i></div>
+            </div>
+
+        </div>
+
+        <script type="text/html" id="ss-question-template">
+            <div class="ss-box {{sqClass}}">
+                <div class="ssb-tip">
+                    <span>{{title}}</span>
+                    <span class="ssb-small">{{content}}</span>
+                </div>
+                {{each list as item}}
+                <div class="ss-qitem" data-qid="{{item.id}}"><span class="ssq-num">{{item.sort}}</span>{{item.scoreRate}}%</div>
+                {{/each}}
+            </div>
+        </script>
+
+        <script type="text/html" id="ss-score-group-template">
+            <div class="ss-avg-box">
+                <table>
+                    <tr><td class="fs16 fw" colspan="2">{{group_name}}</td></tr>
+                    <tr><td>参考人数</td><td class="fw">{{count}}</td></tr>
+                    <tr><td>最高分</td><td class="fw">{{max}}</td></tr>
+                    <tr><td>最低分</td><td class="fw">{{min}}</td></tr>
+                    <tr><td>平均分</td><td class="fw">{{avg}}</td></tr>
+                    <tr><td>及格率</td><td class="fw">{{pass_rate}}%</td></tr>
+                </table>
+            </div>
+        </script>
+
+        <script type="text/html" id="ss-student-template">
+            <table>
+                <colgroup>
+                    <col style="width: 130px;"/>
+                    <col/>
+                </colgroup>
+                <tr>
+                    <td class="td1"><i class="iconfont dy-icon-shangjiantou"></i>前十名</td>
+                    <td class="td2">
+                        <div class="stu-box">
+                            {{if data.topTen && data.topTen.length}}
+                            {{each data.topTen as u}}
+                            <a href="/work/marking-detail?batch={{batch}}&paperId={{paperId}}&studentId={{u.id}}" target="_blank">{{u.name}}</a>
+                            {{/each}}
+                            {{/if}}
+                            {{if !data.topTen || !data.topTen.length}}
+                            <span class="nothing">暂无</span>
+                            {{/if}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td1"><i class="iconfont dy-icon-xiajiantou"></i>后十名</td>
+                    <td class="td2">
+                        <div class="stu-box">
+                            {{if data.lastTen && data.lastTen.length}}
+                            {{each data.lastTen as u}}
+                            <a href="/work/marking-detail?batch={{batch}}&paperId={{paperId}}&studentId={{u.id}}" target="_blank">{{u.name}}</a>
+                            {{/each}}
+                            {{/if}}
+                            {{if !data.lastTen || !data.lastTen.length}}
+                            <span class="nothing">暂无</span>
+                            {{/if}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td1"><i class="iconfont dy-icon-fenshangsheng"></i>进步较大</td>
+                    <td class="td2">
+                        <div class="stu-box">
+                            {{if data.progress && data.progress.length}}
+                            {{each data.progress as t}}
+                            <a href="/work/marking-detail?batch={{batch}}&paperId={{paperId}}&studentId={{t.userBase.id}}" target="_blank">
+                                {{t.userBase.name}}（<span class="trend trend-up"><i class="iconfont dy-icon-arrow-up"></i>{{t.trend}}</span>）
+                            </a>
+                            {{/each}}
+                            {{/if}}
+                            {{if !data.progress || !data.progress.length}}
+                            <span class="nothing">暂无</span>
+                            {{/if}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td1"><i class="iconfont dy-icon-fenxiajiang"></i>退步较大</td>
+                    <td class="td2">
+                        <div class="stu-box">
+                            {{if data.backSlide && data.backSlide.length}}
+                            {{each data.backSlide as t}}
+                            <a href="/work/marking-detail?batch={{batch}}&paperId={{paperId}}&studentId={{t.userBase.id}}" target="_blank">
+                                {{t.userBase.name}}（<span class="trend trend-down"><i class="iconfont dy-icon-arrow-down"></i>{{0 - t.trend}}</span>）
+                            </a>
+                            {{/each}}
+                            {{/if}}
+                            {{if !data.backSlide || !data.backSlide.length}}
+                            <span class="nothing">暂无</span>
+                            {{/if}}
+                        </div>
+                    </td>
+                </tr>
+                {{if data.isAb}}
+                <tr>
+                    <td class="td1"><i class="iconfont dy-icon-sigh"></i>A卷不及格</td>
+                    <td class="td2">
+                        <div class="stu-box">
+                            {{if data.failsA && data.failsA.length}}
+                            {{each data.failsA as u}}
+                            <a href="/work/marking-detail?batch={{batch}}&paperId={{paperId}}&studentId={{u.id}}" target="_blank">{{u.name}}</a>
+                            {{/each}}
+                            {{else}}
+                            <span class="nothing">暂无</span>
+                            {{/if}}
+                        </div>
+                    </td>
+                </tr>
+                {{/if}}
+                <tr>
+                    <td class="td1"><i class="iconfont dy-icon-sigh"></i>不及格</td>
+                    <td class="td2">
+                        <div class="stu-box">
+                            {{if data.fails && data.fails.length}}
+                            {{each data.fails as u}}
+                            <a href="/work/marking-detail?batch={{batch}}&paperId={{paperId}}&studentId={{u.id}}" target="_blank">{{u.name}}</a>
+                            {{/each}}
+                            {{/if}}
+                            {{if !data.fails || !data.fails.length}}
+                            <span class="nothing">暂无</span>
+                            {{/if}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td1">
+                        <i class="iconfont dy-icon-usererror"></i>@(Model.PublishType == (byte)PublishType.Test ? "未标记" : "未提交")
+                    </td>
+                    <td class="td2">
+                        <div class="stu-box" data-big="1">
+                            {{if data.unSubmits && data.unSubmits.length}}
+                            {{each data.unSubmits as u}}
+                            <div class="st-item">
+                                <img src="{{u.avatar}}" /> {{u.name}}
+                            </div>
+                            {{/each}}
+                            {{/if}}
+                            {{if !data.unSubmits || !data.unSubmits.length}}
+                            <span class="nothing">暂无</span>
+                            {{/if}}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </script>
+
+        <script type="text/html" id="ss-kps-template">
+            <table>
+                <colgroup>
+                    <col style="min-width: 180px;" />
+                    <col style="width: 180px;" />
+                    <col />
+                </colgroup>
+                <tr>
+                    <th>知识点</th>
+                    <th>得分率</th>
+                    <th>含该知识点的题目</th>
+                </tr>
+                {{each $data as kp}}
+                <tr>
+                    <td>{{kp.name}}</td>
+                    <td>
+                        <div class="ratio-bar">
+                            <div class="ratio-bar-deep" data-rate="{{kp.scoreRate}}"></div>
+                        </div>
+                        <span>{{kp.scoreRate}}%</span>
+                    </td>
+                    <td>
+                        {{each kp.questions as q}}
+                        {{$index == 0 ? '' : ','}}
+                        <span class="sk-qitem" data-qid="{{q.id}}">{{q.sort}}</span>
+                        {{/each}}
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+        </script>
+    }
+</div>
+
+@section css{
+    @Html.CombineLink("plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css,css/v2.0/markingcenter/ui-base.css,v3/css/work/ui-base.css,v3/css/utils/bootstrap-switch.css,v3/plugs/jquery-tab/jquery.tab.3.0.css,v3/css/testteacher/page-survey.css")
+}
+
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js,plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js,v3/plugs/jquery-tab/jquery.tab.3.0.js,js/highcharts.min.js,v3/plugs/jquery-tablesorter/jquery.tablesorter.js,v3/plugs/jquery-tablesorter/jquery.tablesorter.widgets.js,v3/js/homework/work-base.js,v3/js/homework/st-survey.js")
+}

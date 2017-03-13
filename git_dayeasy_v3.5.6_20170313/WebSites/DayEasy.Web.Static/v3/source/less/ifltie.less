@@ -1,0 +1,47 @@
+@import url(base.less);
+
+//浏览器兼容代码
+.not-support {
+  background-color: #f6f6b4;
+  height: 85px;
+  color: #000;
+  font-size: 15px;
+  .browser-info {
+    margin: 0 auto;
+    width: 1000px;
+    padding-top: 17px;
+  }
+  .notice-info,
+  .browser-list {
+    float: left;
+    width: 50%;
+  }
+  .notice-info {
+    position: relative;
+    margin-top: 5px;
+    p {
+      text-align: left;
+      line-height: 25px;
+      strong {
+        font-weight: bold;
+        font-size: 105%;
+        padding: 0 2px;
+      }
+    }
+  }
+  .browser-list {
+    position: relative;
+    img {
+      width: 40px;
+      height: 40px;
+    }
+    span {
+      text-align: center;
+      width: 80px;
+      display: inline-block;
+    }
+  }
+}
+
+
+

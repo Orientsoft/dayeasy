@@ -1,0 +1,36 @@
+﻿@model DayEasy.Model.TS_Tag
+
+<form style="width:500px;" id="editForm">
+    <input type="hidden" value="@Model.TagID" name="id" />
+    <input type="hidden" value="@Model.UsedCount" name="userCount"/>
+    <div class="row">
+        <div class="col-sm-2">类型：</div>
+        <div class="col-sm-10 pl0">
+            @Html.DropDownList("type", ViewData["tagType"] as List<SelectListItem>, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row mt20">
+        <div class="col-sm-2">名称：</div>
+        <div class="col-sm-10 pl0">
+            <input type="text" class="form-control" value="@Model.TagName" name="tagName" />
+        </div>
+    </div>
+    <div class="row mt20">
+        <div class="col-sm-2">状态：</div>
+        <div class="col-sm-10 pl0">
+            @Html.DropDownList("status", ViewData["tagStatus"] as List<SelectListItem>, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row mt20">
+        <div class="col-sm-2">全拼：</div>
+        <div class="col-sm-10 pl0">
+            <input type="text" class="form-control" placeholder="不填将自动重新生成" value="@Model.FullPinYin" name="fullPy" />
+        </div>
+    </div>
+    <div class="row mt20">
+        <div class="col-sm-2">简拼：</div>
+        <div class="col-sm-10 pl0">
+            <input type="text" class="form-control" placeholder="不填将自动重新生成" value="@Model.SimplePinYin" name="simplyPy" />
+        </div>
+    </div>
+</form>

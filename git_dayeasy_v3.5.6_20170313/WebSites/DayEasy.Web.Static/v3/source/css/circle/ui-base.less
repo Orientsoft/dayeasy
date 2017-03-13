@@ -1,0 +1,219 @@
+@import "../../less/base";
+
+@color-gray: #bbb;
+@color-active: #ed5565;
+@color-01: #48cfad;
+@color-02: #a0d468;
+@color-03: #fc6e51;
+@color-04: #ffce54;
+@color-05: #3bafda;
+@color-06: #ed5565;
+.d-group-list {
+  overflow: hidden;
+  padding: 0 20px;
+  dt {
+    line-height: 35px;
+    margin: 15px 0 5px 0;
+    font-size: 16px;
+    color: #666;
+    img {
+      .rounded-corners(50%);
+      height: 20px;
+      margin-right: 8px;
+      vertical-align: -4px;
+      width: 20px;
+    }
+  }
+  dd {
+    vertical-align: top;
+    .inline-block;
+  }
+}
+
+.d-group-item {
+  border: 1px solid @border-color;
+  display: block;
+  margin: 0 0 30px 30px;
+  width: 380px;
+  .transition(all 0.5s ease 0s);
+  &:hover {
+    background-color: #f9f9f9;
+    .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 4px)
+  }
+  .d-group-avatar,
+  .d-group-wrap {
+    .inline-block;
+    vertical-align: top;
+  }
+  .d-group-avatar {
+    overflow: hidden;
+    vertical-align: top;
+    img {
+      width: 100px;
+      height: 100px;
+      display: block;
+      margin: 20px;
+    }
+  }
+  .d-group-wrap {
+    width: 234px;
+    padding: 20px 20px 0 0;
+    position: relative;
+    h4 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .d-group-agency {
+      color: #666;
+      line-height: 28px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .d-group-tags {
+      line-height: 28px;
+      min-height: 28px;
+      span {
+        border: 1px solid #bbb;
+        .rounded-corners(2px);
+        font-size: 12px;
+        color: #666;
+        padding: 2px 6px;
+        margin-right: 8px;
+        white-space: nowrap;
+      }
+    }
+    .d-group-channel {
+      background-color: #48cfad;
+      color: @color-default;
+      font-size: 12px;
+      padding: 2px 6px;
+      position: absolute;
+      right: -1px;
+      top: -1px;
+    }
+    .d-message-count {
+      background: #ed5565 none repeat scroll 0 0;
+      color: @color-default;
+      .rounded-corners(50%);
+      font-weight: bold;
+      height: 22px;
+      line-height: 22px;
+      overflow: hidden;
+      position: absolute;
+      right: -10px;
+      text-align: center;
+      top: -10px;
+      width: 22px;
+    }
+    .d-group-summary {
+      color: #999;
+      line-height: 24px;
+      max-height: 48px;
+      overflow: hidden;
+      white-space: normal;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
+  }
+  .d-group-footer {
+    height: 50px;
+    padding: 0 10px 0 20px;
+    border-top: 1px solid @border-color;
+    overflow: hidden;
+    span {
+      margin-right: 12px;
+      color: #999;
+      .inline-block;
+      line-height: 50px;
+      cursor: default;
+      i {
+        margin-right: 6px;
+        vertical-align: 1px;
+      }
+      i.dy-icon-user-outline {
+        position: relative;
+        top: 1.5px;
+        font-size: 17px;
+      }
+    }
+    .d-group-owner {
+      max-width: 10em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: top;
+    }
+    .d-group-enter {
+      float: right;
+      color: #666;
+      line-height: 50px;
+      i {
+        margin-right: 3px;
+        font-size: 14px;
+      }
+      em {
+        margin-left: 2px;
+        font-family: "宋体", serif;
+      }
+    }
+  }
+}
+
+.d-group-single {
+  .d-group-wrap {
+    h4 {
+      white-space: normal;
+      line-height: 150%;
+    }
+    .d-group-summary {
+      max-height: none;
+    }
+  }
+}
+
+.bg-grey {
+  background: #f5f5f5;
+}
+
+.h2-circle {
+  font-weight: normal;
+  font-size: 20px;
+  border-left: 5px solid #ed5565;
+  padding-left: 25px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.dg-channel {
+  .inline-block;
+  padding: 7px 10px;
+  margin-right: 8px;
+  font-size: 14px;
+  color: @color-default;
+  background-color: @color-01;
+}
+
+.dg-channel1 {
+  background-color: @color-01;
+}
+
+.dg-channel2 {
+  background-color: @color-02;
+}
+
+.dg-channel3 {
+  background-color: @color-03
+}
+
+.dg-channel4 {
+  background-color: @color-04;
+}
+
+.dg-channel5 {
+  background-color: @color-05;
+}
+

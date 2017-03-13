@@ -1,0 +1,35 @@
+﻿@model List<DayEasy.Core.Domain.DKeyValue>
+@{
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "试卷预览";
+}
+<div class="dj-container">
+    <div class="dj-users">
+        <h2>
+            <span></span>
+            <small></small>
+        </h2>
+        <ul>
+            @foreach (var student in Model)
+            {
+                <li data-img="@student.Value" data-name="@student.Key">
+                    @student.Key
+                </li>
+            }
+        </ul>
+        <i class="fa fa-angle-up"></i>
+    </div>
+    <div class="dj-picture-wrap">
+        <div class="dj-prev"><i class="fa fa-angle-left"></i></div>
+        <div class="dj-picture">
+            <img src="#" alt="学生试卷" />
+        </div>
+        <div class="dj-next"><i class="fa fa-angle-right"></i></div>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("css/font-awesome.min.css,v3/css/management/bootstrap.css,v3/css/dialog.css,v3/css/management/page-joint-picture.css")
+}
+@section js{
+    @Html.CombineLink("plugs/artDialog/dist/dialog-plus.min.js,v3/js/base/common.js,v3/js/management/page-joint-picture.js")
+}

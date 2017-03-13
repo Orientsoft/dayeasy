@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>试卷夹</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="/v3/source/css/testpaper/ui-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/testpaper/paper-clip.css"/>
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+
+</head>
+<body>
+
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+           <div class="paper-clip w1200 f-cb">
+                <div class="top-title f-cb">
+                    <h2 class="h2-title f-fl">试卷夹</h2>
+                    <div class="input-part f-fr">
+                        <input type="text" placeholder="搜索试卷">
+                        <button class="iconfont dy-icon-26" type="button"></button>
+                    </div>
+                </div>
+               <div class="conter-table">
+                   <table class="dy-table">
+                       <tr>
+                           <th class="tb-1">
+                               <div class="slide-bottom">
+                                   <strong class="f-fl">科学</strong>
+                                   <span class="f-fr angle-boder"><i class="angle-bottom"></i></span>
+                                   <ul class="f-pa hide">
+                                       <li>全部</li>
+                                       <li>语文</li>
+                                       <li>数学</li>
+                                       <li>英语</li>
+                                       <li>历史</li>
+                                   </ul>
+                               </div>
+                           </th>
+                           <th  class="tb-2">
+                               试卷名
+                           </th>
+                           <th class="tb-3">
+                               班内排名
+                           </th>
+                           <th  class="tb-4">
+                               分数
+                           </th>
+                           <th  class="tb-5">
+                               平均分
+                           </th>
+                           <th  class="tb-6">
+                               日期
+                           </th>
+                       </tr>
+                       <tr>
+                           <td>数学</td>
+                           <td><a href="##">三角形全等单元考试</a></td>
+                           <td>待批阅</td>
+                           <td>待批阅</td>
+                           <td>待批阅</td>
+                           <td>2015-12-13</td>
+                       </tr>
+                       <tr>
+                           <td>语文</td>
+                           <td><a href="##">三角形全等单元考试</a></td>
+                           <td>12</td>
+                           <td>12</td>
+                           <td>99</td>
+                           <td>2015-12-13</td>
+                       </tr>
+                       <tr>
+                           <td>英语</td>
+                           <td><a href="##">三角形全等单元考试</a></td>
+                           <td>—</td>
+                           <td>—</td>
+                           <td>—</td>
+                           <td>2015-12-13</td>
+                       </tr>
+                   </table>
+               </div>
+               <div class="bottom-page">
+                   <span class="f-fl">试卷总数 <b>40</b></span>
+                   <div class="d-pager f-fr">
+                       <ul class="pagination">
+                           <li><a href="#">上一页</a></li>
+                           <li>
+                               <a href="javascript:void(0)">1</a>
+                               <a href="javascript:void(0)">2</a>
+                               <a href="javascript:void(0)">3</a>
+                               <a href="javascript:void(0)">4</a>
+                           </li>
+                           <li><a href="#">下一页</a></li>
+                       </ul>
+                   </div>
+               </div>
+        </div>
+    </div>
+</div>
+@@include('./footer.html')
+<script>
+    $(function(){
+
+        $('.conter-table .tables').find('tr:not(:first)').hover(function () {
+            $(this).css('background-color', '#fafafa');
+        }, function () {
+            $(this).css('background-color', '#fff');
+        });
+
+        $('.slide-bottom').on('click', function(event) {
+            event.preventDefault();
+            $(this).toggleClass('slide-hover').find('ul').toggleClass('show');
+        });
+    });
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

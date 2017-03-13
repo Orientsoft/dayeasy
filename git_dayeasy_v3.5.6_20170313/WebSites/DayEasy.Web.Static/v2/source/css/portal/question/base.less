@@ -1,0 +1,320 @@
+@import "../../base";
+
+@notActive: #bcbcbc;
+@notActiveColor: #999;
+@active: #f8a959;
+@activeColor: #ffab00;
+@qbColor: #dcdcdc;
+@closeColor: #d9534f;
+
+.p-container {
+  margin-top: 35px;
+  margin-bottom: 15px;
+  border: 1px solid @qbColor;
+  padding: 15px;
+}
+
+.q-container {
+  margin-top: 55px;
+}
+
+.q-header {
+  border-bottom: 1px dashed @qbColor;
+  height: 55px;
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+  position: relative;
+  padding-left: 15px;
+  i {
+    background-color: @active;
+    height: 24px;
+    width: 3px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
+  h3 {
+    margin: 0;
+    line-height: 40px;
+    font-size: 24px;
+    color: #555;
+    font-family: "Microsoft YaHei";
+  }
+  a {
+    position: absolute;
+    right: 0;
+    top: 4px;
+    width: 80px;
+  }
+}
+
+.d-tags {
+  float: left;
+  margin-left: 15px;
+}
+
+/*step 03*/
+.qth-title {
+  border-bottom: 1px solid @qbColor;
+  height: 35px;
+  margin-bottom: 20px;
+  h4 {
+    color: #666;
+    font-family: Microsoft YaHei;
+    font-size: 14px;
+    line-height: 32px;
+    font-weight: bold;
+  }
+}
+
+.qth-content {
+  line-height: 28px;
+  .qth-editor {
+    cursor: pointer;
+    line-height: 28px;
+    padding: 0 80px 0 0;
+    position: relative;
+    margin-bottom: 12px;
+    .d-formula,
+    .text-editor,
+    .text-view,
+    textarea {
+      border-style: dashed;
+      max-width: 100%;
+      padding-right: 0;
+      width: 100%;
+      min-height: 60px;
+      overflow-y: visible;
+      cursor: text;
+      height: auto;
+    }
+    .text-editor {
+      display: none;
+      border: 1px dashed @border-color;
+    }
+    .edui-editor {
+      border: none;
+    }
+    .text-view {
+      td {
+        border: 1px solid @border-color;
+        padding: 3px 0 0 6px;
+      }
+    }
+  }
+  .btn-image {
+    border: 1px dashed @qbColor;
+    bottom: 0;
+    color: #888;
+    font-size: 11px;
+    padding-top: 10px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 75px;
+    i {
+      color: #666;
+      display: block;
+      font-size: 16px;
+      position: absolute;
+      right: 28px;
+      top: 40%;
+    }
+  }
+  .qth-body {
+  }
+  .qth-detail {
+    position: relative;
+    .qth-detail-body {
+      margin-bottom: 15px;
+    }
+    .detail-index {
+      float: left;
+      width: 30px;
+      i {
+        background-color: @activeColor;
+        border: 1px solid @activeColor;
+        .rounded-corners(50%);
+        color: @color-default;
+        font-size: 11px;
+        font-style: normal;
+        height: 17px;
+        line-height: 15px;
+        position: absolute;
+        top: -9px;
+        left: 0;
+        text-align: center;
+        width: 17px;
+        z-index: 125;
+      }
+    }
+    .detail-line {
+      border-left: 1px dashed @notActiveColor;
+      bottom: 0;
+      width: 0;
+      font-size: 0;
+      line-height: 0;
+      left: 8px;
+      position: absolute;
+      top: 10px;
+    }
+    .detail-content {
+      margin-left: 30px;
+    }
+  }
+  .qth-options {
+    .qth-option {
+      margin-bottom: 12px;
+      margin-left: 15px;
+      .qth-tag {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 40px;
+        i {
+          .angle-bottom(20px, @qbColor);
+          border-bottom: 20px dashed transparent;
+          border-left: 20px solid @qbColor;
+          position: absolute;
+          top: 0;
+          width: 0;
+          z-index: 12;
+        }
+        span {
+          color: #666;
+          font-size: 16px;
+          line-height: 16px;
+          left: 6px;
+          position: absolute;
+          top: 4px;
+          z-index: 25;
+        }
+      }
+      .correct-tag {
+        i {
+          border-color: @activeColor transparent transparent @activeColor;
+        }
+        span {
+          color: @color-default;
+        }
+      }
+      .text-view,
+      textarea {
+        padding-left: 45px;
+        //        height: 60px;
+        //        line-height: 32px;
+      }
+      .btn-image {
+        i {
+
+        }
+      }
+    }
+  }
+  .qth-answer {
+    .text-view
+    textarea {
+      min-height: 160px;
+    }
+  }
+  .qth-close {
+    display: none;
+    background-color: @closeColor;
+    border: 1px solid @closeColor;
+    .rounded-corners(50%);
+    color: @color-default;
+    height: 12px;
+    line-height: 9px;
+    position: absolute;
+    right: 77px;
+    text-align: center;
+    top: -5px;
+    width: 12px;
+    z-index: 156;
+  }
+  .qth-editor-hover {
+    & > .qth-close {
+      display: block;
+    }
+  }
+  .qth-add {
+    border: 1px solid @qbColor;
+    color: @color-primary;
+    display: block;
+    font-size: 20px;
+    height: 32px;
+    padding: 0 8px;
+    text-align: center;
+    vertical-align: middle;
+    width: 32px;
+    cursor: pointer;
+  }
+  /*图片显示*/
+  .image-view {
+    border: 1px dashed #dcdcdc;
+    bottom: 0;
+    padding: 5px 10px 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    img {
+      width: 50px;
+      max-height: 50px;
+    }
+    .image-raw {
+      img {
+        width: auto;
+      }
+    }
+    .qth-close {
+      right: -1px;
+      top: -2px;
+    }
+  }
+  .image-raw {
+    display: none;
+    position: absolute;
+    right: 72px;
+    top: 0;
+    border: 1px solid @qbColor;
+    background-color: @color-default;
+    padding: 3px;
+    .rounded-corners(3px);
+    z-index: 523;
+    img {
+      max-width: 320px;
+      max-height: 320px;
+    }
+  }
+  .image-hover {
+    .qth-close,
+    .image-raw {
+      display: block;
+    }
+  }
+}
+
+.q-diff {
+  float: right;
+  line-height: 32px;
+  margin-bottom: 15px;
+  label, .q-star {
+    float: left;
+  }
+  label {
+    margin-right: 5px;
+    vertical-align: -2px;
+  }
+  .q-star {
+
+  }
+}
+
+.form-actions {
+  margin-top: 45px;
+  .btn {
+    width: 180px;
+  }
+}

@@ -1,0 +1,292 @@
+﻿@using DayEasy.Contracts.Dtos.Question
+@{
+    ViewBag.Title = "错题医院";
+    var questionTypes = ViewData["QuestionTypes"] as List<QuestionTypeDto>;
+}
+<script type="text/javascript">
+    var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true; deyi.loadFormula = true;
+</script>
+@*主体内容*@
+<div class="page-questionerror-index w1200 f-cb">
+    <div  class="main-contenr">
+        <!--左侧-->
+        <div class="sidebar-question-error f-fl">
+            
+            <div class="nva-menu">
+               
+            </div>
+        </div>
+        <!--主体-->
+        <div class="main-qu-error f-fr">
+         
+        </div>
+
+    </div>
+</div>
+@*浮动下载题目演示*@
+<div class="box-fixed-download f-tac hide">
+    <span class="in-total">
+        共 <b>0</b> 题
+    </span>
+    <button class="dy-btn dy-btn-info btn-question-download ">一键下载</button>
+    <a class="a01 btn-key-clear" href="javascript:void(0)">一键清除</a>
+    <form action="/work/dowload_eq" method="POST" id="dwForm" target="_blank">
+        <input id="txtDwData" name="data" value="" class="hide" />
+    </form>
+</div>
+@*学生用户-错误信息*@
+<script type="text/html" id="user-info">
+    @*{{each $data as value}}*@
+    <div class="box user-info">
+        <div class="box-lg-6 info-left f-tal">
+            <span class="return">
+                <i class="iconfont dy-icon-angleleft"></i>
+            </span>
+            <span class="user-header">
+                <img src="{{$data.Avatar}}" width="40" height="40">
+            </span>
+            <span class="user-name">{{$data.Name}}</span>
+        </div>
+        <div class="box-lg-6 info-right f-tar">
+            <span class="in-total">共 <b>{{$data.ErrorCount}}</b> 题</span>
+        </div>
+    </div>
+    @*{{/each}}*@
+</script>
+@*错题学生列表*@
+<script type="text/html" id="student-inio">
+    {{each data as user}}
+    <div class="list-inio" data-user-inio="{Avatar:'{{user.Avatar}}',ErrorCount:'{{user.ErrorCount}}',Id:'{{user.Id}}',Name:'{{user.Name?user.Name:user.Nick}}'}">
+            <div class="top-header">
+                <img src="{{user.Avatar}}" width="40" height="40">
+                <span>{{user.Name?user.Name:user.Nick}}</span>
+            </div>
+            <div class="bottom-text">
+                <span title="{{user.ErrorCount}}道"><b class="f-toe">{{user.ErrorCount}}</b>道</span>
+            </div>
+    </div>
+    {{/each}}
+</script>
+@*错题列表详情*@
+<script type="text/html" id="con-subject-list">
+    {{each data as value i}}
+    <div class="tab-con-subject">
+        <div class="box box-top">
+            <div class="box-lg-6">
+                <h3 class="h3-title">{{value.Sort}}</h3>
+            </div>
+            <div class="box-lg-6  f-tar">
+                <span class="wrong-number"><i class="iconfont dy-icon-usererror"></i><em>{{value.ErrUserCount}}</em>人错</span>
+            </div>
+        </div>
+        <div class="box">
+            {{include 'q-template' value.Question}}
+        </div>
+        <div class="box box-bottom">
+            <div class="box-lg-6">
+                <span class="tiem">{{value.CreateTime}}</span>
+                <span class="name-text">{{value.PaperTitle}}</span>
+            </div>
+            <div class="box-lg-6 f-tar">
+                {{if value.refresh}}
+                <span class="in-download dw-active" data-id="{{value.Id}}" data-questionid="{{value.QuestionId}}">x 移除下载</span>    
+                {{else}}
+                <span class="in-download" data-id="{{value.Id}}" data-questionid="{{value.QuestionId}}">+ 加入下载</span>
+                {{/if}}
+                <a target="_blank" class="see-contents" href="/work/teacher/detail/{{value.Batch}}/{{value.PaperId}}/{{value.QuestionId}}">查看详情 >></a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+</script>
+@*知识点筛选*@
+<script type="text/html" id="Knowledge-Point-Box">
+    {{each $data.data as value}}
+    <li data-code="{{value.Code}}"><span>{{value.Name}}</span><em>{{value.ErrCount}}道</em></li>
+    {{/each}}
+</script>
+@*选项卡-筛选条件*@
+<script type="text/html" id="main-box">
+    <div class="htmleaf-containers">
+        <div class="htmleaf-content bgcolor-3">
+            <ul class="dy-tab-nav">
+                <li data-tabindex="0" class="z-crt"><a href="javascript:void(0);">错题列表</a></li>
+                <li data-tabindex="1"><a href="javascript:void(0);">学生列表</a></li>
+                <li class="slider">
+                    <span></span>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-con">
+            <div class="dy-tab-con">
+                @*********错题列表*********@
+                <div class="tab-con-item error-list-item" style="display: block;">
+                    <div class="main-nav-list">
+                        <div class="box box-list">
+                            <div class="box-lg-1 label-title data-type" data-type="1">
+                                时间范围：
+                            </div>
+                            <div class="box-lg-11 conten-list-text" id="list-time">
+                                <ul>
+                                    <li class="on" data-value="-1">全部</li>
+                                    <li data-value="30">最近1个月</li>
+                                    <li data-value="90">最近3个月</li>
+                                    <li data-value="180">最近6个月</li>
+                                    <li data-value="365">最近1年</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box box-list">
+                            <div class="box-lg-1 label-title data-type"  data-type="2">
+                                错题题型：
+                            </div>
+                            <div class="box-lg-11 conten-list-text" id="list-subject-type">
+                                <ul>
+                                    <li data-errortypeid="-1" class="on">全部</li>
+                                    {{each $data as value}}
+                                    <li data-errortypeid="{{value.Id}}">{{value.Name}}</li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box box-list">
+                            <div class="box-lg-1 label-title data-type" data-type="3">
+                                排列顺序：
+                            </div>
+                            <div class="box-lg-11 conten-list-text" id="list-time-list">
+                                <ul>
+                                    <li class="on" data-time="-1">时间顺序</li> 
+                                    <li data-time="2">错误率升序</li> 
+                                    <li data-time="1">错误率降序</li> 
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box box-list knowledge-point">
+                            <div class="box-lg-1 label-title data-type" data-type="4">
+                                知识点筛选：
+                            </div>
+                            <div class="box-lg-11 conten-list-text questions-number" id="list-knowledge">
+                                <b class="more js-more-btn">展开 <i class="iconfont dy-icon-anglebottom"></i></b>   
+                                <ul class="js-more-conten">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="con-subject-list">
+                        <div class="dy-loading">
+                            <i></i>
+                        </div>
+                    </div>
+                    <div class="f-tac box-not-warning js-load-more hide">加载更多</div>
+                </div>
+                @*********学生错题列表*********@
+                <div class="tab-con-item student-list-item">
+                    <div class="student-inio f-cb"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</script>
+@*任教班级*@
+<script type="text/html" id="nva-menu">
+    <h2 class="h2-title">任教班级</h2>
+    <ul class="ul-menu">
+        {{each $data as value}}
+        <li><a data-groupid="{{value.groupid}}" title="{{value.Name}}" href="javascript:void(0);">{{value.Name}}</a></li>
+        {{/each}}
+    </ul>
+</script>
+@*该班级暂无错题-提示*@
+<script type="text/html" id="class-no-wrong">
+    <div class="htmleaf-containers">
+        <div class="tab-con">
+            <div class="dy-tab-con">
+                @*********错题列表*********@
+                <div class="tab-con-item class-nothing" style="display: block;">
+                    <div class="dy-nothing"><div class="dy-nothing-content"><i class="iconfont dy-icon-no add-Class-icon"></i>该班级暂无错题</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+@*题干*@
+<script type="text/template" id="q-template">
+    <div class="q-item">
+        <div class="q-main">
+            <!--题干-->
+            <div class="q-body">
+                {{#Body}}
+            </div>
+            {{include 'q-image'}}
+            {{include 'q-detail'}}
+            {{if ShowOption}}
+            {{include 'q-option'}}
+
+            {{/if}}
+        </div>
+    </div>
+</script>
+<script type="text/template" id="q-detail">
+    {{if Details && Details.length}}
+    <!--小问-->
+    <div class="q-details">
+        {{each Details as detail i}}
+        <div class="q-detail">
+            <div class="q-body">{{#detail.Body}}</div>
+            {{include 'q-image' detail}}
+            {{if ShowOption}}
+            {{include 'q-option' detail}}
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-option">
+    {{if Answers && Answers.length>1}}
+    <!--选项-->
+    <div class="q-options clearfix {{Answers | optionModel}}">
+        {{each Answers as answer j}}
+        <div class="q-option">
+            <div class="q-body">
+                <span class="q-option-word">{{answer.Tag}}.</span>
+
+                <div class="q-option-body">{{#answer.Body}}</div>
+            </div>
+            {{include 'q-image' answer}}
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-image">
+    {{if Images && Images.length}}
+    <div class="q-image">
+        {{each Images as img j}}
+        <img src="{{img}}" alt="" />
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+
+
+@section css{
+    @Html.CombineLink(
+    "v3/plugs/jquery-tab/jquery.tab.3.0.css",
+    "v3/css/question/list.css",
+    "v3/css/questionerror/ui-base.css",
+    "v3/css/questionerror/page-querror-index.css"
+    )
+}
+@section js{
+    @Html.CombineLink(
+    "v3/js/artTemplate.min.js",
+    "v3/plugs/jquery-tab/jquery.tab.3.0.js",
+    "v3/js/question/formula.js",
+    "v3/js/question/base.js",
+    "v3/js/question/list.js",
+    "v3/js/questionerror/page-querror-index.js"
+    )
+}

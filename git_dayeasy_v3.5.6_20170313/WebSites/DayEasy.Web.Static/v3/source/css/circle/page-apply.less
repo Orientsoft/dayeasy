@@ -1,0 +1,138 @@
+/**
+  申请加入圈子
+*/
+@import "ui-base.less";
+
+.d-group-item:hover {
+  background-color: #fff;
+  .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 0px)
+}
+
+.dy-wrap {
+  .bg-grey();
+}
+
+.h2-circle {
+  margin-bottom: 30px;
+}
+
+.apply-join {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  .h2-circle {
+    .h2-circle;
+  }
+  .cont-min {
+    background: #fff;
+    padding: 20px 0;
+  }
+  .join-box {
+    width: 900px;
+    margin: 30px auto;
+    .join-box-left {
+      padding-right: 60px;
+      border-right: 1px solid #eeeeee;
+      table.tables {
+        color: #999;
+        tr {
+          td {
+            padding: 7.5px 0;
+          }
+        }
+        .tab-2 td p {
+          font-size: 16px;
+          color: #333;
+        }
+        .tab-2 td p, .tab-3 td p {
+          width: 300px;
+        }
+        .tab-5 .p-box {
+          line-height: 1.2em;
+          height: 110px;
+          width: 300px;
+          overflow: hidden;
+        }
+      }
+      .user-img {
+        width: 300px;
+        height: 183px;
+        overflow: hidden;
+        background: #a0d468;
+        position: relative;
+        img {
+          width: 300px;
+        }
+        span {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          z-index: 5;
+          em {
+            padding: 2px 5px;
+            background: #fff;
+            .inline-block();
+            color: #999;
+            .rounded-corners(2px);
+          }
+        }
+        .dy-icon-31 {
+          position: relative;
+          color: #fff;
+          font-size: 16px;
+          margin-right: 5px;
+        }
+        .dy-icon-48 {
+          position: absolute;
+          top: 1.5px;
+          left: 1.5px;
+          color: #aaaaaa;
+          font-size: 10px;
+        }
+      }
+    }
+    .join-box-right {
+      width: 400px;
+      padding-left: 60px;
+      .operation {
+        padding-top: 45px;
+        p.mb {
+          height: 32px;
+          line-height: 32px;
+          margin-bottom: 40px;
+        }
+        .dy-icon-13 {
+          font-size: 32px;
+          color: #8cc152;
+          margin-right: 12px;
+          position: relative;
+          top: 3px;
+          left: 0;
+        }
+        a {
+          margin-left: 43px;
+          color: #3bafda;
+          &:hover {
+            color: @color-hover-blue;
+          }
+        }
+      }
+    }
+  }
+
+  .dy-icon-49, .dy-icon-50 {
+    margin-right: 5px;
+  }
+  ul {
+    li {
+      input {
+        border-width: 2px;
+      }
+      textarea {
+        border-width: 2px;
+        width: 100%;
+      }
+    }
+  }
+}
+

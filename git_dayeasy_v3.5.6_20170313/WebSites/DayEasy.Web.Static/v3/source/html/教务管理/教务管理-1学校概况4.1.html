@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>教务管理-1学校概况4.1</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="/v3/source/css/ea/ui-data.css"/>
+    <link rel="stylesheet" href="/v3/source/css/ea/statistics/page-elective-course.css"/>
+
+
+    <script>
+        window.DEYI = window.DEYI || {};
+        window.DEYI.sites = {
+            'main': 'http://www.dayeasy.dev',
+            'apps':'http://apps.dayeasy.dev',
+            'static': '//static.dayeasy.dev',
+            'reg': 'http://account.dayeasy.dev/reg',
+            'login': 'http://account.dayeasy.dev/login',
+            'account': 'http://account.dayeasy.dev',
+            'file': '//file.dayez.net',
+            'open': 'http://open.dayeasy.dev/'
+        };
+    </script>
+</head>
+<body>
+
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+          <div class="dy-main-wrap f-cb">
+              @@include('./module/m-supervise-nav.html')
+              <div class="dy-list">
+                  <div class="page-elective-course">
+                      <ul class="m-course-top f-cb">
+                          <li class="bg-bearing1">
+                              <span class="title">注册学生</span>
+                              <span class="num-data f-toe" title="12382">12382</span>
+                          </li>
+                          <li class="bg-bearing2">
+                              <span class="title">注册老师</span>
+                              <span class="num-data f-toe" title="1282">1282</span>
+                          </li>
+                          <li class="bg-bearing3">
+                              <span class="title">班级圈</span>
+                              <span class="num-data f-toe" title="182">182</span>
+                          </li>
+                          <li class="bg-bearing4 last-child">
+                              <span class="title">同事圈</span>
+                              <span class="num-data f-toe" title="18">18</span>
+                          </li>
+                      </ul>
+                      <div class="m-course-main f-cb">
+                          <div class="come">
+                              <i class="iconfont dy-icon-50"></i>
+                              <span class="box-span-1">学校主页来访</span>
+                              <span class="box-span-2 f-toe" title="13564">13564</span>
+                          </div>
+                          <div class="target">
+                              <i class="iconfont dy-icon-50"></i>
+                              <span class="box-span-1">学校主页来访</span>
+                              <span class="box-span-2" title="13564">13564</span>
+                          </div>
+                      </div>
+                      <div class="m-course-bottom f-cb">
+                            <div class="box-people class-people">
+                                <div class="m-title f-cb">
+                                    <strong>各班学生人数</strong>
+                                    <select name="" id="container-tab-left">
+                                        <option value="2016">2016级别</option>
+                                        <option value="2017">2017级别</option>
+                                        <option value="2018">2018级别</option>
+                                    </select>
+                                </div>
+                                <!--数据类型替换-->
+                                <div class="container-box-x">
+                                    <div id="container-left" style="height:220px;"></div>
+                                </div>
+
+                            </div>
+                            <div class="box-people teacher-people">
+                                <div class="m-title">
+                                    <strong>各班教师人数</strong>
+                                    <!--数据类型替换-->
+                                    <select name="" id="container-tab-right">
+                                        <option value="2016">语文</option>
+                                        <option value="2017">数学</option>
+                                        <option value="2018">英语</option>
+                                    </select>
+                                </div>
+                                <div class="container-box-y">
+                                    <div id="container-right" style="width: 440px;"></div>
+                                </div>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    </div>
+</div>
+@@include('./footer.html')
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<script src="/v3/plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
+<!--<script src="/v3/plugs/mCustomScrollbar/jquery.mousewheel.min.js"></script>-->
+
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
+<script src="/v3/source/js/ea/statistics/page-elective-course.js"></script>
+
+</body>
+</html>

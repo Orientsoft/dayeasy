@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Hacker</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<script src="../../js/jquery-1.10.2.min.js"></script>
+<script>
+    (function ($) {
+        var s = $(window),
+                hacker = document.createElement('canvas'),
+                width = hacker.width = s.width(),
+                height = hacker.height = s.height(),
+                yPositions = new Array(300).join('0').split(''),
+                ctx = hacker.getContext('2d');
+        $('body').append(hacker);
+        var draw = function () {
+            ctx.fillStyle = 'rgba(0,0,0,.05)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = '#0f0';
+            ctx.font = '10px Microsoft YaHei';
+            yPositions.map(function (y, index) {
+                var text = String.fromCharCode(1e2 + Math.random() * 33);
+                x = (index * 10) + 10;
+                hacker.getContext('2d').fillText(text, x, y);
+                if (y > Math.random() * 1e4) {
+                    yPositions[index] = 0;
+                } else {
+                    yPositions[index] = y + 10;
+                }
+            });
+        };
+        setInterval(draw, 50);
+        $(window).bind('resize', function () {
+            width = hacker.width = s.width();
+            height = hacker.height = s.height();
+        });
+    })(jQuery);
+</script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+﻿@using DayEasy.Contracts.Dtos.Variant
+@model DayEasy.Application.Services.Dto.VWorkDto
+
+@{
+    ViewBag.Title = "考后补救";
+    var hasVariant = (bool)(ViewData["hasVariant"] ?? false);
+    var weaks = (PaperWeakDto)(ViewData["paperWeak"] ?? new PaperWeakDto());
+    int i, total;
+}
+<script>var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true; deyi.loadFormula = true;</script>
+<div class="coach-bxo w1200 f-cb">
+    @Html.Partial("_WorkHeader", Model)
+
+    <div class="statistics-box">
+        <div class="kp-box">
+            <div class="bx-title">
+                薄弱知识点
+                <span class="title-sm">（出错最多TOP5）</span>
+            </div>
+            @if (weaks.Knowledges.Any())
+            {
+                i = 0;
+                total = 0;
+                foreach (var knowledge in weaks.Knowledges.Keys)
+                {
+                    if (i++ == 0)
+                    {
+                        total = weaks.Knowledges[knowledge];
+                    }
+                    if (i > 5)
+                    {
+                        break;
+                    }
+                    var count = weaks.Knowledges[knowledge];
+                    var rate = Math.Ceiling(((double)count / total) * 100);
+                    if (rate > 100)
+                    {
+                        rate = 100;
+                    }
+                    <div class="stb-item">
+                        @knowledge
+                        <span class="stb-num">@("出错" + count + " 次")</span>
+                        <div class="stb-shadow" style="@(rate>0?"width:"+rate+"%":"")"></div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="dy-nothing">暂无薄弱知识点</div>
+            }
+        </div>
+        <div class="tag-box">
+            <div class="bx-title">
+                错因标签
+                <span class="title-sm">（标记最多TOP5）</span>
+            </div>
+            @if (weaks.ErrorTags.Any())
+            {
+                i = 0;
+                total = 0;
+                foreach (var tag in weaks.ErrorTags.Keys)
+                {
+                    if (i++ == 0)
+                    {
+                        total = weaks.ErrorTags[tag];
+                    }
+                    if (i > 5)
+                    {
+                        break;
+                    }
+                    var count = weaks.ErrorTags[tag];
+                    var rate = Math.Ceiling(((double)count / total) * 100);
+                    if (rate > 100)
+                    {
+                        rate = 100;
+                    }
+                    <div class="stb-item">
+                        @tag
+                        <span class="stb-num">@count 人</span>
+                        <div class="stb-shadow" style="@(rate>0?"width:"+rate+"%":"")"></div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="dy-nothing">暂无标签</div>
+            }
+        </div>
+    </div>
+    <div class="g-main-list">
+        <h3 class="section-title">变式推荐</h3>
+        <div class="dw-actions dw-actions-top">
+            @if (hasVariant)
+            {
+                <button class="dy-btn dy-btn-info download-variant disabled" disabled>
+                    <i class="iconfont dy-icon-download"></i>
+                    下载变式
+                </button>
+            }
+            else
+            {
+                <button class="dy-btn dy-btn-info send-variant disabled" disabled>
+                    <i class="iconfont dy-icon-tuisong"></i>
+                    推送变式
+                </button>
+            }
+        </div>
+        <div class="dw-variant-list" data-variant="@hasVariant" data-batch="@Model.Batch" data-paper="@Model.PaperId" data-isab="@Model.IsAb">
+            <div class="dy-loading">
+                <i></i>
+            </div>
+        </div>
+        <div class="dw-actions">
+            @if (hasVariant)
+            {
+                <button class="dy-btn dy-btn-info download-variant disabled" disabled>
+                    <i class="iconfont dy-icon-download"></i>
+                    下载变式
+                </button>
+            }
+            else
+            {
+                <button class="dy-btn dy-btn-info send-variant disabled" disabled>
+                    <i class="iconfont dy-icon-tuisong"></i>
+                    推送变式
+                </button>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/html" id="variantQuestion">
+    {{each $data as item index}}
+    <div class="dw-variant-item" data-qid="{{item.id}}">
+        <div class="dwv-source">
+            <strong>变式推荐{{(index>8?'':'0')+(index+1)}}</strong>
+            <span>对应原题：<i>{{item.title}}题</i></span>
+            <span>错误人数：<b>{{item.errorCount}}人</b></span>
+            <span class="knowledge">
+                知识点：
+                {{each item.model.knowledges as k}}
+                <em>{{k.name}}</em>
+                {{/each}}
+            </span>
+            {{if !item.variants}}
+            <button class="dy-btn dy-btn-info add-variant disabled" disabled>
+                <i class="iconfont dy-icon-59"></i>添加变式
+            </button>
+            {{else}}
+            <div class="dw-send-icon"></div>
+            {{/if}}
+        </div>
+        <div class="dwv-source-box">
+            {{include 'q-template' item.model}}
+            <i></i>
+            <em></em>
+        </div>
+        <div class="dwv-list">
+            {{if item.variants && item.variants.length}}
+            {{each item.variants as variant}}
+            <div class="dwv-item">
+                {{include 'q-template' variant}}
+                <div class="dwv-actions">
+                    <button class="dy-btn dy-btn-default variant-answer">
+                        <i class="iconfont dy-icon-jiexi"></i>
+                        答案解析
+                    </button>
+                </div>
+                <div class="dwv-answer hide">
+                    <h5>参考答案：</h5>
+                    {{#variant | correctAnswer}}
+                    <i></i>
+                    <em></em>
+                </div>
+            </div>
+            {{/each}}
+            {{else}}
+            <div class="dy-loading"><i></i></div>
+            {{/if}}
+        </div>
+    </div>
+    {{/each}}
+</script>
+<script type="text/html" id="variantItem">
+    <div class="dwv-item" data-qid="{{id}}" data-isdata="true">
+        {{include 'q-template'}}
+        <div class="dwv-actions">
+            <button class="dy-btn dy-btn-default variant-answer">
+                <i class="iconfont dy-icon-jiexi"></i>
+                答案解析
+            </button>
+            <div class="dwv-actions-more">
+                <button class="dy-btn change-variant">
+                    <i class="iconfont dy-icon-f5"></i>
+                    换一题
+                </button>
+                <button class="dy-btn delete-variant">
+                    <i class="iconfont dy-icon-cha"></i>
+                    删除
+                </button>
+            </div>
+        </div>
+        <div class="dwv-answer hide">
+            <h5>参考答案：</h5>
+            {{#$data | correctAnswer}}
+            <i></i>
+            <em></em>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="q-template">
+    <div class="q-item">
+        <div class="q-main">
+            <!--题干-->
+            <div class="q-body">
+                {{#body}}
+            </div>
+            {{include 'q-image'}}
+            {{include 'q-detail'}}
+            {{if showOption}}
+            {{include 'q-option'}}
+            
+            {{/if}}
+        </div>
+    </div>
+</script>
+<script type="text/template" id="q-detail">
+    {{if details && details.length}}
+    <!--小问-->
+    <div class="q-details">
+        {{each details as detail i}}
+        <div class="q-detail">
+            <div class="q-body">{{#detail.body}}</div>
+            {{include 'q-image' detail}}
+            {{if showOption}}
+            {{include 'q-option' detail}}
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-option">
+    {{if answers && answers.length>1}}
+    <!--选项-->
+    <div class="q-options clearfix {{answers | optionModel}}">
+        {{each answers as answer j}}
+        <div class="q-option">
+            <div class="q-body">
+                <span class="q-option-word">{{answer.tag}}.</span>
+
+                <div class="q-option-body">{{#answer.body}}</div>
+            </div>
+            {{include 'q-image' answer}}
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-image">
+    {{if images && images.length}}
+    <div class="q-image">
+        {{each images as img j}}
+        <img src="{{img}}" alt="" />
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+@section css{
+    @Html.CombineLink("v3/css/question/list.css,v3/css/work/ui-base.css,v3/css/testteacher/page-variants.css")
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js,js/portal/question/formula.js,v3/js/question/base.js,v3/js/homework/work-base.js,v3/js/testteacher/page-variants.js")
+    <script type="text/javascript">
+        $(function ($) {
+            var $kb = $(".kp-box"),
+                $tb = $(".tag-box");
+            var kh = $kb.height(),
+                th = $tb.height();
+            if (kh != th) {
+                if (kh > th) {
+                    $tb.attr("style", "height:" + kh + "px;");
+                } else {
+                    $kb.attr("style", "height:" + th + "px;");
+                }
+            }
+        });
+    </script>
+}

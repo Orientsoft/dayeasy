@@ -1,0 +1,89 @@
+﻿@model DayEasy.Contracts.Dtos.User.UserDto
+@if (string.IsNullOrWhiteSpace(Model.Email) && string.IsNullOrWhiteSpace(Model.Mobile))
+{
+    @("请先绑定邮箱或手机号码，才能修改密码！")
+}
+else
+{
+    var hasPwd = ViewBag.HasPwd ?? false;
+    <div class="pop-password mb30">
+        <ul class="password-list f-cbli">
+            @if (hasPwd)
+            {
+                <li>
+                    <label>原密码 ：</label>
+                    <input type="password" class="f-old-pwd" value="" placeholder="请输入原密码" />
+                </li>
+            }
+            <li>
+                <label>新密码：</label>
+                <input type="password" class="f-new-pwd" value="" placeholder="请输入新密码" />
+            </li>
+            <li>
+                <label>确认密码：</label>
+                <input type="password" class="f-confirm-pwd" value="" placeholder="请确认新密码" />
+            </li>
+            <li>
+                <div class="dy-btn dy-btn-info btn-change">确认修改</div>
+            </li>
+        </ul>
+    </div>
+    <script>
+        (function ($, S) {
+            $('.password-list input').bind('blur', function () {
+                var $t = $(this);
+                //if ($t.hasClass('f-old-pwd'))
+                //    return false;
+                var value = $t.val();
+                if (!value || !/^[0-9a-z\@@\._]{6,}$/gi.test(value)) {
+                    S.setField($t.parent(), false, '密码格式不正确！');
+                    return false;
+                }
+                if ($t.hasClass('f-confirm-pwd')) {
+                    if ($t.val() !== $('.f-new-pwd').val()) {
+                        S.setField($t.parent(), false, '两次输入密码不一致！');
+                        return false;
+                    }
+                }
+                S.setField($t.parent(), true);
+            });
+            $('.btn-change').bind('click', function () {
+                var $t = $(this);
+                $t.blur();
+                var data = {
+                    oldPwd: $('.f-old-pwd').val(),
+                    password: $('.f-new-pwd').val(),
+                    confirmPwd: $('.f-confirm-pwd').val()
+                };
+
+                if ($('.f-old-pwd').length > 0 && !data.oldPwd) {
+                    S.setField($('.f-old-pwd').parent(), false, '请输入原密码！');
+                    return false;
+                }
+                if (!data.password || !/^[0-9a-z\@@\._]{6,20}$/gi.test(data.password)) {
+                    S.setField($('.f-new-pwd').parent(), false, '密码格式不正确！');
+                    return false;
+                }
+                if (!data.confirmPwd || !/^[0-9a-z\@@\._]{6,20}$/gi.test(data.confirmPwd)) {
+                    S.setField($('.f-confirm-pwd').parent(), false, '密码格式不正确！');
+                    return false;
+                }
+                if (data.password !== data.confirmPwd) {
+                    S.setField($('.f-confirm-pwd').parent(), false, '两次输入密码不一致！');
+                    return false;
+                }
+                $t.disableField('正在提交...');
+                $.post('/update-pwd', data, function (json) {
+                    if (json.status) {
+                        S.alert('修改成功！', function () {
+                            location.reload(true);
+                        });
+                    } else {
+                        S.alert(json.message);
+                    }
+                    $t.undisableFieldset();
+                });
+            });
+        })(jQuery, SINGER);
+    </script>
+}

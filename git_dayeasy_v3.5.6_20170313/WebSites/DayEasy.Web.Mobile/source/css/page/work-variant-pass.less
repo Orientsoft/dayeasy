@@ -1,0 +1,61 @@
+/**
+ * Created by Boz on 2016/5/20.
+ * 变式相关
+ */
+@import "../base";
+
+strong {
+  font-weight: normal;
+}
+
+.work-variant-pass {
+  padding: 0;
+  .dy-questions-con-list {
+    .q-item {
+      & > .q-title {
+        font-size: 14px;
+        position: relative;
+      }
+    }
+  }
+
+  .variant-title-user {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 0;
+    font-weight: normal;
+    span {
+      font-size: 14px;
+      color: #666;
+      margin-left: 5px;
+    }
+  }
+  .dy-questions-btn {
+    padding-bottom: 15px;
+    .tab-menu {
+      margin-bottom: 0;
+      li.on {
+        position: relative;
+        a:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          height: 1px;
+          width: 73px;
+          left: 0px;
+          background: #5cbde0;
+        }
+      }
+    }
+    .tab-conten {
+      .tab-base {
+        background: #f5fafd;
+      }
+      .original-title {
+        //padding: 0;
+        .q-item {
+        }
+      }
+    }
+  }
+}

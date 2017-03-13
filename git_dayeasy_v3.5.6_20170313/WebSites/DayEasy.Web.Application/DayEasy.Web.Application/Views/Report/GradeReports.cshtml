@@ -1,0 +1,103 @@
+﻿@using DayEasy.Utility.Extend
+@model List<DayEasy.Application.Services.Dto.VGradeReportDto>
+
+@{
+    ViewBag.Title = "教务处报表";
+}
+<!--主体-->
+<div class="main-report">
+    <!--教务处报表列表-->
+    <div class="htmleaf-containers" data-dytab="100">
+        <div class="htmleaf-content bgcolor-3">
+            <ul class="dy-tab-nav">
+                <li><a href="@Url.Action("ClassReports")">班级统计</a></li>
+                <li class="z-crt"><a href="javascript:void(0);">教务处报表</a></li>
+                <li class="slider" style="width: 100px; left: 100px;">
+                    <span></span>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-con">
+            <div class="dy-tab-con">
+                <!-- 教务处报表-->
+                <div class="tab-con-item tab-item-2">
+                    @if (Model == null || !Model.Any())
+                    {
+                        <!--没有数据状态-->
+                        <div class="dy-nothing-marking">
+                            <i class="iconfont dy-icon-no"></i>
+                            <p>教务处暂时没发布统计报表</p>
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="box list-text" data-eid="@item.Id">
+                                <div class="box-lg-10 f-toe">
+                                    @if (item.IsUnion)
+                                    {
+                                        <a class="pop-clicks" href="#" title="@item.Name">@item.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Charts", "Educational", new { id = item.Id })" target="_blank" title="@item.Name">@item.Name</a>
+                                    }
+                                </div>
+                                <div class="box-lg-2">@item.Time.ToString("yyyy-MM-dd")</div>
+                            </div>
+                        }
+                        <div class="text-right">
+                            @Html.ShowPager("pageIndex".Query(1), 10, (int)ViewData["totalCount"])
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--教务处报表列表 End-->
+</div>
+
+<script type="text/html" id="pop-select-type">
+    <div class="pop-select-type">
+        <i class="pop-select-close iconfont dy-icon-close"></i>
+        <dl class="title-dl">
+            <dt class="f-toe">{{title}}</dt>
+            <dd class="child-left"><a href="/ea/charts/{{examId}}"><i class="iconfont dy-icon-report-center"></i> <span>本校成绩分析</span></a></dd>
+            <dd class="child-right"><a href="/ea/u-charts/{{examId}}"><i class="iconfont dy-icon-educational-management"></i><span>各校成绩对比</span></a></dd>
+        </dl>
+    </div>
+</script>
+
+@section style{
+    @Html.CombineLink("v3/css/site-base.css", "v3/plugs/jquery-tab/jquery.tab.3.0.css", "v3/css/ea/ui-base.css", "v3/css/report/page-report-center.css")
+}
+
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js")
+    <script>
+        (function ($, S) {
+            var popSelectDialog = null;
+            $('.pop-clicks').bind('click', function () {
+                var $this = $(this),
+                    eid = $this.parents('.list-text').data("eid"),
+                    title = $this.text(),
+                    html = template('pop-select-type', {
+                        examId: eid,
+                        title: title
+                    });
+                popSelectDialog = S.dialog({
+                    fixed: true,
+                    width: 500,
+                    height: 300,
+                    content: html
+                }).showModal();
+                return false;
+            });
+
+            $(document).on('click', '.pop-select-close', function () {
+                popSelectDialog.close().remove();
+            });
+        })(jQuery, SINGER)
+    </script>
+}

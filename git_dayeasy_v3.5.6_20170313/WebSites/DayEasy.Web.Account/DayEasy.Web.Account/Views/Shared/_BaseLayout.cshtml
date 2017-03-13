@@ -1,0 +1,77 @@
+﻿@using System.Web.Mvc
+@using DayEasy.Core
+
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app>
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="@Consts.Config.StaticSite" />
+    <link rel="dns-prefetch" href="@Consts.Config.FileSite" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title - 得一教育平台,基础教育的信息化高效平台 - dayeasy.net</title>
+    <meta name="description" content="我的得一，互联网基础教育的信息化高效平台，开创“传统教学手段与互联网科技相融合、学校--家庭--社会三位一体、个性化教学与数据分析深度匹配”的教育教学新模式。" />
+    <meta name="keywords" content="得一;我的得一;得一科技;dayeasy;得一教育;得一教育平台;反转课堂;翻转课堂;错题;错题库;试卷库;传统阅卷" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    @RenderSection("css", false)
+    <script>
+        window.DEYI = window.DEYI || {};
+        window.DEYI.sites = {
+            'main': '@Consts.Config.MainSite',
+            'apps':'@Consts.Config.AppSite',
+            'static': '@Consts.Config.StaticSite',
+            'reg': '@Consts.Config.RegisterSite',
+            'login': '@Consts.Config.LoginSite',
+            'account': '@Consts.Config.AccountSite',
+            'file': '@Consts.Config.FileSite',
+            'open': '@Consts.Config.OpenSite'
+        };
+    </script>
+    <!--[if lt IE 9]>
+        @Html.CombineLink("js/html5shiv.min.js,js/respond.js")
+    <![endif]-->
+</head>
+<body>
+    @Html.CombineLink("js/singer.min.js,v3/js/base/d-base.js,js/jquery.min.js")
+    @RenderBody()
+    @RenderSection("js", false)
+    <!--统计代码-->
+    <script type="text/javascript">
+        if (singer && singer.sites && singer.sites.main === 'http://www.dayeasy.net') {
+            //百度统计
+            var _hmt = _hmt || [];
+            (function () {
+                var u = '//hm.baidu.com/',
+                    d = document,
+                    hm = d.createElement("script"),
+                    s = d.getElementsByTagName("script")[0];
+                hm.src = u + "hm.js?2e4f16985133da9d24e9d7bc2ea5ebb7";
+                hm.type = 'text/javascript';
+                hm.async = true;
+                hm.defer = true;
+                s.parentNode.insertBefore(hm, s);
+            })();
+            //Piwik
+            var _paq = _paq || [];
+            _paq.push(["setDocumentTitle", document.title + '[' + location.href + ']']);
+            _paq.push(["setCookieDomain", "*.dayeasy.net"]);
+            _paq.push(["setDomains", ["*.dayeasy.net"]]);
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function () {
+                var u = "//analytics.dayeasy.net/";
+                _paq.push(['setTrackerUrl', u + 'piwik.php']);
+                _paq.push(['setSiteId', 1]);
+                var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                g.type = 'text/javascript';
+                g.async = true;
+                g.defer = true;
+                g.src = u + 'piwik.js';
+                s.parentNode.insertBefore(g, s);
+            })();
+        }
+    </script>
+    <noscript><p><img src="//analytics.dayeasy.net/piwik.php?idsite=1" style="border: 0;" alt="" /></p></noscript>
+</body>
+</html>

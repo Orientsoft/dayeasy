@@ -1,0 +1,164 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Timing
+@model dynamic
+
+@{
+    ViewBag.Title = "推荐圈子";
+    var user = (ViewData["User"] as UserDto);
+    var isTeacher = (user != null && user.IsTeacher());
+    var classList = (ViewData["classList"] as List<GroupDto>);
+    var colleagueList = (ViewData["colleagueList"] as List<GroupDto>);
+    var year = Clock.Now.Year;
+}
+@helper ShowGroups(List<GroupDto> groups, int size)
+{
+    var len = groups.Count;
+    for (var i = 0; i < Math.Ceiling(len / (decimal)size); i++)
+    {
+        var list = groups.Skip(i * size).Take(size);
+        <ul>
+            @foreach (var item in list)
+            {
+                var isAuth = (item.CertificationLevel.HasValue && item.CertificationLevel.Value > 0);
+                <li data-gid="@item.Id">
+                    <img src="@item.Logo" alt="" />
+                    @if (isAuth)
+                    {
+                        <i class="vip-icon"></i>
+                    }
+                    <strong class="class f-toe">@item.Name</strong>
+
+                    <div class="box2">
+                        <i class="iconfont dy-icon-teacher"></i>
+                        <span class="num f-toe" title="圈人数">@item.Count</span>
+                        <i class="iconfont dy-icon-user-outline"></i>
+                        <span class="name f-toe" title="圈主">@item.Owner</span>
+                    </div>
+                    <div class="btn f-tar">
+                        <a class="a01 btn-apply" href="#">申请加入</a>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+}
+<div class="page-join@(isTeacher ? "" : " join-class")">
+    @if (isTeacher)
+    {
+        <div class="head-title">
+            <h1>相关圈子？</h1>
+
+            <p>根据您的入职年份，为您推荐相关圈子</p>
+        </div>
+        if (classList != null && classList.Any())
+        {
+             <!--班级圈-->
+            <div class="top-text">
+                <h2>班级圈</h2>
+                <dl class="data-year">
+                    <dt>入学年份：</dt>
+                    @for (var i = 0; i < 6; i++)
+                    {
+                        <dd data-year="@(year - 5 + i)">@(year - 5 + i)年</dd>
+                    }
+                </dl>
+            </div>
+            <div class="layB slide-1">
+                <div class="tbC">
+                    <a href="javascript:void(0)" class="prev icon-sprite sprite-1"></a>
+                    <div class="slide" id="classList" data-size="6">
+                        @ShowGroups(classList, 6);
+                    </div>
+                    <a href="javascript:void(0)" class="next icon-sprite sprite-3"></a>
+                </div>
+            </div>
+        }
+        if (!colleagueList.IsNullOrEmpty())
+        {
+            <!--同事圈-->
+            <div class="top-text">
+                <h2>同事圈</h2>
+            </div>
+            <div class="layB slide-2">
+                <div class="tbC">
+                    <a href="javascript:void(0)" class="prev icon-sprite sprite-1"></a>
+
+                    <div class="slide" id="colleagueList" data-size="3">
+                        @ShowGroups(colleagueList, 3)
+                    </div>
+                    <a href="javascript:void(0)" class="next icon-sprite sprite-3"></a>
+                </div>
+            </div>
+        }
+        <div class="btn f-tac f-pr">
+            <a class="dy-btn dy-btn-info" href="@(Consts.Config.MainSite + "/user")">进入得一</a>
+            <span class="f-fr por-text">
+                没有找到自己的圈子?
+                <a class="a01" target="_blank" href="@(Consts.Config.MainSite + "/group/create")">立即创建</a>
+            </span>
+        </div>
+    }
+    else
+    {
+        <div class="head-title">
+            <h1>加入班级圈</h1>
+            <p>根据您的入学年份，为您推荐已认证的班级</p>
+        </div>
+        <div class="layB slide-3">
+            <div class="tbC">
+                <a href="javascript:void(0)" class="prev icon-sprite sprite-1"></a>
+                <div class="slide" id="classList" data-size="9">
+                    @ShowGroups(classList, 9)
+                </div>
+                <a href="javascript:void(0)" class="next icon-sprite sprite-3"></a>
+            </div>
+        </div>
+        <div class="btn-3 f-tac">
+            <a class="a01" href="@(Consts.Config.MainSite+"/user/rec-targets")">稍后再加</a>
+        </div>
+    }
+</div>
+<script type="text/html" id="groupTpl">
+    <ul>
+        {{each $data as item}}
+        <li data-gid="{{item.id}}">
+            <img src="{{item.logo}}" alt="" />
+            {{if item.level>0}}<i class="vip-icon"></i>{{/if}}
+            <strong class="class f-toe">{{item.name}}</strong>
+
+            <div class="box2">
+                <i class="iconfont dy-icon-teacher"></i>
+                <span class="num f-toe" title="圈人数">{{item.count}}</span>
+                <i class="iconfont dy-icon-user-outline"></i>
+                <span class="name f-toe" title="圈主">{{item.owner}}</span>
+            </div>
+            <div class="btn f-tar">
+                <a class="a01 btn-apply" href="#">申请加入</a>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<script type="text/html" id="applyTpl">
+    @if (string.IsNullOrWhiteSpace(user.Name))
+    {
+        <div class="form-group">
+            <input type="text" name="trueName" placeholder="真实姓名" />
+        </div>
+    }
+    <div class="form-group">
+        <textarea maxlength="100" rows="5" cols="30" autofocus class="textarea mb5 mt10" name="message" placeholder="输入附加信息"></textarea>
+        <p class="f-tar f-db dy-result">
+            你还可以输入<em>100</em>个字
+        </p>
+    </div>
+</script>
+@section css{
+    @Html.CombineLink("v3/css/user/recommend-group.css")
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js", "v3/plugs/SuperSlide/jquery.SuperSlide.2.1.js", "v3/js/user/recommend-group.js")
+}

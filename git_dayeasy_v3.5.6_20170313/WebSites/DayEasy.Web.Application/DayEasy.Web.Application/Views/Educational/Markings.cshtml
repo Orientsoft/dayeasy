@@ -1,0 +1,167 @@
+﻿@using DayEasy.Utility.Extend
+@using DayEasy.Contracts.Dtos.Examination
+@using DayEasy.Core
+@model List<ExamSubjectDto>
+@{
+    ViewBag.Title = "阅卷进行中";
+    var subjects = (ViewData["subjects"] as Dictionary<int, string>);
+    var subject = "subject".Query(-1);
+
+}
+
+<div class="dy-main-wrap">
+    @Html.Partial("_Navigation", 4)
+    <div class="dy-list dy-list-bg">
+        <div class="dy-title">
+            <h2>阅卷进行中</h2>
+            <select name="subject">
+                @if (subject <= 0)
+                {
+                    <option value="-1" selected="selected">所有科目</option>
+                }
+                else
+                {
+                    <option value="-1">所有科目</option>
+                }
+                @if (subjects != null)
+                {
+                    foreach (var item in subjects)
+                    {
+                        if (subject == item.Key)
+                        {
+                            <option value="@item.Key" selected="selected">@item.Value</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Key">@item.Value</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+        <div class="dy-content">
+            @if (Model != null && Model.Any())
+            {
+                <table class="dy-table">
+                    <colgroup>
+                        <col style="width: 5em" />
+                        <col />
+                        <col style="width: 7em" />
+                        <col style="width: 8em" />
+                        <col style="width: 15em" />
+                        <col style="width: 6em" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>科目</th>
+                            <th class="f-tal">试卷信息</th>
+                            <th>发起人</th>
+                            <th>发起时间</th>
+                            <th class="f-tal">所在同事圈</th>
+                            <th class="text-center">人数</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var joint in Model)
+                        {
+                            <tr>
+                                <td>@joint.Subject</td>
+                                <td class="f-tal">
+                                    <a target="_blank" href="/paper/detail/@joint.PaperId">@joint.PaperTitle</a>
+                                </td>
+                                <td>
+                                    @(joint.Creator == null ? "无" : joint.Creator.Name)
+                                </td>
+                                <td>
+                                    <abbr title="@joint.CreationTime.ToString("yyyy年MM月dd日HH时mm分")">@joint.CreationTime.ToString("yyyy-MM-dd")</abbr>
+                                </td>
+                                <td class="f-tal">
+                                    @if (joint.Group != null)
+                                    {
+                                        <div class="d-group">
+                                            @joint.Group.Name
+                                            <small class="d-code">No.@joint.Group.Code</small>
+                                        </div>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    
+                                    @if (joint.PaperACount > 0)
+                                    {
+                                        var url = Consts.Config.AdminSite + "/joint/pictures/" + joint.JointBatch + "/" + 1 + "";
+                                        url = url.Replace("admin", "back");
+                                        <a href="@url" target="_blank" title="查看试卷">@joint.PaperACount</a>
+                                    }
+                                    else
+                                    {
+                                        <span>0</span>
+                                    }
+                                    <i class="sj-split">|</i>
+                                    @if (joint.PaperBCount > 0)
+                                    {
+                                        var url = Consts.Config.AdminSite + "/joint/pictures/" + joint.JointBatch + "/" +2 + "";
+                                       url= url.Replace("admin", "back");
+                                        <a href="@url" target="_blank" title="查看试卷">@joint.PaperBCount</a>
+                                    }
+                                    else
+                                    {
+                                        <span>0</span>
+                                    }
+
+                                </td>
+                                <td>
+                                    
+                                    @if (joint.PaperACount > 0)
+                                    {
+                                        var url = Consts.Config.MainSite + "/marking/marking-area?batch=" + joint.JointBatch + "&type={0}&isJoint=true";
+                                    <a href="@(url.FormatWith(1))" class="d-mark-icon" target="_blank" title="标记A卷">
+                                        <i>A</i>
+                                    </a>
+                                    }
+                                    @if (joint.PaperBCount > 0)
+                                    {
+                                        var url = Consts.Config.MainSite + "/marking/marking-area?batch=" + joint.JointBatch + "&type={0}&isJoint=true";
+                                    <a href="@(url.FormatWith(2))" class="d-mark-icon" target="_blank" title="标记B卷">
+                                        <i>B</i>
+                                    </a>
+                                    }
+                                    <a href="@(Consts.Config.MainSite+"/marking/mission_v2/"+joint.JointBatch)" target="_blank">进度</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="8">
+                                共<b class="total-num">@ViewBag.TotalCount</b>条数据
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="d-pager">
+                    @Html.ShowPager("pageindex".Query(1), "pagesize".Query(10), (int)ViewBag.TotalCount)
+                </div>
+            }
+            else
+            {
+                <div class="dy-nothing"><i class="iconfont dy-icon-none"></i>当前没有正在批阅的考试</div>
+            }
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/ea/ui-base.css", "v3/css/management/page-group.css", "v3/css/management/page-joint.css")
+}
+@section js{
+    <script>
+        (function ($) {
+            $('select[name="subject"]').bind('change', function () {
+                var subject = $(this).val();
+                location.href = '/ea/markings?subject=' + subject;
+            });
+        })(jQuery);
+    </script>
+}

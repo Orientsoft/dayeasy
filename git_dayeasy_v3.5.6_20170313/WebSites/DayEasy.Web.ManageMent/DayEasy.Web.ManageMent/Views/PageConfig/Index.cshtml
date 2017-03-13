@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "首页配置";
+}
+
+<div class="ic-btns">
+    <button id="btnSave" class="btn btn-primary">保存</button>
+    &nbsp;&nbsp;
+    <a id="btnPreview" target="_blank" href="/operate/index-config/generate?preview=true" class="btn btn-success">预览</a>
+</div>
+
+<div class="ic-box">
+    <div class="ic-item ic-carousel">
+        <div class="ic-text">
+            轮播广告 （已选 <span class="num carousel-num">0</span>）
+        </div>
+        <div class="ic-desc">
+            1200X300 [1-8张图]
+        </div>
+        <div data-type="carousel">
+            <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+        </div>
+    </div>
+    <div class="ic-item ic-fixed">
+        <div class="ic-text">
+            固定广告 （已选 <span class="num fixed-num">0</span>）
+        </div>
+        <div class="ic-desc">
+            30X185 [4张图]
+        </div>
+        <div data-type="fixed">
+            <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9 ic-section-box">
+            <div class="ic-sections"></div>
+            <div>
+                <span class="ic-push ic-push-lg" data-type="section" title="添加版块">
+                    <i class="fa fa-plus-square"></i>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="occupy">热帖排行</div>
+            <div class="occupy">热门圈子</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="ic-tab">
+    {{each tabs as tab}}
+    <div class="is-tab {{tab.active ? 'ist-active' : ''}}" data-id="{{tab.id}}">
+        <div class="is-name tab-name">
+            {{tab.title && tab.title.length ? tab.title : 'Tab'}}
+        </div>
+        <div class="is-content-box {{tab.active ? '' : 'hide'}}">
+            <div class="is-title">
+                <div class="row">
+                    <div class="col-md-9">
+                        <span class="tab-name">
+                            {{tab.title && tab.title.length ? tab.title : 'Tab标题'}}
+                        </span>
+                        （已选
+                        <span class="num tab-num">
+                            {{tab.sources && tab.sources.length ? tab.sources.length : 0}}
+                        </span>）
+                    </div>
+                    <div class="col-md-3" data-type="tab">
+                        <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+                        &nbsp;&nbsp;
+                        <span class="ic-remove" title="移除Tab"><i class="fa fa-remove"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="is-content row">
+                <div class="col-md-6">
+                    <div class="ic-text">
+                        图文 （已选
+                        <span class="num advert-num">
+                            {{tab.adverts && tab.adverts.length ? tab.adverts.length : 0}}
+                        </span>）
+                    </div>
+                    <div class="ic-desc">
+                        290X160
+                    </div>
+                    <div data-type="tabAdvert">
+                        <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="ic-text">
+                        圈子 （已选
+                        <span class="num group-num">
+                            {{tab.groups && tab.groups.length ? tab.groups.length : 0}}
+                        </span>）
+                    </div>
+                    <div data-type="tabGroup">
+                        <span class="ic-check" title="添加圈子" data-group="1"><i class="fa fa-plus-square"></i></span>
+                        &nbsp;&nbsp;
+                        <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<script type="text/html" id="ic-section">
+    {{each sections as section}}
+    <div class="ic-item is-item" data-id="{{section.id}}">
+        <div class="is-title">
+            <div class="row">
+                <div class="col-md-9">
+                    <span class="section-name">
+                        {{section.title && section.title.length ? section.title : '版块标题'}}
+                    </span>
+                    （已选
+                    <span class="num section-num">
+                        {{section.sources && section.sources.length ? section.sources.length : 0}}
+                    </span>）
+                </div>
+                <div class="col-md-3" data-type="section">
+                    <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+                    &nbsp;&nbsp;
+                    <span class="ic-remove" title="移除版块"><i class="fa fa-remove"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="is-tab-box">
+            <div class="is-tabs">
+                {{if section.tabs && section.tabs.length}}
+                {{include 'ic-tab' section}}
+                {{/if}}
+            </div>
+            <div>
+                <span class="ic-push" data-type="tab" title="添加Tab">
+                    <i class="fa fa-plus-square"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<script type="text/html" id="ic-group">
+    <div class="ic-group">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2">①</label>
+                <div class="col-sm-10">
+                    <input id="txtGroup1" name="txtGroup" type="text" class="form-control" placeholder="圈子编号"
+                           value="{{groups && groups.length > 0 ? groups[0] : ''}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2">②</label>
+                <div class="col-sm-10">
+                    <input id="txtGroup2" name="txtGroup" type="text" class="form-control" placeholder="圈子编号"
+                           value="{{groups && groups.length > 1 ? groups[1] : ''}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2">③</label>
+                <div class="col-sm-10">
+                    <input id="txtGroup3" name="txtGroup" type="text" class="form-control" placeholder="圈子编号"
+                           value="{{groups && groups.length > 2 ? groups[2] : ''}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2">④</label>
+                <div class="col-sm-10">
+                    <input id="txtGroup4" name="txtGroup" type="text" class="form-control" placeholder="圈子编号"
+                           value="{{groups && groups.length > 3 ? groups[3] : ''}}">
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+
+@section style{
+    @Html.CombineLink("v3/css/management/index-config.css")
+}
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js,v3/js/management/index-config.js")
+}

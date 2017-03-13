@@ -1,0 +1,25 @@
+.comment-box {
+  background-color: #fff;
+  font-size: 14px;
+}
+.comment-box .comment-avatar-wrap {
+  padding-left: 60px;
+  position: relative;
+}
+.comment-box .comment-avatar-wrap img {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 50px;
+}
+.comment-box .comment-dialog textarea {
+  display: block;
+  margin-bottom: 20px;
+  width: 100%;
+}

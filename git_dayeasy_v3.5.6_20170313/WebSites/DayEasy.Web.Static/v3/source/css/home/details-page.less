@@ -1,0 +1,399 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+
+      Author:Plato
+      Create Date:2016/02/1 10:14  Last Mondify Date:2016/02/1 10:14
+      ===================================================
+
+--------------------------------------------------------------*/
+@import        (reference) "ui-base.less";
+@import "../../less/ui-bbs";
+
+//*--------------------   Part ui    -----------------------
+.details-page {
+  margin-top: 30px;
+  .details-main {
+    position: relative;
+  }
+  .detail-menu-list {
+    position: absolute;
+    right: 5px;
+    top: -6px;
+    z-index: 5;
+    .icon-essence, .icon-thetop {
+      display: block;
+      width: 36px;
+      height: 58px;
+      float: left;
+      margin-right: 25px;
+    }
+    .icon-essence {
+      //background-image: url(../../../image/home/icon-thetop.png);
+      .background-image('home/icon-thetop.png');
+    }
+    .icon-thetop {
+      //background-image: url(../../../image/home/icon-essence.png);
+      .background-image('home/icon-essence.png');
+    }
+  }
+
+}
+
+//*--------------------  main Style  -----------------------
+.details-main {
+  width: 870px;
+  min-height: 800px;
+  background: white;
+}
+
+//*--------------------   ui Style   -----------------------
+
+@color-gray: #bbb;
+@color-active: #ed5565;
+//动态列表
+.dynamic-list {
+  position: relative;
+  bottom: -1px;
+  .box-list {
+    position: relative;
+    width: 870px;
+    //border-bottom: 1px solid @border-color;
+    padding: 20px 30px 15px 30px;
+    margin-bottom: 25px;
+  }
+  .tab-box-1, .tab-box-3 {
+    margin-bottom: 20px;
+    .inline-block;
+  }
+  .tab-box-1 {
+    font-size: 24px;
+    strong {
+      padding: 0 10px;
+      .inline-block;
+      color: white;
+      margin-right: 10px;
+      font-size: 14px;
+      .rounded-corners(2px);
+      height: 24px;
+      line-height: 24px;
+      margin-bottom: 10px;
+      position: relative;
+      top: 2px;
+    }
+    .dynamic-h2-title{line-height: 1.4em;}
+    a:hover {
+      color: @color-hover-blue;
+    }
+  }
+
+  .tab-box-3 {
+    margin-bottom: 0;
+    z-index: 5;
+    color: @color-gray;
+    img {
+      .rounded-corners(50%);
+    }
+    .box-lg-2 {
+      line-height: 35px;
+    }
+    a.teacher-name {
+      width: 70px;
+      overflow: hidden;
+      position: relative;
+      top: -10px;
+      height: 15px;
+      margin-left: 10px;
+      padding-right: 5px;
+      cursor: text;
+    }
+    .iconfont {
+      margin-right: 5px;
+    }
+    .width-lg-1 {
+      width: auto;
+      margin-right: 20px;
+      .inline-block;
+      float: left;
+    }
+    .width-lg-2 {
+      width: auto;
+      margin-right: 20px;
+      color: #999;
+      .inline-block;
+      float: left;
+    }
+    .width-lg-3 {
+      width: auto;
+      margin-right: 20px;
+      color: #bbb;
+      .inline-block;
+      float: left;
+    }
+    .width-lg-4 {
+      width: auto;
+      margin-right: 20px;
+      color: #bbb;
+      .inline-block;
+      float: left;
+    }
+    .width-lg-5 {
+    }
+
+  }
+  .tab-box-4 {
+    margin-bottom: 6px;
+    line-height: 1.6em;
+    padding-bottom: 15px;
+    font-size: 16px;
+    color: #666;
+    line-height: 2em;
+    img {
+      max-width: 810px;
+    }
+    ul, ol {
+      margin-left: 30px;
+    }
+  }
+
+  .tab-box-5 {
+    .vote-text {
+      padding-top: 20px;
+      position: relative;
+      border-top: 1px solid #eee;
+      &:after {
+        position: absolute;
+        top: -12.5px;
+        left: 810/2-29px;
+        padding: 5px 15px;
+        background: white;
+        content: '投票';
+        color: #bbb;
+
+      }
+    }
+
+    .h3-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #666;
+      margin-bottom: 25px;
+    }
+    .voting-content {
+      padding-left: 30px;
+      margin-bottom: 40px;
+    }
+    //.voting-content > .checkbox-group{
+    //  margin-bottom: 10px;
+    //  }
+    .vote-display {
+      padding-right: 110px;
+      margin-bottom: 40px;
+      .box-table {
+        td {
+          padding: 5px 0;
+        }
+        td.pr10 {
+          padding-right: 10px;
+        }
+      }
+      .box-strip {
+        height: 16px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        margin-right: 10px;
+        position: relative;
+        span {
+          position: absolute;
+          right: -34px;
+          top: 0;
+        }
+      }
+    }
+    .vote-success {
+      .dy-icon-13 {
+        font-size: 24px;
+        color: #8cc152;
+        margin-right: 10px;
+      }
+    }
+    .zan-color {
+      color: white;
+      border-color: #3bafda;
+      background: #3bafda;
+      cursor: auto;
+    }
+    //#3bafda
+  }
+  .tab-box-2 {
+    margin-bottom: 10px;
+    font-size: 12px;
+    margin-left: -10px;
+    span {
+      padding: 0 10px;
+      .inline-block;
+      .rounded-corners(2px);
+      height: 20px;
+      color: #666;
+      line-height: 20px;
+      margin-left: 10px;
+      font-size: 12px;
+      border: 1px solid #bbb;
+    }
+  }
+
+  .d-like-list {
+    color: @color-gray;
+    font-size: 85%;
+    line-height: 24px;
+    margin-bottom: 12px;
+    i {
+      margin-right: 5px;
+    }
+    span {
+      padding-right: 3px;
+    }
+  }
+
+  .color-bg-green {
+    background: #48cfad;
+  }
+  //作业
+  .color-bg-grassgreen {
+    background: #a0d468;
+  }
+  //辅导
+  .color-bg-yellow {
+    background: #ffce54;
+  }
+  //通知
+  .color-bg-orange {
+    background: #fc6e51;
+  }
+  //放假通知
+}
+
+//分享插件 Amend
+.share-to {
+  position: relative;
+  top: 16px;
+  left: 0;
+  margin-right: 20px;
+}
+
+.ul-list-letter {
+  top: 4px;
+  position: relative;
+  left: -18px;
+  li {
+    float: left;
+    a.iconfont {
+      -webkit-text-stroke-width: 0px;
+      font-family: "微软雅黑" !important;
+      font-size: 16px;
+      background-image: none;
+    }
+    .iconfont:before {
+      font-family: "iconfont" !important;
+      font-size: 32px;
+    }
+    .dy-icon-44:before {
+      color: #a0d468;
+    }
+    .dy-icon-47:before {
+      color: #ed5565;
+    }
+    .dy-icon-45:before {
+      color: #4fc1e9;
+    }
+  }
+}
+
+.slide-bottom {
+  position: absolute;
+  z-index: 6;
+  strong {
+    position: relative;
+    top: 3px;
+    left: 0;
+    margin-right: 5px;
+  }
+  .inline-block;
+  &:hover {
+    cursor: pointer;
+    .angle-border {
+      .transition(0.2s);
+      background: #4fc1e9;
+      border: 1px solid #4fc1e9;
+
+    }
+    .angle-bottom {
+      .angle-bottom(5px, #fff, 5px);
+    }
+  }
+  .fontClor {
+    color: #4fc1e9;
+    position: relative;
+    top: -4px;
+  }
+  .angle-border {
+    margin-right: 5px;
+    height: 20px;
+    background: white;
+    border: 2px solid #eee;
+    display: inline-block;
+    position: relative;
+    width: 20px;
+  }
+  .angle-bottom {
+    .angle-bottom(5px, #4fc1e9, 5px);
+    top: 6px;
+    left: 3px;
+    position: absolute;
+  }
+  .angle-bottom-wrap {
+    display: none;
+  }
+  .f-pa {
+    position: absolute;
+    top: 28px;
+    left: 1px;
+  }
+  ul {
+    .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 7px);
+    background: white;
+    li {
+      height: 45px;
+      line-height: 45px;
+      width: 120px;
+      &:hover {
+        background: #e6e9ed;
+        cursor: pointer;
+      }
+      a {
+        display: block;
+        color: #999;
+        text-align: center;
+        &:hover {
+          color: #999;
+        }
+      }
+    }
+  }
+}
+
+.slide-bottom.posta {
+  top: 70px;
+  right: 30px;
+
+}
+
+//分享微信二维码 弹框覆盖高度
+
+.bd_weixin_popup {
+  min-height: 324px;
+}
+
+//分享至 间距
+.bdshare-button-style0-16 {
+  margin-top: 10px;
+}

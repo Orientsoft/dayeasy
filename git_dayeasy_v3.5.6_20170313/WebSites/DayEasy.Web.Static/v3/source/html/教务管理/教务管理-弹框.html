@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>教务管理-圈子管理</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="/v3/source/css/ea/ui-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/ea/statistics/page-group-manage.css"/>
+
+
+    <script>
+        window.DEYI = window.DEYI || {};
+        window.DEYI.sites = {
+            'main': 'http://www.dayeasy.dev',
+            'apps': 'http://apps.dayeasy.dev',
+            'static': '//static.dayeasy.dev',
+            'reg': 'http://account.dayeasy.dev/reg',
+            'login': 'http://account.dayeasy.dev/login',
+            'account': 'http://account.dayeasy.dev',
+            'file': '//file.dayez.net',
+            'open': 'http://open.dayeasy.dev/'
+        };
+
+    </script>
+</head>
+<body>
+
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <button class="btn-esta-group dy-btn dy-btn-info">创建圈子</button>
+        <!--批量添加人员-->
+        <button class="grou-personnel dy-btn dy-btn-info">批量添加人员</button>
+        <!--导入成功-->
+        <button class="grou-personnel dy-btn dy-btn-info">导入成功</button>
+        <!--批量创建-->
+        <div class="pop-batch-create hide">
+            <div class="box itme-list">
+                <div class="box-lg-2 f-tar item-label">
+                    <label>班级数量：</label>
+                </div>
+                <div class="box-lg-10"><input class="input-width"  type="text"></div>
+            </div>
+            <div class="box itme-list">
+                <div class="box-lg-2 f-tar item-label">
+                    <label>入学年份：</label>
+                </div>
+                <div class="box-lg-10">
+                    <select name="">
+                        <option value="">2014</option>
+                        <option value="">2014</option>
+                        <option value="">2014</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box itme-list">
+                <div class="box-lg-2 f-tar item-label">
+                    <label>创建班级圈：</label>
+                </div>
+                <div class="box-lg-10 itme-input">
+                    <input type="text" placeholder="请输入圈子名称">至
+                    <input type="text" placeholder="请输入圈子名称">
+                </div>
+            </div>
+            <div class="box itme-list">
+                <div class="box-lg-2 f-tar item-label">
+                    <label>创建同事圈：</label>
+                </div>
+                <div class="box-lg-10 itme-subjects">
+                    <ul class="f-cb" id="subjects-list">
+                        <li>
+                            <label class="checkbox-group group-checkbox">
+                                <input type="checkbox" name="options"><span>2017级语文组</span>
+                                <i class="iconfont dy-icon-checkbox"></i>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-group group-checkbox">
+                                <input type="checkbox" name="options"><span>2017级语文组</span>
+                                <i class="iconfont dy-icon-checkbox"></i>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-group group-checkbox">
+                                <input type="checkbox" name="options"><span>2017级语文组</span>
+                                <i class="iconfont dy-icon-checkbox"></i>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-group group-checkbox">
+                                <input type="checkbox" name="options"><span>2017级语文组</span>
+                                <i class="iconfont dy-icon-checkbox"></i>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-group group-checkbox">
+                                <input type="checkbox" name="options"><span>2017级语文组</span>
+                                <i class="iconfont dy-icon-checkbox"></i>
+                            </label>
+                        </li>
+                    </ul>
+                    <div class="">
+                        <label class="checkbox-group group-checkbox">
+                            <input type="checkbox" name="options"><span>全选</span>
+                            <i class="iconfont dy-icon-checkbox"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!--确认提示-->
+        <script type="text/html" id="pop-create-confirm">
+            <div class="pop-create-confirm">
+                <div class="m-title">以下圈子已经存在，不能重复创建：</div>
+                <div class="item-title">班级圈：</div>
+                <table class="dy-table mb20">
+                    <tr>
+                        <td>2017级3班</td>
+                        <td>2017级3班</td>
+                    </tr>
+                </table>
+                <div class="item-title">班级圈：</div>
+                <table class="dy-table">
+                    <tr>
+                        <td>2017级语文组</td>
+                        <td>2017级物理组</td>
+                    </tr>
+                </table>
+                <!--跳过重复圈子，继续创建-->
+            </div>
+</script>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!--创建圈子成功消息提示-->
+        <div class="esta-group-success-pop">
+            <div class="esta-group-success ">
+                <p class="mb10"><span class="font-color">46</span>位新同学已导入成功！</p>
+                <p>学生可使用得一号登录，默认密码为“<span class="font-color">123456</span>”</p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!--不能重复导入 提示-->
+        <div class="pop-create-repeat">
+            <p class="mb10"><span class="font-color">46</span>位新同学已导入成功！</p>
+            <p class="mb20">学生可使用得一号登录，默认密码为“<span class="font-color">123456</span>”</p>
+            <div class="mb10">有6位同学已在该班级圈中，不能重复导入：</div>
+            <ul class="ul-list-name">
+                <li>张全蛋</li>
+            </ul>
+            <table class="dy-table">
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+@@include('./footer.html')
+<!--创建圈子-->
+<script type="text/html" id="esta-group-pop">
+    <div class="esta-group">
+        <div class="box list-item">
+            <div class="box-lg-3">圈子类型：</div>
+            <div class="box-lg-9">
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="typeGroup" checked value="0"><span>班级圈</span>
+                    <i class="iconfont dy-icon-radio dy-icon-radiohv"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="typeGroup" value="1"><span>同事圈</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+            </div>
+        </div>
+        <div class="box list-item">
+            <div class="box-lg-3">
+                圈子名称：
+            </div>
+            <div class="box-lg-9">
+                <input id="GroupName" type="text" placeholder="请输入圈子名称">
+            </div>
+        </div>
+        <div class="box list-item d-toggle">
+            <!--班级圈-->
+            <div class="d-toggle-box">
+                <div class="box-lg-3">
+                    入学年份：
+                </div>
+                <div class="box-lg-9">
+                    <select id="GradeYear">
+                        {{each GetFullYear as value}}
+                        <option value="{{value}}">{{value}}年</option>
+                        {{/each}}
+                    </select>
+
+                </div>
+            </div>
+            <!--班级圈 end-->
+            <!--同事圈-->
+            <div class="d-toggle-box" style="display: none;">
+                <div class="box-lg-3">
+                    选择学科：
+                </div>
+                <div class="box-lg-9">
+                    <select id="SubjectId">
+                        {{each subjects}}
+                        <option value="{{$index}}">{{$value}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <!--同事圈 end-->
+        </div>
+        <div class="f-tar mr20">
+            <a id="batch-esta-group" class="a01" href="javascript:void(0);">批量创建</a>
+        </div>
+    </div>
+</script>
+<!--批量创建-->
+<script type="text/html" id="pop-batch-create">
+    <div class="pop-batch-create">
+        <div class="box itme-list">
+            <div class="box-lg-2 f-tar item-label">
+                <label>班级数量：</label>
+            </div>
+            <div class="box-lg-10"><input class="input-width"  id="groupNum" type="text"></div>
+        </div>
+        <div class="box itme-list">
+            <div class="box-lg-2 f-tar item-label">
+                <label>入学年份：</label>
+            </div>
+            <div class="box-lg-10">
+                <select name="">
+                    {{each GetFullYear as value}}
+                    <option value="{{value}}">{{value}}年</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="box itme-list  hide" id="class-name">
+            <div class="box-lg-2 f-tar item-label">
+                <label>创建班级圈：</label>
+            </div>
+            <div class="box-lg-10 itme-input">
+                <input type="text" value="{{classNameInit.EndTime}}年级1班">至
+                <input type="text" disabled  class="disabled" value="{{classNameInit.BeginTime}}年级12班" >
+            </div>
+        </div>
+        <div class="box itme-list">
+            <div class="box-lg-2 f-tar item-label">
+                <label>创建同事圈：</label>
+            </div>
+            <div class="box-lg-10 itme-subjects">
+                <ul class="f-cb">
+                    <li>
+                        <label class="checkbox-group group-checkbox">
+                            <input type="checkbox" name="options"><span>2017级语文组</span>
+                            <i class="iconfont dy-icon-checkbox"></i>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox-group group-checkbox">
+                            <input type="checkbox" name="options"><span>2017级语文组</span>
+                            <i class="iconfont dy-icon-checkbox"></i>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox-group group-checkbox">
+                            <input type="checkbox" name="options"><span>2017级语文组</span>
+                            <i class="iconfont dy-icon-checkbox"></i>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox-group group-checkbox">
+                            <input type="checkbox" name="options"><span>2017级语文组</span>
+                            <i class="iconfont dy-icon-checkbox"></i>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox-group group-checkbox">
+                            <input type="checkbox" name="options"><span>2017级语文组</span>
+                            <i class="iconfont dy-icon-checkbox"></i>
+                        </label>
+                    </li>
+                </ul>
+                    <label class="checkbox-group group-checkbox">
+                        <input type="checkbox" name="options"><span>全选</span>
+                        <i class="iconfont dy-icon-checkbox"></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!--批量导入-->
+<script type="text/html" id="batch-group-wrap-pop">
+    <div class="batch-group-pop">
+        <div class="tab-nav-item">
+            <ul class="ul-item f-cb">
+                <li class="on first-item">添加学生</li>
+                <li>添加老师</li>
+            </ul>
+        </div>
+        <div class="tab-con-item">
+            <div class="con-item con-item-1" style="display: block;">
+                <p class="p-item">批量粘贴</p>
+                <div class="list-item-1">
+                    <textarea id="nameText" class="text-area" name="" rows="5"></textarea>
+                    <div class="box">
+                        <div class="box-lg-6 f-tal">
+                            共 <span class="js-text-personnel">0</span>人
+                        </div>
+                        <div class="box-lg-6 f-tar">
+                            <a  id="excel-in" class="a01" href="javascript:void(0);">excel导入</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item-2">
+                    <p class="p-item">示例：<span class="font-color">请将学生名字按单列粘贴</span></p>
+                    <ul class="ul-item f-cb">
+                        <li>张三</li>
+                        <li>李四</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="con-item con-item-2">
+                <div class="input-part">
+                    <input type="text" data-delval value="快速搜索">
+                    <button class="iconfont dy-icon-26" type="button"></button>
+                </div>
+                <div class="teacher-list y-teacher-list">
+                    <table class="table-teacher">
+                        <colgroup>
+                            <col style="">
+                            <col style="">
+                            <col style="">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <label class="checkbox-group group-checkbox">
+                                    <input type="checkbox" name="options"><span></span>
+                                    <i class="iconfont dy-icon-checkbox"></i>
+                                </label>
+                            </td>
+                            <td><img width="36" height="36" src="/v3/image/default/user_s160x160.png" alt="">
+                            </td>
+                            <td>李老师</td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <p>已选中<span>3</span>位老师</p>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script src="/v3/plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
+<!--<script src="/v3/plugs/mCustomScrollbar/jquery.mousewheel.min.js"></script>-->
+
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
+<script src="/v3/source/js/ea/statistics/page-group-manage.js"></script>
+
+</body>
+</html>

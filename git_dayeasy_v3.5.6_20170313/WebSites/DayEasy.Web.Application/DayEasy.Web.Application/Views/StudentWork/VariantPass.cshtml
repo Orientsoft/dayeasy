@@ -1,0 +1,182 @@
+﻿@using DayEasy.Application.Services.Dto
+@using DayEasy.Utility.Extend
+@model DayEasy.Contracts.Dtos.Publish.VariantQuDto
+
+@{
+    ViewBag.Title = "变式过关";
+    var dto = ViewData["workDto"] as VWorkDto;
+}
+
+<div class="dy-main j-autoHeight" data-left="132" data-min="600" data-type="2">
+    @if (Model == null || dto == null)
+    {
+        <div class="coach-bxo w1200 f-cb dy-nothing">
+            没有找到相关变式！
+        </div>
+    }
+    else
+    {
+        <div class="coach-bxo w1200 f-cb">
+            @Html.Partial("_DetailHeader", dto)
+            <div class="page-main-through f-cb">
+                @if (Model.Questions == null || Model.Questions.Count < 1)
+                {
+                    <div class="g-main-list">
+                        <h3 class="section-title mb15">变式过关</h3>
+                        <div class="dy-nothing" style="background-color: #fff">
+                            <i class="iconfont dy-icon-emoji02"></i>没有找到相关变式！
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    if (Model.VariantQuDic != null && Model.VariantQuDic.Count > 0)
+                    {
+                        var sort = 1;
+                        var qids = Model.VariantQuDic.SelectMany(u => u.Value).Distinct().ToList();
+
+                        if (qids.Count > 0)
+                        {
+                            <div class="g-main-list">
+                                <div class="clear"></div>
+                                <form method="POST" action="@Url.Action("DowloadVariant","StudentWork")" target="_blank" id="download_variant">
+                                    <input type="hidden" value="@qids.ToJson()" name="data" />
+                                    <input type="hidden" value="@Model.PaperName" name="title" />
+                                </form>
+                                <h3 class="section-title bold mb30 f-cb ">
+                                    教师推荐
+                                    <small><em>@(Model.TeacherName)</em>老师为您推荐了几道变式训练，赶紧完成吧~</small>
+                                    <a class="dy-btn dy-btn-default download-box" href="javascript:void(0);" onclick="javascript: download_variant.submit();">
+                                        <i class="iconfont dy-icon-download"></i> 下载变式
+                                    </a>
+                                </h3>
+                                <div class="dy-questions-list f-cb">
+                                    @foreach (var quDic in Model.VariantQuDic)
+                                    {
+                                        var sourceQu = Model.Questions.SingleOrDefault(u => u.Id == quDic.Key);
+                                        if (sourceQu == null)
+                                        {
+                                            continue;
+                                        }
+
+                                        foreach (var qId in quDic.Value)
+                                        {
+                                            var qItem = Model.Questions.SingleOrDefault(u => u.Id == qId);
+                                            if (qItem == null)
+                                            {
+                                                continue;
+                                            }
+
+                                    <div class="box cont-list">
+                                        <div class="box-lg-12 title-top f-cb page-h2-through">
+                                            <h4>@(sort++.ToString("00")) 变式 </h4>
+                                        </div>
+                                        <div class="box-lg-12 questions-con">
+                                            @PaperHelper.ShowQuestion(qItem)
+                                        </div>
+                                        <div class="box-lg-12 questions-btn">
+                                            <button class="dy-btn dy-btn-default"><i class="iconfont dy-icon-jiexi"></i> 答案解析</button>
+                                            <button class="dy-btn dy-btn-default"><i class="iconfont dy-icon-ceshi"></i> 对应原题</button>
+                                        </div>
+                                        <div class="box-lg-12 questions-bottom-cont">
+                                            <div class="box questions-list-cont">
+                                                <div class="d-cont-title">参考答案：</div>
+                                                <div class="d-cont-wrap">
+                                                    @PaperHelper.ShowAnswer(qItem)
+                                                </div>
+                                            </div>
+                                            <div class="box questions-list-cont">
+                                                <div class="box-lg-12">
+                                                    @PaperHelper.ShowQuestion(sourceQu)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                    if (Model.DeyiVariantQuDic != null && Model.DeyiVariantQuDic.Count > 0)
+                    {
+                        var sort = 1;
+                        var qids = Model.DeyiVariantQuDic.SelectMany(u => u.Value).Distinct().ToList();
+
+                        if (qids.Count > 0)
+                        {
+                            <div class="g-main-list">
+                                <div class="clear"></div>
+                                <form method="POST" action="@Url.Action("DowloadVariant", "StudentWork")" target="_blank" id="download_deyivariant">
+                                    <input type="hidden" value="@qids.ToJson()" name="data" />
+                                    <input type="hidden" value="@Model.PaperName" name="title" />
+                                </form>
+                                <h3 class="section-title bold mb30 f-cb ">
+                                    得一变式过关
+                                    <b class="free-bubble free-bg-green">免费体验中 <i></i> </b>
+                                    <small>让每一次考试更有收获，得一变式过关，消灭薄弱点！</small>
+                                    <a class="dy-btn dy-btn-default download-box" href="javascript:void(0);" onclick="javascript: download_deyivariant.submit();">
+                                        <i class="iconfont dy-icon-download"></i> 下载变式
+                                    </a>
+                                </h3>
+                                <div class="dy-questions-list f-cb">
+                                    @foreach (var quDic in Model.DeyiVariantQuDic)
+                                    {
+                                        var sourceQu = Model.Questions.SingleOrDefault(u => u.Id == quDic.Key);
+                                        if (sourceQu == null)
+                                        {
+                                            continue;
+                                        }
+
+                                        foreach (var qId in quDic.Value)
+                                        {
+                                            var qItem = Model.Questions.SingleOrDefault(u => u.Id == qId);
+                                            if (qItem == null)
+                                            {
+                                                continue;
+                                            }
+
+                                            <div class="box cont-list">
+                                                <div class="box-lg-12 title-top f-cb page-h2-through">
+                                                    <h4>@(sort++.ToString("00")) 变式 </h4>
+                                                </div>
+                                                <div class="box-lg-12 questions-con">
+                                                    @PaperHelper.ShowQuestion(qItem)
+                                                </div>
+                                                <div class="box-lg-12 questions-btn">
+                                                    <button class="dy-btn dy-btn-default"><i class="iconfont dy-icon-jiexi"></i> 答案解析</button>
+                                                    <button class="dy-btn dy-btn-default"><i class="iconfont dy-icon-ceshi"></i> 对应原题</button>
+                                                </div>
+                                                <div class="box-lg-12 questions-bottom-cont">
+                                                    <div class="box questions-list-cont">
+                                                        <div class="d-cont-title">参考答案：</div>
+                                                        <div class="d-cont-wrap">
+                                                            @PaperHelper.ShowAnswer(qItem)
+                                                        </div>
+                                                    </div>
+                                                    <div class="box questions-list-cont">
+                                                        <div class="box-lg-12">
+                                                            @PaperHelper.ShowQuestion(sourceQu)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section style{
+    @Html.CombineLink("v3/css/testpaper/page-main-through.css")
+}
+
+@section script{
+    @Html.CombineLink("v3/js/homework/work-base.js")
+}

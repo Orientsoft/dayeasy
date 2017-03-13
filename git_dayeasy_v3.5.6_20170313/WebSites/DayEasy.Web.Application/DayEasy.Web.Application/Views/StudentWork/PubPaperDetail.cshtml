@@ -1,0 +1,146 @@
+﻿@using DayEasy.Application.Services.Dto
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Paper.Services.Helper
+@model DayEasy.Contracts.Dtos.Paper.PaperDetailDto
+@{
+    ViewBag.Title = "试卷详情";
+
+    List<string> errorQuestions = null;
+    if (ViewData["errorQuestions"] != null)
+    {
+        errorQuestions = ViewData["errorQuestions"] as List<string>;
+    }
+    var dto = ViewData["workDto"] as VWorkDto;
+}
+
+<div class="j-autoHeight" data-left="132" data-min="600" data-type="2">
+    @if (Model == null || dto == null)
+    {
+        <div class="coach-bxo w1200 f-cb dy-nothing">
+            <i class="iconfont dy-icon-emoji02"></i>没有找到相关试卷信息！
+        </div>
+    }
+    else
+    {
+        var sections = Model.PaperSections.GroupBy(u => u.PaperSectionType).OrderBy(u => u.Key).ToList();
+        var sort = 1;
+        var sortType = Model.PaperBaseInfo.SortType();
+        <div class="coach-bxo w1200 f-cb">
+            @Html.Partial("_DetailHeader", dto)
+            <div class="page-main-Coach">
+                <div class="g-main-control">
+                    <label class="checkbox-group group-checkbox">
+                        <input type="checkbox" id="showBody" checked="checked"><span>显示题干</span>
+                        <i class="iconfont dy-icon-checkbox dy-icon-checkboxhv"></i>
+                    </label>
+                </div>
+                <input type="hidden" value="@dto.Batch" id="batch" />
+                <input type="hidden" value="@dto.PaperId" id="paperId" />
+
+                <div class="g-main-list">
+                    @foreach (var sectionItem in sections)
+                    {
+                        if (dto.IsAb)
+                        {
+                            switch (sectionItem.Key)
+                            {
+                                case (byte)PaperSectionType.PaperA:
+                                    <strong class="type-title">A卷</strong>
+                                    break;
+                                case (byte)PaperSectionType.PaperB:
+                                <strong class="type-title">B卷</strong>
+                                    break;
+                            }
+                        }
+
+                        var quSections = sectionItem.OrderBy(u => u.Sort).ToList();
+                        foreach (var quSection in quSections)
+                        {
+                            <h2 class="h2-title bold mb30 ">
+                                @Consts.Chinese[quSection.Sort]、@quSection.Description
+                            </h2>
+
+                            if (quSection.Questions == null || quSection.Questions.Count <= 0)
+                            {
+                                continue;
+                            }
+
+                            <div class="dy-questions-list f-cb">
+                                @foreach (var question in quSection.Questions)
+                                {
+                                    var qItem = question.Question;
+
+                                    var isError = errorQuestions != null && errorQuestions.Count > 0 && errorQuestions.Contains(qItem.Id);
+
+                                    <div class="box cont-list">
+                                        <div class="box-lg-12 title-top f-cb page-h2-coach">
+                                            <h4>@(sort++)</h4>
+                                            <div class="icon-list-box">
+                                                @if (errorQuestions != null && errorQuestions.Count > 0 && errorQuestions.Contains(qItem.Id))
+                                                {
+                                                    <span class="mark-error">
+                                                        <i class="iconfont dy-icon-flag"></i>
+                                                        已标记为错题
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="mark-error font-color-bulue f-adderrorquestion" data-qid="@qItem.Id">
+                                                        <i class="iconfont dy-icon-flag"></i>
+                                                        标记为错题
+                                                    </span>
+                                                }
+                                            </div>
+                                            <div class="q-statistics">
+                                                <span class="text-gray">满分：<em>@question.Score.ToString("0.#")</em>分</span>
+                                                <span class="error-Statistics bold" id="error_@qItem.Id" title="错误人数">
+                                                    <i class="iconfont dy-icon-usererror"></i><em>0</em>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="box-lg-12 questions-con">
+                                            @PaperHelper.ShowQuestion(qItem, paperSectionType: question.PaperSectionType,sortType:sortType)
+                                        </div>
+                                        <div class="box-lg-12 questions-btn">
+                                            <button class="dy-btn dy-btn-default"><i class="iconfont dy-icon-jiexi"></i> 答案解析</button>
+                                            <button class="dy-btn dy-btn-default btn-show-reason @(isError ? "" : "hide")" data-qid="@qItem.Id" id="errorAnalysis_@qItem.Id"><i class="iconfont dy-icon-ceshi"></i> 错因分析</button>
+                                        </div>
+                                        <div class="box-lg-12 questions-bottom-cont">
+                                            <div class="box questions-list-cont">
+                                                <div class="d-cont-title">我的答案：</div>
+                                                <div class="d-cont-wrap text-gray">未使用网阅，暂无详情</div>
+
+                                                <div class="d-cont-title">同学答案：</div>
+                                                <div class="d-cont-wrap text-gray">未使用网阅，暂无详情</div>
+
+                                                <div class="d-cont-title">参考答案：</div>
+                                                <div class="d-cont-wrap">
+                                                    @PaperHelper.ShowAnswer(qItem)
+                                                </div>
+                                            </div>
+                                            <div class="box questions-list-cont @(isError ? "" : "hide")" id="errorAnalysisDiv_@qItem.Id">
+                                                <div class="my-reason">
+                                                    正在加载我的标签，请稍后...
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section style{
+    @Html.CombineLink("css/font-awesome.css,css/site-base.css,v3/css/testpaper/page-push-coach.css,v3/css/site-compatible.css")
+}
+
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js,js/base/utils.js,v3/js/errorbook/reason.js,v3/js/homework/work-base.js,v3/js/testpaper/page-answer-detail.js")
+}

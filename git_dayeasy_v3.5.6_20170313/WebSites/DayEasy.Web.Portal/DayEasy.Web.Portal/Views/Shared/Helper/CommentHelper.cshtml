@@ -1,0 +1,130 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Core
+@model DayEasy.Contracts.Dtos.Message.CommentResultDto
+@{
+    var user = (UserDto)ViewData["User"];
+    var showNick = ((string)(ViewBag.SourceId ?? string.Empty)).StartsWith("topic_");
+    string avatar = string.Empty;
+    string name = "游客";
+    long userId = 0;
+    if (user != null)
+    {
+        userId = user.Id;
+        name = (showNick ? user.Nick : user.Name);
+        avatar = user.Avatar;
+    }
+
+    if (string.IsNullOrEmpty(avatar))
+    {
+        avatar = Consts.DefaultAvatar();
+    }
+}
+<!--评论辅助-->
+<div class="pop-comment d-comment-box" id="commentList" data-count="@Model.CommentCount">
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="d-comment-all">
+            全部回复<small>(@Model.Count)</small>
+        </div>
+    }
+    <ol class="comment-bxo" data-source-id="@ViewBag.SourceId" data-avatar="@avatar" data-name="@name">
+        <li>
+            <div class="comment-text parents-conter">
+                <ul class="comment-list ul-list-one">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var comment in Model.Comments)
+                        {
+                            if (!Model.Users.ContainsKey(comment.UserId))
+                            {
+                                continue;
+                            }
+                            var commentUser = Model.Users[comment.UserId];
+                            <li class="d-comment-item">
+                                <img width="40" height="40" src="@Html.MakeThumb(commentUser.Avatar, "40x40")" alt="" />
+                                <div class="box f-parents">
+                                    <div class="box-lg-12 mb5 name-color">
+                                        @(showNick ? commentUser.Nick : commentUser.Name)<span class="comment-time">@comment.Time</span>
+                                        @if (comment.Floor > 0)
+                                        {
+                                            string floor;
+                                            switch (comment.Floor)
+                                            {
+                                                case 1:
+                                                    floor = "<span class=\"d-floor-first\">沙发</span>";
+                                                    break;
+                                                case 2:
+                                                    floor = "<span class=\"d-floor-second\">板凳</span>";
+                                                    break;
+                                                case 3:
+                                                    floor = "<span class=\"d-floor-third\">地板</span>";
+                                                    break;
+                                                case 4:
+                                                    floor = "<span class=\"d-floor-four\">地下室</span>";
+                                                    break;
+                                                default:
+                                                    floor = comment.Floor + " 楼";
+                                                    break;
+                                            }
+                                            <div class="d-comment-floor">@Html.Raw(floor)</div>
+                                        }
+                                    </div>
+                                    <div class="box-lg-12 mb10 comment-message">@Html.Raw(comment.Message)</div>
+                                    <div class="box-lg-12 d-comment-actions">
+                                        @if (userId == comment.UserId)
+                                        {
+                                            <span class="b-comment-delete" title="删除" data-cid="@comment.Id"><i class="iconfont dy-icon-delete"></i>删除</span>
+                                        }
+                                        <span class="b-comment-to" data-text="回复 @(showNick ? commentUser.Nick : commentUser.Name)："><i class="iconfont dy-icon-edit2"></i>回复</span>
+                                    </div>
+                                </div>
+                                <div class="comment-children">
+                                    <!--子级评论-->
+                                    <div class="comment-input f-cb hide">
+                                        <img width="40" height="40" src="@Html.MakeThumb(avatar, "40x40")" alt="" />
+                                        <textarea placeholder="我有话要说" name="" class="textarea mb5" cols="30" rows="2" maxlength="140"></textarea>
+                                        <input data-comment-id="@comment.Id" class="dy-btn dy-btn-info dy-btn-sm f-fr b-comment" type="button" value="回复" />
+                                    </div>
+                                    <div class="comment-text">
+                                        @if (comment.Replys != null && comment.Replys.Any())
+                                        {
+                                            <ul class="comment-list">
+                                                @foreach (var reply in comment.Replys)
+                                                {
+                                                    var replyUser = Model.Users[reply.UserId];
+                                                    <li>
+                                                        <img width="40" height="40" src="@Html.MakeThumb(replyUser.Avatar, "40x40")" alt="" />
+                                                        <div class="box">
+                                                            <div class="box-lg-12 mb5 name-color">@(showNick ? replyUser.Nick : replyUser.Name)<span class="comment-time">@reply.Time</span></div>
+                                                            <div class="box-lg-12 mb10 comment-message">@Html.Raw(reply.Message)</div>
+                                                            <div class="box-lg-12 d-comment-actions">
+                                                                @if (userId == reply.UserId)
+                                                                {
+                                                                    <span class="b-comment-delete" title="删除" data-cid="@reply.Id"><i class="iconfont dy-icon-delete"></i>删除</span>
+                                                                }
+                                                                <span class="b-comment-to" data-text="回复 @(showNick ? replyUser.Nick : replyUser.Name)："><i class="iconfont dy-icon-edit2"></i>回复</span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </div>
+                                    <!--子级评论 end-->
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="comment-input f-cb f-textarea-operation">
+                <img width="40" height="40" src="@Html.MakeThumb(avatar, "40x40")" alt="" />
+                <textarea placeholder="我有话要说" name="" class="textarea mb5" cols="30" rows="2" maxlength="140"></textarea>
+                <div class="d-comment-send">
+                    <input class="dy-btn dy-btn-info b-comment" type="button" value="发送回复" />
+                    <div class="d-comment-helper">Ctrl+Enter 键快速提交回复</div>
+                </div>
+            </div>
+        </li>
+    </ol>
+</div>

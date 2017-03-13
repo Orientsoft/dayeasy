@@ -1,0 +1,30 @@
+<script id="dynamic-item" type="text/html">
+    <div class="box-list" data-id="{{id}}">
+        <a class="head-img" href="javascript:void(0);">
+            <img width="64" height="64" src="{{sender.avatar}}" alt=""/>
+        </a>
+        <ul>
+            <li>
+                <div class="box">
+                    <div class="box-lg-9 tab-box-1">
+                        <strong class="{{typeCss}}">{{type}}</strong>
+                        {{if title}}
+                        <a target="_blank" href="{{link}}">{{title}}</a>
+                        {{/if}}
+                    </div>
+                    <div class="box-lg-3 tab-box-2">
+                        <span class="d-comment" title="评论"><i class="iconfont dy-icon-messageline"></i>{{commentCount}}</span>
+                        <span title="{{liked?'取消点赞':'点赞'}}" class="d-like {{liked?'z-crt':''}}"><i class="iconfont dy-icon-zan"></i>{{goodCount}}</span>
+                    </div>
+                    <div class="box-lg-12 tab-box-3">
+                        <a href="javascript:void(0);">{{sender.name}}</a>
+                        {{time}}
+                    </div>
+                    <div class="box-lg-12 tab-box-4">
+                        {{#message}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>	
+</script>

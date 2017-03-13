@@ -1,0 +1,320 @@
+/**
+  学生 - 成绩报表
+*/
+.d-score-box {
+  border: solid 1px #de5361;
+  background-color: #fefcfc;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -o-border-radius: 15px;
+  -ms-border-radius: 15px;
+  border-radius: 15px;
+  position: relative;
+  margin: 55px auto 0;
+  width: 800px;
+  padding: 30px 20px;
+}
+.d-score-box h2 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  margin-left: -85px;
+  width: 170px;
+  height: 40px;
+  line-height: 32px;
+  text-align: center;
+  background: url(/v3/image/work/medal.png) no-repeat transparent;
+}
+.d-score-box hr {
+  border: none;
+  border-top: dashed 2px #eee;
+  margin: 15px 0;
+}
+.d-score-box .d-score-wrap {
+  background-color: #3bafda;
+  line-height: 50px;
+  color: #fff;
+  font-size: 18px;
+  padding: 0 35px;
+  position: relative;
+}
+.d-score-box .d-score-wrap .angle-left,
+.d-score-box .d-score-wrap .angle-right {
+  position: absolute;
+  top: 0;
+}
+.d-score-box .d-score-wrap .angle-right {
+  width: 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  border-style: dashed dashed dashed solid;
+  border-width: 25px 0 25px 15px;
+  border-color: transparent transparent transparent #fff;
+  left: 0;
+}
+.d-score-box .d-score-wrap .angle-left {
+  width: 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  border-style: dashed solid dashed dashed;
+  border-width: 25px 15px 25px 0;
+  border-color: transparent #fff transparent;
+  right: 0;
+}
+.d-score-box .d-score-wrap .d-score-title {
+  margin-right: 35px;
+}
+.d-score-box .d-score-wrap .d-score-item {
+  border-left: 1px solid #75cfef;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  line-height: 20px;
+  text-align: center;
+  width: 188px;
+  font-size: 16px;
+}
+.d-score-box .d-score-wrap .d-score-item.first-child {
+  line-height: 32px;
+  border-left-color: #9edff6;
+}
+.d-score-box .d-score-wrap .d-score-item small {
+  font-size: 14px;
+}
+.d-score-box .d-score-wrap .d-score-item em {
+  font-size: 26px;
+}
+.d-score-box .d-ranks-item {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+  width: 345px;
+  position: relative;
+}
+.d-score-box .d-ranks-item.d-rank {
+  width: 200px;
+}
+.d-score-box .d-ranks-item h3 {
+  width: 2em;
+  font-size: 16px;
+  color: #656d78;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+}
+.d-score-box .d-ranks-item .d-class-rank,
+.d-score-box .d-ranks-item .d-grade-rank {
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+}
+.d-score-box .d-ranks-item .d-class-average,
+.d-score-box .d-ranks-item .d-grade-average {
+  border: solid 1px #eee;
+}
+.d-score-box .d-ranks-item .d-class-average td,
+.d-score-box .d-ranks-item .d-grade-average td {
+  border: none;
+  padding: 8px 15px !important;
+}
+.d-score-box .d-ranks-item .d-rank-desc {
+  font-size: 12px;
+  color: #656d78;
+  text-align: center;
+  line-height: 25px;
+  font-family: "Microsoft YaHei", serif;
+}
+.d-score-box .d-ranks-item .d-rank-desc b {
+  font-size: 24px;
+  color: #3bafda;
+  display: block;
+}
+.d-score-box .d-ranks-item .d-rank-change {
+  bottom: -11px;
+  color: #999;
+  position: absolute;
+  right: 0;
+  width: 160px;
+  text-align: center;
+}
+.d-score-box .d-ranks-item .d-rank-change b {
+  font-size: 24px;
+  color: #3bafda;
+}
+.d-score-box .d-ranks-item .d-rank-change i {
+  margin-left: 6px;
+}
+.d-score-box .d-ranks-item .dy-table {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+  margin-top: 0;
+}
+.d-score-box .d-ranks-item .dy-table td {
+  padding: 8px 25px;
+  color: #999;
+  background-color: #fff;
+}
+.d-score-box .d-ranks-item > .d-ranks-item {
+  margin-bottom: 15px;
+}
+.d-score-box .d-ranks-item > .d-ranks-item h3 {
+  width: 4em;
+  margin-right: 12px;
+}
+.d-score-box .dy-table {
+  width: auto;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.d-score-box .dy-table td {
+  border: solid 1px #eee;
+  text-align: center;
+  color: #666;
+  padding: 8px 15px;
+}
+.d-score-box .dy-table td.d-mine,
+.d-score-box .dy-table td.d-other {
+  font-size: 12px;
+}
+.d-score-box .dy-table td.d-mine i,
+.d-score-box .dy-table td.d-other i {
+  display: block;
+  margin-bottom: 4px;
+}
+.d-score-box .dy-table td.d-mine i {
+  color: #ed5565;
+}
+.d-score-box .dy-table td.d-other i {
+  color: #3bafda;
+}
+.d-score-box .dy-table td .dy-icon-cha {
+  color: #ed5565;
+}
+.d-score-box .dy-table td .dy-icon-bangou {
+  color: #f0ad4e;
+}
+.d-score-box .dy-table td .dy-icon-gou {
+  color: #9bd75f;
+}
+.d-score-box .dy-table-head {
+  margin-left: 30px;
+}
+.d-score-box .dy-table-head h3 {
+  font-size: 16px;
+  line-height: 45px;
+}
+.d-score-box .dy-table-body {
+  margin-left: 30px;
+  padding-left: 74px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  min-height: 105px;
+  height: 140px\9;
+}
+.d-score-box .dy-table-body .dy-table-left {
+  width: 75px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  background-color: #fff;
+}
+.d-score-box .dy-table-body .d-error {
+  height: 41px;
+}
+.d-score-box .dy-table-body td {
+  white-space: nowrap;
+  padding: 4px 6px;
+}
+.d-score-box .d-column-mine {
+  position: absolute;
+  right: 30px;
+  top: 35px;
+  color: #999;
+}
+.d-score-box .d-column-mine i {
+  background-color: #ed5565;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  height: 10px;
+  margin-right: 10px;
+  width: 20px;
+}
+.d-score-box .d-rank-compare td {
+  padding: 10px 15px;
+}
+.d-score-box .d-rank-compare td.compare {
+  font-size: 18px;
+}
+.d-score-box .d-rank-compare td em {
+  font-size: 30px;
+  font-weight: 600;
+  color: #f7a35c;
+  margin-right: 5px;
+}
+.d-score-box .d-segments {
+  height: 280px;
+}
+.d-score-box .d-ranks {
+  height: 280px;
+}
+.d-rate {
+  background-color: #dff2f9;
+  border-radius: 50%;
+  font-size: 12px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  width: 32px;
+  position: relative;
+  overflow: hidden;
+  color: #2784a5;
+  margin: 0 auto;
+}
+.d-rate em {
+  background-color: #b4e3f3;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  z-index: 1;
+}
+.d-rate span {
+  position: relative;
+  z-index: 2;
+}
+.d-rate.d-rate-warning {
+  background-color: #fef2e7;
+  color: #89521c;
+}
+.d-rate.d-rate-warning em {
+  background-color: #fbad5f;
+}
+.d-rate.d-rate-danger {
+  background-color: #fae7e6;
+  color: #e79592;
+}
+.d-rate.d-rate-danger em {
+  background-color: #d9534f;
+}
+.d-knowledge-name {
+  max-width: 6em;
+  overflow: hidden;
+  line-height: 24px;
+  text-overflow: ellipsis;
+}

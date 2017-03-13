@@ -1,0 +1,193 @@
+/*--------------------------------------------------------------
+                       错因标签 错因分析 组件
+
+      Author:Plato
+      Create Date:15.08.28    Last Mondify Date:15.08.28
+      ===================================================
+
+--------------------------------------------------------------*/
+@import     "../../base.less";
+//@import        "ul-paper.less";
+//@import        (reference) "../../icon-base.less";
+
+
+
+/*--------------------------------------------------------------
+                          ui style
+--------------------------------------------------------------*/
+
+.reason-box{
+  line-height: 1.6em;
+  padding: 20px 0;
+  border-top: 1px solid @color-default-border;
+  border-bottom: 1px solid @color-default-border;
+  .hd-title-sd{
+    font-weight: bold;
+    span{
+      .inline-block;
+      width: 17px;
+      height: 17px;
+      font-size: 12px;
+      color: white;
+      .rounded-corners(50%);
+      background: #fcb66f;
+      font-weight: bold;
+      text-align: center;
+      line-height: 17px;
+      margin-right: 10px;
+    }
+  }
+  .error-tag{
+    .ul-list-1,.ul-list-2{
+      li{
+        float: left;}
+    }
+    .color-grey{
+      color: #999;
+    }
+    .ul-list-1{
+      li{margin-right: 10px;}
+      span{
+        padding: 7px 10px;
+        background: #ffcd9b;
+        .rounded-corners(2px);
+      }
+      input[type="text"]{
+        border: 1px solid #7ed2fc;
+        padding:4px;
+        position: relative;
+        top: -5px;
+      }
+      button{
+        position: relative;
+        top: -5px;
+      }
+      .btn-info{
+        padding: 3px 9px;
+      }
+    }
+    .ul-list-2{
+      li{
+        margin-right: 22px;
+        color: #65cafc;
+        cursor: pointer;
+      }
+    }
+    textarea{
+      width: 100%;
+      padding: 0 5px;
+      border: 1px solid #7ed2fc;
+      font-size: 14px;
+      line-height: 1.6em;
+    }
+    .corol-lenth{
+      color: #999;
+
+      font-size: 12px;
+      strong{
+        font-size: 14px;
+      }
+    }
+    .f-open{
+      .inline-block;
+      width: 120px;
+      span{
+        width: 120px;
+        padding: 0 5px;
+        position: absolute;
+        top: 19px;
+        left: 0;
+        border: 1px solid #e6e6e6;
+        display: none;
+        text-align: right;
+      }
+      &:hover{
+        span{
+          display: block;
+        }
+      }
+    }
+
+  }
+}
+
+
+
+
+/*--------------------------------------------------------------
+                          html 依赖
+--------------------------------------------------------------*/
+//<link rel="stylesheet" href="../../source/css/bootstrap.css"/>
+//<!--<link href="http://static.dayeasy.dev/source/css/bootstrap.css" rel="stylesheet" media="all" />-->
+
+//<div class="col-md-12 answer-hide" style="display: block;">
+//<div class="row">
+//<div class="col-md-12 mb10">
+//<div class="col-md-2 f-tar pr0 hd-title-sd"><span>1</span>错因标签：</div>
+//<div class="col-md-10 pl0 error-tag">
+//<div class="col-md-12">
+//<ul class="ul-list-1">
+//<li><span>审题失误</span></li>
+//<li><span>审题失误</span></li>
+//<li><input type="text" placeholder="基本概念"></li>
+//<li><button class="btn btn-info">添加</button></li>
+//</ul>
+//</div>
+//<div class="col-md-12 f-cb">
+//<span class="f-fl color-grey">常见错因：</span>
+//<ul class="f-fl ul-list-2">
+//<li>计算能力</li>
+//<li>跳步骤</li>
+//<li>审题不仔细</li>
+//<li>基本概念混淆</li>
+//</ul>
+//</div>
+//</div>
+//</div>
+//<div class="col-md-12 mb10">
+//<div class="col-md-2 f-tar pr0 hd-title-sd"><span>2</span>错因分析：</div>
+//<div class="col-md-10 pl0 error-tag">
+//<div class="col-md-12">
+//<textarea id="TextareaLenth" cols="30" rows="5"></textarea>
+//<div class="col-md-6 pl0 f-pr hover-box">
+//<div class="pointer f-open">仅自己与老师可见  <i class="icon-test-center icon-test-center-dowtrian"></i>
+//<span>公开</span>
+//</div>
+//</div>
+//<div class="col-md-6">
+//<p class="corol-lenth f-tar">你还可以输入<strong id="FontSizLenth">140</strong>个字</p>
+//</div>
+//</div>
+//</div>
+//</div>
+//<div class="col-md-12 analysis">
+//<div class="col-md-5 col-lg-offset-6">
+//<p class="f-tar">已有 7人 完成了分析</p>
+//<div class="tab-1">
+//<ul class="ul-list f-cb">
+//<li>
+//<img src="../../image/default/user_s50x50.jpg" alt="">
+//<span>学生1</span>
+//</li>
+//<li>
+//<img src="../../image/default/user_s50x50.jpg" alt="">
+//<span>学生1</span>
+//</li>
+//<li>
+//<img src="../../image/default/user_s50x50.jpg" alt="">
+//<span>学生1</span>
+//</li>
+//<li>
+//<img src="../../image/default/user_s50x50.jpg" alt="">
+//<span>学生1</span>
+//</li>
+//</ul>
+//<!--<span class="angle-bottom"><i></i><em></em></span>-->
+//</div>
+//</div>
+//<div class="col-md-1">
+//<a class="btn btn-info" href="">提交</a>
+//</div>
+//</div>
+//</div>
+//</div>

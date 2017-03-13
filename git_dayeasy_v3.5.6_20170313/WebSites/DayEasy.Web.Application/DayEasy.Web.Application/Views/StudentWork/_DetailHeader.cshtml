@@ -1,0 +1,72 @@
+﻿@using DayEasy.Contracts.Enum
+@model DayEasy.Application.Services.Dto.VWorkDto
+@{
+    var isTest = (Model.PublishType == (byte) PublishType.Test);
+    var routeData = new { batch = Model.Batch };
+    var menus = new Dictionary<string, string>
+    {
+        {Url.Action("AnswerPaperDetail", "StudentWork", routeData), "题目分析"},
+        {Url.Action("ScoreAnalysis", "StudentWork", routeData), "成绩报表"},
+        {Url.Action("VariantPass", "StudentWork", routeData), "变式过关"},
+        {Url.Action("Tutors", "StudentWork", routeData), "相关辅导"}
+    };
+    var icons = new[] { "dy-icon-weibiaoti1", "dy-icon-shujufenxi", "dy-icon-42", "dy-icon-keyefudao" };
+}
+<div class="coach-base-title"
+     data-print="@(isTest ? 0 : 1)"
+     data-batch="@Model.Batch"
+     data-paper="@Model.PaperId">
+    <div class="dp-title">
+        <h2 id="paperName">@Model.PaperTitle</h2>
+        @if (isTest)
+        {
+            <span class="free-bubble free-bg-yellow">推送试卷<i></i></span>
+        }
+    </div>
+    <ul class="dp-nav">
+        @{
+            var i = 0;
+            foreach (var menu in menus)
+            {
+                var isCurrent = (Model.Step == i++);
+                var css = (i == menus.Count ? "dp-nav-last" : "");
+                if (isCurrent)
+                {
+                    <li class="@css z-crt">
+                        <a href="javascript:void(0);">
+                            <i class="iconfont @icons[i-1]"></i>
+                            @menu.Value
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="@css">
+                        <a href="@menu.Key">
+                            <i class="iconfont @icons[i-1]"></i>
+                            @menu.Value
+                        </a>
+                    </li>
+                }
+            }
+        }
+        <li class="dp-slide-bar"></li>
+    </ul>
+    <div class="dp-actions">
+        <div class="box-lg-4">
+            @if (!isTest)
+            {
+                <a class="dy-btn dy-btn-default" href="@Url.Action("MarkingDetail", "StudentWork", new {batch = Model.Batch, paperId = Model.PaperId})" target="_blank">
+                    <i class="iconfont dy-icon-yuejuan"></i>
+                    答题卡
+                </a>
+            }
+        </div>
+        <div class="box-lg-4">
+            <a class="dy-btn dy-btn-default" href="#" id="downPaper"><i class="iconfont dy-icon-download"></i> 下载全卷</a>
+        </div>
+        <div class="box-lg-4">
+            <a class="dy-btn dy-btn-default" href="#" id="downErrors"><i class="iconfont dy-icon-download"></i> 下载错题</a>
+        </div>
+    </div>
+</div>

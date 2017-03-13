@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    @@include('./link-style.html')
+    <title>我的得一 - 触屏版</title>
+    <!--<meta http-equiv="refresh" content="2;url=page/group/home.html">-->
+</head>
+<body data-role="7">
+<div class="">正在跳转...</div>
+<!-- 基础脚本 -->
+@@include('./link-script.html')
+<script>
+    (function (S) {
+        S.progress.start();
+        S.setUser(function (user) {
+            if (user && (user.role & 4) > 0) {
+                location.href = 'http://www' + location.host.substring(location.host.indexOf('.')) + '/group?from=wap';
+                return false;
+            }
+            location.href = '/page/group/home.html';
+        });
+    })(SINGER);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+﻿@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model List<DayEasy.Contracts.Dtos.Examination.ExamSubjectDto>
+
+@{
+    ViewBag.Title = "创建大型考试";
+}
+<div class="row mt20">
+    <div class="dy-agency-wrap col-md-4 hide">
+        <form method="GET" id="searchForm">
+            <input type="hidden" name="agencyId" id="agencyId" value="@("agencyId".Query(string.Empty))" />
+            <div class="dy-agency-item">
+            </div>
+        </form>
+    </div>
+
+    <div style="position: relative;padding-left: 0" class="col-md-4">
+        <input type="text"
+               class="form-control"
+               placeholder="输入机构名称"
+               autocomplete="off"
+               autofocus
+               id="keyword"
+               data-singe="true" />
+        <div class="dy-agencies hide">
+        </div>
+    </div>
+    <div class="dy-actions col-md-8">
+        <div class="col-md-offset-6 col-md-4 dy-selected-wrap">
+            <span>已选择<em>0</em>次协同</span>
+            <a href="javascript:void(0)" class="b-clear ml10">清空</a>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary disabled" id="createBtn" disabled>
+                <i class="fa fa-plus"></i>
+                创建考试
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row mt20">
+    <div class="dy-table-wrap">
+        <table class="table table-bordered">
+            <colgroup>
+                <col style="width: 2em" />
+                <col style="width: 4em"/>
+                <col style="width: 20em"  />
+                <col style="width: 10em" />
+                <col style="width: 7em" />
+                <col style="width: 8em" />
+                <col style="width: 6em" />
+                <col />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>科目</th>
+                    <th>试卷名称</th>
+                    <th>同事圈</th>
+                    <th>发起人</th>
+                    <th>时间</th>
+                    <th>学生人数</th>
+                    <th>班级详情</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.IsNullOrEmpty())
+            {
+                    <tr>
+                        <td colspan="8" style="padding: 0">
+                            <div class="dy-nothing">没有协同考试记录！</div>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var dto in Model)
+                    {
+                        <tr data-joint="@dto.JointBatch">
+                            <td>
+                                <input type="checkbox" name="ckbJoint" />
+                            </td>
+                            <td class="d-subject" data-sid="@dto.SubjectId" data-sname="@dto.Subject">
+                                @Html.LabelText(dto.Subject, dto.SubjectId)
+                            </td>
+                            <td>
+                                <a href="@(Consts.Config.AppSite + "/paper/detail/" + dto.PaperId)" target="_blank">@dto.PaperTitle</a><br/>
+                                <small style="color: #999;">No.@dto.PaperNo</small>
+                            </td>
+                            <td>
+                                @dto.Group.Name <br /><small style="color: #999;">No. @dto.Group.Code</small>
+                            </td>
+                            <td>@dto.Creator.Name</td>
+                            <td>
+                                <abbr title="@dto.FinishedTime.ToString("yyyy年MM月dd日HH时mm分")">@dto.FinishedTime.ToString("yyyy-MM-dd")</abbr>
+                            </td>
+                            <td>@dto.StudentCount</td>
+                            <td>
+                                @foreach (var c in dto.JointClasses)
+                                {
+                                    <span class="dy-class-item">@c.ClassName<small>(@(c.StudentCount)人)</small></span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager("pageindex".Query(1), 10, (int)ViewBag.TotalCount, 4)
+    </div>
+</div>
+<script type="text/html" id="createTpl">
+    <div class="form form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-3">考试名称：</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control d-name" placeholder="请输入大型考试名称,至少5个字符" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">涵盖学科：</label>
+            <div class="col-md-9">
+                <label class="form-control-static">{{subjectStr}}</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">考试类型：</label>
+            <div class="col-md-9">
+                <label class="radio radio-inline">
+                    <input type="radio" name="examinationType" value="0" />
+                    普通协同
+                    <abbr title="根据同事圈所属机构发起大型考试"><i class="fa fa-question"></i></abbr>
+                </label>
+                <label class="radio radio-inline">
+                    <input type="radio" name="examinationType" value="1" />
+                    联考协同
+                    <abbr title="根据班级圈所属机构发起大型考试"><i class="fa fa-question"></i></abbr>
+                </label>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="button" class="btn btn-primary btn-create" disabled>
+                <i class="fa fa-check-square-o"></i>
+                确认创建
+            </button>
+        </div>
+    </div>
+</script>
+@section style{
+    @Html.CombineLink("v3/css/management/page-exam.css")
+}
+@section script{
+    @Html.CombineLink("v3/js/artTemplate.min.js", "v3/js/management/agency-helper.js", "v3/js/management/page-exam-create.js")
+}

@@ -1,0 +1,375 @@
+@import "../../less/base";
+
+.dy-wrap {
+  background: @color-bg-base;
+}
+
+// h2
+.choice-ab-title {
+  color: @gray-dark;
+  padding-left: 25px;
+  border-left: 5px solid #ed5565;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.choice-ab {
+  .choice-a {
+    line-height: 32px;
+    text-align: center;
+  }
+}
+
+.choice-selected-list {
+  span {
+    .inline-block;
+    background: @d-color-red;
+    color: @color-default;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    .rounded-corners(2px);
+  }
+}
+
+// 选择阅卷方式
+.d-read-together {
+  .choice-ab-top, .choice-ab-bottom {
+    padding: 20px 0 10px;
+    background: @color-default;
+  }
+  .choice-ab-top {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    .choice-selected {
+      padding: 30px 30px 0;
+      //margin-bottom: 20px;
+      .inline-block;
+      position: relative;
+      dt {
+        float: left;
+        line-height: 32px;
+        margin-right: 10px;
+        width: 32px;
+        position: absolute;
+        top: 0;
+        left: 30px;
+        font-size: 15px;
+      }
+      dd {
+        .inline-block;
+        background: @d-color-red;
+        color: @color-default;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        .rounded-corners(2px);
+      }
+    }
+  }
+  .choice-ab-bottom {
+    position: relative;
+    .choice-abroad {
+      padding: 0 50px;
+    }
+    .choice-mode {
+      width: 500px;
+      height: 210px;
+      border: 2px solid @border-color;
+      position: relative;
+      padding: 20px 30px;
+      margin-bottom: 30px;
+      cursor: pointer;
+      &.f-fl {
+        &:before {
+          content: " ";
+          width: 1px;
+          height: 210px;
+          background: #eee;
+          position: absolute;
+          right: -50px;
+          top: 0;
+          display: block;
+        }
+      }
+      &.f-fr {
+        padding-left: 50px;
+      }
+      img {
+        display: block;
+        width: 170px;
+        position: absolute;
+      }
+      .choice-icon {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        .angle;
+        border-style: dashed solid solid dashed;
+        border-width: 30px 30px 30px 30px;
+        border-color: transparent @border-color @border-color transparent;
+        i {
+          color: @color-default;
+          font-size: 24px;
+          left: 2px;
+          position: absolute;
+          top: 12px;
+        }
+      }
+      &.on {
+        border-color: @pagination-color;
+        background-color: #f9f9f9;
+        .choice-ab-text {
+          color: @d-color-blue;
+        }
+        .choice-icon {
+          border-color: transparent @pagination-color @pagination-color transparent;
+        }
+      }
+    }
+    .choice-ab-text {
+      color: @d-color-gray;
+      padding-left: 200px;
+      padding-top: 35px;
+      line-height: 1.4em;
+      strong {
+        font-size: @font-size-large;
+        display: block;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+      p {
+        font-size: 16px;
+        color: #999;
+        line-height: 1.4em;
+      }
+    }
+    .dy-btn-info {
+      padding-left: 35px;
+      padding-right: 35px;
+    }
+  }
+}
+
+// 按卷批阅
+
+.dm-choice {
+  text-align: center;
+  p {
+    margin: 12px 0;
+  }
+  strong {
+    font-weight: 600;
+    margin: 0 3px;
+  }
+  .text-danger {
+    color: @color-danger;
+  }
+}
+
+.d-read-marking {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  .side-read-marking, .main-read-marking {
+    background: @color-default;
+    padding: 20px 0;
+  }
+}
+
+.side-read-marking {
+  float: left;
+  width: 400px;
+  .choice-ab {
+    margin: 0 30px 20px;
+  }
+  .choice-selected-list {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  .choice-selected-text {
+    .line-height {
+      line-height: 40px;
+    }
+    span, em {
+      .inline-block;
+    }
+    span {
+      color: #bbb;
+    }
+    em {
+      color: #ed5565;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
+}
+
+.main-read-marking {
+  float: right;
+  width: 1200-430px;
+  .mainc-marking {
+    margin: 0 30px 20px;
+  }
+  .mainc-marking-snav {
+    width: 50px;
+    float: left;
+    font-size: 16px;
+  }
+  .mainc-marking-mnc {
+    &.choice-ab {
+      padding-left: 50px;
+    }
+    .choice-selected-list span {
+      background: #e6e9ed;
+      color: #666;
+    }
+    //默认表格覆盖
+    .dy-table {
+      th {
+        color: #666;
+        background: #eee;
+        font-size: 15px;
+      }
+      td {
+        padding: 8px 3px;
+      }
+      .d-progress {
+        font-size: 16px;
+        text-align: center;
+      }
+    }
+    .d-missions {
+    }
+    .d-mission {
+      margin-bottom: 8px;
+      position: relative;
+      span {
+        .inline-block;
+        width: 5em;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-align: right;
+        color: @d-color-light-gray;
+      }
+      img {
+        .inline-block;
+        border-radius: 50%;
+        height: 15px;
+        width: 15px;
+      }
+      .progress {
+        .inline-block;
+        vertical-align: 3px;
+        width: 120px;
+        height: 8px;
+        margin-bottom: 0;
+        background: none;
+        .box-shadow(none);
+        .progress-bar {
+          line-height: 15px;
+          min-width: 3px;
+          background: #3bafda linear-gradient(to bottom, #3bafda 0px, #28afda 100%) repeat-x scroll 0 0;
+        }
+        em {
+          margin-left: 15px;
+          position: absolute;
+          top: 1px;
+          font-size: 13px;
+          font-weight: 600;
+          color: @d-color-light-gray;
+        }
+      }
+    }
+  }
+  .read-marking-btn {
+    padding: 0 30px;
+  }
+  .choice-A {
+    .mainc-marking-snav {
+      margin-top: 64px;
+    }
+  }
+  .choice-B {
+    .mainc-marking-snav {
+      margin-top: 24px;
+    }
+  }
+  //主体 负责人
+  .who-person {
+    margin-bottom: 15px;
+    img {
+      float: left;
+      width: 32px;
+      height: 32px;
+      .rounded-corners(50%);
+      display: block;
+      margin-right: 10px;
+    }
+    .who-person-text {
+      float: left;
+      strong, span {
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        overflow: hidden;
+        width: 64px;
+      }
+      strong {
+        color: #666;
+      }
+      span {
+        margin-top: 4px;
+        color: #999;
+      }
+    }
+  }
+}
+
+/*结束阅卷弹出框*/
+.mk-finished-box {
+  width: 380px;
+  line-height: 2em;
+  span {
+    font-weight: normal;
+  }
+  .finished-icon {
+    color: #ed5565;
+  }
+  .finished-alt {
+    color: #bbbbbb;
+  }
+  .finished-buttons {
+    margin-top: 20px;
+  }
+}
+
+/*进度条*/
+.progress {
+  background: #f5f5f5 linear-gradient(to bottom, #ebebeb 0px, #f5f5f5 100%) repeat-x;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+  height: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  .progress-bar {
+    background: #337ab7 linear-gradient(to bottom, #337ab7 0px, #286090 100%) repeat-x;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+    color: #fff;
+    float: left;
+    font-size: 12px;
+    height: 100%;
+    line-height: 20px;
+    text-align: center;
+    transition: width 0.6s ease 0s;
+    width: 0;
+  }
+}
+

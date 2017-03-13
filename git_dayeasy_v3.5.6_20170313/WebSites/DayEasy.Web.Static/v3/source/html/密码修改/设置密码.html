@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>设置密码</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/user/ucenter.css"/>
+
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <form action="#">
+            <div class="form-main w1200">
+                <div class="form-tab">
+
+                    <div class="form-menu">
+                        <i class="iconfont dy-icon-37"></i>
+                        验证身份
+                    </div>
+                    <div class="form-menu on">
+                        <i class="iconfont dy-icon-36"></i>
+                        重置密码
+                    </div>
+                    <div class="form-menu">
+                        <i class="iconfont dy-icon-radiohv"></i>
+                        修改完成
+                    </div>
+                </div>
+                <div class="form-list form-main-list f-cb">
+                    <!--TAB-->
+                    <div class="mobile-text">
+
+                        <div class="form-group">
+                            <label class="form-label">设置密码：</label>
+
+                            <div class="form-item">
+                                <div class="form-textbox success-input">  <!--正确 success-input--> <!--错误 error-input-->
+                                    <input class="form-input-w300 " type="password" placeholder="输入密码" name="" id=""/>
+                                </div>
+                            </div>
+                            <P class="msg-error">账号错误</P>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">账号：</label>
+
+                            <div class="form-item">
+                                <div class="form-textbox success-input">  <!--正确 success-input-->
+                                    <input class="form-input-w300 " type="password" placeholder="确认密码" name="" id=""/>
+                                </div>
+                            </div>
+                            <P class="msg-error">确认注册</P>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-item">
+                                <button class="dy-btn dy-btn-info">确认注册</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@@include('./footer.html')
+
+</body>
+</html>

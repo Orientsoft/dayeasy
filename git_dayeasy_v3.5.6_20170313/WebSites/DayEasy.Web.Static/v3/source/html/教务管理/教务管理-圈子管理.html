@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>教务管理-圈子管理</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="/v3/source/css/ea/ui-data.css"/>
+    <link rel="stylesheet" href="/v3/source/css/ea/statistics/page-group-manage.css"/>
+
+
+    <script>
+        window.DEYI = window.DEYI || {};
+        window.DEYI.sites = {
+            'main': 'http://www.dayeasy.dev',
+            'apps': 'http://apps.dayeasy.dev',
+            'static': '//static.dayeasy.dev',
+            'reg': 'http://account.dayeasy.dev/reg',
+            'login': 'http://account.dayeasy.dev/login',
+            'account': 'http://account.dayeasy.dev',
+            'file': '//file.dayez.net',
+            'open': 'http://open.dayeasy.dev/'
+        };
+    </script>
+</head>
+<body>
+
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="dy-main-wrap f-cb">
+            @@include('./module/m-supervise-nav.html')
+            <div class="dy-list">
+                <!--圈子管理-->
+                <div class="page-group-manage">
+                    <div class="tab-nav-manage">
+                        <ul class="f-cb">
+                            <li class="class-group j-li-tab f-fl">班级圈</li>
+                            <li class="li-border  f-fl"><span></span></li>
+                            <li class="Colleague-group j-li-tab on f-fl">同事圈</li>
+                            <li class="new-group f-fr">
+                                <button class="btn-esta-group dy-btn dy-btn-info">创建圈子</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-con-manage">
+                        <table class="dy-table">
+                            <colgroup>
+                                <col style="width: 110px">
+                                <col style="width: 86.25px">
+                                <col style="width: 86.25px">
+                                <col style="width: 86.25px">
+
+                                <col style="width: 69px">
+                                <col style="width: 86px">
+                                <col style="width: 80px">
+
+                                <col style="width: 86.25px">
+                                <col style="width: 230px">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th class="f-tal">圈子名称</th>
+                                <th class="f-tal">圈号</th>
+                                <th class="f-tal">创建时间</th>
+                                <th>圈主</th>
+                                <th>教师数目</th>
+                                <th>学生数目</th>
+                                <th>待审批</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="f-tal"><div class="group-name">2018级12班</div></td>
+                                <td class="f-tal">GC23434</td>
+                                <td class="f-tal">2016-03-30</td>
+                                <td>张全蛋蛋</td>
+                                <td>7</td>
+                                <td>50</td>
+                                <td><span class="color-red">2</span></td>
+                                <td><em class="wait-on">已认证</em></td>
+                                <td>
+                                    <ul class="operation-list f-cb js-first-last">
+                                        <li><a class="a01" href="javascript:void(0);">管理</a></li>
+                                        <li><a href="javascript:void(0);">审批</a></li>
+                                        <li><a class="a01" href="javascript:void(0);">导出</a></li>
+                                        <li><a class="a01" href="javascript:void(0);">添加成员</a></li>
+                                    </ul>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="f-tal"><div class="group-name">2018级12班</div></td>
+                                <td class="f-tal">GC23434</td>
+                                <td class="f-tal">2016-03-30</td>
+                                <td>张全蛋蛋</td>
+                                <td>7</td>
+                                <td>50</td>
+                                <td><span>0</span></td>
+                                <td><em class="wait-on">已认证</em></td>
+                                <td>
+                                    <ul class="operation-list js-first-last f-cb">
+                                        <li><a class="a01" href="javascript:void(0);">管理</a></li>
+                                        <li><a class="a01" href="javascript:void(0);">审批</a></li>
+                                        <li><a class="a01" href="javascript:void(0);">导出</a></li>
+                                        <li><a class="a01" href="javascript:void(0);">添加成员</a></li>
+                                    </ul>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="f-tal"><div class="group-name">2018级12班</div></td>
+                                <td class="f-tal">GC23434</td>
+                                <td class="f-tal">2016-03-30</td>
+                                <td>张全蛋蛋</td>
+                                <td>7</td>
+                                <td>50</td>
+                                <td><span>0</span></td>
+                                <td><em class="wait-off">待认证</em></td>
+                                <td>
+                                    <ul class="operation-list js-first-last f-cb">
+                                        <li><a class="a01" href="javascript:void(0);">认证</a></li>
+                                        <li><a class="a01" href="javascript:void(0);">拒绝</a></li>
+                                    </ul>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th colspan="9" class="f-tal">
+                                    共<b class="total-num">8</b>条数据
+                                </th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!--圈子管理 END-->
+                </div>
+            </div>
+        </div>
+        <!--pop 创建圈子-->
+        <div class="esta-group">
+            <div class="box list-item">
+                <div class="box-lg-3">圈子类型：</div>
+                <div class="box-lg-9">
+                    <label class="checkbox-group group-radio">
+                        <input type="radio" name="options"><span>班级圈</span>
+                        <i class="iconfont dy-icon-radio"></i>
+                    </label>
+                    <label class="checkbox-group group-radio">
+                        <input type="radio" name="options"><span>同事圈</span>
+                        <i class="iconfont dy-icon-radio"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="box list-item">
+                <div class="box-lg-3">
+                    圈子名称：
+                </div>
+                <div class="box-lg-9">
+                    <input type="text" data-delval value="请输入圈子名称">
+                </div>
+            </div>
+            <div class="box list-item">
+                <div class="box-lg-3">
+                    入学年份：
+                </div>
+                <div class="box-lg-9">
+                    <select name="" id="">
+                        <option value="">2014年</option>
+                        <option value="">2014年</option>
+                        <option value="">2014年</option>
+                        <option value="">2014年</option>
+                        <option value="">2014年</option>
+                    </select>
+
+                </div>
+            </div>
+            <button class="dy-btn dy-btn-info">确认创建</button>
+        </div>
+        <!--pop 创建圈子 END-->
+    </div>
+</div>
+@@include('./footer.html')
+
+
+<script src="/v3/plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
+<!--<script src="/v3/plugs/mCustomScrollbar/jquery.mousewheel.min.js"></script>-->
+
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
+
+
+<script src="/v3/source/js/ea/statistics/page-group-manage.js"></script>
+</body>
+</html>

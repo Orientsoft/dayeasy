@@ -1,0 +1,102 @@
+﻿@model DayEasy.Contracts.Dtos.Topic.TopicDto
+@using DayEasy.Core
+@using MongoDB.Bson
+@{
+    ViewBag.Title = "编辑帖子";
+
+    var hasVote = Model.HasVote && Model.VoteDetail != null;
+}
+
+<div class="dy-main">
+    <div class="comment-post w1200">
+        <div class="h-title">
+            <i class="iconfont dy-icon-edit2"></i>编辑帖子
+        </div>
+        <div class="box-input"><input type="text" placeholder="请输入帖子标题" id="topicTitle" value="@Model.Title" /></div>
+        <div class="mb20">
+            <script id="qContent" type="text/plain">
+                @Html.Raw(Model.Content)
+            </script>
+        </div>
+        <div class="mb20 @(hasVote ? "hide" : "")">
+            <button class="dy-btn dy-btn-default" id="btn_addVote">添加投票</button>
+        </div>
+
+        <div id="voteDetail">
+            @if (hasVote)
+            {
+                <div class="comment-vote">
+                    <div class="edit-vote">
+                        <span id="span_delete">删除</span>
+                    </div>
+                    <div class="box">
+                        <div class="box-lg-12 vote-title" id="title">【投票】@Model.VoteDetail.Title</div>
+                        <div class="box-lg-12">
+                            <div class="box-lg-12 vote-checkbox">
+                                <ul id="voteOptions">
+                                    @if (Model.VoteDetail.VoteOptions != null)
+                                    {
+                                        int index = 0;
+                                        foreach (var voteOption in Model.VoteDetail.VoteOptions.OrderBy(u => u.Sort))
+                                        {
+                                            var color = index == 0 ? "#fc6e51" : (index == 1 ? "#ffce54" : "#ccd1d9");
+
+                                    <li>
+                                        <label>@voteOption.OptionContent</label><em style="background: @color;"></em> 0
+                                    </li>
+                                            index++;
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    $(function () {
+                        $("#span_delete").click(function () {
+                            var $this = $(this);
+
+                            singer.confirm('您确定要删除该投票？删除后将不能找回。', function () {
+                                $.post('@Url.Action("DeleteVote", "Topic", new { id = Model.Id })', {}, function (res) {
+                                    if (res.Status) {
+                                        $("#voteDetail").empty();
+                                        $("#btn_addVote").parent().removeClass('hide');
+                                    } else {
+                                        singer.msg(res.Message);
+                                    }
+                                });
+                            }, function () { });
+                        });
+                    });
+                </script>
+            }
+        </div>
+
+        <div><div class="d-tags after" data-tags="@Model.TagList.ToJson()"></div></div>
+
+        <div class="box f-tac f-cb">
+            <input type="hidden" value="@Model.GroupId" id="groupId" />
+            <input type="hidden" value="@Consts.Config.FileSite" id="fileSite" />
+            <input type="hidden" value="@Url.Action("EditSave", "Topic", new { id = Model.Id })" id="saveUrl" />
+            <input type="hidden" value="@Url.Action("TopicDetail", "Topic", new { id = Model.Id })" id="redirectUrl" />
+            <button class="dy-btn dy-btn-info" id="btn_pub">保存</button>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_pubTopic")
+
+@section css{
+    @Html.CombineLink("/css/font-awesome.css,v3/css/home/comment-post-page.css,v3/css/home/ui-base.css")
+}
+
+@section js{
+    <script src="/Content/ueditor/ueditor-config.min.js" type="text/javascript"></script>
+    <script src="/Content/ueditor/ueditor-all.min.js" type="text/javascript"></script>
+    <script src="/Content/ueditor/d-formula.min.js" type="text/javascript"></script>
+    @Html.ScriptLink("plugs/My97DatePicker/WdatePicker.min.js")
+    @Html.CombineLink("js/base/utils.js,v3/js/topic/pub-topic.js")
+}

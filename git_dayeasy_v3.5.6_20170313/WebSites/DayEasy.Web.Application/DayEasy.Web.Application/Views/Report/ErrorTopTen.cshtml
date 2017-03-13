@@ -1,0 +1,213 @@
+﻿@using DayEasy.Contracts.Dtos.Question
+@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Extend
+@model DayEasy.Contracts.Dtos.Statistic.ErrorTopTenDataDto
+@{
+    ViewBag.Title = "错题报告 Top10";
+
+    var roles = (List<UserRole>)ViewData["Roles"];
+
+    int weekNum = 0;
+    int.TryParse(Request["wn"], out weekNum);
+
+    int studentCount = 0;
+    if (ViewData["studentCount"] != null)
+    {
+        studentCount = Convert.ToInt32(ViewData["studentCount"]);
+    }
+
+    List<QuestionDto> questions = null;
+    Dictionary<string, int> questionCount = null;
+    bool isClick = true;
+    string startTime = string.Empty;
+    string endTime = string.Empty;
+
+    if (Model != null)
+    {
+        questions = Model.Questions;
+        questionCount = Model.ErrorAndCount;
+        isClick = Model.IsClickPrevWeek;
+        startTime = Model.StartTimeStr;
+        endTime = Model.EndTimeStr;
+    }
+}
+
+<div class="g-mn f-fr">
+    <div class="m-tt after">
+        <h2 class="f-fl  m-hd "> 错题报告 Top10 <label class="fs12 ml10" style="color:#888;">( @startTime - @endTime )</label></h2>
+        <div class="f-fr m-snav">
+            @if (isClick)
+            {
+                <a class="z-crt f-fl " href="@("wn".SetQuery((weekNum - 1).ToString()))"><i class="glyphicon glyphicon-circle-arrow-left"></i> 上一周</a>
+            }
+            else
+            {
+                <a class="f-fl " href="javascript:void(0);" style="color:#bbb;"><i class="glyphicon glyphicon-circle-arrow-left"></i> 上一周</a>
+            }
+
+            @if (weekNum == 0)
+            {
+                <a class="f-fr ml10" href="javascript:void(0);" style="color:#bbb;">下一周 <i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+            }
+            else
+            {
+                <a class="f-fr z-crt ml10" href="@("wn".SetQuery((weekNum + 1).ToString()))">下一周 <i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+            }
+        </div>
+    </div>
+    <div class="m-bd-1">
+        <div class="m-sch mb10 after">
+            <form action="@Url.Action("ErrorTopTen","Report")" method="GET" id="searchForm">
+                <input type="hidden" value="@weekNum" name="wn" id="weekNum" />
+                @if (ViewData["groups"] != null)
+                {
+                    <span> 圈子：</span>
+                    @Html.DropDownList("cid", ViewData["groups"] as List<SelectListItem>, new { @class = "mr10" })
+                }
+                @if (roles.Contains(UserRole.Student) || roles.Contains(UserRole.Parents))
+                {
+                    <span> 科目：</span>
+                    @Html.DropDownList("sub", ViewData["subjects"] as List<SelectListItem>)
+                }
+            </form>
+        </div>
+        <div class="m-lst">
+            <ul class="ul">
+                @if (questions != null && questions.Count > 0 && questionCount != null)
+                {
+                    var qDic = questionCount.OrderByDescending(u => u.Value);
+                    int index = 1;
+                    foreach (var keyValuePair in qDic)
+                    {
+                        var question = questions.SingleOrDefault(u => u.Id == keyValuePair.Key);
+                        if (question != null)
+                        {
+                            int errorCount = 0;
+                            if (questionCount.Keys.Contains(question.Id))
+                            {
+                                errorCount = questionCount[question.Id];
+                            }
+
+                            string errorPercent = "0%";
+                            if (question.AnswerCount > 0)
+                            {
+                                errorPercent = ((double)question.ErrorCount / question.AnswerCount).ToString("P");
+                            }
+
+                            <li>
+                                <div class="row f-tal">
+                                    <div class="col-md-1">
+                                        <div class="z-crt f-tac" style="color:#444;margin-top: 25px;">@index</div>
+                                    </div>
+                                    <div class="col-md-11 s-bg">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="m-con">
+                                                    @PaperHelper.ShowQuestion(question)
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="f-answer">
+                                                    <span class="s-fc">参考答案：</span>
+                                                    <em>
+                                                        @PaperHelper.ShowAnswer(question)
+                                                    </em>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row mb10 pdfr">
+                                                    @if (roles.Contains(UserRole.Student) || roles.Contains(UserRole.Parents))
+                                                    {
+                                                        <div class="col-md-4"><label>本班错题人数：</label><span>@errorCount</span> </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        string percent = "0%";
+                                                        if (studentCount > 0)
+                                                        {
+                                                            percent = ((double)errorCount / studentCount).ToString("P0");
+                                                        }
+                                                        <div class="col-md-4"><label>本班错题人数/占比：</label><span>@errorCount / @percent</span></div>
+                                                    }
+
+                                                    <div class="col-md-3"><label>全网错误率：</label><span>@errorPercent</span> </div>
+                                                    <div class="col-md-12">
+                                                        <label>知识点：</label>
+                                                        <span>
+                                                            @if (question.Knowledges != null)
+                                                            {
+                                                                foreach (var kp in question.Knowledges)
+                                                                {
+                                                                    <text>@kp.Name &nbsp;</text>
+                                                                }
+                                                            }
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="q-footer-more1"><i class="glyphicon glyphicon-chevron-down"></i></div>
+                                <div class="q-footer-more2"></div>
+                            </li>
+                        }
+                        index++;
+                    }
+                }
+                else
+                {
+                    if (roles.Contains(UserRole.Student) || roles.Contains(UserRole.Parents))
+                    {
+                        <li class="text-center fs16 default">
+                            这一周没有产生错题额~
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="text-center fs16 default">
+                            <i class="iconfont dy-icon-emoji02"></i> 这一周学生没有产生错题额~
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+@section script{
+
+    <script type="text/javascript">
+        $(function () {
+            ; (function () {
+                var oben = $('.g-mn .m-bd-1 .m-lst .ul  li');
+                oben.eq(0).addClass('s-bg0');
+                oben.eq(1).addClass('s-bg1');
+                oben.eq(2).addClass('s-bg2');
+                oben.find('.q-footer-more1').click(function (event) {
+                    $(this).parents('li').find('.f-answer').toggle().end().find('.q-footer-more1 i').toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+                });
+
+                var obtnLst = $('.m-bd-1 .m-lst');
+
+                obtnLst.find('.m-con').click(function (event) {
+
+                    $(this).parents('.col-md-12').next().find('.f-answer').toggle().end().parents('li').find('.q-footer-more1 i').toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+
+                });
+            })();
+
+            $('.g-mn .m-bd-1 .m-lst .ul li').hover(function () {
+                $(this).addClass('q-hover');
+            }, function () {
+                $(this).removeClass('q-hover');
+            });
+
+            $("#cid,#sub").change(function () {
+                $("#weekNum").val('');
+                $("#searchForm").submit();
+            });
+        });
+    </script>
+}

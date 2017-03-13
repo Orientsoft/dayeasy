@@ -1,0 +1,8 @@
+﻿<div class="title">
+    <span class="glyphicon glyphicon-home"></span>
+    机构管理
+</div>
+<div ng-repeat="menu in menus">
+    <a href="{{menu.url}}" ng-if="info.index!=($index+1)" ng-bind="menu.name"></a>
+    <span class="active" ng-if="info.index==($index+1)" ng-bind="menu.name"></span>
+</div>

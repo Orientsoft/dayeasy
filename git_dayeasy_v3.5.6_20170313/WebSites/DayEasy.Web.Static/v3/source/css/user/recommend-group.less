@@ -1,0 +1,386 @@
+@import "../../less/base";
+@import "_full-base";
+
+/* Style for our header texts
+	* --------------------------------------- */
+.dy-wrap {
+  .background-image('index/bg0.png', repeat-y, @color-default);
+  position: relative;
+}
+
+.vip-icon {
+  .background-image('index/v16x16.png', no-repeat, transparent);
+  width: 16px;
+  height: 16px;
+  display: block;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  top: 23px;
+  left: 22px;
+  overflow: hidden;
+  text-indent: 9999px;
+}
+
+.page-join {
+  //background: #1095d8;
+  .absolute-center(925px, 618px);
+  .head-title {
+    margin-bottom: 40px;
+    text-align: center;
+    h1 {
+      font-size: 30px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+      color: #999;
+    }
+  }
+  .top-text {
+    padding-left: 75px;
+    h2 {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 14px;
+    }
+  }
+  .data-year {
+    margin-bottom: 20px;
+    dt {
+      color: #999;
+      float: left;
+      .inline-block;
+    }
+    dd {
+      margin-left: 25px;
+      .inline-block;
+      color: #999;
+      cursor: pointer;
+      &.on {
+        color: #3bafda;
+      }
+
+    }
+  }
+  .new-group {
+    position: absolute;
+    top: 12px;
+    right: 76px;
+  }
+  .dy-btn.dy-btn-info {
+    padding: 0 31px;
+  }
+  .por-text {
+    position: absolute;
+    right: 79px;
+    top: 9px;
+  }
+}
+
+// 加入班级
+.join-class {
+  .absolute-center(925px, 488px);
+}
+
+// 目标学校
+.join-target-schoole {
+  .absolute-center(925px, 488px);
+  .box3 {
+    em {
+      color: #ed5565;
+    }
+    color: #666;
+  }
+  .class {
+    position: relative;
+    padding-right: 36px;
+    .stage-1 {
+      background: #ffbe4e;
+    }
+    .stage-2 {
+      background: #48cfad;
+    }
+    .stage-3 {
+      background: #f37c88;
+    }
+    .stage-1, .stage-2, .stage-3 {
+      height: 16px;
+      line-height: 16px;
+      color: white;
+      .rounded-corners(4px);
+      padding: 0 4px;
+      position: absolute;
+      right: 0;
+      top: 2px;
+    }
+  }
+}
+
+.js {
+  width: 925px;
+  height: 470px;
+}
+
+.js p {
+  padding: 5px 0;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.js p span {
+  float: right;
+}
+
+.js p span a {
+  color: #f00;
+  text-decoration: underline;
+}
+
+.js textarea {
+  height: 50px;
+  width: 98%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-top: 2px solid #aaa;
+  border-left: 2px solid #aaa;
+}
+
+/* 本例子css */
+.stitches-sprite(@x: 0, @y: 0, @width: 0, @height: 0) {
+  background-position: @x @y;
+  width: @width;
+  height: @height;
+}
+
+.icon-sprite {
+  background-image: url(data:image/png;base64,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);
+  background-repeat: no-repeat;
+  display: block;
+  &.sprite-1 {
+    .stitches-sprite(-20px, -20px, 18px, 32px);
+  }
+
+  &.sprite-2 {
+    .stitches-sprite(-20px, -92px, 18px, 32px);
+  }
+
+  &.sprite-3 {
+    .stitches-sprite(-20px, -164px, 18px, 32px);
+  }
+
+  &.sprite-4 {
+    .stitches-sprite(-20px, -236px, 18px, 32px);
+  }
+}
+
+.layB {
+  width: 790px;
+  margin: 0 auto;
+}
+
+.layB .tbC {
+  width: 790px;
+  position: relative;
+}
+
+.layB .tempWrap {
+  height: 200px;
+  overflow: hidden !important;
+  width: 790px !important;
+}
+
+.layB .prev, .layB .next {
+  position: absolute;
+  top: 70px;
+}
+
+.layB .prev {
+  left: -50px;
+  &:hover {
+    background-position: -20px -92px;
+  }
+}
+
+.layB .next {
+  right: -50px;
+  &:hover {
+    background-position: -20px -236px;
+  }
+}
+
+.layB .slide {
+  width: 790px;
+  overflow: hidden;
+}
+
+.layB ul {
+  overflow: hidden;
+  zoom: 1;
+}
+
+.layB li {
+  width: 250px;
+  height: 80px;
+  display: inline;
+  float: left;
+  line-height: 20px;
+  margin: 10px 6px 10px;
+}
+
+.layB li img {
+  display: block;
+}
+
+.layB .slide {
+  > ul {
+    > li {
+      position: relative;
+      .rounded-corners(4px);
+      padding: 13px 13px 13px 75px;
+      border: 2px solid #e6e9ed;
+      img, .vip-icon {
+        position: absolute;
+        top: 13px;
+        left: 13px;
+      }
+      img {
+        width: 50px;
+        height: 50px;
+      }
+      .vip-icon {
+        top: 48px;
+        left: 48px;
+        z-index: 6;
+      }
+      .class {
+        display: block;
+        font-size: 14px;
+        color: #666;
+      }
+      .box2 {
+        color: #999;
+        height: 16px;
+        font-size: 12px;
+        .iconfont {
+          margin-right: 5px;
+          position: relative;
+          top: -6px;
+          font-size: 12px;
+        }
+        .num {
+          .inline-block;
+          width: 28px;
+          margin-right: 5px;
+        }
+        .name {
+          .inline-block;
+        }
+
+      }
+    }
+  }
+}
+
+.slide-1 {
+  margin-bottom: 30px;
+}
+
+.slide-2 {
+  margin-bottom: 35px;
+  .prev, .next {
+    top: 33px;
+  }
+  .tempWrap {
+    height: 100px;
+  }
+}
+
+.slide-3 {
+  margin-bottom: 35px;
+  .prev, .next {
+    top: 133px;
+  }
+  .tempWrap {
+    height: 300px;
+  }
+}
+
+.join-group-pop {
+  background: white;
+  input[type='text'], textarea {
+    .rounded-corners(4px);
+    width: 100%;
+  }
+  input {
+    height: 30px;
+  }
+  textarea {
+    height: 80px;
+  }
+  label {
+    display: block;
+    margin-bottom: 10px;
+    color: #999;
+  }
+  width: 200px;
+  height: 340px;
+  padding: 20px;
+  .d-group-single {
+    padding-left: 46px;
+    color: #666;
+    margin-bottom: 15px;
+    position: relative;
+    img {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    p {
+      margin-bottom: 8px;
+    }
+    strong {
+      display: block;
+    }
+  }
+  .d-group-wrap {
+    margin-bottom: 15px;
+  }
+  .d-group-join {
+    margin-bottom: 15px;
+  }
+  .btn {
+    .dy-btn {
+      height: 30px;
+    }
+  }
+  .dy-result {
+    font-size: 12px;
+  }
+}
+
+//设置成功弹框
+.success-pop {
+  width: 200px;
+  height: 180px;
+  background: white;
+  color: #666;
+  padding-top: 15px;
+  .iconfont {
+    color: #6ebc45;
+    font-size: 30px;
+  }
+  b {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+#classList > ul {
+  float: left;
+  width: 790px;
+}

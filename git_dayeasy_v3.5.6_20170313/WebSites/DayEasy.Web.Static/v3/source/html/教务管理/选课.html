@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>选课</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css">
+    <link rel="stylesheet" href="../../css/ea/statistics/elective-course.min.css"/>
+    <script src="/v3/js/singer.min.js" type="text/javascript"></script>
+    <script src="../../js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header-tool.html')
+    <div class="dy-main">
+        <section class="page-course w1200">
+            <h2 class="h2-title"></h2>
+            <div class="page-course-main f-cb">
+                <!--list-->
+                <!--
+                default     我要报名
+                sign-up     已报名
+                pack-full   报名满
+                -->
+                <div class="course-box-list  pack-full">
+                    <h3 class="f-toe">羽毛球技法</h3>
+
+                    <div class="course-list-top"><i class="iconfont dy-icon-49"></i><span>name</span></div>
+                    <div class="course-list-main"><i class="iconfont dy-icon-49"></i><span>多媒体教室</span></div>
+                    <div class="course-proportion">
+                        <span class="span-proportion" style="width:100%;"></span>
+                    </div>
+                    <div class="course-list-bottom">
+                        <div class="box-default f-cb">
+                            <span class="fl-text f-fl">共 <em>88</em> 人</span>
+                            <span class="fr-text f-fr">剩余名额：<em>0</em> 人</span>
+                        </div>
+                        <div class="box-withdraw">
+                            <button class="dy-btn course-btn-orange">我要退课</button>
+                        </div>
+                        <div class="box-sign-up">
+                            <button class="dy-btn  dy-btn-info">我要报名</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="course-box-list  sign-up">
+                    <h3 class="f-toe">羽毛球技法</h3>
+
+                    <div class="course-list-top"><i class="iconfont dy-icon-49"></i><span>name</span></div>
+                    <div class="course-list-main"><i class="iconfont dy-icon-49"></i><span>多媒体教室</span></div>
+                    <div class="course-proportion">
+                        <span class="span-proportion" style="width:80%;"></span>
+                    </div>
+                    <div class="course-list-bottom">
+                        <div class="box-default f-cb">
+                            <span class="fl-text f-fl">共 <em>88</em> 人</span>
+                            <span class="fr-text f-fr">剩余名额：<em>44</em> 人</span>
+                        </div>
+                        <div class="box-withdraw">
+                            <button class="dy-btn course-btn-orange">我要退课</button>
+                        </div>
+                        <div class="box-sign-up">
+                            <button class="dy-btn  dy-btn-info">我要报名</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="course-box-list default">
+                    <h3 class="f-toe">羽毛球技法</h3>
+
+                    <div class="course-list-top"><i class="iconfont dy-icon-49"></i><span>name</span></div>
+                    <div class="course-list-main"><i class="iconfont dy-icon-49"></i><span>多媒体教室</span></div>
+                    <div class="course-proportion">
+                        <span class="span-proportion" style="width:50%;"></span>
+                    </div>
+                    <div class="course-list-bottom" data-state="signUp">
+                        <div class="box-default f-cb">
+                            <span class="fl-text f-fl">共 <em>88</em> 人</span>
+                            <span class="fr-text f-fr">剩余名额：<em>44</em> 人</span>
+                        </div>
+                        <div class="box-withdraw">
+                            <button class="dy-btn course-btn-orange">我要退课</button>
+                        </div>
+                        <div class="box-sign-up">
+                            <button class="dy-btn  dy-btn-info">我要报名</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--list End-->
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<script id="html-course" type="text/html">
+    {{each data as value i}}
+        <div class="course-box-list {{value.type==0 && 'default' || value.type==1 && 'sign-up' || value.type==2 && 'pack-full'}}">
+        <h3 class="f-toe">{{value.Subject}}</h3>
+        <div class="course-list-top f-cb"><i class="iconfont dy-icon-49"></i><span class="f-toe  box-span">{{value.name}}</span></div>
+        <div class="course-list-main f-cb"><i class="iconfont dy-icon-adress"></i><span class="f-toe  box-span">{{value.address}}</span></div>
+        <div class="course-proportion">
+            <span class="span-proportion" style="width:{{numCache[i]}}%;"></span>
+        </div>
+        <div class="course-list-bottom" data-state="signUp">
+            <div class="box-default f-cb">
+                <span class="fl-text f-fl">共 <em>{{value.overallPeople}}</em> 人</span>
+                <span class="fr-text f-fr">剩余名额：<em>{{value.quotaPeople}}</em> 人</span>
+            </div>
+            <div class="box-withdraw">
+                <button class="dy-btn course-btn-orange">我要退课</button>
+            </div>
+            <div class="box-sign-up">
+                <button class="dy-btn  dy-btn-info">我要报名</button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+</script>
+@@include('./footer.html')
+<script src="../../js/artTemplate.min.js"></script>
+<script src="../../source/js/ea/statistics/page-course.js"></script>
+
+
+</body>
+</html>

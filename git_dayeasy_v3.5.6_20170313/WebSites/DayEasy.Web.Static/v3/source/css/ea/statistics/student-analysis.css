@@ -1,0 +1,75 @@
+@charset "UTF-8";
+/**
+ * Boz
+ * @date    2016-07-5 11:30:59
+ * 综合概况-学生层分析
+ */
+.g-contents {
+  /*层次列表*/
+}
+.g-contents .g-side {
+  padding: 80px 50px 80px 40px;
+}
+.g-contents .g-side .g-h2 {
+  color: #3bafda;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 30px;
+  line-height: 1.8em;
+}
+.g-contents .g-side .arrangement-menu dl {
+  float: left;
+  width: 50%;
+  color: #3bafda;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.g-contents .g-side .arrangement-menu dt {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 9px;
+}
+.g-contents .g-side .arrangement-menu .dd-branch {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+.g-contents .arrangement-list {
+  margin-bottom: 15px;
+  margin-left: 20px;
+}
+.g-contents .arrangement-list dt,
+.g-contents .arrangement-list dd {
+  float: left;
+}
+.g-contents .arrangement-list dt {
+  color: #333;
+  line-height: 30px;
+}
+.g-contents .arrangement-list dd {
+  margin-right: 25px;
+}
+.g-contents .arrangement-list dd .dy-btn-info {
+  height: 30px;
+  line-height: 30px;
+}
+.g-contents .arrangement-list dd .dy-btn-info .iconfont {
+  vertical-align: inherit;
+}
+.g-contents .arrangement-list select,
+.g-contents .arrangement-list input {
+  border: 2px solid #e6e9ed;
+  height: 30px;
+  line-height: 30px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+}
+.g-contents .arrangement-list select {
+  padding: 0 8px;
+}
+.g-contents .arrangement-list input {
+  width: 40px;
+}

@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "在线出卷";
+}
+
+<div class="dy-container paper-main  paper-main-border"
+     data-left="132"
+     data-min="400"
+     data-type="2">
+    <div class="automatic">
+        <div class="g-bd">
+            <div class="g-doc">
+                <h3 class="m-hd">选择需要的试卷模板：</h3>
+                <div class="m-bd after">
+                    <ul class="m-lst after f-fl" id="paperType">
+                        <li class="f-show">
+                            <div class="u-lst-1  u-lst">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div class="u-lst-3 u-lst">
+                                <i class="icon-hande icon-yes"></i>
+                            </div>
+                            <p>空白卷</p>
+                        </li>
+                        <li class="ml60">
+                            <div class="u-lst-2 u-lst">
+                                <em class="a-em">A</em><em class="b-em">B</em>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div class="u-lst-3 u-lst">
+                                <i class="icon-hande icon-yes"></i>
+                            </div>
+                            <p>AB卷</p>
+                        </li>
+                    </ul>
+                    <div class="m-lst-1 f-fr">
+                        <ul class="u-ul ul-list-1" style="display:block;">
+                            <li>当前模板：<span class="s-fc">空白卷</span></li>
+                            <li>用于平时测验</li>
+                        </ul>
+                        <ul class="u-ul ul-list-2">
+                            <li>当前模板：<span class="s-fc">AB卷</span></li>
+                            <li>分为A卷和B卷，根据大型考试设置的模板。</li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 class="m-hd" style="margin-bottom: 20px;">选择学段：</h3>
+                <div class="m-ft row">
+                    <div class="col-sm-3 pl0">
+                        @Html.DropDownList("stage", ViewData["Stages"] as List<SelectListItem>, new { @class = "form-control" })
+                    </div>
+                </div>
+                <h3 class="m-hd">选择组卷方式：</h3>
+                <div class="m-ft">
+                    <a class="btn btn-warning" href="javascript:void(0);" id="handDo">手工出卷</a>
+                    <a class="btn btn-warning" href="javascript:void(0);" id="autoDo">自动出卷</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section css{
+    <style type="text/css">
+        /*v3.0*/
+        .dy-wrap {background:#f5f5f5;}
+        .dy-main .dy-container{
+            width: 1200px;
+        }
+        
+     
+    </style>
+}
+
+@section js{
+    <script type="text/javascript">
+        $(function () {
+            $("#paperType li").click(function () {
+                $(this).addClass("f-show").siblings().removeClass("f-show");
+                $('.automatic .m-bd .m-lst-1').find('ul').eq($(this).index()).css('display', 'block').siblings().css('display', 'none');
+            });
+
+            $("#handDo,#autoDo").click(function () {
+                var id = "a";
+                if ($("#paperType").children("li.f-show").index() == 1) {
+                    id = "ab";
+                }
+                var stage = $("#stage").children("option:selected").val();
+                var url = '@Url.Action("CreatePaper", "Paper")';
+                if ($(this).attr("id") == "autoDo") {
+                    url = '@Url.Action("AutoCreatePaper", "Paper")';
+                }
+
+                var form = $('<form></form>');
+                form.attr('action', url);
+                form.attr('method', 'post');
+                form.attr('target', '_self');
+
+                var idHidden = $('<input type="hidden" name="id" />');
+                idHidden.attr('value', id);
+                form.append(idHidden);
+
+                var stageHidden = $('<input type="hidden" name="stage" />');
+                stageHidden.attr('value', stage);
+                form.append(stageHidden);
+
+                form.appendTo("body");
+                form.submit();
+
+                return false;// 注意return false取消链接的默认动作
+            });
+        });
+    </script>
+}

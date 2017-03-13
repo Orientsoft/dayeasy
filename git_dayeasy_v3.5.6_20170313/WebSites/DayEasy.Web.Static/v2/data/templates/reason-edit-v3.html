@@ -1,0 +1,58 @@
+<script type="text/template" id="reason-item">
+	<div class="box uihtml-false-because">
+		<div class="box-lg-1 w80">错因标签：</div>
+		<div class="box-lg-11">
+			<div class="text-tags">
+                    {{if tags && tags.length}}
+                    <div class="box-lg-12">
+                        <div class="q-tags">
+                            {{each tags as t}}
+                            <div class="d-tag">{{t}}</div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    {{/if}}
+                    {{if !tags || !tags.length}}
+                    <div class="box-lg-12">
+                        <div class="d-tags"></div>
+                        <input type="hidden" class="txt-reason-tag" data-untag="1" />
+                    </div>
+                    <div class="box-lg-12 f-cb sys-tags">
+                        常见错因：
+                        {{if sys_tags && sys_tags.length}}
+                        {{each sys_tags as sys}}
+                        <span>{{sys}}</span>
+                        {{/each}}
+                        {{/if}}
+                    </div>
+                    {{/if}}
+                </div>
+		</div>
+		<div class="box-lg-1 w80">错因分析：</div>
+		<div class="box-lg-11 textarea-box">
+			<div class="box-lg-12 text-content">
+				{{if !content || !content.length}}
+				<textarea class="mb5 wf100 txt-reason-content" cols="30" maxlength="140" rows="5">{{content}}</textarea>				
+				<p class="f-tar dy-result f-db">你还可以输入<em class="hight-num">140</em>个字</p>
+				<p class="font-show text-submit" data-count="{{count}}">
+					{{if !tags || !tags.length || !content || !content.length}}
+					<input class="dy-btn dy-btn-info btn-reason-submit" value="提交" type="button">
+					<span class="s-count">
+						{{if count > 0}}
+						已有 {{count}}人 完成了分析 
+						{{/if}}
+						<a href="/errorBook/detail/{{id}}" target="_balnk">
+							查看历史分析
+						</a>
+					</span>
+					{{/if}}
+				</p>
+				{{/if}}
+				{{if content && content.length}}
+				{{content}}
+				{{/if}}
+			</div>
+		</div>
+        <input type="hidden" class="txt-reason-id" value="{{id}}"/>
+	</div>
+</script>

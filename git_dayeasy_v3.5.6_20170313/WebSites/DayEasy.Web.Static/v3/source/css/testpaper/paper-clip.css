@@ -1,0 +1,145 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+
+      Author:Plato
+      Create Date:2015/11/9  Last Mondify Date:2015/11/9
+      ===================================================
+
+--------------------------------------------------------------*/
+.paper-clip {
+  background: white;
+  padding: 20px 0 30px 0;
+}
+.paper-clip .top-title {
+  padding: 0 30px 30px 0;
+}
+.paper-clip .conter-table,
+.paper-clip .bottom-page {
+  width: 1140px;
+  margin: 0 auto;
+}
+.paper-clip .conter-table .tb-1,
+.paper-clip .conter-table .tb-3,
+.paper-clip .conter-table .tb-4,
+.paper-clip .conter-table .tb-5,
+.paper-clip .conter-table .tb-6 {
+  width: 139px;
+  position: relative;
+}
+.paper-clip .conter-table .tb-2 {
+  width: 445px;
+}
+.paper-clip .conter-table th:nth-child(1),
+.paper-clip .conter-table td:nth-child(1) {
+  text-align: center;
+}
+.paper-clip .conter-table th:nth-child(2),
+.paper-clip .conter-table td:nth-child(2),
+.paper-clip .conter-table th:nth-child(6),
+.paper-clip .conter-table td:nth-child(6) {
+  text-align: left;
+}
+.paper-clip .conter-table th:nth-child(3),
+.paper-clip .conter-table td:nth-child(3),
+.paper-clip .conter-table th:nth-child(4),
+.paper-clip .conter-table td:nth-child(4),
+.paper-clip .conter-table th:nth-child(5),
+.paper-clip .conter-table td:nth-child(5) {
+  text-align: center;
+}
+.paper-clip .bottom-page {
+  color: #999;
+  padding: 0 30px;
+  background: #f5f7fa;
+  height: 50px;
+  line-height: 50px;
+}
+.paper-clip .bottom-page b {
+  font-weight: bold;
+}
+.slide-bottom {
+  position: relative;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.slide-bottom strong {
+  position: relative;
+  top: 3px;
+  left: 0;
+  margin-right: 5px;
+}
+.slide-bottom:hover {
+  cursor: pointer;
+}
+.slide-bottom:hover .angle-boder {
+  -moz-transition: 0.2s,;
+  -webkit-transition: 0.2s,;
+  -o-transition: 0.2s,;
+  -ms-transition: 0.2s,;
+  transition: 0.2s,;
+  -moz-transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
+  -ms-transition: 0.2s;
+  transition: 0.2s;
+  background: #4fc1e9;
+  border: 1px solid #4fc1e9;
+}
+.slide-bottom:hover .angle-bottom {
+  width: 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  border-style: solid dashed dashed dashed;
+  border-width: 6px 6px 0 6px;
+  border-color: #fff transparent transparent;
+}
+.slide-bottom .angle-boder {
+  border: 1px solid #e6e9ed;
+  padding: 2px 4px;
+  background: white;
+}
+.slide-bottom .angle-bottom {
+  width: 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  border-style: solid dashed dashed dashed;
+  border-width: 6px 6px 0 6px;
+  border-color: #4fc1e9 transparent transparent;
+}
+.slide-bottom .f-pa {
+  position: absolute;
+  top: 23px;
+  left: 33px;
+}
+.slide-bottom ul {
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 7px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 7px;
+  -o-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 7px;
+  -ms-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 7px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 7px;
+  background: white;
+}
+.slide-bottom ul li {
+  padding: 8px 1em;
+  width: 5em;
+}
+.slide-bottom ul li:hover {
+  background: #e6e9ed;
+  cursor: pointer;
+}
+.slide-hover .angle-boder {
+  background: #4fc1e9;
+  border: 1px solid #4fc1e9;
+}
+.slide-hover .angle-bottom {
+  width: 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  border-style: solid dashed dashed dashed;
+  border-width: 6px 6px 0 6px;
+  border-color: #fff transparent transparent;
+}

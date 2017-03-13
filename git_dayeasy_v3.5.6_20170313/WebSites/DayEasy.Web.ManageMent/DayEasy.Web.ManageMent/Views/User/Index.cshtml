@@ -1,0 +1,164 @@
+﻿@using DayEasy.Services.Helper
+@using DayEasy.Utility.Extend
+@model List<TU_User>
+@{
+    ViewBag.Title = "得一会员管理";
+}
+
+<div>
+    <div class="row mt20">
+        <form method="GET" action="@Url.Action("Index","User")" id="searchForm">
+            <div class="col-sm-2 pl0 d-selects">
+                @Html.DropDownList("role", ViewData["roles"] as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-3 pl0">
+                <div class="input-group">
+                    <input type="text" value="@Request["keyword"]" placeholder="姓名/帐号/得一号" class="form-control" name="keyword">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit" id="btn_submit"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="d-total">
+                    共<em>@ViewData["totalCount"]</em>位用户
+                </div>
+            </div>
+            <div class="col-sm-5 text-right">
+                <button class="btn btn-blue b-import-num" type="button">
+                    <i class="fa fa-plus"></i>
+                    导入学号
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover">
+            <colgroup>
+                <col />
+                <col style="width: 8em" />
+                <col style="width: 10em" />
+                <col style="width: 8em"/>
+                <col style="width: 6em" />
+                <col style="width: 8em" />
+                <col style="width: 8em" />
+                <col style="width: 10em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>用户信息</th>
+                    <th>姓名</th>
+                    <th>角色</th>
+                    <th>认证等级</th>
+                    <th>状态</th>
+                    <th>帐号验证</th>
+                    <th>注册时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var user in Model)
+                    {
+                        var roles = Enum.GetValues(typeof(UserRole)).Cast<UserRole>().Where(u => ((byte)u & user.Role) > 0).ToList();
+
+                        <tr data-uid="@user.Id" data-rname="@user.TrueName">
+                            <td>
+                                <div class="dy-user-wrap">
+                                    <a title="查看用户活跃信息" class="dy-user-avatar b-user-active" href="#">
+                                        @if (!string.IsNullOrWhiteSpace(user.HeadPhoto))
+                                        {
+                                            <img width="35" height="35" src="@Html.MakeThumb(user.HeadPhoto, "35x35")" />
+                                        }
+                                        else
+                                        {
+                                            <h3 class="d-text-avatar d-text-avatar-round d-text-avatar-small">
+                                                @Html.ShowUserName(user, false)
+                                            </h3>
+                                        }
+                                    </a>
+                                    <div class="dy-user-info">
+                                        <p class="dy-user-name" style="max-width:none;">
+                                            @Html.ShowUserName(user, false)
+                                            @if ((user.Role & (byte)UserRole.Teacher) > 0)
+                                            {
+                                                <small>@(SystemCache.Instance.SubjectName(user.SubjectID ?? 0))</small>
+                                            }
+                                        </p>
+                                        <p>No.@user.UserCode</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@Html.Raw(user.TrueName.IsNullOrEmpty() ? "<span class=\"text-gray\">未填写</span>" : user.TrueName)</td>
+                            <td>
+                                @if (roles.Count > 0)
+                                {
+                                    foreach (var role in roles)
+                                    {
+                                        <span class="mr5">@(Html.EnumText<UserRole, byte>((byte) role))</span>
+                                    }
+                                }
+                            </td>
+                            <td>@(Html.EnumText<CertificationLevel, byte>(user.CertificationLevel))</td>
+                            <td>@(Html.EnumText<UserStatus, byte>(user.Status))</td>
+                            <td>
+                                <i title="邮箱验证" class="fa fa-envelope-o @((user.ValidationType & (byte) ValidationType.Email) > 0 ? "text-success" : "text-gray")"></i>
+                                <i title="第三方登录" class="fa fa-qq @((user.ValidationType & (byte)ValidationType.Third) > 0 ? "text-success" : "text-gray")"></i>
+                                <i title="手机验证" class="fa fa-mobile @((user.ValidationType & (byte)ValidationType.Mobile) > 0 ? "text-success" : "text-gray")" style="font-size: 18px;"></i>
+                            </td>
+
+                            <td><abbr title="@user.AddedAt.ToString("yyyy年MM月dd日 HH时mm分ss秒")">@user.AddedAt.ToString("yyyy-MM-dd")</abbr></td>
+                            <td>
+                                @if (user.CertificationLevel == 0|| user.CertificationLevel==1)
+                                {
+                                    <a href="#" class="b-certificate" title="认证"><i class="fa fa-diamond"></i></a>
+                                    <s></s>
+                                }
+                                <a href="javascript:void(0);" class="a-edit" title="编辑资料"><i class="fa fa-edit"></i></a>
+                                <s></s>
+                                <a href="javascript:void(0);" class="a-reset" title="重置密码"><i class="fa fa-repeat"></i></a>
+                                @if (user.Status != (byte) UserStatus.Delete)
+                                {
+                                    <s></s>
+                                    <a href="javascript:void(0)" class="text-danger a-delete" data-status="4" title="删除用户"><i class="fa fa-times"></i></a>
+                                }
+                                else
+                                {
+                                    <s></s>
+                                    <a href="javascript:void(0)" class="a-delete" title="还原用户"><i class="fa fa-undo"></i></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8">没有找到相关信息！</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 25, Convert.ToInt32(ViewData["totalCount"]), 4)
+    </div>
+</div>
+
+<script type="text/html" id="edit-template">
+    <div style="width: 330px;">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="txtRealName">真实姓名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" value="{{name}}" id="txtRealName">
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+
+@section script{
+    @Html.CombineLink("v3/js/base.js,js/artTemplate.min.js,v3/js/management/page-user.js")
+}

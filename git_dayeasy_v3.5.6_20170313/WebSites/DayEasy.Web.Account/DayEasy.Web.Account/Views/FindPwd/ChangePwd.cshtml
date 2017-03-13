@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "找回密码";
+}
+
+<div class="dy-main">
+    <div class="form-main w1200">
+        <div class="form-tab">
+            <div class="form-menu">
+                <i class="iconfont dy-icon-37"></i>
+                验证身份
+            </div>
+            <div class="form-menu on">
+                <i class="iconfont dy-icon-36"></i>
+                重置密码
+            </div>
+            <div class="form-menu">
+                <i class="iconfont dy-icon-radiohv"></i>
+                修改完成
+            </div>
+        </div>
+        <div class="form-list form-main-list f-cb">
+            <form id="completeForm">
+                <input type="hidden" value="@ViewData["account"]" id="account" name="account" />
+                <div class="mobile-text">
+                    <div class="form-group">
+                        <label class="form-label">设置密码：</label>
+                        <div class="form-item">
+                            <div class="form-textbox">
+                                <input class="form-input-w300" type="password" placeholder="输入密码" name="pwd" id="txtPwd" />
+                            </div>
+                        </div>
+                        <p class="msg-error"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">确认密码：</label>
+                        <div class="form-item">
+                            <div class="form-textbox">
+                                <input class="form-input-w300 " type="password" placeholder="确认密码" name="confirmPwd" id="txtConfirmPwd" />
+                            </div>
+                        </div>
+                        <p class="msg-error"></p>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-item">
+                            <button class="dy-btn dy-btn-info" id="btnSure">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/user/ucenter.css")
+}
+
+@section js
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#txtPwd").change(function () {
+                var pwd = $(this).val();
+                if (!(pwd && pwd.length && /^[a-zA-Z0-9_\.\@@]{6,20}$/.test(pwd))) {
+                    showError($(this), "密码格式：6-20位字母、数字或[. _ @@]");
+                    return false;
+                } else {
+                    showRight($(this));
+                }
+                return false;
+            });
+
+            $("#txtConfirmPwd").change(function () {
+                var pwd = $("#txtPwd").val();
+                var confirmPwd = $(this).val();
+                if (!(confirmPwd && confirmPwd.length && /^[a-zA-Z0-9_\.\@@]{6,20}$/.test(confirmPwd))) {
+                    showError($(this), "密码格式：6-20位字母、数字或[. _ @@]");
+                    return false;
+                } else if (pwd != confirmPwd) {
+                    showError($(this), "两次密码输入不一致！");
+                    return false;
+                }
+                else {
+                    showRight($(this));
+                }
+                return false;
+            });
+
+            //确定
+            $("#btnSure").click(function () {
+                $("#txtPwd").change();
+                $("#txtConfirmPwd").change();
+
+                if ($("#txtPwd").parent().hasClass("error-input") || $("#txtConfirmPwd").parent().hasClass("error-input")) {
+                    return false;
+                }
+
+                var data = $("#completeForm").serialize();
+                $.ajax({
+                    url: '@Url.Action("FindPwdComplete", "FindPwd")',
+                    data: data,
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.Status) {
+                            window.location = '@Url.Action("FindSuccess", "FindPwd")';
+                        } else {
+                            singer.msg(res.Message);
+                        }
+                    }
+                });
+
+                return false;
+            });
+        });
+
+        var showError = function (obj, errorMsg) {
+            obj.parent().removeClass("success-input").addClass("error-input");
+            obj.parent().parent().next('p.msg-error').removeClass('hide').text(errorMsg);
+        }
+
+        var showRight = function (obj) {
+            obj.parent().removeClass("error-input").addClass("success-input");
+            obj.parent().parent().next('p.msg-error').addClass('hide').text("");
+        }
+    </script>
+}

@@ -1,0 +1,36 @@
+@import "../../less/base";
+
+/**
+  帖子内容
+**/
+#topic-content {
+  /*
+    段落
+  */
+  & > p {
+    margin: 15px 0;
+    line-height: 2em;
+    font-weight: 400;
+  }
+  /*
+    表格
+  */
+  & > table {
+    width: 100%;
+    margin: 15px 0;
+    thead, tfoot, .firstRow {
+      background-color: #f9f9f9;
+    }
+    thead, .firstRow {
+      font-weight: 500;
+    }
+    td {
+      border: solid 1px @border-color;
+      padding: 5px 15px;
+      p {
+        margin: 0;
+      }
+    }
+  }
+  .linkColor(@activeColor, darken(@activeColor, 15%), underline);
+}

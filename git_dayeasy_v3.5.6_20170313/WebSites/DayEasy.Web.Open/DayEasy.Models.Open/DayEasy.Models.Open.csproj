@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{07124DB9-6F32-44A8-94CF-F99A8B18A8EE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DayEasy.Models.Open</RootNamespace>
+    <AssemblyName>DayEasy.Models.Open</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Comment\MCommentInputDto.cs" />
+    <Compile Include="Comment\MCommentSearchInputDto.cs" />
+    <Compile Include="Comment\MCommentSendInputDto.cs" />
+    <Compile Include="DDto.cs" />
+    <Compile Include="DPage.cs" />
+    <Compile Include="Enum\RMessageType.cs" />
+    <Compile Include="Group\MDynamicSearchDto.cs" />
+    <Compile Include="Group\MGroupApplyInputDto.cs" />
+    <Compile Include="Group\MGroupCreateInputDto.cs" />
+    <Compile Include="Group\MGroupDeleteMemberInputDto.cs" />
+    <Compile Include="Group\MGroupDto.cs" />
+    <Compile Include="Group\MGroupDynamicInputDto.cs" />
+    <Compile Include="Group\MGroupInputDto.cs" />
+    <Compile Include="Group\MGroupSendNoticeInputDto.cs" />
+    <Compile Include="Group\MGroupUpdateInputDto.cs" />
+    <Compile Include="Group\MGroupVerifyInputDto.cs" />
+    <Compile Include="Group\MMemberDto.cs" />
+    <Compile Include="Group\MStudentListDto.cs" />
+    <Compile Include="LearningMemo\LearningMemoDto.cs" />
+    <Compile Include="LearningMemo\LikeDetailDto.cs" />
+    <Compile Include="LearningMemo\MemoGroupDto.cs" />
+    <Compile Include="LearningMemo\MemoUsageDto.cs" />
+    <Compile Include="LearningMemo\ReviewDto.cs" />
+    <Compile Include="LearningMemo\SpeechDto.cs" />
+    <Compile Include="Message\EmailDto.cs" />
+    <Compile Include="Message\RMessage.cs" />
+    <Compile Include="Message\SmsDto.cs" />
+    <Compile Include="Paper\MPaperDto.cs" />
+    <Compile Include="Paper\MQuestionDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\MAgencyInputDto.cs" />
+    <Compile Include="System\MAreaDto.cs" />
+    <Compile Include="System\MKnowledgeDto.cs" />
+    <Compile Include="System\MManifestDto.cs" />
+    <Compile Include="System\MSubjectDto.cs" />
+    <Compile Include="User\MLoginDto.cs" />
+    <Compile Include="User\MRelationUserDto.cs" />
+    <Compile Include="User\PlatformBindDto.cs" />
+    <Compile Include="User\MUserBindChildInputDto.cs" />
+    <Compile Include="User\StudentClassDto.cs" />
+    <Compile Include="User\StudentDto.cs" />
+    <Compile Include="User\UserChooseRoleDto.cs" />
+    <Compile Include="User\UserRegistDto.cs" />
+    <Compile Include="User\MUserBaseDto.cs" />
+    <Compile Include="User\UserChangePwdDto.cs" />
+    <Compile Include="User\MUserDto.cs" />
+    <Compile Include="User\UserResetPwdDto.cs" />
+    <Compile Include="User\UserUpdateDto.cs" />
+    <Compile Include="Work\MAnswerPaperDto.cs" />
+    <Compile Include="Work\MAnswerSheetDto.cs" />
+    <Compile Include="Work\MErrorAnalysisDto.cs" />
+    <Compile Include="Work\MErrorAnalysisInputDto.cs" />
+    <Compile Include="Work\MHandinResult.cs" />
+    <Compile Include="Work\MJointPrintInfo.cs" />
+    <Compile Include="Work\MJointUsageDto.cs" />
+    <Compile Include="Work\MKpAnalysisDto.cs" />
+    <Compile Include="Work\MPaperErrorDto.cs" />
+    <Compile Include="Work\MPaperVariantDto.cs" />
+    <Compile Include="Work\MPictureInfo.cs" />
+    <Compile Include="Work\MPictureList.cs" />
+    <Compile Include="Work\MPrintDetail.cs" />
+    <Compile Include="Work\MPrintInfo.cs" />
+    <Compile Include="Work\MPubPaperDto.cs" />
+    <Compile Include="Work\MScoreStatisticsDto.cs" />
+    <Compile Include="Work\MSendVariantDto.cs" />
+    <Compile Include="Work\MSetErrorInputDto.cs" />
+    <Compile Include="Work\MShareAnswerDto.cs" />
+    <Compile Include="Work\MStudentAnswerDto.cs" />
+    <Compile Include="Work\MSendSmsScoreDto.cs" />
+    <Compile Include="Work\SymbolInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

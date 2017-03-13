@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <title> 答题卡-我的得一 - 触屏版</title>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <link href="//static.dayeasy.net" rel="dns-prefetch">
+    <link href="//file.dayeasy.net" rel="dns-prefetch">
+    <link href="//file01.dayeasy.net" rel="dns-prefetch">
+    <link href="//file02.dayeasy.net" rel="dns-prefetch">
+    <link rel="apple-touch-icon-precomposed" href="/image/logo_114x114.png">
+    <link type="image/x-icon" rel="Shortcut Icon" href="/image/logo_114x114.png">
+    <!--<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>-->
+    <!--todo on.1-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes"/>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" href="/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="/css/site-base.min.css"/>
+    <link rel="stylesheet" href="/css/ui-dialog.min.css"/>
+    <link rel="stylesheet" href="/fonts/iconfont.css"/>
+    <link rel="stylesheet" href="/css/page/work-answer-sheet.min.css"/>
+</head>
+<body data-role="3">
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <a class="hp-text d-back" href="javascript:void(0);">
+                <div class="hp-left hp-back">
+                    <i class="iconfont dy-icon-left"></i>
+                </div>
+            </a>
+            <h1 class="hp-h1"></h1>
+        </div>
+    </div>
+</header>
+<section class="warp-answer">
+    <div class="answer-sheet"></div>
+</section>
+<!-- 基础脚本 -->
+<script src="/js/site-base.min.js"></script>
+<script type="text/template" id="d-icon-template">
+    <img class="d-image" src="{{f}}" alt=""/>
+
+    <div class="d-score">
+        <span>得分：<strong>{{i}}</strong></span>
+    </div>
+    <div class="d-error">
+        {{j}}
+    </div>
+    {{each m as item index}}
+    <div class="d-icon" style="{{'top:'+item.p.x+'px;left:'+item.p.y+'px'}}">
+        <img src="{{item | iconImage}}" alt=""/>
+        {{if item.w}}
+        <i>-{{item.w}}</i>
+        {{/if}}
+    </div>
+    {{/each}}
+    {{each n as item index}}
+    <div class="d-icon" style="{{'top:'+item.p.x+'px;left:'+item.p.y+'px'}}">
+        {{if item.t==6}}
+        <div class="d-icon-word">{{item.w}}</div>
+        {{else}}
+        <img src="{{item | iconImage}}" alt=""/>
+        {{/if}}
+    </div>
+    {{/each}}
+</script>
+<script src="/js/page/work/answer-sheet.min.js"></script>
+</body>
+</html>

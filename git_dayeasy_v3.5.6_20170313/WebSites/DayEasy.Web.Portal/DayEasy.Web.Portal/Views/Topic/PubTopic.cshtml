@@ -1,0 +1,52 @@
+﻿@model DayEasy.Contracts.Dtos.Group.GroupDto
+@using DayEasy.Core
+@{
+    ViewBag.Title = "发帖子";
+}
+
+<div class="dy-main">
+    <div class="comment-post w1200">
+        <div class="h-title">
+            <i class="iconfont dy-icon-edit2"></i>发布帖子
+            <span>到</span>
+            <strong>@Model.Name</strong>
+        </div>
+        <div class="box-input"><input type="text" placeholder="请输入帖子标题" id="topicTitle" /></div>
+        <div class="mb20">
+            <script id="qContent" type="text/plain">
+            </script>
+        </div>
+        <div class="mb20">
+            <button class="dy-btn dy-btn-default" id="btn_addVote">添加投票</button>
+        </div>
+
+        <div id="voteDetail"></div>
+
+        <div><div class="d-tags after"></div></div>
+
+        <div class="box f-tac f-cb">
+            <input type="hidden" value="@Model.Id" id="groupId" />
+            <input type="hidden" value="@Consts.Config.FileSite" id="fileSite" />
+            <input type="hidden" value="@Url.Action("SaveTopic", "Topic")" id="saveUrl" />
+            <input type="hidden" value="@Url.Action("Item", "Group", new { id = Model.Id })" id="redirectUrl" />
+
+        </div>
+        <div class="box f-tac f-cb mt20">
+            <button class="dy-btn dy-btn-info" id="btn_pub">发布</button>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_pubTopic")
+
+@section css{
+    @Html.CombineLink("/css/font-awesome.css,v3/css/home/comment-post-page.css,v3/css/home/ui-base.css")
+}
+
+@section js{
+    <script src="/Content/ueditor/ueditor-config.min.js" type="text/javascript"></script>
+    <script src="/Content/ueditor/ueditor-all.min.js" type="text/javascript"></script>
+    <script src="/Content/ueditor/d-formula.min.js" type="text/javascript"></script>
+    @Html.ScriptLink("plugs/My97DatePicker/WdatePicker.min.js")
+    @Html.CombineLink("js/base/utils.js,v3/js/topic/pub-topic.js")
+}

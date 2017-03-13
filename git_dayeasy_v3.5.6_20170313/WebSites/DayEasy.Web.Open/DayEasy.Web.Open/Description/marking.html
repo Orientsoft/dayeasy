@@ -1,0 +1,17 @@
+﻿<div class="hero-unit">
+    <h4 class="api_main_intro">教师批阅数据格式</h4>
+
+    <div class="data well">
+    </div>
+</div>
+<script>
+    var data = [
+        {
+            "detail_id": "ID",
+            "question_id": "问题ID",
+            "small_id": "小问ID",
+            "is_correct": "是否正确"
+        }
+    ];
+    $(".data").html((new JsonFormat(data)).toString());
+</script>

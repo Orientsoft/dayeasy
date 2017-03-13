@@ -1,0 +1,183 @@
+/*--------------------------------------------------------------
+                        查找圈子
+
+      Author:Plato
+      Create Date:2015/10/23 9:30  Last Mondify Date:2015/10/23 9:30
+      ===================================================
+
+--------------------------------------------------------------*/
+@import "ui-base.less";
+
+.d-group-list {
+  background-color: @color-default;
+  padding: 20px 0;
+}
+
+.d-group-item {
+  width: 360px;
+  .d-group-wrap {
+    width: 214px;
+  }
+}
+
+//*--------------------   Part ui    -----------------------
+.dy-wrap {
+  .bg-grey();
+}
+
+//*--------------------  main Style  -----------------------
+.find-circles {
+  font-size: 14px;
+  .cont-min {
+    padding: 40px 0;
+    .dy-soso-two {
+      width: 689px;
+      position: relative;
+      .input-box{ width: 590px; padding: 6px 12px 6px 95px;}
+      .dy-soso-sele{
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        border: none;
+        option{
+          border:0;
+          }
+        }
+      .dy-soso-line{
+        height: 15px;
+        border-right: 2px solid #bbb;
+        position: absolute;
+        top: 15px;
+        left: 104px;
+        }
+    }
+  }
+}
+
+.ul-list {
+  .dg-item {
+    background: @color-default;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    border: solid 1px @border-color;
+    &:hover {
+      background-color: #f9f9f9;
+      border-color: #ddd;
+    }
+    .dg-avatar,
+    .dg-info,
+    .dg-action {
+      float: left;
+      overflow: hidden;
+    }
+    .dg-avatar {
+      width: 180px;
+      height: 135px;
+      margin-right: 20px;
+      position: relative;
+      overflow: hidden;
+      img {
+        width: 180px;
+      }
+      span {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 5;
+        em {
+          padding: 2px 5px;
+          background: #fff;
+          .inline-block();
+          color: #999;
+          .rounded-corners(2px);
+        }
+      }
+      .dy-icon-31 {
+        position: relative;
+        color: #fff;
+        font-size: 16px;
+        margin-right: 5px;
+      }
+      .dy-icon-48 {
+        position: absolute;
+        top: 1.5px;
+        left: 1.5px;
+        color: #aaaaaa;
+        font-size: 10px;
+      }
+    }
+    .dg-info {
+      width: 838px;
+      line-height: 35px;
+      .dg-name {
+        h4 {
+          .inline-block;
+          font-size: 16px;
+          max-width: 10em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          vertical-align: middle;
+        }
+        small {
+          .inline-block;
+          margin-left: 15px;
+          color: #999;
+        }
+      }
+      .dg-member {
+        color: #bbb;
+        span {
+          margin-right: 15px;
+        }
+      }
+      .dg-summary {
+        color: #bbb;
+      }
+    }
+  }
+}
+
+/*搜索*/
+.select-main{
+  width: 83px;
+  height: 46px;
+  line-height: 46px;
+  text-align: center;
+  cursor: pointer;
+  position: absolute;
+  color: #3bafda;
+  .dy-icon-anglebottom{
+    font-size: 12px;
+    margin-left: 5px;
+    }
+  &:after{
+    content: '';
+    width: 2px;
+    height: 15px;
+    background: #bbb;
+    position: absolute;
+    top: 15px;
+    right: -1px;
+    }
+  }
+ul.select-option{
+  width: 83px;
+  text-align: center;
+  border: 2px solid #e6e9ed;
+  border-top: none;
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 46px;
+  li{
+    height: 32px;
+    line-height: 32px;
+    background: white;
+    cursor: pointer;
+    &:hover{
+      background: #e6e9ed;
+      }
+    }
+  }

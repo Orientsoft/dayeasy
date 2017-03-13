@@ -1,0 +1,23 @@
+﻿<div class="hero-unit">
+    <h4 class="api_main_intro">电子课本章节作业提交</h4>
+
+    <div class="data well">
+    </div>
+</div>
+<script>
+    var data = {
+        "book_id": "电子课本ID",
+        "chapter_id": "章节",
+        "class_id": "班级ID",
+        "details": [
+            {
+                "question_id": "问题ID",
+                "small_question_id": "小问ID",
+                "answers": ["学生选择的答案序号"],
+                "content": "答题内容",
+                "images": ["答题图片路径"]
+            }
+        ]
+    };
+    $(".data").html((new JsonFormat(data)).toString());
+</script>

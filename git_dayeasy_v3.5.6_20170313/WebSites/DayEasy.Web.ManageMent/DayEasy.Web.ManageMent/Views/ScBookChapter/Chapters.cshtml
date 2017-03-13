@@ -1,0 +1,437 @@
+﻿@using DayEasy.Contracts.Dtos.SchoolBook
+@using DayEasy.Utility.Extend
+@model List<SchoolBookChapterDto>
+@{
+    ViewBag.Title = "章节列表";
+    int i;
+    var errorMsg = string.Empty;
+    if (ViewData["errorMsg"] != null)
+    {
+        errorMsg = ViewData["errorMsg"].ToString();
+    }
+    SchoolBookDto sbook = null;
+    if (ViewData["sbook"] != null)
+    {
+        sbook = (SchoolBookDto) ViewData["sbook"];
+    }
+    var navs = new List<KeyValuePair<string, string>>();
+    if (ViewData["navs"] != null)
+    {
+        navs = (List<KeyValuePair<string, string>>)ViewData["navs"];
+    }
+    var hasDelChapter = Model != null && Model.Any(c => c.Status == (byte) NormalStatus.Delete);
+}
+
+@if (errorMsg.IsNotNullOrEmpty())
+{
+    <div style="width: 100%; padding: 20px 0; text-align: center; font-size: 18px;">@errorMsg</div>
+}
+else
+{
+
+    <div style="display: none;">
+        <input type="hidden" id="txtHasDelChapter" value="@(hasDelChapter ? 1 : 0)" />
+        <input type="hidden" id="txtStage" value="@(sbook!=null ? sbook.Stage : 0)" />
+        <input type="hidden" id="txtSubjectId" value="@(sbook != null ? sbook.SubjectId : 0)" />
+    </div>
+
+    <div class="row">
+        <div class="col-md-10">
+            当前位置：
+            @if (navs != null && navs.Any())
+            {
+                for (i = 0; i < navs.Count; i++)
+                {
+                    if (i != 0)
+                    {
+                        @:&nbsp;/&nbsp;
+                }
+                    var nav = navs[i];
+                    if (i < navs.Count - 1)
+                    {
+                        <a href="/sys/sbooks/chapters?code=@nav.Key">@nav.Value</a>
+                    }
+                    else
+                    {
+                        <span>@nav.Value</span>
+                    }
+                }
+            }
+        </div>
+        <div class="col-md-2" style="text-align: right;">
+            <button id="btnAddChapter" class="btn btn-primary"><i class="fa fa-plus"></i> 添加章节</button>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-md-12">
+            <table class="table">
+                <colgroup>
+                    <col style="width: 5%" />
+                    <col style="width: 25%" />
+                    <col style="width: 15%" />
+                    <col style="width: 5%" />
+                    <col style="width: 30%" />
+                    <col style="width: 20%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>名称</th>
+                        <th>编号</th>
+                        <th>排序</th>
+                        <th>知识点</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model == null || Model.All(c => c.Status != (byte)NormalStatus.Normal))
+                    {
+                        <tr>
+                            <td colspan="6" style="text-align:center;">暂无任何章节</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        for (i = 0; i < Model.Count; i++)
+                        {
+                            var chapter = Model[i];
+                            if (chapter.Status != (byte)NormalStatus.Normal)
+                            {
+                                continue;
+                            }
+                            <tr data-id="@chapter.Id" data-title="@chapter.Title">
+                                <td>@(i + 1)</td>
+                                <td>
+                                    @if (chapter.IsLast)
+                                    {
+                                        <span>@chapter.Title</span>
+                                    }
+                                    else
+                                    {
+                                        <a href="/sys/sbooks/chapters?code=@chapter.Code">@chapter.Title</a>
+                                    }
+                                </td>
+                                <td>@chapter.Code</td>
+                                <td>@chapter.Sort</td>
+                                <td>
+                                    @if (chapter.KnowledgeList != null && chapter.KnowledgeList.Any())
+                                    {
+                                        <div class="td-kps">
+                                            @foreach (var kp in chapter.KnowledgeList)
+                                            {
+                                                <span data-id="@kp.Id">@kp.Name</span>
+                                            }
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="b-oper b-edit">编辑</span>
+                                    &nbsp;|&nbsp;&nbsp;<span class="b-oper b-del">删除</span>
+                                    @if (!chapter.HasChild)
+                                    {
+                                        @:&nbsp;|&nbsp;&nbsp;<span class="b-oper b-kp">知识点</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12 del-box" style="display: none;">已删除</div>
+        <div class="col-md-12 del-box mt5" style="display: none;">
+            <table class="table">
+                <colgroup>
+                    <col style="width: 5%" />
+                    <col style="width: 25%" />
+                    <col style="width: 15%" />
+                    <col style="width: 5%" />
+                    <col style="width: 30%" />
+                    <col style="width: 20%" />
+                </colgroup>
+                <tbody class="del-chapter-list">
+                    @if (hasDelChapter)
+                    {
+                        for (i = 0; i < Model.Count; i++)
+                        {
+                            var chapter = Model[i];
+                            if (chapter.Status != (byte)NormalStatus.Delete)
+                            {
+                                continue;
+                            }
+                            <tr>
+                                <td>@(i + 1)</td>
+                                <td>@chapter.Title</td>
+                                <td>@chapter.Code</td>
+                                <td>@chapter.Sort</td>
+                                <td></td>
+                                <td>-</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+<script type="text/html" id="eidt-template">
+    <form class="form-horizontal">
+        <input type="hidden" id="txtChapterId" value="{{id && id.length ? id : ''}}"/>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="txtIndex">名称：</label>
+            <div class="col-sm-10">
+                <input type="text" placeholder="章节名称" class="form-control" id="txtChapterTitle" value="{{title && title.length ? title : ''}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="txtIndex">排序：</label>
+            <div class="col-sm-10">
+                <input type="text" placeholder="0-系统排序" class="form-control" id="txtChapterSort" value="{{sort && sort > 0 ? sort : 0}}">
+            </div>
+        </div>
+    </form>
+</script>
+
+<script type="text/html" id="kpbox-template">
+    <div class="kp-box">
+        <input type="text" placeholder="输入知识点关键字，匹配成功后选择" class="form-control" id="txtKpKey" />
+        <div class="search-kps"></div>
+        <div class="kp-list">
+            {{if list && list.length}}
+            {{each list as kp}}
+            <span data-code="{{kp.code}}" data-name="{{kp.name}}">{{kp.name}} <i class="fa fa-remove kp-del"></i></span>
+            {{/each}}
+            {{/if}}
+        </div>
+    </div>
+</script>
+
+@section style{
+    <style type="text/css">
+         .del-box {
+             color: #999;
+         }
+        .b-oper {
+            cursor: pointer;
+            color: #65cafc;
+        }
+        .b-oper:hover {
+            color: #28b779;
+        }
+        .b-del:hover {
+            color: #ed5565;
+        }
+        .form-horizontal {
+            width: 360px !important;
+        }
+        .form-horizontal .col-sm-2,.form-horizontal .col-sm-10 {
+            padding-right: 0;
+        }
+        .kp-box {
+            width: 430px;
+            height: 280px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
+        }
+        .kp-box input {
+            max-width: 400px;
+            width: 400px;
+        }
+        .search-kps {
+            width: 100%;
+            position: absolute;
+            background-color: #fff;
+            cursor: pointer;
+            padding-bottom: 5px;
+        }
+        .skp-item {
+            padding: 2px 10px;
+        }
+        .skp-item:hover {
+            background-color: #e0e0e0;
+        }
+        .td-kps span{
+            display: inline-block;
+            margin: 0 5px 5px 0;
+            border: 1px solid #ddd;
+            padding: 1px 4px;
+        }
+        .kp-list {
+            padding: 5px 0;
+        }
+        .kp-list span {
+            display: inline-block;
+            margin: 0 5px 5px 0;
+            border: 1px solid #ddd;
+            padding: 2px 5px;
+        }
+        .kp-list i {
+            cursor: pointer;
+        }
+        .kp-list i:hover {
+            color: #ed5565;
+        }
+    </style>
+}
+
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js")
+    <script type="text/javascript">
+        $(function($) {
+            var S = SINGER,
+                edit,
+                i = 0,
+                pCode = S.uri().code,
+                hasDel = $("#txtHasDelChapter").val() == "1",
+                stage = $("#txtStage").val(),
+                subjectId = $("#txtSubjectId").val();
+            if (hasDel) {
+                $(".del-box").show();
+            }
+            edit = function(item) {
+                var html = template('eidt-template', item);
+                S.dialog({
+                    title: "添加章节",
+                    content: html,
+                    okValue: "确定",
+                    cancelValue: "取消",
+                    ok: function() {
+                        var id = $("#txtChapterId").val(),
+                            title = $("#txtChapterTitle").val(),
+                            sort = $("#txtChapterSort").val();
+                        if (!title || S.isEmpty(title)) return false;
+                        if (!/^\d+$/.test(sort)) sort = 0;
+                        $.post("/sys/sbooks/chapter-edit", { id: id, title: title, sort: sort, code: pCode }, function(json) {
+                            if (!json.status) {
+                                S.msg(json.message);
+                                return;
+                            }
+                            S.msg("操作成功", 1000, function() {
+                                window.location.reload();
+                            });
+                        });
+                        return false;
+                    },
+                    cancel: function() {}
+                }).showModal();
+            }
+            $("#btnAddChapter").bind("click", edit);
+            $(".b-edit").bind("click", function() {
+                var $tr = $(this).parents("tr");
+                if (!$tr) return;
+                var id = $tr.data("id"),
+                    title = $tr.data("title") + '',
+                    sort = $tr.find("td").eq(3).text();
+                if (!id || !id.length) return;
+                if (!/^\d+$/.test(sort)) sort = 0;
+                edit({ id: id, title: title, sort: sort });
+            });
+            $(".b-del").bind("click", function() {
+                var $tr = $(this).parents("tr");
+                var id = $tr.data("id"), title = $tr.data("title");
+                S.confirm('确认删除章节《' + title + '》？', function() {
+                    $.post("/sys/sbooks/chapter-del", { id: id }, function(json) {
+                        if (!json.status) {
+                            S.msg(json.message);
+                            return;
+                        }
+                        $tr.find('td').eq(1).html('<span>' + $tr.data('title') + '</span>');
+                        $tr.find('td').last().html('-');
+                        var delTr = $.extend({}, $tr);
+                        $tr.remove();
+                        $(".del-chapter-list").append(delTr);
+                        if (!hasDel) {
+                            $(".del-box").show();
+                            hasDel = true;
+                        }
+                    });
+                });
+
+            });
+            $(".b-kp").bind("click", function() {
+                var $tr = $(this).parents("tr");
+                var kpList = [];
+                $tr.find("td").eq(4).find("span").each(function(i, sp) {
+                    kpList.push({
+                        code: $(sp).data("id"),
+                        name: $(sp).text()
+                    });
+                });
+                var content = template("kpbox-template", { list: kpList });
+                S.dialog({
+                    title: "关联知识点",
+                    content: content,
+                    okValue: "确定",
+                    cancelValue: "取消",
+                    ok: function() {
+                        var kps = [];
+                        var $spans = $(".kp-list").find("span");
+                        if ($spans && $spans.length) {
+                            $spans.each(function(i, sp) {
+                                var $sp = $(sp);
+                                kps.push({
+                                    id: $sp.data("code"),
+                                    name: $sp.data("name")
+                                });
+                            });
+                        }
+                        var id = $tr.data("id");
+                        var _kps = kps.length ? S.json(kps) : "";
+                        $.post("/sys/sbooks/save-kps", { id: id, kps: _kps }, function(json) {
+                            if (!json.status) {
+                                S.msg(json.message);
+                                return;
+                            }
+                            S.msg("操作成功", 1000, function() {
+                                window.location.reload();
+                            });
+                        });
+                        return false;
+                    },
+                    cancel: function() {
+                    }
+                }).showModal();
+            });
+            $("body")
+                .delegate("#txtKpKey", "keyup", function(e) {
+                    var key = S.trim($(this).val());
+                    if (!key || !key.length) return;
+                    $.post("/sys/sbooks/search-kps", {
+                        stage: stage,
+                        subject: subjectId,
+                        key: key
+                    }, function(json) {
+                        if (!json.status) return;
+                        var _html = '';
+                        for (i = 0; i < json.data.length; i++) {
+                            _html += '<div class="skp-item" data-code="' + json.data[i].code + '" data-name="' + json.data[i].name + '">' + json.data[i].path + '</div>';
+                        }
+                        $(".search-kps").html(_html);
+                    });
+                })
+                .delegate(".skp-item", "click", function() {
+                    $("#txtKpKey").val("");
+                    $(".search-kps").html("");
+                    var $this = $(this);
+                    var code = $this.data("code"), name = $this.data("name");
+                    var $kpList = $(".kp-list");
+                    var $spans = $kpList.find("span");
+                    if ($spans && $spans.length) {
+                        var exist = false;
+                        $spans.each(function(i, sp) {
+                            if ($(sp).data("code") == code) {
+                                exist = true;
+                                return;
+                            }
+                        });
+                        if (exist) return;
+                    }
+                    $kpList.append('<span data-code="' + code + '" data-name="' + name + '">' + name + ' <i class="fa fa-remove kp-del"></i></span>');
+                }).delegate(".kp-del", "click", function() {
+                    $(this).parent().remove();
+                });
+        });
+    </script>
+}

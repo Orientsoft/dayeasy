@@ -1,0 +1,70 @@
+<script type="text/template" id="reason-item">
+    <div class="row reason-box">
+        <div class="col-md-12 mb10">
+            <div class="col-md-2 f-tar pr0 hd-title-sd"><span>1</span>错因标签：</div>
+            <div class="col-md-10 pl0 error-tag">
+                <div class="text-tags">
+                    {{if tags && tags.length}}
+                    <div class="col-md-12">
+                        <div class="q-tags">
+                            {{each tags as t}}
+                            <div class="d-tag">{{t}}</div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    {{/if}}
+                    {{if !tags || !tags.length}}
+                    <div class="col-md-12">
+                        <div class="d-tags"></div>
+                        <input type="hidden" class="txt-reason-tag" data-untag="1" />
+                    </div>
+                    <div class="col-md-12 f-cb sys-tags">
+                        常见错因：
+                        {{if sys_tags && sys_tags.length}}
+                        {{each sys_tags as sys}}
+                        <span>{{sys}}</span>
+                        {{/each}}
+                        {{/if}}
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb10">
+            <div class="col-md-2 f-tar pr0 hd-title-sd"><span>2</span>错因分析：</div>
+            <div class="col-md-10 pl0 error-tag">
+                <div class="col-md-12 text-content">
+                    {{if !content || !content.length}}
+                    <textarea class="form-control txt-reason-content" style="resize: none;height:100px;" maxlength="140">{{content}}</textarea>
+                    <div class="col-md-12 text-right">
+                        <p class="corol-lenth f-tar">你还可以输入<strong class="hight-num">140</strong>个字</p>
+                    </div>
+                    {{/if}}
+                    {{if content && content.length}}
+                    {{content}}
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 analysis text-submit" data-count="{{count}}">
+            {{if !tags || !tags.length || !content || !content.length}}
+            <div class="col-md-5 col-lg-offset-6">
+                <p class="f-tar mt10 s-count">
+                    <a href="/errorBook/detail/{{id}}">
+                        {{if count > 0}}
+                        已有 {{count}}人 完成了分析
+                        {{/if}}
+                        {{if count < 1}}
+                        查看历史分析
+                        {{/if}}
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-1">
+                <a class="btn btn-info btn-reason-submit" href="javascript:void(0);">提交</a>
+            </div>
+            {{/if}}
+        </div>
+        <input type="hidden" class="txt-reason-id" value="{{id}}"/>
+    </div>
+</script>

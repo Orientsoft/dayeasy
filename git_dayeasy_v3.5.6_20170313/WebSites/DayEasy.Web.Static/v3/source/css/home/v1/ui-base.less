@@ -1,0 +1,1442 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2016/8/15 12:9
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+@import "../../../less/base";
+
+.dy-btn-grey{
+  color:#999;
+  &:hover{
+    color:#999;
+    }
+  }
+
+/* Style for our header texts
+	* --------------------------------------- */
+.w1000{
+  width:1000px;
+  margin:0 auto;
+  min-width:1000px;
+  }
+
+.small-class{
+  background:#ffbe4e;
+  }
+
+//小学
+.in-class{
+  background:#48cfad;
+  }
+
+//初中
+.high-class{
+  background:#f37c88;
+  }
+
+/*年级分段颜色*/
+.fenduan{
+  .class-bg0{
+    //小学
+    background:#ffbe4e;
+    }
+  .class-bg1{
+    //初中
+    background:#48cfad;
+    }
+  .class-bg2{
+    //高中
+    background:#f37c88;
+    }
+  }
+
+//.stage-1{ background: #4fc1e9;}
+//.stage-2{ background: #20c8ae;}
+//.stage-3{ background: #ef6757;}
+.stage-1,
+.stage-2,
+.stage-3{
+  color:@color-default;
+  //.rounded-corners(3px);
+  margin-right:4px;
+  padding:2px 5px 0;
+  font-size:12px;
+  }
+
+.stage-1{
+  background:#ffbe4e;
+  }
+
+.stage-2{
+  background:#48cfad;
+  }
+
+.stage-3{
+  background:#f37c88;
+  }
+
+/*贴纸组件*/
+.sticker-lists{
+  margin-bottom:20px;
+  position:relative;
+  .box0, .box1{
+    position:relative;
+    z-index:1;
+    background:white;
+    }
+  .box0{
+    margin-right:20px;
+    margin-bottom:15px;
+    }
+  .box1{
+    padding:0 10px;
+    }
+  .bg-base{
+    height:26px;
+    line-height:26px;
+    background:#666;
+    .rounded-corners(13px);
+    position:relative;
+    .inline-block;
+    color:white;
+    padding:0 9px;
+    .transition(all 0.5s ease 0s);
+    i{
+      width:16px;
+      height:16px;
+      text-align:center;
+      line-height:13px;
+      .inline-block;
+      .rounded-corners(50%);
+      position:absolute;
+      top:-5px;
+      right:-5px;
+      background:#666;
+      color:white;
+      border:1px solid white;
+      cursor:pointer;
+      display:none;
+      }
+    }
+  .bg0{
+    .bg-base{
+      background:#26c8ae;
+      &:hover{
+        background:#07bfc8;
+        cursor:pointer;
+        i{
+          background:#07bfc8;
+          display:block;
+          }
+        }
+      i{
+        background:#26c8ae;
+        }
+      }
+    }
+  .bg1{
+    .bg-base{
+      background:#ffbf4e;
+      &:hover{
+        background:#ffb10b;
+        cursor:pointer;
+        i{
+          background:#ffb10b;
+          display:block;
+          }
+        }
+      i{
+        background:#ffbf4e;
+        }
+      }
+    }
+  .bg2{
+    .bg-base{
+      background:#3fafd8;
+      &:hover{
+        background:#1095d8;
+        cursor:pointer;
+        i{
+          background:#1095d8;
+          display:block;
+          }
+        }
+      i{
+        background:#3fafd8;
+        }
+      }
+    }
+  }
+
+//认证V icon
+.vip-icon{
+  .background-image('index/v16x16.png', no-repeat, transparent);
+  width:16px;
+  height:16px;
+  display:block;
+  bottom:0;
+  right:0;
+  position:absolute;
+  top:23px;
+  left:22px;
+  overflow:hidden;
+  text-indent:9999px;
+  }
+
+.vip-icon-head{
+  width:24px;
+  height:24px;
+  .inline-block;
+  .background-image('index/v24x24.png', no-repeat, transparent);
+  overflow:hidden;
+  text-indent:9999px;
+  position:absolute;
+  bottom:34px;
+  right:22px;
+  }
+
+//高中
+.hot-topic, .my-history, .sticker, .sticker-show{
+  background:white;
+  padding:15px 20px;
+  position:relative;
+  margin-bottom:20px;
+  .titile{
+    margin-bottom:20px;
+    h2{
+      .inline-block;
+      font-size:16px;
+      font-weight:bold;
+      margin-right:20px;
+      color:@d-color-gray;
+      small{
+        color:@d-color-light-gray;
+        font-size:80%;
+        font-weight:normal;
+        margin-left:20px;
+        }
+      }
+    strong{
+      font-weight:bold;
+      }
+    .text{
+      color:@d-color-light-gray;
+      }
+    }
+  .pop-text{
+    float:right;
+    }
+  }
+
+.hot-btn, .sticker-btn{
+  text-align:center;
+  a{
+    color:#3bafda;
+    &:hover{
+      color:@color-hover-blue;
+      }
+    i.iconfont{
+      margin-left:5px;
+      }
+    }
+  }
+
+//sticker-show
+//以下印象
+.sticker-show{
+  border-top:2px solid #3bafda;
+  .dy-result{
+    margin-bottom:5px;
+    }
+  .close{
+    float:right;
+    color:#999;
+    font-size:20px;
+    cursor:pointer;
+    &:hover{
+      color:#737373;
+      }
+    }
+  .sticker-lists{
+    border:1px solid #ccc;
+    .rounded-corners(4px);
+    padding:14px 9px 0;
+    .last{
+      height:26px;
+      line-height:26px;
+      color:#999;
+      cursor:pointer;
+      &:hover{
+        color:#737373;
+        }
+      }
+    }
+  //没有帖子情况
+  .hot-text{
+    margin-bottom:5px;
+    .box1{
+      color:#999;
+      width:80px;
+      }
+    .box2{
+      width:580px;
+      li{
+        background:#eeeeee;
+        .rounded-corners(10px);
+        color:#666;
+        font-size:12px;
+        height:20px;
+        line-height:20px;
+        padding:0 20px;
+        margin:0 5px 10px 5px;
+        float:left;
+        &:hover{
+          background:#d4d2d2;
+          cursor:pointer;
+          }
+        }
+      }
+    }
+  .dy-btn{
+    margin:0 10px;
+    height:30px;
+    }
+  }
+
+.sticker-show-pop{
+  width:700px;
+  background:white;
+  padding:20px;
+  .title{
+    margin-bottom:15px;
+    color:#999;
+    }
+  .dy-result{
+    margin-bottom:5px;
+    }
+  .btn{
+    .dy-btn{
+      height:30px;
+      &:nth-child(1){
+        margin-right:10px;
+        }
+      }
+    }
+  .hot-text{
+    margin-bottom:5px;
+    .box1{
+      color:#999;
+      width:80px;
+      }
+    .box2{
+      width:580px;
+      li{
+        background:#eeeeee;
+        .rounded-corners(10px);
+        color:#666;
+        font-size:12px;
+        height:20px;
+        line-height:20px;
+        padding:0 20px;
+        margin:0 5px 10px 5px;
+        float:left;
+        &:hover{
+          background:#d4d2d2;
+          cursor:pointer;
+          }
+        }
+      }
+    }
+  }
+
+// 印象贴纸
+.sticker{
+  z-index:6;
+  .dy-result{
+    margin-bottom:5px;
+    }
+  //没有帖子情况
+  .hot-text{
+    margin-bottom:5px;
+    .box1{
+      color:#999;
+      width:80px;
+      }
+    .box2{
+      width:580px;
+      li{
+        background:#eeeeee;
+        .rounded-corners(10px);
+        color:#666;
+        font-size:12px;
+        height:20px;
+        line-height:20px;
+        padding:0 20px;
+        margin:0 5px 10px 5px;
+        float:left;
+        &:hover{
+          background:#d4d2d2;
+          cursor:pointer;
+          }
+        }
+      }
+    }
+  .dy-btn{
+    margin:0 10px;
+    height:30px;
+    }
+  }
+
+.sticker-list{
+  margin-bottom:20px;
+  position:relative;
+  &.on{
+    z-index:10;
+    }
+  .box0, .box1{
+    position:relative;
+    z-index:1;
+    background:white;
+    }
+  .box0{
+    margin-right:10px;
+    }
+  .box1{
+    padding:0 10px;
+    }
+  .hr{
+    width:100%;
+    position:absolute;
+    top:13px;
+    left:0;
+    border-bottom:1px solid #eee;
+    }
+  .bg-base{
+    height:26px;
+    line-height:26px;
+    background:#666;
+    .rounded-corners(13px);
+    position:relative;
+    .inline-block;
+    color:white;
+    margin-right:10px;
+    padding:0 10px !important;
+    .transition(all 0.5s ease 0s);
+    i{
+      width:16px;
+      height:16px;
+      text-align:center;
+      line-height:13px;
+      .inline-block;
+      .rounded-corners(50%);
+      position:absolute;
+      top:-5px;
+      right:-5px;
+      border:1px solid white;
+      cursor:pointer;
+      }
+    }
+  .text{
+    font-weight:bold;
+    cursor:pointer;
+    }
+  .hd{
+    text-align:center;
+    a{
+      .inline-block;
+      width:53px;
+      background:white;
+      font-weight:bold;
+      .rounded-corners(4px);
+      }
+    span{
+      .inline-block;
+      height:24px;
+      line-height:24px;
+      padding:0 5px
+      }
+    .iconfont{
+      font-size:12px;
+      }
+    .supported{
+      .inline-block;
+      width:53px;
+      background:white;
+      font-weight:bold;
+      .rounded-corners(4px);
+      color:white;
+      }
+    }
+
+  .bg0{
+    .bg-base{
+      background:#26c8ae;
+      &:hover{
+        background:#07bfc8;
+        cursor:pointer;
+        i{
+          background:#07bfc8;
+          display:block;
+          }
+        }
+      i{
+        background:#26c8ae;
+        }
+      }
+    .text{
+      color:#26c8ae;
+      }
+    .b-support{
+      border:1px solid #26c8ae;
+      color:#26c8ae;
+      }
+    .supported{
+      border:1px solid #26c8ae;
+      background:#26c8ae;
+      }
+    }
+  .bg1{
+    .bg-base{
+      background:#ffbf4e;
+      &:hover{
+        background:#ffb10b;
+        cursor:pointer;
+        i{
+          background:#ffb10b;
+          display:block;
+          }
+        }
+      i{
+        background:#ffbf4e;
+        }
+      }
+    .text{
+      color:#ffbf4e;
+      }
+    .b-support{
+      border:1px solid #ffbf4e;
+      color:#ffbf4e;
+      }
+    .supported{
+      border:1px solid #ffbf4e;
+      background:#ffbf4e;
+      }
+    }
+  .bg2{
+    .bg-base{
+      background:#3fafd8;
+      &:hover{
+        background:#1095d8;
+        cursor:pointer;
+        i{
+          background:#1095d8;
+          display:block;
+          }
+        }
+      i{
+        background:#3fafd8;
+        }
+      }
+    .text{
+      color:#3fafd8;
+      }
+    .b-support{
+      border:1px solid #3fafd8;
+      color:#3fafd8;
+      }
+    .supported{
+      border:1px solid #3fafd8;
+      background:#3fafd8;
+      }
+    }
+  .user-img-list{
+    a{
+      .inline-block;
+      margin-right:10px;
+      float:left;
+      .rounded-corners(50%);
+      img{
+        .transition(all 0.5s ease 0s);
+        }
+      &:hover{
+        .opacity(0.8);
+        }
+      }
+    }
+  // 弹框层
+  .sticker-list-pop{
+    position:relative;
+    & > .iconfont{
+      color:#d4d4d4;
+      position:relative;
+      top:4px;
+      cursor:pointer;
+      }
+    }
+  .pop-cont{
+    border:1px solid #cccccc;
+    width:350px;
+    //max-height: 380px;
+    position:absolute;
+    top:36px;
+    right:-18px;
+    background:white;
+    display:none;
+    &:after{
+      content:'';
+      position:absolute;
+      top:-6px;
+      right:20px;
+      .angle-top(7px, #fff, 7px);
+      }
+    &:before{
+      content:'';
+      position:absolute;
+      top:-7px;
+      right:20px;
+      .angle-top(7px, #ccc, 7px);
+      }
+    & > h2{
+      font-size:16px;
+      color:#666;
+      height:50px;
+      line-height:25px;
+      padding:12.5px 55px 12.5px 15px;
+      .d-user{
+        .inline-block;
+        height:30px;
+        margin-right:5px;
+        vertical-align:middle;
+        width:30px;
+        }
+      }
+    & > .close{
+      font-size:20px;
+      color:#a3a3a3;
+      position:absolute;
+      top:13px;
+      right:13px;
+      &:hover{
+        color:#666;
+        cursor:pointer;
+        }
+      }
+    & > p{
+      background:#eeeeee;
+      height:40px;
+      line-height:40px;
+      color:#666;
+      b{
+        font-weight:bold;
+        }
+      padding:0 15px;
+      }
+    }
+  .list-wrap{
+    max-height:300px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    }
+  .ul-name-list{
+    padding:0 15px 15px;
+    & > li{
+      position:relative;
+      padding:10px 10px 10px 56px;
+      border-bottom:1px solid #eee;
+      &:last-child{
+        border-bottom:none;
+        }
+      .d-user-wrap{
+        height:36px;
+        left:8px;
+        position:absolute;
+        top:10px;
+        width:36px;
+        }
+      //img {
+      //  position: absolute;
+      //  top: 9px;
+      //  left: 9px;
+      //  .rounded-corners(50%);
+      //}
+      strong{
+        display:block;
+        margin-bottom:9px;
+        color:#666;
+        }
+      p{
+        color:#999;
+        font-size:12px;
+        }
+      a:hover{
+        img{
+          .opacity(0.8);
+          }
+        strong, p{
+          color:@color-hover-blue;
+          }
+        }
+      }
+    }
+
+  }
+
+// 热门语录
+.hot-topic-content{
+  .hot-list{
+    margin-bottom:15px;
+    padding-bottom:15px;
+    border-bottom:1px solid #eee;
+    &:last-child{
+      border-bottom:none;
+      }
+    }
+  .hd{
+    width:53px;
+    margin-right:15px;
+    text-align:center;
+    a{
+      display:block;
+      background:white;
+      border:1px solid #41aed6;
+      font-weight:bold;
+      color:#41aed6;
+      .rounded-corners(4px);
+      }
+    span{
+      .inline-block;
+      height:24px;
+      line-height:24px;
+      padding:0 5px
+      }
+    .iconfont{
+      font-size:12px;
+      }
+    }
+  .main{
+    width:592px;
+    .tt{
+      margin-bottom:15px;
+      b, .name{
+        font-weight:bold;
+        .inline-block;
+        float:left;
+        }
+      b{
+        color:#999;
+        margin-right:5px;
+        }
+      .name{
+        color:#3bafda;
+        &:hover{
+          color:@color-hover-blue;
+          }
+        }
+      .d-action{
+        float:right;
+        height:20px;
+        line-height:20px;
+        span{
+          color:#999;
+          }
+        i{
+          color:#ed5565;
+          margin-right:10px;
+          cursor:pointer;
+          }
+        }
+      }
+    .hot-content{
+      color:#333;
+      line-height:1.6em;
+      }
+    }
+  //赞扬
+  .supported{
+    font-weight:600;
+    border:1px solid #41aed6;
+    background:#41aed6;
+    color:white;
+    .rounded-corners(4px);
+    }
+  }
+
+.hot-topic-pop{
+  width:700px;
+  //height: 180px;
+  background:white;
+  padding:20px;
+  .title{
+    margin-bottom:15px;
+    color:#999;
+    }
+  .dy-result{
+    margin-bottom:15px;
+    }
+  .btn{
+    .dy-btn{
+      height:30px;
+      &:nth-child(1){
+        margin-right:10px;
+        }
+      }
+    }
+  }
+
+// 任教历程
+.my-history{
+  .process-timeline{
+    content:"";
+    margin-left:0;
+    .background-image('index/my-history.png', repeat-x, transparent);
+    height:124px;
+    background-position:center center;
+    display:block;
+    }
+  .process-row{
+    display:inline-block;
+    width:220px;
+    float:left;
+    margin:0;
+    position:relative;
+    height:124px;
+    overflow:hidden;
+    .process-time{
+      position:absolute;
+      top:42%;
+      left:35.5%;
+      }
+    .process-time{
+      .time-con{
+        position:relative;
+        text-align:center;
+        .pic{
+          font-size:12px;
+          .rounded-corners(4px);
+          padding:0 3px;
+          position:absolute;
+          .inline-block;
+          z-index:1;
+          width:34px;
+          top:47px;
+          text-align:left;
+          overflow:hidden;
+          left:7px;
+          height:16px;
+          line-height:16px;
+          color:#999;
+          border:1px solid #ccc;
+          }
+        .school-name{
+          position:absolute;
+          z-index:10;
+          font-size:16px;
+          top:26px;
+          width:138px;
+          font-weight:700;
+          text-align:left;
+          padding:0 5px 0;
+          height:18px;
+          overflow:hidden;
+          a{
+            color:#666;
+            }
+          }
+        .logoimg{
+          position:absolute;
+          margin-top:29px;
+          margin-left:-44px;
+          width:40px;
+          height:40px;
+          z-index:5;
+          }
+        }
+      }
+    .process-noyear{
+      position:absolute;
+      top:17%;
+      width:200px;
+      text-align:center;
+      font-size:20px;
+      height:24px;
+      line-height:24px;
+      span{
+        background:#ccc;
+        .rounded-corners(4px);
+        font-size:14px;
+        color:#fff;
+        font-weight:bold;
+        padding:0 10px;
+        .inline-block;
+        height:24px;
+        line-height:24px;
+        &:before{
+          content:' ';
+          .angle-bottom(8px, #ccc, 8px);
+          position:absolute;
+          bottom:-8px;
+          left:50%;
+          margin-left:-8px;
+          }
+        &:after{
+          content:' ';
+          position:absolute;
+          bottom:-22px;
+          left:50%;
+          margin-left:-5px;
+          width:10px;
+          height:10px;
+          .rounded-corners(50%);
+          background:#ccc;
+          }
+        }
+      }
+    .process-content{
+      padding-bottom:40px;
+      h2{
+        font-size:16px;
+        text-align:center;
+        }
+      p{
+        text-indent:0 !important;
+        font-size:14px !important;
+        height:180px;
+        overflow:hidden;
+        color:#888;
+        white-space:normal;
+        }
+      }
+    &:nth-child(even) .process-time{
+      top:-16%;
+      }
+    &:nth-child(even) .process-noyear{
+      top:64%;
+      span{
+        &:before{
+          bottom:22px;
+          .angle-top(8px, #ccc, 8px);
+          }
+        &:after{
+          bottom:36px;
+          }
+        }
+      }
+    &:last-child{
+      .process-noyear{
+        span{
+          background:#3bafda;
+          &:before{
+            border-color:#3bafda transparent transparent;
+            }
+          &:after{
+            background:#3bafda;
+            }
+          }
+        }
+      .time-con .school-name{
+        a{
+          color:#3bafda;
+          }
+        }
+
+      }
+    .no-direction{
+      text-align:center;
+      top:50px;
+      .rounded-corners(4px);
+      background:#eee;
+      color:#999;
+      font-weight:bold;
+      position:absolute;
+      width:150px;
+      height:24px;
+      line-height:24px;
+      a{
+        .inline-block;
+        margin-left:8px;
+        }
+      }
+    .time-con{
+      .pic{
+        color:#999;
+        border:1px solid #ccc;
+        }
+      }
+    &.d-target{
+      .process-noyear{
+        .iconfont{
+          margin:0 5px 0 10px;
+          }
+        span{
+          background:#f37c88;
+          &:before{
+            border-color:transparent transparent #f37c88 transparent;
+            }
+          &:after{
+            background:#f37c88;
+            }
+          }
+        }
+      .time-con{
+        .school-name{
+          a{
+            color:#666;
+            }
+          }
+        }
+      }
+    &.d-current{
+      .process-noyear{
+        span{
+          background:#3bafda;
+          &:before{
+            border-color:#3bafda transparent transparent;
+
+            }
+          &:after{
+            background:#3bafda;
+            }
+          }
+        }
+      .time-con{
+        .school-name{
+          a{
+            color:#666;
+            }
+          }
+        }
+      }
+    }
+  }
+
+.recent-visit, .user-tool, .famous-teacher, .my-group, .sinterest-student, .often{
+  padding:15px;
+  margin-bottom:20px;
+  background:white;
+  h2.title{
+    color:#666;
+    font-weight:bold;
+    font-size:16px;
+    padding-left:15px;
+    border-left:5px solid #ed5565;
+    margin-bottom:15px;
+    margin-left:-15px;
+    }
+  }
+
+// 我的圈子
+.my-group{
+  //height: 310px;
+  .new-actives{
+    height:auto;
+    }
+  .new-actives .tab-bd{
+    height:auto;
+    ul{
+      height:auto;
+      }
+    }
+  .note-group{
+    margin-top:53px;
+    .dy-icon-none{
+      font-size:50px;
+      margin-bottom:30px;
+      color:#dcdcdc;
+      display:block;
+      }
+    P{
+      font-size:18px;
+      color:#ccc;
+      margin-bottom:30px;
+      }
+    .btn{
+      a:nth-child(1){
+        margin-right:20px;
+        }
+      }
+    }
+  .bottom{
+    a{
+      .inline-block;
+      margin-left:20px;
+      }
+    }
+  }
+
+// 应用中心
+.user-tool{
+  background:white;
+  padding:20px 15px;
+  .ul-list{
+    li{
+      float:left;
+      width:82px;
+      a{
+        border:1px solid @color-default;
+        .transition(all .2s ease);
+        color:#999;
+        text-align:center;
+        display:block;
+        padding:15px 0;
+        span{
+          display:block;
+          margin-top:15px;
+          }
+        &:hover{
+          span{
+            color:@color-hover-blue;
+            }
+          }
+        .iconfont{
+          font-size:24px;
+          color:white;
+          position:relative;
+          -webkit-font-smoothing: none;
+          -webkit-text-stroke-width: 0;
+          &:before{
+            position:relative;
+            z-index:2;
+            }
+          &:after{
+            width:40px;
+            height:40px;
+            position:absolute;
+            top:-8px;
+            left:-9px;
+            content:'';
+            z-index:1;
+            background:#4fc1e9;
+            .rounded-corners(50%);
+            }
+          }
+        /**
+        0. dy-icon-report-center  报表  教师 ||  学生
+        1.Student
+          dy-icon-edit           考试中心
+          dy-icon-chujuan        错题库
+         2.teacher
+           dy-icon-marking-center     批阅中心
+           dy-icon-shijuanku          试卷库
+           dy-icon-book-online        在线出卷
+        **/
+        .dy-icon-marking-center{
+          &:after{
+            background:#48cfad;
+            }
+          }
+        .dy-icon-shijuanku{
+          &:after{
+            background:#fc6e51;
+            }
+          }
+        .dy-icon-educational-management{
+          &:after{
+            background:#3bafda;
+            }
+          }
+        .dy-icon-edit{
+          &:after{
+            background:#3bafda;
+            }
+          }
+        .dy-icon-chujuan{
+          &:after{
+            background:#48cfad;
+            }
+          }
+        .dy-icon-xuexi{
+          &:after{
+            background:#48cfad;
+            }
+          }
+        .dy-icon-report-center{
+          &:after{
+            background:#fc6e51;
+            }
+          }
+        .dy-icon-book-online{
+          &:after{
+            background:#ffbf4e;
+            }
+          }
+        .dy-icon-shijuanku{
+          &:after{
+            background:#f78d5e;
+            }
+          }
+
+        }
+      }
+    }
+
+  }
+
+// 最近来访
+.recent-visit{
+  h2.title{
+    margin-bottom:10px;
+    }
+  .content{
+    a{
+      display:block;
+      height:36px;
+      width:36px;
+      float:left;
+      margin:10px 7px;
+      position:relative;
+      }
+    img{
+      display:block;
+      .rounded-corners(50%);
+      }
+    }
+  }
+
+.sinterest-student{
+  .content{
+    a{
+      .inline-block;
+      float:left;
+      width:50px;
+      img{
+        display:block;
+        margin:0 auto 10px;
+        }
+      span{
+        display:block;
+        color:#666;
+        text-align:center;
+        }
+      }
+    }
+  }
+
+// 校友们常去逛的学校
+.often{
+  height:240px;
+  overflow:hidden;
+  .content{
+    padding-left:8px;
+    li{
+      a:hover{
+        p{
+          color:@color-hover-blue;
+          }
+        }
+      margin-bottom:20px;
+      span{
+        height:16px;
+        width:16px;
+        text-align:center;
+        line-height:16px;
+        .inline-block;
+        font-size:12px;
+        .rounded-corners(50%);
+        margin-right:10px;
+        background:#eeeeee;
+        color:#666;
+        float:left;
+        }
+      p{
+        overflow:hidden;
+        float:left;
+        width:216px;
+        height:15px;
+        }
+      &:nth-child(1){
+        span{
+          background:#ed5565;
+          color:white;
+          }
+        }
+      &:nth-child(2){
+        span{
+          background:#3bafda;
+          color:white;
+          }
+        }
+      &:nth-child(3){
+        span{
+          background:#20c8ae;
+          color:white;
+          }
+        }
+      }
+    }
+  }
+
+//完善历程  pop my-history
+.my-history-pop{
+  background:white;
+  width:450px;
+  max-height:400px;
+  overflow-y:auto;
+  padding:15px 30px;
+  .con-list{
+    margin-bottom:15px;
+    position:relative;
+    padding-left:45px;
+    padding-bottom:15px;
+    border-bottom:1px solid #eee;
+    &:first-child{
+      border-width:2px;
+      border-color:#3bafda;
+      }
+    &:last-child{
+      border-bottom:none;
+      }
+    img{
+      position:absolute;
+      top:10px;
+      left:0;
+      }
+    .current-class{
+      float:right;
+      font-weight:normal;
+      position:absolute;
+      top:6px;
+      right:2px;
+      .iconfont{
+        margin:0 0 0 15px;
+        }
+      li{
+        float:left;
+        position:relative;
+        top:6px;
+        color:#d0d0d0;
+        cursor:pointer;
+        &.on,
+        &:hover{
+          color:#3bafda;
+          }
+        }
+      }
+    strong, span{
+      .inline-block;
+      vertical-align:middle;
+      }
+    span.name{
+      overflow:hidden;
+      width:166px;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+      -o-text-overflow:ellipsis;
+      overflow:hidden;
+      }
+    .head-text{
+      color:#666666;
+      font-weight:bold;
+      margin-right:10px;
+      }
+    .school-name{
+      color:#666;
+      margin-right:10px;
+      height:20px;
+      font-weight:bold;
+      line-height:20px;
+      margin-bottom:18px;
+      max-width:10em;
+      position:relative;
+      top:10px;
+      cursor:pointer;
+      }
+    .xue-duan{
+      font-weight:normal;
+      position:relative;
+      top:0;
+      color:white;
+      .rounded-corners(4px);
+      padding:0 3px;
+      .inline-block;
+      z-index:1;
+      width:34px;
+      overflow:hidden;
+      height:20px;
+      line-height:20px;
+      font-size:12px;
+      text-align:center;
+      }
+    .d-current-agency{
+      position:absolute;
+      top:9px;
+      right:34px;
+      color:#ed5565;
+      font-weight:normal;
+      font-size:12px;
+      .iconfont{
+        position:relative;
+        top:2px;
+        }
+      }
+    .time-class{
+      color:#666;
+      }
+    //学校编辑
+    .edit-box{
+      margin-top:15px;
+      padding:15px;
+      border:1px dashed #4fc1e9;
+      .d-time{
+        height:32px;
+        text-align:center;
+        width:100px;
+        }
+      .btn{
+        margin-top:12px;
+        }
+      /*搜索学校*/
+      .input-part{
+        width:200px;
+        input{
+          height:32px;
+          line-height:32px;
+          }
+        .iconfont{
+          color:#3bafda;
+          }
+        button{
+          height:30px;
+          line-height:30px;
+          top:1px;
+          }
+        }
+      .edit-date{
+        margin-top:12px;
+        color:@d-color-gray;
+        }
+      .checkbox-group{
+        top:2px;
+        left:-16px;
+        position:relative;
+        span{
+          font-size:12px;
+          color:#666;
+          position:relative;
+          top:-2px;
+          }
+        }
+      }
+    .add-school{
+      color:#3bafda;
+      cursor:pointer;
+      &:hover{
+        color:@color-hover-blue;
+        }
+      i{
+        font-size:16px;
+        .inline-block;
+        margin-right:3px;
+        }
+      }
+    }
+  }
+
+.dy-btn-grey{
+  background-color:@border-color;
+  border-color:@border-color;
+  }

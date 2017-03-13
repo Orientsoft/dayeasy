@@ -1,0 +1,52 @@
+﻿@using DayEasy.Contracts.Dtos.Examination
+@using DayEasy.Utility.Extend
+@model  ExamRanksDto
+
+@{
+    ViewBag.Title = Model.Name;
+    var subjects = (List<ExamSubjectDto>)ViewData["subjects"];
+}
+<div class="dy-ea-joints">
+    <div class="dy-title">
+        <h2>@Model.Name</h2>
+    </div>
+    @Html.Partial("_JointList", subjects)
+</div>
+<div class="dy-ea-ranks" data-eid="@ViewBag.ExamId" data-name="@Model.Name">
+    <div class="dy-ranks-header">
+        <ul class="dy-ranks-nav">
+            <li class="active">
+                <a href="javascript:void(0)">年级排名</a>
+                <s></s>
+            </li>
+            <li class="split">
+                <a href="javascript:void(0)">班级分析</a>
+                <s></s>
+            </li>
+            <li class="split">
+                <a href="javascript:void(0)">学科分析</a>
+                <s></s>
+            </li>
+        </ul>
+        <div class="dy-export">
+            <button type="button" class="dy-btn dy-btn-info b-export">
+                <i class="iconfont dy-icon-download" style="margin-right: 4px"></i>Excel导出
+            </button>
+        </div>
+    </div>
+    <div class="dy-ranks-panel">
+        @Html.Partial("_AnalysisGrade", Model)
+    </div>
+    <div class="dy-ranks-panel hide">
+        @Html.Partial("_AnalysisClass", Model)
+    </div>
+    <div class="dy-ranks-panel hide">
+        @Html.Partial("_AnalysisSubject", Model)
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/ea/page-ranks.css")
+}
+@section js{
+    @Html.CombineLink("v3/js/ea/page-rank.js")
+}

@@ -1,0 +1,59 @@
+﻿@using DayEasy.Application.Services.Dto
+@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Helper
+@model DayEasy.Contracts.Dtos.Publish.RecommendTutorDto
+
+@{
+    ViewBag.Title = "相关辅导";
+    const string defFront = "http://file.dayeasy.net//image/default/group/{0}.png";
+    var dto = ViewData["workDto"] as VWorkDto;
+}
+
+<div class="dy-main">
+    <div class="coach-bxo w1200 f-cb">
+        @Html.Partial("_DetailHeader", dto)
+        <div class="page-main-con">
+            <h3 class="section-title mb15">相关辅导</h3>
+            @if (Model.Tutors == null || Model.Tutors.Count < 1)
+            {
+                <div class="page-main-con dy-nothing">
+                    <i class="iconfont dy-icon-emoji02"></i>没有找到相关辅导！
+                </div>
+            }
+            else
+            {
+                <ul class="ul-list f-cb">
+                    @foreach (var tutor in Model.Tutors)
+                    {
+                        var front = tutor.FrontCover;
+                        if (string.IsNullOrWhiteSpace(front))
+                        {
+                            var index = RegexHelper.Match(tutor.TutorId, "([1-5])");
+                            if (string.IsNullOrWhiteSpace(index))
+                            {
+                                index = "1";
+                            }
+                            front = defFront.FormatWith(index.PadLeft(2, '0'));
+                        }
+                        <li>
+                            <a href="@Url.Action("TutorItem", "StudentWork", new {id = tutor.TutorId})" target="_blank" title="@tutor.TutorName">
+                                <img src="@Html.MakeThumb(front, "200x150")" width="200" height="150" alt=""/>
+                                <div class="d-tutor-info">
+                                    <h3>@tutor.TutorName</h3>
+                                    <p><span class="span-bg">得一精品</span></p>
+                                    <p>@tutor.UsedCount 位同学已使用</p>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
+@section style{
+    @Html.CombineLink("v3/css/testpaper/coach.css")
+}
+@section script{
+    @Html.CombineLink("v3/js/homework/work-base.js")
+}

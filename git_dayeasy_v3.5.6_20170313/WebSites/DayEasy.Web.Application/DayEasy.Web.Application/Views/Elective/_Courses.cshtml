@@ -1,0 +1,60 @@
+﻿<script type="text/html" id="courseListTpl">
+    <div class="dy-table-wrap">
+        <div class="dy-table-head">
+            <table class="dy-table">
+                <colgroup>
+                    <col />
+                    <col style="width: 150px" />
+                    <col style="width: 200px" />
+                    <col style="width: 150px" />
+                    <col style="width: 200px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="f-tal">课程名称</th>
+                        <th>任课教师</th>
+                        <th>上课地点</th>
+                        <th>限报人数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="dy-table-body">
+            <table class="dy-table">
+                <colgroup>
+                    <col />
+                    <col style="width: 150px" />
+                    <col style="width: 200px" />
+                    <col style="width: 150px" />
+                    <col style="width: 200px" />
+                </colgroup>
+                <tbody>
+                    {{each $data as item}}
+                    <tr data-cid="{{item.id}}">
+                        <td class="f-tal">{{item.name}}</td>
+                        <td>{{item.teacher}}</td>
+                        <td>{{item.address}}</td>
+                        <td>{{item.capacity}}</td>
+                        <td>
+                            <a href="#" class="btn-class-range">全部班级</a><s></s>
+                            <a href="#" class="btn-delete text-danger">删除</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="dy-table-foot">
+            <table class="dy-table">
+                <tfoot>
+                    <tr>
+                        <th colspan="8">
+                            共<b class="total-num">{{$data.length}}</b>条数据
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</script>

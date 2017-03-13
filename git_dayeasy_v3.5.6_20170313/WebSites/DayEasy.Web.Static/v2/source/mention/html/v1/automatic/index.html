@@ -1,0 +1,83 @@
+<!doctype html>
+	<html lang="zh-cn">
+	<head>
+		<meta charset="UTF-8">
+		<title>DayEasy</title>
+		<link href="http://static.dayeasy.dev/source/css/font-awesome.css" rel="stylesheet" media="all" />
+		<link href="http://static.dayeasy.dev/source/css/bootstrap.css" rel="stylesheet" media="all" />
+		<link href="http://static.dayeasy.dev/source/css/site-base.css" rel="stylesheet" media="all" />
+		<link rel="stylesheet" href="http://static.dayeasy.dev/source/mention/style/css/v1/portal/automatic/page.css">
+		<!-- <link rel="stylesheet" href="http://static.dayeasy.dev/v1/css/portal/automatic/page.min.css"> -->
+		<script src="http://static.dayeasy.dev/source/js/jquery.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div class="automatic">
+			<div class="g-bd">
+				<div class="g-doc">
+					<h3 class="m-hd">选择需要的试卷模板:</h3>
+					<div class="m-bd after">
+						<ul class="m-lst after f-fl">
+							<li class="f-show">
+								<div class="u-lst-1  u-lst">
+									<span></span>
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>
+								<div class="u-lst-3 u-lst">
+									<i class="icon-hande icon-yes"></i>
+								</div>
+								<p>空白卷</p>
+							</li>
+							<li class="ml60 f-show">
+								<div class="u-lst-2 u-lst">
+									<em class="a-em">A</em><em class="b-em">B</em>
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>
+								<div class="u-lst-3 u-lst">
+									<i class="icon-hande icon-yes"></i>
+								</div>
+								<p>AB卷</p>
+							</li>
+						</ul>
+						<!-- amend  2015-05-14 16:53:19-->
+						<div class="m-lst-1 f-fr">
+							<ul class="u-ul ul-list-1">
+								<li>当前模板：<span class="s-fc">空白卷</span></li>
+								<li>用于平时测验</li>
+							</ul>
+							<ul class="u-ul ul-list-2">
+								<li>当前模板：<span class="s-fc">AB卷</span></li>
+								<li>分为A卷和B卷，根据大型考试设置的模板。</li>
+							</ul>
+						</div>
+						<!-- End -->
+					</div>
+					<h3 class="m-hd">选择组卷方式:</h3>
+					<div class="m-ft">
+						<a class="btn btn-warning" href="">手工出卷</a>
+						<a class="btn btn-warning" href="">自动出卷</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<script>
+	$(function() {
+			var  $oul    = $('.automatic .m-bd .m-lst-1').find('ul'),
+				 $obtnli = $('.automatic .m-bd .m-lst').find('li');
+				// 初始化样式
+			 	$oul.eq(0).css('display', 'block');
+				$obtnli.click(function(event) {
+					$oul.eq($(this).index()).css('display', 'block').siblings().css('display', 'none');
+				});
+  
+
+	});
+
+	</script>
+
+	</body>
+	</html>	

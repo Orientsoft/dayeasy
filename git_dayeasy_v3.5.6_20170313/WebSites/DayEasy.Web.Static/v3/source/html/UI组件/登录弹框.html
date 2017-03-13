@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>登录弹框</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="/v3/css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/uiparts/parts-login.css"/>
+
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="parts-login f-cb lg-sliders ">
+            <div class="lg-form-wrap">
+                <div class="lg-form-box f-cb">
+                    <form  class="lg-form" role="form">
+                        <div class="lg-form-group">
+                            <div class="error-info error-show"> <i class="iconfont dy-icon-warningsj"></i>账号或密码错误</div>
+                            <div class="lg-input-group">
+                                <span class="lg-icon">
+                                    <i class="iconfont dy-icon-49"></i>
+                                </span>
+                                <input type="email" name="account" class="lg-text error-text"  placeholder="请输入邮箱账号  /  手机账号">
+                            </div>
+                        </div>
+                        <div class="lg-form-group">
+                            <div class="lg-input-group">
+                                <span class="lg-icon">
+                                    <i class="iconfont dy-icon-mima"></i>
+                                </span>
+                                <input type="password" name="pwd" class="lg-text error-text"  placeholder="请输入密码">
+                            </div>
+
+                        </div>
+                        <div class="lg-form-group mt20">
+                            <div class="lg-vcode">
+                                <input type="text" name="vcode" class="lg-text"  placeholder="请输入验证码">
+                                <img src="/v3/image/temp/vcode.gif"  alt="点击刷新" title="点击刷新">
+
+                            </div>
+                        </div>
+                        <div class="lg-form-group pull-right f-cb">
+                            <a href="" class="f-fl lg-password">忘记密码?</a>
+                            <a href="" class="f-fr lg-href">立即注册 &gt;</a>
+
+                        </div>
+                        <div class="lg-form-group mb20">
+                            <button type="submit" class="btn">
+                                <!-- ngIf: logining -->
+                                <span>登录</span> <!--登录中...-->
+                            </button>
+                        </div>
+                        <div class="lg-form-group lg-plat">
+                            第三方登录：
+                            <a href="javascript:void(0)" title="腾讯QQ">
+                                <i class="iconfont dy-icon-31"></i>
+                                <i class="iconfont dy-icon-41"></i>
+                            </a>
+
+
+                        </div>
+                        <div class="error-info">
+                            <div class="error-content">
+                                <i class="fa fa-warning"></i>
+                                <span></span>
+                                <a class=""></a>
+                            </div>
+                            <div class="pull-right error-angle"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@@include('./footer.html')
+
+</body>
+</html>

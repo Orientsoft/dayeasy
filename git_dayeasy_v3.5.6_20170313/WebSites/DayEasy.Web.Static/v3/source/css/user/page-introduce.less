@@ -1,0 +1,142 @@
+@import "../../less/base";
+@import "_full-base";
+
+/* Style for our header texts
+	* --------------------------------------- */
+.dy-wrap {
+  .background-image('index/bg0.png', repeat-y, transparent);
+  position: relative;
+}
+
+.introduce-oneself {
+  .absolute-center(530px, 580px);
+  .head-title {
+    margin-bottom: 40px;
+    text-align: center;
+    h1 {
+      font-size: 30px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+      color: #999;
+    }
+  }
+  .wrap-base {
+    margin-bottom: 20px;
+    h2 {
+      color: #999;
+      margin-bottom: 10px;
+    }
+    li {
+      border: 1px solid #3bafda;
+      float: left;
+      color: #3bafda;
+      margin-right: 10px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 16px;
+      &:hover,
+      &.on {
+        color: white;
+        background: #3bafda;
+      }
+    }
+  }
+  .wrap-box-1, .wrap-box-2 {
+    li {
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+  .wrap-box-1 {
+    li:nth-child(1) {
+      width: 180px;
+    }
+    li:nth-child(2) {
+      width: 140px;
+    }
+    li:nth-child(3) {
+      width: 170px;
+    }
+  }
+  .wrap-box-2 {
+    li:nth-child(1), li:nth-child(2) {
+      width: 150px;
+    }
+    li:nth-child(3) {
+      width: 190px;
+    }
+  }
+  .wrap-box-3 {
+    @perWidth: 120px;
+    height: 215px;
+    li {
+      margin-bottom: 10px;
+      overflow: hidden;
+      width: @perWidth;
+      text-align: center;
+      position: absolute;
+    }
+    li:nth-child(2n+1) {
+      height: @perWidth;
+      padding: 50px 15px;
+    }
+    li:nth-child(2n) {
+      height: @perWidth/2;
+      padding: 20px 15px;
+    }
+    li:nth-child(1) {
+      top: 0;
+      left: 0;
+    }
+    li:nth-child(2) {
+      top: @perWidth+10;
+      left: 0;
+    }
+    li:nth-child(3) {
+      top: @perWidth/2+10;
+      left: @perWidth+10;
+    }
+    li:nth-child(4) {
+      top: 0;
+      left: @perWidth+10;
+    }
+    li:nth-child(5) {
+      top: 0;
+      left: @perWidth*2+20;
+    }
+    li:nth-child(6) {
+      top: @perWidth+10;
+      left: @perWidth*2+20;
+    }
+    li:nth-child(7) {
+      top: @perWidth/2+10;
+      left: @perWidth*3+30;
+    }
+    li:nth-child(8) {
+      top: 0;
+      left: @perWidth*3+30;
+    }
+  }
+  .wrap-box-4 {
+    li {
+      height: 80px;
+      line-height: 80px;
+    }
+    li:nth-child(1) {
+      width: 180px;
+      padding: 19px 40px;
+      line-height: 24px;
+    }
+    li:nth-child(2) {
+      width: 140px;
+    }
+    li:nth-child(3) {
+      width: 170px;
+      padding: 19px 35px;
+      line-height: 24px;
+    }
+  }
+}

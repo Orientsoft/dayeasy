@@ -1,0 +1,42 @@
+﻿@import "../base";
+@import "base-center";
+//<!--**
+//  左侧-菜单栏
+//**-->
+
+.side-layer {
+  margin: 30px 12px;
+  font-size: 14px;
+  h2 {
+    position: relative;
+    text-align: center;
+    font-size: 14px;
+    color: #87b2c7;
+    margin-bottom: 15px;
+  }
+  ul {
+    margin-bottom: 5px;
+    li {
+      a {
+        padding: 10px 0;
+        text-align: center;
+        color: #4d6e80;
+        margin-bottom: 10px;
+        display: block;
+        &:hover {
+          text-decoration: none;
+          font-weight: bold;
+          color: #4c6e80;
+          background: #b1e3fc;
+        }
+      }
+
+    }
+    li.z-crt a {
+      .border-radius(3px);
+      font-weight: bold;
+      color: #4c6e80;
+      background: #b1e3fc;
+    }
+  }
+}

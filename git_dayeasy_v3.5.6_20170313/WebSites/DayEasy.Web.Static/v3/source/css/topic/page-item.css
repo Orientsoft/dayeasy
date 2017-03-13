@@ -1,0 +1,46 @@
+/**
+  帖子内容
+**/
+#topic-content {
+  /*
+    段落
+  */
+  /*
+    表格
+  */
+}
+#topic-content > p {
+  margin: 15px 0;
+  line-height: 2em;
+  font-weight: 400;
+}
+#topic-content > table {
+  width: 100%;
+  margin: 15px 0;
+}
+#topic-content > table thead,
+#topic-content > table tfoot,
+#topic-content > table .firstRow {
+  background-color: #f9f9f9;
+}
+#topic-content > table thead,
+#topic-content > table .firstRow {
+  font-weight: 500;
+}
+#topic-content > table td {
+  border: solid 1px #eee;
+  padding: 5px 15px;
+}
+#topic-content > table td p {
+  margin: 0;
+}
+#topic-content a:link,
+#topic-content a:active,
+#topic-content a:visited {
+  color: #36aaea;
+  text-decoration: none;
+}
+#topic-content a:hover {
+  color: #1483bf;
+  text-decoration: underline;
+}

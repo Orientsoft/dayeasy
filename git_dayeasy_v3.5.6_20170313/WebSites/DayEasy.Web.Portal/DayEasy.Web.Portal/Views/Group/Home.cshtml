@@ -1,0 +1,112 @@
+﻿@using DayEasy.Contracts.Dtos
+@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model List<GroupDto>
+@{
+    ViewBag.Title = "我的圈子";
+    var user = (UserDto)ViewData["User"];
+    var apps = (List<ApplicationDto>)ViewData["Apps"];
+}
+<script>singer.config({ global: { goTop: false } });</script>
+
+<div class="not-added w1200 f-cb">
+    <div class="cont-min f-fl">
+        <div class="dg-panel">
+            <h2 class="h2-circle">
+                我的圈子
+                <span class="f-fr search">
+                    <a href="@Url.Action("Find","Group")"><i class="iconfont dy-icon-26"></i>查找圈子</a>
+                    @if (user.IsTeacher())
+                    {
+                        <a href="@Url.Action("Create","Group")"><i class="iconfont dy-icon-59"></i>创建圈子</a>
+                    }
+                </span>
+            </h2>
+            @GroupListHelper(Model, user.Id)
+        </div>
+        @if (user.IsParents())
+        {
+            var childGroupds = (List<GroupDto>)(ViewData["childGroups"] ?? new List<GroupDto>());
+            var child = ViewData["Child"] as RelationUserDto;
+            <div class="dg-panel">
+                <h2 class="h2-circle">@(child == null ? "孩子" : child.Name)的圈子</h2>
+                @GroupListHelper(childGroupds, child == null ? 0 : child.Id, true)
+            </div>
+        }
+    </div>
+
+    <div class="cont-side f-fr">
+        <!--用户名称-->
+        <div class="user-name mb30">
+            <div class="user-bg">
+                <img width="120" height="120" src="@Html.MakeThumb(user.Avatar,"120x120")" alt="" />
+            </div>
+            <a class="head-img" href="@Consts.Config.AccountSite">
+                <img width="100" height="100" src="@Html.MakeThumb(user.Avatar,"100x100")" alt="" />
+            </a>
+            <strong>@user.Name</strong>
+            <p class="f-tac">NO. @user.Code / @user.RoleDesc</p>
+        </div>
+        <!--用户工具-->
+        @if (!apps.IsNullOrEmpty())
+        {
+            <div class="user-tool">
+                <ul class="ul-list f-cb">
+                    @foreach (var app in apps)
+                    {
+                        <li>
+                            <a href="@app.Url">
+                                <i class="iconfont @app.Icon"></i>
+                                <span>@app.Text</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/circle/page-home.css")
+}
+@helper GroupListHelper(List<GroupDto> groups, long userId, bool isParent = false)
+{
+    if (groups.IsNullOrEmpty())
+    {
+        <!--没有圈子-->
+        <div class="dy-nothing">
+            <i class="iconfont dy-icon-emoji02"></i>
+            @if (isParent)
+            {
+                if (userId <= 0)
+                {
+                    //未绑定
+                    @:你还未绑定学生帐号，你可以 <a href="@(Consts.Config.AccountSite + "/bind/child")">绑定学生</a>。
+
+                }
+                else
+                {
+                    @:暂时未加入任何圈子。
+                }
+            }
+            else
+            {
+                @:你还没有加入任何圈子，你可以 <a href="@Url.Action("Find", "Group")">查找圈子</a>。
+            }
+        </div>
+    }
+    else
+    {
+        var list = groups.GroupBy(t => t.Type);
+        foreach (var groupList in list.OrderBy(t => t.Key))
+        {
+            <dl class="d-group-list">
+                <dt><img src="@Url.StaticLink("v3/image/circle/g_avatar0"+ (groupList.Key+4) + ".png")" />@(groupList.Key.GetEnumText<GroupType, byte>())</dt>
+                @GroupHelper.ShowGroupList(groupList.ToList(), userId, false)
+            </dl>
+        }
+    }
+}

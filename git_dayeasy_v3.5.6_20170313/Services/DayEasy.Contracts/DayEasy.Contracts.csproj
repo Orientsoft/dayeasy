@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9448102C-5E14-4978-9F1C-4DF2A2C192B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DayEasy.Contracts</RootNamespace>
+    <AssemblyName>DayEasy.Contracts</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\_service\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\_service\DayEasy.Contracts.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.0.4.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.AutoMapper">
+      <HintPath>D:\_service\DayEasy.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Core">
+      <HintPath>..\..\_service\DayEasy.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Utility">
+      <HintPath>..\..\_service\DayEasy.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dtos\AdvertDto.cs" />
+    <Compile Include="Dtos\AgencyDto.cs" />
+    <Compile Include="Dtos\AnswerShareDto.cs" />
+    <Compile Include="Dtos\DRegion.cs" />
+    <Compile Include="Dtos\Elective\CourseDto.cs" />
+    <Compile Include="Dtos\Elective\CourseInputDto.cs" />
+    <Compile Include="Dtos\Elective\ElectiveBatchDto.cs" />
+    <Compile Include="Dtos\Elective\ElectiveDetailDto.cs" />
+    <Compile Include="Dtos\Elective\ElectiveInputDto.cs" />
+    <Compile Include="Dtos\ErrorQuestion\DErrorQuestionDto.cs" />
+    <Compile Include="Dtos\ErrorQuestion\ErrorQuestionDto.cs" />
+    <Compile Include="Dtos\ErrorQuestion\ErrorQuestionSearchDto.cs" />
+    <Compile Include="Dtos\ErrorQuestion\ReasonDto.cs" />
+    <Compile Include="Dtos\Examination\AnalysisDto.cs" />
+    <Compile Include="Dtos\Examination\AnalysisInputDto.cs" />
+    <Compile Include="Dtos\Examination\ClassAnalysisDto.cs" />
+    <Compile Include="Dtos\Examination\ClassAnalysisLayerInputDto.cs" />
+    <Compile Include="Dtos\Examination\DExamSubjectDto.cs" />
+    <Compile Include="Dtos\Examination\ExamSubjectDto.cs" />
+    <Compile Include="Dtos\Examination\ExamRanksDto.cs" />
+    <Compile Include="Dtos\Examination\ExamStudentDto.cs" />
+    <Compile Include="Dtos\Examination\ExamUpdateDto.cs" />
+    <Compile Include="Dtos\Examination\JointSearchDto.cs" />
+    <Compile Include="Dtos\Examination\ScoreRateDto.cs" />
+    <Compile Include="Dtos\Examination\StudentRankDto.cs" />
+    <Compile Include="Dtos\Examination\StudentSummaryDto.cs" />
+    <Compile Include="Dtos\Examination\SubjectAnalysisDto.cs" />
+    <Compile Include="Dtos\Examination\SubjectAnalysisInputDto.cs" />
+    <Compile Include="Dtos\Examination\UnionExamDto.cs" />
+    <Compile Include="Dtos\Examination\UnionSourceDto.cs" />
+    <Compile Include="Dtos\Group\BatchCreateGroupsDto.cs" />
+    <Compile Include="Dtos\Group\BatchTeacherDto.cs" />
+    <Compile Include="Dtos\Group\CheckMemberDto.cs" />
+    <Compile Include="Dtos\Group\ClassGroupDto.cs" />
+    <Compile Include="Dtos\Group\DGroupDto.cs" />
+    <Compile Include="Dtos\Group\GroupDto.cs" />
+    <Compile Include="Dtos\Group\ImportMessageDto.cs" />
+    <Compile Include="Dtos\Group\MemberDto.cs" />
+    <Compile Include="Dtos\Group\ColleagueGroupDto.cs" />
+    <Compile Include="Dtos\Group\OutGroupMessage.cs" />
+    <Compile Include="Dtos\Group\PendingUserDto.cs" />
+    <Compile Include="Dtos\Group\SearchGroupDto.cs" />
+    <Compile Include="Dtos\Group\ShareGroupDto.cs" />
+    <Compile Include="Dtos\Group\UpdateGroupDto.cs" />
+    <Compile Include="Dtos\KnowledgeDto.cs" />
+    <Compile Include="Dtos\LearningMemo\LearningMemoDto.cs" />
+    <Compile Include="Dtos\LearningMemo\LikeDetailDto.cs" />
+    <Compile Include="Dtos\LearningMemo\MemoGroupDto.cs" />
+    <Compile Include="Dtos\LearningMemo\MemoUsageDto.cs" />
+    <Compile Include="Dtos\LearningMemo\ReviewDto.cs" />
+    <Compile Include="Dtos\LearningMemo\SpeechDto.cs" />
+    <Compile Include="Dtos\Marking\CompleteMarkingInputDto.cs" />
+    <Compile Include="Dtos\Marking\JoinMarkAreaDto.cs" />
+    <Compile Include="Dtos\Marking\JointBagDto.cs" />
+    <Compile Include="Dtos\Marking\JointGroupDto.cs" />
+    <Compile Include="Dtos\Marking\JointMarkingDto.cs" />
+    <Compile Include="Dtos\Marking\JointPictureSearchDto.cs" />
+    <Compile Include="Dtos\Marking\JointScheduleDto.cs" />
+    <Compile Include="Dtos\Marking\JointUsageDto.cs" />
+    <Compile Include="Dtos\Marking\Joint\DArea.cs" />
+    <Compile Include="Dtos\Marking\Joint\JDistributionDto.cs" />
+    <Compile Include="Dtos\Marking\Joint\JAllotDto.cs" />
+    <Compile Include="Dtos\Marking\Joint\JCombineDto.cs" />
+    <Compile Include="Dtos\Marking\Joint\JExceptionDto.cs" />
+    <Compile Include="Dtos\Marking\Joint\JMissionDto.cs" />
+    <Compile Include="Dtos\Marking\Joint\JPictureDto.cs" />
+    <Compile Include="Dtos\Marking\Joint\JSubmitDto.cs" />
+    <Compile Include="Dtos\Marking\MarkingAreaDto.cs" />
+    <Compile Include="Dtos\Marking\MarkingDataDto.cs" />
+    <Compile Include="Dtos\Marking\MarkingResultDto.cs" />
+    <Compile Include="Dtos\Marking\MkDetailDto.cs" />
+    <Compile Include="Dtos\Marking\MkQuestionDto.cs" />
+    <Compile Include="Dtos\Marking\MkResultDto.cs" />
+    <Compile Include="Dtos\Marking\MkSubmitDto.cs" />
+    <Compile Include="Dtos\Marking\MarkTaskDto.cs" />
+    <Compile Include="Dtos\Message\CommentDto.cs" />
+    <Compile Include="Dtos\Message\CommentResultDto.cs" />
+    <Compile Include="Dtos\Message\CommentSearchDto.cs" />
+    <Compile Include="Dtos\Message\DDynamicMessageDto.cs" />
+    <Compile Include="Dtos\Message\DynamicMessageResultDto.cs" />
+    <Compile Include="Dtos\Message\ExaminationMessageDto.cs" />
+    <Compile Include="Dtos\Message\JoinMarkingMessageDto.cs" />
+    <Compile Include="Dtos\Message\PaperDynamicMessageDto.cs" />
+    <Compile Include="Dtos\Message\SystemMessageSendDto.cs" />
+    <Compile Include="Dtos\Paper\AddQuestionDto.cs" />
+    <Compile Include="Dtos\Message\DynamicSearchDto.cs" />
+    <Compile Include="Dtos\Paper\KnowledgeQuestionsDto.cs" />
+    <Compile Include="Dtos\Paper\MakePaperDto.cs" />
+    <Compile Include="Dtos\Marking\MkPictureDto.cs" />
+    <Compile Include="Dtos\Paper\PaperAnswerDto.cs" />
+    <Compile Include="Dtos\Paper\PaperDetailDto.cs" />
+    <Compile Include="Dtos\Paper\NPaperDto.cs" />
+    <Compile Include="Dtos\Paper\PaperDto.cs" />
+    <Compile Include="Dtos\Paper\PublishPaperDto.cs" />
+    <Compile Include="Dtos\Paper\SearchPaperDto.cs" />
+    <Compile Include="Dtos\Paper\SearchTopicDto.cs" />
+    <Compile Include="Dtos\Message\DynamicSendDto.cs" />
+    <Compile Include="Dtos\Publish\KpAnalysisDto.cs" />
+    <Compile Include="Dtos\Publish\PublishModelDto.cs" />
+    <Compile Include="Dtos\Publish\RecommendTutorDto.cs" />
+    <Compile Include="Dtos\Publish\StudentScoreStatistic.cs" />
+    <Compile Include="Dtos\Publish\StudentWorksDto.cs" />
+    <Compile Include="Dtos\Publish\VariantQuDto.cs" />
+    <Compile Include="Dtos\Question\AnalysisDto.cs" />
+    <Compile Include="Dtos\Question\AnswerDto.cs" />
+    <Compile Include="Dtos\Question\ErrorQuestionKnowledgeDto.cs" />
+    <Compile Include="Dtos\Question\ErrorUserDto.cs" />
+    <Compile Include="Dtos\Question\QuestionDto.cs" />
+    <Compile Include="Dtos\Question\QuestionSortDto.cs" />
+    <Compile Include="Dtos\Question\QuestionTypeDto.cs" />
+    <Compile Include="Dtos\ErrorQuestion\SearchErrorQuestionDto.cs" />
+    <Compile Include="Dtos\Question\SearchQuestionDto.cs" />
+    <Compile Include="Dtos\Question\SmallQuestionDto.cs" />
+    <Compile Include="Dtos\SchoolBook\SchoolBookChapterDto.cs" />
+    <Compile Include="Dtos\SchoolBook\SchoolBookDto.cs" />
+    <Compile Include="Dtos\SearchKnowledgeDto.cs" />
+    <Compile Include="Dtos\Examination\ExamDto.cs" />
+    <Compile Include="Dtos\Statistic\Agency\AgencyExaminationMapDto.cs" />
+    <Compile Include="Dtos\Statistic\Agency\AgencyPortraitDto.cs" />
+    <Compile Include="Dtos\Statistic\Agency\AgencyRemedyDto.cs" />
+    <Compile Include="Dtos\Statistic\Agency\AgencySurveyDto.cs" />
+    <Compile Include="Dtos\Statistic\RefreshDto.cs" />
+    <Compile Include="Dtos\Statistic\ErrorQuestionStudentDto.cs" />
+    <Compile Include="Dtos\Statistic\GraspingDto.cs" />
+    <Compile Include="Dtos\Statistic\QuestionScoresDto.cs" />
+    <Compile Include="Dtos\Statistic\ReportSearchDto.cs" />
+    <Compile Include="Dtos\Statistic\ReportDto.cs" />
+    <Compile Include="Dtos\Statistic\SearchErrorTopTenDto.cs" />
+    <Compile Include="Dtos\Statistic\KpStatisticDataDto.cs" />
+    <Compile Include="Dtos\Statistic\StatisticsSurveyDto.cs" />
+    <Compile Include="Dtos\Statistic\StudentCompareDto.cs" />
+    <Compile Include="Dtos\Statistic\StudentKpStatisticDto.cs" />
+    <Compile Include="Dtos\Statistic\StudentReportDto.cs" />
+    <Compile Include="Dtos\Statistic\StudentScoreDto.cs" />
+    <Compile Include="Dtos\Statistic\StudentStatisticDto.cs" />
+    <Compile Include="Dtos\Statistic\TeacherKpStatisticDto.cs" />
+    <Compile Include="Dtos\Statistic\TeacherStatisticDto.cs" />
+    <Compile Include="Dtos\Message\SystemMessageDto.cs" />
+    <Compile Include="Dtos\SubjectDto.cs" />
+    <Compile Include="Dtos\Download\DownloadLogDto.cs" />
+    <Compile Include="Dtos\Download\DownloadLogInputDto.cs" />
+    <Compile Include="Dtos\Download\DownloadLogSearchDto.cs" />
+    <Compile Include="Dtos\Topic\PubTopicDto.cs" />
+    <Compile Include="Dtos\Topic\ReplyDto.cs" />
+    <Compile Include="Dtos\Topic\SearchTopicDto.cs" />
+    <Compile Include="Dtos\Topic\TopicDto.cs" />
+    <Compile Include="Dtos\Tutor\AddTutorDto.cs" />
+    <Compile Include="Dtos\Tutor\FeedBackDto.cs" />
+    <Compile Include="Dtos\Tutor\TutorCommentDto.cs" />
+    <Compile Include="Dtos\Tutor\TutorDetailDto.cs" />
+    <Compile Include="Dtos\Tutor\TutorDto.cs" />
+    <Compile Include="Dtos\Tutor\TutorRecordsDto.cs" />
+    <Compile Include="Dtos\Tutor\VideoDto.cs" />
+    <Compile Include="Dtos\User\BeTeacherDto.cs" />
+    <Compile Include="Dtos\User\ImpressionDto.cs" />
+    <Compile Include="Dtos\User\ImpressionInputDto.cs" />
+    <Compile Include="Dtos\User\LoginDto.cs" />
+    <Compile Include="Dtos\User\PlatformDto.cs" />
+    <Compile Include="Dtos\User\PlatformLoginResultDto.cs" />
+    <Compile Include="Dtos\User\QuotationsDto.cs" />
+    <Compile Include="Dtos\User\QuotationsInputDto.cs" />
+    <Compile Include="Dtos\User\RegistUserDto.cs" />
+    <Compile Include="Dtos\User\RelationUserDto.cs" />
+    <Compile Include="Dtos\User\UpdateRelationInputDto.cs" />
+    <Compile Include="Dtos\User\UserAgencyDto.cs" />
+    <Compile Include="Dtos\User\UserAgencyInputDto.cs" />
+    <Compile Include="Dtos\User\UserCompleteInputDto.cs" />
+    <Compile Include="Dtos\User\UserDto.cs" />
+    <Compile Include="Dtos\ApplicationDto.cs" />
+    <Compile Include="Dtos\TreeDto.cs" />
+    <Compile Include="Dtos\User\DUserDto.cs" />
+    <Compile Include="Dtos\Variant\PaperWeakDto.cs" />
+    <Compile Include="Dtos\Variant\VariantListDto.cs" />
+    <Compile Include="Enum\AgencyType.cs" />
+    <Compile Include="Enum\ApplicationType.cs" />
+    <Compile Include="Enum\Comefrom.cs" />
+    <Compile Include="Enum\DownloadType.cs" />
+    <Compile Include="Enum\ExamEnums.cs" />
+    <Compile Include="Enum\Group\GroupCertificationLevel.cs" />
+    <Compile Include="Enum\Group\GroupJoinAuth.cs" />
+    <Compile Include="Enum\Group\GroupPostAuth.cs" />
+    <Compile Include="Enum\Group\GroupType.cs" />
+    <Compile Include="Enum\Group\ShareGroupOrder.cs" />
+    <Compile Include="Enum\Marking\JointExceptionType.cs" />
+    <Compile Include="Enum\Marking\JointMarkingMode.cs" />
+    <Compile Include="Enum\Marking\JointStatus.cs" />
+    <Compile Include="Enum\Marking\MarkingExceptionType.cs" />
+    <Compile Include="Enum\Marking\MarkingPaperType.cs" />
+    <Compile Include="Enum\Marking\MarkingStatus.cs" />
+    <Compile Include="Enum\Message\CommentOrder.cs" />
+    <Compile Include="Enum\Message\GroupDynamicType.cs" />
+    <Compile Include="Enum\Message\MessageStatus.cs" />
+    <Compile Include="Enum\Message\MessageType.cs" />
+    <Compile Include="Enum\Message\RMessageType.cs" />
+    <Compile Include="Enum\Paper\Auto\Difficulty.cs" />
+    <Compile Include="Enum\Paper\Auto\Easy.cs" />
+    <Compile Include="Enum\Paper\Auto\Normal.cs" />
+    <Compile Include="Enum\Paper\Auto\PaperDifficulty.cs" />
+    <Compile Include="Enum\Paper\Auto\PaperPoint.cs" />
+    <Compile Include="Enum\Paper\PaperAllotStatus.cs" />
+    <Compile Include="Enum\Paper\PaperSectionType.cs" />
+    <Compile Include="Enum\Paper\PaperStatus.cs" />
+    <Compile Include="Enum\Paper\PaperType.cs" />
+    <Compile Include="Enum\Question\ErrorQuestionSourceType.cs" />
+    <Compile Include="Enum\Question\ErrorQuestionStatus.cs" />
+    <Compile Include="Enum\Question\ErrorReasonShareType.cs" />
+    <Compile Include="Enum\Question\KnowledgeDto.cs" />
+    <Compile Include="Enum\Question\OptionStyle.cs" />
+    <Compile Include="Enum\Question\OrderArr.cs" />
+    <Compile Include="Enum\Question\QuestionOrder.cs" />
+    <Compile Include="Enum\Question\QuestionTypeStyle.cs" />
+    <Compile Include="Enum\Statistic\TimeArea.cs" />
+    <Compile Include="Enum\Topic\TopicOrder.cs" />
+    <Compile Include="Enum\Topic\TopicState.cs" />
+    <Compile Include="Enum\Topic\TopicStatus.cs" />
+    <Compile Include="Enum\Tutor\ChooseComment.cs" />
+    <Compile Include="Enum\Tutor\DiffLevel.cs" />
+    <Compile Include="Enum\Tutor\Grade.cs" />
+    <Compile Include="Enum\Tutor\TutorContentType.cs" />
+    <Compile Include="Enum\Tutor\TutorStatus.cs" />
+    <Compile Include="Enum\Usage\ApplyType.cs" />
+    <Compile Include="Enum\Usage\PrintType.cs" />
+    <Compile Include="Enum\Usage\PublishType.cs" />
+    <Compile Include="Enum\Usage\UsagePaperStatus.cs" />
+    <Compile Include="Enum\User\CertificationLevel.cs" />
+    <Compile Include="Enum\User\Gender.cs" />
+    <Compile Include="Enum\LogEnums.cs" />
+    <Compile Include="Enum\User\RelationType.cs" />
+    <Compile Include="Enum\ReportEnums.cs" />
+    <Compile Include="Enum\SchoolBookStatus.cs" />
+    <Compile Include="Enum\ShareRange.cs" />
+    <Compile Include="Enum\Usage\ContentType.cs" />
+    <Compile Include="Enum\StageEnums.cs" />
+    <Compile Include="Enum\StatusEnums.cs" />
+    <Compile Include="Enum\Marking\SymbolType.cs" />
+    <Compile Include="Enum\TagType.cs" />
+    <Compile Include="Enum\User\UserAgencyStatus.cs" />
+    <Compile Include="Enum\User\UserRole.cs" />
+    <Compile Include="Enum\User\ValidationType.cs" />
+    <Compile Include="IAccountCodeContract.cs" />
+    <Compile Include="IAdvertContract.Category.cs" />
+    <Compile Include="IAdvertContract.cs" />
+    <Compile Include="IAnswerShareContract.cs" />
+    <Compile Include="ICommentContract.cs" />
+    <Compile Include="IElectiveContract.cs" />
+    <Compile Include="IErrorBookContract.cs" />
+    <Compile Include="IExaminationContract.Analysis.cs" />
+    <Compile Include="IExaminationContract.cs" />
+    <Compile Include="IExaminationContract.Union.cs" />
+    <Compile Include="IGroupContract.Class.cs" />
+    <Compile Include="IGroupContract.cs" />
+    <Compile Include="IGroupContract.Member.cs" />
+    <Compile Include="ILearningMemoContract.cs" />
+    <Compile Include="ILogContract.cs" />
+    <Compile Include="IMarkingContract.cs" />
+    <Compile Include="IMarkingContract.Joint.cs" />
+    <Compile Include="IMessageContract.cs" />
+    <Compile Include="IMessageContract.GroupDynamic.cs" />
+    <Compile Include="IPaperContract.MakePaper.cs" />
+    <Compile Include="IPublishContract.cs" />
+    <Compile Include="IPublishContract.Variant.cs" />
+    <Compile Include="ISmsRecordContract.cs" />
+    <Compile Include="ISmsScoreNoticeContract.cs" />
+    <Compile Include="IStatisticContract.Agency.cs" />
+    <Compile Include="IStatisticContract.cs" />
+    <Compile Include="IStatisticContract.Marking.cs" />
+    <Compile Include="IStatisticContract.Student.cs" />
+    <Compile Include="IStatisticContract.Teacher.cs" />
+    <Compile Include="ISystemContract.DownloadLog.cs" />
+    <Compile Include="ISystemContract.SchoolBook.cs" />
+    <Compile Include="ITempOldContract.cs" />
+    <Compile Include="IPaperContract.cs" />
+    <Compile Include="IPaperContract.Paper.cs" />
+    <Compile Include="IPaperContract.Question.cs" />
+    <Compile Include="ISystemContract.cs" />
+    <Compile Include="ISystemContract.Knowledge.cs" />
+    <Compile Include="ITempContract.cs" />
+    <Compile Include="ITopicContract.cs" />
+    <Compile Include="ITutorContract.cs" />
+    <Compile Include="IUserContract.Agency.cs" />
+    <Compile Include="IUserContract.Application.cs" />
+    <Compile Include="IUserContract.Cache.cs" />
+    <Compile Include="IUserContract.cs" />
+    <Compile Include="IUserContract.Personal.cs" />
+    <Compile Include="IUserContract.Parents.cs" />
+    <Compile Include="IUserContract.ThirdPlatform.cs" />
+    <Compile Include="Models\Mongo\MAccountCode.cs" />
+    <Compile Include="Models\Mongo\MAdvert.cs" />
+    <Compile Include="Models\Mongo\MDownloadLog.cs" />
+    <Compile Include="Models\Mongo\MExaminationQuestionScores.cs" />
+    <Compile Include="Models\Mongo\MPictureTask.cs" />
+    <Compile Include="Models\Mongo\MSmsScoreNotice.cs" />
+    <Compile Include="Models\Mongo\MSmsRecord.cs" />
+    <Compile Include="Models\TC_AgencyVideo.cs" />
+    <Compile Include="Models\TC_ClassContentRecord.cs" />
+    <Compile Include="Models\TC_StudentQuestion.cs" />
+    <Compile Include="Models\TC_Usage.cs" />
+    <Compile Include="Models\TC_Video.cs" />
+    <Compile Include="Models\TC_VideoClass.cs" />
+    <Compile Include="Models\TC_VideoClassContent.cs" />
+    <Compile Include="Models\TS_ElectiveBatch.cs" />
+    <Compile Include="Models\TU_AgencyVisit.cs" />
+    <Compile Include="Models\TU_Impression.cs" />
+    <Compile Include="Models\TU_ImpressionLike.cs" />
+    <Compile Include="Models\TU_Quotations.cs" />
+    <Compile Include="Models\TU_UserAgency.cs" />
+    <Compile Include="Models\TU_Visit.cs" />
+    <Compile Include="Models\v3\TA_TeacherGod.cs" />
+    <Compile Include="Models\v3\TB_Praise.cs" />
+    <Compile Include="Models\v3\TB_Reply.cs" />
+    <Compile Include="Models\v3\TB_Topic.cs" />
+    <Compile Include="Models\v3\TB_Vote.cs" />
+    <Compile Include="Models\v3\TB_VoteOption.cs" />
+    <Compile Include="Models\v3\TB_VoteUser.cs" />
+    <Compile Include="Models\v3\TE_Examination.cs" />
+    <Compile Include="Models\v3\TE_StudentScore.cs" />
+    <Compile Include="Models\v3\TE_StudentSubjectScore.cs" />
+    <Compile Include="Models\v3\TE_SubjectScore.cs" />
+    <Compile Include="Models\v3\TE_UnionReport.cs" />
+    <Compile Include="Models\v3\TG_ApplyRecord.cs" />
+    <Compile Include="Models\v3\TG_Class.cs" />
+    <Compile Include="Models\Mongo\MComment.cs" />
+    <Compile Include="Models\v3\TG_Share.cs" />
+    <Compile Include="Models\v3\TM_GroupDynamic.cs" />
+    <Compile Include="Models\v3\TG_Group.cs" />
+    <Compile Include="Models\v3\TG_Member.cs" />
+    <Compile Include="Models\v3\TG_Colleague.cs" />
+    <Compile Include="Models\v3\TG_Resources.cs" />
+    <Compile Include="Models\TL_SystemLog.cs" />
+    <Compile Include="Models\TL_UserLog.cs" />
+    <Compile Include="Models\TP_AgencyPaper.cs" />
+    <Compile Include="Models\TP_AnswerShare.cs" />
+    <Compile Include="Models\TP_ErrorQuestion.cs" />
+    <Compile Include="Models\TP_ErrorReason.cs" />
+    <Compile Include="Models\TP_ErrorReasonComment.cs" />
+    <Compile Include="Models\TP_ErrorTag.cs" />
+    <Compile Include="Models\TP_ErrorTagStatistic.cs" />
+    <Compile Include="Models\TP_MarkingDetail.cs" />
+    <Compile Include="Models\TP_MarkingMark.cs" />
+    <Compile Include="Models\TP_MarkingPicture.cs" />
+    <Compile Include="Models\TP_MarkingResult.cs" />
+    <Compile Include="Models\TP_Paper.cs" />
+    <Compile Include="Models\TP_PaperAllot.cs" />
+    <Compile Include="Models\TP_PaperAnswer.cs" />
+    <Compile Include="Models\TP_PaperContent.cs" />
+    <Compile Include="Models\TP_PaperSection.cs" />
+    <Compile Include="Models\TP_SmallQScore.cs" />
+    <Compile Include="Models\TP_Variant.cs" />
+    <Compile Include="Models\TP_VariantQuestion.cs" />
+    <Compile Include="Models\TP_WorshipDetail.cs" />
+    <Compile Include="Models\TQ_AgencyQuestion.cs" />
+    <Compile Include="Models\TQ_Analysis.cs" />
+    <Compile Include="Models\TQ_Answer.cs" />
+    <Compile Include="Models\TQ_Question.cs" />
+    <Compile Include="Models\TQ_SmallQuestion.cs" />
+    <Compile Include="Models\TQ_VariantRelation.cs" />
+    <Compile Include="Models\TS_Application.cs" />
+    <Compile Include="Models\TS_Area.cs" />
+    <Compile Include="Models\TS_ClassScoreStatistics.cs" />
+    <Compile Include="Models\TS_DynamicNews.cs" />
+    <Compile Include="Models\TS_ElectiveCourse.cs" />
+    <Compile Include="Models\TS_Knowledge.cs" />
+    <Compile Include="Models\TS_Log.cs" />
+    <Compile Include="Models\TS_Message.cs" />
+    <Compile Include="Models\TS_QuestionType.cs" />
+    <Compile Include="Models\TS_ShowPaper.cs" />
+    <Compile Include="Models\TS_SpecialTreatment.cs" />
+    <Compile Include="Models\TS_ElectiveDetail.cs" />
+    <Compile Include="Models\TS_StudentKpStatistic.cs" />
+    <Compile Include="Models\TS_StudentStatistic.cs" />
+    <Compile Include="Models\TS_StuScoreStatistics.cs" />
+    <Compile Include="Models\TS_Subject.cs" />
+    <Compile Include="Models\TS_SystemLog.cs" />
+    <Compile Include="Models\TS_Tag.cs" />
+    <Compile Include="Models\TS_TeacherKpStatistic.cs" />
+    <Compile Include="Models\TS_TeacherStatistic.cs" />
+    <Compile Include="Models\TS_TempGroup.cs" />
+    <Compile Include="Models\TT_TutorComment.cs" />
+    <Compile Include="Models\TT_TutorContent.cs" />
+    <Compile Include="Models\TT_TutorRecord.cs" />
+    <Compile Include="Models\TT_Tutorship.cs" />
+    <Compile Include="Models\TU_AdminUserRole.cs" />
+    <Compile Include="Models\TU_Agency.cs" />
+    <Compile Include="Models\TU_AgencyApplication.cs" />
+    <Compile Include="Models\TU_AgencySubject.cs" />
+    <Compile Include="Models\TU_Class.cs" />
+    <Compile Include="Models\TU_MangagerHistory.cs" />
+    <Compile Include="Models\TU_ThirdPlatform.cs" />
+    <Compile Include="Models\TU_User.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\TU_UserAgencyRelation.cs" />
+    <Compile Include="Models\TU_UserApplication.cs" />
+    <Compile Include="Models\TU_UserToken.cs" />
+    <Compile Include="Models\v3\TP_JointBag.cs" />
+    <Compile Include="Models\v3\TP_JointDistribution.cs" />
+    <Compile Include="Models\v3\TP_JointException.cs" />
+    <Compile Include="Models\v3\TP_JointMarking.cs" />
+    <Compile Include="Models\v3\TP_JointPictureDistribution.cs" />
+    <Compile Include="Models\v3\TP_JointQuestionGroup.cs" />
+    <Compile Include="Models\v3\TS_Agency.cs" />
+    <Compile Include="Models\v3\TS_CodePool.cs" />
+    <Compile Include="Models\TS_DownloadLog.cs" />
+    <Compile Include="Models\v3\TS_SchoolBook.cs" />
+    <Compile Include="Models\v3\TS_SchoolBookCharpter.cs" />
+    <Compile Include="Models\v3\TU_StudentParents.cs" />
+    <Compile Include="Dtos\NameDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Dtos\Paper\TopicPaperDto.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\_service\Autofac.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。启用“NuGet 程序包还原”可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

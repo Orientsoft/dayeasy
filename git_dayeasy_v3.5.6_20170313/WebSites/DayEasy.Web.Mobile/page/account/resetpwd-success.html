@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    <meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<link href="//static.dayeasy.net" rel="dns-prefetch">
+<link href="//file.dayeasy.net" rel="dns-prefetch">
+<link href="//file01.dayeasy.net" rel="dns-prefetch">
+<link href="//file02.dayeasy.net" rel="dns-prefetch">
+<link rel="apple-touch-icon-precomposed" href="/image/logo_114x114.png">
+<link type="image/x-icon" rel="Shortcut Icon" href="/image/logo_114x114.png">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/css/amazeui.min.css"/>
+<link rel="stylesheet" href="/css/site-base.min.css"/>
+<link rel="stylesheet" href="/css/ui-dialog.min.css"/>
+<link rel="stylesheet" href="/fonts/iconfont.css"/>
+    <title>密码设置成功 - 我的得一 - 触屏版</title>
+    <style>
+        html,body{ height: 100%; width: 100%;}
+        body{ position: relative;}
+        .d-login-main{ width: 320px; height:216px; position: absolute; top: 50%; left: 50%;margin-top: -108px; margin-left: -160px;}
+    </style>
+    <link rel="stylesheet" href="/css/account/login.min.css"/>
+</head>
+<body>
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <!--<a class="hp-text" href="javascript:void(0);">-->
+                <!--<div class="hp-left hp-back">-->
+                    <!--<i class="iconfont dy-icon-left"></i>-->
+                <!--</div>-->
+            <!--</a>-->
+            <h1 class="hp-h1">密码设置成功</h1>
+        </div>
+    </div>
+</header>
+
+
+<section class="d-login-main">
+    <div class="notes-login resetpwd-success-icon">
+    <!-- 修改密码提示成功 -->
+     <p class="d-p-icon"><i class="fa fa-smile-o"></i><br>请妥善保存您的密码 <br/><span id="totalSecond">6</span>秒后自动返回 登录页 <a class="hide"   title="进入圈子" id="href" href="/page/account/login.html">登录页</a></p>
+
+        <!-- 确认按钮 -->
+        <div class="form-group ">
+            <div class="form-item">
+                <a href="/page/account/login.html"><button class="d-btn">立即登陆</button></a>
+            </div>
+        </div>
+    </div>
+
+</section>
+<footer>
+    <div class="copyright">
+        2015 蜀ICP备14013147号 | <a href="http://www.dayeasy.net?f=mobile">电脑版</a>
+    </div>
+    <div class="site-qr">手机访问</div>
+</footer>
+
+<script>
+    //设定倒数秒数
+    var t = 6;
+    timer = setInterval(function (){
+        t--;
+        if(t == 0){
+            location.href = document.getElementById("href").href;
+            clearInterval(timer);
+        } else {
+            document.getElementById('totalSecond').innerHTML = t+'&nbsp;';
+        }
+
+    }, 1000)
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+﻿@using DayEasy.Contracts.Dtos.Paper
+@using DayEasy.Contracts.Dtos.Question
+@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Helper
+@model DayEasy.Contracts.Dtos.Paper.PaperDetailDto
+@{
+    ViewBag.Title = "试卷编辑 - " + (Model == null ? "" : Model.PaperBaseInfo.PaperTitle);
+
+    var isAb = false;
+    var tags = string.Empty;
+    if (Model != null)
+    {
+        isAb = Model.PaperBaseInfo.PaperType == (byte)PaperType.AB;
+        tags = JsonHelper.ToJson(Model.PaperBaseInfo.Tags);
+    }
+
+    var hasAdded = false;
+    if (ViewData["hasAdded"] != null)
+    {
+        hasAdded = Convert.ToBoolean(ViewData["hasAdded"]);                                                                                            
+    }
+
+    var paperBase = new PaperBaseDto();
+    List<QuestionDto> questions = null;
+    List<QuItemDto> questionsA = null;
+    List<QuItemDto> questionsB = null;
+    List<QuestionTypeDto> questionType = null;
+
+    if (ViewData["ChooseQuestionDataDto"] != null)
+    {
+        var chooseQuestionDataDto = ViewData["ChooseQuestionDataDto"] as ChooseQuestionDataDto;
+        if (chooseQuestionDataDto != null)
+        {
+            if (chooseQuestionDataDto.PaperBaseDto != null)
+            {
+                paperBase = chooseQuestionDataDto.PaperBaseDto;
+            }
+
+            questions = chooseQuestionDataDto.Questions;
+            questionType = chooseQuestionDataDto.QuestionTypes;
+
+            if (chooseQuestionDataDto.CurrentChooseQus != null)
+            {
+                questionsA = chooseQuestionDataDto.CurrentChooseQus.Where(u => u.PaperType == "A").ToList();
+                questionsB = chooseQuestionDataDto.CurrentChooseQus.Where(u => u.PaperType == "B").ToList();
+            }
+        }
+    }
+
+    var perScoresDic = JsonHelper.JsonList<SectionPerScoreDto>(paperBase.PerScores);
+
+    string paperId = Model == null ? string.Empty : Model.PaperBaseInfo.Id;
+    bool hasEdit = ViewData["hasEdit"] != null;
+}
+
+@if (Model == null)
+{
+    <div class="handmade volume paper-main">
+        <div class="g-bd j-autoHeight" data-left="132" data-min="400" data-type="2">
+            <div class="g-doc">
+                <div class="row text-center mt10">
+                    <span class="fs18"><i class="fa fa-warning"></i>&emsp;没有找到相关试卷信息,请稍后重试！</span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <input type="hidden" value="@paperId" id="paperId" />
+    <div class="handmade volume paper-main j-autoHeight" data-left="132" data-min="400" data-type="2">
+        <div class="g-bd">
+            <input type="hidden" value="@(isAb?"ab":"a")" id="type" />
+            <input type="hidden" value="@Model.PaperBaseInfo.Stage" id="stage" />
+            <div class="g-doc" id="chooseQuDiv">
+                <div class="m-tt-1">
+                    <p class="m-p1"><input type="text" id="paperTitle" placeholder="请输入试卷标题" value="@(hasAdded?paperBase.Title: Model.PaperBaseInfo.PaperTitle)"><em>( 总分 <span id="tScore">@Model.PaperBaseInfo.PaperScores.TScore.ToString("0.#")</span> 分 )</em></p>
+                </div>
+                <div id="paperDetailDiv">
+                    @if (isAb)
+                    {
+                        <div class="m-z-1">
+                            <p class="p1">A卷(共 <span id="tScoreA">@Model.PaperBaseInfo.PaperScores.TScoreA.ToString("0.#")</span> 分)</p>
+                        </div>
+                    }
+                    <ul class="paper-qSection">
+                        @if (hasAdded && questionsA != null && questions != null)
+                        {
+                            @MakePaperHelper.ShowQuestions(questionsA, questions, questionType, perScoresDic, 1, "A", hasEdit: hasEdit);
+                        }
+                        else
+                        {
+                            @MakePaperHelper.ShowQuestions(Model, (byte)PaperSectionType.PaperA, hasEdit)
+                        }
+                    </ul>
+                    @Html.Partial("_ChooseQu", "A")
+
+                    @if (isAb)
+                    {
+                        <div class="m-z-1">
+                            <p class="p1">B卷(共 <span id="tScoreB">@Model.PaperBaseInfo.PaperScores.TScoreB.ToString("0.#")</span> 分)</p>
+                        </div>
+                        <ul class="paper-qSection">
+                            @if (hasAdded && questionsB != null && questions != null)
+                            {
+                                int qIndex = !questionsA.Any() ? 1 : questionsA.Count + 1;
+                                @MakePaperHelper.ShowQuestions(questionsB, questions, questionType, perScoresDic, qIndex, "B", hasEdit: hasEdit);
+                            }
+                            else
+                            {
+                                @MakePaperHelper.ShowQuestions(Model, (byte)PaperSectionType.PaperB, hasEdit)
+                            }
+                        </ul>
+                        @Html.Partial("_ChooseQu", "B")
+                    }
+                </div>
+                <div class="m-ft">
+                    <a class="btn btn-default" href="javascript:void(0);" id="btn_SaveTemp">存草稿</a>
+                    <a class="btn btn-warning" href="javascript:void(0);" id="btn_Save">生成试卷</a>
+                </div>
+            </div>
+            <div id="inputAnswerDiv"></div>
+        </div>
+    </div>
+
+    @Html.Partial("_SavePaper", ViewData["GradeList"], new ViewDataDictionary()
+    {
+        { "tags", tags },
+        {"grade",Model.PaperBaseInfo.Grade}
+    })
+}
+
+@section css{
+    @Html.CombineLink("plugs/tokeninput/token-input.css")
+}
+
+@section js
+{
+    @Html.CombineLink("plugs/dragSort/jquery.dragsort-0.5.2.js,js/base/utils.js,v3/js/paper/paper.js,plugs/tokeninput/jquery.tokeninput.js")
+
+    <script type="text/javascript">
+        $(function () {
+            $("#chooseQuDiv").PaperMaker({
+                addQuestionUrl: '@Url.Action("AddQuestion","Paper")',
+                chooseQuestionUrl: '@Url.Action("ChooseQu","Paper")',
+                chooseQuCompleteUrl: '@Url.Action("Edit", "Paper", new { id = paperId })',
+                inputAnswerUrl: '@Url.Action("InputAnswer", "Paper")'
+            });
+        });
+    </script>
+}
+

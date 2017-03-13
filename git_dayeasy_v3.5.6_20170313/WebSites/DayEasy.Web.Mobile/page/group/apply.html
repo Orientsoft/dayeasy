@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    <meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<link href="//static.dayeasy.net" rel="dns-prefetch">
+<link href="//file.dayeasy.net" rel="dns-prefetch">
+<link href="//file01.dayeasy.net" rel="dns-prefetch">
+<link href="//file02.dayeasy.net" rel="dns-prefetch">
+<link rel="apple-touch-icon-precomposed" href="/image/logo_114x114.png">
+<link type="image/x-icon" rel="Shortcut Icon" href="/image/logo_114x114.png">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/css/amazeui.min.css"/>
+<link rel="stylesheet" href="/css/site-base.min.css"/>
+<link rel="stylesheet" href="/css/ui-dialog.min.css"/>
+<link rel="stylesheet" href="/fonts/iconfont.css"/>
+    <title> 申请加圈-我的得一 - 触屏版</title>
+    <!-- 左右滑动UI 样式 -->
+    <link rel="stylesheet" href="/css/page/ui-panel-slider.min.css"/>
+    <link rel="stylesheet" href="/css/group/group-apply.min.css"/>
+</head>
+<body data-role="3">
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <a class="hp-text d-back" href="javascript:void(0);">
+                <div class="hp-left hp-back">
+                    <i class="iconfont dy-icon-left"></i>
+                </div>
+            </a>
+            <h1 class="hp-h1">申请加入</h1>
+        </div>
+    </div>
+</header>
+<section class="d-group">  <!--group-apply-->
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">Modal 标题
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                Modal 内容。
+            </div>
+        </div>
+    </div>
+    <form >
+        <!--申请加入圈子简介-->
+        <div class="d-group-list">
+        </div>
+        <div class="group-apply-input">
+            <input type="text" class="hide" id="realname" maxlength="15"  placeholder="真实姓名"/>
+        </div>
+        <div class="d-textarea">
+            <textarea placeholder="输入附加信息" id="information" name="message" class="textarea mb5 mt10" cols="30" rows="4" maxlength="140"></textarea>
+            <p class="f-tar f-db d-result">你还可以输入 <em>140</em>个字</p>
+        </div>
+        <div class="group-apply-button">
+                <button class="d-btn" id="applybutton">确认申请</button>
+        </div>
+    </form>
+</section>
+<!-- 基础脚本 -->
+<script src="/js/site-base.min.js"></script>
+<script src="/js/page/group/apply.min.js"></script>
+
+</body>
+</html>

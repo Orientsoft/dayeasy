@@ -1,0 +1,13 @@
+.dp-loading {
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  display: block;
+  font-size: 14px;
+}
+.f-createQu.disabled {
+  background-color: #999;
+  border-color: #888;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}

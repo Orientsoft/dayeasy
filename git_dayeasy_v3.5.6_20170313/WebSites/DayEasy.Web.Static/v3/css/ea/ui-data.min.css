@@ -1,0 +1,48 @@
+.dy-wrap{ background-color:#f5f5f5 }
+.dy-main{ overflow:hidden }
+.page-loading{ opacity:.3; filter:alpha(opacity=30); background-color:#000 }
+.page-header{ background-color:#fff; margin-bottom:20px; padding:8px 12px }
+.page-header h3{ font-size:18px; color:#333 }
+.page-header h3 small{ color:#666; font-size:85%; margin-left:8px }
+.page-header .last-refresh{ line-height:20px; position:absolute; right:10px; top:10px }
+.page-header .last-refresh span{ color:#888; font-size:12px }
+.page-header .last-refresh i{ color:#00acee; margin-left:6px; vertical-align:middle; cursor:pointer }
+.dy-title{ padding:15px 0 0; margin-bottom:20px; position:relative }
+.dy-title h2{ font-weight:400; font-size:20px; padding-left:25px; border-left:5px solid #fff }
+.dy-title h2.dy-title-bored{ border-left:5px solid #00acee }
+.dy-title h2 small{ color:#999; font-size:85%; margin-left:5px }
+.dy-title select{ position:absolute; right:25px; top:8px }
+.dy-title .d-actions{ position:absolute; right:15px; top:10px }
+.dy-main-wrap{ width:1200px; margin:30px auto; position:relative }
+.dy-left-nav, .dy-list{ display:inline-block; float:left; vertical-align:top }
+.dy-left-nav{ background-color:#fff; width:200px }
+.dy-left-nav .dy-nav-wrap{ border-bottom:1px solid #f5f5f5 }
+.dy-left-nav .dy-nav-wrap li{ line-height:35px; font-size:16px; padding-left:40px }
+.dy-left-nav .dy-nav-wrap li a:active, .dy-left-nav .dy-nav-wrap li a:link, .dy-left-nav .dy-nav-wrap li a:visited{ color:#666; text-decoration:none }
+.dy-left-nav .dy-nav-wrap li a:hover{ color:#3bafda; text-decoration:none }
+.dy-left-nav .dy-nav-wrap li i{ margin:0 8px }
+.dy-left-nav .dy-nav-wrap li.active span{ color:#3bafda }
+.dy-list{ margin-left:20px; width:980px }
+.dy-content{ padding:0 25px 20px; zoom:1 }
+.dy-content:after{ display:block; clear:both; visibility:hidden; height:0; overflow:hidden; content:"." }
+.dy-content .dy-table{ width:100% }
+.dy-content .dy-table tr td, .dy-content .dy-table tr th{ word-break:break-all; text-align:center }
+.dy-content .dy-table tr th{ padding:12px 5px; color:#666 }
+.dy-content .dy-table tr th.f-tal{ padding-left:12px }
+.dy-content .dy-table tr td{ padding:8px 12px; line-height:24px }
+.dy-content .dy-table tr td a:active, .dy-content .dy-table tr td a:link, .dy-content .dy-table tr td a:visited{ color:#3bafda; text-decoration:none }
+.dy-content .dy-table tr td a:hover{ color:#ed5565; text-decoration:none }
+.dy-content .dy-table tr td .text-danger{ color:#ed5565 !important }
+.dy-content .dy-table tr td s{ background-color:#bbb; display:inline-block; height:12px; margin:0 5px; vertical-align:-1px; width:1px }
+.dy-content .dy-table tr:hover a{ color:#333 }
+.dy-content .dy-table tfoot th{ color:#999; text-align:left; padding:12px 15px }
+.dy-content .dy-table tfoot .total-num{ font-weight:600; padding:0 3px; color:#ed5565 }
+.dy-content .d-pager{ text-align:center }
+.dy-content .d-pager .pagination{ display:inline-block }
+.d-class-list{ color:#666 }
+.d-class-list span{ margin-right:12px; white-space:nowrap; word-break:keep-all; line-height:24px }
+.d-class-list small{ color:#999; margin-left:5px; font-size:90% }
+.dy-table-wrap{ overflow-x:auto }
+.mCSB_horizontal.mCSB_inside > .mCSB_container{ margin-bottom:10px }
+.mCS-dark-thin.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{ background:#a7e8fe }
+.mCS-dark-thin.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_onDrag{ background:#7adaf2 }

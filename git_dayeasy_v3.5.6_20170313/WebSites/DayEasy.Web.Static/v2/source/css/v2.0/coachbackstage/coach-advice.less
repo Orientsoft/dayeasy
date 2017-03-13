@@ -1,0 +1,160 @@
+/*--------------------------------------------------------------
+                        题目统计 推送
+
+      Author:Plato
+      Create Date:15.09.01    Last Mondify Date:15.09.01
+      ===================================================
+
+--------------------------------------------------------------*/
+@import "ui-base.less";
+//@import "theme.default.less";
+@import      (reference)"../../icon-base.less";
+
+/*--------------------------------------------------------------
+                         IMG url
+--------------------------------------------------------------*/
+
+/*--------------------  main Style  -----------------------*/
+.coach-advice {
+  font-size: 14px;
+  .title-hd{
+    margin-bottom: 15px;
+    h2{
+      font-size: 24px;
+      margin-right: 32px;
+    }
+  }
+  .center-1{
+    margin-top: 20px;
+    margin-left: 30px;
+    .title-h3{
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+/*--------------------------------------------------------------
+                         ui Style
+--------------------------------------------------------------*/
+.ed-comment-list{
+  border-bottom: 1px dotted #dbdbdb;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  textarea {
+    margin-bottom: 6px;
+    border: 1px solid #e6e6e6;
+    padding: 5px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .comment-top{
+    .u-img{
+      width: 50px;
+      margin-right: 15px;
+    }
+    .name-type{
+      width: 860px;
+      .u-dl{
+        dt{
+          color: #007aa9;
+          margin-bottom: 5px;
+        }
+        dd{
+          margin-bottom: 8px;}
+        dd.error-label{
+          span{
+            padding: 3px 15px;
+            margin-bottom: 5px;
+            margin-right: 5px;
+            color: #ffffff;
+            background: #b3b3b3;
+            display: inline-block;
+          }
+        }
+      }
+      .f-time{
+        color: #a1c6d4;}
+      .f-operation{
+        a{color: #007aa9;}
+      }
+    }
+
+  }
+  .comment-bottom{
+    border: 1px solid #e6e6e6;
+    background: #ebebeb;
+    padding: 10px;
+    .comment-close{
+      cursor: pointer;
+      font-style: normal;
+      background: #ffffff;
+      width: 15px;
+      height: 15px;
+      text-align: center;
+      line-height: 10px;
+      border: 1px solid #e6e6e6;
+      float: right;
+      display: inline-block;
+      &:hover{
+        background: #ffa64c;
+        color: #ffffff;
+      }
+    }
+    .f-width-100{
+      width: 100%;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #dbdbdb;
+      .btn-primary{
+        padding: 0px 12px;
+        position: relative;
+        top: -3px;
+      }
+    }
+    .comments-list{
+      border-bottom: 1px dashed #dbdbdb;
+      padding-bottom: 4px;
+      margin-bottom: 15px;
+      font-size: 12px;
+      .u-img{
+        margin-right: 10px;
+      }
+      .f-width{
+        width: 860px;}
+      .cont-right{
+        line-height: 1.6em;
+        margin-bottom: 5px;
+        .occupation-name{
+          color: #007aa9;
+          width: 32px;
+        }
+      }
+      .comment-cc{
+        padding: 5px 0;
+      }
+    }
+    .comments-detail{
+      margin-bottom: 6px;
+      .comments-list{
+        padding: 5px 0;
+        margin: 5px 0;
+        .f-width{
+          width: 800px;
+        }
+      }
+    }
+    .last-child{
+      border-bottom:none;
+    }
+
+    .f-more,.d-more{
+      font-size: 12px;
+      cursor: pointer;
+      text-align: center;
+
+    }
+  }
+
+}

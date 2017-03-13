@@ -1,0 +1,240 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2015/11/17  Last Mondify Date:2015/11/17
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+@import "../../less/base";
+
+/** MAIN STYLE **/
+
+.page-main-through {
+  background: #f5f5f5;
+  .h2-title {
+    position: relative;
+    .free-bubble {
+      top: -2px;
+    }
+  }
+
+}
+
+//*--------------------   ui Style   -----------------------
+//题目列表
+.g-main-list {
+  padding: 5px 0 20px;
+  margin-bottom: 20px;
+  background: #fff;
+}
+
+.page-h2-through {
+  h3 {
+    /*width: 60px;*/
+    padding-right: 30px;
+    &:hover {
+      color: @color-hover-blue;
+      cursor: pointer;
+    }
+  }
+  .icon-list-box {
+    //width: 1140-60px;
+  }
+
+}
+
+.dy-questions-list {
+  .padding30 {
+    padding: 0px 30px;
+  }
+  .w80 {
+    width: 80px;
+  }
+  .hover-color-bule {
+    color: #3bafda;
+    &:hover {
+      color: @color-hover-blue;
+    }
+  }
+  .cont-list {
+    border-bottom: 1px solid #eee;
+    img {
+      max-width: 100%;
+    }
+  }
+  .last-item {
+    border-bottom: none;
+  }
+  .questions-btn {
+    .dy-btn {
+      margin-right: 20px;
+      line-height: 38px;
+    }
+    .dy-btn-info b {
+      color: white;
+    }
+    b {
+      color: #ed5565;
+      .inline-block;
+      margin-left: 5px;
+      font-weight: bold;
+    }
+    .right-alist {
+      a {
+        margin-left: 10px;
+      }
+      .linkColor(@color-blue, @color-hover-blue);
+    }
+  }
+  .title-top {
+    margin-bottom: 15px;
+    h3 {
+      padding-left: 10px;
+      border-left: 5px solid #ed5565;
+      font-weight: bold;
+      &:hover {
+        color: @color-hover-blue;
+        cursor: pointer;
+      }
+    }
+    //标为错题
+    .mark-error {
+      color: #999;
+      &:hover {
+        color: @color-hover-blue;
+      }
+    }
+    //对错标签
+    .icon-true-posa {
+      position: absolute;
+      top: -18px;
+      left: 0;
+      .dy-icon-gou {
+        color: #a0d468;
+        font-size: 40px;
+      }
+      .dy-icon-cha {
+        color: #ed5565;
+        font-size: 38px;
+      }
+    }
+    .font-color-bulue {
+      color: #3bafda;
+      cursor: pointer;
+    }
+    .error-Statistics {
+      color: #ed5565;
+    }
+  }
+  .questions-con {
+    margin-bottom: 20px;
+    line-height: 1.5em;
+  }
+  .questions-bottom-cont {
+    line-height: 1.8em;
+    background: #fafbfc;
+    .questions-list-cont {
+      padding: 20px 30px;
+      display: block;
+    }
+  }
+  .font-show {
+    color: #999;
+    span {
+      position: relative;
+      top: 10px;
+      left: 30px;
+    }
+    a {
+      color: #3bafda;
+      &:hover {
+        color: @color-hover-blue;
+      }
+    }
+  }
+  //点赞
+  .click-good {
+    a {
+      margin-right: 30px;
+      .inline-block;
+      color: #999;
+    }
+    a.z-crt {
+      color: #ed5565;
+    }
+  }
+}
+
+.clear {
+  display: block;
+  clear: both;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+//出错人数列表
+.false-nonumber {
+  background: #fafbfc;
+  .border-right {
+    border-right: 1px solid #ddd;
+  }
+  .list-nonumber {
+    li {
+      float: left;
+      width: 126px;
+      height: 32px;
+      position: relative;
+      padding-left: 48px;
+      margin-bottom: 30px;
+      cursor: pointer;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        .rounded-corners(50%);
+      }
+      span {
+        margin-top: 5px;
+        .inline-block;
+      }
+    }
+  }
+}
+
+.list-statistics-title {
+  border-bottom: 1px dashed @border-color;
+  line-height: 35px;
+  margin-bottom: 15px;
+  em {
+    color: @color-info;
+    font-weight: 600;
+    padding: 0 3px;
+    font-family: arial, sans-serif;
+  }
+}
+
+.default1 {
+  display: none;
+}
+
+.default2 {
+  width: 100%;
+}
+
+.h2-title-ab {
+  height: 50px;
+  background: white;
+  line-height: 50px;
+  padding: 0 10px;
+  font-size: 18px;
+  border-bottom: 1px solid #eee;
+}
+.q-item{
+  border: 0;
+  padding: 0;
+  box-shadow: none !important;
+}

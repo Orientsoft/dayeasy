@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>单科-4题目得分率 - 教务管理</title>
+    @@include('./link.html')
+
+    <link rel="stylesheet" href="../../css/site-base.css">
+    <link rel="stylesheet" href="../../plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css"/>
+    <link rel="stylesheet" href="../../plugs/jquery-jqbar/jqbar.min.css"/>
+    <link href="http://static.deyi.com/v3/source/css/dialog.css?t=20160226_003" rel="stylesheet" media="all" />
+    <link rel="stylesheet" href="../../source/css/ea/statisticsschool/ui-base.css"/>
+    <script src="/v3/js/singer.min.js" type="text/javascript"></script>
+    <script src="../../../node_modules/js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div class="dy-wrap">
+    <!--@@include('./header.html')-->
+    <div class="dy-main">
+        <div class="d-score-rate base-statistics">
+            <div class="bg-statistics"></div>
+            <div class="head-wrap">
+                <dic class="statistics-header f-cb">
+                    <div class="box-left-1">
+                        <div class="box-title">
+                            <div class="title-text">
+                                <h2 class="f-toe">棕北中学3月月考2017级汇总统计</h2>
+                                <!--<p>Zongbei middle school 3 / 2017 of the test statistics</p>-->
+                            </div>
+                            <a class="hp-back" href="javascript:void(0);"><span>返回</span></a>
+                        </div>
+                    </div>
+                    <div class="box-left-2">
+                        <div class="subject-list js-wrap">
+                            <div class="f-fl comprehensive js-add">
+                                <span class="adminis dy-adminis-17"></span>
+                                <span class="box-span">
+                                    <i class="adminis dy-adminis-15"></i>
+                                    综合概况
+                                </span>
+                            </div>
+                            <ul class="f-fl subject js-subject">
+                                <li><a href=""><i class="iconfont dy-icon-chinese"></i>语 文</a></li>
+                                <li><a href=""><i class="iconfont dy-icon-math"></i>数学</a></li>
+                                <li><a href=""><i class="iconfont dy-icon-politics"></i>政治</a></li>
+                                <li><a href=""><i class="iconfont dy-icon-physics"></i>物理</a></li>
+                                <li><a href=""><i class="iconfont dy-icon-history"></i>历史</a></li>
+                                <li><a href=""><i class="iconfont dy-icon-geography"></i>地理</a></li>
+                                <li><a href=""><i class="iconfont dy-icon-english"></i>英语</a></li>
+                                <li><a href=""><i class="iconfont dy-icon-computer"></i>计算机</a></li>
+                                <!--<li><a href=""><i class="iconfont dy-icon-chemistry"></i>化学</a></li>-->
+                                <!--<li><a href=""><i class="iconfont dy-icon-biology"></i>生物</a></li>-->
+                                <!--<li><a href=""><i class="iconfont dy-icon-sports"></i>体育</a></li>-->
+
+
+                                <!--dy-icon-math     数学-->
+                                <!--dy-icon-politics 政治-->
+                                <!--dy-icon-physics  物理-->
+                                <!--dy-icon-history  历史-->
+                                <!--dy-icon-geography 地理-->
+                                <!--dy-icon-english   英语-->
+                                <!--dy-icon-computer 计算机-->
+                                <!--dy-icon-chinese 语文-->
+                                <!--dy-icon-chemistry 化学-->
+                                <!--dy-icon-biology 生物-->
+                                <!--dy-icon-sports 体育-->
+                            </ul>
+                        </div>
+                    </div>
+                </dic>
+            </div>
+            <div class="g-contents f-cb">
+                <div class="g-side f-fl">
+                    <h2 class="g-h2">班级得分率差异较大的题目</h2>
+                    <ul class="difference-list f-cbli">
+                        <!--最多呈现5条数据-->
+                        <li>
+                            <span class="box1 f-fl"><b>A</b><em>1</em></span>
+                            <p class="box2 f-fl"><b>差异度</b> <span>2.33</span></p>
+                        </li>
+                        <li>
+                            <span class="box1 f-fl"><b>A</b><em>1</em></span>
+                            <p class="box2 f-fl"><b>差异度</b> <span>2.33</span></p>
+                        </li>
+                        <li>
+                            <span class="box1 f-fl"><b>A</b><em>1</em></span>
+                            <p class="box2 f-fl"><b>差异度</b> <span>2.33</span></p>
+                        </li>
+                        <li>
+                            <span class="box1 f-fl"><b>A</b><em>1</em></span>
+                            <p class="box2 f-fl"><b>差异度</b> <span>2.33</span></p>
+                        </li>
+                        <li>
+                            <span class="box1 f-fl"><b>A</b><em>1</em></span>
+                            <p class="box2 f-fl"><b>差异度</b> <span>2.33</span></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="g-main f-fr js-main">
+                    <div class="head-top f-cb">
+                        <ul class="nav-main f-cb f-fl js-nav-main">
+                            <li><a href=""><span>平均分对比</span></a></li>
+                            <li><a href=""><span>重点率分析</span></a></li>
+                            <li><a href=""> <span>分数段分布</span></a></li>
+                            <li class="on current"><a href=""> <span>题目得分率</span></a></li>
+                            <li><a href=""><span>成绩排名</span></a></li>
+                        </ul>
+                        <div class="f-fl excel">
+                            <a href="">
+                                <i class="iconfont dy-icon-download"></i>
+                                excel 导出
+                            </a>
+                        </div>
+                    </div>
+                    <div class="choice-list f-cb">
+                        <ul class="f-cb choice-ul f-fl js-choice-li">
+                            <!--li*50>span{A}+em{$}-->
+                            <li class="on"><span>A</span><em>1</em><i>!</i></li>
+                            <li><span>A</span><em>2</em></li>
+                            <li><span>A</span><em>3</em></li>
+                            <li><span>A</span><em>4</em></li>
+                            <li><span>A</span><em>5</em></li>
+                            <li><span>A</span><em>6</em></li>
+                            <li><span>A</span><em>7</em></li>
+                            <li><span>A</span><em>8</em></li>
+                            <li><span>A</span><em>9</em></li>
+                            <li><span>A</span><em>10</em></li>
+                            <li><span>A</span><em>11</em></li>
+                            <li><span>A</span><em>12</em></li>
+                            <li><span>A</span><em>13</em></li>
+                            <li><span>A</span><em>14</em></li>
+                            <li><span>A</span><em>15</em></li>
+                            <li><span>A</span><em>16</em></li>
+                            <li><span>A</span><em>17</em></li>
+                            <li><span>A</span><em>18</em></li>
+                            <li><span>A</span><em>19</em></li>
+                            <li><span>A</span><em>20</em></li>
+                            <li><span>A</span><em>21</em></li>
+                            <li><span>A</span><em>22</em></li>
+                            <li><span>A</span><em>23</em></li>
+                            <li><span>A</span><em>24</em></li>
+                            <li><span>A</span><em>25</em></li>
+                        </ul>
+                        <div class="f-fl cue-mark">
+                            <i>!</i>
+                            <span>得分率偏低</span>
+                        </div>
+                    </div>
+                    <div class="Statistics-chart">
+
+                        <!--柱状图-->
+                        <div class="container">
+                            <div class="sixteen columns ">
+                                <div class="nine columns js-average">
+                                    <div class="tr-150">
+                                        <div class="td-1 td-base"></div>
+                                        <div class="td-2 td-base"></div>
+                                        <div class="td-3 td-base"></div>
+                                        <div class="td-4 td-base"></div>
+                                        <div class="td-5 td-base"></div>
+                                        <div class="td-6 td-base"></div>
+                                    </div>
+                                    <div class="classname">班级</div>
+                                    <div class="fraction">平均得分率</div>
+                                    <div class="average">
+                                        <span><b>平均得分率</b><br/><strong id="averagebind"></strong>%</span>
+                                    </div>
+                                    <div class="over-x">
+                                        <div class="bars MT30 bar-content f-cb"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--柱状图 End-->
+                    </div>
+                    <div class="next-bottom f-cb">
+                        <a class="upper" href="javascript:void(0);"></a>
+                        <a class="next" href="javascript:void(0);"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--@@include('./footer.html')-->
+
+<script></script>
+
+<script src="http://static.deyi.com/plugs/artDialog/dist/dialog-plus.min.js?t=20160226_003" type="text/javascript"></script>
+<script src="../../../node_modules/js/base/common.min.js"></script>
+<script src="../../plugs/jquery-jqbar/jqbar.min.js"></script>
+<script src="../../plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
+<script src="../../plugs/mCustomScrollbar/jquery.mousewheel.min.js"></script>
+<script src="../../../node_modules/js/ea/statistics/ui-base.min.js"></script>
+<script src="../../../node_modules/js/ea/statistics/page-score-rate.min.js"></script>
+</body>
+</html>

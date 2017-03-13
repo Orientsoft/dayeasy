@@ -1,0 +1,31 @@
+﻿@using DayEasy.Application.Services.Config
+@using DayEasy.Utility.Config
+@model int
+@{
+    var menuGroups = ConfigUtils<DMenusConfig>.Config.Groups;
+}
+<div class="dy-left-nav">
+    @foreach (var group in menuGroups)
+    {
+        <div class="dy-title">
+            <h2 class="@(group.Menus.Exists(m=>m.Id == Model)?"dy-title-bored":"")">@group.Name</h2>
+        </div>
+        <ul class="dy-nav-wrap">
+            @foreach (var menu in group.Menus)
+            {
+                if (menu.Id == Model)
+                {
+                    <li class="active">
+                        <span><i class="@menu.Icon"></i>@menu.Name</span>
+                    </li>
+                }
+                else
+                {
+                    <li title="@menu.Info">
+                        <a href="@menu.Url"><i class="@menu.Icon"></i>@menu.Name</a>
+                    </li>
+                }
+            }
+        </ul>
+    }
+</div>

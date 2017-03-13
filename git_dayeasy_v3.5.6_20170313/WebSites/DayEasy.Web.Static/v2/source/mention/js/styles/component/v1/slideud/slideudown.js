@@ -1,0 +1,1 @@
+define("js/styles/component/v1/slideud/slideudown",["gallery/jquery/1.8.2/jquery"],function(a,b){function c(a,b,c,e){d(window).scroll(function(){d(window).scrollTop()>b?a.slideDown(c).addClass(e):a.removeClass(e)})}var d=a("gallery/jquery/1.8.2/jquery");b.wantTo=c});

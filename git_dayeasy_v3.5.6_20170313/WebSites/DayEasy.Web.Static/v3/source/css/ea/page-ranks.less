@@ -1,0 +1,259 @@
+@import "../../less/base";
+
+.dy-wrap {
+  background-color: #f5f5f5;
+}
+
+.dy-title {
+  padding: 15px 0 0;
+  margin-bottom: 30px;
+  h2 {
+    font-weight: normal;
+    font-size: 20px;
+    border-left: 5px solid #ed5565;
+    padding-left: 25px;
+  }
+}
+
+.dy-ea-joints,
+.dy-ea-ranks {
+  width: @pageWidth;
+  margin: 20px auto;
+  background-color: @color-default;
+}
+
+.dy-joint-list {
+  li {
+    background-color: @border-color;
+    .rounded-corners(3px);
+    .inline-block;
+    vertical-align: top;
+    height: 60px;
+    padding: 10px 15px;
+    border-radius: 3px;
+    margin: 0 0 30px 30px;
+    width: 553px;
+    .d-paper-info,
+    .d-group-info {
+      .inline-block;
+      vertical-align: top;
+      height: 40px;
+      overflow: hidden;
+      line-height: 40px;
+    }
+    .d-paper-info {
+      width: 270px;
+      .d-subject {
+        .rounded-corners(2px);
+        color: @color-default;
+        font-size: 14px;
+        padding: 3px 6px;
+        margin-right: 5px;
+      }
+      .d-subject1 {
+        background-color: @d-color-blue;
+      }
+      .d-subject2 {
+        background-color: @d-color-red;
+      }
+      .d-subject3 {
+        background-color: @d-color-yellow;
+      }
+      .d-subject4 {
+        background-color: @color-success;
+      }
+      .d-subject5 {
+        background-color: @color-info;
+      }
+      .d-subject6 {
+        background-color: @color-primary;
+      }
+      .d-subject7 {
+        background-color: @color-danger;
+      }
+      strong {
+        .inline-block;
+        font-size: 16px;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+        white-space: nowrap;
+        width: 220px;
+      }
+    }
+    .d-group-info {
+      width: 249px;
+      img {
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+        margin-right: 2px;
+        &.image-rounded {
+          .rounded-corners(50%);
+        }
+      }
+      .d-creator,
+      .d-group {
+        .inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+      }
+      .d-creator {
+        width: 4em;
+        margin-right: 5px;
+      }
+      .d-group {
+        width: 8em;
+      }
+    }
+  }
+}
+
+.dy-ea-ranks {
+  padding: 20px 0;
+}
+
+.dy-ranks-header {
+  border-bottom: 1px solid @border-color;
+  margin-bottom: 15px;
+  padding: 15px 20px;
+  position: relative;
+  li {
+    .inline-block;
+    .linkColor(#bbb, #333);
+    font-size: 18px;
+    padding: 0 15px;
+    position: relative;
+    &.active {
+      .linkColor(#333, #333);
+      s {
+        background-color: #ed5565;
+        bottom: -16px;
+        height: 2px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+      }
+    }
+    &.split {
+      border-left: solid 1px @border-color;
+    }
+  }
+  .dy-export {
+    position: absolute;
+    right: 15px;
+    top: 0;
+  }
+}
+
+.dy-ranks {
+  padding: 15px 30px;
+  position: relative;
+  .dy-actions {
+    margin-bottom: 15px;
+    select {
+      margin-right: 15px;
+    }
+    .input-group {
+      .inline-block;
+      position: relative;
+      margin-right: 12px;
+      i {
+        position: absolute;
+        right: 8px;
+        top: 13px;
+        color: #bbb;
+        cursor: pointer;
+      }
+      label {
+        display: none;
+      }
+      &.add-left {
+        input {
+          padding-left: 20px;
+        }
+        label {
+          left: 5px;
+        }
+      }
+      &.add-right {
+        input {
+          padding-right: 20px;
+        }
+        label {
+          right: 5px;
+        }
+      }
+      &.add-left label,
+      &.add-right label {
+        position: absolute;
+        top: 12px;
+        color: #bbb;
+        display: block;
+      }
+    }
+  }
+  .dy-statistic {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    span {
+      margin-right: 15px;
+      color: @d-color-gray;
+      strong {
+        font-weight: 600;
+        color: @d-color-light-gray;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+/*Key Rate*/
+.dy-key-actions {
+  h3, .dy-key-rate {
+    .inline-block;
+  }
+  h3 {
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .dy-key-rate {
+    width: 936px;
+    overflow: hidden;
+    text-align: right;
+    vertical-align: middle;
+    .dy-btn {
+      vertical-align: top;
+    }
+    #segmentSections {
+      float: right;
+    }
+  }
+}
+
+.dy-ranks-split {
+  margin-top: 20px;
+  padding: 30px;
+  border-top: solid 1px @d-color-blue;
+}
+
+.w4 {
+  width: 4em;
+}
+
+.dy-table-head {
+  th {
+    em {
+      display: block;
+      color: #bbb;
+      font-size: 95%;
+      margin-top: 8px;
+    }
+  }
+}
+

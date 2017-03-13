@@ -1,0 +1,127 @@
+.league-nav {
+  overflow: hidden;
+  border-bottom: 1px solid #ededed;
+  background: #fff;
+  margin-bottom: 8px;
+  padding: 0 0 5px;
+}
+.league-nav li {
+  position: relative;
+  width: 33.333333%;
+  float: left;
+  list-style: none;
+  text-align: center;
+  padding: 0 0 6px;
+}
+.league-nav li a {
+  display: block;
+  padding-top: 9pt;
+}
+.league-nav li i.icon-new {
+  position: absolute;
+  left: 50%;
+  top: 9px;
+  margin-left: 5px;
+  display: inline-block;
+  width: 29px;
+  height: 14px;
+}
+.league-nav li img {
+  background: #eee;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+}
+.league-nav li p {
+  color: #666;
+  font-size: 9pt;
+  height: 18px;
+  overflow: hidden;
+}
+.unLogin-remmend-league {
+  background: #fff;
+  padding: 0 1pc;
+}
+.unLogin-remmend-league h3 {
+  padding: 15px 0;
+  font-size: 1pc;
+}
+.unLogin-remmend-league li {
+  height: 4pc;
+  margin-bottom: 8px;
+  border-top: 1px solid #f1f1f1;
+  padding-top: 8px;
+  list-style: none;
+}
+.unLogin-remmend-league li:first-child {
+  border: 0;
+}
+.unLogin-remmend-league li a {
+  display: block;
+  color: #666;
+}
+.unLogin-remmend-league li img {
+  float: left;
+  margin-right: 1pc;
+  width: 56px;
+  height: 56px;
+  border: 4px;
+}
+.unLogin-remmend-league li .league-name {
+  display: block;
+  margin-top: 6px;
+  height: 21px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+  line-height: 21px;
+  color: #333;
+}
+.unLogin-remmend-league li .grey {
+  font-size: 9pt;
+  color: #999 !important;
+  margin-right: 10px;
+}
+.unLogin-remmend-league li .grey i {
+  margin-right: 5px;
+}
+.unLogin-remmend-league .more-leagues {
+  height: 50px;
+  line-height: 40px;
+  text-align: center;
+}
+.unLogin-remmend-league .more-leagues .arrow-right:after {
+  content: '';
+  margin-left: 6px;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid #666;
+  border-right: 1px solid #666;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.footer-index {
+  clear: both;
+  line-height: 40px;
+  background: #f5f5f5;
+  text-align: center;
+  font-size: 9px;
+  color: #666;
+}
+.footer-index li {
+  list-style: none;
+  float: left;
+  width: 25%;
+  border-left: 1px solid #ddd;
+  font-size: 14px;
+  line-height: 14px;
+  text-align: center;
+}
+.footer-index li:first-child {
+  border-left: 0;
+}
+.footer-index li a {
+  color: #666;
+}

@@ -1,0 +1,288 @@
+﻿@using DayEasy.Contracts.Dtos
+@{
+    ViewBag.Title = "图文列表";
+    List<AdvertCategoryDto> categorys = null;
+    if (ViewData["categorys"] != null)
+    {
+        categorys = (List<AdvertCategoryDto>) ViewData["categorys"];
+    }
+}
+<div class="advert-box">
+    <div class="row mt20">
+        <div class="col-sm-3 pl0 d-selects">
+            <select id="ddlCategory" class="form-control" name="category">
+                <option value="">全部分类</option>
+                @if (categorys != null && categorys.Any())
+                {
+                    foreach (var c in categorys)
+                    {
+                        <option value="@c.Id">@c.CategoryName</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-sm-3 pl0">
+            <div class="input-group">
+                <input id="txtKey" type="text" value="" placeholder="标识/别名/文本/关联ID" class="form-control">
+                <span class="input-group-btn">
+                    <button id="btnSearch" class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="d-total">
+                共<em class="em-total">0</em>条数据
+            </div>
+        </div>
+        <div class="col-sm-4 a-operate">
+            <a href="/operate/advert/categorys" class="a-link" target="_blank">
+                <i class="fa fa-indent"></i> 管理分类
+            </a>
+            &nbsp;&nbsp;
+            <a href="/operate/advert/detail" class="a-link" target="_blank">
+                <i class="fa fa-plus-square"></i> 添加图文
+            </a>
+        </div>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover">
+            <colgroup>
+                <col />
+                <col />
+                <col />
+                <col />
+                <col style="min-width: 4em" />
+                <col style="width: 4em" />
+                <col style="width: 8em" />
+                <col style="width: 6em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>-</th>
+                    <th>别名</th>
+                    <th>文本</th>
+                    <th>超链接</th>
+                    <th>关联</th>
+                    <th>图片</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody class="ad-contents"></tbody>
+        </table>
+    </div>
+    <div class="d-pager" style="display:none;">
+        <ul class="pagination"></ul>
+    </div>
+</div>
+
+<script type="text/html" id="ad-item">
+    {{if !adverts || !adverts.length}}
+    <tr><td colspan="8" style="text-align: center">没有查询到数据</td></tr>
+    {{/if}}
+    {{if adverts && adverts.length}}
+    {{each adverts as advert}}
+    <tr data-id="{{advert.id}}">
+        <td>{{advert.index}}</td>
+        <td>{{advert.name}}</td>
+        <td>
+            {{if !advert.text || !advert.text.length}}
+            <label class="label label-default">无</label>
+            {{/if}}
+            {{if advert.text && advert.text.length}}
+            {{advert.text}}
+            {{/if}}
+        </td>
+        <td class="td-url">
+            {{if !advert.textLink || !advert.textLink.length}}
+            <label class="label label-default">无</label>
+            {{/if}}
+            {{if advert.textLink && advert.textLink.length}}
+            {{advert.textLink}}
+            {{/if}}
+        </td>
+        <td>
+            {{if !advert.foreignKey || !advert.foreignKey.length}}
+            <label class="label label-default">无</label>
+            {{/if}}
+            {{if advert.foreignKey && advert.foreignKey.length}}
+            {{advert.foreignKey}}
+            {{/if}}
+        </td>
+        <td>
+            {{if !advert.imageUrl || !advert.imageUrl.length}}
+                <label class="label label-default">无</label>
+                {{/if}}
+                {{if advert.imageUrl && advert.imageUrl.length}}
+            <label class="label label-success">有</label>
+                {{/if}}
+            </td>
+            <td>
+                <abbr title="{{dateFormat advert.createTime 'yyyy年MM月dd日 HH时mm分ss秒'}}">
+                    {{dateFormat advert.createTime}}
+                </abbr>
+            </td>
+            <td>
+                <a class="a-link a-edit" href="/operate/advert/detail/{{advert.id}}" target="_blank" title="编辑"><i class="fa fa-edit"></i></a>
+                <span class="a-remove" title="删除"><i class="fa fa-remove"></i></span>
+            </td>
+        </tr>
+    {{/each}}
+    {{/if}}
+</script>
+
+@section style{
+    <style type="text/css">
+        .a-operate {
+            text-align: right;
+        }
+        .a-link {
+            cursor: pointer;
+            color: #65cafc;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .a-link:hover {
+            color: #28b779;
+            text-decoration: none;
+        }
+         .td-url {
+             max-width: 450px;
+             overflow: hidden;
+         }
+        .a-edit {
+            font-size: 16px;
+        }
+        .a-remove {
+            cursor: pointer;
+            color: #8d8d8d;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .a-remove:hover {
+            color: #ed5565;
+        }
+    </style>
+}
+
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js")
+    <script type="text/javascript">
+        (function($, S) {
+            //查询参数
+            var params = {
+                index: 1,
+                size: 20,
+                category: "",
+                key: ""
+            };
+            //查询数据
+            var getData = function () {
+                $.post("/operate/advert/adverts", params, function (json) {
+                    if (!json.status) {
+                        S.msg(json.message);
+                        return;
+                    }
+                    $(".em-total").text(json.count);
+                    var html = template("ad-item", { adverts: json.data });
+                    $(".ad-contents").html(html);
+                    pager(S.page({
+                        current: params.index - 1,
+                        size: params.size,
+                        total: json.count
+                    }));
+                });
+            };
+            //初始化分页
+            var pager = function (pages) {
+                if (pages.data && pages.data.length) {
+                    $(".d-pager").show();
+                    var $ul = $(".pagination");
+                    $ul.html("");
+                    if (pages.prev) {
+                        $ul.append('<li><a href="javascript:void(0);" data-num="' + (pages.current - 1) + '">上一页</a></li>');
+                    }
+                    for (var i = 0; i < pages.data.length; i++) {
+                        var g = pages.data[i];
+                        var li = '<li' + (g.isActive ? ' class="active"' : '') + '><a href="javascript:void(0);" data-num="' + (g.isActive ? '0' : g.page) + '">' + (g.page > 0 ? g.page : '...') + '</a></li>';
+                        $ul.append(li);
+                    }
+                    if (pages.next) {
+                        $ul.append('<li><a href="javascript:void(0);" data-num="' + (pages.current + 1) + '">下一页</a></li>');
+                    }
+                } else {
+                    $(".d-pager").hide();
+                }
+            };
+
+            //删除
+            $(".advert-box").delegate(".a-remove", "click", function () {
+                var $tr = $(this).parents("tr");
+                var id = $tr.data("id"),
+                    text = $tr.find("td").eq(1).text();
+                if (!id || !id.length) {
+                    S.msg("参数错误，请刷新重试");
+                    return;
+                }
+                S.confirm("确认删除图文 “" + text + "”？", function () {
+                    $.post("/operate/advert/delete", { id: id }, function (json) {
+                        if (!json.status) {
+                            S.msg(json.message);
+                            return;
+                        }
+                        $tr.remove();
+                        S.msg("图文已删除", 1000, function () {
+                            location.reload();
+                        });
+                    });
+                });
+            });
+            //下拉框变动
+            $("#ddlCategory").bind("change", function () {
+                params.index = 1;
+                params.category = $(this).val();
+                getData();
+            });
+            //查询按钮点击
+            $("#btnSearch").bind("click", function () {
+                params.index = 1;
+                params.key = $("#txtKey").val();
+                getData();
+            });
+            //分页
+            $(".pagination").delegate("a", "click", function () {
+                var num = parseInt($(this).data("num"));
+                if (!num || num == params.index) return;
+                params.index = num;
+                getData();
+            });
+            //加载
+            getData();
+        })(jQuery, SINGER);
+
+        /** 格式化时间 **/
+        template.helper("dateFormat", function (time, format) {
+            format = format || "yyyy-MM-dd";
+            var date = new Date(Date.parse(time.replace(/-/g, "/")));
+            var y = date.getFullYear(),
+                m = date.getMonth() + 1,
+                d = date.getDate(),
+                h = date.getHours(),
+                _m = date.getMinutes(),
+                s = date.getSeconds();
+            if (m < 10) m = "0" + m;
+            if (d < 10) d = "0" + d;
+            if (h < 10) h = "0" + h;
+            if (_m < 10) _m = "0" + _m;
+            if (s < 10) s = "0" + s;
+            var result = format
+                .replace("yyyy", y)
+                .replace("MM", m)
+                .replace("dd", d)
+                .replace("HH", h)
+                .replace("mm", _m)
+                .replace("ss", s);
+            return result;
+        });
+    </script>
+}

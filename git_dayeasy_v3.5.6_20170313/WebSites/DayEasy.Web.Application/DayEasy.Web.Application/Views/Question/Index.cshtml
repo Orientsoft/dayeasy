@@ -1,0 +1,306 @@
+﻿@using DayEasy.Core.Domain
+@{
+    ViewBag.Title = "题库";
+}
+<script>var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true; deyi.loadFormula = true;</script>
+<div class="bg-stock"><img src="@Url.StaticLink("/image/stock/bg-stock-1.jpg")" width="1440" height="190" alt="我的得一题库"></div>
+<div class="dy-container q-container j-autoHeight"
+     data-left="192"
+     data-min="340"
+     data-type="2">
+    <div ng-controller="listCtrl">
+        <form role="form"
+              class="form-horizontal"
+              novalidate>
+            <div class="d-range col-md-3 col-xs-3">
+                <ul>
+                    <li class="d-range-item active">我的</li>
+                    <li class="d-range-item hidden"></li>
+                    <li class="d-range-item">全网</li>
+                </ul>
+            </div>
+            <div class="q-search col-md-7 col-xs-7">
+                <div class="col-md-3 col-xs-3">
+                    <select class="form-control"
+                            ng-model="sd.stage"
+                            ng-change="search()">
+                        <option value="-1">选择学段</option>
+                        @foreach (var stage in (List<DKeyValue<int, string>>)ViewData["stages"])
+                        {
+                            <option value="@stage.Key">@stage.Value</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3 col-xs-3">
+                    <select class="form-control"
+                            ng-model="sd.type"
+                            ng-change="search()">
+                        <option value="-1">选择题型</option>
+                        <option ng-repeat="t in qTypes"
+                                value="{{t.id}}"
+                                ng-bind="t.name"></option>
+                    </select>
+                </div>
+                <div class="col-md-4 col-xs-4">
+                    <div class="input-group">
+                        <input type="text"
+                               class="form-control"
+                               autofocus
+                               ng-model="sd.keyword"
+                               ng-keypress="keyPress($event)"
+                               x-webkit-grammar="builtin:translate"
+                               placeholder="知识点/关键字" />
+                        <a class="btn input-group-addon"
+                           ng-click="search()">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-2 q-total col-xs-2" ng-if="!showEmpty && totalCount>0">
+                    共<em ng-bind="formatNum(totalCount)"></em>道
+                </div>
+            </div>
+            <div class="q-add col-md-2 col-xs-2">
+                <a class="btn btn-info a04" href="/question/add">
+                    <i class="fa fa-plus"></i>
+                    添加题目
+                </a>
+            </div>
+        </form>
+        <div class="q-list-wrap">
+            @*<div class="col-md-12 col-xs-12 q-empty" ng-if="showEmpty">
+                    <i class="fa fa-warning"></i>
+                    没有相关的题目信息！
+                </div>*@
+            <div class="col-md-12 col-xs-12" ng-if="showEmpty">
+                <div class="m-tips-p" ng-if="sd.range==0">
+                    <div class="f-bgp z-crt-2 f-bgp-2"></div>
+                    <div class="m-ct s-bg-3">
+                        <p>没有相关题目哦，</p>
+                        <p class="m-tt">亲爱的老师，猛戳<span class="s-fc">添加题目</span>创造专属你的第一题吧~</p>
+                    </div>
+                </div>
+                <div class="m-tips-p" ng-if="sd.range!=0">
+                    <div class="f-bgp z-crt-5 f-bgp-1"></div>
+                    <div class="m-ct s-bg-4">
+                        <p>没有相关题目哦，
+                        <p class="m-tt">亲爱的老师，去<span class="s-fc">我的</span>分享你的第一道题吧~</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12 q-empty" ng-if="showError">
+                <i class="fa fa-warning"></i>
+                加载失败，请<span class="refresh" ng-click="search()">刷新</span>重试！
+            </div>
+            <div class="q-list" ng-if="list && list.length">
+                <div class="q-item col-md-12 col-xs-12 after" ng-repeat="q in list">
+                    <!--题干-->
+                    <div class="q-main col-md-12 col-xs-12"
+                         title="{{q.showAnswer?'收起答案':'查看答案'}}"
+                         ng-click="showAnswer(q,$event)">
+                        <div class="q-body" ng-bind-html="bindQuestionBody(q.type,q.body)">
+                        </div>
+                        <div class="q-image"
+                             ng-if="q.images && q.images.length"
+                             ng-click="showImage(q.images[0],$event)"
+                             title="查看大图">
+                            <img ng-src="{{makeThumb(q.images[0],150)}}" />
+                        </div>
+                        <!--小问-->
+                        <div class="q-details"
+                             ng-if="q.details && q.details.length">
+                            <div ng-repeat="d in q.details" class="q-detail">
+                                <div class="q-body" ng-bind-html="trustHtml(d.body)"></div>
+                                <div class="q-image"
+                                     ng-if="d.images && d.images.length"
+                                     ng-click="showImage(d.images[0],$event)"
+                                     title="查看大图">
+                                    <img ng-src="{{makeThumb(d.images[0],150)}}" />
+                                    <i class="fa fa-search-plus"></i>
+                                </div>
+                                <!--小问选项-->
+                                <div class="q-options"
+                                     ng-if="d.answers && d.answers.length && q.showOption"
+                                     ng-class="{'q-options-horizontal':optionModel(d.answers)}">
+                                    <div class="q-option"
+                                         ng-repeat="a in d.answers">
+                                        <div class="q-body" ng-if="a.body !='' || (a.images && a.images.length)">
+                                            <span class="q-option-word"
+                                                  ng-bind="optionWords[a.sort]+'.'"></span>
+                                            <div class="q-option-body" ng-bind-html="trustHtml(a.body)"></div>
+                                        </div>
+                                        <div class="q-image"
+                                             ng-if="a.images && a.images.length"
+                                             ng-click="showImage(a.images[0],$event)"
+                                             title="查看大图">
+                                            <img ng-src="{{makeThumb(a.images[0],120)}}" />
+                                            <i class="fa fa-search-plus"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--大题选项-->
+                        <div class="q-options"
+                             ng-if="(!q.details || !q.details.length) && q.answers.length>1 && q.showOption"
+                             ng-class="{'q-options-horizontal':optionModel(q.answers)}">
+                            <div class="q-option"
+                                 ng-repeat="a in q.answers">
+                                <div class="q-body" ng-if="a.body != '' || (a.images && a.images.length)">
+                                    <span class="q-option-word" ng-bind="optionWords[a.sort]+'.'"></span>
+                                    <div class="q-option-body" ng-bind-html="trustHtml(a.body)"></div>
+                                </div>
+                                <div class="q-image"
+                                     ng-if="a.images && a.images.length"
+                                     ng-click="showImage(a.images[0],$event)"
+                                     title="查看大图">
+                                    <img ng-src="{{makeThumb(a.images[0],120)}}" />
+                                    <i class="fa fa-search-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--参考答案-->
+                    <div class="q-answer col-md-12 col-xs-12" ng-if="q.showAnswer">
+                        <div class="answer-tag col-md-1 col-xs-2">
+                            <strong>答案：</strong>
+                        </div>
+                        <div class="col-md-11 col-xs-10">
+                            <div ng-bind-html="getAnswer(q)"></div>
+                        </div>
+                        <div class="q-image"
+                             ng-if="!q.isObjective && q.answers[0].images && q.answers[0].images.length"
+                             ng-click="showImage(q.answers[0].images[0],$event)"
+                             title="查看大图">
+                            <img ng-src="{{makeThumb(q.answers[0].images[0],150)}}" />
+                            <i class="fa fa-search-plus"></i>
+                        </div>
+                        <!--解析-->
+                        <div ng-if="q.analysis"
+                             class="answer-tag col-md-1 col-xs-2 mt20">
+                            <strong>解析：</strong>
+                        </div>
+                        <div ng-if="q.analysis"
+                             class="col-md-10 col-xs-10 mt20">
+                            <div ng-bind-html="trustHtml(q.analysis.body)"></div>
+                        </div>
+                        <div class="q-image"
+                             ng-if="q.analysis && q.analysis.images && q.analysis.images.length"
+                             ng-click="showImage(q.analysis.images[0],$event)"
+                             title="查看大图">
+                            <img ng-src="{{makeThumb(q.analysis.images[0],150)}}" />
+                            <i class="fa fa-search-plus"></i>
+                        </div>
+                    </div>
+                    <!--题目信息-->
+                    <div class="q-footer col-md-12 col-xs-12">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-2 col-xs-3">
+                                <label>时　间：</label>
+                                <span ng-bind="q.time"></span>
+                            </div>
+
+                            <div class="col-md-2 col-xs-3">
+                                <label>错误率：</label>
+                                <span ng-bind="errorRate(q.answerCount,q.errorCount)"></span>
+                            </div>
+                            <div class="col-md-2 col-xs-3">
+                                <label>使用次数：</label>
+                                <span ng-bind="q.useCount"></span>
+                            </div>
+                            <div class="q-edit-area"
+                                 ng-if="sd.range == 0">
+                                <div class="q-edit"
+                                     ng-if="sd.range == 0">
+                                    <a ng-click="remove($index,q)" class="a03">删除</a>
+                                    <a target="_blank" ng-href="/question/modify/{{q.id}}" class="a02">编辑</a>
+                                </div>
+                                <div class="q-share"
+                                     ng-if="sd.range == 0">
+                                    <span class="q-range" ng-bind="ranges[q.range]"></span>
+                                    <i class="fa fa-angle-down"></i>
+                                    <div class="q-choose">
+                                        <span ng-repeat="r in otherRanges(q.range)"
+                                              ng-click="updateRange(q,r.id)"
+                                              ng-bind="r.name">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-offset-4 col-md-2 col-xs-offset-4 col-xs-2 q-edit-area"
+                                 ng-if="sd.range > 0">
+                                <div class="text-right">
+                                    <i class="fa fa-user"></i>
+                                    <span ng-bind="q.userName"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--显示更多-->
+                        <div class="col-md-12 col-xs-12" ng-if="q.showMore">
+                            <label>知识点：</label>
+                            <span ng-if="!q.knowledges || !q.knowledges.length">无</span>
+                            <span class="q-point-item"
+                                  ng-repeat="point in q.knowledges"
+                                  ng-bind="point.name"></span>
+                        </div>
+                        <div class="col-md-12 col-xs-12 q-tags"
+                             ng-if="q.showMore && q.tags && q.tags.length">
+                            @*<label>标　签：</label>*@
+                            <div class="d-tag"
+                                 ng-repeat="tag in q.tags"><span ng-bind="tag"></span><em></em></div>
+                        </div>
+                        <div class="q-footer-more"
+                             title="{{q.showMore?'收起':'查看详情'}}"
+                             ng-click="showMore(q)">
+                            <i class="fa"
+                               ng-class="q.showMore?'fa-angle-double-up':'fa-angle-double-down'"></i>
+                        </div>
+                    </div>
+                    <div class="q-mark" ng-class="'q-mark-0'+(q.stage)" title="">
+                        <span ng-bind="['小学','初中','高中'][q.stage-1]"></span>
+                    </div>
+                    @*<div class="q-mark q-mark-left q-mark-04" ng-class="'t-'+q.type">
+                            <span ng-bind="questionTypes[q.type].title"></span>
+                        </div>*@
+                </div>
+            </div>
+
+            <!--数据加载-->
+            <div class="q-loading col-md-12 col-xs-12" ng-if="loading">
+                <div class="col-md-offset-5 col-md-2 col-xs-offset-4 col-xs-4">
+                    <i class="fa fa-spin fa-spinner"></i>
+                    数据加载中...
+                </div>
+            </div>
+        </div>
+        <div class="d-pager" ng-if="pages.data && pages.data.length">
+            <ul class="pagination">
+                <li ng-if="pages.prev"><a href="#" ng-click="page(pages.current-1)">上一页</a></li>
+                <li ng-repeat="g in pages.data"
+                    ng-class="{'active':g.isActive}">
+                    <a href="javascript:void(0)" ng-click="g.page > 0 && !g.isActive && page(g.page)"
+                       ng-class="{'a04':g.isActive}"
+                       ng-bind="g.page > 0?g.page:'...'">
+                    </a>
+                </li>
+                <li ng-if="pages.next"><a href="#" ng-click="page(pages.current+1)">下一页</a></li>
+                <li>
+                    <input class="form-control g-page"
+                           ng-model="pages.current"
+                           placeholder="页码"
+                           ng-keypress="$event.keyCode==13 && page(pages.current)" />
+                    <button type="button" class="btn btn-default btn-sm" ng-click="page(pages.current)">确认</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/question/list.css")
+    <style>
+        
+    </style>
+}
+@section js{
+    @Html.CombineLink("js/portal/question/formula.js,v3/js/question/base.js,v3/js/question/list.js")
+}

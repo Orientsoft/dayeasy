@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "名师搜“神”记";
+}
+<script>singer.config({ global: { goTop: false } });</script>
+<div class="wrap-teacher-day">
+    <div class="bg-main">
+        <div class="bg"></div>
+        <span class="yun-1 cloud"></span>
+        <span class="yun-2 cloud"></span>
+        <span class="yun-3 cloud"></span>
+        <span class="yun-4 cloud"></span>
+    </div>
+    <div class="bg-tool">
+    </div>
+</div>
+
+@section js{
+    <script>
+        (function ($) {
+            $('.dy-wrap')
+                .append('<div class="tree-left"></div>')
+                .append('<div class="tree-right"></div>');
+        })(jQuery);
+    </script>
+}

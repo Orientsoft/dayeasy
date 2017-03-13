@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{99FFEFCC-24B9-4032-8505-87B64B2BD6F3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DayEasy.Web.ManageMent</RootNamespace>
+    <AssemblyName>DayEasy.Web.ManageMent</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DayEasy.AsyncMission, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_service\DayEasy.AsyncMission.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.AutoMapper">
+      <HintPath>..\..\..\_service\DayEasy.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Contracts">
+      <HintPath>..\..\..\_service\DayEasy.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Core">
+      <HintPath>..\..\..\_service\DayEasy.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Examination.Services">
+      <HintPath>..\..\..\_service\DayEasy.Examination.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Framework">
+      <HintPath>..\..\..\_service\DayEasy.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Group.Services">
+      <HintPath>..\..\..\_service\DayEasy.Group.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Marking.Services">
+      <HintPath>..\..\..\_service\DayEasy.Marking.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Message.Services">
+      <HintPath>..\..\..\_service\DayEasy.Message.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Office, Version=3.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_service\DayEasy.Office.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Paper.Services">
+      <HintPath>..\..\..\_service\DayEasy.Paper.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Services">
+      <HintPath>..\..\..\_service\DayEasy.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Statistic.Services">
+      <HintPath>..\..\..\_service\DayEasy.Statistic.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.User.Services">
+      <HintPath>..\..\..\_service\DayEasy.User.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Utility">
+      <HintPath>..\..\..\_service\DayEasy.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="DayEasy.Web">
+      <HintPath>..\..\..\_service\DayEasy.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MiniProfiler">
+      <HintPath>..\packages\MiniProfiler.3.1.1.140\lib\net40\MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniProfiler.EntityFramework6">
+      <HintPath>..\packages\MiniProfiler.EF6.3.0.11\lib\net40\MiniProfiler.EntityFramework6.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="org.in2bits.MyXls, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_service\org.in2bits.MyXls.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Views\Subject\Edit.cshtml" />
+    <Content Include="Views\Subject\Index.cshtml" />
+    <Content Include="Views\User\Active.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AdminHtmlHelper.cs" />
+    <Compile Include="Common\MVCHelper.cs" />
+    <Compile Include="Config\HomeConfig.cs" />
+    <Compile Include="Config\MenuConfig.cs" />
+    <Compile Include="Controllers\AdvertController.cs" />
+    <Compile Include="Controllers\AgencyController.cs" />
+    <Compile Include="Controllers\AsyncMissionController.cs" />
+    <Compile Include="Controllers\ExamController.cs" />
+    <Compile Include="Controllers\ScBookChapterController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Config\IndexConfig.cs" />
+    <Compile Include="Controllers\PageConfigController.cs" />
+    <Compile Include="Controllers\JointController.cs" />
+    <Compile Include="Controllers\KpController.cs" />
+    <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\PaperController.cs" />
+    <Compile Include="Controllers\QTypeController.cs" />
+    <Compile Include="Controllers\SubjectController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\SystemController.cs" />
+    <Compile Include="Controllers\TopicController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\AdminController.cs" />
+    <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
+    <Compile Include="Filters\AdminAuthorizeAttribute.cs" />
+    <Compile Include="Filters\ManagerRolesAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Shared\_Theme.cshtml" />
+    <Content Include="..\..\_sitebase\Views\Shared\_BaseLayout.cshtml">
+      <Link>Views\Shared\_BaseLayout.cshtml</Link>
+    </Content>
+    <Content Include="Views\App\Configure.cshtml" />
+    <Content Include="Views\App\Edit.cshtml" />
+    <Content Include="Views\App\Index.cshtml" />
+    <Content Include="Views\Log\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\QType\Edit.cshtml" />
+    <Content Include="Views\QType\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\back.dayeasy.dev.pubxml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Group\Index.cshtml" />
+    <Content Include="Views\Manager\Index.cshtml" />
+    <Content Include="Views\Kp\Index.cshtml" />
+    <Content Include="Views\Joint\Index.cshtml" />
+    <Content Include="Views\Paper\Index.cshtml" />
+    <Content Include="Views\User\Special.cshtml" />
+    <Content Include="Views\Advert\Index.cshtml" />
+    <Content Include="Views\Advert\Detail.cshtml" />
+    <Content Include="Views\Advert\Categorys.cshtml" />
+    <Content Include="Views\Advert\PartialList.cshtml" />
+    <Content Include="Views\PageConfig\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\management.pubxml" />
+    <Content Include="Views\Topic\Index.cshtml" />
+    <Content Include="Views\PageConfig\Generate.cshtml" />
+    <Content Include="Views\Shared\_HomeLayout.cshtml" />
+    <Content Include="Views\ScBookChapter\Index.cshtml" />
+    <Content Include="Views\ScBookChapter\Chapters.cshtml" />
+    <Content Include="Views\Joint\Pictures.cshtml" />
+    <Content Include="Views\Joint\Exceptions.cshtml" />
+    <Content Include="Views\Exam\Index.cshtml" />
+    <Content Include="Views\Exam\Create.cshtml" />
+    <Content Include="Views\System\DownloadLogs.cshtml" />
+    <Content Include="Views\Kp\MoveList.cshtml" />
+    <Content Include="Views\Agency\Index.cshtml" />
+    <Content Include="Views\PageConfig\HomeConfig.cshtml" />
+    <Content Include="Views\PageConfig\PersonalConfig.cshtml" />
+    <Content Include="Views\PageConfig\HomeGenerate.cshtml" />
+    <Content Include="Views\Shared\_HomePageLayout.cshtml" />
+    <Content Include="Views\Paper\Sheet.cshtml" />
+    <Content Include="Views\AsyncMission\Index.cshtml" />
+    <Content Include="Views\Joint\MarkingList.cshtml" />
+    <Content Include="Views\Exam\Unions.cshtml" />
+    <Content Include="Views\Exam\CreateUnion.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DayEasy.Contracts.Management\DayEasy.Contracts.Management.csproj">
+      <Project>{992ccc70-65d1-411e-9d6a-b0980f6454ec}</Project>
+      <Name>DayEasy.Contracts.Management</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DayEasy.Management.Services\DayEasy.Management.Services.csproj">
+      <Project>{d49958bf-ea27-4038-882a-964918642295}</Project>
+      <Name>DayEasy.Management.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>8119</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8119/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>xcopy /r /y "..\..\..\_sitebase\Views\Shared\_BaseLayout.cshtml" "..\Views\Shared\_BaseLayout.cshtml"</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

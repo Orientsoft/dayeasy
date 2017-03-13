@@ -1,0 +1,343 @@
+﻿@model List<TS_ElectiveCourse>
+@{
+    ViewBag.Title = "选修课程管理";
+    List<SelectListItem> agencys = null;
+    if (ViewData["agencys"] != null)
+    {
+        agencys = (List<SelectListItem>)ViewData["agencys"];
+    }
+}
+
+<div>
+    <div class="row mt20">
+        <form method="GET" action="@Url.Action("Index","Elective")" id="searchForm">
+            <div class="col-md-4 pl0">
+                @Html.DropDownList("ddlAgency", agencys, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-3 pl0">
+                <div class="input-group">
+                    <input type="text" value="@Request["txtKey"]" placeholder="课程名称/上课老师" class="form-control" name="txtKey">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit" id="btn_submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-1 pl0">
+                <div class="d-total"><em>@(Model != null ? Model.Count : 0)</em>条记录</div>
+            </div>
+            <div class="col-md-4 text-right">
+                <span class="btn btn-danger" id="btn-add">
+                    <i class="fa fa-cloud-upload"></i>
+                    导入课程
+                </span>
+                &nbsp;&nbsp;
+                <span class="btn btn-blue" id="btn-export">
+                    <i class="fa fa-cloud-download"></i>
+                    导出课程
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover">
+            <colgroup>
+                <col style="width: 2em" />
+                <col style="width: 4em" />
+                <col style="width: 10em" />
+                <col style="width: 10em" />
+                <col style="width: 12em" />
+                <col style="width: 12em" />
+                <col style="width: 8em" />
+                <col />
+                <col />
+                <col />
+                <col style="width: 6em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>类型</th>
+                    <th style="text-align: center;">序号</th>
+                    <th>课程名称</th>
+                    <th>上课老师</th>
+                    <th>上课地址</th>
+                    <th>上课时间</th>
+                    <th>适用年级</th>
+                    <th style="text-align: center;">班容量</th>
+                    <th style="text-align: center;">总容量</th>
+                    <th>状态</th>
+                    <th style="text-align: right;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    var i = 1;
+                    var group = Model.GroupBy(m => m.Category);
+                    foreach (var g in group)
+                    {
+                        var j = 0;
+                        foreach (var m in g)
+                        {
+                            <tr data-id="@m.Id" data-name="@m.CourseName">
+                                @if ((j++) == 0)
+                                {
+                                    var count = g.Count();
+                                    <td rowspan="@count" style="border:1px solid #ccc;">@g.Key</td>
+                                }
+                                <td style="text-align: center;">@(i++)</td>
+                                <td title="@m.CourseName">@(m.CourseName.Length > 10 ? m.CourseName.Substring(0, 10) + "..." : m.CourseName)</td>
+                                <td>@m.TeacherName</td>
+                                <td title="@m.Address">@(m.Address.Length > 15 ? m.Address.Substring(0, 15) + "..." : m.Address)</td>
+                                <td>@m.StartTime</td>
+                                <td>@m.Coverage</td>
+                                <td style="text-align: center;">@m.ClassCapacity</td>
+                                <td style="text-align: center;">@m.TotalCapacity</td>
+                                <td class="status-span">
+                                    @if (m.Status == 0)
+                                    {
+                                        <span style="color: green">正常</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color: darkred">关闭</span>
+                                    }
+                                </td>
+                                <td style="text-align: right;">
+                                    @if (m.Status == 0)
+                                    {
+                                        <a href="javascript:void(0);" class="a-edit" title="编辑"><i class="fa fa-edit"></i></a>   
+                                        <span>|</span>
+                                        <a href="javascript:void(0);" class="a-close" title="关闭"><i class="fa fa-power-off"></i></a>
+                                        <span>|</span>
+                                    }
+                                    <a href="javascript:void(0);" class="a-delete" title="删除"><i class="fa fa-times"></i></a>   
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="11" style="text-align: center;">没有找到相关信息！</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/html" id="tmpImport">
+    <form style="width:450px;" class="form-horizontal" id="addForm" action="@Url.Action("ImportCourse", "Elective")" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="col-sm-3 control-label"><sup style="color:red;">*</sup>文件：</label>
+            <input type="file" name="file" />
+            <span class="col-sm-offset-3 text-success">Excel2003(.xls)格式</span>
+        </div>
+        <div class="form-group mt10">
+            <label class="col-sm-3 control-label"><sup style="color:red;">*</sup>机构：</label>
+            <div class="col-sm-6 pl0 j-agencies">
+                @Html.DropDownList("agencies", agencys, new { @class = "form-control" })
+            </div>
+        </div>
+    </form>
+</script>
+
+<script type="text/html" id="tmpEdit">
+    <form style="width: 450px;" class="form-horizontal" id="editForm" action="@Url.Action("UpdateCourse","Elective")" method="POST">
+        <input type="hidden" id="txtId" name="txtId"/>
+        <div class="form-group">
+            <label for="txtName" class="col-sm-3 control-label">课程名称</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtName" name="txtName" placeholder="课程名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtTeacherName" class="col-sm-3 control-label">上课老师</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtTeacherName" name="txtTeacherName" placeholder="上课老师">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtAddress" class="col-sm-3 control-label">上课地址</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtAddress" name="txtAddress" placeholder="上课地址">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtTime" class="col-sm-3 control-label">上课时间</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtTime" name="txtTime" placeholder="上课时间">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtCoverage" class="col-sm-3 control-label">试用年级</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtCoverage" name="txtCoverage" placeholder="试用年级">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtCount" class="col-sm-3 control-label">班容量</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtCount" name="txtCount" placeholder="班容量">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtTotal" class="col-sm-3 control-label">总容量</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtTotal" name="txtTotal" placeholder="总容量">
+            </div>
+        </div>
+    </form>
+</script>
+
+@section style{
+    <style type="text/css">
+        input, select, textarea {
+            max-width: 1000px;
+        }
+    </style>
+}
+
+@section script{
+    <script src="~/Scripts/base/jquery.form.js"></script>
+    <script type="text/javascript">
+        $(function($) {
+            $("#ddlAgency").change(function() {
+                $("#searchForm").submit();
+            });
+
+            //导入课程
+            $("#btn-add").click(function() {
+                var html = $("#tmpImport").html();
+                $.Dayez.dialog("导入课程", html, function() {
+                    $("#addForm").ajaxSubmit({
+                        beforeSubmit: function() {
+                            if ($("#agencies").val() == -1) {
+                                $("#agencies").focus();
+                                return false;
+                            }
+                            return true;
+                        },
+                        success: function(res) {
+                            if (res.Status) {
+                                $.Dayez.msg("导入成功");
+                                setTimeout(function() {
+                                    window.location.reload();
+                                },2000);
+                            } else {
+                                $.Dayez.msg(res.Message);
+                            }
+                        }
+                    });
+                    return false;
+                });
+            });
+
+            //导出课程
+            $("#btn-export").click(function() {
+                var agencyId = $("#ddlAgency").val();
+                if (agencyId == "-1") {
+                    $.Dayez.msg("请选择机构");
+                    return;
+                }
+                var url = "/elective/exportCourse?agencyId=" + agencyId;
+                var $a = $('<a>');
+                $a.attr("href", url);
+                $a.attr("target", "_blank");
+                $("body").append($a);
+                $a[0].click();
+                $a.remove();
+            });
+
+            //删除
+            $(".a-delete").bind("click", function() {
+                var $tr = $(this).parents("tr");
+                var id = $tr.data("id"),
+                    name = $tr.data("name");
+                $.Dayez.confirm('确认要删除《' + name + '》？', function() {
+                    $.post("/elective/delete", { id: id }, function(json) {
+                        if (json.Status) {
+                            $tr.remove();
+                            $.Dayez.msg("删除成功");
+                        } else {
+                            $.Dayez.msg(json.Message);
+                        }
+                    });
+                });
+            });
+
+            //关闭
+            $(".a-close").bind("click", function() {
+                var $td = $(this).parent();
+                var $tr = $(this).parents("tr");
+                var id = $tr.data("id"),
+                    name = $tr.data("name");
+                $.Dayez.confirm('确认要关闭《' + name + '》？', function() {
+                    $.post("/elective/close", { id: id }, function(json) {
+                        if (json.Status) {
+                            $tr.find("td[class=status-span]").html('<span style="color: darkred">关闭</span>');
+                            $td.find("a:lt(2)").remove();
+                            $td.find("span").remove();
+                            $.Dayez.msg("关闭成功");
+                        } else {
+                            $.Dayez.msg(json.Message);
+                        }
+                    });
+                });
+            });
+
+            //编辑界面展开收起
+            $(".a-edit").bind("click", function () {
+                var $tr = $(this).parents("tr");
+                var $tds = $tr.find("td");
+                var num = $tds.length == 11 ? 1 : 0;
+
+                var $html = $($("#tmpEdit").html());
+                $html.find("#txtId").val($tr.data("id"));
+                $html.find("#txtName").val($tds.eq(num + 1).text());
+                $html.find("#txtTeacherName").val($tds.eq(num + 2).text());
+                $html.find("#txtAddress").val($tds.eq(num + 3).text());
+                $html.find("#txtTime").val($tds.eq(num + 4).text());
+                $html.find("#txtCoverage").val($tds.eq(num + 5).text());
+                $html.find("#txtCount").val($tds.eq(num + 6).text());
+                $html.find("#txtTotal").val($tds.eq(num + 7).text());
+
+                $.Dayez.dialog("编辑课程", $html, function() {
+                    $("#editForm").ajaxSubmit({
+                        beforeSubmit: function () {
+                            if ($("#txtId").val() == "") {
+                                $.Dayez.msg("未解析课程ID，请刷新重试");
+                                return false;
+                            }
+                            if ($("#txtName").val() == "") {
+                                $("#txtName").focus();
+                                return false;
+                            }
+                            if ($("#txtTeacherName").val() == "") {
+                                $("#txtTeacherName").focus();
+                                return false;
+                            }
+                            if ($("#txtAddress").val() == "") {
+                                $("#txtAddress").focus();
+                                return false;
+                            }
+                            return true;
+                        },
+                        success: function (res) {
+                            if (res.Status) {
+                                $.Dayez.msg("修改成功");
+                                setTimeout(function () {
+                                    window.location.reload();
+                                },2000);
+                            } else {
+                                $.Dayez.msg(res.Message);
+                            }
+                        }
+                    });
+                    return false;
+                });
+            });
+        });
+    </script>
+}

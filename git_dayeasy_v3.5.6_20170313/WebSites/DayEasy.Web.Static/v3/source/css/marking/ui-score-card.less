@@ -1,0 +1,172 @@
+/**
+ * 打分板
+ * Created by shay on 2016/7/4.
+ */
+@import "../../less/base";
+
+@d-color-active: #4fc1e9;
+.score-dialog {
+  .ui-dialog-grid,
+  .ui-dialog-body {
+    min-width: 40px;
+  }
+}
+
+.dm-score-box {
+  width: 175px;
+  border: 1px solid @border-color;
+  background-color: @color-default;
+  .rounded-corners(8px);
+  margin-right: 15px;
+  position: relative;
+  overflow: hidden;
+  .dm-score-item {
+    overflow: hidden;
+    line-height: 40px;
+    height: 40px;
+    border-bottom: 1px solid @border-color;
+    color: @d-color-light-gray;
+    .dm-sort,
+    .dm-input,
+    .dm-score {
+      float: left;
+    }
+    .dm-sort {
+      border-right: 1px solid #eee;
+      line-height: 16px;
+      margin: 12px 0;
+      text-align: center;
+      width: 40px;
+      background-color: @color-default;
+    }
+    .dm-input {
+      input {
+        width: 60px;
+        border: none;
+        font-size: 24px;
+        color: @d-color-active;
+        text-align: center;
+        vertical-align: -2px;
+        .text-shadow(1px 1px 2px @d-color-active);
+      }
+    }
+    .dm-score {
+      color: #ccc;
+      font-size: 12px;
+      line-height: 26px;
+      margin-left: 12px;
+      margin-top: 8px;
+      cursor: pointer;
+      & > span {
+        .inline-block;
+        text-align: center;
+        width: 25px;
+      }
+      &:hover {
+        i {
+          color: @d-color-active;
+        }
+      }
+    }
+  }
+  /*单题*/
+  &.dm-single {
+    padding-top: 30px;
+    height: 150px;
+    .dm-score-item {
+      border-bottom: none;
+      height: 86px;
+    }
+    .dm-sort,
+    .dm-input,
+    .dm-score {
+      float: none;
+    }
+    .dm-sort {
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      height: 30px;
+      width: auto;
+      padding: 0 8px;
+      line-height: 30px;
+      margin: 0;
+      border: 1px solid @border-color;
+    }
+    .dm-input {
+      height: 55px;
+      font-size: 18px;
+      input {
+        font-size: 60px;
+        width: 130px;
+        height: 55px;
+        line-height: 55px;
+      }
+    }
+    .dm-score {
+      font-size: 20px;
+      height: 31px;
+      line-height: 31px;
+      padding: 0 12px 0 0;
+      text-align: right;
+      margin: 0;
+      & > span {
+        padding: 0 3px;
+        width: auto;
+      }
+      i {
+        font-size: 14px;
+        vertical-align: middle;
+      }
+    }
+  }
+  .dm-all {
+    text-align: center;
+    line-height: 32px;
+    background-color: #effbff;
+    color: @d-color-active;
+    font-size: 14px;
+    letter-spacing: 4px;
+    cursor: pointer;
+  }
+  &.active {
+    border-color: @d-color-active;
+    .dm-score-item {
+      border-color: @d-color-active;
+    }
+    .dm-sort {
+      border-color: @d-color-active;
+      color: @d-color-active;
+    }
+  }
+}
+
+.dm-scores-wrap {
+  .dm-scores {
+    max-width: 400px;
+    span {
+      float: left;
+      width: 40px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      color: #aaa;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      &.quick {
+        font-size: 12px;
+      }
+      &:hover {
+        background-color: @d-color-blue;
+        color: @color-default;
+      }
+    }
+    .d-quick {
+      background-color: @color-default;
+      border-bottom: 1px dashed #eee;
+      display: block;
+      overflow: hidden;
+    }
+  }
+}

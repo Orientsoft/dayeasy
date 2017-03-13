@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>海报Demo</title>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <link href="//static.dayeasy.net" rel="dns-prefetch">
+    <link href="//file.dayeasy.net" rel="dns-prefetch">
+    <link rel="apple-touch-icon-precomposed" href="/image/logo_114x114.png">
+    <link type="image/x-icon" rel="Shortcut Icon" href="/image/logo_114x114.png">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+</head>
+<body>
+<div class="box">
+    <div class="d-poster"></div>
+</div>
+<div class="control">
+    <button id="fileSelector">选择图片</button>
+    <button id="bigger">放大</button>
+    <button id="smaller">缩小</button>
+    <button id="makePoster">确认生成</button>
+</div>
+<div class="preview">
+    <img id="preview">
+</div>
+<script src="/js/site-base.min.js"></script>
+<script src="/source/js/poster/d-poster.js"></script>
+<script>
+    (function () {
+        var poster = $('.d-poster').poster(),
+                sceneList = [];
+        poster.setUser({
+            school: '成都七中',
+            name: '李老师',
+            creator: 'Mr.Luo'
+        });
+        $.get('/poster/scenes.json', {}, function (json) {
+            sceneList = json;
+            poster.setScene(sceneList[2]);
+        });
+        $('#fileSelector').fileSelector(function (data) {
+            poster.setCustom(data);
+        });
+        $('#bigger').bind('click', function () {
+            poster.zoomCustom(0.1);
+        });
+        $('#smaller').bind('click', function () {
+            poster.zoomCustom(-0.1);
+        });
+        $('#makePoster').bind('click', function () {
+            var data = poster.getImage();
+            $.post('http://open.dayeasy.dev/activity/make-poster', {
+                areaCode: 510101,
+                school: '成都七中',
+                name: '李老师',
+                creator: 'Mr.Luo',
+                imageData: data,
+                type: 0,
+                word: ''
+            }, function (json) {
+                if (json.status) {
+                    location.href = 'share.html?id=' + json.data.id;
+                } else {
+                    S.alert(json.message);
+                }
+            });
+        });
+    })(jQuery, SINGER);
+</script>
+</body>
+</html>

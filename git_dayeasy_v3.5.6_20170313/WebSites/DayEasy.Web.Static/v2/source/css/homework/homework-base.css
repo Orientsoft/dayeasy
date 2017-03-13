@@ -1,0 +1,174 @@
+/*后台管理通用样式*/
+.j-autoHeight {
+  position: relative;
+}
+.dy-body {
+  background-color: #f7f3ee;
+}
+.v-empty {
+  color: #7b7b7b;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 45px;
+}
+.title-icon {
+  background-color: #ffab00;
+  width: 2px;
+  margin-right: 5px;
+}
+.work-list {
+  padding: 30px 0;
+}
+.work-list .content {
+  margin-top: 20px;
+  border: 1px solid #7b7b7b;
+  background-color: #fff;
+  color: #7b7b7b;
+}
+.work-list .content .item {
+  width: 100%;
+  height: 120px;
+  border-bottom: 1px solid #7b7b7b;
+  padding: 10px;
+}
+.work-list .content .item .Wdate {
+  width: 186px;
+}
+.work-list .content .item img {
+  height: 100px;
+  max-width: 113px;
+}
+.work-list .content .item .info div {
+  margin: 10px 0;
+  width: 306px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
+.work-list .content .item .info .title {
+  font-weight: bold;
+  font-size: 15px;
+}
+.work-list .content .item .info .title .d-joint {
+  background-color: #d9534f;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 3px;
+}
+.work-list .content .item .info .title span {
+  cursor: default;
+}
+.work-list .content .item .info .title a:hover {
+  color: #4288ca;
+}
+.work-list .content .item .info .edit {
+  color: #4288ca;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.work-list .content .item .info .stu-alt {
+  color: #5cb85c;
+  font-size: 15px;
+  cursor: default;
+  margin-left: 5px;
+}
+.work-list .content .item .info .stu-done {
+  color: #555555;
+}
+.work-list .content .item .student-count {
+  font-weight: bold;
+  width: 252px;
+  height: 82px;
+  font-size: 14px;
+  line-height: 80px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
+.work-list .content .item .student-count .submit-count {
+  color: #ff9933;
+  font-size: 18px;
+  margin-right: 7px;
+}
+.work-list .content .item .student-count span {
+  cursor: default;
+}
+.work-list .content .item .operations div {
+  margin: 15px 10px 0 0;
+}
+.work-list .content .item .operations .danger {
+  color: #ffffff;
+  font-size: 16px;
+}
+.work-list .content .item .operations .danger span {
+  cursor: pointer;
+}
+.work-list .content .item .operations a {
+  color: #fff;
+}
+.work-list .content .item .operations .stu-status {
+  font-size: 15px;
+  color: #5cb85c;
+  margin: 10px 0;
+}
+.work-list .content .item:hover .operations > .danger {
+  color: #d9534f;
+}
+.work-list .content .item-last {
+  border-bottom: 0;
+}
+/*作业中心列表*/
+.t-work-list {
+  padding: 50px 0;
+}
+.t-work-list .top .bar {
+  font-size: 16px;
+  font-weight: bold;
+}
+.t-work-list .top .bar span {
+  margin-right: 20px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+.t-work-list .top .bar .active {
+  border-bottom: 2px solid #ffab00;
+}
+.t-work-list .content {
+  color: #7b7b7b;
+}
+.t-work-list .content .item {
+  margin: 20px 0;
+  padding: 5px;
+  border: 1px dashed #ddd;
+}
+.t-work-list .content .item .title {
+  font-size: 14px;
+}
+.t-work-list .content .item .title a {
+  color: #000;
+  font-weight: bold;
+}
+.t-work-list .content .item .title span {
+  margin-left: 10px;
+  cursor: default;
+}
+.t-work-list .content .item .row {
+  margin: 10px -15px;
+}
+.t-work-list .content .item .oper {
+  line-height: 60px;
+}
+.t-work-list .content .item .oper span {
+  cursor: pointer;
+}
+.t-work-list .content .item .label-default {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  margin-right: 0;
+  cursor: pointer;
+  color: #7b7b7b;
+}

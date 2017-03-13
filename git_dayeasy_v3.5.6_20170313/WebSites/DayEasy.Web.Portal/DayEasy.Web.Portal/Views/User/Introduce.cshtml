@@ -1,0 +1,57 @@
+﻿@using DayEasy.Portal.Services.Config
+@model ImpressionCategory
+@{
+    ViewBag.Title = "描述自己";
+    var isTeacher = (ViewBag.IsTeacher ?? false);
+}
+
+<div class="introduce-oneself">
+    <div class="head-title">
+        <h1>简单描述下自己</h1>
+        <p>优秀的描述，更容易找到有相同特质的人</p>
+    </div>
+    @if (Model != null)
+    {
+        <div class="contents mb40">
+            @if (isTeacher)
+            {
+                <div class="wrap-base wrap-box-1">
+                    <h2>您擅长的是？</h2>
+                    <ul class="f-cb" data-single="true">
+                        @foreach (var tag in Model.WantList)
+                        {
+                            <li>@tag</li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="wrap-base wrap-box-2">
+                <h2>@(isTeacher ? "更适合被视作" : "当前的状态")</h2>
+                <ul class="f-cb" data-single="true">
+                    @foreach (var tag in Model.StatusList)
+                    {
+                        <li>@tag</li>
+                    }
+                </ul>
+            </div>
+            <div class="wrap-base wrap-box-3">
+                <h2>个性特征(可多选)</h2>
+                <ul class="f-cb f-prz">
+                    @foreach (var tag in Model.FeatureList)
+                    {
+                        <li>@tag</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+    <div class="btn f-tac">
+        <a class="a01" href="javascript:void(0);" id="nextBtn">下一步</a>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/user/page-introduce.css")
+}
+@section js{
+    @Html.CombineLink("v3/js/user/page-introduce.js")
+}

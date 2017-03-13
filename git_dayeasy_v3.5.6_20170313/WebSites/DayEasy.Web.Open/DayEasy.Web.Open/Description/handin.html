@@ -1,0 +1,62 @@
+﻿<div class="hero-unit">
+    <h4 class="api_main_intro">学生提交作业</h4>
+
+    <div class="data well">
+        <!-- 旧版
+        {
+        "batch":"试卷批次号",
+        "addedby":"学生ID",
+        "classid":"班级ID",
+        "answers":[
+        {
+        "question":"问题ID",
+        "entireversion":"问题版本",
+        "img":"答题图片",
+        "details":[
+            {
+                "answerids":[学生选择答案ID],
+                "detailid":"小问ID",
+                "body":"学生回答内容"
+            },
+            {}
+        ]
+        },
+        {}
+        ]
+        }
+        -->
+        <!--  新版 2014-11-24
+        {
+        "batch":"批次号",
+        "class_id":"班级ID",
+        "paper_id":"作业ID",
+        "details":[{
+            "question_id":"问题ID",
+            "small_question_id":"小问ID",
+            "answer_id":["学生选择的答案ID"],
+            "body":"答题内容",
+            "images":["答题图片路径"]
+        }]
+        }
+
+        -->
+    </div>
+</div>
+<script>
+    //var data = "{\"batch\":\"试卷批次号\",\"student_id\":\"学生ID\",\"class_id\":\"班级ID\",\"answers\":[{\"question_id\":\"问题ID\",\"version\":\"问题版本\",\"img\":\"答题图片\",\"details\":[{\"student_answers\":[\"学生选择答案ID\"],\"detail_id\":\"小问ID\",\"body\":\"学生回答内容\"},{}]},{}]}";
+    var data = {
+        "batch": "批次号",
+        "class_id": "班级ID",
+        "paper_id": "作业ID",
+        "details": [
+            {
+                "question_id": "问题ID",
+                "small_question_id": "小问ID",
+                "answer_id": ["学生选择的答案ID"],
+                "body": "答题内容",
+                "images": ["答题图片路径"]
+            }
+        ]
+    };
+    $(".data").html((new JsonFormat(data)).toString());
+</script>

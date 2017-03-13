@@ -1,0 +1,398 @@
+/*--------------------------------------------------------------
+                        考试中心 成绩分析
+
+      Author:Plato
+      Create Date:15.08.21    Last Mondify Date:15.08.25
+      ===================================================
+
+--------------------------------------------------------------*/
+@import        "ui-variables.less";
+//@import        "ul-paper.less";
+@import        (reference) "../../icon-base.less";
+
+/*--------------------------------------------------------------
+/*--------------------------------------------------------------
+                         IMG url
+--------------------------------------------------------------*/
+
+.icon-test-center{
+  .icon-test-center();
+}
+.icon-test-center.icon-test-center-slash{
+  .icon-test-center-slash();
+  position: absolute;
+  top: 6px;
+  left: 175px;
+}
+.icon-test-center.icon-test-center-dot{
+  .icon-test-center-dot();
+  position: absolute;
+  right: -8px;
+  top: -11px;
+}
+
+.icon-test-center.icon-test-center-people{
+  .icon-test-center-people();
+}
+.icon-test-center.icon-test-center-peoplehv{
+  .icon-test-center-peoplehv();
+}
+/*--------------------  main Style  -----------------------*/
+.paper-details-three{
+}
+.paper-details-con{
+  background: url("../../../../image/v2.0/a-dashed.png") 96px 0 repeat-y;
+  font-size: 14px;
+  .image-dashed{
+    margin-bottom: 25px;
+    .td-1{
+      position: relative;
+      padding-bottom: 50px;
+      //border-right: 1px dashed #b2b2b2;
+      span.dashed{
+        height: 0;
+        border-top: 1px dashed #b2b2b2;
+        position: relative;
+        display: block;}
+      i.icon-test-center-dot{}
+      .fraction{
+        text-align: right;
+        width: 98px;
+        padding: 5px;
+        top: -4px;
+        height: 32px;
+        line-height: 21px;
+        right: 22px;
+        .angle-bottom{
+          bottom: 17px;
+          left: 4px;
+        }
+        i{border-top: 6px solid transparent;
+          border-left: 10px solid #e6e6e6;
+          border-bottom: 6px solid transparent;}
+        em{
+          border-top: 6px solid transparent;
+          border-left: 10px solid #ffffff;
+          border-bottom: 6px solid transparent;
+          right: -15px;
+          top: 1px;
+        }
+      }
+    }
+    .td-2{min-width: 162px;}
+    .td-3{}
+  }
+  .champion{
+
+    .td-2{
+      position: relative;
+      top: -8px;
+      min-width: 82px;
+    }
+    .td-3{
+      li{
+        width: 89px;
+        float: left;
+        margin-bottom: 10px;
+        img{
+          .rounded-corners(6px);
+          display: block;
+          margin: 0 auto 5px;
+          width: 50px;
+          height: 50px;
+        }
+      }
+      span{
+        text-align: center;
+        display: block;
+        height: 16px;
+        line-height: 16px;
+        }
+      .sp-name{
+        .ellipsis;
+        margin-bottom: 5px;}
+      .sp-worship{
+        em{
+          max-width: 32px;
+          .inline-block;
+          .ellipsis;
+          position: relative;
+          top: 3px;
+        }
+        color: @testc-color-bule;
+      }
+    }
+  }
+  .average{
+    .td-1{
+      top: 5px;
+      span.dashed{
+        top: 13px;
+      }
+
+      .icon-test-center-dot{
+        top: 3px;
+      }
+    }
+    .dashed-last{
+      border-bottom: 1px dashed #b2b2b2;
+      display: block;
+      position: absolute;
+      bottom: -19px;
+      width: 65px;
+    }
+
+    .td-2{
+      position: relative;
+      background:#fcb66f;
+      padding: 10px 10px;
+      margin: 0 15px;
+      color: @color-default;
+      font-size: 16px;
+      left: 15px;
+      b{
+        .rounded-corners(2px);
+        margin-left: 15px;
+        font-size: 24px;
+        font-weight: normal;
+      }
+      .angle-left{
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-right: 10px solid #fcb66f;
+        border-bottom: 5px solid transparent;
+        top: 13px;
+        left: -8px;
+      }
+    }
+    .td-3{
+      .ul-list{
+        width: 700px;
+        }
+      li{margin:5px;
+        position: relative;
+      }
+    }
+  }
+}
+
+
+/*--------------------------------------------------------------
+                         ui Style
+--------------------------------------------------------------*/
+.paper-details-h2{
+  height: 25px;
+  position: relative;
+  font-size: 16px;
+
+
+
+  .sp-left{
+    width: 176px;
+    border-bottom: 2px solid @color-orange;
+    display: block;
+    float: left;
+    strong{
+      font-weight: normal;
+      text-align: right;
+      position: relative;
+      top: -10px;
+      left: 0;
+      display: block;
+      color: #555;
+      //padding-left: 17px;
+    }
+    b{position: relative;
+      top: 6px;
+      .inline-block;
+      max-width:72px;
+      white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;
+    }
+  }
+  i{
+    display: block;
+    float: left;
+    width: 20px;
+    width: 20px;
+  }
+  .sp-right{
+    width: 787px;
+    border-top: 2px solid @color-orange;
+    display: block;
+    float: right;
+    position: relative;
+    top: 6px;
+  }
+  b{
+    font-weight: normal;
+    color: @color-orange;
+    font-size: 24px;}
+}
+//知识点分析
+.knowledge-analysis{
+  width: 940px;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.8em;
+.tab-menu{
+  position: relative;
+  z-index: 2;
+  width: 304px;
+
+  li{
+    background: #fcb66f;
+    height: 50px;
+    line-height: 50px;
+    color: white;
+    padding: 0 30px;
+    cursor: pointer;
+    span.f-fl{
+      width: 70%;
+      overflow: hidden;
+      height: 50px;}
+    span.f-fr{
+      width: 30%;
+      overflow: hidden;
+      text-align: right;
+      height: 50px;
+    }
+  }
+  li.z-crt{
+    background: white;
+    color: #555;
+
+    //-moz-box-shadow: -4px 3px 5px rgba(0,0,0,0.16);
+    //-webkit-box-shadow: -4px 3px 5px rgba(0,0,0,0.16);
+    //box-shadow: -4px 3px 5px rgba(0,0,0,0.16);
+    .box-shadow(-7px 1.732px 10px 0px rgba(0,0,0,0.16));
+
+    .f-fr{
+      color: #fa9632;
+    }
+  }
+}
+.tab-content{
+  width: 636px;
+  position: relative;
+  z-index: 1;
+  //.box-shadow(2px 2px 4px rgba(0,0,0,0.16));
+  .tab-list{
+    width: 636px;
+    display: none;
+    position: absolute;
+    background: white;
+    min-height: 50px;
+    .box-shadow(1px 1.732px 10px 0px rgba(0, 0, 0, 0.16));
+    & > .row{padding:0 -1px 0 13px;}
+    .hd-title{
+      position: relative;
+      text-align: center;
+      span{
+        font-size: 12px;
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+        background-color: white;
+      }
+      hr{    height: 1px;
+        background: #ccc;
+        position: absolute;
+        top: -8px;
+        left: 31px;
+        z-index: 1;
+        width: 605px;
+        border: none;
+      }
+    }
+    .boder-bottom{
+      li{
+        font-size: 16px;
+        line-height: 2em;
+        border-bottom: 1px solid #e6e6e6;
+      }
+      }
+    .customized{
+      padding: 14px 0;
+      line-height: 1.4em;
+      .td-1{
+        img{
+          width: 60px;
+          height: 55px;
+          display: block;
+          margin: 0 auto;
+        }
+      }
+    .td-2{padding: 8px 0;
+      a{
+        display: block;
+        height: 38px;
+        overflow: hidden;
+      }
+    }
+    .td-3{
+      text-align: center;
+    del{
+      color: #fa9632;
+      .inline-block;
+      margin-bottom: 5px;
+    }
+      .btn-box{
+        color: white;
+        background: #fcb66f;
+        .rounded-corners(2px);
+        font-size: 12px;
+        padding: 4px 7px;
+      }
+    }
+    .td-4{ height: 38px;
+      overflow: hidden;}
+    }
+  }
+  //.tab-list > row{padding: 0 13px;}
+  .tab-1{
+    display: block;}
+}
+  .f-limit{
+    height: 100px;
+    overflow: hidden;
+  }
+}
+
+
+//平均分
+span.fraction{
+  display: block;
+  background: @color-default;
+  color: @color-orange;
+  position: absolute;
+  padding: 10px 8px;
+  color: @color-orange;
+  font-size: 14px;
+  border: 1px solid #e6e6e6;
+  .rounded-corners(2px);
+
+.angle-bottom{
+  position: relative;
+  bottom: -10px;
+  left: 21px;
+  display: block;
+
+  i{
+    position: absolute;
+    .angle-bottom(6px,#e7e7e7);
+    top: 1px;
+  }
+  em{
+    position: absolute;
+    .angle-bottom(6px,#fff);
+  }
+}
+}
+span.pop-t1{width: 95px;}
+span.pop-t2{width: 100px;}
+
+
+.list-item{
+  display: none;}

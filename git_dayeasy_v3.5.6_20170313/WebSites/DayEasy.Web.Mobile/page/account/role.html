@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    <meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<link href="//static.dayeasy.net" rel="dns-prefetch">
+<link href="//file.dayeasy.net" rel="dns-prefetch">
+<link href="//file01.dayeasy.net" rel="dns-prefetch">
+<link href="//file02.dayeasy.net" rel="dns-prefetch">
+<link rel="apple-touch-icon-precomposed" href="/image/logo_114x114.png">
+<link type="image/x-icon" rel="Shortcut Icon" href="/image/logo_114x114.png">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/css/amazeui.min.css"/>
+<link rel="stylesheet" href="/css/site-base.min.css"/>
+<link rel="stylesheet" href="/css/ui-dialog.min.css"/>
+<link rel="stylesheet" href="/fonts/iconfont.css"/>
+    <title>注册身份 - 我的得一 - 触屏版</title>
+    <!-- 左右滑动UI 样式 -->
+    <link rel="stylesheet" href="/css/page/ui-panel-slider.min.css"/>
+    <link rel="stylesheet" href="/css/account/login.min.css"/>
+    <link rel="stylesheet" href="/css/account/login-role.min.css"/>
+</head>
+<body>
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <a class="hp-text d-back" href="javascript:void(0);">
+                <div class="hp-left hp-back">
+                    <i class="iconfont dy-icon-left"></i>
+                </div>
+            </a>
+            <h1 class="hp-h1" id="textid">注册身份</h1>
+            <a href="/page/account/login.html" class="hp-right a02">登录&nbsp;</a></div>
+    </div>
+</header>
+
+<section class="d-classsCor d-ui-panelslider" data-id="main">
+    <!-- Centered page -->
+    <div class="d-ui-panelslider-page">
+
+        <form id="perForm" name="perForm">
+            <!-- 角色选择 -->
+            <div class="role-checkbox ">
+                <div class="hang-base " id="selected" data-slide-id="right-panel-link" href="#right-panel"><img src="../../image/role/role1.png" alt=""/><span class="role" data-role="4">我是<b class="b-text"></b>老师</span>
+                    <i class="iconfont dy-icon-right"></i></div>
+                <div class="hang-base"><img src="../../image/role/role2.png" alt=""/><span class="role" data-role="2">我是学生</span> <i
+                        class="iconfont dy-icon-right"></i></div>
+                <div class="hang-base"><img src="../../image/role/role3.png" alt=""/><span class="role" data-role="1">我是家长</span> <i
+                        class="iconfont dy-icon-right"></i></div>
+
+                <a id="NextStep" href="javascript:void(0);">
+                    <span class="d-btn disabled">下一步</span>
+                </a>
+            </div>
+            <!-- 验证身份 -->
+            <div class="notes-login my-login">
+                <div class="form-group d-input">  <!--d-input-err 验证错误提示-->
+                    <div class="form-item">
+                        <div class="form-textbox d-control">
+                            <i class="iconfont dy-icon-id dy-iconfont"></i>
+                            <input name="mobile" class="d-text" maxlength="11" id="mobile" type="text" placeholder="手机号">
+                        </div>
+                    </div>
+                    <!--<span class="d-err-tips">手机邮箱不能为空</span>-->
+                </div>
+
+                <!--<div class="d-control d-input ">-->
+                    <!--<i class="iconfont dy-icon-code dy-iconfont"></i>-->
+                    <!--<input type="password" name="pwd" id="pwd" class="d-text"-->
+                           <!--required placeholder="密码"/>-->
+                    <!--<span class="d-err-tips"></span>-->
+                    <!--<i class="d-btn-pwd d-btn-off"></i>-->
+                <!--</div>-->
+
+                <div class="form-group d-input">  <!--d-input-err 验证错误提示-->
+                    <div class="form-item">
+                        <div class="form-textbox d-control">
+                            <i class="iconfont dy-icon-code dy-iconfont"></i>
+                            <input class="d-text"  maxlength="20"  id="password" type="password" placeholder="密码（6-20位字符）">
+                            <i class="d-btn-pwd d-btn-off"></i>
+                        </div>
+                        <!--<span class="d-err-tips">密码不能为空</span>-->
+                    </div>
+
+                </div>
+
+                <!--图片验证-->
+                <!--<div class="form-group d-input d-input-err">&lt;!&ndash;d-input-err 验证错误提示&ndash;&gt;-->
+                <!--<div class="form-item f-cb">-->
+                <!--<div class="form-textbox ">-->
+                <!--<input class="input-dtm-get" type="text" placeholder="验证码" name="formInput">-->
+                <!--</div>-->
+                <!--<span class="form-code-img"><img id="identityCode" src="http://account.dayeasy.dev/login/vcode" alt="点击刷新" title="点击刷新"></span>-->
+                <!--</div>-->
+                <!--<span class="d-err-tips">密码不能为空</span>-->
+                <!--</div>-->
+                <!--短信验证-->
+                <div class="form-group d-input">
+                    <div class="form-item">
+                        <div class="form-textbox input-dtm-get am-cf">
+                            <input name="vcode" id="vcode" maxlength="6" class="am-fl input-vcode"  type="text" placeholder="动态验证码">
+                            <!--<button id="btnSendCode"  class="form-again-send am-fr" value="获取验证码" data-prompt-position="bottomLeft:0,5" title="点击发送"></button>-->
+                            <input id="btnSendCode" type="button" class="form-again-send am-fr" value="获取验证码" title="点击发送"/>
+                        </div>
+
+                    </div>
+                    <!--<span class="d-err-tips">密码不能为空</span>-->
+                </div>
+                <div class="form-group ">
+                    <div class="form-item">
+                        <button id="perSubmit" type="submit" class="d-btn disabled">注册</button>
+                    </div>
+                    <div class="form-item d-agreement">
+                        注册代表您已经阅读并同意
+                        <a class="a01" href="/page/account/protocol.html">《得一用户协议》</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Right panel -->
+    <div id="right-panel" class="panel">
+        <ul class="subject">
+            <li class="on"><span data-subject="1">语文</span> <i class="iconfont dy-icon-right"></i></li>
+            <li><span data-subject="2">数学</span><i class="iconfont dy-icon-right"></i></li>
+            <li><span data-subject="3">英语</span><i class="iconfont dy-icon-right"></i></li>
+            <li><span data-subject="4">物理</span><i class="iconfont dy-icon-right"></i></li>
+            <li><span data-subject="5">化学</span><i class="iconfont dy-icon-right"></i></li>
+            <li><span data-subject="6">政治</span><i class="iconfont dy-icon-right"></i></li>
+            <li><span data-subject="7">历史</span><i class="iconfont dy-icon-right"></i></li>
+            <li><span data-subject="8">地理</span><i class="iconfont dy-icon-right"></i></li>
+            <li><span data-subject="9">生物</span><i class="iconfont dy-icon-right"></i></li>
+            <li><span data-subject="10" class="special">计算机</span><i class="iconfont dy-icon-right"></i></li>
+            <li><span data-subject="11">体育</span> <i class="iconfont dy-icon-right"></i></li>
+        </ul>
+    </div>
+</section>
+
+<!-- 基础脚本 -->
+<script src="/js/site-base.min.js"></script>
+<script src="/js/page/jquery.panelslider.min.js"></script>
+<script src="/js/page/validationEnginedeyi.min.js"></script>
+<script src="/js/page/account/login-role.min.js"></script>
+</body>
+</html>

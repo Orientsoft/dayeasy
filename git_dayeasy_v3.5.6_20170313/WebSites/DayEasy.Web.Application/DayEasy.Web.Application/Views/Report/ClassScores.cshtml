@@ -1,0 +1,440 @@
+﻿@using DayEasy.Contracts.Enum
+@{
+    ViewBag.Title = "班级综合成绩";
+
+    var endTime = DateTime.Now.Date;
+    var startTime = endTime.AddYears(-1).Date;
+
+    var defaultStartTime = endTime.AddMonths(-3).Date;
+}
+
+<div class="g-mn f-fr teacher-a">
+    <div class="m-tt after">
+        <h2 class="f-fl  m-hd ">
+            班级综合成绩
+            @if (ViewData["graduateYears"] != null)
+            {
+                var years = ViewData["graduateYears"] as Dictionary<int, List<int>>;
+                if (years != null)
+                {
+                    <label class="fs12 ml30">
+                        所教年级：
+                        <select id="selectYear">
+                            @foreach (var year in years)
+                            {
+                                var stage = "初中";
+                                if (year.Key == (byte)StageEnum.HighSchool)
+                                {
+                                    stage = "高中";
+                                }
+                                else if (year.Key == (byte)StageEnum.PrimarySchool)
+                                {
+                                    stage = "小学";
+                                }
+
+                                foreach (var yearData in year.Value)
+                                {
+                                    <option value="@(year.Key)_@(yearData)">@stage @yearData 级</option>
+                                }
+                            }
+                        </select>
+                    </label>
+                }
+            }
+        </h2>
+    </div>
+    <div class="m-bd-1">
+        <div class="m-lst">
+            <div class="u-tt">
+                <ul class="after">
+                    <li>
+                        <label>学科：</label>
+                        <span>@ViewData["subjectName"]</span>
+                    </li>
+                </ul>
+            </div>
+            <div id="reportContainer"></div>
+            <div id="date" class="mb30"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="normalTip">
+    <div class="bubble  m-bule-2 after">
+        <div class="f-fl u-left">
+            <ul class="u-lis-z u-li-1">
+                <li>{hrefTemp}</li>
+                <li class="after">
+                    <dl class="u-dl-z u-dl-1 f-fl">
+                        <dt>平均分</dt>
+                        <dd>{Average}</dd>
+                    </dl>
+                </li>
+                <li>
+                    <table class="table u-tab">
+                        <tr>
+                            <td><span>最高分：</span></td>
+                            <td><span>最低分：</span></td>
+                        </tr>
+                        <tr class="font-size-18">
+                            <td>{HScore}</td>
+                            <td>{LScore}</td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+        </div>
+        <div class="f-fr u-right">
+            <table class="table u-tab">
+                <tr>
+                    <th>分数段</th>
+                    <th>人数</th>
+                </tr>
+                {ScoreGroups}
+            </table>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="abTip">
+    <div class="bubble  m-bule-1 after">
+        <div class="f-fl u-left">
+            <ul class="u-lis-z u-li-1">
+                <li>{hrefTemp}</li>
+                <li class="after">
+                    <dl class="u-dl-z u-dl-1 f-fl">
+                        <dt>平均分</dt>
+                        <dd>{Average}</dd>
+                    </dl>
+                </li>
+                <li>
+                    <table class="table u-tab">
+                        <tr>
+                            <td><span>A卷平均分：</span></td>
+                            <td><span>B卷平均分：</span></td>
+                        </tr>
+                        <tr class="font-size-18">
+                            <td>{AAverage}</td>
+                            <td>{BAverage}</td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table class="table u-tab">
+                        <tr>
+                            <td><span>最高分：</span></td>
+                            <td><span>最低分：</span></td>
+                        </tr>
+                        <tr class="font-size-18">
+                            <td>{HScore}</td>
+                            <td>{LScore}</td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+        </div>
+        <div class="f-fr u-right">
+            <table class="table u-tab">
+                <tr>
+                    <th>分数段</th>
+                    <th>人数</th>
+                </tr>
+                {ScoreGroups}
+            </table>
+        </div>
+    </div>
+</script>
+
+@section style{
+    @Html.CombineLink("plugs/dateRanger/dateRanger.css")
+    <style>
+        .tip-margin { margin-top: -17px; }
+    </style>
+}
+
+@section script
+{
+    @Html.CombineLink("plugs/highcharts/highcharts.js,plugs/highcharts/no-data-to-display.js,plugs/dateRanger/jquery-ui.js,plugs/dateRanger/time-slide.js")
+    <script type="text/javascript">
+        var chart;
+        $(function () {
+            //异步请求样式
+            $('body').append('<div id="ajaxModel" style="z-index: 10000;position: absolute;height: 100%;width: 100%;left: 0;top: 0;" class="hide"><div class="text-center"><span id="dyloading" style="position:fixed; z-index: 1000;top: 50%;left:50%;"><i class="fa fa-spin fa-spinner fa-3x" ></i><br /><br />正在加载，请稍后...</span></div></div>');
+
+            $.ajaxSetup({
+                //发送请求前触发
+                beforeSend: function (xhr) {
+                    $("#ajaxModel").removeClass('hide');
+                },
+                complete: function (xhr, status) {
+                    $("#ajaxModel").addClass('hide');
+                }
+            });
+
+            var getData = function (startDate, endDate) {
+                var year = $("#selectYear").children('option:selected').val();
+
+                $.post('@Url.Action("GetClassScores", "Report")', { year: year, startDate: startDate, endDate: endDate }, function (res) {
+                    options.series = res.Data;
+                    chart = new Highcharts.Chart(options);
+
+                    if (!chart.hasData()) {
+                        chart.hideNoData();
+                        chart.showNoData("没有找到该时间段内的相关数据");
+                    }
+                });
+            }
+
+            getData('@defaultStartTime', '@endTime');
+
+            $("#date").dateRangeSlider({
+                bounds: {
+                    min: new Date('@startTime'),
+                    max: new Date('@endTime')
+                },
+                defaultValues: {
+                    min: new Date('@defaultStartTime'),
+                    max: new Date('@endTime')
+                },
+                step: {
+                    months: 1 //years,months,weeks,days,hours,minutes,seconds
+                },
+                range: {
+                    min: {
+                        months: 1
+                    },
+                    max: {
+                        months: 6
+                    }
+                }
+            });
+
+            $("#date").bind("valuesChanged", function (e, data) {
+                var startDate = data.values.min.format('yyyy-MM-dd');
+                var endDate = data.values.max.format('yyyy-MM-dd');
+
+                getData(startDate, endDate);
+            });
+
+            $("#selectYear").change(function () {
+                var dateValues = $("#date").dateRangeSlider("values");
+                var startDate = dateValues.min.format('yyyy-MM-dd');
+                var endDate = dateValues.max.format('yyyy-MM-dd');
+
+                getData(startDate, endDate);
+            });
+        });
+
+        Highcharts.setOptions({
+            lang: {
+                resetZoom: '返回正常比例',
+                noData: "没有数据显示"
+            }
+        });
+
+        var options = {
+            chart: {
+                renderTo: 'reportContainer',
+                type: 'spline',
+                panning: true,
+                panKey: 'ctrl',
+                zoomType: "x",
+                resetZoomButton: {
+                    position: {
+                        align: 'right', // by default
+                        verticalAlign: 'top', // by default
+                        x: 0,
+                        y: -45
+                    },
+                    theme: {
+                        fill: 'white',
+                        stroke: '#fa9632',
+                        r: 0,
+                        style: {
+                            color: '#fa9632',
+                            cursor: 'pointer'
+                        },
+                        states: {
+                            hover: {
+                                fill: 'white',
+                                stroke: '#fa9632'
+                            }
+                        }
+                    }
+                },
+                events: {
+                    selection: function (event) {
+                        if (event.xAxis) {
+                            var texts = $('text');
+
+                            $.each(texts, function (index, item) {
+                                var innerText = item.innerHTML || item.textContent;
+
+                                if (innerText && innerText.indexOf("放大局部区域") > 0) {
+                                    $(item).hide();
+                                    return;
+                                }
+                            });
+                        } else {
+                            $("text").show();
+                        }
+                    }
+                }
+            },
+            title: {
+                useHTML: true,
+                text: '&emsp;'
+            },
+            yAxis: {
+                title: {
+                    text: '平均分',
+                    align: 'high',
+                    offset: -40,
+                    rotation: 0,
+                    y: -30,
+                    x: -20
+                }
+            },
+            tooltip: {
+                backgroundColor: '#f8f8f8', // 背景颜色
+                animation: true, // 是否启用动画效果
+                enabled: true,
+                useHTML: true,
+                formatter: function () {
+                    return '<b>' + this.point.PointInfo.PName + '</b><br>'
+                        + Highcharts.dateFormat("%Y-%m-%d %H:%M", this.point.x)
+                        + '<br>平均分: ' + this.point.y + ' 分';
+                }
+            },
+            legend: {
+                layout: 'horizontal', //vertical
+                align: 'right',
+                verticalAlign: 'bottom',
+                itemDistance: 30
+            },
+            plotOptions: {
+                series: {
+                    connectNulls: true,
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function (event) {
+                                var target = event.target;
+                                if ($(target).attr("fill") == "none") {
+                                    return false;
+                                }
+                                return showDetail(target, event.point.PointInfo);
+                            }
+                        }
+                    }
+                },
+                spline: {
+                    marker: {
+                        enabled: true
+                    }
+                }
+            },
+            xAxis: {
+                title: {
+                    text: '时间',
+                    align: 'high',
+                    offset: 30
+                },
+                labels: {
+                    type: 'datetime',
+                    rotation: -20,
+                    align: 'right',
+                    formatter: function () {
+                        return Highcharts.dateFormat('%Y-%m-%d', this.value);
+                    }
+                }
+            },
+            series: [],
+            credits: {
+                enabled: false // 禁用版权信息
+            },
+            labels: {
+                style: {
+                    color: "#ff0000"
+                },
+                items: [
+                    {
+                        html: '<span>鼠标框选，放大局部区域</span>',
+                        style: {
+                            left: '517px',
+                            top: '-40px',
+                            color: '#fa9632',
+                            fontSize: '12px',
+                            fontWeight: 'normal'
+                        }
+                    }
+                ]
+            },
+            noData: {
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: '18px',
+                    color: '#303030'
+                },
+                position: {
+                    x: 0,
+                    y: -30,
+                    align: "center",
+                    verticalAlign: "middle"
+                }
+            }
+        };
+
+        var showDetail = function (target, pointInfo) {
+            var showHtml = '';
+
+            if (pointInfo) {
+                var scoreGroupStr = '';
+                if (pointInfo.SGroup) {
+                    $.each(pointInfo.SGroup, function (index, item) {
+                        scoreGroupStr += '<tr><td>' + item.ScoreInfo + '</td><td>' + item.Count + '</td></tr>';
+                    });
+                }
+
+                var hrefStr = '';
+                if (pointInfo.IsSelf) {
+                    hrefStr = 'href="' + '/work/teacher/statistics-question?batch=' + pointInfo.Batch + '&paper_id=' + pointInfo.PId + '"';
+                }
+
+                if (pointInfo.PType == 1) { //常规卷
+                    var normalTip = $("#normalTip").html().replace("{hrefTemp}", '<a class="corol-bule" {Href} target="_blank">{PName}</a>');
+
+                    normalTip = normalTip.replace("{Href}", hrefStr)
+                        .replace("{PName}", pointInfo.PName)
+                        .replace("{Average}", pointInfo.Average)
+                        .replace("{HScore}", pointInfo.HScore)
+                        .replace("{LScore}", pointInfo.LScore)
+                        .replace("{ScoreGroups}", scoreGroupStr);
+
+                    showHtml = normalTip;
+                } else if (pointInfo.PType == 2) {
+                    var abTip = $("#abTip").html().replace("{hrefTemp}", '<a class="corol-bule" {Href} target="_blank">{PName}</a>');
+
+                    abTip = abTip.replace("{Href}", hrefStr)
+                        .replace("{PName}", pointInfo.PName)
+                        .replace("{Average}", pointInfo.Average)
+                        .replace("{AAverage}", pointInfo.AAverage)
+                        .replace("{BAverage}", pointInfo.BAverage)
+                        .replace("{HScore}", pointInfo.HScore)
+                        .replace("{LScore}", pointInfo.LScore)
+                        .replace("{ScoreGroups}", scoreGroupStr);
+
+                    showHtml = abTip;
+                }
+            }
+
+            singer.dialog({
+                align: "left top",
+                content: showHtml,
+                quickClose: true,
+                skin: 'tip-margin'
+            }).show(target);
+        }
+
+    </script>
+}

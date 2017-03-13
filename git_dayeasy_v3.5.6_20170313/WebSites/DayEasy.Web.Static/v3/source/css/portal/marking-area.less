@@ -1,0 +1,160 @@
+@import "../../less/base";
+
+@pageWidth: 1000px;
+@paperWidth: 780px;
+@normalColor: #e6e6e6;
+@activeColor: #fcb66f;
+@disabledColor: #888;
+
+.dy-header,
+.dy-header-tool,
+.dy-footer {
+  display: none;
+}
+
+.dy-main {
+  padding-bottom: 0 !important;
+}
+
+.m-back {
+  position: fixed;
+  top: 50px;
+  left: 20px;
+  width: 110px;
+  cursor: pointer;
+  line-height: 40px;
+  background-color: #e1e1e1;
+  color: #919699;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #e1e1e1;
+  border-radius: 24px;
+}
+
+.area-alt {
+  padding-left: 15px;
+  line-height: 40px;
+  font-size: 16px;
+  color: #fa8989;
+  background-color: #fff5d6;
+  width: 100%;
+}
+
+.map {
+  width: @pageWidth;
+  margin: 30px auto 50px;
+  position: relative;
+  overflow: hidden;
+  image {
+    width: @paperWidth;
+  }
+  .image-map {
+    width: 780px;
+    float: left;
+    position: relative;
+    canvas {
+      cursor: move;
+    }
+    .image-mask {
+      .background-image("marking/mosaic.png", no-repeat, @border-color);
+      height: 130px;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      text-align: center;
+      line-height: 130px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 4em;
+    }
+  }
+
+  .index-map {
+    background-color: #ffffff;
+    border-radius: 6px;
+    margin: 0 0 0 800px;
+    width: 200px;
+    float: left;
+    position: fixed;
+    .index-title {
+      font-size: 16px;
+      line-height: 35px;
+      padding-left: 15px;
+      color: #79848a;
+      small {
+        color: @color-primary;
+        font-size: 13px;
+        cursor: pointer;
+      }
+    }
+  }
+  .index-item {
+    margin: 15px 0 0 10px;
+    float: left;
+    &.active .index-num {
+      border-color: @activeColor;
+      background-color: @activeColor;
+      color: #ffffff;
+    }
+    &.disabled .index-num {
+      background-color: @normalColor;
+    }
+  }
+
+  .index-num {
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: center;
+    vertical-align: middle;
+    height: 35px;
+    padding: 1px 12px;
+    color: #aaa;
+    cursor: default;
+    border: 1px solid @normalColor;
+    background-color: @color-default;
+    &.num-4 {
+      font-size: 12px;
+    }
+    &.num-5 {
+      font-size: 10px;
+    }
+  }
+
+  .index-action {
+    float: left;
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+    .deyi-btn {
+      border: 0 none;
+      font-size: 14px;
+      line-height: 24px;
+      padding: 5px 10px;
+      width: 50%;
+      color: #ffffff;
+    }
+    .j-finish {
+      background-color: #7ed2fc;
+      border-bottom-left-radius: 6px;
+      &.disabled {
+        background-color: #e5e5e5;
+        color: #bdbdbd;
+      }
+    }
+    .j-reset {
+      background-color: #fc9797;
+      border-bottom-right-radius: 6px;
+    }
+    .no-question {
+      width: 100%;
+      border-bottom-right-radius: 6px;
+    }
+  }
+  .index-loading {
+    line-height: 42px;
+    text-align: center;
+  }
+}

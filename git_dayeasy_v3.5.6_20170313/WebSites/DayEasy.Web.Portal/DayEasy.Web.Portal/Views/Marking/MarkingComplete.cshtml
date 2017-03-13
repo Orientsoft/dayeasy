@@ -1,0 +1,36 @@
+﻿<script type="text/html" id="finished-template">
+    <div class="mk-finished-box">
+        <div class="finished-step1">
+            {{if !finished}}
+            <p class="text-danger">仍有题目未完成批阅</p>
+            {{/if}}
+            <p class="text-danger">结束后将不能再批阅该次考试的任何试卷！</p>
+            <label class="checkbox-group group-checkbox">
+                <input id="cbxFinishedAgree" type="checkbox">
+                <span>{{isJoint?(finished?'所有老师已完成批阅':'忽略未批阅的题目，强行结束阅卷'):'我已批阅完所有试卷'}}</span>
+                <i class="iconfont dy-icon-checkbox"></i>
+            </label>
+        </div>
+        <div class="finished-step2 hide">
+            <div class="finished-alt">标记设置</div>
+            <label class="checkbox-group group-checkbox">
+                <input id="cbxFinishedAutoSetIcon" type="checkbox" checked="checked">
+                <span>为正确题目自动标记</span>
+                <i class="iconfont dy-icon-checkbox dy-icon-checkboxhv"></i>
+            </label>&nbsp;
+            <i class="iconfont dy-icon-gou finished-icon fs16"></i>
+            <br />
+            <label class="checkbox-group group-checkbox">
+                <input id="cbxFinishedAutoSetScore" type="checkbox" checked="checked" />
+                <span>为主观题自动标记分数</span>
+                <i class="iconfont dy-icon-checkbox dy-icon-checkboxhv"></i>
+            </label>
+        </div>
+        <div class="finished-buttons f-tar">
+            <button id="btnFinishedCancel" class="dy-btn dy-btn-default">取消</button>
+            &nbsp;&nbsp;
+            <button id="btnFinishedOk" class="dy-btn dy-btn-info" disabled="disabled">下一步</button>
+        </div>
+    </div>
+</script>
+@Html.CombineLink("v3/js/marking/d-complete.js")

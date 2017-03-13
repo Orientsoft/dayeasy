@@ -1,0 +1,133 @@
+@import "../base";
+
+.u-container {
+  border: 1px dashed @border-color;
+  margin: 20px auto;
+  padding: 0 55px 25px;
+  width: 850px;
+}
+
+.u-base-wrap {
+  margin-top: 20px;
+  line-height: 35px;
+  overflow: hidden;
+  padding-bottom: 8px;
+  border-bottom: 1px solid @border-color;
+  .u-login-info {
+    float: right;
+    .control {
+      margin-right: 0;
+    }
+    .u-last-login > span {
+      margin-left: 5px;
+    }
+  }
+}
+
+.control-label,
+.control {
+  float: left;
+}
+
+.control-label {
+  padding-right: 1em;
+}
+
+.control {
+  color: #999;
+  margin-right: 25px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.u-edit-wrap {
+  margin-top: 25px;
+  line-height: 32px;
+  .u-edit-item {
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 25px;
+    position: relative;
+    .u-head-photo {
+      img {
+        width: 50px;
+        height: 50px;
+        display: block;
+      }
+    }
+  }
+  .u-action {
+    position: absolute;
+    right: 0;
+    top: 0;
+    .linkColor(@color-primary, @color-danger, underline);
+  }
+}
+
+.u-agency-wrap {
+  max-width: 100%;
+  width: 660px;
+  margin-right: 0;
+  .u-agency-logo {
+    float: left;
+    width: 75px;
+    height: 75px;
+    margin-right: 20px;
+  }
+  .u-agency {
+    float: left;
+    width: 560px;
+    h5 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 0;
+    }
+    .u-agency-desc {
+      line-height: 26px;
+      max-height: 52px;
+      overflow: hidden;
+    }
+  }
+  .u-agency-action {
+    float: left;
+    margin-top: 20px;
+    padding-left: 95px;
+    overflow: hidden;
+    width: 100%;
+    .btn {
+      width: 160px;
+      height: 42px;
+    }
+  }
+}
+
+.u-edit-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.u-edit-content {
+  margin-top: 15px;
+  padding-left: 35px;
+  .u-edit-group {
+    margin-bottom: 10px;
+    overflow: hidden;
+    .control-label {
+      text-align: right;
+      width: 120px;
+    }
+    .control {
+      width: 220px;
+      margin-right: 20px;
+    }
+    .help-inline {
+      color: #999;
+    }
+  }
+  .u-edit-actions {
+    padding-left: 120px;
+    margin-top: 15px;
+  }
+}

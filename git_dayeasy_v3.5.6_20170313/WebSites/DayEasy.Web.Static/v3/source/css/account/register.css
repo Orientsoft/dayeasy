@@ -1,0 +1,81 @@
+﻿label {
+    font-weight: 500;
+}
+
+.reg-main h4 strong {
+    font-size: 24px;
+    font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
+    letter-spacing: 3px;
+    font-weight: 500;
+    padding-left: 8px;
+}
+
+.vcode {
+    border: solid 1px #dcdcdc;
+    margin-top: 2px;
+}
+
+#changeOne {
+    margin-left: 7px;
+    text-decoration: underline;
+}
+
+.btn-sure {
+    width: 205px;
+    height: 45px;
+    font-size: 14px;
+    font-weight: 600;
+    /*letter-spacing: 12px;*/
+    background-color: #f8a959;
+    margin-top: 30px;
+}
+
+#emailDetail {
+    height: 240px;
+    position: relative;
+}
+
+.send-info {
+    margin-top: 65px;
+}
+
+/*.text-tip {
+    margin-left: -35px;
+    vertical-align: middle;
+    padding-top: 10px
+}*/
+
+/* Amend 2015-08-17 15:56:39  bozhuang*/
+.text-tip {
+    margin-left: 5px;
+    margin-top: 5px;
+    position: relative;
+    top: 9px;
+}
+
+.tip-icon {
+    width: 2px;
+    background-color: #ffab00;
+}
+
+.reg-main {
+    border: 1px solid #ccc;
+    margin: 15px 0 10px;
+}
+
+.change-email {
+    color: #888;
+    position: absolute;
+    bottom: 15px;
+    left: 0
+}
+
+.change-email a:link, .change-email a:active, .change-email a:visited {
+    color: #888;
+    cursor: pointer;
+}
+
+.register-success {
+    font-size: 50px;
+    margin-top: 35px;
+}

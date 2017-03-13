@@ -1,0 +1,202 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model GroupDto
+@{
+    ViewBag.Title = Model.Name + " - " + Model.Type.GetEnumText<GroupType, byte>();
+    var isMember = ViewBag.IsMember;
+    var isManager = ViewBag.IsManager;
+    var pendingList = (List<PendingUserDto>)(ViewData["PendingList"] ?? new List<PendingUserDto>());
+    var share = (ShareGroupDto)Model;
+}
+<div class="home-circles w1200 f-cb" data-gid="@Model.Id">
+    <div class="top-img f-pr">
+        <img width="1200" height="120" src="@Model.GroupBanner" alt="" />
+    </div>
+    <div class="top-title">
+        <div class="group-avatar">
+            <img width="150" height="150" src="@Html.MakeThumb(Model.Logo, "150x150")" alt="" />
+        </div>
+        <div class="dg-info">
+            <div class="dg-name">
+                @*<div class="dg-channel dg-channel@((share.ChannelId%100)%5) f-csp" onclick="javascript: window.location = '@Url.Action("Index", "Topic", new {id = share.ChannelId})';">
+                    @Consts.Channel(share.ChannelId)
+                </div>*@
+                <div class="dg-name-wrap">
+                    @Model.Name <strong> [ @Model.Code ]</strong>
+                </div>
+                <div class="dg-type">@(((GroupType)Model.Type).GetText())</div>
+            </div>
+            <div class="dg-summary">
+                @Html.Raw(string.IsNullOrWhiteSpace(Model.GroupSummary) ? "圈主很懒，没有写东西就跑了..." : Model.GroupSummary.FormatMessage())
+            </div>
+        </div>
+        <div class="dg-tools">
+            @if (isMember)
+            {
+                <a class="dt-item dt-share" title="分享" href="javascript:void(0);">
+                    <i class="iconfont dy-icon-fenxiang"></i>
+                </a>
+                //if (isManager)
+                //{
+                <a class="dt-item dt-member" title="成员" href="/group/members/@Model.Id">
+                    <i class="iconfont dy-icon-50"></i>
+                </a>
+                <a class="dt-item dt-setting" title="设置" href="/group/setting/@Model.Id">
+                    <i class="iconfont dy-icon-9"></i>
+                </a>
+                //}
+                <div class="d-share-wrap hide">
+                    @Html.Partial("Helper/ShareHelper", Model)
+                </div>
+            }
+            else
+            {
+                <div class="dt-join">
+                    <a class="dy-btn dy-btn-info" href="/group/apply/@Model.Id">加入圈子</a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="mian-conter f-cb">
+        <div class="mainc">
+            <div class="title dg-nav-list">
+                <h2 class="active" data-state="1">最新帖子</h2>
+                <h2 data-state="2">精华帖子</h2>
+            </div>
+            <div class="topic-list">
+                <div class="dy-loading">
+                    <i></i>
+                </div>
+            </div>
+        </div>
+        <div class="side">
+            <div class="side-item">
+                <div class="side-left">
+                    <div class="side-number">@share.TopicNum</div>
+                    <div class="side-title">帖子</div>
+                </div>
+                <div class="side-right">
+                    <div class="side-number">@share.Count</div>
+                    <div class="side-title">成员</div>
+                </div>
+                @if (isManager || (share.PostAuth == (byte)GroupPostAuth.Member && isMember))
+                {
+                    <div class="side-action">
+                        <a href="@Url.Action("PubTopic", "Topic", new {id = Model.Id})" class="dy-btn dy-btn-info">
+                            <i class="iconfont dy-icon-edit2"></i>
+                            发帖子
+                        </a>
+                    </div>
+                }
+            </div>
+            @if (isManager && pendingList.Any())
+            {
+                <div class="side-item apply-circle">
+                    <h2>加圈申请</h2>
+                    <ul>
+                        @foreach (var pending in pendingList)
+                        {
+                            <li data-id="@pending.RecordId">
+                                <img width="50" height="50" src="@Html.MakeThumb(pending.Avatar, "50x50")" alt="" />
+                                <div class="box">
+                                    <div class="box-lg-12 tab-box-1">
+                                        @pending.Nick <a href="javascript:void(0);">@pending.RoleDesc.Substring(0, 2)</a>
+                                    </div>
+                                    <div class="box-lg-12 tab-box-2 f-wwb">@(string.IsNullOrWhiteSpace(pending.Message) ? "没有附加消息！" : pending.Message)</div>
+                                </div>
+                                <span class="posa-box">
+                                    <button class="em-l dy-btn dy-btn-info" data-pass="true">通过</button>
+                                    <button class="em-r dy-btn dy-btn-danger" data-pass="false">拒绝</button>
+                                </span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="side-item">
+                <h2>圈内公告</h2>
+                <div class="side-content">
+                    <div class="side-notice">
+                        @if (string.IsNullOrWhiteSpace(share.Notice))
+                        {
+                            <div class="dy-nothing">暂时没有公告</div>
+                        }
+                        else
+                        {
+                            @Html.Raw(share.Notice.FormatMessage())
+                        }
+                    </div>
+                </div>
+            </div>
+            @*<div class="side-item">
+                <h2>圈主信息</h2>
+                <div class="du-manager">
+                    <div class="du-member hover">
+                        <div class="du-avatar">
+                            <img src="" alt=""/>
+                        </div>
+                        <div class="du-name">
+                            <h3></h3>
+                            <div class="du-role">No.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>
+<script type="text/html" id="topic-temp">
+    <div class="topic-item">
+        <div class="dt-title f-cb">
+            {{if state != 1}}
+            <div class="dt-states">
+                {{if (state & 4) > 0 }}
+                <div class="dt-state dt-state2">置顶</div>
+                {{/if}}
+                {{if (state & 2) > 0}}
+                <div class="dt-state dt-state1">精华</div>
+                {{/if}}
+            </div>
+            {{/if}}
+            <h3>
+                <a title="{{title}}" href="/topic/detail/{{id}}">{{title}}</a>
+            </h3>
+        </div>
+        <div class="dt-info">
+            <div class="dt-creator">
+                <img src="{{userPhoto}}" alt="{{userName}}" />
+                <span class="dt-black">{{userName}}</span>
+                <span class="dt-gray">{{time}}</span>
+            </div>
+            <div class="dt-statistic">
+                <span><i class="iconfont dy-icon-viewline"></i>{{readNum}}</span>
+                <span><i class="iconfont dy-icon-messageline"></i>{{replyNum}}</span>
+                <span><i class="iconfont dy-icon-zan"></i>{{praiseNum}}</span>
+            </div>
+        </div>
+        <div class="dt-summary{{(imgList && imgList.length)?' has-image':''}}">
+            <div class="dt-summary-wrap">{{summary}}</div>
+            {{if tagList && tagList.length}}
+            <div class="dt-tags">
+                {{each tagList as tag}}
+                <span>{{tag}}</span>
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+        {{if imgList && imgList.length}}
+        <div class="dt-image">
+            <img src="{{imgList[0]}}" alt="帖子图片" />
+        </div>
+        {{/if}}
+    </div>
+</script>
+@section css{
+    @Html.CombineLink("v3/css/circle/page-index.css,v3/css/testteacher/ui-base.css,v3/css/topic/page-list.css")
+}
+@section js{
+    <script>var deyi = window.DEYI = window.DEYI || {}; deyi.loadFormula = true;</script>
+    @Html.CombineLink("js/artTemplate.min.js,js/base/site-base.js,,js/portal/question/formula.js,v3/js/group/page-index.js")
+}

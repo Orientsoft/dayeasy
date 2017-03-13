@@ -1,0 +1,486 @@
+﻿@using DayEasy.Contracts.Dtos.ErrorQuestion
+@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.Question
+@using DayEasy.Contracts.Dtos.Statistic
+@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Core.Domain
+@using DayEasy.Utility.Extend
+@model ErrorQuestionDto
+@{
+    var isTeacher = ViewData["isTeacher"] != null && (bool)ViewData["isTeacher"];
+
+    ViewBag.Title = isTeacher ? "题目详情" : "错题详情";
+
+    var userId = 0L;
+    string userName = "我", userIcon = Consts.DefaultAvatar();
+
+    if (ViewData["currentUser"] != null)
+    {
+        var currentUser = (UserDto)ViewData["currentUser"];
+        userId = currentUser.Id;
+        userName = currentUser.Name;
+        if (currentUser.Avatar.IsNotNullOrEmpty())
+        {
+            userIcon = currentUser.Avatar;
+        }
+    }
+
+    List<ReasonExtDto> reasons = null;
+    if (ViewData["reasons"] != null)
+    {
+        reasons = (List<ReasonExtDto>)ViewData["reasons"];
+    }
+    List<MemberDto> unReasons = null;
+    if (ViewData["unReasons"] != null)
+    {
+        unReasons = (List<MemberDto>)ViewData["unReasons"];
+    }
+}
+
+<script type="text/javascript">
+    var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true; deyi.loadFormula = true;
+</script>
+<div class="dy-main">
+    <div class="page-student-bbs w1200 f-cb">
+        @if (Model == null)
+        {
+            <div class="dy-nothing"><i class="iconfont dy-icon-emoji02"></i>没有查询到相关资料</div>
+        }
+        else
+        {
+            <div class="box main-bbs-top">
+                <div class="f-fl show-questions-bbs">
+                    @PaperHelper.ShowQuestion(Model.Question)
+                    @if (!isTeacher)
+                    {
+                        <div class="box btn-student-bbs">
+                            @if ((Model.Status & (byte)ErrorQuestionStatus.Pass) > 0)
+                            {
+                                <button class="dy-btn dy-btn-info btn-pass passed" data-pass="true">
+                                    <i class="iconfont dy-icon-13"></i> <span>已过关</span>
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="dy-btn dy-btn-default btn-pass" data-pass="false">
+                                    <i class="iconfont dy-icon-radiohv"></i> <span>未过关</span>
+                                </button>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="f-fr show-questions-titile">
+                    <h2 class="h2-title">题目信息</h2>
+                    <div class="table-questions">
+                        <table>
+                            <tr>
+                                <td class="td1">来　源：</td>
+                                <td class="td2">
+                                    @if (!isTeacher)
+                                    {
+                                        <a href="/work/answer-paper/@Model.Batch" title="@Model.PaperTitle" target="_blank" style="color: #65cafc;">
+                                            @(Model.PaperTitle.Length > 16 ? Model.PaperTitle.Substring(0, 16) + "..." : Model.PaperTitle)
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span title="@Model.PaperTitle" style="color: #65cafc;">
+                                            @(Model.PaperTitle.Length > 16 ? Model.PaperTitle.Substring(0, 16) + "..." : Model.PaperTitle)
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td1">时　间：</td>
+                                <td class="td2">@Model.Time</td>
+                            </tr>
+                            <tr>
+                                <td class="td1">圈　名：</td>
+                                <td class="td2">@ViewData["groupName"]</td>
+                            </tr>
+                            <tr class="boder-bottom">
+                                <td class="td1">知识点：</td>
+                                <td class="td2">
+                                    @if (Model.Question.Knowledges != null && Model.Question.Knowledges.Count > 0)
+                                    {
+                                        foreach (var kp in Model.Question.Knowledges)
+                                        {
+                                            <span>@kp.Name</span>
+                                            @:&nbsp;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>暂无知识点</span>
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div style="height: 170px;padding:0 5px;">
+                                        <div id="container-survey-class" style="width: 150px; height: 170px; float: left"></div>
+                                        <div id="container-survey-all" style="width: 150px; height: 170px; float: left"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-bbs-push f-cb">
+                <div class="htmleaf-containers" data-dytab="116">
+                    <div class="htmleaf-content bgcolor-3">
+                        <ul class="dy-tab-nav tab-menu">
+                            <li><a href="javascript:void(0);">错因及评论</a></li>
+                            <li><a href="javascript:void(0);">答案解析</a></li>
+                            @if (!isTeacher)
+                            {
+                                <li><a href="javascript:void(0);">变式训练</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="javascript:void(0);">出错名单</a></li>
+                            }
+                            <li class="slider">
+                                <span></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-con">
+                        <div class="dy-tab-con tab-contenr">
+                            <!--错因及评论-->
+                            <div class="tab-con error-comment tab-con-1" style="display: block;">
+                                @if (ViewData["statics"] != null)
+                                {
+                                    var statics = (List<DKeyValue<string, int>>)ViewData["statics"];
+
+                                    <div class="box mb20 f-cb">
+                                        <div class="box-lg-1 f-tar">错因统计：</div>
+                                        <div class="box-lg-11 reason-tags">
+                                            @if (statics.Any())
+                                            {
+                                                foreach (var ss in statics)
+                                                {
+                                                    <div class="d-tag">@ss.Key&nbsp;(@ss.Value)</div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span>暂无</span>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                @if (unReasons != null && unReasons.Any())
+                                {
+                                    <div class="box f-cb mb20">
+                                        <div class="f-fl tab-left-2">
+                                            未分析错题的同学：
+                                        </div>
+                                        <div class="f-fl name-list tab-right-2 error-student-box">
+                                            @foreach (var stu in unReasons)
+                                            {
+                                                <div><img src="@stu.Avatar" /><span>@stu.Name</span></div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                @if (!isTeacher)
+                                {
+                                    <div class="my-reason">
+                                        <i class="fa fa-spin fa-spinner fa-1x"></i>&nbsp;&nbsp;正在加载我的标签，请稍后...
+                                    </div>
+                                }
+
+                                @if (reasons != null && reasons.Count > 0)
+                                {
+                                    var i = 0;
+                                    <div class="ed-comment after mt10">
+                                        @foreach (var reason in reasons)
+                                        {
+                                            var headPic = reason.HeadPic;
+                                            if (headPic == null || headPic.Trim() == string.Empty)
+                                            {
+                                                headPic = Consts.Config.StaticSite + "/image/default/user_s40x40.jpg";
+                                            }
+                                            <div class="ed-comment-list@(++i == reasons.Count ? " last-child" : "")">
+                                                <div class="comment-top after">
+                                                    <div class="f-fl u-img">
+                                                        <img class="brs3" src="@headPic" width="40" height="40" alt="头像" />
+                                                    </div>
+                                                    <div class="name-type">
+                                                        <div class="box f-parents">
+                                                            <div class="ed-comment-info">
+                                                                <h5>@(Model.Id == reason.ErrorId ? "我" : reason.UserName)</h5>
+                                                                <span>@reason.Time</span>
+                                                                @if (reason.TagList != null && reason.TagList.Count > 0)
+                                                                {
+                                                                    <div class="reason-tags">
+                                                                        @foreach (var tag in reason.TagList)
+                                                                        {
+                                                                            <div class="d-tag">@tag.Name</div>
+                                                                        }
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                            @if (!reason.Content.IsNullOrEmpty())
+                                                            {
+                                                                <div class="box-lg-12 mb15">@reason.Content</div>
+                                                            }
+                                                            <div class="box-lg-12 add-to-comment">
+                                                                @if (Model.Id == reason.ErrorId)
+                                                                {
+                                                                    <a class="a-comment-delete" href="javascript:void(0);" data-id="@reason.Id">
+                                                                        <i class="iconfont dy-icon-delete"></i>
+                                                                        <span>删除</span>
+                                                                    </a>
+                                                                }
+                                                                <a class="a-comment-power" href="javascript:void(0);" data-load="0">
+                                                                    <i class="iconfont dy-icon-edit2"></i>
+                                                                    <span class="r-count" data-count="@reason.Count">点评(@reason.Count)</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class="reason-comment box-lg-12 hide" data-sid="@reason.Id" data-uid="@reason.StudentId" data-uname="@reason.UserName">
+                                                                <i class="fa fa-spin fa-spinner fa-1x"></i>&nbsp;&nbsp;正在加载，请稍后...
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                            <!--参考答案-->
+                            <div class="tab-con tab-con-item tab-con-2">
+                                <div class="box questions-list-cont">
+                                    <div class="box-lg-1 f-tar">参考答案： </div>
+                                    <div class="box-lg-11">
+                                        @PaperHelper.ShowAnswer(Model.Question)
+                                    </div>
+                                </div>
+                                @if (!isTeacher)
+                                {
+                                    <div class="box questions-list-cont">
+                                        <div class="box-lg-1 f-tar">我的答案： </div>
+                                        <div class="box-lg-11 eb-my-answer">
+                                        </div>
+                                    </div>
+                                }
+                                <!--同学答案-->
+                                <div class="box questions-list-cont students-answer" style="display: none;">
+                                    <i class="fa fa-spin fa-spinner fa-1x"></i>&nbsp;&nbsp;正在加载，请稍后...
+                                </div>
+                            </div>
+
+                            @if (!isTeacher)
+                            {
+                                <!--变式训练-->
+                                <div class="tab-con tab-con-item tab-con-3">
+                                    <div class="u-reference">
+                                        @if (ViewData["Variant"] != null)
+                                        {
+                                            <div class="u-contenr">
+                                                @{
+                                                    var question = (QuestionDto)ViewData["Variant"];
+                                                    question.Body = "<span class=\"d-tag\">变式题</span>" + question.Body;
+                                                    @PaperHelper.ShowQuestion(question)
+                                                    ;
+                                                }
+                                            </div>
+                                            <div class="span-variant-answer">
+                                                <span class="span-variant-answer-p">
+                                                    <i class="glyphicon glyphicon-search"></i>查看答案
+                                                </span>
+                                            </div>
+                                            <div class="u-contenr variant-answer hide q-item" style="margin-bottom: 20px; padding: 5px 15px;">
+                                                @PaperHelper.ShowAnswer((QuestionDto)ViewData["Variant"])
+                                            </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="u-contenr">
+                                                            <div style="padding: 15px 0;">
+                                                                暂无变式训练题
+                                                            </div>
+                                                        </div>
+                                                    }
+                                    </div>
+                                </div>
+                                                    }
+                                                    else
+                                                    {
+                                <!--出错名单-->
+                                                        <div class="tab-con tab-con-item tab-con-3">
+                                                            <div class="u-reference error-student-box">
+                                                                @if (ViewData["questionErrors"] != null)
+                                                                {
+                                                                    var errors = (List<ErrorQuestionStudentDto>)ViewData["questionErrors"];
+                                                                    foreach (var error in errors)
+                                                                    {
+                                                                        if (error.QuestionId == Model.Question.Id)
+                                                                        {
+                                                                            foreach (var stu in error.Students)
+                                                                            {
+                                                                                <div><img src="@stu.Avatar" /> <span>@stu.Name</span></div>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="u-contenr">
+                                                                        <div style="padding: 15px 0;">
+                                                                            没有学生答错
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" id="txtErrorId" value="@Model.Id" />
+            <input type="hidden" id="txtBatch" value="@Model.Batch" />
+            <input type="hidden" id="txtPaperId" value="@Model.PaperId" />
+            <input type="hidden" id="txtQuestionId" value="@Model.Question.Id" />
+            <input type="hidden" id="txtClassId" value="@ViewData["groupId"]" />
+            <input type="hidden" id="txtIsTeacher" value="@(isTeacher ? 1 : 0)" />
+            <input type="hidden" id="txtUserId" value="@userId" />
+            <input type="hidden" id="txtUserName" value="@userName" />
+            <input type="hidden" id="txtUserIcon" value="@userIcon" />
+            <input type="hidden" id="txtObjectiveQuestion" value="@(Model.Question.IsObjective ? 1 : 0)" />
+                                                    }
+    </div>
+</div>
+
+@section css {
+    @Html.CombineLink("css/font-awesome.css,css/portal/question/list.css,v3/css/testteacher/ui-base.css,v3/css/testteacher/page-student-bbs.css,v3/css/comment-plug.css")
+    <style type="text/css">
+        .ed-comment .ed-comment-list {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .ed-comment .last-child {
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .add-to-comment a {
+            color: #999;
+        }
+
+            .add-to-comment a:hover {
+                color: #333;
+            }
+
+        .q-item {
+            border: 0;
+            box-shadow: 0 0 0 #ffffff;
+            margin: 0;
+        }
+
+        .u-img {
+            margin-right: 15px;
+        }
+
+        .brs3 {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .reason-comment {
+            padding-top: 15px;
+        }
+
+        body .go-top i {
+            top: -4px;
+        }
+
+        .d-tags .tag-edit input {
+            /*height: 24px;
+            line-height: 24px;*/
+            padding: 5px 0;
+        }
+
+        .text-tags > .box-lg-12 {
+            margin-bottom: 10px;
+        }
+
+        .tag-edit .btn-tag {
+            border-radius: 3px;
+            background-color: white;
+            width: 30px;
+            border: 1px dashed #dcdcdc;
+            color: #999;
+            float: left;
+            font-size: 16px;
+            height: 24px;
+            line-height: 24px;
+            padding: 0 8px;
+            vertical-align: middle;
+        }
+
+        .tag-edit {
+            float: left;
+        }
+
+            .tag-edit .form-control {
+                margin-top: -5px;
+            }
+
+            .tag-edit .help-inline {
+                color: #a2a2a2;
+                float: left;
+                font-size: 12px;
+                line-height: 24px;
+                margin-left: 12px;
+            }
+
+        .q-main {
+            cursor: auto !important;
+        }
+
+        .q-body img {
+            max-width: 700px;
+        }
+
+        .error-student-box div {
+            position: relative;
+            width: 102px;
+            height: 32px;
+            line-height: 32px;
+            float: left;
+            background-color: #ddd;
+            margin: 0 10px 10px 18px;
+            border-radius: 2px;
+        }
+
+        .error-student-box img {
+            position: absolute;
+            top: 0;
+            left: -18px;
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+        }
+
+        .error-student-box span {
+            margin-left: 23px;
+        }
+    </style>
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js,js/portal/question/formula.js,js/base/utils.js,js/portal/question/base.js,js/base/common.js,plugs/highcharts/highcharts.js,plugs/highcharts/highcharts-more.js,plugs/highcharts/solid-gauge.js,v3/js/errorbook/reason.js,v3/js/errorbook/detail.js,v3/plugs/jquery-tab/jquery.tab.3.0.js,v3/js/comment-plug.js")
+}

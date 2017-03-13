@@ -1,0 +1,135 @@
+﻿@using DayEasy.Core
+@model List<DayEasy.Contracts.Dtos.Tutor.FeedBackDto>
+@{
+    ViewBag.Title = "反馈";
+}
+
+<div class="coach-advice">
+    <div class="ui-top-title">
+        <div class="w1000 f-cb">
+            <ul class="f-fl navigation">
+                <li><a href="@Url.Action("Index","Tutor")">辅导中心 <span>〉</span></a></li>
+                <li><a href="javascript:void(0);">辅导记录</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="coach-center j-autoHeight" data-left="132" data-type="2" data-min="400">
+        <div class="w1000">
+            <div class="title-hd">
+                <h2>@ViewData["tutorName"]</h2>
+                <div class="center-1">
+                    <h3 class="title-h3">对本次辅导的评价如何？</h3>
+                    <input type="hidden" value="@ViewData["tutorId"]" id="tutorId" />
+                    <div class="" id="container">
+
+                    </div>
+                    <h3 class="title-h3">其他建议：</h3>
+                    @if (Model == null || Model.Count < 1)
+                    {
+                        <p>没有找到其他建议。</p>
+                    }
+                    else
+                    {
+                        foreach (var comment in Model)
+                        {
+                            string imgSrc = string.IsNullOrEmpty(comment.HeadPhoto) ? Consts.Config.StaticSite + "/image/default/user_s50x50.jpg" : comment.HeadPhoto;
+
+                            <div class="ed-comment-list">
+                                <div class="comment-top after">
+                                    <div class="f-fl u-img">
+                                        <img class="brs3" src="@imgSrc" width="50" height="50" alt="头像" />
+                                    </div>
+                                    <div class="f-fl name-type">
+                                        <dl class="u-dl">
+                                            <dt>@comment.UserName</dt>
+                                            <dd>@comment.Comment</dd>
+                                            <dd class="after color-bule fz12">
+                                                <span class="f-fl f-time">@comment.Time.ToString("yyyy-MM-dd HH:mm")	</span>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="coach-conter">
+                <div class="f-tac">
+                    @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 10, Convert.ToInt32(ViewData["totalCount"]), 5, false)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section style{
+    @Html.CombineLink("css/v2.0/coachbackstage/coach-advice.css,css/v2.0/coachbackstage/ui-base.css")
+}
+
+@section script{
+    @Html.CombineLink("plugs/highcharts/highcharts.js,plugs/highcharts/no-data-to-display.js,js/Jq-common.js")
+
+    <script type="text/javascript">
+        $(function () {
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container',
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    events: {
+                        load: function () {
+                            var series = this.series[0];
+                            //获取饼图的数据
+                            var tutorId = $("#tutorId").val();
+                            $.post('@Url.Action("GetCommentStatistics","Tutor")', { tutorId: tutorId }, function (res) {
+                                if (res) {
+                                    series.setData(res);
+                                }
+                            });
+                        }
+                    }
+                },
+                title: {
+                    text: null
+                },
+                tooltip: {
+                    enabled: false
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            connectorColor: '#000000',
+                            format: '<b>{point.x}</b>: {point.percentage:.1f} %'
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: '评论占比'
+                }],
+                credits: {
+                    enabled: false // 禁用版权信息
+                },
+                noData: {
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: '18px',
+                        color: '#303030'
+                    },
+                    position: {
+                        x: 0,
+                        y: -30,
+                        align: "center",
+                        verticalAlign: "middle"
+                    }
+                }
+            });
+        });
+    </script>
+}

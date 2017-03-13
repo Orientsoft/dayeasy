@@ -1,0 +1,262 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+
+      Author:Plato
+      Create Date:2016/01/28 11:30  Last Mondify Date:2016/01/28 11:30
+      ===================================================
+
+--------------------------------------------------------------*/
+@import        (reference) "ui-base.less";
+@import "../../less/ui-bbs";
+
+//轮播图
+//*--------------------   Part ui    -----------------------
+
+.home-index{
+  .top-title{ margin-bottom: 20px; margin-top: 20px;}
+
+/* 轮播css */
+.home-slider{
+  width:100%;  min-width:1200px;  height:300px;  position:relative; overflow:hidden;  text-align:center;
+  .bd{ width:1200px; position:absolute; left:50%; margin-left:-600px; overflow: hidden;  }
+  .bd li{ width:1200px;  overflow:hidden; }
+  .bd li img{ display:block; width:1200px; height:300px;    }
+  .tempWrap{ overflow:visible !important }
+  .tempWrap ul{  margin-left:-1200px !important; /*强制位置*/  }
+  .hd{
+    position:absolute;
+    left:50%;
+    z-index:1;
+    height:24px; bottom:20px;  text-align:center;
+    opacity: 1;
+    transition: opacity .3s;
+    left: 50%;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background-color: rgba(0,0,0,.15);
+    filter: alpha(opacity=15);
+    font-size: 0;
+    }
+  .hd li{ display:inline-block; *display:inline; zoom:1; width:8px; height:8px; line-height:99px; overflow:hidden;  margin:0 5px; cursor:pointer; filter:alpha(opacity=60);opacity:0.6;
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    background-color: white;
+    filter:alpha(opacity=40);
+    transition: width .3s ease-out; }
+  .hd li.on{ background-position:0 0; filter:alpha(opacity=100);opacity:1; width: 30px;  }
+  .pnBtn{  position:absolute; z-index:1; top:0; width:100%;  height:300px; cursor:pointer; display: none;  }
+  .prev{ left:-50%; margin-left:-600px;  }
+  .next{ left:50%;  margin-left:600px;  }
+  .pnBtn .blackBg{ display:block;  position:absolute; left:0; top:0; width:100%; height:300px; background:#000; filter:alpha(opacity=50);opacity:0.5;   }
+  .pnBtn .arrow{ display:none;   position:absolute; top:0; z-index:1; width:60px; height:300px;  }
+  .pnBtn .arrow:hover{ filter:alpha(opacity=60);opacity:0.6; }
+  //.prev .arrow{ right:0; background:url(../../../image/home/slider-arrow.png) -120px 0 no-repeat;   }
+  //.next .arrow{ left:0; background:url(../../../image/home/slider-arrow.png) 0 0 no-repeat;  }
+  }
+
+
+.showimg-list{
+  margin-bottom: 30px;
+    li{ float: left;
+      a{ display: block;position: relative;
+        border: 1px solid #eee;
+        overflow: hidden;
+        width: 300px;
+        height: 185px;
+        img{ position: absolute; top: 0; left: 0;
+          min-width: 300px;
+          min-height: 185px;
+          .transform(scale(1));
+          -webkit-transition: -webkit-transform 2s;
+          -moz-transition: -moz-transform 2s;
+          -ms-transition: -moz-transform 2s;
+        transition: transform 2s;
+          }
+        p{ position: absolute; bottom: 0px; /*background: rgba(51, 51, 51, 0.6);*/ .background-image('/home/bg-showimg-list.png',repeat-x); background-color:rgba(0,0,0,0);font-size: 16px;height: 50px;line-height: 50px; width: 100%;padding: 0px 12px; color: white;}
+        }
+
+
+      &:hover{
+        a{
+          img{
+            .transform(scale(1.05));
+          }
+        }
+        }
+
+
+      }
+  }
+
+.main-conter{ margin-bottom: 70px;}
+  .main-home{ width: 870px; min-height: 800px; background: white;}
+  }
+
+//*--------------------  main Style  -----------------------
+
+/* 楼层css */
+.snBrand { position: relative; width:870px;  height: 450px;  overflow: hidden; }
+.snBrand .house{ position: absolute; bottom: 0px; left: 0px;}
+.snBrand ol { float: left; width: 200px; height: 232px; margin-top: -1px;  margin-top: 93px;}
+.snBrand ol li { width: 120px; float: right; margin-bottom: 20px; height: 40px;  color: #fff;line-height: 40px; font-size: 16px; border: 2px solid #fff; border-right:none; text-align: center; overflow: hidden; }
+.snBrand ol li a{ display: block; color: #fff;}
+.snBrand ol li.on { background: #fff; border-right: #fff;}
+.snBrand ol li.on  a{ color: #4fc1e9;}
+.snBrand ul.ul-list-title { padding-top: 30px; float:left;  top: 35px; width: 670px; height: 449px;  background: #fff; overflow: hidden; border-bottom: 1px solid #eee; }
+
+
+.snBrand.bg1{
+  border-top: 1px solid #77d4f5;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#77d4f5+1,86eef2+100 */
+  background: #77d4f5; /* Old browsers */
+  background: -moz-linear-gradient(top,  #77d4f5 1%, #86eef2 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #77d4f5 1%,#86eef2 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #77d4f5 1%,#86eef2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#77d4f5', endColorstr='#86eef2',GradientType=0 ); /* IE6-9 */
+  }
+
+.snBrand.bg2{
+  border-top: 1px solid #ffce54;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffce54+1,f6ef7e+100 */
+  background: #ffce54; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ffce54 1%, #f6ef7e 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #ffce54 1%,#f6ef7e 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #ffce54 1%,#f6ef7e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffce54', endColorstr='#f6ef7e',GradientType=0 ); /* IE6-9 */
+
+  }
+.snBrand.bg3{
+  border-top: 1px solid #69eac9;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#69eac9+1,9af8c4+100 */
+  background: #69eac9; /* Old browsers */
+  background: -moz-linear-gradient(top,  #69eac9 1%, #9af8c4 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #69eac9 1%,#9af8c4 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #69eac9 1%,#9af8c4 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#69eac9', endColorstr='#9af8c4',GradientType=0 ); /* IE6-9 */
+
+  }
+
+
+//*--------------------   ui Style   -----------------------
+
+/* 本例子css */
+.m-slide{ position: relative; float: right; width:640px;     padding-bottom: 20px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;}
+.m-slide .bottom-shadow{ position: absolute; bottom: -20px; left: 0; width: 100%; height: 1px; overflow: hidden; background: #e6e6e6; border-bottom: 1px solid #ececec; }
+.m-slide .img { float: left; position: relative }
+.m-slide .img li, .m-slide .img a, .m-slide .img img { display: block; width: 290px; height: 160px }
+.m-slide .img li { display: none; position: absolute; left: 0; top: 0 }
+.m-slide .img .first { display: block }
+.m-slide .tab { float: right; width: 330px; }
+.m-slide .tab li { *margin-bottom: -3px; width: 330px }
+.m-slide .tab .first { border-top: 0 }
+.m-slide .tab a { overflow: hidden;padding-left: 10px; text-decoration: none; display: block; position: relative; width: 330px; height: 30px; line-height: 30px; border-left: 3px solid #fff }
+
+.m-slide .tab .first a { height: 50px }
+.m-slide .tab .on a { border-left: 3px solid #4fc1e9; color: @color-blue; }
+.m-slide .tab .on a span { color: @color-blue; }
+.m-slide  .h3-mdy{ font-size: 16px; margin-bottom: 10px; width: 330px; padding-left: 10px; float: right; color: #333;}
+.popular-circle{
+  width: 640px;
+  float: right;
+  .h3-title{ font-size: 16px; color: #333; margin-bottom: 20px;}
+  ul.ul-list{
+    li{ float: left;
+      width: 280px;
+      height: 65px;
+      margin-bottom: 20px;
+      margin-right: 40px;
+      a{ display: block; position: relative; padding-left: 85px;
+        img{ position: absolute; top: 0; left: 0;}
+        p{ color: #333; overflow: hidden;height: 16px;}
+        p, span,strong{ display: block; margin-bottom: 10px;}
+        span,strong{ color: #999;}
+
+        }
+      &:hover{
+        a{ color: @color-hover-blue;
+          p,span,strong{ color: @color-hover-blue;}
+          }
+        }
+      }
+    }
+  }
+
+
+.h2-list{
+    a{ display: block;height: 40px;}
+    .transition( all 0.5s ease 0s);
+  }
+.snBrand{
+  &:hover{
+    .h2-list{   left: 15px;
+      width: 188px;}
+    }
+  }
+
+//感兴趣
+.snBrand ul.ulbe-interested{
+  padding-top: 0;
+  //border: 1px solid #eee;
+  .interested{
+    width: 640px;
+    float: right;
+    a{ float: left; display: block; 
+      
+      &:hover{
+        dd{ color: #41a1f2;}
+        }
+      }
+    a.ali-left{padding: 20px 20px 20px 0; border-right: 1px solid #eee;border-bottom: 1px solid #eee;}
+    a.ali-right{padding: 20px 19px 20px 20px;border-bottom: 1px solid #eee;}
+    dl{
+      dt{ margin-bottom: 10px;}
+      dd{ font-size: 16px; color: #666; overflow: hidden; width: 290px;height: 18px;}
+      }
+    }
+  }
+
+//师兄说
+.snBrand ul.ulbrother-said{
+  padding-top: 0;
+  .interested{
+    width: 640px;
+    margin-bottom: 10px;
+    float: right;
+    a{ float: left; display: block;
+
+      &:hover{
+        dd{ color: #41a1f2;}
+        }
+      }
+    a.ali-left{padding: 20px 20px 20px 0;}
+    a.ali-right{padding: 20px 19px 20px 20px;}
+    dl{
+      dt{ margin-bottom: 10px;}
+      dd{ font-size: 16px; color: #666; overflow: hidden; width: 290px;height: 18px;}
+      }
+    }
+  }
+
+
+//icon
+.homelis(@x: 0, @y: 0, @width: 0, @height: 0) {
+  background-position: @x @y;
+  width: @width;
+  height: @height;
+  }
+
+
+
+.icon-homelis {
+  display: block;
+  position: absolute;
+  top: 30px;
+  left: 0px;
+
+  img{ width: 200px; height: 50px;}
+  }
+
+

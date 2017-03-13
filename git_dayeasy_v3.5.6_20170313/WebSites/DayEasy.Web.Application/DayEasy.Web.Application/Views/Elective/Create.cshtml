@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "创建选课";
+}
+
+<div class="dy-main-wrap">
+    @Html.Partial("~/Views/Educational/_Navigation.cshtml",8)
+    <div class="dy-list dy-list-bg">
+        <div class="dy-title">
+            <h2>
+                <a href="@Url.Action("Index")" class="a01">选课管理</a>
+                <small>&gt; 创建选课</small>
+            </h2>
+            <div class="d-actions">
+                <a class="dy-btn a01" href="@Url.Action("Template")" target="_blank">下载模板</a>
+            </div>
+        </div>
+        <div class="dy-content">
+            <div class="d-action d-import-wrap">
+                <button type="button" class="dy-btn dy-btn-info d-import">
+                    <i class="iconfont dy-icon-upload pr10"></i>
+                    导入课程
+                </button>
+                <div class="img-prompt-create"></div>
+            </div>
+            <div class="d-course-list hide">
+                <div class="d-list">
+
+                </div>
+                <div class="d-actions">
+                    <button class="dy-btn dy-btn-default btn-cancel">取消</button>
+                    <button class="dy-btn dy-btn-info btn-submit">完成创建</button>
+                    <a href="#" class="dy-btn a01 d-import">重新导入课程</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="classRangeTpl">
+    <div class="d-class-list">
+        {{each $data as grade}}
+        <div class="d-class-item">
+            <dl>
+                <dt>
+                    <label class="checkbox-group group-checkbox">
+                        {{if grade.checked}}
+                        <input name="classAll" type="checkbox" checked="checked" value="-1">
+                        <span>{{grade.grade}}年入学</span>
+                        <i class="iconfont dy-icon-checkbox dy-icon-checkboxhv"></i>
+                        {{else}}
+                        <input name="classAll" type="checkbox" value="-1">
+                        <span>{{grade.grade}}年入学</span>
+                        <i class="iconfont dy-icon-checkbox"></i>
+                        {{/if}}
+                    </label>
+                </dt>
+                {{each grade.classList as item}}
+                <dd class="{{item.id<0?'disabled':'check-item'+(item.checked?' active':'')}}"
+                    data-cid="{{item.id}}"
+                    title="{{item.name}}">
+                    <span>{{item.name}}</span>
+                </dd>
+                {{/each}}
+            </dl>
+        </div>
+        {{/each}}
+    </div>
+</script>
+
+@Html.Partial("_Courses")
+
+@section css{
+    @Html.CombineLink("v3/css/ea/ui-base.css,v3/css/ea/elective-create.css")
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js,v3/js/ea/elective-create.js")
+}

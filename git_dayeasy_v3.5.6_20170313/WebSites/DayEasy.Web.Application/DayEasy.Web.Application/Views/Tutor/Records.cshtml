@@ -1,0 +1,76 @@
+﻿@using DayEasy.Contracts.Dtos.Tutor
+@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Extend
+@model List<DayEasy.Contracts.Dtos.Tutor.TutorRecordsDto>
+@{
+    ViewBag.Title = "辅导记录";
+
+    TutorDto tutorModel = null;
+    if (ViewData["tutorModel"] != null)
+    {
+        tutorModel = ViewData["tutorModel"] as TutorDto;
+    }
+}
+
+<div class="coach-order">
+    <div class="ui-top-title">
+        <div class="w1000 f-cb">
+            <ul class="f-fl navigation">
+                <li><a href="@Url.Action("Index","Tutor")">辅导中心 <span>〉</span></a></li>
+                <li><a href="javascript:void(0);">辅导记录</a></li>
+            </ul>
+        </div>
+    </div>
+    @if (tutorModel == null)
+    {
+        <div class="coach-center j-autoHeight" data-left="132" data-type="2" data-min="400">
+            <div class="w1000">
+                没有找到相关记录！
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="coach-center j-autoHeight" data-left="132" data-type="2" data-min="400">
+            <div class="w1000">
+                <div class="title-hd">
+                    <h2>@tutorModel.Title</h2>
+                    <span>难度：<em>@Html.GetEnumText(tutorModel.Difficulty, typeof(DiffLevel))</em></span>
+                </div>
+                <div class="coach-conter">
+                    @if (Model == null || Model.Count < 1)
+                    {
+                        <p>没有找到相关记录！</p>
+                    }
+                    else
+                    {
+                        <table class="table table-cover">
+                            <tr>
+                                <th width="300">购买学生</th>
+                                @*<th width="225">学校</th>*@
+                                @*<th width="225">年级</th>*@
+                                <th width="250">日期</th>
+                            </tr>
+                            @foreach (var record in Model)
+                            {
+                                <tr>
+                                    <td>@record.UserName</td>
+                                    @*<td>八年级</td>*@
+                                    <td>@record.Time.ToString("yyyy-MM-dd")</td>
+                                </tr>
+                            }
+                        </table>
+                        <div class="f-tac">
+                            @Html.ShowPager("pageIndex".Query(1), 10, Convert.ToInt32(ViewData["totalCount"]), 5, false)
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section style{
+    @Html.CombineLink("css/v2.0/coachbackstage/coach-order.css,css/v2.0/coachbackstage/ui-base.css")
+}

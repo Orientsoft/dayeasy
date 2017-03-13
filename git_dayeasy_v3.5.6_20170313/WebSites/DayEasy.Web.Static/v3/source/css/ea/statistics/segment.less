@@ -1,0 +1,96 @@
+@charset "UTF-8";
+/**
+ * Boz
+ * @date    2016-07-4 12:30:59
+ * 单科-2重点率分析
+ */
+@import "../../../less/base";
+
+.g-contents {
+  .g-side {
+    padding: 80px 50px;
+    .g-h2 { color: #3bafda; font-weight: bold; font-size: 18px; margin-bottom: 30px; line-height: 1.8em; }
+    .class-list {
+      color: #3bafda;
+      font-size: 20px;
+      font-weight: bold;
+      li { margin-bottom: 30px;
+        span{ font-size: 26px;}
+        em{ color: #3bafda; font-size: 16px;
+          b{ font-weight: normal; font-size: 16px;}
+          }
+        }
+      }
+    }
+  /*年级重点线*/
+  .grade-line {
+    margin-bottom: 15px;
+    margin-left: 20px;
+    dt, dd { float: left; }
+    dt { color: #333; margin-right: 10px; line-height: 30px; }
+    dd { margin-right: 25px;
+      .dy-btn-info { height: 30px; line-height: 30px;
+        .iconfont { vertical-align: inherit; }
+        }
+      }
+    select, input { border: 2px solid #e6e9ed; height: 30px; line-height: 30px; .rounded-corners(3px); }
+    select { padding: 0 8px; }
+    input { width: 51px; }
+    .ab, .ba {
+      input { padding-left: 15px; width: 60px; }
+      position: relative;
+      &:before {
+        position: absolute;
+        top: 7px;
+        left: 5px;
+        color: #666;
+        }
+      }
+    .ab {
+      &:before {
+        content: attr(data-sectiona);
+        }
+      }
+    .ba {
+      &:before {
+        content: attr(data-sectionb);
+        }
+      }
+    }
+  // 分数段统计表格
+  .table-chart{
+    width: 908px;
+    .special{padding:0;
+      position: relative;
+      /*模拟对角线*/
+      .out{
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #999;
+        font-size: 14px;
+        //overflow: hidden;
+        border-top:40px #f5f7fa solid;/*上边框宽度等于表格第一行行高*/
+        border-left:119px #ebf0f5 solid;/*左边框宽度等于表格第一行第一格宽度*/
+        position:relative;/*让里面的两个子容器绝对定位*/
+        b{font-style:normal;display:block;position:absolute;top:-35px;left:-53px;width:50px;}
+        em{font-style:normal;display:block;position:absolute;top:-16px;left:-105px;width:50px;}
+        }
+
+      }
+    .dy-table{
+      border: 2px solid #e6e9ed;
+      tr:nth-child(2n) td{ background: white;}
+      tr td:nth-child(2n){background: #fafafa;}
+      th,td{ border: 1px solid #e6e9ed;text-align: center;}
+      th{background: #f5f7fa;}
+      td{ background: #fafafa;}
+      }
+
+    }
+  .ove-y{
+    min-height: 290px;
+    overflow-y: auto;
+    }
+  }
+

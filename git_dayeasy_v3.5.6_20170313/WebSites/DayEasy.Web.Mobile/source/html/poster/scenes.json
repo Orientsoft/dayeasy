@@ -1,0 +1,72 @@
+[
+  {
+    "image": "/image/scenes/01.png",
+    "position": {
+      "x": 0,
+      "y": 300
+    },
+    "word": {
+      "text": "桌子里的东西拿出来，别以为我不知道你们在下面做什么",
+      "color": "#ffffff",
+      "font": "normal 16px 微软雅黑",
+      "point": {
+        "x": 70,
+        "y": 220,
+        "max": 14
+      }
+    },
+    "teacher": {
+      "text": "To {school} {name}",
+      "color": "#f3c720",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 70,
+        "y": 190
+      }
+    },
+    "from": {
+      "text": "By {creator}",
+      "color": "#0f0c02",
+      "fontSize": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 505
+      }
+    }
+  },
+  {
+    "image": "/image/scenes/02.png",
+    "position": {
+      "x": 0,
+      "y": 300
+    },
+    "word": {
+      "text": "桌子里的东西拿出来，别以为我不知道你们在下面做什么",
+      "color": "#ffffff",
+      "font": "normal 16px 微软雅黑",
+      "point": {
+        "x": 70,
+        "y": 220,
+        "max": 14
+      }
+    },
+    "teacher": {
+      "text": "To {school} {name}",
+      "color": "#f3c720",
+      "font": "normal 14px 微软雅黑",
+      "point": {
+        "x": 70,
+        "y": 190
+      }
+    },
+    "from": {
+      "text": "By {creator}",
+      "color": "#0f0c02",
+      "fontSize": "normal 14px 微软雅黑",
+      "point": {
+        "x": 267,
+        "y": 505
+      }
+    }
+  }
+]

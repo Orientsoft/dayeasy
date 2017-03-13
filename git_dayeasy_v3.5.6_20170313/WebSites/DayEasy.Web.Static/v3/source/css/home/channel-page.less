@@ -1,0 +1,287 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+
+      Author:Plato
+      Create Date:2016/02/1 10:14  Last Mondify Date:2016/02/1 10:14
+      ===================================================
+
+--------------------------------------------------------------*/
+@import        (reference) "ui-base.less";
+@import "../../less/ui-bbs";
+
+//*--------------------   Part ui    -----------------------
+
+//*--------------------  main Style  -----------------------
+.channel-title{ background: #d9f1eb;height: 175px; margin-bottom: 30px;
+  .channel-top{height: 175px;     position: relative;
+    .h2-title ,.ul-list{position: absolute;}
+    .h2-title{  top: 30px; left: 0; font-size: 36px; color: #48cfad;
+      span{ font-size: 18px; color: #333;.inline-block; margin-left: 30px;}
+      }
+    .ul-list{ bottom: 20px; left: 0;
+      li{ float: left;}
+      a{.inline-block;.rounded-corners(2px);padding: 10px 20px;.inline-block; color: #999; font-size: 16px;}
+      li.on a{ background: #48cfad; color: white;}
+      }
+    }
+  }
+.channel-page{
+  .channel-main{ width: 870px; min-height: 800px; background: white;}
+  .menu-title{
+
+    li{ float: left; position: relative;
+      a{.inline-block; font-size: 18px; color: #999;padding: 18px 30px;}
+      }
+    li.on{
+      a{ border-top: 1px solid #48cfad; color: #48cfad;}
+      }
+    }
+  }
+
+
+//*--------------------   ui Style   -----------------------
+
+@color-gray: #bbb;
+@color-active: #ed5565;
+//动态列表
+.dynamic-list {
+  position: relative;
+  bottom: -1px;
+  margin-bottom: 20px;
+  .box-list {
+    position: relative;
+    width: 870-60px;
+    margin: 0 auto;
+    border-bottom: 1px solid @border-color;
+    padding: 20px 160px 0 0;
+    .head-img {
+      position: absolute;
+      top: 60px;
+      right: 0;
+      cursor: default;
+      img {
+        width: 100px;
+        height: 100px;
+        }
+      }
+    li {
+      position: relative;
+      }
+    }
+  .tab-box-1,  .tab-box-3 {
+    margin-bottom: 20px;
+    .inline-block;
+    }
+  .tab-box-1 {
+    font-size: 18px;
+    height: 21px;
+    overflow: hidden;
+    strong {
+      padding: 0 10px;
+      .inline-block;
+      color: white;
+      margin-right: 10px;
+      font-size: 14px;
+      .rounded-corners(2px);
+      height: 20px;
+      line-height: 20px;
+      position: relative;
+      top: -1px;
+      }
+    a:hover {
+      color: @color-hover-blue;
+      }
+    }
+
+  .tab-box-3 {
+    margin-bottom: 0px;
+    line-height: 35px;
+    color: @color-gray;
+    img{.rounded-corners(50%);}
+    a {
+      width: 70px;
+      overflow: hidden;
+      position: relative;
+      top: -10px;
+      height: 15px;
+      margin-left: 10px;
+      padding-right: 5px;
+      cursor: text;
+      }
+    .width-lg-1{}
+    .width-lg-2{ width: 100px;}
+    .width-lg-3{ width: 86px;}
+    .width-lg-4{ width: 70px;}
+    .width-lg-5{}
+    }
+  .tab-box-4 {
+    margin-bottom: 6px;
+    line-height: 1.6em;
+    padding-bottom: 15px;
+    color: #666;
+    height: 44px;
+    overflow: hidden;
+    }
+
+  .tab-box-2{
+    margin-bottom: 20px;
+      span{padding: 4px 10px;.inline-block; margin-right: 10px; border: 1px solid #eee; font-size: 12px;}
+    }
+
+  .d-like-list {
+    color: @color-gray;
+    font-size: 85%;
+    line-height: 24px;
+    margin-bottom: 12px;
+    i {
+      margin-right: 5px;
+      }
+    span {
+      padding-right: 3px;
+      }
+    }
+
+  .color-bg-green {
+    background: #48cfad;
+    }
+  //作业
+  .color-bg-grassgreen {
+    background: #a0d468;
+    }
+  //辅导
+  .color-bg-yellow {
+    background: #ffce54;
+    }
+  //通知
+  .color-bg-orange {
+    background: #fc6e51;
+    }
+  //放假通知
+  }
+
+//tab 圈子
+.channel-circle{
+  .ul-list-circle{
+    overflow: hidden;
+    padding-left: -32px;
+    li{ width: 390px; float: left; margin-left: 32px; margin-bottom: 20px; border: 1px solid #eee;
+      &:hover{border-color:#4acfad;}
+      }
+
+    .ulli-top{
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+      &>a{ margin-right: 20px;}
+      .ulli-top-right{
+        width: 228px;
+        .layer1{ margin-bottom: 8px; font-size: 16px;height: 23px;
+          span.spanbox{ margin-right: 10px;.inline-block; color: white;.rounded-corners(3px);padding: 4px 10px; font-size: 14px;position: relative; top: -5px;}
+          .spanbox.mx{ background: #48cfad;}
+          .spanbox.zt{ background: #fc7155;}
+          a{
+            display: inline-block;
+            max-width: 137px;
+            &:hover{
+              color: @color-hover-blue;
+              }
+            }
+          }
+        .layer2{ margin-bottom: 5px;height: 25px; overflow: hidden;
+          span{ border: 1px solid #eee;.rounded-corners(3px);.inline-block;padding: 4px 10px; margin-right: 10px; color: #666; }
+          }
+        .layer3{ line-height: 1.6em; color: #999;height: 44px; overflow: hidden;}
+        }
+      }
+    .ulli-bottom{
+      color: #666;padding: 15px 20px;
+      .join{ cursor: pointer; &:hover{color: #3bafda;}}
+      }
+    }
+
+  }
+
+//主题覆盖
+
+
+//默认主题
+.channel-title{ background: #d9f1eb;
+  .channel-top{
+    .background-image('home/channel-theme-coach.jpg',no-repeat,#d9f1eb);
+    .h2-title{ color: #48cfad;}
+    }
+  }
+
+//轻松学
+.channel-theme-coach{
+  .channel-title{ background: #d9f1eb;
+    .channel-top{
+      .background-image('home/channel-theme-coach.jpg',no-repeat,#d9f1eb);
+      .h2-title{ color: #48cfad;}
+      .ul-list{
+        li.on{
+            a{ background: #48cfad;}
+          }
+        }
+      }
+    }
+  .channel-page{
+    .menu-title{
+      li.on{
+        a{
+          border-top: 1px solid #48cfad;
+          color: #48cfad;
+          }
+        }
+      }
+    }
+  }
+
+
+//家长邦
+.channel-theme-parent{
+  .channel-title{ background: #fff4d9;
+    .channel-top{
+      .background-image('home/channel-theme-parent.jpg',no-repeat,#fff4d9);
+      .h2-title{ color: #ffce54;}
+      .ul-list{
+        li.on{
+          a{ background: #ffce54;}
+          }
+        }
+      }
+    }
+  .channel-page{
+    .menu-title{
+      li.on{
+        a{
+          border-top: 1px solid #ffce54;
+          color: #ffce54;
+          }
+        }
+      }
+    }
+  }
+//同学汇
+.channel-theme-classmate{
+  .channel-title{ background: #cfeaf4;
+    .channel-top{
+      .background-image('home/channel-theme-classmate.jpg',no-repeat,#cfeaf4);
+      .h2-title{ color: #4fc1e9;}
+      .ul-list{
+        li.on{
+          a{ background: #4fc1e9;}
+          }
+        }
+      }
+    }
+  .channel-page{
+    .menu-title{
+      li.on{
+        a{
+          border-top: 1px solid #4fc1e9;
+          color: #4fc1e9;
+          }
+        }
+      }
+    }
+  }

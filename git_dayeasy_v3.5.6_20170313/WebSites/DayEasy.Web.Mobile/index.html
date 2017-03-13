@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    <meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<link href="//static.dayeasy.net" rel="dns-prefetch">
+<link href="//file.dayeasy.net" rel="dns-prefetch">
+<link href="//file01.dayeasy.net" rel="dns-prefetch">
+<link href="//file02.dayeasy.net" rel="dns-prefetch">
+<link rel="apple-touch-icon-precomposed" href="/image/logo_114x114.png">
+<link type="image/x-icon" rel="Shortcut Icon" href="/image/logo_114x114.png">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/css/amazeui.min.css"/>
+<link rel="stylesheet" href="/css/site-base.min.css"/>
+<link rel="stylesheet" href="/css/ui-dialog.min.css"/>
+<link rel="stylesheet" href="/fonts/iconfont.css"/>
+    <title>我的得一 - 触屏版</title>
+    <!--<meta http-equiv="refresh" content="2;url=page/group/home.html">-->
+</head>
+<body data-role="7">
+<div class="">正在跳转...</div>
+<!-- 基础脚本 -->
+<script src="/js/site-base.min.js"></script>
+<script>
+    (function (S) {
+        S.progress.start();
+        S.setUser(function (user) {
+            if (user && (user.role & 4) > 0) {
+                location.href = 'http://www' + location.host.substring(location.host.indexOf('.')) + '/group?from=wap';
+                return false;
+            }
+            location.href = '/page/group/home.html';
+        });
+    })(SINGER);
+</script>
+
+</body>
+</html>

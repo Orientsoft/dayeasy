@@ -1,0 +1,85 @@
+<!doctype html><html lang="zh-CN"><head><title>圈设置</title><meta charset="UTF-8"><link type="image/x-icon" rel="Shortcut Icon" href="/favicon.ico"><!--<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css"/>--><link rel="stylesheet" href="/v3/source/fonticon/iconfont.css"><link rel="stylesheet" href="/v3/source/css/site-base.css"><link rel="stylesheet" href="/v3/source/css/header-footer.css"><link href="/v3/source/css/dialog.css" rel="stylesheet" media="all"><script src="/v3/js/singer.min.js" type="text/javascript"></script><link rel="stylesheet" href="/v3/source/css/circle/page-setting.css"><script type="text/javascript">//图片上传预览    IE是用了滤镜。
+        function previewImage(file)
+        {
+            var MAXWIDTH  = 260;
+            var MAXHEIGHT = 180;
+            var div = document.getElementById('preview');
+            if (file.files && file.files[0])
+            {
+                div.innerHTML ='<img id=imghead>';
+                var img = document.getElementById('imghead');
+                img.onload = function(){
+                    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                    img.width  =  rect.width;
+                    img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+//                    img.style.marginTop = rect.top+'px';
+                }
+                var reader = new FileReader();
+                reader.onload = function(evt){img.src = evt.target.result;}
+                reader.readAsDataURL(file.files[0]);
+            }
+            else //兼容IE
+            {
+                var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+                file.select();
+                var src = document.selection.createRange().text;
+                div.innerHTML = '<img id=imghead>';
+                var img = document.getElementById('imghead');
+                img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+                div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+            }
+        }
+        function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+            var param = {top:0, left:0, width:width, height:height};
+            if( width>maxWidth || height>maxHeight )
+            {
+                rateWidth = width / maxWidth;
+                rateHeight = height / maxHeight;
+
+                if( rateWidth > rateHeight )
+                {
+                    param.width =  maxWidth;
+                    param.height = Math.round(height / rateWidth);
+                }else
+                {
+                    param.width = Math.round(width / rateHeight);
+                    param.height = maxHeight;
+                }
+            }
+
+            param.left = Math.round((maxWidth - param.width) / 2);
+            param.top = Math.round((maxHeight - param.height) / 2);
+            return param;
+        }</script></head><body><div class="dy-wrap"><!--[if lt IE 9]>
+<style>
+    .dy-header{border-bottom: 1px solid #f0f0f0;}
+    .ul-fixed{border: 1px solid #f0f0f0;}
+    .circle-list .top-one .img-mack{background: #a0d468;-ms-filter:"alpha(opacity=1)";filter:alpha(opacity=100);zoom:1;}
+</style>
+<![endif]--><div class="dy-header"><div class="site-nav f-cb"><ul class="ul-left f-fl"><li class="menu-1"><h1 class="logo"><a href="http://www.dayeasy.dev"><img width="130" height="40" src="/v3/image/logo.png" alt=""></a></h1></li><li class="z-crt menu-1"><a class="havechild" href="http://www.dayeasy.dev"><i class="iconfont dy-icon-shouye"></i>首页</a></li><li class="menu-1"><a href="javascript:void(0)" class="havechild" data-menu=""><i class="iconfont dy-icon-liebiao"></i> 分类浏览</a><ul class="g-ul-2" style="width: 106px"><li class=""><a href="http://www.dayeasy.dev/topic/100">爱学习</a></li><li class=""><a href="http://www.dayeasy.dev/topic/200">先知道</a></li><li class=""><a href="http://www.dayeasy.dev/topic/300">感兴趣</a></li></ul></li><li class="menu-1"><a class="havechild" href="http://www.dayeasy.dev/group"><i class="iconfont dy-icon-49"></i>我的圈子</a></li><li class="menu-1"><a class="havechild" href="javascript:void(0);" data-menu=""><i class="iconfont dy-icon-yingyong"></i>应用中心</a><ul class="g-ul-2" style="width: 106px"><li class=""><a href="http://www.dayeasy.dev/work">批阅中心</a></li><li class=""><a href="http://www.dayeasy.dev/paper">试卷库</a></li><li class=""><a href="http://www.dayeasy.dev/paper/choosepapertype">在线出卷</a></li><li class=""><a href="http://www.dayeasy.dev/report">报表</a></li></ul></li></ul><ul class="ul-right f-fr"><li class="soso"><div class="search-combobox"><input class="input-box" placeholder="搜索" type="text" name="" id=""> <span class="pos-box"><button type="submit"></button> <i class="iconfont dy-icon-26"></i></span></div></li><li class="info"><a href=""><i class="iconfont dy-icon-11"></i> <span class="po-detail-ba">12</span></a></li><!--已登录--><li class="head-user"><a class="user-img" href=""><img src="../../image/default/user_s40x40.jpg" alt=""></a><ul class="ul-fixed"><li class="mt-padd"><a href=""><i class="iconfont dy-icon-9"></i>设置</a></li><li><a href=""><i class="iconfont dy-icon-56"></i>退出</a></li></ul></li><!--未登录登录--><!--<li class="head-user-notlogged">--><!--<a href="">登录</a><b>/</b><a href="">注册</a>--><!--</li>--></ul></div></div><div class="dy-main"><div class="home-circles w1200 f-cb" data-gid="98547876755843daa5aeba0aa3b9f77f" data-manager="True"><div class="top-img"><img width="1200" height="120" src="//file.dayez.net/image/default/group/banner/g_banner02.jpg" alt=""> <span class="dg-change-bg" title="更换背景"></span></div><div class="top-title"><a class="f-pa" href="/group/98547876755843daa5aeba0aa3b9f77f"><i class="iconfont dy-icon-fanhui"></i>返回</a><div class="group-avatar"><div class="dg-avatar" title="更换logo"><input id="avatar" type="hidden" value="http://file.dayez.net//image/default/group/05.png"> <img width="150" height="150" src="http://file.dayez.net//image/default/group/05_s150x150.png" alt=""></div><div class="dg-info"><div class="dg-info-back"><h3>更换Logo</h3><p>Logo大小150*150</p></div></div></div><div class="dg-name"><strong>IE-9</strong> <span>[ GC15311 ]</span></div><div class="dg-nav-list"><ul><li class="active">设置</li><li><a href="">成员</a></li></ul></div></div><div class="dg-page"><ul class="mian-cont f-cbli"><li><div class="form-label">学校信息</div><div class="form-area"><span class="span">成都市金沙小学</span></div></li><li><div class="form-label">入学年份</div><div class="form-area"><span class="span">2015 年</span></div></li><li data-param="owner"><div class="form-label">圈　　主</div><div class="form-area"><input type="hidden" value="357373701301"> <span class="span">用户名</span> <i class="iconfont dy-icon-edit2" title="转让圈主"></i></div></li><li data-param="name"><div class="form-label">圈&nbsp;&nbsp;名&nbsp;&nbsp;称</div><div class="form-area"><input type="text" maxlength="20" disabled="disabled" readonly="readonly" value="IE-9"> <i class="iconfont dy-icon-edit2" title="修改圈名"></i> <i class="iconfont dy-icon-13" title="保存圈名"></i></div></li><li data-param="summary"><div class="form-label">圈子简介</div><div class="form-area"><textarea disabled="disabled" readonly="readonly" cols="30" rows="6" maxlength="140">IE9  流程测试</textarea><i class="iconfont dy-icon-edit2" title="修改简介"></i> <i class="iconfont dy-icon-13" title="保存简介"></i></div></li></ul><div class="pml"><input class="dy-btn dy-btn-danger" id="dissolution" type="button" value="解散圈子"></div></div></div><!--Amend 2016-2--><!--<div class="home-circles w1200 f-cb">--><!--<div class="top-img f-pr">--><!--<img width="1200" height="200" src="/v3/image/circle/set-up-bg.jpg" alt=""/>--><!--</div>--><!--<div class="top-title">--><!--<a class="f-pa" href="javascript:void(0);"> <i class="iconfont dy-icon-fanhui"></i>返回</a>--><!--<div class="user-img">--><!--<img width="170" height="170" src="/v3/image/temp/header.png" alt=""/>--><!--<p class="home-class-name">2015级2班 学生交流群 <strong> [ 213146956 ]</strong></p>--><!--</div>--><!--</div>--><!--<ul class="mian-cont f-cbli">--><!--<li>--><!--<label>学校信息</label>--><!--<p><input type="text" disabled="disabled" value="成都七中育才学校"/></p>--><!--</li>--><!--<li>--><!--<label>入学年份</label>--><!--<p>--><!--<input disabled="disabled" type="text" value="2015"/>--><!--</p>--><!--</li>--><!--<li>--><!--<label>圈主</label>--><!--<p>--><!--<input type="text" value="张全蛋" />--><!--<i class="iconfont dy-icon-edit2"></i>--><!--<i class="iconfont dy-icon-13"></i>--><!--</p>--><!--</li>--><!--<li>--><!--<label>圈名称</label>--><!--<p>--><!--<input type="text" value="2005级13班"/>--><!--<i class="iconfont dy-icon-edit2"></i>--><!--<i class="iconfont dy-icon-13"></i>--><!--</p>--><!--</li>--><!--<li>--><!--<label>圈头像</label>--><!--<p>--><!--<span id="preview">--><!--<img id="imghead"  width="80" height="80" src="/v3/image/temp/header.png" alt=""/>--><!--</span>--><!--<i class="iconfont dy-icon-upload">--><!--<input type="file" onchange="previewImage(this)" />--><!--</i>--><!--</p>--><!--</li>--><!--<li>--><!--<label>圈子简介</label>--><!--<p>--><!--<textarea name="" id="" cols="30" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien</textarea>--><!--<i class="iconfont dy-icon-edit2"></i>--><!--<i class="iconfont dy-icon-13"></i>--><!--</p>--><!--</li>--><!--</ul>--><!--<div class="pml">--><!--<input class="dy-btn dy-btn-danger" type="submit" value="退出圈子"/>--><!--</div>--><!--</div>--><!--弹框--><div class="pop-members" style="display: none"><div class="pop-title"><span class="f-fl">请选择接受转让的圈成员</span><div class="input-part f-fr"><input type="text" placeholder="搜索圈成员"> <button class="iconfont dy-icon-26" type="button"></button></div></div><div class="pop-cont"><ul><li><img width="30" height="30" src="/v3/image/default/user_s40x40.jpg" alt=""> <strong>张全蛋</strong><p>管理员</p><button class="dy-btn dy-btn-default">转让</button></li><li><img width="30" height="30" src="/v3/image/default/user_s40x40.jpg" alt=""> <strong>张全蛋</strong><p>管理员</p><button class="dy-btn dy-btn-default">转让</button></li><li><img width="30" height="30" src="/v3/image/default/user_s40x40.jpg" alt=""> <strong>张全蛋</strong><p>管理员</p><button class="dy-btn dy-btn-default">转让</button></li><li><img width="30" height="30" src="/v3/image/default/user_s40x40.jpg" alt=""> <strong>张全蛋</strong><p>管理员</p><button class="dy-btn dy-btn-default">转让</button></li><li><img width="30" height="30" src="/v3/image/default/user_s40x40.jpg" alt=""> <strong>张全蛋</strong><p>管理员</p><button class="dy-btn dy-btn-default">转让</button></li><li><img width="30" height="30" src="/v3/image/default/user_s40x40.jpg" alt=""> <strong>张全蛋</strong><p>管理员</p><button class="dy-btn dy-btn-default">转让</button></li></ul></div></div><!--弹框end--></div></div><div class="dy-footer"><div class="container"><div class="copy-left"><p>客服热线： 400 - 123456</p><p class="footer-tag-list"><a href="">关于我们</a> <a href="">联系我们</a> <a href="">产品中心</a> <a href="">常见问题</a> <a href="http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandalone_46.0.2490.80_Setup.1445829883.exe">建议使用 chrome 进行访问</a></p><p>Copyright © <a href="">得一科技责任有限公司dayeasy.net</a> <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备14013147号</a> 2013-2015</p></div><div class="copy-right"><ul><!--安卓下载--><li class="bg-android-download"><a class="android" href="javascript:void(0)"><i class="iconfont dy-icon-31"></i> <i class="iconfont dy-icon-30"></i><div class="app-qrcode"><img width="132" height="132" src="../../image/qrcode/android.png" alt=""></div></a></li><!--app--><li class="bg-app-qrcode"><a class="android" href="javascript:void(0)"><i class="iconfont dy-icon-31"></i> <i class="iconfont dy-icon-38"></i><div class="app-qrcode"><img width="132" height="132" src="../../image/qrcode/android.png" alt=""></div></a></li><!--QQ--><li class="bg-qq"><a class="android" href="javascript:void(0)"><i class="iconfont dy-icon-31"></i> <i class="iconfont dy-icon-41"></i></a></li><!--微博--><li class="bg-weibo"><a class="android" href="javascript:void(0)"><i class="iconfont dy-icon-31"></i> <i class="iconfont dy-icon-57"></i></a></li></ul></div></div></div><script src="/v3/js/jquery-1.10.2.min.js"></script><!--<script src="http://static.dayeasy.dev/plugs/artDialog/dist/dialog-plus.min.js?t=20150511" type="text/javascript"></script>--><script src="/v3/plugs/artDialog/dist/dialog-plus.min.js?t=20150511" type="text/javascript"></script><script src="/v3/js/artTemplate.min.js?t=20150511" type="text/javascript"></script><script src="/v3/source/js/base/common.js?t=20160830_001" type="text/javascript"></script><script src="/v3/source/js/base.js"></script><script>(function(){
+
+        $('.mian-cont').find('.iconfont').each(function(){
+            $(this).click(function() {
+                $(this).parent('p').addClass('z-sel').parent('li').siblings().children('p').removeClass('z-sel');
+                $(this).siblings('input,textarea').focus();
+            });
+
+        });
+//
+//        $('.mian-cont').find(':input').focus(function(){
+//            $(this).addClass("focus");
+//            if ($(this).val() == this.defaultValue) {
+//                $(this).val("");
+//            }
+//        }).blur(function () {
+//            $(this).removeClass("focus");
+//            if ($(this).val() == '') {
+//                $(this).val(this.defaultValue);
+//            }
+//        });
+
+
+    })();</script></body></html>

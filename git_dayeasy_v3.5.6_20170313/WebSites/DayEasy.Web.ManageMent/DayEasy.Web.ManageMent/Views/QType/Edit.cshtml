@@ -1,0 +1,49 @@
+﻿@model TS_QuestionType
+
+<form style="width:500px;" id="editForm">
+    <input type="hidden" value="@Model.Id" name="id" />
+    <div class="row">
+        <div class="col-sm-2">名称：</div>
+        <div class="col-sm-7 pl0">
+            <input type="text" class="form-control" value="@Model.QTypeName" name="typeName" />
+        </div>
+        <div class="col-sm-3 pl0">
+            <label class="checkbox-inline">
+                <input type="checkbox" value="1" @Html.IsChecked(Model.HasMultiAnswer) name="multiAnswer" />是否多个答案
+            </label>
+        </div>
+    </div>
+    <div class="row mt20">
+        <div class="col-sm-2">状态</div>
+        <div class="col-sm-10 pl0">
+            @if (ViewData["qTypeStatus"] != null)
+            {
+                @Html.DropDownList("status", ViewData["qTypeStatus"] as List<SelectListItem>, new { @class = "form-control" })
+            }
+        </div>
+    </div>
+    <div class="row mt20">
+        <div class="col-sm-2">内容：</div>
+        <div class="col-sm-10 pl0">
+            @{
+                var enums = System.Enum.GetValues(typeof(QuestionTypeStyle)).Cast<QuestionTypeStyle>();
+                foreach (var qstyle in enums)
+                {
+                    bool isChecked = ((byte)qstyle & Model.QTypeStyle) > 0;
+                    if ((byte)qstyle == (byte)QuestionTypeStyle.Body)
+                    {
+                        <label class="checkbox-inline">
+                            <input type="checkbox" checked="checked" value="@((byte)qstyle)" name="qstyle" disabled="disabled"/>@Html.GetEnumText((byte)qstyle, typeof(QuestionTypeStyle))
+                        </label>
+                    }
+                    else
+                    {
+                        <label class="checkbox-inline">
+                            <input type="checkbox" @Html.IsChecked(isChecked) value="@((byte)qstyle)" name="qstyle" />@Html.GetEnumText((byte)qstyle, typeof(QuestionTypeStyle))
+                        </label>
+                    }
+                }
+            }
+        </div>
+    </div>
+</form>

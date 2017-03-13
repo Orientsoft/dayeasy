@@ -1,0 +1,72 @@
+/**
+ * Created by Boz on 2016/5/19.
+ * 申请加入圈子
+ */
+@import "../base";
+
+.d-group {
+  padding: 20px;
+  margin: 0 auto;
+  background: white;
+  min-width: 300px;
+  }
+
+// 圈子列表页-列表
+.d-group-list {
+  ul{ margin-bottom: 0;}
+  li {
+    margin: 8px 0;
+    //padding: 8px 0;
+    position: relative;
+    overflow: hidden;
+    img {
+      float: left;
+      margin-right: 16px;
+      width: 80px;
+      height: 80px;
+      border: 4px;
+      }
+    .group-name {
+      display: block;
+      height: 21px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 16px;
+      line-height: 16px;
+      color: #999;
+      }
+    .group-count {
+      font-size: 12px;
+      line-height: 18px;
+      color: #999;
+      margin-bottom: 3px;
+      }
+    .group-member {
+      color: #666;
+      font-size: 14px;
+      }
+
+    }
+  }
+.group-apply-input {
+  input { height: 40px;
+          line-height: 40px;
+          margin-bottom: 10px;
+          border: 1px solid #dcdcdc;
+          padding: 10px;
+          .rounded-corners(4px);
+          width: 100%;
+          font-size: 14px;
+          -webkit-appearance: none;
+          outline: 0;
+          appearance: none;
+          -webkit-transition: border .2s ease;
+          transition: border .2s ease;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+    }
+  }
+.group-apply-button {
+  button { }
+  }

@@ -1,0 +1,132 @@
+﻿@using DayEasy.Utility.Extend
+@model IEnumerable<DayEasy.Contracts.Dtos.Question.QuestionDto>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var qItem in Model)
+    {
+        <div class="q-item q-item-border col-md-12 col-xs-12 after">
+            <div class="col-md-12 col-xs-12 f-qitem" data-qid="@qItem.Id">
+                @PaperHelper.ShowQuestion(qItem)
+                <div class="g-mark" title="">
+                    <span class="sprite-4 g-icon-15" data-type="@qItem.Type" data-qid="@qItem.Id"></span>
+                </div>
+            </div>
+            <div class="q-footer col-md-12 col-xs-12">
+                <div class="after hide">
+                    <div class="col-md-12 col-xs-12 pl0 mt10">
+                        <div class="col-md-12">
+                            <label class="pull-left">答　案：</label>
+                            <div class="col-md-10 pl0">@PaperHelper.ShowAnswer(qItem)</div>
+                        </div>
+                    </div>
+                    @if (qItem.Tags != null)
+                    {
+                        <div class="col-md-12 col-xs-12 pl0 mt10">
+                            <div class="col-md-12">
+                                <label class="pull-left">标　签：</label>
+                                <div class="col-md-10 pl0">
+                                    @foreach (var tag in qItem.Tags)
+                                    {
+                                        <div class="d-tag">
+                                            <span class="ng-binding">@tag</span>
+                                            <em></em>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-md-12 col-xs-12 pl0 mt10">
+                        <div class="col-md-12">
+                            <label>知识点：</label>
+                            @if (qItem.Knowledges != null)
+                            {
+                                foreach (var kp in qItem.Knowledges)
+                                {
+                                    <span class="q-point-item">
+                                        @kp.Name
+                                    </span>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12  mt10 f-alwaysshow">
+                    <div class="col-md-12">
+                        <div class="col-md-2 col-xs-4 pl0 pr0">
+                            <label>错误率：</label>
+                            <span>
+                                @if (qItem.AnswerCount == 0)
+                                {
+                                    <text>0%</text>
+                                }
+                                else
+                                {
+                                    <text>
+                                        @(((double)qItem.ErrorCount / qItem.AnswerCount).ToString("P"))
+                                    </text>
+                                }
+                            </span>
+                        </div>
+                        <div class="col-md-3 col-xs-4 pl0 pr0">
+                            <label>使用次数：</label>
+                            <span>@qItem.UseCount</span>
+                        </div>
+                        <div class="col-md-3 col-xs-4 pl0 pr0">
+                            <div class="g-gduo f-showmore">
+                                <span>更多</span>
+                                <i class="sprite-3 g-icon_13"></i>
+                            </div>
+                        </div>
+                        @if (qItem.UserName.IsNotNullOrEmpty())
+                        {
+                            <div class="text-right">
+                                <i class="fa fa-user"></i>
+                                <span class="ng-binding">@qItem.UserName</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div style="border:0;" class="text-center">
+        <div class="m-tips-p">
+            @*<div class="f-bgp z-crt-3 z-crt f-bgp-2"></div>*@
+            <div class="m-ct s-bg-1">
+                <p>没有找到您需要的题目哦，</p>
+                <p class="m-tt">试试更改搜索范围或者去<span class="s-fc">题库</span>打造自己的原创题目吧~</p>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="d-pager pt10">
+    @Html.ShowAjaxPager(Convert.ToInt32(Request["pageIndex"]), 15, Convert.ToInt32(ViewData["totalCount"]), "questionListDiv", 5)
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        singer.loadFormula();
+
+
+        $(".f-showmore").click(function () {
+            var _this = $(this),
+                ops = _this.parents(".q-footer");
+            off = _this.parents("div.f-alwaysshow").prev('div').is(":hidden");
+
+            _this.find('span').text(off ? "收起" : "更多");
+            off ? ops.css('border-top', '1px dashed #eee') : ops.css('border-top', '1px dashed #fff');
+            _this.children('i').toggleClass("g-icon_13 g-icon_1");
+            _this.parents("div.f-alwaysshow").prev('div').toggleClass('hide');
+
+        });
+
+
+    });
+</script>

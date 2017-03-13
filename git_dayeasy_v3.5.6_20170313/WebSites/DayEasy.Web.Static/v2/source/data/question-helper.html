@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>快速出题 - 帮助文档</title>
+    <style>
+        hr {
+            margin-right: 25px;
+            font-family: "Microsoft YaHei", serif;
+            font-size: 14px;
+        }
+
+        .help-container {
+            width: 650px;
+            margin: 0 auto;
+            line-height: 24px;
+            font-size: 14px;
+            height: 420px;
+            overflow-y: scroll;
+        }
+
+        .help-container h3 {
+            margin: 25px 0;
+        }
+
+        .help-container h4 {
+            font-size: 14px;
+        }
+
+        .help-tag {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="help-container">
+    <div class="help-body">
+        <p>我们以一道综合题为例子来说明如何标记：</p>
+        <hr/>
+        <div>
+            这是综合题的题干部分，综合题的题干部分，综合题的题干部分，综合题的题干部分，综合题的题干部分，综合题的题干部分
+            <span class="help-tag">【题干】</span><br/>
+            (1).第一小问的描述（这里是一个主观题）<span class="help-tag">【小问】</span><br/>
+            (2).第二小问的描述（这里是一个客观题）<span class="help-tag">【小问】</span><br/>
+            A.这里是选项内容<br/>
+            B.这里是选项内容<br/>
+            C.这里是选项内容<br/>
+            D.这里是选项内容<span class="help-tag">【选项】</span><br/>
+        </div>
+        <hr/>
+        <h3>四种标签</h3>
+
+        <div>
+            <h4>【题干】</h4>
+
+            <div>标识题干部分内容，在一个题中仅且只有一个该标签；如果打上该标签，从开始到第一次出现该标签的位置，视为题干内容。</div>
+            <h4>【小问】</h4>
+
+            <div>
+                标识小问部分内容。<br/>
+                标记位置：可在每个小问结束的时候标记上<br/>
+                （1）如果小问与小问之间有换行或者4个空格以上的距离则可以省略该标记；<br/>
+                （2）如果没有其他标记，则最后一个小问的标记可以省略，否则最后最后一个不能省略。
+            </div>
+            <h4>【选项】</h4>
+
+            <div>
+                标识客观题选项部分内容。<br/>
+                标记位置：该标识如果有“【小问】”标记，则出现在”【小问】”标记的后面的选项结束位置，选项与选项之间必须以换行或者4个以上的空格隔开。如果没有”【小问】”标记，则出现在“【题干】”后面选项结束位置，如果有多组选项，选项与选项直接以4个以上的空格隔开，选项组与选项组之间以换行隔开，则只标识最后一个选项组“标记”。<br/>
+                <span class="help-tag">注：该标记不能与“【答案】”标记一起使用。</span>
+            </div>
+            <h4>【答案】</h4>
+
+            <div>
+                标识主观题答案的标记。<br/>
+                标记位置：该标记用来标识主观题答案部分内容，一个答案一个标记对应一个小问，如果答案与答案之间一换行或者4个以上空格隔开，则可以省略该标记，如果多个小问最后一个标记则不能省略，如果没有小问则最后一个可以省略。<br/>
+                <span class="help-tag">注：该标记不能与“【选项】”标记一起使用。</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

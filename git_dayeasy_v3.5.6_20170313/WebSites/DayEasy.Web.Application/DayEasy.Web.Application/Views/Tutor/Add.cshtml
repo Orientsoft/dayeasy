@@ -1,0 +1,208 @@
+﻿@using DayEasy.Contracts.Dtos.Question
+@using DayEasy.Contracts.Dtos.Tutor
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Helper
+@model TutorDataDto
+@{
+    ViewBag.Title = "增加辅导";
+
+    List<QuestionDto> questions = null;
+    List<SimpleVideoDto> videos = null;
+    string editId = string.Empty;
+    if (Model != null)
+    {
+        questions = Model.Questions;
+        videos = Model.Videos;
+        editId = Model.EditId;
+    }
+}
+
+<div class="coach-backstage">
+    <div class="ui-top-title">
+        <div class="w1000 f-cb">
+            <ul class="f-fl navigation">
+                <li><a href="@Url.Action("Index","Tutor")">辅导中心 <span>〉</span></a></li>
+                <li><a href="javascript:void(0);">新增辅导</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="coach-center">
+        <div class="w1000">
+            <div class="center-1 f-cb">
+                <div class="f-fl l-upload">
+                    <div class="img-auto" id="uploadImg">
+                        <input type="hidden" value="@Model.Profile" id="tutorPhotoUrl" />
+                        <img src="@Html.MakeThumb(Model.Profile,"300x300")" id="tutorPhoto" style="left:0;" />
+                        点击上传图片
+                    </div>
+                    <!--上传头像-->
+                    <div class="hidden">
+                        <div id="btn-upload"></div>
+                    </div>
+                </div>
+                <div class="f-fr r-list">
+                    <h2 class="h2-bd"><input type="text" value="@Model.Title" placeholder="这里输入标题" id="tutorTitle" /></h2>
+                    <ul class="ul-list f-cbli">
+                        <li>
+                            <lable>难度：</lable>
+                            @Html.DropDownList("diffLevel", ViewData["diffLevels"] as List<SelectListItem>)
+                        </li>
+                        <li>
+                            <lable> 作者：</lable>
+                            <input type="text" value="@Model.Author" placeholder="请输入作者" id="author" />
+                        </li>
+                        <li>
+                            <lable>适用年级：</lable>
+                            @Html.DropDownList("grade", ViewData["grades"] as List<SelectListItem>)
+                        </li>
+                        <li>
+                            <lable>知识点：</lable>
+                            <input type="text" placeholder="请输入知识点" id="kPoints" data-kps="@JsonHelper.ToJson(Model.Kps,NamingType.CamelCase)" />
+                        </li>
+                        <li>
+                            <lable>标签：</lable>
+                            <div class="add-knowledge">
+                                <div class="d-tags after" data-tags="@Model.Tags.ToJson()"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <lable>科目：</lable>
+                            <select id="subject" name="subject">
+                                @foreach (var sub in ViewData["subjects"] as List<SelectListItem>) {
+                                    if (Convert.ToInt32(sub.Value) == @Model.Subject) { 
+                                    <option value="@sub.Value" selected="selected">
+                                        @sub.Text
+                                    </option>
+                                    }
+                                    else { 
+                                    <option value="@sub.Value">
+                                        @sub.Text
+                                    </option>
+                                    }
+                                }
+                                
+                            </select>
+                           
+                        </li>
+                        <li class="f-last">
+                            <lable>简介：</lable>
+                            <textarea name="" cols="30" rows="10" id="description">@Model.Description</textarea>
+                            <p class="f-tar">还可输入80个字</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="center-2">
+                <h2 class="h2-title"><b>01</b>知识点特征与常见解法</h2>
+                <textarea id="solveContent">
+                    @Html.Raw(Model.SolveContent)
+                </textarea>
+            </div>
+            <div class="center-3">
+                <h2 class="h2-title"><b>02</b>讲解与练习</h2>
+                <div id="tutorContentDiv">
+                    @if (Model.Contents != null && Model.Contents.Count > 0)
+                    {
+                        var contents = Model.Contents.OrderBy(u => u.Sort).ToList();
+                        int sort = 1;
+
+                        foreach (var content in contents)
+                        {
+                            <div class="f-explain f-cb" data-type="@(content.Type)" @(content.Type != (byte)TutorContentType.Text ? "data-sourceid=" + content.Detail : "")>
+                                <span class="titile-list">@(sort++)</span>
+                                <div class="f-content f-fr">
+                                    <input class="add-notes" type="text" value="@content.Remarks" placeholder="添加备注" />
+                                    @if (content.Type == (byte)TutorContentType.Question)
+                                    {
+                                        var question = questions == null ? null : questions.FirstOrDefault(u => u.Id == content.Detail);
+
+                                        if (question != null)
+                                        {
+                                            <div class="">
+                                                @PaperHelper.ShowQuestion(question)
+                                            </div>
+                                        }
+                                    }
+                                    else if (content.Type == (byte)TutorContentType.Video)
+                                    {
+                                        var video = videos == null ? null : videos.FirstOrDefault(u => u.VideoId == content.Detail);
+
+                                        if (video != null)
+                                        {
+                                            <div class="">
+                                                <img src="@video.FrontCover" style="max-height: 100px;" />
+                                                视频名称： @video.VideoName
+                                            </div>
+                                        }
+                                    }
+                                    else//text
+                                    {
+                                        <div class="">
+                                            <textarea id="text_@(Guid.NewGuid().ToString("N"))">
+                                                @Html.Raw(content.Detail)
+                                            </textarea>
+                                        </div>
+                                    }
+                                    <i class="f-close">x</i>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="center-4">
+                <div class="f-explain f-cb">
+                    <span class="titile-list">+</span>
+                    <div class="f-content f-fr">
+                        <a href="javascript:void(0);" id="chooseQuestion" data-url="@Url.Action("ChooseQu","Paper")">题库选题</a>
+                        @*<a href="javascript:void(0);" id="addNewQuestion" data-url="@Url.Action("AddQuestion","Tutor")">录入新题</a>*@
+                        <a href="javascript:void(0);" id="uploadVideo" data-url="@Url.Action("UploadVideo","Tutor")">视频上传</a>
+                        <a href="javascript:void(0);" id="addText">添加文本</a>
+                    </div>
+                </div>
+            </div>
+            <div class="center-5 f-tac">
+                <a class="btn btn-default" href="javascript:void(0);" data-draft="true" id="btnSaveDraft">保存草稿</a>
+                <a class="btn btn-info" href="javascript:void(0);" id="btnSave">完成辅导</a>
+                <input type="hidden" value="@Consts.Config.FileSite" id="fileSite" />
+                <input type="hidden" value="@Url.Action("GetKps","Paper")" id="getKps" />
+                <input type="hidden" value="@Url.Action("Add","Tutor")" id="chooseQuCompleteUrl" />
+                <input type="hidden" value="@Url.Action("Save","Tutor")" id="saveTutor" />
+                <input type="hidden" value="@Url.Action("Index","Tutor")" id="tutorListUrl" />
+                <input type="hidden" value="@editId" id="editId" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="contentTemp">
+    <div class="f-explain f-cb" data-type="{{contentType}}">
+        <span class="titile-list">{{sortNo}}</span>
+        <div class="f-content f-fr">
+            <input class="add-notes" type="text" placeholder="添加备注" />
+            <div class="">
+                {{contentDetail}}
+            </div>
+            <i class="f-close">x</i>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="addTextTemp">
+    <textarea id="text_{{No}}"></textarea>
+</script>
+
+@section style{
+    @Html.CombineLink("css/portal/question/list.css,css/v2.0/coachbackstage/coach-new.css,css/v2.0/coachbackstage/ui-base.css,plugs/tokeninput/token-input.css")
+}
+
+@section script
+{
+    <script src="/Content/ueditor/ueditor-config.min.js" type="text/javascript"></script>
+    <script src="/Content/ueditor/ueditor-all.min.js" type="text/javascript"></script>
+    <script src="/Content/ueditor/d-formula.min.js" type="text/javascript"></script>
+
+    @Html.CombineLink("plugs/webuploader/webuploader.js,js/base/utils.js,plugs/tokeninput/jquery.tokeninput.js,js/base/common.js,v3/js/portal/tutor-add.js")
+}

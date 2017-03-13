@@ -1,0 +1,58 @@
+@charset "UTF-8";
+/**
+ * Boz
+ * @date    2016-07-4 12:30:59
+ * 单科-2重点率分析
+ */
+@import "../../../less/base";
+
+.g-contents {
+  .g-side {
+    padding: 80px 50px;
+    .g-h2 { color: #3bafda; font-weight: bold; font-size: 18px; margin-bottom: 30px; line-height: 1.8em; }
+    .class-list {
+      color: #3bafda;
+      font-size: 20px;
+      font-weight: bold;
+      li { margin-bottom: 30px;
+        span{ font-size: 26px;}
+        }
+      }
+    }
+  /*年级重点线*/
+  .grade-line {
+    margin-bottom: 15px;
+    margin-left: 20px;
+    dt, dd { float: left; }
+    dt { color: #333; margin-right: 10px; line-height: 30px; }
+    dd { margin-right: 25px;
+      .dy-btn-info { height: 30px; line-height: 30px;
+        .iconfont { vertical-align: inherit; }
+        }
+      }
+    select, input { border: 2px solid #e6e9ed; height: 30px; line-height: 30px; .rounded-corners(3px); }
+    select { padding: 0 8px; }
+    input { width: 51px; }
+    .ab, .ba {
+      input { padding-left: 15px; width: 60px; }
+      position: relative;
+      &:before {
+        position: absolute;
+        top: 7px;
+        left: 5px;
+        color: #666;
+        }
+      }
+    .ab {
+      &:before {
+        content: attr(data-sectiona);
+        }
+      }
+    .ba {
+      &:before {
+        content: attr(data-sectionb);
+        }
+      }
+    }
+  }
+

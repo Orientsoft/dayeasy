@@ -1,0 +1,176 @@
+﻿@using System.Drawing.Printing
+@using DayEasy.Contracts.Dtos.Paper
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Paper.Services.Helper
+@model DayEasy.Application.Services.Dto.VWorkDto
+@{
+    ViewBag.Title = "题目分析";
+    PaperDetailDto paper = null;
+    byte showType = 0; //区分是否应在循环内显示AB卷
+    int sort = 1;
+    var isPrint = Model.PublishType == (byte)PublishType.Print;
+    var sortType = PaperSortType.PassRow;
+
+    if (ViewData["paper"] != null)
+    {
+        paper = (PaperDetailDto)ViewData["paper"];
+        sortType = paper.PaperBaseInfo.SortType();
+    }
+
+}
+<script>
+    var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true; deyi.loadFormula = true;
+</script>
+
+<div class="coach-bxo w1200 f-cb">
+    @if (Model == null || Model.Batch == null || Model.PaperId == null || paper == null)
+    {
+        <div class="dy-nothing">加载失败，请刷新重试！</div>
+    }
+    else
+    {
+        <input type="hidden" id="txtBatch" value="@Model.Batch" />
+        <input type="hidden" id="txtPaperId" value="@Model.PaperId" />
+        <input type="hidden" id="txtGroupId" value="@Model.ClassId" />
+        <input type="hidden" id="txtIsAb" value="@(Model.IsAb? 1 : 0)" />
+        @Html.Partial("_WorkHeader", Model)
+        <div id="divSections" class="page-main-Coach f-cb">
+            <div class="g-main-list">
+                @foreach (var section in paper.PaperSections)
+                {
+                    if (showType != 6 && (byte)PaperType.AB == paper.PaperBaseInfo.PaperType)
+                    {
+                        if ((showType & 2) == 0 && section.PaperSectionType == (byte)PaperSectionType.PaperA)
+                        {
+                            showType |= 2;
+                            <h2 class="type-title">A卷</h2>
+                        }
+                        if ((showType & 4) == 0 && section.PaperSectionType == (byte)PaperSectionType.PaperB)
+                        {
+                            showType |= 4;
+                            <h2 class="type-title">B卷</h2>
+                        }
+
+                    }
+                    <h3 class="section-title">
+                        @Consts.Chinese[section.Sort]. @(section.Description)
+                    </h3>
+                    <div class="dy-questions-list f-cb">
+                        @foreach (var question in section.Questions)
+                        {
+                            <div class="box cont-list q-item" data-id="@(question.Question.Id)" data-hassmall="@(question.Question.HasSmall ? 1 : 0)" data-objective="@(question.Question.IsObjective && isPrint ? 1 : 0)">
+                                <div class="box-lg-12 title-top f-cb page-h2-through">
+                                    <h4>@(sort++)</h4>
+                                    <div class="q-statistics">
+                                        <span class="text-gray">满分：<em>@question.Score.ToString("0.#")</em>分</span>
+                                        <span class="error-Statistics bold" title="错误人数">
+                                            <i class="iconfont dy-icon-usererror"></i><em class="error-count">0</em>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="box-lg-12 questions-con q-body">
+                                    @PaperHelper.ShowQuestion(question.Question, paperSectionType: question.PaperSectionType, sortType: sortType)
+                                </div>
+                                <div class="box-lg-12 questions-btn f-cb">
+                                    @if (question.Question.IsObjective && isPrint)
+                                    {
+                                        <button class="dy-btn dy-btn-default f-fl">
+                                            <i class="iconfont dy-icon-shujufenxi"></i> 答题统计
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="dy-btn dy-btn-default f-fl">
+                                            <i class="iconfont dy-icon-46"></i> 出错列表
+                                        </button>
+                                    }
+                                    <div class="f-fr right-alist">
+                                        <a class="link-detail" href="#">
+                                            <i class="iconfont dy-icon-messageline"></i>
+                                            学生评论（<span class="reason-count">0</span>）
+                                        </a>
+                                    </div>
+                                </div>
+                                @if (question.Question.IsObjective && question.Question.HasSmall)
+                                {
+                                    <div class="box-lg-12 small-sort-list" style="display: none;">
+                                        小问：
+                                        @foreach (var small in question.Question.Details)
+                                        {
+                                            <span class="small-sort" data-id="@(small.Id)">@(small.Sort)</span>@:&nbsp;&nbsp;
+                                        }
+                                    </div>
+                                }
+                                <div class="box-lg-12 questions-bottom-cont" style="display:none;"></div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/template" id="s-error-details">
+    <div class="box questions-list-cont false-nonumber">
+        {{if !is_push && is_objective}}
+        <div class="box-lg-4">
+            <div class="fan-icon-statistics">
+                <div class="statistics-lca" style="max-width:200px;height:200px;"></div>
+                <p class="f-tal"></p>
+            </div>
+        </div>
+        <div class="box-lg-8 pl30">
+            <div class="list-statistics-title">
+                <span>选<em>A</em>的同学</span>
+            </div>
+            <ul class="list-nonumber f-cb c-click-li"></ul>
+        </div>
+        {{/if}}
+        {{if is_push || !is_objective}}
+        <div class="box-lg-12 pl30">
+            {{if error_students && error_students.length}}
+            <ul class="list-nonumber f-cb c-click-li">
+                {{each error_students as stu_id i}}
+                {{#stu_id | bindStudent:i}}
+                {{/each}}
+            </ul>
+            {{/if}}
+            {{if !error_students || !error_students.length}}
+            <div class="dy-nothing"><i class="iconfont dy-icon-emoji02"></i>该题无人答错</div>
+            {{/if}}
+        </div>
+        {{/if}}
+    </div>
+</script>
+
+@section css{
+    @Html.CombineLink("v3/css/work/ui-base.css,css/portal/question/list.css,v3/css/testteacher/page-topic-stats.css")
+    <style type="text/css">
+        .small-sort-list {
+            padding: 20px 30px;
+            background: #fafbfc none repeat scroll 0 0;
+            line-height: 1.8em;
+        }
+
+            .small-sort-list .small-sort {
+                background-color: #f0f0f0;
+                border-radius: 50%;
+                cursor: pointer;
+                display: inline-block;
+                height: 40px;
+                line-height: 38px;
+                text-align: center;
+                width: 40px;
+            }
+
+            .small-sort-list .active {
+                background-color: #3bafda;
+                color: #fff;
+            }
+    </style>
+}
+@section js{
+    @Html.CombineLink("js/highcharts.min.js,js/artTemplate.min.js,js/portal/question/formula.js,js/base/utils.js,js/portal/question/base.js,js/base/common.js,v3/js/homework/work-base.js,v3/js/homework/st-question.js")
+}

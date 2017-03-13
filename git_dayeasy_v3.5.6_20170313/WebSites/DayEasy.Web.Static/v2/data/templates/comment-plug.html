@@ -1,0 +1,70 @@
+﻿<script type="text/template" id="comment-list">
+    <div class="comment-box">
+    {{#1 | commentAdd:'','',''}}
+    <div class="cm-list">
+    {{if comments && comments.length}}
+    {{include 'comment-item'}}
+    {{/if}}
+    </div>
+    </div>
+</script>
+<script type="text/template" id="comment-add">
+    <div class="cm-item cm-add-box {{hide ? 'hide' : ''}}" data-hide="{{hide ? 1 : 0}}">
+        <img class="img-head" src="{{icon}}" alt="头像" />
+        <div class="cm-data">
+            <textarea class="cm-txt" maxlength="140" rows="3" cols="30" data-sid="{{sid}}" data-uid="{{uid}}" data-uname="{{uname}}" placeholder="{{placeholder}}"></textarea>
+            <div class="cm-txt-alt">还可以输入<em>140</em>个字</div>
+            <button type="button" class="dy-btn f-fr dy-btn-info cm-btn">评论</button>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="comment-item">
+    {{each comments as comment}}
+    <div class="cm-item">
+        <img class="img-head" src="{{comment.icon}}" />
+        <div class="cm-data">
+            <div>
+                <span class="cm-name">{{#comment.sname && comment.sname.length ? comment.sname : comment.name}}</span>
+                <span class="cm-time">{{comment.time}}</span>
+            </div>
+            <div class="cm-content">{{comment.content}}</div>
+            <div class="cm-operation">
+                {{if comment.autor != comment.uid}}
+                <span class="o-edit"><i class="iconfont dy-icon-edit2"></i> 点评</span>
+                {{/if}}
+                {{if comment.hasDelete && comment.autor == comment.uid}}
+                <span class="o-delete" data-sid="{{comment.sid}}"><i class="iconfont dy-icon-delete"></i> 删除</span>
+                {{/if}}
+            </div>
+            <div class="cm-replys">
+                {{if comment.autor != comment.uid}}
+                {{#0 | commentAdd:comment.sid,comment.autor,comment.name}}
+                {{/if}}
+                <div class="cm-list">
+                {{if comment.comments && comment.comments.length}}
+                {{include 'comment-item' comment}}
+                {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}    
+</script>
+<script type="text/template" id="comment-sigle">
+    <div class="cm-item">
+        <img class="img-head" src="{{icon}}" />
+        <div class="cm-data">
+            <div>
+                <span class="cm-name">{{#sname && sname.length ? sname : name}}</span>
+                <span class="cm-time">{{time}}</span>
+            </div>
+            <div class="cm-content">{{content}}</div>
+            {{if hasDelete}}
+            <div class="cm-operation">
+                <span class="o-delete" data-sid="{{sid}}"><i class="iconfont dy-icon-delete"></i> 删除</span>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</script>
+

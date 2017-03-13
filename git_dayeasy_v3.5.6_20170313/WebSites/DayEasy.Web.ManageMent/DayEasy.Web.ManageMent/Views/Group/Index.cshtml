@@ -1,0 +1,352 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Core
+@using DayEasy.Utility
+@using DayEasy.Utility.Extend
+@model List<TG_Group>
+@{
+    ViewBag.Title = "圈子管理";
+    var managers = (Dictionary<long, string>)(ViewData["managers"] ?? new Dictionary<long, string>());
+    var ct = "ct".Query(-1);
+    var showDelete = "showDelete".Query(string.Empty) == "on";
+    var groupTags = (ViewData["groupTags"] as Dictionary<string, string>) ?? new Dictionary<string, string>();
+}
+<div>
+    <div class="row mt20">
+        <form method="GET" action="@Url.Action("Index", "Group")" id="searchForm">
+            <div class="col-sm-5 pl0 d-selects" style="width: 400px">
+                @Html.DropDownList("type", ViewData["types"] as List<SelectListItem>, new { @class = "form-control" })
+                @Html.DropDownList("level", ViewData["levels"] as List<SelectListItem>, new { @class = "form-control" })
+                <select class="form-control" id="ct" name="ct">
+                    <option value="-1" selected="@(ct == -1)">所属频道</option>
+                    @if (Consts.Channels != null)
+                    {
+                        foreach (var channel in Consts.Channels)
+                        {
+                            <option value="@channel.Id" selected="@(ct == channel.Id)">
+                                @(channel.IsLeaf ? Html.Raw("&emsp;") : null) @channel.Name
+                            </option>
+                        }
+                    }
+                </select>
+                <label class="checkbox checkbox-inline">
+                    @if (showDelete)
+                    {
+                        <input type="checkbox" name="showDelete" title="显示已删除" checked />
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="showDelete" title="显示已删除" />
+                    }
+                </label>
+            </div>
+            <div class="dy-agency-wrap hide">
+                <input type="hidden" name="agencyId" id="agencyId" value="@("agencyId".Query(string.Empty))" />
+                <div class="dy-agency-item">
+                </div>
+            </div>
+            <div class="col-sm-3 pl0" style="width: 190px">
+                <div class="dy-keyword-wrap">
+                    <div class="input-group">
+                        <input type="text"
+                               value="@Request["keyword"]"
+                               id="keyword"
+                               autocomplete="off"
+                               placeholder="机构名/圈号/圈名"
+                               class="form-control"
+                               name="keyword">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit" id="btn_submit"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                    <div class="dy-agencies hide">
+                    </div>
+                </div>
+            </div>
+            <div class="fl">
+                <div class="d-total">
+                    共<em>@ViewBag.TotalCount</em>个圈子
+                </div>
+            </div>
+            <div class="fr">
+                <a class="btn btn-primary" href="@(Consts.Config.MainSite + "/group/create?return_url=" + Utils.RawUrl().UrlEncode())" target="_blank">
+                    <i class="fa fa-plus"></i>
+                    创建圈子
+                </a>
+            </div>
+        </form>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover">
+            @*<colgroup>
+                    <col />
+                    <col style="width: 6em" />
+                    <col style="width: 7em" />
+                    <col style="width: 7em" />
+                    <col style="width: 8em" />
+                    <col style="width: 10em" />
+                    <col style="width: 6em" />
+                    <col style="width: 6em" />
+                    <col style="width: 6em" />
+                    <col style="width: 10em" />
+                </colgroup>*@
+            <thead>
+                <tr>
+                    <th>圈子名称</th>
+                    <th>圈子标签</th>
+                    <th>圈号</th>
+                    <th>成员数量</th>
+                    <th>圈主</th>
+                    <th>创建时间</th>
+                    <th>类型</th>
+                    <th>状态</th>
+                    <th>是否认证</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+            {
+                foreach (var group in Model)
+                {
+                        <tr data-gid="@group.Id" data-mid="@group.ManagerId">
+                            <td>
+                                <a href="#" class="d-members" title="@group.GroupName">
+                                    <div class="dy-user-wrap">
+                                        <div class="dy-user-avatar b-user-active">
+                                            @if (!string.IsNullOrWhiteSpace(group.GroupAvatar))
+                                            {
+                                                <img width="35" height="35" src="@Html.MakeThumb(group.GroupAvatar, "35x35")" />
+                                            }
+                                            else
+                                            {
+                                                <h3 class="d-text-avatar d-text-avatar-round d-text-avatar-small">
+                                                    @group.GroupName
+                                                </h3>
+                                            }
+                                        </div>
+                                        <div class="dy-user-info">
+                                            <p class="dy-user-name" style="max-width: 13em">
+                                                @group.GroupName
+                                            </p>
+                                            <p>No.@group.GroupCode</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </td>
+                            <td>
+                                @if (groupTags.ContainsKey(group.Id))
+                                {
+                                    //var clsList = new[] { "label-default", "label-default", "label-default" };
+                                    <label class="label label-default">@groupTags[group.Id]</label>
+                                }
+                            </td>
+                            <td>@group.GroupCode</td>
+                            <td>@group.MemberCount</td>
+                            <td>
+                                @Html.Raw(managers.ContainsKey(group.ManagerId) ? managers[group.ManagerId] : "<span style='color:#888'>暂无</span>")
+                            </td>
+                            <td><abbr title="@group.AddedAt.ToString("yyyy年MM月dd日 HH时mm分ss秒")">@group.AddedAt.ToString("yyyy-MM-dd")</abbr></td>
+                            <td>@(Html.EnumText<GroupType, byte>((byte)group.GroupType, new[] { 1, 2, 3 }))</td>
+                            <td>
+                                @(Html.EnumText<NormalStatus, int>(group.Status))
+                            </td>
+
+                            <td>
+                                @if (!group.CertificationLevel.HasValue)
+                                {
+                                    <label class="label label-default">未认证</label>
+                                }
+                                else
+                                {
+                                    @(Html.EnumText<GroupCertificationLevel, int>(group.CertificationLevel.Value, new[] { 5, 3 }))
+                                }
+                            </td>
+                            <td class="td-actions">
+                                <!--删除 & 还原-->
+                                @if (group.Status != (byte)UserStatus.Delete)
+                                {
+                                    <a class="d-edit" title="编辑信息" href="#"><i class="fa fa-edit"></i></a>
+                                    <s></s>
+                                    <a class="d-members" title="成员管理" href="#"><i class="fa fa-users"></i></a>
+                                    <s></s>
+                                    if (group.GroupType == (byte)GroupType.Class)
+                                    {
+                                        <a title="导出二维码" href="/user/group/export?groupId=@group.Id" target="_blank"><i class="fa fa-qrcode"></i></a>
+                                        <s></s>
+                                    }
+                                    else if (group.GroupType == (byte)GroupType.Colleague)
+                                    {
+                                        <a title="发起协同" href="#" class="d-joint"><i class="fa fa-cogs"></i></a>
+                                        <s></s>
+                                    }
+                                    if (!group.CertificationLevel.HasValue || group.CertificationLevel.Value == (byte)GroupCertificationLevel.Refuse)
+                                    {
+                                        <a href="javascript:void(0);" class="b-certificate text-primary" title="认证">
+                                            <i class="fa fa-diamond"></i>
+                                        </a>
+                                        <s></s>
+                                    }
+                                    <a href="javascript:void(0)" class="text-danger b-delete" data-status="4" title="删除圈子"><i class="fa fa-times"></i></a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0)" class="b-delete" title="还原圈子"><i class="fa fa-undo"></i></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8" style="text-align: center">没有找到相关信息！</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 15, (int)ViewBag.TotalCount, 4)
+    </div>
+</div>
+<script type="text/html" id="membersTpl">
+    <div class="container">
+        <div class="page-header text-center" style="font-weight: 600; margin: 20px 0 15px;">
+            <h4>{{name}}</h4>
+            <button i="close" class="ui-dialog-close" title="关闭" style="position: absolute">×</button>
+        </div>
+        <div class="g-members">
+            <div class="ui-dialog-title">成员列表</div>
+            {{if members && members.length}}
+            {{include 'usersTpl' members}}
+            {{else}}
+            <div class="dy-nothing">暂无成员</div>
+            {{/if}}
+        </div>
+        <div class="form form-horizontal" style="padding: 0 0 20px">
+            <div class="ui-dialog-title">添加成员</div>
+            <div class="form-group">
+                <div class="input-group col-md-offset-3 col-md-6">
+                    <input type="text" class="form-control g-keyword" placeholder="请输入名称或得一号，多个以逗号分割" />
+                    <div class="input-group-addon btn-search" style="cursor: pointer">
+                        <i class="fa fa-search"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="search-form hide">
+                <div class="form-group">
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary btn-add" disabled>
+                        <i class="fa fa-plus"></i>
+                        确认添加
+                    </button>
+                    <div class="d-total" style="display: inline-block; margin-left: 5px">
+                        已选择<em>0</em>位用户
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="usersTpl">
+    <ul class="user-list">
+        {{each $data as member}}
+        <li class="user-item" title="{{member.name}}" data-uid="{{member.uid}}">
+            <div class="user-avatar">
+                <img width="30" height="30" src="{{member.avatar}}">
+            </div>
+            <div class="dy-user-info">
+                <p class="user-name">
+                    <span>{{member.name}}</span><small>{{member.role}}</small>
+                </p>
+                <p class="user-code">No.{{member.code}}</p>
+            </div>
+            {{#member.action}}
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<script type="text/html" id="jointTpl">
+    <div class="form form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-3">试卷编号：</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control d-keyword" placeholder="试卷编号" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">协同负责人：</label>
+            <div class="d-users-joint col-md-9">
+                {{include 'usersTpl'}}
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="button" class="btn btn-primary btn-publish" disabled>确认发布</button>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="editTpl">
+    <div class="form form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-3">圈子名称</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="groupName" placeholder="请输入圈子名称" value="{{name}}"/>
+            </div>
+        </div>
+        {{if type == 0 || type == 1}}
+        <div class="form-group">
+            <label class="control-label col-md-3">所在学段</label>
+            <div class="col-md-6">
+                <input type="hidden" id="stage" value="{{stage}}"/>
+                <label class="form-control-static">{{stageCn}}</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">所属机构</label>
+            <div class="col-md-9">
+                <div class="dy-agency-wrap hide">
+                    <input type="hidden" name="agencyId" id="agencyId" value="{{agencyId}}"/>
+                    <div class="dy-agency-item">
+                    </div>
+                </div>
+                <input type="text" class="form-control agency-input" data-singe="true" placeholder="机构名称"/>
+                <div class="dy-agencies hide">
+                </div>
+            </div>
+        </div>
+        {{if type==0}}
+        <div class="form-group">
+            <label class="control-label col-md-3">入学年份</label>
+            <div class="col-md-4">
+                <select class="form-control d-grade">
+                    {{each years as year}}
+                    {{if gradeYear == year}}
+                    <option value="{{year}}" selected="selected">{{year}}年</option>
+                    {{else}}
+                    <option value="{{year}}">{{year}}年</option>
+                    {{/if}}
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        {{/if}}
+        {{/if}}
+        <div class="form-group">
+            <label class="control-label col-md-3">圈子简介</label>
+            <div class="col-md-9">
+                <textarea class="form-control" id="groupSummary" placeholder="请输入圈子简介">{{groupSummary}}</textarea>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="button" class="btn btn-primary btn-save">确认保存</button>
+        </div>
+    </div>
+</script>
+@section style{
+    @Html.CombineLink("v3/css/management/page-group.css")
+}
+
+@section script{
+    @Html.CombineLink("v3/js/artTemplate.min.js,v3/js/management/agency-helper.js,v3/js/management/page-group.js")
+}

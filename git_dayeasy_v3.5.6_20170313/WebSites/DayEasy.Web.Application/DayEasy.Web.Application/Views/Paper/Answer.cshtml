@@ -1,0 +1,346 @@
+﻿@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Paper.Services.Helper
+@model DayEasy.Contracts.Dtos.Paper.PaperDetailDto
+@{
+    ViewBag.Title = "试卷答案 - " + (Model == null ? "" : Model.PaperBaseInfo.PaperTitle);
+
+    bool canEdit = ViewData["canEdit"] != null;
+}
+
+<div class="dy-container paper-main">
+    @if (Model == null)
+    {
+        <div class="row text-center mt10">
+            <span class="fs18"><i class="fa fa-warning"></i>&emsp;没有找到相关试卷的答案信息,请稍后重试！</span>
+        </div>
+    }
+    else
+    {
+        var baseInfo = Model.PaperBaseInfo;
+        var sortType = baseInfo.SortType();
+        var sections = Model.PaperSections.GroupBy(u => u.PaperSectionType).OrderBy(u => u.Key).ToList();
+        bool isAb = baseInfo.PaperType == (byte)PaperType.AB;
+        var singleAnswerQType = Consts.SingleAnswerQType;//单选
+        var multiAnswerQType = Consts.MultiAnswerQType;//多选
+        bool isFirst = true;//第一次加载主观题
+        string canEditStr = canEdit ? "" : "z-dis";
+        string disabledStr = canEdit ? "" : "disabled=disabled";
+
+        <div class="g-wrap">
+            <div class="g-m-i w1000">
+                <div class="g-u-t mb20">
+                    <div class="row dp-title">
+                        <h2 class="pull-left">试卷答案</h2>
+                        <div class="fs18">@baseInfo.PaperTitle</div>
+                        @if (ViewData["isMyself"] != null)
+                        {
+                            <a href="@Url.Action("Answer", "Paper", new { id = baseInfo.Id, edit = "edit" })" class="pull-right a02">
+                                编辑答案
+                            </a>
+                        }
+                    </div>
+                </div>
+                @foreach (var sectionItem in sections)
+                {
+                    var quSections = sectionItem.OrderBy(u => u.Sort).ToList();
+                    <div class="g-u-m">
+                        @if (isAb)
+                        {
+                            if (sectionItem.Key == (byte)PaperSectionType.PaperA)
+                            {
+                                <h3 class="title-ab">A卷</h3>
+                            }
+                            else if (sectionItem.Key == (byte)PaperSectionType.PaperB)
+                            {
+                                <h3 class="title-ab">B卷</h3>
+                            }
+                        }
+
+                        @foreach (var quSection in quSections)
+                        {
+                            if (quSection.Questions == null || quSection.Questions.Count <= 0)
+                            {
+                                continue;
+                            }
+
+                            var hasObj = quSection.Questions.Any(u => u.Question.IsObjective);
+                            var smallRow = sortType.SmallRow(quSection.PaperSectionType);
+
+                            if (multiAnswerQType.Contains(quSection.SectionQuType))//多选
+                            {
+                                <div class="g-u-z g-u-2">
+                                    <fieldset>
+                                        <legend>@quSection.Description</legend>
+                                        <div class="g-u-d after">
+                                            @foreach (var question in quSection.Questions)
+                                            {
+                                                string answerStr = string.Empty;
+
+                                                var answerList = question.Question.Answers.Where(u => u.IsCorrect).OrderBy(u => u.Sort).ToList();
+                                                answerStr = answerList.Aggregate(answerStr, (current, answerItem) => current + (((char)(65 + answerItem.Sort)) + " "));
+
+                                                <dl>
+                                                    <dt>@question.Sort</dt>
+                                                    <dd>
+                                                        <input type="text" data-qid="@question.Question.Id" class="form-control multi @canEditStr" @disabledStr value="@answerStr" />
+                                                    </dd>
+                                                </dl>
+                                            }
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            }
+                            else if (singleAnswerQType.Contains(quSection.SectionQuType) || hasObj)//单个选项
+                            {
+                                if (quSection.Questions.Any(u => u.Question.Details != null && u.Question.Details.Count > 0))//有小问
+                                {
+                                    <div class="g-u-z g-u-1">
+                                        <fieldset>
+                                            <legend>@quSection.Description</legend>
+                                            <div class="g-u-d after">
+                                                @foreach (var question in quSection.Questions)
+                                                {
+                                                    if (!question.Question.IsObjective)
+                                                    {
+                                                        <div class="row">
+                                                            <div class="col-sm-1 w30">@question.Sort</div>
+                                                            <div class="col-sm-11">
+                                                                <script type="text/x-jquery-tmpl" id="content_@question.Question.Id">
+                                                                    @PaperHelper.ShowAnswer(question.Question)
+                                                                </script>
+
+                                                                <div class="answerEditDiv" data-qid="@question.Question.Id" style="min-height:16px;">
+                                                                    @if (isFirst && canEdit)
+                                                                    {
+                                                                        <script id="firstAnswer" type="text/plain">
+                                                                            @PaperHelper.ShowAnswer(question.Question)
+                                                                        </script>
+
+                                                                        isFirst = false;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @PaperHelper.ShowAnswer(question.Question)
+                                                                    }
+                                                                </div>
+                                                                <hr class="mt5" />
+                                                            </div>
+                                                        </div>
+
+                                                        continue;
+                                                    }
+
+                                                    var isEnglish = question.Question.SubjectId == 3;
+
+                                                    var qSortStr = question.Sort.ToString();
+                                                    var beginI = 0;
+                                                    if (smallRow)
+                                                    {
+                                                        qSortStr = isEnglish ? ((char)(65 + question.Sort - 1)).ToString() : string.Empty;
+                                                        beginI = question.Question.Details.Min(u => u.Sort) - 1;
+                                                    }
+
+                                                    <div class="row">
+                                                        <div class="col-sm-1 w30 pl0 pr0">@qSortStr</div>
+                                                        <div class="col-sm-11 pl0 pr0">
+                                                            @for (int i = 0; i < Math.Ceiling(question.Question.Details.Count / (double)5); i++)
+                                                            {
+                                                                var beginNum = i * 5 + 1;
+                                                                var endNum = i * 5 + 5;
+                                                                if (endNum > question.Question.Details.Count)
+                                                                {
+                                                                    endNum = question.Question.Details.Count;
+                                                                }
+
+                                                                <dl>
+                                                                    @if (beginNum == endNum)
+                                                                    {
+                                                                        <dt>(@(beginNum + beginI))</dt>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <dt>(@(beginNum + beginI)) - (@(endNum + beginI))</dt>
+                                                                    }
+                                                                    <dd class="z-sel">
+                                                                        @for (int j = 1; j <= 5; j++)
+                                                                        {
+                                                                            int num = i * 5 + j;
+                                                                            if (num <= question.Question.Details.Count)
+                                                                            {
+                                                                                var qItem = question.Question.Details[num - 1];
+
+                                                                                var answer = qItem.Answers.Where(u => u.IsCorrect).OrderBy(u => u.Sort).FirstOrDefault();
+                                                                                string answerStr = string.Empty;
+                                                                                if (answer != null)
+                                                                                {
+                                                                                    answerStr = ((char)(65 + answer.Sort)).ToString();
+                                                                                }
+
+                                                                                <input type="text" class="form-control @canEditStr" @disabledStr data-detailid="@qItem.Id" data-qid="@question.Question.Id" value="@answerStr" />//z-dis,z-crt
+                                                                            }
+                                                                        }
+                                                                    </dd>
+                                                                </dl>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="g-u-z g-u-1">
+                                        <fieldset>
+                                            <legend>@quSection.Description</legend>
+                                            <div class="g-u-d after">
+                                                @for (int i = 0; i < Math.Ceiling(quSection.Questions.Count / (double)5); i++)
+                                                {
+                                                    var beginNumQu = quSection.Questions[i * 5 + 1 - 1];
+                                                    var endNumQu = quSection.Questions.Last();
+                                                    var endNum = i * 5 + 5 - 1;
+                                                    if (endNum < quSection.Questions.Count)
+                                                    {
+                                                        endNumQu = quSection.Questions[endNum];
+                                                    }
+
+                                                    <dl>
+                                                        @if (beginNumQu.Sort == endNumQu.Sort)
+                                                        {
+                                                            <dt>@beginNumQu.Sort</dt>
+                                                        }
+                                                        else
+                                                        {
+                                                            <dt>@beginNumQu.Sort - @endNumQu.Sort</dt>
+                                                        }
+                                                        <dd class="z-sel">
+                                                            @for (int j = 1; j <= 5; j++)
+                                                            {
+                                                                int num = i * 5 + j;
+                                                                if (num <= quSection.Questions.Count)
+                                                                {
+                                                                    var question = quSection.Questions[num - 1];
+
+                                                                    var answer = question.Question.Answers.Where(u => u.IsCorrect).OrderBy(u => u.Sort).FirstOrDefault();
+                                                                    string answerStr = string.Empty;
+                                                                    if (answer != null)
+                                                                    {
+                                                                        answerStr = ((char)(65 + answer.Sort)).ToString();
+                                                                    }
+                                                                    <input type="text" class="form-control @canEditStr" @disabledStr data-qid="@question.Question.Id" value="@answerStr" />//z-dis,z-crt
+                                                                }
+                                                            }
+                                                        </dd>
+                                                    </dl>
+                                                }
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                }
+                            }
+                            else//非选择题
+                            {
+                                <div class="g-u-z g-u-3">
+                                    <fieldset>
+                                        <legend>@quSection.Description</legend>
+                                        <div class="g-u-d">
+                                            @foreach (var question in quSection.Questions)
+                                            {
+                                                <div class="row">
+                                                    @if (smallRow && question.Question.HasSmall)
+                                                    {
+                                                        var min = question.Question.Details.Min(d => d.Sort);
+                                                        var max = question.Question.Details.Max(d => d.Sort);
+                                                        <div class="col-sm-1 w30">
+                                                            (@min) - (@max)
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-sm-1 w30">
+                                                            @question.Sort
+                                                        </div>
+                                                    }
+                                                    <div class="col-sm-11">
+                                                        <script type="text/x-jquery-tmpl" id="content_@question.Question.Id">
+                                                            @PaperHelper.ShowAnswer(question.Question)
+                                                        </script>
+
+                                                        <div class="answerEditDiv" data-qid="@question.Question.Id" style="min-height:16px;">
+                                                            @if (isFirst && canEdit)
+                                                            {
+                                                                <script id="firstAnswer" type="text/plain">
+                                                                    @PaperHelper.ShowAnswer(question.Question)
+                                                                </script>
+
+                                                                isFirst = false;
+                                                            }
+                                                            else
+                                                            {
+                                                                @PaperHelper.ShowAnswer(question.Question)
+                                                            }
+                                                        </div>
+                                                        <hr class="mt5" />
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+                @if (canEdit)
+                {
+                    <div class="g-u-b f-tac">
+                        <a class="btn btn-warning" id="btnSaveAnswer" href="javascript:void(0);">保存</a>
+                        <a class="btn btn-warning" href="@Url.Action("Answer", "Paper", new { id = baseInfo.Id })">取消</a>
+                    </div>
+                    <input type="hidden" value="@Consts.Config.FileSite" id="fileSite" />
+                    <input type="hidden" value="@baseInfo.Id" id="paperId" />
+
+
+                    @section js{
+                        <script src="/Content/ueditor/ueditor-config.min.js" type="text/javascript"></script>
+                        <script src="/Content/ueditor/ueditor-all.min.js" type="text/javascript"></script>
+                        <script src="/Content/ueditor/d-formula.min.js" type="text/javascript"></script>
+
+                        @Html.CombineLink("v3/js/paper/paper-answer.js")
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
+@section css{
+    <style type="text/css">
+        .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+            background: none;
+        }
+
+        .dy-main .dy-container, .dy-main .dy-container .w1000 {
+            width: 1200px;
+        }
+
+        .dp-title {
+            position: relative;
+            line-height: 45px;
+            text-align: center;
+        }
+
+            .dp-title h2 {
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+            }
+
+            .dp-title a {
+                position: absolute;
+                right: 15px;
+                top: 5px;
+            }
+    </style>
+}

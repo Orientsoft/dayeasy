@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    @@include('./link-style.html')
+    <title> 变式相关-我的得一 - 触屏版</title>
+    <link rel="stylesheet" href="/css/question/list.min.css"/>
+    <link rel="stylesheet" href="/css/page/ui-work.min.css"/>
+    <link rel="stylesheet" href="/css/page/work-variant-pass.min.css"/>
+    <link rel="stylesheet" href="/plugs/zoom/zoom.css"/>
+</head>
+<body data-role="3">
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf work-back">
+            <h1 class="hp-h1 d-work-name"></h1>
+        </div>
+    </div>
+</header>
+<section class="work-variant-pass">
+    <!--成绩分析-->
+    <div class="head-nav-wrap">
+        <div class="head-href-list" id="headhref">
+            <a href="/page/work/answer-paper.html"><span>试卷分析</span></a>
+            <a href="/page/work/score-analysis.html"><span>成绩分析</span></a>
+            <a class="on" href="/page/work/variant-pass.html"><span>相关变式</span></a>
+        </div>
+    </div>
+    <!--变试题内容-->
+    <div class="dy-questions-cont">
+    </div>
+</section>
+<!--题干-->
+@@include('./d-question.html')
+<!-- 基础脚本 -->
+@@include('./link-script.html')
+<script src="/js/page/work/work-base.min.js"></script>
+<script src="/js/page/ui-work-questions.min.js"></script>
+<script src="/js/page/work/variant-passr.min.js"></script>
+<script src="/plugs/zoom/zoom.js"></script>
+</body>
+</html>

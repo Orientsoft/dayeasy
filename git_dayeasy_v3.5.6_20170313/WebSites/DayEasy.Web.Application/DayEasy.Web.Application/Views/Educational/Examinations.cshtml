@@ -1,0 +1,156 @@
+﻿@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Extend
+@model List<DayEasy.Contracts.Dtos.Examination.ExamDto>
+
+@{
+    ViewBag.Title = "年级报表";
+}
+<div class="dy-main-wrap">
+    @Html.Partial("_Navigation", 5)
+    <div class="dy-list dy-list-bg">
+        <div class="dy-title">
+            <a class="dy-panel" href="@Url.Action("Subject")">单科分析</a>
+            <a class="dy-panel on">年级报表</a>
+        </div>
+        <div class="dy-content">
+            <table class="dy-table">
+                <colgroup>
+                    <col />
+                    <col style="width: 12em" />
+                    <col style="width: 20em" />
+                    <col style="width: 7em" />
+                    <col style="width: 7em" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="f-tal">考试名称</th>
+                        <th>涵盖科目</th>
+                        <th class="f-tal">参与班级</th>
+                        <th>推送教师</th>
+                        <th>发布成绩</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var dto in Model)
+                    {
+                        <tr data-eid="@dto.Id">
+                            <td class="f-tal">
+                                @if (dto.IsUnion)
+                                {
+                                    <a class="pop-clicks" href="#">@dto.Name</a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Charts", new { id = dto.Id })">@dto.Name</a>
+                                }
+                            </td>
+                            <td class="f-tal">
+                                @dto.Subjects
+                            </td>
+                            <td class="f-tal">
+                                @if (!dto.ClassList.IsNullOrEmpty())
+                                {
+                                    <div class="d-class-list">
+                                        @foreach (var cls in dto.ClassList)
+                                        {
+                                            <span>@cls</span>
+                                        }
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                @if ((dto.Status & (byte)ExamStatus.SendToTeacher) > 0)
+                                {
+                                    <button type="button" class="dy-btn btn-send dy-btn-sm disabled" disabled>已推送</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="dy-btn btn-send dy-btn-sm">推送</button>
+                                }
+                            </td>
+                            <td>
+                                @if ((dto.Status & (byte)ExamStatus.Published) > 0)
+                                {
+                                    <button type="button" class="dy-btn btn-publish dy-btn-sm disabled" disabled>已发布</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="dy-btn btn-publish dy-btn-sm">发布</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="8">
+                            共<b class="total-num">@ViewBag.TotalCount</b>条数据
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="d-pager">
+                @Html.ShowPager("pageindex".Query(1), "pagesize".Query(10), (int)ViewBag.TotalCount)
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="pop-select-type">
+    <div class="pop-select-type">
+        <i class="pop-select-close iconfont dy-icon-close"></i>
+        <dl class="title-dl">
+            <dt class="f-toe">{{title}}</dt>
+            <dd class="child-left"><a href="/ea/charts/{{examId}}"><i class="iconfont dy-icon-report-center"></i> <span>本校成绩分析</span></a></dd>
+            <dd class="child-right"><a href="/ea/u-charts/{{examId}}"><i class="iconfont dy-icon-educational-management"></i><span>各校成绩对比</span></a></dd>
+        </dl>
+    </div>
+</script>
+
+
+@section css{
+    @Html.CombineLink("v3/css/ea/ui-base.css")
+    <style>
+        .ui-dialog-content {
+            line-height: 28px;
+        }
+
+            .ui-dialog-content b {
+                font-weight: bold;
+                color: #ed5565;
+            }
+
+        .dy-main-wrap .dy-list .dy-panel.on:after {
+            width: 75px;
+        }
+
+        .btn-send,
+        .btn-publish {
+            width: 5em;
+            background-color: #f8f8f8;
+            border-color: #bbb;
+        }
+
+            .btn-send:hover,
+            .btn-publish:hover {
+                background-color: #eee;
+            }
+
+        .dy-btn[disabled],
+        .dy-btn.disabled {
+            color: #888 !important;
+            background-color: #ddd;
+            border-color: #ddd;
+            padding: 0;
+        }
+
+            .dy-btn[disabled]:hover,
+            .dy-btn.disabled:hover {
+                background-color: #ddd;
+            }
+    </style>
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js", "v3/js/ea/page-exam.js")
+}

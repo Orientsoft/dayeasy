@@ -1,0 +1,280 @@
+.g-mn .m-tt {
+  height: 60px;
+  line-height: 60px;
+  padding: 0 20px;
+  margin-bottom: 15px;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+.g-mn .m-tt .m-hd {
+  font-size: 16px;
+  line-height: 60px;
+}
+.g-mn .m-tt .m-snav {
+  min-width: 115px;
+  font-size: 14px;
+}
+.g-mn .m-tt .m-hd span {
+  color: #ff9933;
+  margin-right: 5px;
+}
+.g-mn .m-tt .m-snav a:hover {
+  color: #ff9933;
+  -webkit-transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  -o-transitionall: 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+.g-mn .m-tt a.z-crt {
+  color: #00aaff;
+}
+.g-mn .m-bd-1 {
+  padding: 15px 20px 15px;
+}
+.g-mn .m-bd-1 .m-sch select {
+  border: 1px solid #e5e5e5;
+  padding: 5px;
+}
+.g-mn .m-bd-1 .m-lst {
+  font-size: 14px;
+}
+.g-mn .m-bd-1 .m-lst .ul li {
+  border: 1px solid #d9d9d9;
+  position: relative;
+  background: #CCCCCC;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  clear: both;
+  -webkit-transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  -o-transitionall: 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+.g-mn .m-bd-1 .m-lst .ul li.s-bg0 {
+  border: 1px solid #ffdfbf;
+  background: #336699;
+}
+.g-mn .m-bd-1 .m-lst .ul li.s-bg1 {
+  border: 1px solid #b8e68a;
+  background: #CCCC66;
+}
+.g-mn .m-bd-1 .m-lst .ul li.s-bg2 {
+  border: 1px solid #80d5ff;
+  background: #CCFF99;
+}
+.g-mn .m-bd-1 .m-lst .ul .s-bg {
+  background: white;
+}
+.g-mn .m-bd-1 .m-lst .ul .pdfr {
+  padding: 0 20px 20px;
+}
+.g-mn .m-bd-1 .m-lst .ul .q-footer-more1 i {
+  position: absolute;
+  top: -2px;
+  font-size: 12px;
+  left: 7px;
+}
+.g-mn .m-bd-1 .m-lst .ul .q-footer-more1 i:hover {
+  color: #ff9933;
+}
+.g-mn .m-bd-1 .m-lst .ul .q-footer-more1,
+.g-mn .m-bd-1 .m-lst .ul .q-footer-more2 {
+  text-align: center;
+  color: #c7c7c7;
+  /*display: none; */
+  position: absolute;
+  bottom: -8px;
+  background: white;
+  height: 12.5px;
+  width: 25px;
+  -moz-border-radius: 0 0 50px 50px;
+  z-index: 3;
+  display: none;
+  cursor: pointer;
+  left: 50%;
+  -webkit-border-radius: 0 0  50px 50px;
+  border-radius: 0 0  50px 50px;
+}
+.g-mn .m-bd-1 .m-lst .ul .q-footer-more2 {
+  background: #d9d9d9;
+  bottom: -9px;
+  z-index: 2;
+}
+.g-mn .m-bd-1 .m-lst .ul .q-hover .q-footer-more1,
+.g-mn .m-bd-1 .m-lst .ul .q-hover .q-footer-more2 {
+  display: block;
+}
+.g-mn .m-bd-1 .m-lst .ul li:hover {
+  border-color: #36aaea;
+  box-shadow: 0 1px 2px #36aaea;
+}
+.g-mn .m-bd-1 .m-lst .ul li:hover .q-footer-more2 {
+  border-color: #36aaea;
+  box-shadow: 0 1px 2px #36aaea;
+}
+.g-mn .m-bd-1 .m-lst .ul li.s-bg0:hover {
+  border: 1px solid #ffbf7f;
+  box-shadow: 0 1px 2px #ffbf7f;
+}
+.g-mn .m-bd-1 .m-lst .ul li.s-bg1:hover {
+  border: 1px solid #b8e68a;
+  box-shadow: 0 1px 2px #b8e68a;
+}
+.g-mn .m-bd-1 .m-lst .ul li.s-bg2:hover {
+  border: 1px solid #80d5ff;
+  box-shadow: 0 1px 2px #80d5ff;
+}
+.g-mn .m-bd-1 .m-lst .ul li.s-bg0:hover .q-footer-more2 {
+  box-shadow: 0 1px 2px #ffbf7f;
+}
+.g-mn .m-bd-1 .m-lst .ul li.s-bg1:hover .q-footer-more2 {
+  box-shadow: 0 1px 2px #b8e68a;
+}
+.g-mn .m-bd-1 .m-lst .ul li.s-bg2:hover .q-footer-more2 {
+  box-shadow: 0 1px 2px #80d5ff;
+}
+.g-mn .m-bd-1 .m-lst .ul .z-crt {
+  color: white;
+  height: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 32px;
+}
+.g-mn .m-bd-1 .m-lst .ul .m-con {
+  padding: 20px 20px 20px;
+}
+.g-mn .m-bd-1 .m-lst .ul .m-con .q-item {
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+.g-mn .m-bd-1 .m-lst .ul .f-answer {
+  margin-bottom: 20px;
+  display: none;
+  padding: 0 20px;
+}
+.g-mn .m-bd-1 .m-lst .ul .f-answer .s-fc {
+  color: #ff860e;
+}
+.g-mn .m-bd-1 .m-lst .ul .f-answer em {
+  font-style: normal;
+}
+/*知识点*/
+.g-mn .m-bd-1 .m-lst-poi .ul {
+  position: relative;
+  z-index: 3;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul li {
+  background: #7fd4ff;
+  position: relative;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul li:after {
+  content: "";
+  display: block;
+  clear: both;
+  height: 0;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-1 {
+  width: 20px;
+  color: white;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  height: 65px;
+  line-height: 65px;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-1:hover i {
+  color: #ffbf7f;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-2 {
+  width: 692px;
+  padding: 10px 18px;
+  font-size: 14px;
+  background: white;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-2 .p1 {
+  font-size: 14px;
+  color: #33bbff;
+  margin-bottom: 10px;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-2 .z-sel {
+  text-align: right;
+  color: #999;
+  font-size: 12px;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-2 .z-sel span {
+  color: #ff7f00;
+  font-size: 16px;
+  margin-right: 20px;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-2 .u-bd .u-p-1 span.orange {
+  font-size: 18px;
+  margin: 0 5px;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-2 .u-bd .u-p-2 span,
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-2 .u-bd .u-p-3 span {
+  font-size: 16px;
+  color: #ffbf7f;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  width: 93px;
+  margin: 0 5px;
+  text-align: center;
+  padding: 2px 0;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-2 .u-bd .u-p-2 span {
+  background: #7fd4ff;
+  color: white;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-2 .u-bd .u-p-2 span:nth-child(2) {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-2 .u-bd .u-p-2 span:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.g-mn .m-bd-1 .m-lst-poi .ul .m-lst-2 .u-bd .u-tt {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  font-style: normal;
+  width: 90px;
+  text-align: right;
+  color: #999;
+  font-size: 12px;
+}
+.g-mn .m-bd-1 .m-lst-poi .f-ml {
+  margin-left: 35px;
+  z-index: 2;
+}
+.g-mn .m-bd-1 .m-lst-poi .f-ml .m-w-1 {
+  width: 657px;
+}
+.g-mn .m-bd-1 .m-lst-poi .f-ml .m-lst-1 {
+  height: 65px;
+  line-height: 65px;
+}
+.g-mn .m-bd-1 .m-lst-poi .tab-3 {
+  display: none;
+}
+.g-mn .m-bd-1 .m-lst-poi .f-mb {
+  margin-left: 70px;
+  z-index: 1;
+}
+.g-mn .m-bd-1 .m-lst-poi .f-mb .m-lst-2 {
+  width: 622px;
+}
+#Slide .m-lst-poi .tab-1 {
+  display: none;
+}
+.g-mn .m-bd-1 .default,
+.g-mn .m-bd-1 .m-lst .ul li.default {
+  padding: 20px;
+  text-align: center;
+  background: white;
+  border: none;
+}

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="http://static.dayeasy.dev"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>教师成绩排名</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="http://static.dayeasy.dev/source/css/font-awesome.css" rel="stylesheet" media="all"/>
+    <link href="http://static.dayeasy.dev/source/css/bootstrap.css" rel="stylesheet" media="all"/>
+    <link href="http://static.dayeasy.dev/source/css/site-base.css" rel="stylesheet" media="all"/>
+    <link rel="stylesheet" href="http://static.dayeasy.dev/source/mention/style/css/v1/tablecenter/page.css">
+    <!-- <link rel="stylesheet" href="http://static.dayeasy.dev/v1/css/tablecenter/page.min.css"> -->
+
+
+</head>
+<body class="dy-home-bg">
+
+<!--==============================Header=================================-->
+<header class="hidden-print">
+    <div class="top-header">
+        <div class="top-nav">
+            <div class="top-user">
+                <div class="top-menu">
+                    <span class="m-outline"></span>
+                    <span class="m-blank"></span>
+                    372881688@qq.com
+                    <i></i>
+
+                    <div class="menu-list-wrap">
+                        <div class="menu-list user-info-wrap">
+                            <div class="d-avatar">
+                                <a href="http://www.dayeasy.dev/user" title="帐号管理">
+                                    <img src="http://static.dayeasy.dev/image/default/user_s80x80.jpg" alt=""/>
+                                </a>
+                            </div>
+                            <div class="d-user-info">
+                                <div class="d-user-text">
+                                    <div class="d-user-name text-ellipsis">
+                                        甘道夫
+                                    </div>
+                                    <div class="d-user-role">
+                                        化学教师
+                                    </div>
+                                </div>
+                                <div class="d-user-link">
+                                    <a href="http://www.dayeasy.dev/user">帐号管理</a>
+                                    <s></s>
+                                    <a href="#" class="b_logout">退出</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-link">
+                    <s></s>
+                    <a href="http://www.dayeasy.dev/user/msg">消息中心</a>
+                    <i class="dy-count">0</i>
+                </div>
+            </div>
+            <div class="top-menus">
+                <div class="top-menu">
+                    <span class="m-outline"></span>
+                    <span class="m-blank"></span>
+                    机构信息
+                    <i></i>
+
+                    <div class="menu-list-wrap">
+                        <div class="menu-list d-agency">
+                            <div class="d-avatar">
+                                <img src="http://file.dayez.net/image/d7deyvv1/ca38061da22643109b0b4affa50899ef/74359ced7b0349a78f3735ff96011b29_s80x80.jpg"
+                                     alt="得一科技"/>
+                            </div>
+                            <div class="d-agency-info">
+                                <div class="d-agency-text">
+                                    <div class="d-agency-name text-ellipsis" title="得一科技">得一科技</div>
+                                    <div class="d-agency-type" title="独一无二的在线教育平台">独一无二的在线教育平台</div>
+                                </div>
+                                <div class="d-agency-link"><a href="http://org.dayeasy.dev/teacher">班级管理</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-nav-wrap">
+        <div class="dy-container">
+            <div class="dy-logo">
+                <h1>
+                    <a href="http://www.dayeasy.dev">我的得一</a>
+                </h1>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="http://www.dayeasy.dev/question">题库</a></li>
+                    <li><a href="http://www.dayeasy.dev/paper">试卷库</a></li>
+                    <li><a href="http://www.dayeasy.dev/work">作业中心</a></li>
+                    <li><a href="http://classroom.dayeasy.dev">课堂</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!--==============================Conter=================================-->
+<div class="g-bd">
+    <div class="s-bgi"></div>
+    <!-- side -->
+    <div class="dy-container after">
+        <div class="g-sd f-fl mr10 scoTop">
+            <div class="m-snav">
+                <ul class="m-lst-1">
+                    <!--列表1-->
+                    <li class="lst-li-1 z-crt"> <!--当前样式 z-crt-->
+                        <a href="" class="lst-a-1"><i class="icon_statistics"></i>学情统计</a>
+                        <ul class="m-lst-2">
+                            <li><a href="" class="lst-a-2 z-sel">学生成绩排名</a></li><!-- 选中 z-sel-->
+                            <li><a href="" class="lst-a-2">班级综合成绩</a></li>
+                            <li><a href="" class="lst-a-2">知识点掌握情况</a></li>
+                        </ul>
+                    </li>
+                    <!--列表2-->
+                    <li class="lst-li-1">
+                        <a href="" class="lst-a-1"><i class="icon_ranklist"></i> 错题周报告 Top10</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- main -->
+        <div class="g-mn f-fr">
+            <div class="m-tt after">
+                <h2 class="f-fl  m-hd "><span>本周</span>错题TOP10</h2>
+
+                <div class="f-fr m-snav">
+                    <a class="z-crt f-fl " href=""><i class="glyphicon glyphicon-circle-arrow-left"></i> 上一周</a>
+                    <a class="f-fr" href="">下一周 <i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="m-bd-1">
+                <div class="m-sch mb10">
+                    班级：
+                    <select name="" id="">
+                        <option value="">2014级1班</option>
+                        <option value="">2014级1班</option>
+                    </select>
+                </div>
+                <div class="m-lst">
+                    <ul class="ul">
+                        <li>
+                            <div class="row f-tal">
+                                <div class="col-md-1">
+                                    <div class="z-crt f-tac">1</div>
+                                </div>
+                                <div class="col-md-11 s-bg">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="m-con">一定质量的稀硫酸和氢氧化钠溶液恰好完全反应，所得溶液中一定质量的稀硫酸和氢氧化钠溶...</div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="f-answer">
+                                                <span class="s-fc">参考答案：</span><em>C</em>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row mb10 pdfr">
+                                                <div class="col-md-4"><label>本班错题人数/错题率：</label><span>20 / 6%</span>
+                                                </div>
+                                                <div class="col-md-3"><label>全网错误率：</label><span>5%</span></div>
+                                                <div class="col-md-3"><label>知识点：</label><span>身边的化学</span></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="q-footer-more1"><i class="glyphicon glyphicon-chevron-down"></i></div>
+                            <div class="q-footer-more2"></div>
+                        </li>
+                        <li>
+                            <div class="row f-tal">
+                                <div class="col-md-1">
+                                    <div class="z-crt f-tac">2</div>
+                                </div>
+                                <div class="col-md-11 s-bg">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="m-con">一定质量的稀硫酸和氢氧化钠溶液恰好完全反应，所得溶液中一定质量的稀硫酸和氢氧化钠溶...</div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="f-answer">
+                                                <span class="s-fc">参考答案：</span><em>C</em>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row mb10 pdfr">
+                                                <div class="col-md-4"><label>本班错题人数/错题率：</label><span>20 / 6%</span>
+                                                </div>
+                                                <div class="col-md-3"><label>全网错误率：</label><span>5%</span></div>
+                                                <div class="col-md-3"><label>知识点：</label><span>身边的化学</span></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="q-footer-more1"><i class="glyphicon glyphicon-chevron-down"></i></div>
+                            <div class="q-footer-more2"></div>
+                        </li>
+                        <li>
+                            <div class="row f-tal">
+                                <div class="col-md-1">
+                                    <div class="z-crt f-tac">3</div>
+                                </div>
+                                <div class="col-md-11 s-bg">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="m-con">一定质量的稀硫酸和氢氧化钠溶液恰好完全反应，所得溶液中一定质量的稀硫酸和氢氧化钠溶...</div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="f-answer">
+                                                <span class="s-fc">参考答案：</span><em>C</em>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row mb10 pdfr">
+                                                <div class="col-md-4"><label>本班错题人数/错题率：</label><span>20 / 6%</span>
+                                                </div>
+                                                <div class="col-md-3"><label>全网错误率：</label><span>5%</span></div>
+                                                <div class="col-md-3"><label>知识点：</label><span>身边的化学</span></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="q-footer-more1"><i class="glyphicon glyphicon-chevron-down"></i></div>
+                            <div class="q-footer-more2"></div>
+                        </li>
+                        <li>
+                            <div class="row f-tal">
+                                <div class="col-md-1">
+                                    <div class="z-crt f-tac">4</div>
+                                </div>
+                                <div class="col-md-11 s-bg">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="m-con">一定质量的稀硫酸和氢氧化钠溶液恰好完全反应，所得溶液中一定质量的稀硫酸和氢氧化钠溶...</div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="f-answer">
+                                                <span class="s-fc">参考答案：</span><em>C</em>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row mb10 pdfr">
+                                                <div class="col-md-4"><label>本班错题人数/错题率：</label><span>20 / 6%</span>
+                                                </div>
+                                                <div class="col-md-3"><label>全网错误率：</label><span>5%</span></div>
+                                                <div class="col-md-3"><label>知识点：</label><span>身边的化学</span></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="q-footer-more1"><i class="glyphicon glyphicon-chevron-down"></i></div>
+                            <div class="q-footer-more2"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--==============================Footer=================================-->
+
+<footer class="hidden-print">
+    <div class="dy-container">
+        <div class="after bo-ul-layer">
+            <div class="bo-pl-fu">
+                <span><a href="http://www.dayeasy.dev/helper/contact-us" target="_blank">联系我们</a></span>
+                <span>建议使用 <a
+                        href="http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandaloneSetup41.0.2272.89.1426235198.exe"
+                        target="_blank">Chrome浏览器</a></span>
+                <span>蜀ICP备14013147号 &copy; 2013-2015</span>
+                <span><a href="#">DayEasy.net</a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="http://static.dayeasy.dev/source/js/jquery.js" type="text/javascript"></script>
+<script src="http://static.dayeasy.dev/source/js/report/report-show.js"></script>
+
+
+
+</body>
+</html>

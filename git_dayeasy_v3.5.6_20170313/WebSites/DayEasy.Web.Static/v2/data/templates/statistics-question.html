@@ -1,0 +1,58 @@
+<script type="text/template" id="s-section">
+    {{if paper_type!=0}}
+    {{#(paper_type==1 ? '<h2>A卷</h2>' : '<h2>B卷</h2>')}}
+    {{/if}}
+    {{each sections}}
+    {{if paper_type == 0 || $value.section_type == paper_type}}
+    <div class="topic-main-con">
+        <div class="border_b head-h2 mb20">
+            <h2>{{$value.sort | chineseNum}}. {{$value.desc}}</h2>
+        </div>
+        {{include 's-question' $value}}
+    </div>
+    {{/if}}
+    {{/each}}
+</script>
+<script type="text/template" id="s-question">
+    {{each questions as question}}
+    {{if question.small_questions && question.small_questions.length}}
+    <div class="q-parent" data-id="{{question.question_id}}">
+        <h3>{{question.sort}}</h3>
+        {{include 's-question' question.small_questions}}
+    </div>
+    {{/if}}
+    {{if !question.small_questions || !question.small_questions.length}}
+    <div class="fill-inthe-blanks f-cb q-item" data-id="{{question.question_id}}">
+        <div class="td-1">{{question.sort}}</div>
+        <div class="td-2 td-heigh">
+            {{if question.is_objective}}
+            <i class="icon-markingcenter marking-center-sector f-right-expansion"></i>
+            <div class="fan-icon-statistics">
+                <div class="statistics-lca" style="max-width:180px;height:180px;"></div>
+                <p class="f-tal"></p>
+            </div>
+            {{/if}}
+        </div>
+        <div class="td-3">
+            <ul class="ul-list list-1 f-cb ul-height ">
+                {{each question.error_students as stu_id i}}
+                {{#stu_id | bindStudent:i}}
+                {{/each}}
+            </ul>
+            <ul class="ul-list list-2 f-cb ul-height "></ul>
+        </div>
+        <div class="td-4">
+            {{if question.error_students.length > 10}}
+            <a class="fill-btn" href="javascript:void(0);">更多</a>
+            {{/if}}
+        </div>
+        <div class="td-6"><a class="font-color-bule link-variable" href="javascript:void(0)" data-id="{{question.question_id}}">推送变式</a></div>
+        <div class="td-7"><a class="font-color-bule link-detail" href="javascript:void(0)" data-id="{{question.question_id}}">详情分析</a></div>
+        <div class="td-5">
+            {{question.error_students.length}}
+            <i class="icon-markingcenter marking-center-closevillain"></i>
+        </div>
+    </div>
+    {{/if}}
+    {{/each}}
+</script>

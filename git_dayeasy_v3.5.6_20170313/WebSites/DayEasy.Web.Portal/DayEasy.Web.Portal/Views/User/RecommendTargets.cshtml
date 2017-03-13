@@ -1,0 +1,62 @@
+﻿@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model List<DayEasy.Portal.Services.Dto.VTargetAgencyDto>
+
+@{
+    ViewBag.Title = "推荐目标学校";
+}
+@helper ShowAgencies(int size)
+{
+    var len = Model.Count;
+    for (var i = 0; i < Math.Ceiling(len / (decimal)size); i++)
+    {
+        var list = Model.Skip(i * size).Take(size);
+        <ul>
+            @foreach (var item in list)
+            {
+                <li data-aid="@item.Id">
+                    <img src="@item.Logo" alt="" />
+                    <i class="vip-icon"></i>
+                    <p class="class f-toe" title="@item.Name">@item.Name<span class="stage-@item.Stage">@(item.Stage.GetEnumText<StageEnum, byte>())</span></p>
+                    <strong class="box3"><em>@item.Count</em>人想去</strong>
+                    <div class="btn f-tar"><a class="a01 b-target" href="#">设为目标</a></div>
+                </li>
+            }
+        </ul>
+    }
+}
+
+<!--目标学校-->
+<div class="page-join join-target-schoole">
+    <div class="head-title">
+        <h1>设定目标学校，掌握更多竞争者动向!</h1>
+        @*<p>根据您的入学年份，为您推荐已认证的班级</p>*@
+    </div>
+    <!--班级圈-->
+    <div class="layB slide-3">
+        <div class="tbC">
+            <a href="javascript:void(0)" class="prev icon-sprite sprite-1"></a>
+            <div class="slide">
+                @ShowAgencies(9)
+            </div>
+            <a href="javascript:void(0)" class="next icon-sprite sprite-3"></a>
+        </div>
+    </div>
+    <div class="btn f-tac f-pr">
+        @{
+            var url = "return_url".Query(string.Empty);
+            if (string.IsNullOrEmpty(url))
+            {
+                url = Consts.Config.MainSite + "/user";
+            }
+        }
+        <a class="dy-btn dy-btn-info" href="@url">进入得一</a>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/user/recommend-target.css")
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js", "v3/plugs/SuperSlide/jquery.SuperSlide.2.1.js", "v3/js/user/recommend-target.js")
+}

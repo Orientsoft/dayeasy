@@ -1,0 +1,298 @@
+html {
+  font-size: 62.5%;
+  /*10 ÷ 16 × 100% = 62.5%*/
+}
+input::-webkit-input-placeholder {
+  color: white !important;
+}
+input:-moz-placeholder {
+  color: white !important;
+}
+input::-moz-placeholder {
+  color: white !important;
+}
+input:-ms-input-placeholder {
+  color: white !important;
+}
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+select,
+button {
+  -webkit-appearance: none;
+}
+body {
+  max-width: 640px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+.scrollbarwrap {
+  height: 412px;
+  top: 88px;
+  position: absolute;
+  right: 67px;
+}
+.scrollbar {
+  height: 100%;
+  width: 10px;
+  background: #98daf3;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+  cursor: pointer;
+}
+.scroll_track {
+  width: 10px;
+  height: 0px;
+  background-color: white;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.scroll_thumb {
+  height: 25px;
+  width: 25px;
+  left: -7px;
+  background-color: #98daf3;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+  border: 1px solid #98daf3;
+  -webkit-box-shadow: 0px 0px 5px #98daf3;
+  -moz-box-shadow: 0px 0px 5px #98daf3;
+  box-shadow: 0px 0px 5px #98daf3;
+  position: absolute;
+  margin-top: -18px;
+  cursor: pointer;
+}
+.scroll_thumb:before {
+  position: absolute;
+  content: ' ';
+  width: 14px;
+  height: 14px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  background: #3bafda;
+  top: 5px;
+  left: 4px;
+  -webkit-box-shadow: 0px 0px 5px #98daf3;
+  -moz-box-shadow: 0px 0px 5px #98daf3;
+  box-shadow: 0px 0px 5px #98daf3;
+}
+.scrollbar-add,
+.scrollbar-minus {
+  position: absolute;
+  left: -15px;
+  text-align: center;
+}
+.scrollbar-add img,
+.scrollbar-minus img {
+  width: 60%;
+}
+.scrollbar-add {
+  top: -55px;
+  width: 40px;
+  padding: 5px 0;
+}
+.scrollbar-minus {
+  bottom: -55px;
+  width: 40px;
+  padding: 5px 0;
+}
+.canvas-con {
+  padding-top: 30px;
+  margin-bottom: 27px;
+}
+.canvas-con canvas {
+  display: block;
+  margin: 0 auto;
+}
+/* 本例子css -------------------------------------- */
+.picScroll {
+  margin: 0px auto 10px;
+  text-align: center;
+}
+.picScroll .bd ul {
+  width: 100%;
+  float: left;
+}
+.picScroll .bd li {
+  width: 16.5%;
+  float: left;
+  font-size: 14px;
+  text-align: center;
+}
+.picScroll .bd li.on img {
+  border: 5px solid white;
+}
+.picScroll .bd li a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /* 取消链接高亮 */
+}
+.picScroll .bd li img {
+  width: 89px;
+  height: 135px;
+  background: url('/image/loading.gif') #fff center center no-repeat;
+}
+.picScroll .hd {
+  height: 20px;
+  line-height: 24px;
+  overflow: hidden;
+  text-align: left;
+  padding: 0 10px;
+}
+.picScroll .hd ul {
+  margin: 0 auto;
+  width: 44px;
+}
+.picScroll .hd li {
+  float: left;
+  width: 8px;
+  height: 8px;
+  font-size: 0;
+  background: #D0D0D0;
+  margin: 0 5px;
+  overflow: hidden;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+.picScroll .hd .on {
+  background: #f3c720;
+}
+.picScroll .prev,
+.picScroll .next {
+  display: block;
+  float: right;
+  width: 18px;
+  height: 18px;
+  overflow: hidden;
+  margin: 11px 5px 0 5px;
+}
+.picScroll .next {
+  background-position: -34px -7px;
+}
+.picScroll .prevStop {
+  background-position: -6px -40px;
+}
+.picScroll .nextStop {
+  background-position: -34px -40px;
+}
+/*
+合成照片 文字 弹框*/
+.ui-popup-modal .d-edit-word {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+.pop-input-text {
+  padding-top: 30px;
+  width: 500px;
+  height: 400px;
+  -moz-border-radius: 10%;
+  -webkit-border-radius: 10%;
+  -o-border-radius: 10%;
+  -ms-border-radius: 10%;
+  border-radius: 10%;
+  border: 8px solid white;
+  background: url(/image/teachersday/bg-pop.png) no-repeat #fff;
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+}
+.pop-input-text img {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.pop-input-text .img-title {
+  margin-bottom: 30px;
+}
+.pop-input-text .textarea-text {
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -o-border-radius: 16px;
+  -ms-border-radius: 16px;
+  border-radius: 16px;
+  padding: 15px 15px;
+  font-size: 26px;
+  color: white;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  text-align: left;
+  width: 350px;
+  height: 150px;
+  border: 2px solid white;
+  margin-bottom: 30px;
+  background: transparent;
+}
+.pop-input-text .pop-btn img {
+  margin-right: 50px;
+}
+.pop-input-text .pop-btn img.img1 {
+  margin-right: 22px;
+}
+.dy-sharebuttonbox {
+  background: #e9e9e9;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  bottom: -147px;
+}
+.dy-sharebuttonbox .dy-g-share {
+  padding: 10px 9px;
+  margin-bottom: 0;
+}
+.dy-sharebuttonbox .dy-g-share li {
+  float: left;
+  width: 75px;
+}
+.dy-sharebuttonbox .dy-g-share .last-box {
+  margin: 0;
+}
+.dy-sharebuttonbox a {
+  margin: 0 auto;
+  width: 60px;
+  line-height: 60px;
+  height: 60px;
+  display: block;
+  position: relative;
+  border-radius: 10px;
+  background: #ef5752;
+  cursor: pointer;
+  text-indent: -100em;
+  overflow: hidden;
+  color: #3a8ceb;
+}
+.dy-sharebuttonbox .bds_weixin {
+  background-position: -13px -7px !important;
+}
+.dy-sharebuttonbox .bds_tsina {
+  background-position: -57px -7px !important;
+}
+.dy-sharebuttonbox .bds_sqq {
+  background-position: -101px -7px !important;
+}
+.dy-sharebuttonbox .bds_qzone {
+  background-position: -146px -7px !important;
+}
+.dy-sharebuttonbox .share-text {
+  display: block;
+  height: 38px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.4em;
+}
+.dy-sharebuttonbox .cancel-off {
+  text-align: center;
+  font-size: 12px;
+  padding: 5px 0;
+  background: white;
+}
+.wrap-teacher-day .title-img-saying {
+  position: relative;
+}

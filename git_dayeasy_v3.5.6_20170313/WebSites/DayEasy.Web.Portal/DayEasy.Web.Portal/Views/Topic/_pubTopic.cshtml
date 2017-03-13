@@ -1,0 +1,78 @@
+﻿<script type="text/html" id="voteDetailTemp">
+    <div class="comment-vote">
+        <div class="edit-vote">
+            <span id="deleteVote">删除</span>
+            <span id="editVote">编辑</span>
+        </div>
+        <div class="box">
+            <div class="box-lg-12 vote-title" id="title"></div>
+            <div class="box-lg-12">
+                <div class="box-lg-12 vote-checkbox">
+                    <ul id="voteOptions"></ul>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="addVoteTemp">
+    <div class="pop-vote" style="padding:0;">
+        <ul class="ul-layer">
+            <li>
+                <label class="box-label">投票主题：</label>
+                <input class="w400" type="text" placeholder="请输入投票主题" id="voteTitle" />
+            </li>
+            <li>
+                <div class="box">
+                    <div class="box-lg-2"><label class="box-label">投票选项：</label></div>
+                    <div class="box-lg-10">
+                        <ol class="option" id="optionLis">
+                            <li>
+                                <input type="text" placeholder="选项1" /><i class="iconfont dy-icon-close f-remove"></i>
+                            </li>
+                            <li>
+                                <input type="text" placeholder="选项2" /><i class="iconfont dy-icon-close f-remove"></i>
+                            </li>
+                            <li>
+                                <input type="text" placeholder="选项3" /><i class="iconfont dy-icon-close f-remove"></i>
+                            </li>
+                        </ol>
+                        <a href="javascript:void(0);" class="a01" id="addOption">添加选项</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <label class="box-label">选择模式：</label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="chooseType" class="dy-icon-radiohv" checked="checked" value="true"><span>单选</span>
+                    <i class="iconfont dy-icon-radio dy-icon-radiohv"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="chooseType" value="false"><span>多选</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+            </li>
+            <li>
+                <label class="box-label">截止时间：</label>
+                <input type="text" id="finishTime" placeholder="选择时间" name="start" value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd HH:mm")" class="w240" onfocus="WdatePicker({ minDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm' })" />
+            </li>
+            <li>
+                <label class="box-label">结果可见：</label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="secret" class="dy-icon-radiohv" checked="checked" value="true"><span>所有人可见</span>
+                    <i class="iconfont dy-icon-radio dy-icon-radiohv"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="secret" value="false"><span>仅发起人可见</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                @*<span class="font2">（发布者可查看投票人数）</span>*@
+            </li>
+        </ul>
+        <div class="box f-tar">
+            <button class="dy-btn dy-btn-default" id="btn_cancel">取消</button>
+            <button class="dy-btn dy-btn-info" id="btn_sure">完成</button>
+        </div>
+    </div>
+</script>

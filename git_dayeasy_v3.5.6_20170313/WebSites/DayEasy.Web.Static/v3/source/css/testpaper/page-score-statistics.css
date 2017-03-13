@@ -1,0 +1,47 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2015/11/11  Last Mondify Date:2015/11/11
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+/**MAIN STYLE**/
+.page-score-statistics {
+  background: #f5f5f5;
+}
+.page-score-statistics .table-box {
+  padding: 0 30px;
+}
+.page-score-statistics .bottom-page {
+  color: #999;
+  padding: 0 30px;
+  background: #f5f7fa;
+  height: 50px;
+  line-height: 50px;
+}
+.page-score-statistics .bottom-page b {
+  font-weight: bold;
+}
+.page-score-statistics .h2-title {
+  margin-bottom: 30px;
+}
+.page-score-statistics .m-knowledge,
+.page-score-statistics .m-score {
+  width: 49%;
+  padding: 20px 0;
+  background: white;
+}
+.page-score-statistics .m-score .list-span {
+  margin-bottom: 20px;
+}
+.page-score-statistics .m-score .list-span span {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin-right: 20px;
+  font-size: 16px;
+  margin-right: 30px;
+}

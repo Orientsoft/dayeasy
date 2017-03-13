@@ -1,0 +1,300 @@
+/**
+  学生 - 成绩报表
+*/
+@import "../../less/base";
+
+.d-score-box {
+  border: solid 1px #de5361;
+  background-color: #fefcfc;
+  .rounded-corners(15px);
+  position: relative;
+  margin: 55px auto 0;
+  width: 800px;
+  padding: 30px 20px;
+  h2 {
+    color: @color-default;
+    font-size: 18px;
+    font-weight: 600;
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    margin-left: -85px;
+    width: 170px;
+    height: 40px;
+    line-height: 32px;
+    text-align: center;
+    .background-image('work/medal.png', no-repeat, transparent);
+  }
+  hr {
+    border: none;
+    border-top: dashed 2px @border-color;
+    margin: 15px 0;
+  }
+  .d-score-wrap {
+    background-color: @d-color-blue;
+    line-height: 50px;
+    color: @color-default;
+    font-size: 18px;
+    padding: 0 35px;
+    position: relative;
+    .angle-left,
+    .angle-right {
+      position: absolute;
+      top: 0;
+    }
+    .angle-right {
+      .angle-right(25px, @color-default, 15px);
+      left: 0;
+    }
+    .angle-left {
+      .angle-left(25px, @color-default, 15px);
+      right: 0;
+    }
+    .d-score-title {
+      margin-right: 35px;
+    }
+    .d-score-item {
+      border-left: 1px solid #75cfef;
+      .inline-block;
+      line-height: 20px;
+      text-align: center;
+      width: 188px;
+      font-size: 16px;
+      &.first-child {
+        line-height: 32px;
+        border-left-color: #9edff6;
+      }
+      small {
+        font-size: 14px;
+      }
+      em {
+        font-size: 26px;
+      }
+    }
+  }
+  .d-ranks-item {
+    .inline-block;
+    vertical-align: middle;
+    width: 345px;
+    position: relative;
+    &.d-rank {
+      width: 200px;
+    }
+    h3 {
+      width: 2em;
+      font-size: 16px;
+      color: #656d78;
+      .inline-block;
+      vertical-align: middle;
+    }
+    .d-class-rank,
+    .d-grade-rank {
+      height: 160px;
+      width: 160px;
+      border-radius: 50%;
+      .inline-block;
+      vertical-align: middle;
+    }
+    .d-class-average,
+    .d-grade-average {
+      border: solid 1px @border-color;
+      td {
+        border: none;
+        padding: 8px 15px !important;
+      }
+    }
+    .d-rank-desc {
+      font-size: 12px;
+      color: #656d78;
+      text-align: center;
+      line-height: 25px;
+      font-family: "Microsoft YaHei", serif;
+      b {
+        font-size: 24px;
+        color: @d-color-blue;
+        display: block;
+      }
+    }
+    .d-rank-change {
+      bottom: -11px;
+      color: @d-color-light-gray;
+      position: absolute;
+      right: 0;
+      width: 160px;
+      text-align: center;
+      b {
+        font-size: 24px;
+        color: @d-color-blue;
+      }
+      i {
+        margin-left: 6px;
+      }
+    }
+    .dy-table {
+      .inline-block;
+      vertical-align: middle;
+      margin-top: 0;
+      td {
+        padding: 8px 25px;
+        color: @d-color-light-gray;
+        background-color: #fff;
+      }
+    }
+    & > .d-ranks-item {
+      h3 {
+        width: 4em;
+        margin-right: 12px;
+      }
+      margin-bottom: 15px;
+    }
+  }
+  .dy-table {
+    width: auto;
+    max-width: 100%;
+    overflow-x: auto;
+    td {
+      border: solid 1px @border-color;
+      text-align: center;
+      color: @d-color-gray;
+      padding: 8px 15px;
+      &.d-mine,
+      &.d-other {
+        font-size: 12px;
+        i {
+          display: block;
+          margin-bottom: 4px;
+        }
+      }
+      &.d-mine {
+        i {
+          color: @d-color-red;
+        }
+      }
+      &.d-other {
+        i {
+          color: @d-color-blue;
+        }
+      }
+      .dy-icon-cha {
+        color: @d-color-red;
+      }
+      .dy-icon-bangou {
+        color: @color-warning;
+      }
+      .dy-icon-gou {
+        color: @d-color-green;
+      }
+    }
+  }
+  .dy-table-head {
+    margin-left: 30px;
+    h3 {
+      font-size: 16px;
+      line-height: 45px;
+    }
+  }
+  .dy-table-body {
+    margin-left: 30px;
+    padding-left: 74px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    min-height: 105px;
+    height:140px\9;
+    .dy-table-left {
+      width: 75px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
+      background-color: @color-default;
+    }
+    .d-error {
+      height: 41px;
+    }
+    td {
+      white-space: nowrap;
+      padding: 4px 6px;
+    }
+  }
+  .d-column-mine {
+    position: absolute;
+    right: 30px;
+    top: 35px;
+    color: @d-color-light-gray;
+    i {
+      background-color: @d-color-red;
+      .inline-block;
+      height: 10px;
+      margin-right: 10px;
+      width: 20px;
+    }
+  }
+  .d-rank-compare {
+    td {
+      padding: 10px 15px;
+      &.compare {
+        font-size: 18px;
+      }
+      em {
+        font-size: 30px;
+        font-weight: 600;
+        color: @d-color-yellow;
+        margin-right: 5px;
+      }
+    }
+  }
+  .d-segments {
+    height: 280px;
+  }
+  .d-ranks {
+    height: 280px;
+  }
+}
+
+.d-rate {
+  background-color: #dff2f9;
+  border-radius: 50%;
+  font-size: 12px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  width: 32px;
+  position: relative;
+  overflow: hidden;
+  color: #2784a5;
+  margin: 0 auto;
+  em {
+    background-color: #b4e3f3;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    z-index: 1;
+  }
+  span {
+    position: relative;
+    z-index: 2;
+  }
+  &.d-rate-warning {
+    background-color: #fef2e7;
+    color: #89521c;
+    em {
+      background-color: #fbad5f;
+    }
+  }
+  &.d-rate-danger {
+    background-color: lighten(@color-danger, 36%);
+    color: lighten(@color-danger, 16%);
+    em {
+      background-color: @color-danger;
+    }
+  }
+}
+
+.d-knowledge-name {
+  max-width: 6em;
+  overflow: hidden;
+  line-height: 24px;
+  text-overflow: ellipsis;
+}

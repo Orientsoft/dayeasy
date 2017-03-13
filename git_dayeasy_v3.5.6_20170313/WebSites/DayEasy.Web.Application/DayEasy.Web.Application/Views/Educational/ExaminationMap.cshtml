@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "考试地图";
+}
+
+<div class="dy-main-wrap">
+    @Html.Partial("_Navigation", 2)
+    <div class="dy-list" data-aid="@ViewBag.AgencyId">
+        <div class="page-elective-draw">
+            <div class="ui-tab-nav">
+                <ul class="f-cb">
+                    <li class="on first" data-area="0">最近一周</li>
+                    <li data-area="1">最近一个月</li>
+                    <li data-area="2">最近3个月</li>
+                    <li class="last" data-area="3">最近6个月</li>
+                </ul>
+            </div>
+            <div class="tab-nav-contens">
+                <div class="tab-con-list tab-con-1" style="display: block;">
+                    <!--数据列表-->
+                    <div class="m-course-top">
+                        <div class="item-left f-fl">
+                            <ul>
+                                <li>
+                                    <i class="iconfont dy-icon-person1"></i>
+                                    <span class="box-span-1">考试人次</span>
+                                    <span class="box-span-2 f-toe" id="userCount">--</span>
+                                </li>
+                                <li>
+                                    <i class="iconfont dy-icon-laifang"></i>
+                                    <span class="box-span-1">考试班次</span>
+                                    <span class="box-span-2 f-toe" id="classCount">--</span>
+                                </li>
+                                <li>
+                                    <i class="iconfont dy-icon-buchongiconsvg10"></i>
+                                    <span class="box-span-1">原创试卷 </span>
+                                    <span class="box-span-2 f-toe" id="paperCount">--</span>
+                                </li>
+                                <li>
+                                    <i class="iconfont dy-icon-icon41"></i>
+                                    <span class="box-span-1">考查知识点 </span>
+                                    <span class="box-span-2 f-toe" id="knowledgeCount">--</span>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="item-right f-fr">
+                            <span class="box-span-1">生成学情报告 </span>
+                            <span class="box-span-2 f-toe" id="reportCount">--</span>
+                        </div>
+                    </div>
+                    <!--数据列表 End-->
+                    <!--学科分布/班次分布-->
+                    <div class="m-course-bottom f-cb mb20">
+                        <div class="box-people teacher-people f-fl">
+                            <div class="m-title">
+                                <strong>学科分布<small>(班次)</small></strong>
+                            </div>
+                            <div id="container-chart-left" style="min-width:300px;height:250px">
+                                <div class="dy-loading"><i></i></div>
+                            </div>
+                        </div>
+                        <div class="box-people class-people f-fr">
+                            <div class="m-title f-cb">
+                                <strong>班次分布<small>(人次)</small></strong>
+                                <select name="" id="container-tab-left"></select>
+                            </div>
+                            <!--数据类型替换-->
+                            <div class="container-box-x">
+                                <div id="container-left" style="height:220px;">
+                                    <div class="dy-loading"><i></i></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--学科分布/班次分布 End-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/ea/ui-base.css", "v3/css/ea/statistics/page-exam-map.css")
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js", "v3/plugs/highcharts/highcharts.min.js", "v3/js/ea/statistics/page-exam-map.js")
+}

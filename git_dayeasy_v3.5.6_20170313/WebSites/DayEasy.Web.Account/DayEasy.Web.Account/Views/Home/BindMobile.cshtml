@@ -1,0 +1,101 @@
+﻿<div class="pop-e-mail mb20">
+    <div class="box">
+        <div class="box-lg-3 height-lh">输入手机号码：</div>
+        <div class="box-lg-9">
+            <ul class="e-mail-list">
+                <li>
+                    <input type="text" class="dy-mobile" placeholder="手机号码" />
+                </li>
+                <li class="lis-box-1">
+                    <button class="dy-btn dy-btn-info b-send-code">发送验证码</button>
+                </li>
+                <li>
+                    <input type="text" class="dy-vcode" placeholder="请输入验证码" />
+                </li>
+                <li>
+                    <button id="btnBindMobile" class="dy-btn dy-btn-info disabled" disabled="disabled">确认</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    (function ($, S) {
+        var timer, seconds = 60, reg = /^1[3|5|7|8][0-9]{9}$/;
+        $('.b-send-code').bind("click", function () {
+            var $t = $(this),
+                $mobile = $('.dy-mobile'),
+                mobile = $mobile.val(),
+                oldMobile = $("#txtMobile").val(),
+                $li = $mobile.parent();
+            $t.blur();
+            if(!mobile || !reg.test(mobile)) {
+                S.setField($li, false, '手机号码格式不正确！');
+                return false;
+            }
+            if (oldMobile && oldMobile == mobile) {
+                S.setField($li, false, '手机号码未更改！');
+                return false;
+            }
+            S.setField($li, true);
+            $t.disableField('发送中...');
+            $.post('/send-mobile', {
+                mobile: mobile
+            }, function (json) {
+                if (json.status) {
+                    $('#btnBindMobile').undisableFieldset();
+                    timer = S.later(function () {
+                        seconds--;
+                        if (seconds > 0) {
+                            $t.html('重新发送(' + seconds + ')');
+                        } else {
+                            $t.undisableFieldset();
+                            $t.html('发送验证码');
+                            seconds = 60;
+                            timer.cancel();
+                        }
+                    }, 1000, true);
+                } else {
+                    $t.undisableFieldset();
+                    S.setField($li, false, json.message);
+                }
+            });
+        });
+        $('#btnBindMobile').bind('click', function () {
+            var $t = $(this),
+                mobile = $('.dy-mobile').val(),
+                code = $('.dy-vcode').val(),
+                $li = $('.dy-vcode').parent();
+            $t.blur();
+            if (!code || code.length !== 6) {
+                S.setField($li, false, '验证码错误！');
+                return false;
+            }
+            S.resetField($li);
+            $t.disableField('正在提交...');
+            $.post('/save-mobile', {
+                mobile: mobile,
+                code: code
+            }, function (json) {
+                if (json.status) {
+                    if ($("#hasPwd").val()) {
+                        S.alert('绑定成功！', function () {
+                            location.reload(true);
+                        });
+                    } else {
+                        dialog.getCurrent().close();
+                        S.confirm("绑定成功，您还没有设置登录密码，马上去设置密码吗？", function () {
+                            $("#editPwd").click();
+                        }, function () { location.reload(true); });
+                    }
+                } else {
+                    $t.undisableFieldset();
+                    S.setField($li, false, json.message);
+                }
+            });
+        });
+        $('.dy-mobile,.dy-vcode').bind('change', function () {
+            S.resetField($(this).parent());
+        });
+    })(jQuery, SINGER);
+</script>

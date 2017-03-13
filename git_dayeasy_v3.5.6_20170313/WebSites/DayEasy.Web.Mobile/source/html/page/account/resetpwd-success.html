@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    @@include('./link-style.html')
+    <title>密码设置成功 - 我的得一 - 触屏版</title>
+    <style>
+        html,body{ height: 100%; width: 100%;}
+        body{ position: relative;}
+        .d-login-main{ width: 320px; height:216px; position: absolute; top: 50%; left: 50%;margin-top: -108px; margin-left: -160px;}
+    </style>
+    <link rel="stylesheet" href="/css/account/login.min.css"/>
+</head>
+<body>
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <!--<a class="hp-text" href="javascript:void(0);">-->
+                <!--<div class="hp-left hp-back">-->
+                    <!--<i class="iconfont dy-icon-left"></i>-->
+                <!--</div>-->
+            <!--</a>-->
+            <h1 class="hp-h1">密码设置成功</h1>
+        </div>
+    </div>
+</header>
+
+
+<section class="d-login-main">
+    <div class="notes-login resetpwd-success-icon">
+    <!-- 修改密码提示成功 -->
+     <p class="d-p-icon"><i class="fa fa-smile-o"></i><br>请妥善保存您的密码 <br/><span id="totalSecond">6</span>秒后自动返回 登录页 <a class="hide"   title="进入圈子" id="href" href="/page/account/login.html">登录页</a></p>
+
+        <!-- 确认按钮 -->
+        <div class="form-group ">
+            <div class="form-item">
+                <a href="/page/account/login.html"><button class="d-btn">立即登陆</button></a>
+            </div>
+        </div>
+    </div>
+
+</section>
+@@include('./footer.html')
+<script>
+    //设定倒数秒数
+    var t = 6;
+    timer = setInterval(function (){
+        t--;
+        if(t == 0){
+            location.href = document.getElementById("href").href;
+            clearInterval(timer);
+        } else {
+            document.getElementById('totalSecond').innerHTML = t+'&nbsp;';
+        }
+
+    }, 1000)
+</script>
+</body>
+</html>

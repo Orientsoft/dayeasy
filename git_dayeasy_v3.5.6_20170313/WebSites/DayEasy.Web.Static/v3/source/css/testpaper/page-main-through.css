@@ -1,0 +1,47 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+
+      Author:Plato
+      Create Date:2015/11/11  Last Mondify Date:2015/11/11
+      ===================================================
+
+--------------------------------------------------------------*/
+.page-main-through {
+  background: #f5f5f5;
+}
+.page-main-through .section-title {
+  position: relative;
+}
+.page-main-through .section-title .download-box {
+  position: absolute;
+  right: 30px;
+  top: -15px;
+}
+.page-main-through .section-title .free-bubble {
+  left: 8px;
+}
+.page-h2-through h3 {
+  /*width: 60px;*/
+  padding-right: 30px;
+}
+.page-h2-through h3:hover {
+  color: #4fc1e9;
+  cursor: pointer;
+}
+.q-item {
+  border: 0;
+  margin-bottom: 0;
+  padding: 0;
+  position: relative;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  -o-box-shadow: none;
+  -ms-box-shadow: none;
+  box-shadow: none;
+  cursor: default;
+}
+.q-item .q-main {
+  padding: 0;
+  cursor: default;
+  min-height: inherit;
+}

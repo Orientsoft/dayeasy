@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>得一温馨提示：您的浏览器需要更新才能访问哦 ( ^_^ )</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <style>
+        .dy-header{ margin-bottom: 450px;}
+        .error-box{position: absolute; top: 50%; left:50%;width: 666px; height:450px; margin-left: -333px;margin-top: -292.5px;}
+        .error-box-one{text-align:center;font-size:24px;margin-top:50px;color:#333;}
+        .error-box-two{text-align:center;margin-top:20px;color:#999;font-size:14px;}
+        .error-box-two a{color: #999;}
+        .error-box-two a:hover{color:#4fc1e9;}
+
+        #browser { background: rgb(255, 255, 255); padding: 60px 40px; border-radius: 3px; left: 50%; top: 50%; width: 650px; height: 320px; margin-top: -190px; margin-left: -325px; position: absolute; z-index: 7000; }
+        #browser .b-title { text-align: center; color: rgb(53, 181, 88); font-size: 20px; }
+        #browser .b-title strong { text-align: center; color: rgb(53, 181, 88); font-size: 24px; }
+        #browser p { margin: 30px 0px 70px; color: rgb(102, 102, 102); line-height: 22px; font-size: 12px; }
+        #browser .downloading { text-align: center; }
+        #browser .downloading a { margin: 0px 20px; display: inline-block; }
+        #browser .downloading img { border: 0px currentColor; border-image: none; }
+
+    </style>
+</head>
+<body>
+
+<div class="dy-wrap f-pr">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="w1200 f-cb ">
+            <div class="error-box">
+                <div id='browser'>
+                    <div class='b-title'>
+                        使用一款<strong>优质浏览器，是提高效率</strong>的关键一步！
+                    </div>
+                    <p>您正在使用的浏览器内核版本过低，除了有可能遭受病毒与恶意软件的侵袭之外，也无法体验到最新互联网技;
+                        术带来的优质显示与交互效果。得一网站大量使用了HTML5与CSS3技术，为确保您能够体验到最佳的;
+                        浏览效果，我们推荐您选择使用下列最新的优质浏览器：</p>
+                    <div class='downloading'>
+                        <a href='http://www.firefox.com.cn/download/' target='_blank'>
+                            <img src='/v3/image/ie/firefox_logo.png' />
+                        </a>
+                        <a href='http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandalone_46.0.2490.80_Setup.1445829883.exe' target='_blank'>
+                            <img src='/v3/image/ie/chrome_logo.png' />
+                        </a>
+                        <a href='http://windows.microsoft.com/zh-cn/internet-explorer/ie-11-worldwide-languages/' target='_blank'>
+                            <img src='/v3/image/ie/ie_logo.png' />
+                        </a>
+                        <a href='https://developer.apple.com/safari/resources/' target='_blank'>
+                            <img src='/v3/image/ie/safari_logo.png' />
+                        </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+@@include('./footer.html')
+
+</body>
+</html>

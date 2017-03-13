@@ -1,0 +1,90 @@
+﻿@using DayEasy.Contracts.Dtos.Question
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+
+@{
+    List<QuestionTypeDto> qTypes = null;
+    if (ViewData["qTypes"] != null)
+    {
+        qTypes = ViewData["qTypes"] as List<QuestionTypeDto>;
+    }
+
+    var stage = ViewData["stage"];
+}
+<div class="row fs14">
+    <div class="col-sm-12 z-index">
+        @if (qTypes != null)
+        {
+            for (int i = 0; i < qTypes.Count; i++)
+            {
+                //当前选中状态  .z-sel
+                var qType = qTypes[i];
+                if (i > 5)
+                {
+                    if (i == 6)
+                    {
+                        @Html.Raw("<div class=\"f-more\">")
+                        <span id="f-getmore" class="pointer">
+                            <span>更多</span><i class="sprite-3 g-icon_13"></i>
+                        </span>
+                        @Html.Raw("<div class=\"bubble-area hide f-more-p\"><ul>")
+                    }
+
+                    <li>
+                        <a href="javascript:void(0);" data-qtype="@qType.Id">@qType.Name</a>
+                    </li>
+
+                    if (i == qTypes.Count - 1)
+                    {
+                        @Html.Raw("</ul></div></div>")
+                    }
+                }
+                else
+                {
+                    <span class="f-qtype" data-qtype="@qType.Id">@qType.Name</span>
+                }
+            }
+        }
+        <input type="hidden" value="" id="selectedQtype" />
+        <input type="hidden" value="@stage" id="stage" />
+    </div>
+
+    <div class="col-sm-12 mt20">
+        <script id="qContent" type="text/plain">
+        </script>
+    </div>
+    <div class="col-sm-7 mt10 hide" id="optionDiv">
+        <div class="col-sm-2 pl0 pt10">可选项数：</div>
+        <div class="col-sm-2 pl0">
+            <select class="form-control" id="optionNum">
+                <option value="0">0</option>
+                @for (var i = 2; i < 11; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-7 mt10 hide" id="smallQuDiv">
+        <div class="col-sm-2 pl0 pt10">小问数：</div>
+        <div class="col-sm-2 pl0">
+            <input type="text" value="" class="form-control" onkeyup="checkNum(this)" placeholder="小问数" id="smallQuNum" />
+        </div>
+    </div>
+    <div class="col-sm-12 mt10">
+        <div class="col-sm-1 pl0 pt10">知识点：</div>
+        <div class="col-sm-11 pl10">
+            <input type="text" id="kPoints" class="form-control ml10" placeholder="输入知识点" />
+        </div>
+    </div>
+    <input type="hidden" value="@Url.Action("GetKps", "Paper", new { stage = stage })" id="getKpUrl" />
+    <input type="hidden" value="@Url.Action("SaveQuestion","Paper")" id="saveQuUrl" />
+    <input type="hidden" value="@Consts.Config.FileSite" id="fileSite" />
+    <input type="hidden" value="@(ViewData["optionTypes"].ToJson())" id="hasOptionQType" />
+    <input type="hidden" value="@(ViewData["smallTypes"].ToJson())" id="hasSmallQType" />
+</div>
+
+<script src="/Content/ueditor/ueditor-config.min.js" type="text/javascript"></script>
+<script src="/Content/ueditor/ueditor-all.min.js" type="text/javascript"></script>
+<script src="/Content/ueditor/d-formula.min.js" type="text/javascript"></script>
+@Html.CombineLink("v3/js/paper/paper-createQu.js")

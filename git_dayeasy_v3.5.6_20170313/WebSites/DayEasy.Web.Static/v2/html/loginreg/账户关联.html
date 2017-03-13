@@ -1,0 +1,145 @@
+﻿<!doctype html>
+<html lang=zh-cn>
+<head>
+    <meta charset="UTF-8">
+    <title>账户关联</title>
+    <link rel="stylesheet" href="../../source/css/font-awesome.css"/>
+    <!--<link rel="stylesheet" href="../../source/css/bootstrap.css"/>-->
+    <link href="http://static.dayeasy.dev/source/css/bootstrap.css" rel="stylesheet" media="all"/>
+    <link rel="stylesheet" href="../../source/css/site-base.css"/>
+    <link rel="stylesheet" href="../../source/css/manage/login-reg.css"/>
+</head>
+<body>
+<div class=" base-style w1000 after">
+    <!--左侧信息菜单栏-->
+    <div class="login-side f-fl">
+        <div class="side-layer">
+            <h2><i class="login-reg-icon login-reg-3"></i>个人设置</h2>
+            <ul>
+                <li class="z-crt"><a href="">基本信息</a></li>
+                <li><a href="">密码修改</a></li>
+            </ul>
+            <h2><i class="login-reg-icon login-reg-4"></i>班级管理</h2>
+            <ul>
+                <li><a href="">班级列表</a></li>
+            </ul>
+            <h2><i class="login-reg-icon login-reg-2"></i>机构管理</h2>
+            <ul>
+                <li><a href="">基本信息</a></li>
+                <li><a href="">教师职工</a></li>
+                <li><a href="">认证审核</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="login-main f-fr login-setup"> <!-- login-setup 个人设置基本信息 -->
+        <div class="conter-warp">
+            <div class="g-conter">
+                <div class="public ">
+                    <h2>账户关联</h2>
+                    <!--==============================/教师/=================================-->
+                    <div class="after associated-account">
+                        <div class="p1">关联第三方账号可以直接登录我的得一</div>
+                        <div class="f-fl">
+                            <div class="account-qq">
+                                <i class="icon-related icon-deyi"></i>
+                                <span class="f-posr icon-related icon-about">
+                                    <button class="btn btn-info">解除关联</button>
+                                </span>
+                                <i class="icon-related icon-qqhv"></i>   <!--icon-qq 灰色图标  icon-qqhv 关联后图标-->
+                            </div>
+                        </div>
+                        <div class="f-fr">
+                            <div class="account-sina">
+                                <i class="icon-related icon-deyi"></i>
+                                <span class="f-posr icon-related icon-about">
+                                    <button class="btn btn-info">关联账号</button>
+                                </span>
+                                <i class="icon-related icon-xina"></i>  <!--icon-xina 灰色图标  icon-xinahv 关联后图标-->
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--==============================/教师 end/=================================-->
+
+
+                    <!--==============================/学生/=================================-->
+                    <div class="after associated-account">
+                        <div class="p1">关联第三方账号可以直接登录我的得一</div>
+                        <div class="f-fl">
+                            <div class="account-qq">
+                                <i class="icon-related icon-deyi"></i>
+                                <span class="f-posr icon-related icon-about">
+                                    <em class="to-associate">已关联</em>
+                                </span>
+                                <i class="icon-related icon-qqhv"></i>   <!--icon-qq 灰色图标  icon-qqhv 关联后图标-->
+                            </div>
+                        </div>
+                        <div class="f-fr">
+                            <div class="account-sina">
+                                <i class="icon-related icon-deyi"></i>
+                                <span class="f-posr icon-related icon-about">
+                                    <button class="btn btn-info">关联账号</button>
+                                </span>
+                                <i class="icon-related icon-xina"></i>  <!--icon-xina 灰色图标  icon-xinahv 关联后图标-->
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--==============================/*学生 end/=================================-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--添加班级-->
+<div class="pop-add-class pop-frame">
+    <h2>添加班级</h2>
+    <ul class="ul-list-pop">
+        <li>
+            <label>毕业年份：</label>
+            <select name="" >
+                <option value="">2008</option>
+            </select>
+        </li>
+        <li>
+            <label>班级序号：</label>
+            <select name="" id="">
+                <option value="">2008</option>
+            </select>
+        </li>
+    </ul>
+    <div class="bottom-btn">
+        <button class="btn btn-default">取消</button>
+        <button class="btn btn-info">确认</button>
+    </div>
+</div>
+
+<!--添加部门-->
+<div class="pop-add-class pop-frame">
+    <h2>添加部门</h2>
+    <ul class="ul-list-pop">
+        <li>
+            <label>所属分类：</label>
+            <select name="" >
+                <option value="">所属分类</option>
+            </select>
+        </li>
+        <li>
+            <label>部门名称：</label>
+            <input type="text" placeholder="请输入部门名称" value=""/>
+        </li>
+    </ul>
+    <div class="bottom-btn">
+        <button class="btn btn-default">取消</button>
+        <button class="btn btn-info">确认</button>
+    </div>
+</div>
+
+
+
+</body>
+</html>

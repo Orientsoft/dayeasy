@@ -1,0 +1,142 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2017/01/16  Last Mondify Date:2017/01/16
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+@import "../../less/base";
+@import   (reference)   "../../less/animate";
+.dy-wrap{ background:#f5f5f5; }
+.dy-header,
+.dy-header-tool{ margin-bottom:30px; }
+/** MAIN STYLE **/
+.page-marking-center{
+  margin-bottom:30px;
+  .main-marking{ width:870px; float:left; background:#fff;
+    .dy-loading{ padding: 170px 0;clear: both;}
+    .draft-center-list{
+      .dy-loading{ padding: 30px 0;clear: both;}
+      }
+    }
+  .sidebar-marking{ width:310px; float:right; background:#fff;
+    .h2-title{ font-size:18px; padding-left:15px; margin:20px 0; border-left:5px solid #ed5565; }
+    .box-text-list{
+      .dy-loading{  margin: 15px 0;}
+      padding:20px;
+      li{ margin-bottom:20px;
+        a{
+          .inline-block;
+          white-space:nowrap;
+          text-overflow:ellipsis;
+          -o-text-overflow:ellipsis;
+          overflow:hidden;
+          max-width:100%;
+          &:hover{
+            color:@color-hover-blue;
+            }
+          }
+        }
+      }
+    }
+  }
+/*协同阅卷中部列表*/
+.draft-center-list{
+  padding:0px 25px;
+  .draft-list{
+    &:hover{
+      .dy-icon-iconfonthoutui{
+        }
+      }
+    }
+  b{ .inline-block; }
+  .draft-list{ border-bottom:1px solid #eee; padding:30px 0 20px;
+    &:last-child{ border-bottom:none; }
+    }
+  .font-text{
+    p{ margin-bottom:20px;
+      a{
+        &:hover{
+          .title-name,&.class-name em{
+            color:@color-hover-blue;
+            }
+          color:@color-hover-blue;
+          }
+        }
+      }
+    .title-name{
+      .inline-block;
+      font-size:16px;
+      margin:0px 10px;
+      max-width:320px;
+      position:relative;
+      top:5px;
+      left:0;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+      -o-text-overflow:ellipsis;
+      overflow:hidden;
+      }
+    .class-name{
+      color:#666;
+      em{
+        color:#666;
+        .inline-block;
+        max-width:130px;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+        -o-text-overflow:ellipsis;
+        overflow:hidden;
+        position:relative;
+        top:4px;
+        left:0;
+        }
+      }
+    .sign-base{
+      .rounded-corners(4px);
+      height:20px;
+      line-height:20px;
+      padding:0 6px;
+      color:#fff;
+      font-size:12px;
+      .inline-block;
+      &.sign-1{ background:#3bafda; }
+      &.sign-2{ background:#ed5565; }
+      }
+    }
+  .font1{ color:#999; .inline-block; margin-left:20px; }
+  .font2{ color:#bbb; }
+  .btn-list{
+    position:relative;
+    padding-top:14px;
+    .dy-btn{ margin-right:15px; }
+    .dy-icon-iconfonthoutui{
+      color:#d9534f;
+      }
+    }
+  }
+
+
+/*没有数据*/
+.dy-nothing-marking{
+  clear: both;
+  text-align:center;
+  padding:85px 0;
+  .iconfont{ color:#ccc; font-size:145px; }
+  p{ font-weight:bold; font-size:30px; color:#ccc; margin-top:50px; margin-bottom:30px; }
+  span{ .inline-block;
+    font-size:18px;
+    a{ color:#3bafda; 
+      &:hover{ color:@color-hover-blue;}
+      }
+    }
+  }
+.not-data{ color:#999;
+  .iconfont{
+    vertical-align: text-top;
+    margin-right: 5px;
+    }
+  }

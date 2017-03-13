@@ -1,0 +1,205 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using ServiceStack.Common
+@model DayEasy.Contracts.Dtos.Examination.StudentSummaryDto
+@{
+    ViewBag.Title = "我的成绩汇总";
+    var user = (UserDto)ViewData["User"];
+    var missAll = Model.TotalScore < 0;
+}
+
+<div class="dy-main">
+    <div class="page-result w1200 f-cb">
+        <!--成绩汇总-->
+        <div class="result-monthly">
+            <input type="hidden" id="txtExamId" value="@Model.ExaminationId" />
+            <h2 class="dy-h2">@Model.ExaminationTitle</h2>
+            <div class="box monthly-cot">
+                <div class="box-lg-2 result-user">
+                    <img src="@Html.MakeThumb(user.Avatar, "160x160")" width="150" height="150" alt="头像">
+                    <strong>@user.Name</strong>
+                </div>
+                <div class="box-lg-9   result-list box-titile">
+                    <div class="result-title">
+                        <i class="angle-left"></i>
+                        <i class="angle-right"></i>
+                        <dl class="f-cb">
+                            <dt>我的总分：</dt>
+                            <dd>@(missAll ? "缺考" : Model.TotalScore.ToString("0.0"))</dd>
+                            <dt>年级总平均分：</dt>
+                            @*<dd>@Model.AvgGradeScore.ToString("0.0")</dd>*@
+                            <dd>-</dd>
+                            <dt>年级总排名：</dt>
+                            @*<dd>@(missAll ? "-" : Model.GradeRank.ToString())</dd>*@
+                            <dd>-</dd>
+                            <dt>班级总平均分：</dt>
+                            <dd>@Model.AvgClassScore.ToString("0.0")</dd>
+                            <dt>班内总排名：</dt>
+                            <dd class="last">@(missAll ? "-" : Model.ClassRank.ToString())</dd>
+                        </dl>
+                    </div>
+                    <table class="dy-table">
+                        <colgroup>
+                            <col style="width: 5em" />
+                            <col />
+                            <col style="width: 5em" />
+                            <col style="width: 4em" />
+                            <col style="width: 4em" />
+                            <col style="width: 11em" />
+                            <col style="width: 10em" />
+                            <col style="width: 10em" />
+                            <col style="width: 8em" />
+                        </colgroup>
+                        <tr>
+                            <th>科目</th>
+                            <th>试卷名称</th>
+                            <th>总分</th>
+                            <th>A卷</th>
+                            <th>B卷</th>
+                            <th>年级平均总分</th>
+                            <th>年级A卷平均</th>
+                            <th>年级B卷平均</th>
+                            <th>年级排名</th>
+                        </tr>
+                        @if (Model.Ranks != null && Model.Ranks.Any())
+                        {
+                            foreach (var rk in Model.Ranks)
+                            {
+                                var isAb = rk.PaperType == (byte)PaperType.AB;
+                                var miss = rk.TotalScore < 0;
+                                <tr>
+                                    <td>@rk.SubjectName</td>
+                                    @if (rk.Batch.IsNullOrEmpty())
+                                    {
+                                        <td class="miss">@rk.PaperTitle</td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <a class="a01 f-toe"
+                                               href="/work/answer-paper/@rk.Batch"
+                                               title="@rk.PaperTitle"
+                                               target="_blank">
+                                                @rk.PaperTitle
+                                            </a>
+                                        </td>
+                                    }
+                                    <td class="@(miss ? "miss" : "")">@(miss ? "缺考" : rk.TotalScore.ToString("0.0"))</td>
+                                    <td>@(isAb ? (miss ? "-" : rk.AScore.ToString("0.0")) : "-")</td>
+                                    <td>@(isAb ? (miss ? "-" : rk.BScore.ToString("0.0")) : "-")</td>
+                                    @*<td>@rk.AvgGradeTotalScore.ToString("0.0")</td>
+                                        <td>@(isAb ? rk.AvgGradeAScore.ToString("0.0") : "-")</td>
+                                        <td>@(isAb ? rk.AvgGradeBScore.ToString("0.0") : "-")</td>
+                                        <td>@(miss ? "-" : rk.GradeRank.ToString())</td>*@
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--班内单科分数段-->
+        <div class="result-fraction">
+            <h2 class="dy-h2">班内单科分数段</h2>
+            <div class="fraction-list f-cb">
+                <div class="dy-loading"><i class=""></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="section-template">
+    {{each sections as s}}
+    <dl data-idx="{{$index}}">
+        <dt>
+            <ul class="title-list f-cb">
+                <li class="subject"><strong>{{s.subjectName}}</strong></li>
+                <li class="ranking">单科排名：<span>{{s.rank == -1 ? '缺考' : s.rank}}</span></li>
+                {{if s.paperType == 2}}
+                <li class="test-ab">
+                    <select class="ddl-type">
+                        <option value="0">总分</option>
+                        <option value="1">A卷总分</option>
+                        <option value="2">B卷总分</option>
+                    </select>
+                </li>
+                {{/if}}
+            </ul>
+        </dt>
+        <dd class="table-group">
+            {{include 'table-template' s}}
+        </dd>
+    </dl>
+    {{/each}}
+</script>
+
+<script type="text/html" id="table-template">
+    <div class="table-tbody-th">
+        <span class="th th-one">分数段</span>
+        <span class="th th-two">实际参考人</span>
+    </div>
+    <div class="ove-y">
+        <table class="dy-table">
+            {{#section | showGroup:t}}
+        </table>
+    </div>
+    <div class="table-tbody-bottom-list">
+        <ol class="f-cb">
+            <li>平均分：<span>{{(t == 1 || t == 2) ? (t == 1 ? section.abAvg.aAv : section.abAvg.bAv) : section.avg}}</span></li>
+            <li>最高分：<span>{{(t == 1 || t == 2) ? (t == 1 ? section.abAvg.ah : section.abAvg.bh) : section.max}}</span></li>
+            <li>最低分：<span>{{(t == 1 || t == 2) ? (t == 1 ? section.abAvg.al : section.abAvg.bl) : section.min}}</span></li>
+        </ol>
+    </div>
+</script>
+
+@section css{
+    @Html.CombineLink("v3/css/ea/page-summary.css")
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js")
+    <script type="text/javascript">
+        $(function ($) {
+            var sections = [],
+                id = $("#txtExamId").val(),
+                box = $(".fraction-list");
+            if (!id || !id.length) return;
+
+            $.post("/ea/score-sections", { id: id }, function (json) {
+                if (!json.status) {
+                    box.html('<div class="dy-nothing">' + json.message + '</div>');
+                    return;
+                }
+                sections = json.data;
+                var html = template('section-template', { sections: json.data });
+                box.html(html);
+            });
+
+            box.delegate(".ddl-type", "change", function () {
+                var $p = $(this).parents("dl");
+                var t = $(this).val(), idx = $p.data("idx");
+                if (!sections || sections.length < idx) return;
+                var html = template('table-template', { section: sections[idx].section, t: t });
+                $p.find(".table-group").html(html);
+            });
+        });
+
+        template.helper("showGroup", function (section, t) {
+            t = t || 0;
+            var html = '', list = section.scoreGroupes;
+            if (t != 0) {
+                if (section.abScoreGroupes.length != 2) return html;
+                list = t == 1 ? section.abScoreGroupes[0] : section.abScoreGroupes[1];
+            }
+            for (var i = list.length - 1; i >= 0; i--) {
+                html += '<tr><td width="157">' + list[i].scoreInfo + '</td><td width="187">' + list[i].count + '</td></tr>';
+            }
+            return html;
+        });
+    </script>
+}
+

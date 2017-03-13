@@ -1,0 +1,210 @@
+<!doctype html>
+	<html lang="zh-cn">
+	<head>
+		<meta charset="UTF-8">
+		<title>DayEasy</title>
+		<link href="http://static.dayeasy.dev/source/css/font-awesome.css" rel="stylesheet" media="all" />
+		<link href="http://static.dayeasy.dev/source/css/bootstrap.css" rel="stylesheet" media="all" />
+		<link href="http://static.dayeasy.dev/source/css/site-base.css" rel="stylesheet" media="all" />
+		<link rel="stylesheet" href="http://static.dayeasy.dev/source/mention/style/css/v1/portal/automatic/page.css">
+		<!-- <link rel="stylesheet" href="http://static.dayeasy.dev/v1/css/portal/automatic/page.min.css"> -->
+		<!-- **slider style** -->
+		<link rel="stylesheet" href="http://static.dayeasy.dev/v1/css/plug/sliderwidget/jquery.nouislider.min.css">
+		<link rel="stylesheet" href="http://static.dayeasy.dev/v1/css/plug/sliderwidget/jquery.nouislider.pips.min.css">
+	</head>
+	<body>
+		<div class="automatics volume">
+			<div class="g-bd">
+				<div class="g-doc">
+					<div class="m-tt">
+						<ul class="u-tab after">
+							<li>
+								<a href="" class="crt">基本信息</a>
+							</li>
+							<li>
+								<a href="">选择题目</a>
+							</li>
+						</ul>
+						</div>
+						<div class="m-bd">
+						<h3 class="m-hd">
+							考查知识点
+							<a class="fc-blue" href="">高级配置</a>
+						</h3>
+						<div class="m-lst-1 after">
+							<div class="u-knowledge">
+								<ul class="b-lst u-knowpoint">
+									<li>
+										<span class="f-knleg"><em>微粒构成物质</em><i class="f-close">x</i></span>
+									</li>
+
+									<li>
+										<span class="f-knleg f-last"><i class="f-close">+</i><em>添加知识点</em></span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="m-lst-1">
+							<div class="u-list f-posr">
+								<div class="f-posa after u-tips" style="width: 300px;">
+									<span class="f-fl">较少</span>
+									<span class="f-fr">较多</span>
+								</div>
+								<ul class="u-knowpoint" id="f-pips-count">
+									<li>
+										<!-- <span class="bdc f-fl">微粒构成物质</span> -->
+										<span class="f-knleg"><em>微粒构成物质</em><i class="f-close">x</i></span>
+										<div class="f-fr pips-coun" data-value="" ></div>
+									</li>
+									<li>
+										<span class="f-knleg"><em>微粒构成物质</em><i class="f-close">x</i></span>
+										<div class="f-fr pips-coun" data-value=""></div>
+									</li>
+									<li>
+										<span class="f-knleg f-last"><i class="f-close">+</i><em>添加知识点</em></span>
+									</li>
+								</ul>
+							</div>
+							<p class="m-p">试卷考查的知识点，最多添加15个知识点，可标记一个重点考查知识点。</p>
+						</div>
+						<h3 class="m-hd">A卷包含题型及题目数<em class="f-fs"> (题数：<span>53</span>)</em></h3>
+						<div class="m-lst-2">
+							<ul class="u-lst2 after">
+								<li><span>单项选择题</span> <input type="text"></li>
+								<li><span>不定项选择题</span> <input type="text"></li>
+								<li><span>填空题</span> <input type="text"></li>
+								<li><span class="sel">证明题</span> <input type="text"></li>
+								<li><span class="sel">作图题</span> <input type="text"></li>
+								<li><span>推断分析题</span> <input type="text"></li>
+								<li><span>实验探究题</span> <input type="text"></li>
+								<li><span>解答题</span> <input type="text"></li>
+								<li><span>连线题</span> <input type="text"></li>
+								<li><span>计算题</span> <input type="text"></li>
+								<li><span>综合题</span> <input type="text"></li>
+							</ul>
+						</div>
+						<h3 class="m-hd">B卷包含题型及题目数<em class="f-fs"> (题数：<span>53</span>)</em></h3>
+						<div class="m-lst-3">
+							<ul class="u-lst2 after">
+								<li>
+									<span>单项选择题</span>
+									<input type="text"><em>道</em></li> 
+								<li>
+									<span>不定项选择题</span>
+									<input type="text"><em>道</em></li>
+								<li>
+									<span>填空题</span>
+									<input type="text">							
+									<em>道</em>
+								</li>
+								<li class="sel">
+									<span>证明题</span>
+									<input type="text">							
+									<em>道</em>
+								</li>
+
+								<li class="sel">
+									<span>作图题</span>
+									<input type="text">							
+									<em>道</em>
+								</li>
+								<li>
+									<span>推断分析题</span>
+									<input type="text">							
+									<em>道</em>
+								</li>
+								<li>
+									<span>实验探究题</span>
+									<input type="text">							
+									<em>道</em>
+								</li>
+								<li>
+									<span>解答题</span>
+									<input type="text">							
+									<em>道</em>
+								</li>
+								<li>
+									<span>连线题</span>
+									<input type="text">							
+									<em>道</em>
+								</li>
+								<li>
+									<span>计算题</span>
+									<input type="text">							
+									<em>道</em>
+								</li>
+								<li>
+									<span>综合题</span>
+									<input type="text">							
+									<em>道</em>
+								</li>
+							</ul>
+						</div>
+						<h3 class="m-hd">试卷难度</h3>
+						<div class="m-lst-5">
+							<ul class="u-lst after">
+								<li class="sel">简单</li>
+								<!-- sel 选中 -->						
+								<li>中等</li>
+								<li>困难</li>
+							</ul>
+						</div>
+						<h3 class="m-hd">试卷标签（选填）</h3>
+						<div class="m-lst-4">
+							<div>
+								/**
+								 * 扩展
+								 * 
+								 */
+							</div>
+							<p class="m-p">试卷标签最多3个,每个10字符以内；标签用于标记试卷，方便查询和归类。</p>
+						</div>
+						</div>
+						<div class="m-ft">
+						<a class="btn btn-warning" href="">下一步</a>
+						</div>
+						</div>
+						</div>	
+					</div>
+
+<script src="/source/mention/gallery/jquery/1.8.2/jquerys.js"></script>
+<script src="http://static.dayeasy.dev/v1/js/plug/sliderwidget/nouislider.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+
+ 
+ $(function () {
+
+    $(".pips-coun").noUiSlider({
+        range: {
+            min: 1,
+            max: 10
+        },
+        start: 1,
+        step: 1
+        //,
+        //format: {
+        //    to: function (value) {                                
+        //        console.log(value);
+        //    },
+        //    from: function (value) {
+                
+        //    }
+        //}
+    });
+    $(".pips-coun").on({
+        slide: function () {
+            $(this).attr("data-value",$(this).val());
+        }
+    });
+
+ });
+
+
+
+</script>
+	</body>
+	</html>	

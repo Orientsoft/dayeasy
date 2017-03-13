@@ -1,0 +1,91 @@
+{
+  "status": true,
+  "message": "没有数据",
+  "data": {
+    "paperACount": 50,
+    "paperBCount": 80,
+    "isAb": true,
+    "paperAQuestions": [
+      {
+        "scoreRate": 20,
+        "rightKey": "A",
+        "id": "4dbf418a35a649788d401458e75abd61",
+        "sort": "1"
+      },
+      {
+        "scoreRate": 94,
+        "rightKey": "B",
+        "id": "4cd3d97764a1450fab250ee9d806cd5c",
+        "sort": "2"
+      },
+      {
+        "scoreRate": 90,
+        "rightKey": "C",
+        "id": "5a7751a8625842cd925a248e5ba0dc21",
+        "sort": "3"
+      },
+      {
+        "scoreRate": 200,
+        "rightKey": "D",
+        "id": "a272396d69944e7787cca266f3fc521f",
+        "sort": "4"
+      },
+      {
+        "scoreRate": 82,
+        "rightKey": "A",
+        "id": "7759760927884a69b903d791cb0fb49f",
+        "sort": "5"
+      },
+      {
+        "scoreRate": 78,
+        "rightKey": "B",
+        "id": "a895abfd0aa7483a84cef1b9bc37bdd9",
+        "sort": "6"
+      },
+      {
+        "scoreRate": 78,
+        "rightKey": "C",
+        "id": "92b0a4344c854a17a75763ebc4bf3f4b",
+        "sort": "7"
+      },
+      {
+        "scoreRate": 80,
+        "rightKey": "D",
+        "id": "a7085d24b32d4d53878436883551e3ea",
+        "sort": "8"
+      },
+      {
+        "scoreRate": 82,
+        "rightKey": "A",
+        "id": "e6f70ec1ba5e4771be2965e49471537d",
+        "sort": "9"
+      },
+      {
+        "scoreRate": 72,
+        "rightKey": "B",
+        "id": "0f1160992cb94a49a778b11f4e11999e",
+        "sort": "10"
+      }
+    ],
+    "paperBQuestions": [
+      {
+        "scoreRate": 80,
+        "rightKey": "D",
+        "id": "a7085d24b32d4d53878436883551e3ea",
+        "sort": "8"
+      },
+      {
+        "scoreRate": 82,
+        "rightKey": "A",
+        "id": "e6f70ec1ba5e4771be2965e49471537d",
+        "sort": "9"
+      },
+      {
+        "scoreRate": 72,
+        "rightKey": "B",
+        "id": "0f1160992cb94a49a778b11f4e11999e",
+        "sort": "10"
+      }
+    ]
+  }
+}

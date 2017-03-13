@@ -1,0 +1,243 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2015/11/19 Last Mondify Date:2015/11/19
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+
+@import "../../less/base";
+
+/**UI STYLE**/
+
+/** MAIN STYLE **/
+
+.page-mylist-setting{
+  .user-img {
+    img{display: block;margin: 0 auto;.rounded-corners(50%);}
+  }
+  .mylist-right{
+
+    }
+  }
+
+
+
+
+//动态列表 题目类型
+.dynamic-list {
+  position: relative;
+  bottom: -1px;
+  .box-list {
+    position: relative;
+    //width: 870-60px;
+    min-height: 170px;
+    margin: 0 auto;
+    //border-bottom: 1px solid #eee;
+    padding: 30px 30px 0 120px;
+    .head-img {
+      position: absolute;
+      top: 30px;
+      left: 0;
+      cursor: default;
+      img {
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        top: 0;
+        left: 30px;
+        .rounded-corners(50%);
+        }
+      }
+    }
+  .tab-box-1, .tab-box-2, .tab-box-3 {
+    margin-bottom: 20px;
+    .inline-block;
+    }
+  .tab-box-1 {
+    font-size: 18px;
+    height: 21px;
+    overflow: hidden;
+    strong {
+      padding: 0 10px;
+      .inline-block;
+      color: white;
+      margin-right: 10px;
+      font-size: 14px;
+      .rounded-corners(2px);
+      height: 20px;
+      line-height: 20px;
+      position: relative;
+      top: -1px;
+      }
+    a:hover {
+      color: @color-hover-blue;
+      }
+    }
+  .tab-box-2 {
+    //text-align: right;
+    span {
+      cursor: pointer;
+      color: #bbb;
+      margin-right: 25px;
+      &:hover {
+        color: #3bafda;
+        }
+      a {
+        color: #bbb;
+        .dy-icon-fenxiang2 {
+          font-size: 22px;
+          }
+        &:hover {
+          color: #3bafda;
+          }
+        }
+      .iconfont {
+        margin-right: 5px;
+        font-size: 18px;
+        }
+      }
+    span.z-crt {
+      color: #ed5565;
+      }
+    }
+  .tab-box-3 {
+    color: #bbb;
+    a {
+      width: 70px;
+      display: block;
+      overflow: hidden;
+      float: left;
+      height: 15px;
+      padding-right: 5px;
+      cursor: text;
+      }
+    }
+  .tab-box-4 {
+    line-height: 1.4em;
+    padding-bottom: 15px;
+    color: #999;
+    }
+  .d-like-list {
+    color: #bbb;
+    font-size: 85%;
+    line-height: 24px;
+    margin-bottom: 12px;
+    i {
+      margin-right: 5px;
+      }
+    span {
+      padding-right: 3px;
+      }
+    }
+
+  .color-bg-green {
+    background: #48cfad;
+    }
+  //作业
+  .color-bg-grassgreen {
+    background: #a0d468;
+    }
+  //辅导
+  .color-bg-yellow {
+    background: #ffce54;
+    }
+  //通知
+  .color-bg-orange {
+    background: #fc6e51;
+    }
+  //放假通知
+  }
+
+.comment-tac-right{padding: 10px 30px 0 120px;
+  .comment-title{ border-bottom: 1px solid #eee; margin-bottom: 30px;
+    span{ border-bottom: 2px solid #ed5565; position: relative; top: 1px; left: 0;height: 24px; line-height: 24px;padding: 0px 8px;.inline-block;}
+    }
+  }
+
+//评论
+.comment-bxo {
+  padding: 10px 30px;
+  & > li {
+    }
+  .parents-conter {
+    overflow: hidden;
+    .ul-list-one {
+      position: relative;
+      bottom: -1px;
+      & > li {
+        border-bottom: 1px solid #eee;
+        }
+      }
+
+    }
+  .boder-focus-color {
+    border-color: #4fc1e9;
+    .transform(all 0.5s ease 0s);
+    }
+  .comment-input {
+    textarea {
+      margin-bottom: 10px;
+      display: block;
+      line-height: 1.6em;
+      width: 100%;
+      }
+    & > img {
+      position: absolute;
+      left: 0;
+      top: 25px;
+      .rounded-corners(50%);
+      }
+    .show-height {
+      height: 23px;
+      }
+    }
+  .comment-text {
+    .comment-list {
+      color: #999;
+      & > li {
+        position: relative;
+        padding-left: 60px;
+        margin-top: 20px;
+        //border-bottom: 1px solid #e6e9ed;
+        & > img {
+          position: absolute;
+          left: 0;
+          top: 0;
+          .rounded-corners(50%);
+          }
+        }
+      .name-color {
+        color: #333;
+        }
+      .comment-time {
+        margin-left: 12px;
+        font-size: 85%;
+        color: #9d9d9d;
+        }
+      }
+    }
+  .comment-children {
+    .comment-text {
+      .comment-list {
+        li {
+          margin-top: 10px;
+          }
+        }
+      }
+    }
+
+  .add-to-comment {
+    span{
+      .inline-block;
+      margin-right: 20px;
+      cursor: pointer;
+      &:hover {
+        color: #333;
+        }
+      }
+    }
+  }

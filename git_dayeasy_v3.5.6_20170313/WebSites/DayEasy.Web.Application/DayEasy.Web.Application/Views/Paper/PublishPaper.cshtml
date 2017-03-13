@@ -1,0 +1,45 @@
+﻿@using DayEasy.Contracts.Enum
+@model List<DayEasy.Contracts.Dtos.Group.GroupDto>
+
+<div class="pop-draft-box pop-push-circle" style="padding: 0;">
+    <input type="hidden" value="@ViewData["paperId"]" id="paperId"/>
+    <input type="hidden" value="@ViewData["groupId"]" id="groupId"/>
+    <input type="hidden" value="1" id="pageIndex"/>
+    <h3 class="h3-tit">
+        1. 选择试卷
+        <span class="f-fr hide posa-span" id="pageButton" data-totalcount="">
+            <a class="iconfont dy-icon-pre"></a>
+            <a class="iconfont dy-icon-next"></a>
+        </span>
+    </h3>
+    <div class="label-list" id="paperList">
+
+    </div>
+    <h3 class="h3-tit">2. 选择圈子</h3>
+    <div class="choice-circle f-cb" style="margin-bottom: 0;">
+        @if (Model != null)
+        {
+            foreach (var vuGroup in Model.Where(u => u.Type != (byte) GroupType.Share))
+            {
+                int col = (vuGroup.Name.Length > 15 ? 12 : 6);
+                <label class="checkbox-group group-checkbox box-lg-@col">
+                    <input type="checkbox" name="options" value="@vuGroup.Id" class="groupItem">
+                    <span>@vuGroup.Name</span>
+                    <i class="iconfont dy-icon-checkbox"></i>
+                </label>
+            }
+        }
+        else
+        {
+            <label class="checkbox-group group-checkbox">
+                还没有圈子，不能推送额！
+            </label>
+        }
+        <textarea placeholder="输入附加信息" id="otherMsg" maxlength="140" class="mb5 wf100" cols="30" rows="4"></textarea>
+        <p class="f-tar dy-result f-db mb10">你还可以输入<em>140</em>个字
+        </p>
+        <label id="errorMsg" style="color: #d9534f; font-size: 12px;"></label>
+        <button class="dy-btn dy-btn-info f-fr" id="btn_sure">推送</button>
+    </div>
+</div>
+@Html.CombineLink("v3/js/paper/paper-publish.js")

@@ -1,0 +1,100 @@
+﻿@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Extend
+@model List<DayEasy.Application.Services.Dto.VReportDto>
+
+@{
+    ViewBag.Title = "班级统计";
+}
+<!--主体-->
+<div class="main-report">
+    <div class="htmleaf-containers" data-dytab="100">
+        <div class="htmleaf-content bgcolor-3">
+            <ul class="dy-tab-nav">
+                <li class="z-crt"><a href="javascript:void(0);">班级统计</a></li>
+                <li><a href="@Url.Action("GradeReports")">教务处报表</a></li>
+                <li class="slider">
+                    <span></span>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-con">
+            <div class="dy-tab-con">
+                <!--班级统计-->
+                <div class="tab-con-item tab-item-1">
+                    @if (Model == null || !Model.Any())
+                    {
+                        <!--没有数据状态-->
+                        <div class="dy-nothing-marking">
+                            <i class="iconfont dy-icon-no"></i>
+                            <p>暂时没有班级统计报表</p>
+                        </div>
+                    }
+                    else
+                    {
+                        var list = Model.GroupBy(t => t.Date);
+                        foreach (var item in list)
+                        {
+                            var dateList = item.GroupBy(t => new { t.PaperId, t.PaperType, t.PaperTitle, t.IsJoint, t.JointBatch, t.PublishType });
+                            <dl class="dl-conten">
+                                <dt>@item.Key.ToString("yyyy-MM-dd")</dt>
+                                @foreach (var dateItem in dateList)
+                                {
+                                    <dd>
+                                        <div class="box">
+                                            <div class="box-lg-5">
+                                                @*@if (dateItem.Key.PaperType == PaperType.Normal)
+                                                    {
+                                                        <label class="label label-default label-sm">PT</label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="label label-success label-sm">AB</label>
+                                                    }*@
+                                                <p class="p-text f-ib f-toe">
+                                                    <a href="@Url.Action("Detail", "Paper", new {id = dateItem.Key.PaperId})" target="_blank" title="@dateItem.Key.PaperTitle">
+                                                        @dateItem.Key.PaperTitle
+                                                    </a>
+                                                </p>
+                                                @if (dateItem.Key.IsJoint)
+                                                {
+                                                    <span class="label-base label-together f-ib">协同</span>
+                                                }
+                                                else if (dateItem.Key.PublishType == PublishType.Test)
+                                                {
+                                                    <span class="label-base label-push f-ib">推送</span>
+                                                }
+                                            </div>
+                                            <div class="box-lg-7 f-tar btn-list">
+                                                @if (dateItem.Key.IsJoint)
+                                                {
+                                                    <a class="dy-btn dy-btn-default" target="_blank" href="@Url.Action("StatisticsScoreJoint", "TeacherWork", new {joint_batch = dateItem.Key.JointBatch, paper_id = dateItem.Key.PaperId})">
+                                                        年级统计
+                                                    </a>
+                                                }
+                                                @foreach (var group in dateItem.ToList())
+                                                {
+                                                    <a class="dy-btn dy-btn-default" target="_blank" href="@Url.Action("StatisticsSurvey", "TeacherWork", new {batch = group.Batch, paper_id = group.PaperId})">
+                                                        @group.Group.Name
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </dd>
+                                }
+                            </dl>
+                        }
+
+                        <div class="text-right">
+                            @Html.ShowPager("pageIndex".Query(1), 24, (int)ViewData["totalCount"])
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--教务处报表列表 End-->
+</div>
+
+@section style{
+    @Html.CombineLink("v3/css/site-base.css", "v3/plugs/jquery-tab/jquery.tab.3.0.css", "v3/css/report/page-report-center.css")
+}

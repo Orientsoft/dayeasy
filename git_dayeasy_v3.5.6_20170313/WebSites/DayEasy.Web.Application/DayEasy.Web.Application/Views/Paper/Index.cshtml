@@ -1,0 +1,221 @@
+﻿@{
+    ViewBag.Title = "试卷库列表";
+    Layout = "~/Views/Shared/_PaperLayout_new.cshtml";
+
+    bool hasAllot = false;
+    int allotCount = 0;
+    if (ViewData["allotCount"] != null)
+    {
+        allotCount = Convert.ToInt32(ViewData["allotCount"]);
+    }
+    if (ViewData["hasAllot"] != null)
+    {
+        hasAllot = Convert.ToBoolean(ViewData["hasAllot"]);
+    }
+
+    string status = Request["s"];
+}
+
+@if (allotCount > 0)
+{
+    <div class="dy-imp">
+        <div class="content">
+            <b>得一科技</b> 为您录入了 <em>@allotCount</em>&nbsp; 套试卷~
+            <a id="allotReceive" href="javascript:void(0);" class="a1">接收</a>
+            <a id="allotRefuse" href="javascript:void(0);" class="a2">拒绝</a>
+        </div>
+    </div>
+}
+
+
+    <div class="page-draft-box w1200 f-cb">
+        <div class="htmleaf-container">
+            <div class="htmleaf-content bgcolor-3">
+                <input type="hidden" value="@status" id="paperStatus" />
+                <ul>
+                    <li class="@(status == "0" ? "z-crt" : "")" data-status="0"><a href="javascript:void(0);">试卷库</a><em>丨</em></li>
+                    <li class="@(status == "1" ? "z-crt" : "")" data-status="1"><a href="javascript:void(0);">草稿箱</a></li>
+
+                    @if (hasAllot)
+                    {
+                        <li>
+                            <a class="btn btn-sm btn-info a04" href="/allot/index?app=paper">
+                                <i class="fa fa-sign-out"></i>
+                                分派
+                            </a>
+                        </li>
+                    }
+
+                    <li class="slider">
+                        <span></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content f-tab-js">
+            <div class="m-draft-box" style="display: block;">
+                <div class="box">
+                    <div class="box-lg-6 f-tal">
+                        <div class="input-part f-fl">
+                            <input type="text" value="@Request["key"]" id="searchKey" placeholder="名称/知识点/标签/编号">
+                            <button class="iconfont dy-icon-26" type="button" id="btn_Search"></button>
+                        </div>
+                        @Html.DropDownList("grade", ViewData["gradeList"] as List<SelectListItem>, new { @class = "f-fl ml20" })
+                    </div>
+                    <div class="box-lg-6 f-tar font-color-siz">
+                        共 <span id="totalCountSpan"></span> 套
+                    </div>
+                </div>
+                <div class="box draft-list" id="paperDataList">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@section Style{
+    @Html.CombineLink("v3/css/testteacher/page-draft-box.css")
+}
+
+@section Script{
+    <script type="text/javascript">
+        $(function () {
+            //异步请求样式
+            $('body').append('<div id="ajaxModel" style="z-index: 10000;position: absolute;height: 100%;width: 100%;left: 0;top: 0;" class="hide"><div class="text-center"><span id="dyloading" style="position:fixed; z-index: 1000;top: 50%;left:50%;"><i class="fa fa-spin fa-spinner fa-3x" ></i><br /><br />正在加载，请稍后...</span></div></div>');
+
+            $.ajaxSetup({
+                //发送请求前触发
+                beforeSend: function (xhr) {
+                    $("#ajaxModel").removeClass('hide');
+                },
+                complete: function (xhr, status) {
+                    $("#ajaxModel").addClass('hide');
+                }
+            });
+
+            getPaperData(); //初始化数据
+
+            //搜索
+            $("#btn_Search").bind("click", getPaperData);
+            $("#grade").bind("change", getPaperData);
+            document.onkeydown = function (e) {
+                var ev = document.all ? window.event : e;
+                if (ev.keyCode == 13) {
+                    getPaperData(); //处理事件
+                }
+            }
+
+            //删除试卷
+            $("#paperDataList").delegate(".paper-del", "click", function () {
+                var pid = $(this).data("pid");
+
+                var $this = $(this);
+                $.Dayez.confirm("删除后将不能再使用该试卷，您确定要删除该试卷？", function () {
+                    $.post("@Url.Action("PaperDelete", "Paper")", { pid: pid }, function (res) {
+                        if (res.Status) {
+                            $this.parents('div.box-lg-12').remove();
+                        } else {
+                            singer.msg(res.Message);
+                        }
+                    });
+                }, function () { });
+            });
+
+            //下载
+            $("#paperDataList").delegate(".p-dowload", "click", function () {
+                var paperId = $(this).data("pid");
+                singer.confirm("确认下载该套试卷吗？", function () {
+                    singer.open("/work/dowload?batch=&paperId=" + paperId + "&type=6&eq=0");
+                });
+            });
+
+            //发布
+            $("#paperDataList").delegate(".paper-pub", "click", function () {
+                var pId = $(this).data('pid');
+                $.post('@Url.Action("PublishPaper", "Paper")', { paperId: pId }, function (res) {
+                    //$.Dayez.dialog("推送到我的圈子", res);
+                    singer.dialog({
+                        title: '推送到我的圈子',
+                        content:res
+                    }).showModal();
+                });
+            });
+
+            $(".htmleaf-content ul li").click(function (e) {
+                if ($(this).hasClass('slider')) {
+                    return;
+                }
+                $(this).addClass('z-crt').siblings().removeClass('z-crt');
+                var whatTab = $(this).index();
+                var howFar = 100 * whatTab;
+                $(".slider").css({
+                    left: howFar + "px"
+                });
+
+                $(".ripple").remove();
+
+                var posX = $(this).offset().left,
+                        posY = $(this).offset().top,
+                        buttonWidth = $(this).width(),
+                        buttonHeight = $(this).height();
+                $(this).prepend("<span class='ripple'></span>");
+
+                if (buttonWidth >= buttonHeight) {
+                    buttonHeight = buttonWidth;
+                } else {
+                    buttonWidth = buttonHeight;
+                }
+                var x = e.pageX - posX - buttonWidth / 2;
+                var y = e.pageY - posY - buttonHeight / 2;
+                $(".ripple").css({
+                    width: buttonWidth,
+                    height: buttonHeight,
+                    top: y + 'px',
+                    left: x + 'px'
+                }).addClass("rippleEffect");
+
+                $("#paperStatus").val($(this).data("status"));
+                getPaperData();
+            });
+
+            //接收分派试卷
+            $("#allotReceive").click(function () {
+                $.post("/allot/receive", {}, function (json) {
+                    if (json.status) {
+                        singer.msg("操作成功", 2000, function () {
+                            window.location.href = "/paper";
+                        });
+                    } else {
+                        singer.msg(json.message);
+                    }
+                });
+            });
+
+            //拒收
+            $("#allotRefuse").click(function () {
+                $.post("/allot/refuse", {}, function (json) {
+                    if (json.status) {
+                        singer.msg("操作成功");
+                        $(".dy-imp").remove();
+                    } else {
+                        singer.msg(json.message);
+                    }
+                });
+            });
+
+        });
+
+        var getPaperData = function () {
+            var s = $("#paperStatus").val();
+            var grade = $("#grade").children("option:selected").val();
+            var key = $("#searchKey").val();
+
+            if (!$.trim(key) && $.trim(grade) == "-1") {
+                $(".input-group").animate({ width: "140px" });
+            }
+
+            $("#paperDataList").load('@Url.Action("PaperList", "Paper")', { s: s, g: grade, key: key });
+        }
+    </script>
+}

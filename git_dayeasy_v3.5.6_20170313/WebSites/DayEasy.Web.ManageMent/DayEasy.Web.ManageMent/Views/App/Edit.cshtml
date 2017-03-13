@@ -1,0 +1,52 @@
+﻿@using System.Collections.Generic
+@using DayEasy.Web.ManageMent.Common
+@model TS_Application
+
+<div style="width:450px;font-size:14px;">
+    <form id="editForm">
+        <input type="hidden" value="@Model.Id" name="Id" />
+        <div class="row">
+            <div class="col-sm-3 text-right">名称：</div>
+            <div class="col-sm-6 pl0"><input type="text" class="form-control" value="@Model.AppName" name="Name" /></div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3 text-right">链接地址：</div>
+            <div class="col-sm-6 pl0">
+                <input type="text" class="form-control" value="@Model.AppURL" name="Link"/>
+            </div>
+            <div class="col-sm-3 pl0">
+                <label class="checkbox-inline mt10">
+                    <input type="checkbox" value="1" @Html.IsChecked(Model.IsSLD.HasValue && Model.IsSLD.Value) name="IsSLD"/>二级域名
+                </label>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3 text-right">图标：</div>
+            <div class="col-sm-6 pl0">
+                <input type="text" value="@Model.AppIcon" class="form-control" name="Icon" />
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3 text-right">排序：</div>
+            <div class="col-sm-6 pl0">
+                <input type="text" value="@Model.Sort" class="form-control" id="sort" name="sort" />
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3 text-right">应用类型：</div>
+            <div class="col-sm-6 pl0">@Html.DropDownList("Type", ViewData["appTypes"] as List<SelectListItem>, new { @class = "form-control" })</div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3 text-right">状态：</div>
+            <div class="col-sm-6 pl0">@Html.DropDownList("status", ViewData["appStatus"] as List<SelectListItem>, new { @class = "form-control" })</div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3 text-right">应用角色：</div>
+            <div class="col-sm-9 pl0">
+                <input type="hidden" name="role" value="@Model.AppRoles"/>
+                @Html.CheckBoxButtonList("roleGroup", ViewData["roles"] as List<SelectListItem>, new {@class = "checkbox-inline"})
+            </div>
+        </div>
+    </form>
+</div>
+

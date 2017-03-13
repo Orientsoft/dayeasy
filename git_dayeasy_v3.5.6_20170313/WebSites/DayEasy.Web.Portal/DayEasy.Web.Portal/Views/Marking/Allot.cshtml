@@ -1,0 +1,181 @@
+﻿@model JAllotDto
+@using DayEasy.Contracts.Dtos.Marking.Joint
+@{
+    ViewBag.Title = "协同任务分配";
+    ViewBag.HideMenu = true;
+}
+
+@section nav{
+    <div class="d-top-nav">《@Model.PaperTitle》协同任务分配</div>
+}
+<div class="d-box" data-joint="@(ViewBag.JointBatch)">
+    <h2 class="d-title">任务分配</h2>
+    @if (Model.Missions == null)
+    {
+        <div class="d-task-area">
+            <div class="d-task-left">
+                <h3 class="d-task-header">待分配题目</h3>
+                @foreach (var section in Model.Sections)
+                {
+                    <div class="d-task-section">
+                        @if (Model.IsAb)
+                        {
+                            <h4>@(section.Section)</h4>
+                        }
+                        @foreach (var question in section.Types)
+                        {
+                            <div class="d-task-type">
+                                <i class="iconfont dy-icon-checkbox"></i>
+                                <span>@question.Value.Name</span>
+                            </div>
+                            <div class="d-task-questions">
+                                <ul class="d-questions">
+                                    @foreach (var item in question.Value.Questions)
+                                    {
+                                        <li data-qid="@item.Key">@item.Value</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="d-task-right">
+                <div class="d-task-choose">
+                    <h3 class="d-task-header">选中的题目</h3>
+                    <div class="d-choose-questions">
+                        <div class="dy-nothing">暂无选中题目</div>
+                    </div>
+                </div>
+                <div class="d-task-teachers">
+                    <h3 class="d-task-header">可选的教师</h3>
+                    <div class="d-teachers-area">
+                        <ul class="d-teachers">
+                            @foreach (var teacher in Model.Teachers)
+                            {
+                                <li data-uid="@teacher.Key" title="@teacher.Value.Name">
+                                    <img src="@(Html.MakeThumb(@teacher.Value.Avatar, "30x30"))" alt="@teacher.Value.Name" />
+                                    <span>@teacher.Value.Name</span>
+                                    <i class="iconfont dy-icon-gou"></i>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="d-task-actions">
+                        <button id="addMission" class="dy-btn dy-btn-info disabled" disabled="disabled">添加任务</button>
+                    </div>
+                </div>
+            </div>
+            <div class="d-task-border"></div>
+        </div>
+    }
+    <div class="d-task-list">
+        @if (Model.Missions != null)
+        {
+            var i = 1;
+            foreach (var mission in Model.Missions)
+            {
+                var isAll = Model.Teachers.All(t => mission.Teachers.Contains(t.Key));
+                <div class="d-task-item">
+                    <h3 class="d-task-header">任务@((i++).ToString().PadLeft(2, '0'))</h3>
+                    <div class="d-questions-wrap">
+                        @if (Model.IsAb)
+                        {
+                            <div class="d-section">@(mission.SectionType == 1 ? "A卷" : "B卷")</div>
+                        }
+                        <ul class="d-questions">
+                            @foreach (var question in mission.Questions)
+                            {
+                                <li>@question.Value</li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="d-teachers-wrap">
+                        <ul class="d-teachers">
+                            @foreach (var teacherId in mission.Teachers)
+                            {
+                                if (!Model.Teachers.ContainsKey(teacherId))
+                                {
+                                    continue;
+                                }
+                                var teacher = Model.Teachers[teacherId];
+                                <li title="@teacher.Name">
+                                    <img alt="@teacher.Name" src="@(Html.MakeThumb(@teacher.Avatar, "30x30"))" />
+                                    <span>@teacher.Name</span>
+                                </li>
+                            }
+                            @if (!isAll)
+                            {
+                                <li class="d-add-box" title="添加教师" data-gid="@mission.Id">
+                                    <em class="iconfont dy-icon-add"></em>
+                                </li>
+                            }
+                        </ul>
+                        <div class="d-add-teachers hide">
+                            @if (!isAll)
+                            {
+                                <ul class="d-teachers">
+                                    @foreach (var teacher in Model.Teachers)
+                                    {
+                                        if (mission.Teachers.Contains(teacher.Key))
+                                        {
+                                            continue;
+                                        }
+                                        <li data-uid="@teacher.Key">
+                                            <img alt="@teacher.Value.Name" src="@(Html.MakeThumb(@teacher.Value.Avatar, "30x30"))" />
+                                            <span>@teacher.Value.Name</span>
+                                            <i class="iconfont dy-icon-gou"></i>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                    <div class="d-task-border"></div>
+                </div>
+            }
+        }
+    </div>
+    @if (Model.Missions == null)
+    {
+        <div class="d-task-actions">
+            <button id="cancelBtn" class="dy-btn dy-btn-default">重置</button>
+            <button id="submitBtn" class="dy-btn dy-btn-info disabled" disabled="disabled">确认分配</button>
+        </div>
+    }
+    else
+    {
+        <div class="d-task-actions">
+            <button id="completeBtn" class="dy-btn dy-btn-info">完成分配</button>
+        </div>
+    }
+</div>
+@if (Model.Missions == null)
+{
+    <script type="text/html" id="missionTemplate">
+        <div class="d-task-item">
+            <h3 class="d-task-header">{{title}}</h3>
+            <div class="d-questions-wrap">
+                {{if section}}
+                <div class="d-section">{{section}}</div>
+                {{/if}}
+                <ul class="d-questions"></ul>
+            </div>
+            <div class="d-teachers-wrap">
+                <ul class="d-teachers"></ul>
+            </div>
+            <div class="d-task-border"></div>
+            <div class="d-task-remove">
+                <i class="iconfont dy-icon-delete"></i>
+                删除任务
+            </div>
+        </div>
+    </script>
+}
+
+@section css{
+    @Html.CombineLink("v3/css/marking/page-allot.css")
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js,v3/js/marking/page-allot.js")
+}

@@ -1,0 +1,148 @@
+@import "../../less/base";
+@import "../circle/ui-base";
+
+@color-01: #48cfad;
+@color-02: #a0d468;
+@color-03: #fc6e51;
+@color-04: #ffce54;
+@color-05: #3bafda;
+@color-06: #ed5565;
+
+/**
+  列表item
+**/
+.topic-item {
+  border-bottom: solid 1px @border-color;
+  padding: 15px 0 0 0;
+  margin-left: 30px;
+  /*
+    帖子标题
+  */
+  .dt-title {
+    line-height: 35px;
+    padding: 0 0 12px;
+    .dt-states, h3 {
+      .inline-block;
+      vertical-align: middle;
+      float: left;
+    }
+    .dt-states {
+      //width: 88px;
+    }
+    h3 {
+      font-size: 18px;
+      .linkColor(#333, @color-05);
+      a {
+        max-width: 607px;
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+
+    .dt-state {
+      background-color: #666;
+      border-radius: 2px;
+      color: @color-default;
+      float: left;
+      line-height: 22px;
+      margin-right: 12px;
+      padding: 0 10px;
+      position: relative;
+      top: 4px;
+    }
+    .dt-state1 {
+      background-color: @color-02;
+    }
+    .dt-state2 {
+      background-color: @color-03;
+    }
+    .dt-state3 {
+      background-color: @color-01;
+    }
+  }
+  .dt-info {
+    color: #bbb;
+    margin-bottom: 15px;
+    .dt-creator,
+    .dt-statistic {
+      .inline-block;
+      img {
+        .inline-block;
+        .rounded-corners(50%);
+        height: 35px;
+        vertical-align: middle;
+        width: 35px;
+      }
+      span {
+        margin-left: 12px;
+        i {
+          margin-right: 5px;
+        }
+      }
+      .dt-black {
+        color: #333;
+      }
+      .dt-gray {
+        color: #999;
+      }
+    }
+    .dt-statistic {
+      span {
+        margin-left: 15px;
+      }
+    }
+  }
+  .dt-summary,
+  .dt-image {
+    .inline-block;
+    vertical-align: top;
+  }
+  /*
+    帖子摘要
+  */
+  .dt-summary {
+    color: #666;
+    margin-bottom: 20px;
+    &.has-image {
+      width: 630px;
+    }
+    .dt-summary-wrap {
+      line-height: 22px;
+      max-height: 44px;
+      overflow: hidden;
+      margin-bottom: 8px;
+      padding-right: 15px;
+    }
+    .dt-tags {
+      margin-top: 12px;
+      span {
+        .rounded-corners(2px);
+        border: solid 1px #bbb;
+        padding: 2px 8px;
+        font-size: 12px;
+        margin-right: 6px;
+      }
+    }
+  }
+  /*
+    帖子图片
+  */
+  .dt-image {
+    width: 180px;
+    max-height: 120px;
+    overflow: hidden;
+    margin-top: -50px;
+    margin-bottom: 19px;
+    vertical-align: bottom;
+    img {
+      border: 1px solid @border-color;
+      display: block;
+      float: right;
+      max-width: 180px;
+
+    }
+  }
+}

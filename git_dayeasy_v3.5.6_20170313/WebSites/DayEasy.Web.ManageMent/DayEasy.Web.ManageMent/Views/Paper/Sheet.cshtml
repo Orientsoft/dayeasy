@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "答题卡制作";
+}
+<div class="container">
+    <h2 class="page-header">
+        答题卡制作
+        <small>格式：2(1),4 或者1-5,4多个规则请换行</small>
+    </h2>
+    <div class="row">
+        <div class="col-md-6">
+            <textarea class="form-control" id="sheetWord" cols="60" rows="6"></textarea>
+        </div>
+        <div class="dy-actions col-md-6">
+            <button class="btn btn-default" id="btn-make">制作</button>
+            <a class="btn btn-primary disabled" disabled id="btn-down">下载</a>
+        </div>
+    </div>
+    <div class="row" style="width: 100%; float: left;margin: 15px 0">
+        <img id="preview" class="hide" width="722" />
+    </div>
+</div>
+@section script{
+    <script>
+        (function ($, S) {
+            $('#btn-make').bind('click', function () {
+                var word = $('#sheetWord').val();
+                var src = '/paper/makeSheet?word=' + encodeURIComponent(word) + '&t=' + Math.random();
+                var downloadUrl = '/paper/downloadSheet?word=' + encodeURIComponent(word);
+                $('#btn-down').attr({
+                    href: downloadUrl,
+                    target: '_blank'
+                }).removeClass('disabled').removeAttr('disabled');
+                $('#preview').attr('src', src);
+                return false;
+            });
+            $('#preview').bind('load', function () {
+                $(this).removeClass('hide');
+            });
+        })(jQuery, SINGER);
+    </script>
+}

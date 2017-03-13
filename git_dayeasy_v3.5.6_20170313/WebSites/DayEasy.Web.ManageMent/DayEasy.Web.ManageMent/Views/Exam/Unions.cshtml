@@ -1,0 +1,91 @@
+﻿@using DayEasy.Utility.Extend
+@model List<DayEasy.Contracts.Dtos.Examination.UnionExamDto>
+
+@{
+    ViewBag.Title = "关联报表";
+}
+<div class="row mt20">
+    <form method="GET" id="searchForm">
+        <div class="col-md-offset-8 col-md-4" style="text-align: right">
+            <a href="@Url.Action("CreateUnion")" class="btn btn-primary">
+                <i class="fa fa-plus"></i>
+                创建关联
+            </a>
+        </div>
+    </form>
+</div>
+<div class="row mt20">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>时间</th>
+                <th>考试名称</th>
+                <th>所属机构</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.IsNullOrEmpty())
+            {
+                <tr>
+                    <td colspan="4" style="padding: 0">
+                        <div class="dy-nothing">
+                            还没有大型考试，<a href="@Url.Action("CreateUnion")">现在关联</a> ?
+                        </div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    var exam = item.Exams.First();
+                    <tr data-batch="@item.Batch">
+                        <td rowspan="@item.Exams.Count" style="text-align: center; vertical-align: middle">
+                            <abbr title="@item.Time.ToString("yyyy年MM月dd日 HH时mm分")">@item.Time.ToString("yyyy-MM-dd")</abbr>
+                            <br />
+                            <label class="label label-success">已关联</label>
+                        </td>
+                        <td>@exam.Name</td>
+                        <td>@exam.AgencyName</td>
+                        <td rowspan="@item.Exams.Count" style="text-align: center; vertical-align: middle">
+                            <a href="#" class="text-danger b-cancel">取消关联</a>
+                        </td>
+                    </tr>
+                    for (var i = 1; i < item.Exams.Count; i++)
+                    {
+                        exam = item.Exams[i];
+                        <tr>
+                            <td>@exam.Name</td>
+                            <td>@exam.AgencyName</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 8, (int)ViewBag.TotalCount, 4)
+    </div>
+</div>
+@section script{
+    <script>
+        (function ($, S) {
+            $('.b-cancel').bind('click', function () {
+                var $t = $(this),
+                    batch = $t.parents('tr').data('batch');
+                S.confirm('<b class="text-danger">取消后，教务管理将不能查看关联报表</b><br/>确认要取消？', function () {
+                    $.post('/exam/cancel-union', {
+                        unionBatch: batch
+                    }, function (json) {
+                        if (json.status) {
+                            S.msg('取消成功', 2000, function () { location.reload(true); });
+                        } else {
+                            S.alert(json.message);
+                        }
+                    });
+                });
+            });
+        })(jQuery, SINGER);
+    </script>
+}

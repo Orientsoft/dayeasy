@@ -1,0 +1,228 @@
+﻿@using DayEasy.Contracts.Dtos.Paper
+@using DayEasy.Contracts.Dtos.Question
+@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Helper
+@{
+    ViewBag.Title = "在线出卷 - 自动出卷";
+
+    var paperBase = new PaperBaseDto();
+    List<QuestionDto> questions = null;
+    List<QuItemDto> questionsA = null;
+    List<QuItemDto> questionsB = null;
+    List<QuestionTypeDto> questionType = null;
+    bool hasAll = false;
+    string autoDataStr = string.Empty;
+
+    if (ViewData["chooseQuestionData"] != null)
+    {
+        var chooseQuestionData = ViewData["chooseQuestionData"] as ChooseQuestionDataDto;
+        if (chooseQuestionData != null)
+        {
+            if (chooseQuestionData.PaperBaseDto != null)
+            {
+                paperBase = chooseQuestionData.PaperBaseDto;
+            }
+
+            hasAll = chooseQuestionData.HasAll;
+            questions = chooseQuestionData.Questions;
+            questionType = chooseQuestionData.QuestionTypes;
+            autoDataStr = chooseQuestionData.AutoData;
+
+            if (chooseQuestionData.CurrentChooseQus != null)
+            {
+                questionsA = chooseQuestionData.CurrentChooseQus.Where(u => u.PaperType == "A").ToList();
+                questionsB = chooseQuestionData.CurrentChooseQus.Where(u => u.PaperType == "B").ToList();
+            }
+        }
+    }
+
+    var isAb = false;
+    var perScoresDic = JsonHelper.JsonList<SectionPerScoreDto>(paperBase.PerScores);
+    if (paperBase.Type.Equals("AB", StringComparison.CurrentCultureIgnoreCase))
+    {
+        isAb = true;
+    }
+
+    var isFirstLoad = false;
+    if (ViewData["isFirstLoad"] != null)
+    {
+        isFirstLoad = Convert.ToBoolean(ViewData["isFirstLoad"]);
+    }
+}
+
+<div class="handmade automatics volume paper-main j-autoHeight" data-left="132" data-min="400" data-type="2">
+    <div class="g-bd">
+        <input type="hidden" value="@(isAb?"ab":"a")" id="type" />
+        <input type="hidden" value="@paperBase.Stage" id="stage" />
+        <input type="hidden" value="@paperBase.SubjectId" id="subjectId" />
+        <input type="hidden" value="@autoDataStr" id="autoData" />
+
+        <div class="g-doc">
+            <div class="m-tt" id="paperNav">
+                <ul class="u-tab after">
+                    <li><a href="javascript:void(0);" class="@(isFirstLoad ? "crt" : "")">基本信息</a></li>
+                    <li><a href="javascript:void(0);" class="@(isFirstLoad ? "" : "crt")" style="cursor:default;">选择题目</a></li>
+                </ul>
+            </div>
+            <div id="paperInfoDiv" class="@(isFirstLoad ? "" : "hide")">
+                <div class="m-bd">
+                    <h3 class="m-hd">
+                        考查知识点
+                        <a class="fc-blue" id="highSet" href="javascript:void(0);">高级配置</a>
+                    </h3>
+                    <div class="m-lst-1 u-knowpoint" id="points">
+                        <span class="f-knleg f-last kpPoint">
+                            <i class="f-close">+</i><em>添加知识点</em>
+                        </span>
+                    </div>
+                    <div class="m-lst-1" id="normalKps">
+                        <div>
+                            <div class="u-knowledge">
+                                <ul class="b-lst u-knowpoint" id="selKps"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-lst-1 u-knowpoint hide" id="setKps">
+                        <div class="u-list f-posr">
+                            <div class="f-posa after u-tips" style="width: 300px;" id="leader">
+                                <span class="f-fl">较少</span>
+                                <span class="f-fr">较多</span>
+                            </div>
+                        </div>
+                        <ul class="u-knowpoint" id="f-pips-count"></ul>
+                    </div>
+                    <div class="m-lst-1 u-knowpoint">
+                        <p class="m-p">试卷考查的知识点，最多添加15个知识点。高级配置可对具体知识点所占比重进行控制。</p>
+                    </div>
+                    @if (!isAb)
+                    {
+                        <h3 class="m-hd">
+                            试卷包含题型及题目数
+                            <em class="f-fs"> (题数：<span class="q-totalnum">0</span>)</em>
+                        </h3>
+                        <div class="m-lst-2" id="qTypes" data-pt="A">
+                            @ShowQuestionTypes(questionType)
+                        </div>
+                    }
+                    else
+                    {
+                        <h3 class="m-hd">
+                            A卷包含题型及题目数
+                            <em class="f-fs"> (题数：<span class="q-totalnum">0</span>)</em>
+                        </h3>
+                        <div class="m-lst-2" id="qTypesA" data-pt="A">
+                            @ShowQuestionTypes(questionType)
+                        </div>
+                        <h3 class="m-hd">
+                            B卷包含题型及题目数
+                            <em class="f-fs"> (题数：<span class="q-totalnum">0</span>)</em>
+                        </h3>
+                        <div class="m-lst-3" id="qTypesB" data-pt="B">
+                            @ShowQuestionTypes(questionType)
+                        </div>
+                    }
+                    <h3 class="m-hd">试卷难度</h3>
+                    <div class="m-lst-5">
+                        <ul class="u-lst after" id="paperLevel">
+                            <li data-value="@((byte)PaperDifficulty.Easy)">简单</li>
+                            <li class="sel" data-value="@((byte)PaperDifficulty.Normal)">中等</li>
+                            <li data-value="@((byte)PaperDifficulty.Difficulty)">困难</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-ft teal-fr" style="padding-top:0;">
+                    <a class="btn btn-warning" href="javascript:void(0);" id="buildPaper">生成试卷</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="g-doc @(isFirstLoad ? "hide" : "")" id="chooseQuDiv">
+            <div class="m-tt-1">
+                <p class="m-p1"><input type="text" id="paperTitle" placeholder="请输入试卷标题" value="@paperBase.Title"><em>( 总分 <span id="tScore">0</span> 分 )</em></p>
+                <div class="btn btn-warning f-posa" id="rebuildPaper">重新生成</div>
+            </div>
+            <div id="paperDetailDiv">
+                @if (isAb)
+                {
+                    <div class="m-z-1">
+                        <p class="p1">A卷(共 <span id="tScoreA">0</span> 分)</p>
+                    </div>
+                }
+                <ul class="paper-qSection">
+                    @if (questionsA != null && questions != null)
+                    {
+                        @MakePaperHelper.ShowQuestions(questionsA, questions, questionType, perScoresDic, 1, "A");
+                    }
+                </ul>
+                @Html.Partial("_ChooseQu", "A")
+
+                @if (isAb)
+                {
+                    <div class="m-z-1">
+                        <p class="p1">B卷(共 <span id="tScoreB">0</span> 分)</p>
+                    </div>
+                    <ul class="paper-qSection">
+                        @if (questionsB != null && questions != null)
+                        {
+                            int qIndex = !questionsA.Any() ? 1 : questionsA.Count + 1;
+                            @MakePaperHelper.ShowQuestions(questionsB, questions, questionType, perScoresDic, qIndex, "B");
+                        }
+                    </ul>
+                    @Html.Partial("_ChooseQu", "B")
+                }
+            </div>
+            <div class="m-ft">
+                <a class="btn btn-default" href="javascript:void(0);" id="btn_SaveTemp">存草稿</a>
+                <a class="btn btn-warning" href="javascript:void(0);" id="btn_Save">生成试卷</a>
+            </div>
+        </div>
+        <div id="inputAnswerDiv"></div>
+    </div>
+</div>
+
+@Html.Partial("_SavePaper", ViewData["GradeList"])
+
+@section css{
+    @Html.CombineLink("plugs/ztree/css/ztree.css,plugs/sliderwidget/css/jquery.nouislider.pips.min.css,plugs/sliderwidget/css/jquery.nouislider.min.css,plugs/tokeninput/token-input.css")
+}
+
+@section js
+{
+    @Html.CombineLink("plugs/dragSort/jquery.dragsort-0.5.2.js,plugs/ztree/js/jquery.ztree.min.js,js/base/utils.js,plugs/sliderwidget/js/nouislider.min.js,v3/js/paper/paper.js,v3/js/paper/auto-paper.js,plugs/tokeninput/jquery.tokeninput.js")
+
+    <script type="text/javascript">
+        $(function () {
+            $("#chooseQuDiv").PaperMaker({
+                addQuestionUrl: '@Url.Action("AddQuestion","Paper")',
+                chooseQuestionUrl: '@Url.Action("ChooseQu","Paper")',
+                chooseQuCompleteUrl: '@Url.Action("AutoCreatePaper", "Paper")',
+                inputAnswerUrl: '@Url.Action("InputAnswer", "Paper")'
+            });
+            $("#chooseQuDiv").AutoPaperMaker({
+                autoGetQuestionUrl: '@Url.Action("AutoCreatePaper", "Paper")'
+            });
+
+            var hasAll = '@hasAll' == "False" ? false : true;
+            if (!hasAll) {
+                singer.msg("部分题目未找到！");
+            }
+        });
+    </script>
+}
+
+@helper ShowQuestionTypes(IEnumerable<QuestionTypeDto> qtypeList)
+{
+if (qtypeList != null)
+{
+        <ul class="u-lst2 after">
+            @foreach (var item in qtypeList)
+            {
+                <li data-value="@item.Id">
+                    <span>@item.Name</span>
+                    <input type="text" class="qtype-num" placeholder="0" />
+                    <em>道</em>
+                </li>
+            }
+        </ul>
+}
+}

@@ -1,0 +1,259 @@
+﻿@using DayEasy.Application.Services.Dto
+@using DayEasy.Contracts.Dtos.Marking
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Paper.Services.Helper
+@using DayEasy.Utility.Extend
+@model DayEasy.Contracts.Dtos.Paper.PaperDetailDto
+@{
+    ViewBag.Title = "试卷详情";
+
+    List<MarkedDetailDto> markingDetails = null;
+    if (ViewData["markDetails"] != null)
+    {
+        markingDetails = ViewData["markDetails"] as List<MarkedDetailDto>;
+    }
+
+    List<string> shareQus = null;
+    if (ViewData["sharedQuestions"] != null)
+    {
+        shareQus = ViewData["sharedQuestions"] as List<string>;
+    }
+    var dto = ViewData["workDto"] as VWorkDto;
+}
+
+<div class="">
+    @if (Model == null || dto == null)
+    {
+        <div class="coach-bxo w1200 f-cb dy-nothing">
+            <i class="iconfont dy-icon-emoji02"></i>没有找到相关试卷信息！
+        </div>
+    }
+    else
+    {
+        var sections = Model.PaperSections.GroupBy(u => u.PaperSectionType).OrderBy(u => u.Key).ToList();
+        var sortType = Model.PaperBaseInfo.SortType();
+
+        var hadMarked = ViewData["hadMarked"] != null;
+
+        <div class="coach-bxo w1200 f-cb">
+            @Html.Partial("_DetailHeader", dto)
+            <div class="page-main-Coach">
+                <div class="g-main-control">
+                    <label class="checkbox-group group-checkbox">
+                        <input type="checkbox" id="showBody" checked="checked"><span>显示题干</span>
+                        <i class="iconfont dy-icon-checkbox dy-icon-checkboxhv"></i>
+                    </label>
+                </div>
+                <input type="hidden" value="@dto.Batch" id="batch" />
+                <input type="hidden" value="@dto.PaperId" id="paperId" />
+                <input type="hidden" value="@dto.ClassId" id="groupId" />
+
+                <div class="g-main-list">
+                    @foreach (var sectionItem in sections)
+                    {
+                        var isB = false;
+                        if (dto.IsAb)
+                        {
+                            switch (sectionItem.Key)
+                            {
+                                case (byte)PaperSectionType.PaperA:
+                                    <h2 class="type-title">A卷</h2>
+                                    break;
+                                case (byte)PaperSectionType.PaperB:
+                                    isB = true;
+                                    <h2 class="type-title">B卷</h2>
+                                    break;
+                            }
+                        }
+
+                        var quSections = sectionItem.OrderBy(u => u.Sort).ToList();
+                        foreach (var quSection in quSections)
+                        {
+                            var smallRow = sortType.SmallRow(quSection.PaperSectionType);
+                            <h3 class="section-title">
+                                @Consts.Chinese[quSection.Sort]、@quSection.Description
+                            </h3>
+
+                            if (quSection.Questions.IsNullOrEmpty())
+                            {
+                                continue;
+                            }
+
+                            <div class="dy-questions-list f-cb">
+                                @foreach (var question in quSection.Questions)
+                                {
+                                    var qItem = question.Question;
+
+                                    var hasDetail = false;
+                                    var isCorrect = false;
+                                    var score = 0M;
+
+                                    List<MarkedDetailDto> markDetails = null;
+                                    if (!markingDetails.IsNullOrEmpty())
+                                    {
+                                        markDetails = markingDetails.Where(u => u.QuestionId == qItem.Id).ToList();
+                                        if (!markDetails.IsNullOrEmpty())
+                                        {
+                                            hasDetail = true;
+                                            score = markDetails.Sum(d => d.CurrentScore);
+                                            isCorrect = markDetails.All(u => u.IsCorrect.HasValue && u.IsCorrect.Value);
+                                        }
+                                    }
+                                    <div class="box cont-list">
+                                        <div class="box-lg-12 title-top f-cb page-h2-coach">
+                                            @if (smallRow && qItem.HasSmall)
+                                            {
+                                                if (qItem.SubjectId == 3)
+                                                {
+                                                    <h4>@((char)(64 + question.Sort))</h4>
+                                                }
+                                                else
+                                                {
+                                                    <h4>@(qItem.Details.Min(d => d.Sort) + " - " + qItem.Details.Max(d => d.Sort))</h4>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <h4>@question.Sort</h4>
+                                            }
+                                            <div class="icon-list-box box-icon">
+                                                @if (hadMarked)
+                                                {
+                                                    if (isCorrect)
+                                                    {
+                                                        <span class="icon-true-posa">
+                                                            <i class="iconfont dy-icon-gou"></i>
+                                                        </span>
+                                                    }
+                                                    else if (hasDetail)
+                                                    {
+                                                        if (score > 0)
+                                                        {
+                                                            <span class="icon-true-posa">
+                                                                <i class="iconfont dy-icon-bangou"></i>
+                                                            </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="icon-true-posa">
+                                                                <i class="iconfont dy-icon-cha"></i>
+                                                            </span>
+                                                        }
+                                                    }
+                                                }
+                                            </div>
+                                            <div class="q-statistics">
+                                                <span class="text-gray">满分：<em>@question.Score.ToString("0.#")</em>分</span>
+                                                @if (hadMarked)
+                                                {
+                                                    <span>得分：<em>@score.ToString("0.#")</em>分</span>
+                                                    <span class="error-Statistics bold" id="error_@qItem.Id" title="错误人数">
+                                                        <i class="iconfont dy-icon-usererror"></i><em>0</em>
+                                                    </span>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="box-lg-12 questions-con">
+                                            @PaperHelper.ShowQuestion(qItem, paperSectionType: question.PaperSectionType, sortType: sortType)
+                                        </div>
+                                        <div class="box-lg-12 questions-btn">
+                                            <button class="dy-btn dy-btn-default f-showAnswer" data-qid="@qItem.Id"><i class="iconfont dy-icon-jiexi"></i> 答案解析</button>
+                                            @if (hadMarked && hasDetail && !isCorrect)
+                                            {
+                                                <button class="dy-btn dy-btn-default btn-show-reason" data-qid="@qItem.Id"><i class="iconfont dy-icon-ceshi"></i> 错因分析</button>
+                                            }
+                                        </div>
+                                        <div class="box-lg-12 questions-bottom-cont">
+                                            <div class="box questions-list-cont">
+                                                <div class="d-cont-title">我的答案：</div>
+                                                <div class="d-cont-wrap">
+                                                    @if (markDetails != null && markDetails.Count > 0)
+                                                    {
+                                                        if (qItem.IsObjective)
+                                                        {
+                                                            if (qItem.Details != null && qItem.Details.Count > 0)
+                                                            {
+                                                                var details = qItem.Details.OrderBy(u => u.Sort).ToList();
+                                                                foreach (var answer in details.Select(detail => markDetails.SingleOrDefault(u => u.SmallQId == detail.Id)))
+                                                                {
+                                                                    if (answer == null)
+                                                                    {
+                                                                        <span class="text-gray">未答</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span>@(answer.AnswerContent.IsNullOrEmpty() ? "未答" : answer.AnswerContent)&emsp;</span>
+                                                                    }
+
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>@markDetails.First().AnswerContent&emsp;</span>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+
+                                                            <a class="hover-color-bule selectPicture" batch="@dto.Batch" paperid="@dto.PaperId" paperType="@question.PaperSectionType" questionid="@question.Question.Id" >点击查看</a>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-gray">未交</span>
+                                                    }
+                                                </div>
+
+                                                @if (hadMarked)
+                                                {
+                                                    if (!qItem.IsObjective)
+                                                    {
+                                                        <div class="d-cont-title">同学答案：</div>
+                                                        <div class="d-cont-wrap click-good shareAnswers" id="shareAnswers_@qItem.Id">
+                                                            @if (!qItem.IsObjective && markingDetails != null && markingDetails.Any())
+                                                            {
+                                                                var myAnswer = markingDetails.FirstOrDefault(u => u.QuestionId == qItem.Id);
+                                                                if (myAnswer != null && isCorrect && (shareQus == null || !shareQus.Contains(qItem.Id)))
+                                                                {
+                                                                    <a class="hover-color-bule f-shareAnswer" href="javascript:void(0);" data-qid="@qItem.Id">
+                                                                        <span class="hover-color-bule">公开我的答案</span>
+                                                                    </a>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    }
+                                                    <div class="d-cont-title">参考答案：</div>
+                                                    <div class="d-cont-wrap">
+                                                        @PaperHelper.ShowAnswer(qItem)
+                                                    </div>
+                                                }
+                                            </div>
+
+                                            @if (hadMarked && hasDetail && !isCorrect)
+                                            {
+                                                <div class="box questions-list-cont">
+                                                    <div class="my-reason">
+                                                        正在加载我的标签，请稍后...
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section style{
+    @Html.CombineLink("css/font-awesome.css,css/portal/question/list.css,v3/css/testpaper/page-push-coach.css")
+}
+
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js,js/base/utils.js,v3/js/errorbook/reason.js,v3/js/homework/work-base.js,v3/js/testpaper/page-answer-detail.js")
+}

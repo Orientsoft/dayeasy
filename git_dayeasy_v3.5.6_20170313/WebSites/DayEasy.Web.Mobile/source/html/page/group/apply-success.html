@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    @@include('./link-style.html')
+    <title> 申请加圈-我的得一 - 触屏版</title>
+    <link rel="stylesheet" href="/css/group/group-apply-success.min.css"/>
+</head>
+<body>
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <a class="hp-text d-back" href="javascript:void(0);">
+                <div class="hp-left hp-back">
+                    <i class="iconfont dy-icon-left"></i>
+                </div>
+            </a>
+            <h1 class="hp-h1">申请加入</h1>
+        </div>
+    </div>
+</header>
+<section class="group-apply-success">
+    <div class="apply-success-content">
+        <div class="am-text-center g-content-1">
+            <i class="iconfont dy-icon-success"></i>
+            <p class="p-text">申请已成功发送 </p>
+            <p class=""><span id="totalSecond">6</span>秒后自动返回 <a class="a01" title="进入圈子" id="href" href="/page/group/home.html">我的圈子</a></p>
+        </div>
+        <div class="am-text-center g-content-2">
+        </div>
+    </div>
+</section>
+
+
+<!-- 基础脚本 -->
+@@include('./link-script.html')
+
+<script>
+    // //设定倒数秒数
+    var t = 6;
+    timer = setInterval(function (){
+        t--;
+        if(t == 0){
+            location.href = document.getElementById("href").href;
+            clearInterval(timer);
+        } else {
+            console.log(t);
+            document.getElementById('totalSecond').innerHTML = t;
+        }
+
+    }, 1000)
+
+    !(function ($, S){
+        var uri          = S.uri(),
+            $bindContent = $('.g-content-2'),
+            HtmlContent  = '';
+        HtmlContent += '<img src="' + uri.logo + '" width="80" height="80" alt="' + uri.name + '"/>';
+        HtmlContent += '<p class="group-name">' + uri.name + '</p>';
+        HtmlContent += '<p class="group-count">' + uri.code + '</p>';
+        $bindContent.append(HtmlContent);
+
+    })(jQuery, SINGER);
+
+</script>
+
+</body>
+</html>

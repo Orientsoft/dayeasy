@@ -1,0 +1,353 @@
+@import "../base";
+
+// 试题 样式
+@notActiveColor: #999;
+@active: #f8a959;
+@activeColor: #36aaea;
+@qbColor: #dcdcdc;
+@closeColor: #d9534f;
+
+/*问题展示*/
+.q-item {
+&:after{
+  display: block;
+  clear: both;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  content: ".";
+  }
+  //border: 1px solid @qbColor;
+  //margin-bottom: 12px;
+  padding: 12px 8px 8px;
+  position: relative;
+  .box-shadow(0 1px 2px @qbColor);
+  .q-main {
+    cursor: pointer;
+    min-height: 60px;
+    .q-sort {
+      font-family: arial, serif;
+      font-size: 15px;
+      font-weight: 600;
+      margin-right: 5px;
+    }
+    //padding: 10px;
+    .q-body {
+      color: @word-color;
+      font-size: 14px;
+      line-height: 22px;
+      word-break: break-all;
+      white-space: normal;
+      word-wrap: break-word;
+      img {
+        vertical-align: top;
+      }
+      td {
+        border: 1px solid @border-color;
+        padding: 3px 0 0 6px;
+      }
+      u {
+        border-bottom: 1px solid #444;
+        padding: 0 2px;
+        text-decoration: none;
+      }
+      > b.q-type {
+        background-color: @color-info;
+        color: #fff;
+        font-family: "宋体", serif;
+        font-size: 13px;
+        font-weight: 600;
+        margin-right: 5px;
+        margin-left: -8px;
+        padding: 2px 3px;
+      }
+    }
+    .q-details {
+      margin-top: 5px;
+      .q-detail {
+        margin-top: 8px;
+        .q-options {
+          margin-top: 5px;
+          .q-option {
+            margin-top: 2px;
+          }
+        }
+      }
+    }
+    .q-options {
+      margin: 5px 0 0 10px;
+    }
+    .q-option {
+      margin-top: 12px;
+      min-width: 47%;
+      padding-right: 3%;
+      .inline-block;
+    }
+    .q-option-word {
+      color: #666;
+      font-family: Arial, serif;
+      font-weight: 600;
+      margin-right: 5px;
+      vertical-align: top;
+      .inline-block;
+    }
+    .q-option-body {
+      .inline-block;
+      max-width: 890px;
+    }
+  }
+  .q-answer {
+    line-height: 28px;
+    padding: 15px 0 0;
+    font-size: 12px;
+    color: @word-color-light;
+    .answer-tag {
+      padding: 0;
+      strong {
+        background-color: #e8e8e8;
+        color: @word-color;
+        font-size: 12px;
+        padding: 5px 10px;
+      }
+    }
+    td {
+      border: 1px solid @border-color;
+      padding: 3px 0 0 6px;
+    }
+  }
+  .q-footer {
+    border-top: 1px dashed @qbColor;
+    line-height: 32px;
+    margin-top: 15px;
+    padding: 6px 0 8px;
+    color: @word-color-light;
+    position: relative;
+    & > div {
+      padding: 0;
+    }
+    label {
+      color: @color-primary;
+      padding: 0 10px;
+    }
+    .col-md-2 {
+      padding: 0;
+    }
+    .q-edit-area {
+      padding: 0;
+    }
+    .q-edit {
+      width: 175px;
+      float: left;
+      line-height: 34px;
+      text-align: right;
+      display: none;
+      a {
+        margin-left: 15px;
+        cursor: pointer;
+      }
+    }
+
+    .q-footer-more {
+      bottom: 0;
+      display: none;
+      font-size: 16px;
+      left: 48%;
+      line-height: 16px;
+      position: absolute;
+      color: @activeColor;
+      padding: 0 8px;
+      cursor: pointer;
+    }
+    .q-tags {
+      margin-left: 10px;
+      label {
+        float: left;
+      }
+    }
+    .q-point-item {
+      margin-right: 12px;
+    }
+  }
+  .q-image {
+    margin: 0 35px 8px 50px;
+    position: relative;
+    .inline-block();
+    z-index: 520;
+    cursor: -moz-zoom-in;
+    cursor: zoom-in;
+    img {
+      max-width: 150px;
+      max-height: 150px;
+      *width: 150px !important;
+      *height: 150px !important;
+    }
+    i {
+      position: absolute;
+      bottom: 8px;
+      right: 10px;
+      color: @word-color;
+      display: none;
+    }
+  }
+  .q-main .q-image {
+    float: right;
+  }
+  .q-details {
+    .q-image {
+      float: none;
+      margin-left: 35px;
+      margin-top: 5px;
+      .inline-block;
+    }
+  }
+  .q-options {
+    //    .q-option {
+    //      overflow: hidden;
+    //    }
+    .q-body {
+      float: left;
+    }
+    .q-image {
+      float: none;
+    }
+    img {
+      display: inline-block;
+      max-width: 120px;
+      max-height: 120px;
+      *width: 120px !important;
+      *height: 120px !important;
+    }
+  }
+  .q-options-horizontal {
+    //    overflow: hidden;
+    .q-option {
+      vertical-align: top;
+      margin-right: 20px;
+      min-width: 1%;
+      .inline-block;
+    }
+  }
+  .q-answer {
+    .q-image {
+      float: none;
+      margin-left: 95px;
+      margin-top: 15px;
+      .inline-block;
+    }
+  }
+  .q-mark {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    border-color: @color-primary transparent transparent transparent;
+    border-width: 40px 0 0 40px;
+    border-style: solid dashed dashed solid;
+    span {
+      position: absolute;
+      top: -42px;
+      right: 2px;
+      color: @color-default;
+      width: 2em;
+      font-size: 10px;
+      cursor: pointer;
+    }
+  }
+  .q-mark-left {
+    border-left-style: dashed;
+    border-left-width: 0;
+    border-right-style: solid;
+    border-right-width: 40px;
+    left: 0;
+    right: auto;
+    span {
+      left: 4px;
+    }
+  }
+  .q-mark-01 {
+    border-top-color: @color-success;
+  }
+  .q-mark-02 {
+    border-top-color: @color-info;
+  }
+  .q-mark-03 {
+    border-top-color: @color-danger;
+  }
+  .q-mark-04 {
+    border-top-color: @color-warning;
+  }
+  .q-mark-05 {
+    border-top-color: @color-link;
+  }
+  .q-mark-06 {
+    border-top-color: darken(@color-success, 15%);
+  }
+  .q-mark-07 {
+    border-top-color: darken(@color-danger, 15%);
+  }
+  .q-mark-08 {
+    border-top-color: darken(@color-warning, 15%);
+  }
+  .q-mark-08 {
+    border-top-color: darken(@color-link, 15%);
+  }
+  .q-mark-09 {
+    border-top-color: darken(@color-success, 25%);
+  }
+  .q-mark-010 {
+    border-top-color: darken(@color-danger, 25%);
+  }
+  .q-mark-011 {
+    border-top-color: darken(@color-warning, 25%);
+  }
+  .q-mark-012 {
+    border-top-color: darken(@color-link, 25%);
+  }
+}
+
+.q-hover {
+  //  background-color: #fafafa;
+  border-color: @activeColor;
+  .box-shadow(0 1px 2px @activeColor);
+  .q-answer {
+    border-color: @activeColor;
+  }
+  .q-footer {
+    border-color: @activeColor;
+    .q-edit {
+      display: block;
+    }
+    .q-footer-more {
+      display: block;
+    }
+  }
+}
+
+.q-item .q-footer .q-edit-area {
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.q-item .q-footer .q-edit {
+  float: left;
+  margin-left: 5px;
+}
+
+.q-share {
+  float: left;
+}
+
+.q-share .q-range {
+  vertical-align: middle;
+}
+
+.q-body {
+  table {
+    td {
+      border: 1px solid #eee;
+      padding: 2px;
+    }
+  }
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    <meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<link href="//static.dayeasy.net" rel="dns-prefetch">
+<link href="//file.dayeasy.net" rel="dns-prefetch">
+<link href="//file01.dayeasy.net" rel="dns-prefetch">
+<link href="//file02.dayeasy.net" rel="dns-prefetch">
+<link rel="apple-touch-icon-precomposed" href="/image/logo_114x114.png">
+<link type="image/x-icon" rel="Shortcut Icon" href="/image/logo_114x114.png">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/css/amazeui.min.css"/>
+<link rel="stylesheet" href="/css/site-base.min.css"/>
+<link rel="stylesheet" href="/css/ui-dialog.min.css"/>
+<link rel="stylesheet" href="/fonts/iconfont.css"/>
+    <title> 成绩分析-我的得一 - 触屏版</title>
+    <link rel="stylesheet" href="/css/page/ui-work.min.css"/>
+    <link rel="stylesheet" href="/css/page/work-score-analysis.min.css"/>
+</head>
+<body data-role="3">
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf work-back">
+            <h1 class="hp-h1 d-work-name"></h1>
+        </div>
+    </div>
+</header>
+<section class="work-score-paper">
+    <!--频道导航-->
+    <div class="head-nav-wrap">
+        <div class="head-href-list" id="headhref">
+            <a href="/page/work/answer-paper.html"><span>试卷分析</span></a>
+            <a class="on" href="/page/work/score-analysis.html"><span>成绩分析</span></a>
+            <a href="/page/work/variant-pass.html"><span>相关变式</span></a>
+        </div>
+    </div>
+    <div class="d-chengji f-cb">
+    </div>
+    <!--扫描试卷分析-答题卡-->
+    <div class="d-dati-ka hide">
+        <h2 class="d-h2">答题卡</h2>
+        <div class="dati-ka-href" id="daticard">
+        </div>
+    </div>
+    <!--填空题-->
+    <div class="d-fenshuduan">
+        <h2 class="d-h2">分数段</h2>
+        <table class="dy-table" id="fenshuduan">
+        </table>
+    </div>
+    <!--薄弱知识点-->
+    <div class="d-boruo-knowledge hide">
+        <h2 class="d-h2">薄弱知识点</h2>
+        <table class="dy-table" id="knowledge">
+        </table>
+    </div>
+</section>
+<!-- 基础脚本 -->
+<script src="/js/site-base.min.js"></script>
+<script src="/js/page/work/work-base.min.js"></script>
+<script src="/js/page/work/score-analysis.min.js"></script>
+</body>
+</html>

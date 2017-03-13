@@ -1,0 +1,210 @@
+﻿@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@model List<DayEasy.Contracts.Dtos.Publish.PublishPaperDto>
+@{
+    ViewBag.Title = "批阅中心";
+    Layout = "~/Views/Shared/_PaperLayout_new.cshtml";
+}
+
+<div class="dy-main">
+    <div class="page-test-center w1200 f-cb bg-color-grey">
+        <div class="f-fl main-center">
+            <div class="title-center">
+                <h2 class="h2-title">批阅中心</h2>
+                <div class="input-part Amend-part">
+                    <form method="GET" action="@Url.Action("Index","TeacherWork")" id="searchForm">
+                        <input class="inputpart" type="text" value="@Request["key"]" name="key" placeholder="关键字">
+                        <button class="iconfont dy-icon-26" onclick="javascript:searchForm.submit();" type="button"></button>
+                    </form>
+                </div>
+                <a class="pos-center" href="javascript:void(0);" id="publishPaper">推送试卷 <em>&raquo;</em></a>
+            </div>
+            @if (Model == null || Model.Count < 1)
+            {
+                <div class="box draft-center-list dy-nothing">
+                    <i class="iconfont dy-icon-emoji02"></i>还没有相关作业信息！亲爱的老师，现在就为同学们挑选一套作业吧~
+                </div>
+            }
+            else
+            {
+                <div class="box draft-center-list">
+                    @foreach (var paper in Model)
+                    {
+                        <div class="box-lg-12 draft-list">
+                            <div class="box-lg-8 font-text">
+                                <p>
+                                    @if (paper.SourceType == (byte)PublishType.Print)
+                                    {
+                                        if (paper.IsJoint)
+                                        {
+                                            <label class="label label-primary">协同</label>
+                                        }
+                                        else
+                                        {
+                                            <label class="label label-info">考试</label>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <label class="label label-success">推送</label>
+                                    }
+                                    <a href="@Url.Action("Detail", "Paper", new {id = paper.PaperId})" target="_blank">@paper.PaperName</a>
+                                    @if (!string.IsNullOrEmpty(paper.GroupName))
+                                    {
+                                        <em>推送至</em>
+                                        <a href="@(Consts.Config.MainSite + "/group/" + paper.GroupId)" target="_blank">@paper.GroupName</a>
+                                    }
+                                </p>
+                                <div class="box font2">
+                                    <div class="box-lg-4">
+                                        @paper.ExpireTime.ToString("yyyy-MM-dd HH:mm")
+                                    </div>
+                                    <div class="box-lg-4">
+                                        @if (paper.SourceType == (byte)PublishType.Test)
+                                        {
+                                            <b>@paper.ACount</b>@:人已完成标记
+                                        }
+                                        else
+                                        {
+                                            if (paper.PaperType == (byte)PaperType.Normal)
+                                            {
+                                                <b>@paper.ACount</b>@:份已提交
+                                            }
+                                            else
+                                            {
+                                                <text>
+                                                    <b>@paper.ACount</b>份<span>A</span>卷、<b>@paper.BCount</b>份<span>B</span>卷已提交
+                                                </text>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-lg-4 f-tar btn-list" data-batch="@paper.Batch" data-pid="@paper.PaperId">
+                                @if (paper.SourceType == (byte)PublishType.Test || (paper.SourceType == (byte)PublishType.Print && paper.MarkingStatus == (byte)MarkingStatus.AllFinished))
+                                {
+                                    <a class="dy-btn dy-btn-default" href="@Url.Action("StatisticsSurvey", "TeacherWork", new { batch = paper.Batch, paper_id = paper.PaperId })" target="_blank"> 查看统计</a>
+                                }
+                                else
+                                {
+                                    if (paper.PaperType == (byte)PaperType.Normal)
+                                    {
+                                        <a class="dy-btn dy-btn-info"
+                                           target="_blank"
+                                           data-t="0"
+                                           href="@(Consts.Config.MainSite + "/marking?batch=" + paper.Batch + "&type=0")">
+                                            批阅
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        if (paper.MarkingStatus == (byte)MarkingStatus.FinishedA)
+                                        {
+                                            <a class="dy-btn dy-btn-default disabled" disabled>A卷已批阅</a>
+                                            <a class="dy-btn dy-btn-default"
+                                               target="_blank"
+                                               data-t="2"
+                                               href="@(Consts.Config.MainSite + "/marking?batch=" + paper.Batch + "&type=2")">
+                                                批阅B卷
+                                            </a>
+                                        }
+                                        else if (paper.MarkingStatus == (byte)MarkingStatus.FinishedB)
+                                        {
+                                            <a class="dy-btn dy-btn-default" target="_blank" data-t="1"
+                                               href="@(Consts.Config.MainSite + "/marking?batch=" + paper.Batch + "&type=1")">A卷批阅</a>
+                                            <a class="dy-btn dy-btn-default" disabled> B卷已批阅</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="dy-btn dy-btn-default" target="_blank" data-t="1"
+                                               href="@(Consts.Config.MainSite + "/marking?batch=" + paper.Batch + "&type=1")">A卷批阅</a>
+                                            <a class="dy-btn dy-btn-default" target="_blank" data-t="2"
+                                               href="@(Consts.Config.MainSite + "/marking?batch=" + paper.Batch + "&type=2")">B卷批阅</a>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="d-pager f-fr mr30 mt20">
+                    @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 10, Convert.ToInt32(ViewData["totalCount"]), 5, false)
+                </div>
+            }
+        </div>
+        <div class="f-fr sidebar-center">
+            <div class="side-1">
+                <a href="@Url.Action("Index","Paper")" target="_blank" class="f-cb">
+                    <i class="iconfont dy-icon-shijuanku f-fl"></i>
+                    试卷库
+                    <span class="f-fr">@ViewData["paperCount"]</span>
+                </a>
+            </div>
+            <div class="side-2">
+                <a class="dy-btn dy-btn-info" href="@Url.Action("ChoosePaperType","Paper")" target="_blank">在线出卷</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Style{
+    @Html.CombineLink("v3/css/testteacher/page-test-center.css")
+    <style>
+        .label {
+            background-color: #ccc;
+            border-radius: 2px;
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 5px;
+        }
+
+        .label-primary {
+            background-color: #428bca;
+        }
+
+        .label-success {
+            background-color: #5cb85c;
+        }
+
+        .label-info {
+            background-color: #3bafda;
+        }
+    </style>
+}
+
+@section Script{
+    <script type="text/javascript">
+        (function () {
+            var keyInputObj = $('.Amend-part input[type=text]');
+            if ($.trim(keyInputObj.val())) {
+                keyInputObj.parents('.Amend-part').addClass('part-zindex').css('width', 227);
+            }
+
+            $('.Amend-part input[type=text]').focus(function () { //搜索框效果
+                $(this).parents('.Amend-part').addClass('part-zindex').animate({ 'width': '227' }, 200);
+            }).blur(function () {
+                if (!$.trim($(this).val())) {
+                    $(this).parents('.Amend-part').removeClass('part-zindex').animate({ 'width': '36' }, 200);
+                }
+            });
+
+            //推送试卷
+            $("#publishPaper").click(function () {
+                $.post('@Url.Action("PublishPaper", "Paper")', {}, function (res) {
+                    //$.Dayez.dialog("推送到我的圈子", res);
+                    singer.dialog({
+                        title: '推送到我的圈子',
+                        content: res
+                    }).showModal();
+                });
+            });
+
+
+            //撤回试卷效果
+            $('.slide-bottom').on('click', function (event) {
+                event.preventDefault();
+                $(this).toggleClass('slide-hover').find('ul').toggleClass('show');
+            });
+        })();
+    </script>
+}

@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>消息单独页</title>
+    @@include('./link.html')
+    <!--<link rel="stylesheet" href="../../css/site-base.css"/> -->
+    <link rel="stylesheet" href="/v3/source/css/centermy/ui-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/centermy/page-mylist-setting.css"/>
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="ui-base-box page-mylist-setting w1200 f-cb ">
+            <div class="box">
+                <!--题目类型-->
+                <div class="dynamic-list">
+                    <!--动态类型-->
+                    <div class="box-list">
+                        <a class="head-img" href="javascript:void(0);">
+                            <img width="64" height="64" src="/v3/image/default/user_s100x100.jpg" alt=""/>
+                        </a>
+                        <ul>
+                            <li>
+                                <div class="box">
+                                    <div class="box-lg-12 tab-box-1">
+                                        <strong class="color-bg-green">作业</strong>
+                                        <!--
+                                           color-bg-green        作业
+                                           color-bg-grassgreen   辅导
+                                           color-bg-yellow       通知
+                                           color-bg-orange       表扬
+                                           -->
+                                        <a href="">初二语文第 2 周周练习</a>
+                                    </div>
+
+                                    <div class="box-lg-12 tab-box-3">
+                                        <a href="javascript:void(0);">张全蛋</a>
+                                        6 天前
+                                    </div>
+                                    <div class="box-lg-12 tab-box-4">
+                                        请大家标记错题，分析错误原因（如果没有写附加信息，则系统显示为：老师推送了一套试卷，需要同学们去标记错题、分析错因）
+                                    </div>
+                                    <div class="box-lg-3 tab-box-2">
+                                        <span><i class="iconfont dy-icon-messageline"></i>17</span>
+                                        <span class="z-crt"><i class="iconfont dy-icon-zan"></i>4</span>  <!--已点赞class  z-crt-->
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--动态类型 End-->
+                </div>
+                <!--题目类型 End-->
+                <!--评价-->
+                <div class="comment-tac-right">
+                    <p class="comment-title">
+                        <span>评价</span>
+                    </p>
+                    <!--<ol class="comment-bxo">-->
+                        <!--<li>-->
+                            <!--<div class="comment-input f-cb f-textarea-operation">-->
+                                <!--<img src="/v3/image/default/user_s40x40.jpg" alt=""/>-->
+                                <!--<p class="f-tar dy-result f-db mb5">你还可以输入<em>140</em>个字</p>-->
+                                <!--<textarea placeholder="我有话要说" name="" maxlength="140" class="textarea mb5" cols="30" rows="1"></textarea>-->
+                                <!--<input class="dy-btn dy-btn-info f-fr" type="submit" value="评论"/>-->
+                            <!--</div>-->
+                            <!--<div class="comment-text  parents-conter">-->
+                                <!--<ul class="comment-list ul-list-one">-->
+                                    <!--<li>-->
+                                        <!--<img src="/v3/image/default/user_s40x40.jpg" alt=""/>-->
+                                        <!--<div class="box f-parents">-->
+                                            <!--<div class="box-lg-12 mb10 name-color">张全蛋</div>-->
+                                            <!--<div class="box-lg-12 mb15">2015-14-03</div>-->
+                                            <!--<div class="box-lg-12 mb15">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</div>-->
+                                            <!--<div class="box-lg-12 add-to-comment mb20">-->
+                                                <!--<span><i class="iconfont dy-icon-edit2"></i> 点评</span>-->
+                                                <!--<span><i class="iconfont dy-icon-delete"></i> 删除</span>  &lt;!&ndash;自己评论可以删除&ndash;&gt;-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="comment-children">-->
+                                            <!--&lt;!&ndash;子级评论&ndash;&gt;-->
+                                            <!--<div class="comment-input f-cb ">-->
+                                                <!--<img src="/v3/image/default/user_s40x40.jpg" alt=""/>-->
+                                                <!--<p class="f-tar dy-result f-db mb5">你还可以输入<em>140</em>个字</p>-->
+                                                <!--<textarea placeholder="我有话要说" name=""  maxlength="140" cols="30" rows="5"></textarea>-->
+                                                <!--<input class="dy-btn dy-btn-info f-fr" type="submit" value="评论"/>-->
+                                            <!--</div>-->
+                                            <!--<div class="comment-text">-->
+                                                <!--<ul class="comment-list">-->
+                                                    <!--<li>-->
+                                                        <!--<img src="/v3/image/default/user_s40x40.jpg" alt=""/>-->
+                                                        <!--<div class="box">-->
+                                                            <!--<div class="box-lg-12 mb10 name-color">张全蛋</div>-->
+                                                            <!--<div class="box-lg-12 mb15">2015-14-03</div>-->
+                                                            <!--<div class="box-lg-12 mb15">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</div>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="comment-children">-->
+
+                                                        <!--</div>-->
+                                                    <!--</li>-->
+                                                    <!--<li>-->
+                                                        <!--<img src="/v3/image/default/user_s40x40.jpg" alt=""/>-->
+                                                        <!--<div class="box">-->
+                                                            <!--<div class="box-lg-12 mb10 name-color">张全蛋</div>-->
+                                                            <!--<div class="box-lg-12 mb15">2015-14-03</div>-->
+                                                            <!--<div class="box-lg-12 mb15">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</div>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="comment-children">-->
+
+                                                        <!--</div>-->
+                                                    <!--</li>-->
+                                                <!--</ul>-->
+                                            <!--</div>-->
+                                            <!--&lt;!&ndash;子级评论 end&ndash;&gt;-->
+                                        <!--</div>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<img src="/v3/image/default/user_s40x40.jpg" alt=""/>-->
+                                        <!--<div class="box f-parents">-->
+                                            <!--<div class="box-lg-12 mb10 name-color">张全蛋</div>-->
+                                            <!--<div class="box-lg-12 mb15">2015-14-03</div>-->
+                                            <!--<div class="box-lg-12 mb15">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</div>-->
+                                            <!--<div class="box-lg-12 add-to-comment mb20">-->
+                                                <!--<span><i class="iconfont dy-icon-edit2"></i> 点评</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="comment-children">-->
+                                            <!--&lt;!&ndash;子级评论&ndash;&gt;-->
+                                            <!--<div class="comment-input f-cb ">-->
+                                                <!--<img src="/v3/image/default/user_s40x40.jpg" alt=""/>-->
+                                                <!--<p class="f-tar dy-result f-db mb5">你还可以输入<em>140</em>个字</p>-->
+                                                <!--<textarea placeholder="我有话要说" name=""  maxlength="140" cols="30" rows="5"></textarea>-->
+                                                <!--<input class="dy-btn dy-btn-info f-fr" type="submit" value="评论"/>-->
+                                            <!--</div>-->
+                                            <!--<div class="comment-text">-->
+                                                <!--<ul class="comment-list">-->
+                                                    <!--<li>-->
+                                                        <!--<img src="/v3/image/default/user_s40x40.jpg" alt=""/>-->
+                                                        <!--<div class="box">-->
+                                                            <!--<div class="box-lg-12 mb10 name-color">张全蛋</div>-->
+                                                            <!--<div class="box-lg-12 mb15">2015-14-03</div>-->
+                                                            <!--<div class="box-lg-12 mb15">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</div>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="comment-children">-->
+
+                                                        <!--</div>-->
+                                                    <!--</li>-->
+                                                <!--</ul>-->
+                                            <!--</div>-->
+                                            <!--&lt;!&ndash;子级评论 end&ndash;&gt;-->
+                                        <!--</div>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</li>-->
+                    <!--</ol>-->
+
+
+                    <!--==============================评价=================================-->
+                    <ol class="comment-bxo">
+                        <li>
+                            <div class="comment-text  parents-conter comment1">
+                                <ul class="comment-list ul-list-one">
+                                    <li>
+                                        <img src="/v3/image/default/user_s40x40.jpg" alt=""/>
+                                        <div class="box f-parents">
+                                            <div class="box-lg-12 mb10 name-color">张全蛋</div>
+                                            <div class="box-lg-12 mb15">2015-14-03</div>
+                                            <div class="box-lg-12 mb15">第一条评论</div>
+                                            <div class="box-lg-12 add-to-comment">
+                                                <span><i class="iconfont dy-icon-edit2"></i> 点评</span>
+                                                <span><i class="iconfont dy-icon-delete"></i> 删除</span>
+                                            </div>
+                                            <div class="box-lg-12 comment-input f-cb">
+                                                <p class="f-tar dy-result f-db mb5">你还可以输入<em>140</em>个字</p>
+                                                <textarea placeholder="我有话要说" name=""  maxlength="140" cols="30" rows="3"></textarea>
+                                                <input class="dy-btn dy-btn-info f-fr" type="submit" value="评论"/>
+                                            </div>
+                                        </div>
+                                        <!--评论二-->
+                                        <div class="comment-children comment2">
+                                            <div class="comment-text">
+                                                <ul class="comment-list">
+                                                    <li>
+                                                        <img src="/v3/image/default/user_s40x40.jpg" alt=""/>
+                                                        <div class="box">
+                                                            <div class="box-lg-12 mb10 name-color">张全蛋</div>
+                                                            <div class="box-lg-12 mb15">2015-14-03</div>
+                                                            <div class="box-lg-12 mb15">第二条评论</div>
+                                                            <div class="box-lg-12 add-to-comment">
+                                                                <span><i class="iconfont dy-icon-edit2"></i> 点评</span>
+                                                                <span><i class="iconfont dy-icon-delete"></i> 删除</span>
+                                                            </div>
+                                                            <div class="comment-input f-cb">
+                                                                <p class="f-tar dy-result f-db mb5">你还可以输入<em>140</em>个字</p>
+                                                                <textarea placeholder="我有话要说" name=""  maxlength="140" cols="30" rows="3"></textarea>
+                                                                <input class="dy-btn dy-btn-info f-fr" type="submit" value="评论"/>
+                                                            </div>
+                                                        </div>
+                                                        <!--三级评论-->
+                                                        <div class="comment-text comment3">
+                                                            <ul class="comment-list">
+                                                                <li>
+                                                                    <img src="/v3/image/default/user_s40x40.jpg" alt=""/>
+                                                                    <div class="box">
+                                                                        <div class="box-lg-12 mb10 name-color">张全蛋</div>
+                                                                        <div class="box-lg-12 mb15">2015-14-03</div>
+                                                                        <div class="box-lg-12 mb15">第三条评论</div>
+                                                                        <div class="box-lg-12 add-to-comment">
+                                                                            <span><i class="iconfont dy-icon-edit2"></i> 点评</span>
+                                                                            <span><i class="iconfont dy-icon-delete"></i> 删除</span>
+                                                                        </div>
+                                                                        <div class="comment-input f-cb">
+                                                                            <p class="f-tar dy-result f-db mb5">你还可以输入<em>140</em>个字</p>
+                                                                            <textarea placeholder="我有话要说" name=""  maxlength="140" cols="30" rows="3"></textarea>
+                                                                            <input class="dy-btn dy-btn-info f-fr" type="submit" value="评论"/>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <!--三级评论 end-->
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!--评论二 end-->
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ol>
+                    <!--评价END-->
+                </div>
+                <!--评价 End-->
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+@@include('./footer.html')
+<script src="/v3/source/js/setting/ui-setting.js"></script>
+</body>
+</html>

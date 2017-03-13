@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>ui</title>
+    <meta charset="UTF-8">
+    @@include('./link.html')
+
+    <!--<link rel="stylesheet" href="/v3/source/less/gotop.css"/>-->
+    <link type="text/css" rel="stylesheet"
+          href="/v3/source/html/ui/syntaxhighlighter_3.0.83/styles/shCoreDefault.css"/>
+    <link type="text/css" rel="stylesheet" href="/v3/source/css/uihtml/ui.falsebecause.css"/>
+    <!--<link rel="stylesheet" href="/v3/css/site-base.css"/>-->
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1446623622_4416702.css"/>
+    <!--<base target="_blank">-->
+    <!--<script src="/v3/js/jquery-1.10.2.min.js"></script>-->
+
+
+    <style>
+        
+        body, textarea, input, button, select, keygen, legend { color: #333; outline: 0; font: 12px/1.14 arial, "微软雅黑"; }
+        
+        a:hover{ color: #f40;}
+        .dy-wrap { background: #f5f5f5; }
+        .h2-ui { padding: 10px; font-size: 14px; color: #999; font-weight: bold; cursor: pointer; margin-bottom: 15px; }
+        .main-ui{width: 75%; float: left;}
+        .side-ui{ width: 25%; float: right;}
+
+        .ui-class { margin-bottom: 10px;    }
+        .ui-class dl { margin-bottom: 20px; /* float: left; width: 40%; */ margin-right: 10%; }
+        .ui-class dl:after{display:block;clear:both;visibility:hidden;height:0;overflow:hidden;content:".";}
+        .ui-class dl dd { padding: 10px; }
+        .ui-class dl dd p { padding: 10px 35px; }
+        .ui-class dl dd p u { color: #ed5565; }
+        .syntaxhighlighter .toolbar { display: none; }
+
+        /*字体图标*/
+        .dy-icon li{float: left;width: 100px;height: 100px;text-align: center;}
+        .dy-icon li:hover .dy-icon-eraser{ color: #da4453;}
+        .dy-icon li:hover .dy-icon-download{ color: #3bafda;}
+        .dy-icon li:hover .dy-icon-upload{ color: #a0d468;}
+        .dy-icon .iconfont{  -webkit-transition: font-size 0.25s ease-out 0s; font-size: 42px; line-height: 100px; -moz-transition: font-size 0.25s ease-out 0s; transition: font-size 0.25s ease-out 0s; }
+        .dy-icon .iconfont:hover{ font-size: 100px;}
+
+
+    </style>
+</head>
+<body>
+
+<div class="dy-wrap" style="background: white;">
+    @@include('./header.html')
+
+    <div class="dy-main">
+        <div class="portrait w1200">
+            <div class="box">
+            <section class="ui-class main-ui" id="post_body">
+                <!--字体图标-->
+                <dl>
+                    <dt>
+                    <h2 class="h2-ui">字体图标</h2>
+
+                    <div class="dy-icon">
+                        <ul class="f-cb">
+                            <li><i class="iconfont  dy-icon-eraser"></i>   </li>
+                            <li><i class="iconfont  dy-icon-download"></i> </li>
+                            <li><i class="iconfont  dy-icon-upload"></i>   </li>
+                        </ul>
+                        </div>
+                    </dt>
+                    <dd>
+                        <p>
+                            <u>注：</u>   <a target="_blank"  href="/v3/source/fonticon/demo_fontclass.html">详细页面介绍链接</a>
+                        </p>
+                         <pre class="brush: html;">
+                             <i class="iconfont  dy-icon-eraser"></i>
+                        </pre>
+                         <pre class="brush: html;">
+                             <i class="iconfont  dy-icon-download"></i>
+                        </pre>
+                        <pre class="brush: html;">
+                             <i class="iconfont  dy-icon-upload"></i>
+                        </pre>
+                    </dd>
+                </dl>
+                <!--按钮-->
+                <dl>
+                    <dt>
+                    <h2 class="h2-ui">按钮</h2>
+                    <button class="dy-btn dy-btn-default">default</button>
+                    <button class="dy-btn dy-btn-grey">grey</button>
+                    <button class="dy-btn dy-btn-info">info</button>
+                    <button class="dy-btn dy-btn-danger">danger</button>
+                    </dt>
+                    <dd>
+                         <pre class="brush: html;">
+                             <button class="dy-btn dy-btn-default">default</button>
+                        </pre>
+                         <pre class="brush: html;">
+                             <button class="dy-btn dy-btn-grey">grey</button>
+                        </pre>
+                        <pre class="brush: html;">
+                             <button class="dy-btn dy-btn-info">info</button>
+                        </pre>
+                        <pre class="brush: html;">
+                             <button class="dy-btn dy-btn-danger">danger</button>
+                        </pre>
+
+                    </dd>
+                </dl>
+                <!--Input复选框-->
+                <dl>
+                    <dt>
+                    <h2 class="h2-ui">Input复选框</h2>
+
+                    <div>
+                        <label class="checkbox-group group-radio">
+                            <input type="radio" name="options"><span>Radio</span>
+                            <i class="iconfont dy-icon-radio"></i>
+                        </label>
+                        <label class="checkbox-group group-radio">
+                            <input type="radio" name="options"> <span>Radio</span>
+                            <i class="iconfont dy-icon-radio"></i>
+                        </label>
+                        <label class="checkbox-group group-radio">
+                            <input type="radio" name="options"> <span>Radio</span>
+                            <i class="iconfont dy-icon-radio"></i>
+                        </label>
+                    </div>
+                    <div class="mt20">
+
+                        <label class="checkbox-group group-checkbox">
+                            <input type="checkbox" name="options"><span>Checkbox</span>
+                            <i class="iconfont dy-icon-checkbox"></i>
+                        </label>
+                        <label class="checkbox-group group-checkbox">
+                            <input type="checkbox" name="options"><span>Checkbox</span>
+                            <i class="iconfont dy-icon-checkbox"></i>
+                        </label>
+                        <label class="checkbox-group group-checkbox">
+                            <input type="checkbox" name="options"><span>Checkbox</span>
+                            <i class="iconfont dy-icon-checkbox"></i>
+                        </label>
+
+
+                    </div>
+                    </dt>
+                    <dd>
+                         <pre class="brush: html;">
+                           <label class="checkbox-group group-radio">
+                               <input type="radio" name="options"><span>Radio</span>
+                               <i class="iconfont dy-icon-radio"></i>
+                           </label>
+                        </pre>
+                    </dd>
+                    <dd>
+                         <pre class="brush: html;">
+                            <label class="checkbox-group group-checkbox">
+                                <input type="checkbox" name="options"><span>checkbox</span>
+                                <i class="iconfont dy-icon-checkbox"></i>
+                            </label>
+                        </pre>
+                    </dd>
+                </dl>
+                <!--搜索框-1-->
+                <dl>
+                    <dt>
+                    <h2 class="h2-ui">搜索</h2>
+
+                    <div class="input-part">
+                        <input type="text" placeholder="搜索学校">
+                        <button class="iconfont dy-icon-26" type="button"></button>
+                    </div>
+                    </dt>
+                    <dd>
+                        <pre class="brush: html;">
+                          <div class="input-part">
+                              <input type="text" placeholder="搜索学校">
+                              <button class="iconfont dy-icon-26" type="button"></button>
+                          </div>
+                        </pre>
+                    </dd>
+                    <dd>
+                        <p>
+                            <u>注：</u> .input-part &nbsp;&nbsp; width 自定义
+                        </p>
+                        <pre class="brush: css;">
+                            .input-part{
+                              width: 227px;
+                              position: relative;
+                              input{ width: 100%;}
+                              button{ width: 36px;height: 36px; position: absolute; top: 2px; right: 2px;border: none; background: white; text-align: center;}
+                              }
+                        </pre>
+                    </dd>
+                </dl>
+                <!--搜索框-2-->
+                <dl>
+                    <dt>
+                    <h2 class="h2-ui">输入限制字符</h2>
+
+                    <div style="width:80%;">
+                        <textarea placeholder="输入附加信息" name="" class="mb5 wf100" cols="30" maxlength="140" rows="5"></textarea>
+                        <p class="f-tar dy-result f-db">你还可以输入<em>140</em>个字</p>
+                    </div>
+                    </dt>
+                    <dd>
+                        <pre class="brush: html;">
+                          <textarea placeholder="输入附加信息" name="" class="mb5 wf100" cols="30" maxlength="140" rows="5"></textarea>
+                          <p class="f-tar dy-result f-db">你还可以输入<em>140</em>个字</p>
+                        </pre>
+                    </dd>
+                    <dd>
+                        <p>
+                            <u>注：</u> base.js  默认执行  自定义属性： maxlength="初始值"
+                        </p>
+                        <!--<pre class="brush: js;">-->
+                                <!--$('.textarea').maxLengthnew({-->
+                                            <!--maxLength:"140"-->
+                                    <!--});-->
+                        <!--</pre>-->
+                    </dd>
+                </dl>
+                <!--搜索框-->
+                <dl>
+                    <dt>
+                    <h2 class="h2-ui">搜索框</h2>
+
+                    <div class="dy-soso-two" style="/*width: 689px;*/ width:80%;">
+                        <input class="input-box" type="text"/>
+                         <span class="span-box">
+                            <button type="submit">a</button>
+                            搜索
+                         </span>
+                    </div>
+                    </dt>
+                    <dd>
+                        <p>
+                            <u>注：</u> .dy-soso-two&nbsp;&nbsp; 自定义width
+                        </p>
+                    </dd>
+                    <dd>
+                        <pre class="brush: html;">
+                          <div class="dy-soso-two">
+                              <input class="input-box" type="text"/>
+                                <span class="span-box">
+                                    <button type="submit">a</button>
+                                    搜索
+                                </span>
+                          </div>
+                    </pre>
+                    </dd>
+                    <dd>
+                         <pre class='brush: css;'>
+                             .dy-soso-two {
+                              .rounded-corners(3px);
+                              border: 2px solid #e6e9ed;
+                              width: 100%;
+                              height: 48px;
+                              position: relative;
+                              .input-box {
+                                border: none;
+                                width: 100%;
+                                height: 44px;
+                                padding-right: 0;
+                                }
+                              .span-box {
+                                position: absolute;
+                                right: -2px;
+                                top: -2px;
+                                width: 100px;
+                                height: 48px;
+                                line-height: 48px;
+                                background: #3bafda;
+                                color: white;
+                                font-size: 16px;
+                                display: inline-block; *display: inline; *zoom: 1;
+                                text-align: center;
+                                border-top-right-radius: 3px;
+                                border-bottom-right-radius: 3px;
+                                &:hover {
+                                  background: @color-hover-bule;
+                                  }
+                                button {
+                                  position: absolute;
+                                  top: 0;
+                                  left: 0;
+                                  width: 100%;
+                                  height: 100%;
+                                  .opacity(0);
+                                  }
+                                }
+                              }
+                         </pre>
+                    </dd>
+                </dl>
+                <!--错因分析uihtml-->
+                <dl>
+                    <dt>
+                    <h2 class="h2-ui">错因分析</h2>
+
+                    <div class="box uihtml-false-because">
+                        <div class="box-lg-1 w80">错因标签：</div>
+                        <div class="box-lg-11">
+                            <!--选择组件-->
+                            计算能力 、审题不仔细、跳步骤、基本概念混淆
+                            <!--选择组件 end-->
+                        </div>
+                        <div class="box-lg-1 w80">错因分析：</div>
+                        <div class="box-lg-11 textarea-box">
+                            <textarea placeholder="输入附加信息" name="" class="mb5 wf100" cols="30" maxlength="140"
+                                      rows="5"></textarea>
+
+                            <p class="f-tar dy-result f-db">你还可以输入<em>140</em>个字</p>
+
+                            <p class="font-show">
+                                <input class="dy-btn dy-btn-info" type="submit" value="提交"/>
+                                <span>已有5人完成分析，<a href="">查看详情</a></span>
+                            </p>
+                        </div>
+                    </div>
+                    </dt>
+                    <dd>
+                        <p>
+                            <u>注：</u>link: /v3/source/css/uihtml/ui.falsebecause.css
+                        </p>
+                    </dd>
+                    <dd>
+                        <pre class="brush: html;">
+                        <div class="box uihtml-false-because">
+                            <div class="box-lg-1 w80">错因标签：</div>
+                            <div class="box-lg-11">
+                                <!--选择组件-->
+                                计算能力 、审题不仔细、跳步骤、基本概念混淆
+                                <!--选择组件 end-->
+                            </div>
+                            <div class="box-lg-1 w80">错因分析：</div>
+                            <div class="box-lg-11 textarea-box">
+                                <textarea placeholder="输入附加信息" name="" class="mb5 wf100" cols="30" maxlength="140"
+                                          rows="5"></textarea>
+
+                                <p class="f-tar dy-result f-db">你还可以输入<em>140</em>个字</p>
+
+                                <p class="font-show">
+                                    <input class="dy-btn dy-btn-info" type="submit" value="提交"/>
+                                    <span>已有5人完成分析，<a href="">查看详情</a></span>
+                                </p>
+                            </div>
+                        </div>
+                    </pre>
+                    </dd>
+                    <dd>
+                         <pre class='brush: css;'>
+                             .uihtml-false-because{
+                                  line-height: 1.8em;
+                                  background: #fafbfc;
+                                  font-size: 14px;
+                                  padding: 20px 30px;
+                                  &>div{ margin-bottom: 10px;}
+                                  .textarea-box{
+                                    width: 478px;
+                                    }
+                                  .font-show {
+                                    color: #999;
+                                    span{ position: relative; top: 10px; left: 30px;}
+                                    a{color: #3bafda;&:hover{ color: @color-hover-bule;}}
+                                    }
+                                  }
+                         </pre>
+                    </dd>
+                </dl>
+                <!--气泡-->
+                <dl>
+                    <dt>
+                    <h2 class="h2-ui">气泡</h2>
+                    <b class="free-bubble free-bg-green">免费体验中 <i></i> </b>
+                    <b class="free-bubble ml20 free-bg-red">免费体验中 <i></i> </b>
+                    </dt>
+                    <dd>
+                        <pre class="brush: html;">
+                            <b class="free-bubble free-bg-green">免费体验中 <i></i> </b>
+                            <b class="free-bubble free-bg-red">免费体验中 <i></i> </b>
+                        </pre>
+                        <pre class="brush: css;">
+                            .free-bubble{height: 23px; line-height: 23px; padding: 0px 6px; position: relative; font-size: 14px; color: white;.inline-block; }
+                            .free-bg-green{
+                              @free-bubble-bg:#a0d468;
+                              background: @free-bubble-bg;
+                              i{
+                                .angle-left(8px,@free-bubble-bg,6px);
+                                position: absolute;
+                                display: block;
+                                top: 4px;
+                                left: -4px;
+                                }
+                              }
+                            .free-bg-red{
+                              @free-bubble-bg:#ed5565;
+                              background: @free-bubble-bg;
+                              i{
+                                .angle-left(8px,@free-bubble-bg,6px);
+                                position: absolute;
+                                display: block;
+                                top: 4px;
+                                left: -4px;
+                                }
+                              }
+                        </pre>
+                    </dd>
+                </dl>
+                <!--Tab选项卡-->
+                <dl>
+                    <dt>
+                    <h2 class="h2-ui">Tab</h2>
+
+                    <div class="htmleaf-containers" data-dytab="100">
+                        <div class="htmleaf-content bgcolor-3">
+                            <ul class="dy-tab-nav">
+                                <li class="z-crt"><a href="javascript:void(0);">错因及评论</a></li>
+                                <li><a href="javascript:void(0);">答案解析</a></li>
+                                <li class="slider">
+                                    <span></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-con">
+                            <div class="dy-tab-con">
+                                <div class="tab-con-item" style="display: block;">aaaa</div>
+                                <div class="tab-con-item">bbbb</div>
+                            </div>
+                        </div>
+                    </div>
+                    </dt>
+                    <dd>
+                        <pre class="brush:html;">
+                            <div class="htmleaf-containers">
+                                <div class="htmleaf-content bgcolor-3">
+                                    <ul class="dy-tab-nav">
+                                        <li class="z-crt"><a href="javascript:void(0);">错因及评论</a></li>
+                                        <li><a href="javascript:void(0);">答案解析</a></li>
+                                        <li class="slider">
+                                            <span></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-con">
+                                    <div class="dy-tab-con">
+                                        <div class="tab-con-item" style="display: block;">aaaa</div>
+                                        <div class="tab-con-item">bbbb</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </pre>
+                        <p>
+                            <u>注：</u> $("[data-dytab]").tabcont(); data-dytab="100"
+                        </p>
+                            <pre class="brush:js;">
+
+                                <link rel="stylesheet" href="/v3/source/plugs/jquery-tab/jquery.tab.3.0.css"/>
+                                <script src="/v3/source/plugs/jquery-tab/jquery.tab.3.0.js"></script>
+
+                                      $.fn.tabcont.defaults = {
+                                        btnClass: '.dy-tab-nav',           /*按钮的父级Class*/
+                                        conClass: '.dy-tab-con',           /*内容的父级Class*/
+                                        bind: 'click',                     /*事件参数 click,hover*/
+                                        animation: 'fadein',               /*动画方向 left,up,fadein,0 为无动画*/  up  left 滚动设置.tab-con    height  width
+                                        speed: 300,                        /*动画运动速度*/
+                                        delay: 200,                        /*Tab延迟速度*/
+                                        auto: false,                       /*是否开启自动运行 true,false*/
+                                        autoSpeed: 3000                    /*自动运行速度*/
+                                    };
+                            </pre>
+
+
+                    </dd>
+                </dl>
+
+                <!--没有数据显示提示-->
+                <dl>
+                    <dt>
+                    <h2 class="h2-ui">无数据显示提示</h2>
+                        <div class="dy-nothing">
+                             <i class="iconfont dy-icon-emoji02"></i> 暂时还没有相关动态哟
+                        </div>
+                    </dt>
+                    <dd>
+                        <pre class="brush: html;">
+                           <div class="dy-nothing">
+                               <i class="iconfont dy-icon-emoji02"></i><span>暂时还没有相关动态哟</span>
+                           </div>
+                        </pre>
+                        <pre class="brush: css;">
+                         .dy-nothing {
+                              background: #fafbfc repeat scroll 0 0;
+                              text-align: center;
+                              vertical-align: middle;
+                              font-size: 16px;
+                              color: #bbb;
+                              width: 100%;
+                              height: 200px;
+                              line-height: 200px;
+                              .iconfont{ font-size: 40px; margin-right: 20px;position: relative; top: 10px; left: 0;}
+                              }
+                        </pre>
+                    </dd>
+                </dl>
+            </section>
+            <aside class="side-ui fix-top">
+            </aside>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+        60%
+    </div>
+</div>
+
+@@include('./footer.html')
+<script>
+    $(function () {
+        $('.ui-class dl').children('dt').find('.h2-ui').each(function () {
+            $(this).parents('dt').siblings('dd').hide();
+            var off = true;
+            $(this).click(function () {
+                if (off) {
+                    $(this).parents('dt').siblings('dd').show();
+                    off = false;
+                } else {
+                    $(this).parents('dt').siblings('dd').hide();
+                    off = true;
+                }
+
+            });
+
+        });
+
+    });
+</script>
+
+<script type="text/javascript" src="/v3/source/html/ui/syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+<script type="text/javascript" src="/v3/source/html/ui/syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="/v3/source/html/ui/syntaxhighlighter_3.0.83/scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="/v3/source/html/ui/syntaxhighlighter_3.0.83/scripts/shBrushXml.js"></script>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+
+<!--tab-plug-->
+
+<link rel="stylesheet" href="/v3/source/plugs/jquery-tab/jquery.tab.3.0.css"/>
+<script src="/v3/source/plugs/jquery-tab/jquery.tab.3.0.js"></script>
+<style>
+    .tab-con { width: 1080px; height: 200px; display: block; }
+    .tab-con-item { width: 1080px; height: 200px; display: block; }
+</style>
+<script>
+    $(function () {
+        $("[data-dytab]").tabcont({
+            auto: true,
+            animation: 'left' /*动画方向 left,up,fadein,0 为无动画*/
+        });
+    });
+</script>
+
+<!--//生成目录索引列表-->
+<script  type="text/javascript">
+    (function () {
+        var jquery_h2_ui = $('#post_body h2.h2-ui');
+        if (jquery_h2_ui.length > 0) {
+            var content = '<a name="_labelTop"></a>';
+            content += '<div id="navCategory">';
+            content += '<p style="font-size:18px"><h3 class="h3-title">UI目录</h3></p>';
+            content += '<ul>';
+            for (var i = 0; i < jquery_h2_ui.length; i++) {
+                var go_to_top = '<a  class="onthis"  id="_label' + i + '"></a>';
+                $(jquery_h2_ui[i]).before(go_to_top);
+                var li_content = '<li><a class="maodian"   href="#_label' + i + '">' + $(jquery_h2_ui[i]).text() + '</a></li>';
+                content += li_content;
+            }
+            content+='<li><a  href="#_label0">返回顶部</a> </li>';
+            content += '</ul>';
+            content += '</div>';
+            if ($('.side-ui').length != 0) {
+                $($('.side-ui')[0]).prepend(content);
+            }
+        }
+       //绑定滚动事件
+        $(window).bind('scroll', function () {
+            var scrollt = $(window).scrollTop(),
+                    h2list = $('.onthis');
+            for (var i = 0; i < h2list.length; i++) {
+                var toph = $(h2list[i]).offset().top
+                var oli = $('#navCategory').find('li');
+                if (scrollt >= toph) {
+                    $(oli).eq(i).addClass('on').siblings().removeClass('on');
+                }
+            }
+        });
+
+        // 锚点滚动条添动画
+        $('#navCategory').on('click', 'a.maodian', function() {
+           $('html,body').animate({
+               scrollTop:$($(this).attr('href')).offset().top+'px'
+           },{
+               duration:500,
+               easing:'swing'
+           })
+            return false;
+        });
+
+        /*
+            *默认初始化
+         */
+        var $onav=$('#navCategory');
+        $onav
+                .on('click', 'li', function() {
+                    $(this).addClass('on').siblings().removeClass('on');
+                    return this;
+                })
+                .find('li').first().addClass('on');
+
+
+    })(window);
+</script>
+<style>
+
+    /*#navCategory  position: relative; left: 0; top: 60px; z-index: 60; }*/
+    #navCategory .on { background: #f3f3f3; }
+    #navCategory ul{ position: relative; }
+    #navCategory ul:after { content: ''; display: block; position: absolute; background: #eee; width: 3px; top: 0; bottom: 0; border-radius: 5px; left: 0; }
+    #navCategory li { position: relative; line-height: 1.6em; padding: 10px; text-align: center; vertical-align: middle; font-size: 14px; font-weight: bold; text-rendering: optimizelegibility;  width: 100%; color: #008e59; }
+    #navCategory li a{ color: #008E59; }
+    #navCategory ul li.on:after{ content: ''; display: block; position: absolute; background: #009A61; width: 3px; top: 0; bottom: 0; z-index: 5; border-radius: 5px; left: 0; }
+    #navCategory h3.h3-title{ margin-bottom: 20px; font-weight: 700; cursor: pointer; padding: 8px 12px; font-size: 16px; color: #333; }
+
+</style>
+<!--/*生成目录索引列表*/ END-->
+
+
+
+<!--右侧导航-->
+<script type="text/javascript" src="/v3/source/html/ui/scrollfix/scrollfix.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var fixtop = $(".fix-top");
+
+        fixtop.scrollFix({distanceTop:20});
+    })
+
+</script>
+
+<!--右侧导航 end-->
+
+</body>
+</html>

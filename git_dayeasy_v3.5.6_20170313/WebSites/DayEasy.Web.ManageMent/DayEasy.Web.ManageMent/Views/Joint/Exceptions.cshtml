@@ -1,0 +1,110 @@
+﻿@using DayEasy.Contracts.Management.Enum
+@model List<DayEasy.Contracts.Management.Dto.JointExceptionDto>
+
+@{
+    ViewBag.Title = "协同异常申报列表";
+}
+
+<div>
+    <div class="row mt20">
+        <form method="GET" action="@Url.Action("Exceptions", "Joint")" id="searchForm">
+            <div class="d-selects">
+                @Html.DropDownList("status", ViewData["status"] as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+            <div class="d-selects">
+                @Html.DropDownList("type", ViewData["type"] as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+            <div class="d-total">
+                共<em>@ViewBag.TotalCount</em>份异常申报
+            </div>
+        
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover table-bordered">
+            <colgroup>
+                <col style="width: 6em" />
+                <col style="width: 10em" />
+                <col />
+                <col />
+                <col style="width: 11em" />
+                <col style="width: 5em" />
+                <col style="width: 4em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>学生</th>
+                    <th>申报教师</th>
+                    <th>申报描述</th>
+                    <th>申报类型</th>
+                    <th>申报时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dto in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="/joint/picture/@dto.PictureId" target="_blank">@dto.Student</a>
+                        </td>
+                        <td>@dto.Teacher<small style="margin-left: 5px; color: #999">No.@dto.TeacherCode</small></td>
+                        <td>@dto.Message</td>
+                        <td>@dto.ExceptionTypeTitle</td>
+                        <td>@dto.CreationTime.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@(Html.EnumText<JointExceptionStatus, byte>(dto.Status, new[] { 0, 0, 0, 0, 3 }))</td>
+                        <td>
+                            @if (dto.Status == (byte)NormalStatus.Normal)
+                            {
+                                <a href="javascript:void(0)" class="b-solve" data-eid="@dto.Id">解决</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageindex"]), 15, (int)ViewBag.TotalCount, 4)
+    </div>
+    </form>
+</div>
+@section style{
+    <style>
+        .d-selects {
+            float: left;
+            padding-right: 10px;
+        }
+    </style>
+}
+@section script{
+    <script>
+        (function ($, S) {
+            $('#status').bind('change', function () {
+                $('#searchForm').submit();
+            });
+            $('#type').bind('change', function () {
+                $('#searchForm').submit();
+            });
+            $('.b-solve').bind('click', function () {
+                var $t = $(this);
+                S.confirm('确认已经解决了该异常？', function () {
+                    var id = $t.data('eid');
+                    $.post('/joint/solve-exception', {
+                        id: id
+                    }, function (json) {
+                        if (json.status) {
+                            S.alert('提交成功！', function () {
+                                $t.parent().prev().html('<label class="label label-success">已解决</label>');
+                                $t.remove();
+                            });
+                        } else {
+                            S.alert(json.message);
+                        }
+                    });
+                });
+                return false;
+            });
+        })(jQuery, SINGER);
+    </script>
+}

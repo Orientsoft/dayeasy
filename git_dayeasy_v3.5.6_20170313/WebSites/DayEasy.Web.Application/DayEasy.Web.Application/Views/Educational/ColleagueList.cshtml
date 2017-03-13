@@ -1,0 +1,377 @@
+﻿@using DayEasy.Utility.Extend
+@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Core
+@using DayEasy.Services.Helper
+@model IEnumerable<GroupDto>
+
+@{
+    ViewBag.Title = "同事圈管理";
+    var stage = ViewData["Stage"];
+}
+<div class="dy-main-wrap">
+    @Html.Partial("_Navigation", 7)
+    <div class="dy-list dy-list-bg" data-type="1">
+        <div class="dy-title">
+            <input type="hidden" id="stage" value="@stage" />
+            @Html.ActionLink("班级圈", "ClassList", null, new { @class = "dy-panel" })
+            @Html.ActionLink("同事圈", "ColleagueList", null, new { @class = "dy-panel on" })
+            <button class="btn-esta-group dy-btn dy-btn-info">创建圈子</button>
+        </div>
+        <div class="dy-content">
+            <table class="dy-table">
+                <colgroup>
+                    <col style="width: 110px">
+                    <col style="width: 86.25px">
+                    <col style="width: 86.25px">
+                    <col style="width: 86.25px">
+
+                    <col style="width: 69px">
+                    <col style="width: 86px">
+                    <col style="width: 80px">
+
+                    <col style="width: 86.25px">
+                    <col style="width: 230px">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="f-tal">圈子名称</th>
+                        <th>圈号</th>
+                        <th>创建时间</th>
+                        <th>科目</th>
+                        <th>圈主</th>
+                        <th>教师数</th>
+                        <th>待审批</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model == null)
+                    {
+                        <div class="dy-nothing"><div class="dy-nothing-content"><i class="iconfont dy-icon-emoji01"></i>没有圈子相关信息</div></div>
+                    }
+                    @foreach (var group in Model)
+                    {
+                        var isAuth = (group.CertificationLevel.HasValue && group.CertificationLevel.Value > 0);
+                        <tr data-gid="@group.Id">
+                            <td class="f-tal">
+                                <a class="m-group-name" target="_blank" title="@group.Name" href="@(Consts.Config.MainSite + "/group/"+group.Id)">@group.Name</a>
+                            </td>
+                            <td>
+                                @group.Code
+                            </td>
+                            <td>
+                                <abbr title="@group.CreationTime.ToString("yyyy年MM月dd日HH时mm分")">@group.CreationTime.ToString("yyyy-MM-dd")</abbr>
+                            </td>
+                            <td>@(SystemCache.Instance.SubjectName((group as ColleagueGroupDto).SubjectId))</td>
+                            <td>@group.Owner</td>
+                            <td>@group.Count</td>
+                            <td>@group.PendingCount</td>
+                            @if (isAuth)
+                            {
+                                <td><em class="wait-on">已认证</em></td>
+
+                            }
+                            else
+                            {
+                                <td><em class="wait-off">待认证</em></td>
+                            }
+                            <td>
+                                @if (isAuth)
+                                {
+                                    <a target="_blank" href="@(Consts.Config.MainSite + "/group/members/" + group.Id)">管理</a><s></s>
+                                    if (group.PendingCount > 0)
+                                    {
+                                        <a target="_blank" href="@(Consts.Config.MainSite + "/group/" + group.Id)">审批</a>
+                                    }
+                                    else
+                                    {
+                                        <span class="disabled">审批</span>
+                                    }
+                                    <s></s>
+                                    <a target="_blank" href="@(Consts.Config.MainSite + "/group/export-members?groupId=" + group.Id)">导出</a>
+                                    <s></s>
+
+                                    var subjectId = (group as ColleagueGroupDto).SubjectId;
+                                    <a class="grou-personnel" data-subid="@subjectId" groupid="@group.Id" href="javascript:void(0);">添加成员</a>
+                                }
+                                else
+                                {
+                                    <a class="j-auth" data-status="true" href="javascript:void(0);">认证</a>
+                                    <s></s>
+                                    <a class="j-auth" data-status="false" href="javascript:void(0);">拒绝</a>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="9">
+                            共<b class="total-num">@ViewBag.TotalCount</b>条数据
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="d-pager">
+                @Html.ShowPager("pageindex".Query(1), "pagesize".Query(15), (int)ViewBag.TotalCount)
+            </div>
+        </div>
+    </div>
+
+</div>
+        <!--pop 创建圈子-->
+<div hidden="hidden" class="esta-group-pop">
+    <div class="esta-group">
+        <div class="box list-item">
+            <div class="box-lg-3">圈子类型：</div>
+            <div class="box-lg-9">
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options"><span>班级圈</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options"><span>同事圈</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+            </div>
+        </div>
+        <div class="box list-item">
+            <div class="box-lg-3">
+                圈子名称：
+            </div>
+            <div class="box-lg-9">
+                <input type="text" data-delval value="请输入圈子名称">
+            </div>
+        </div>
+        <div class="box list-item">
+            <div class="box-lg-3">
+                入学年份：
+            </div>
+            <div class="box-lg-9">
+                <select name="" id="">
+                    <option value="">2014年</option>
+                    <option value="">2014年</option>
+                    <option value="">2014年</option>
+                    <option value="">2014年</option>
+                    <option value="">2014年</option>
+                </select>
+            </div>
+        </div>
+        <div class="f-tar mr20">
+            <a id="batch-esta-group" class="a01" href="javascript:void(0);">批量注册</a>
+        </div>
+    </div>
+</div>
+<!--创建圈子-->
+<script type="text/html" id="esta-group-pop">
+    <div class="esta-group">
+        <div class="box list-item">
+            <div class="box-lg-3">圈子类型：</div>
+            <div class="box-lg-9">
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="typeGroup" checked value="0"><span>班级圈</span>
+                    <i class="iconfont dy-icon-radio dy-icon-radiohv"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="typeGroup" value="1"><span>同事圈</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+            </div>
+        </div>
+        <div class="box list-item">
+            <div class="box-lg-3 itme-lable">
+                圈子名称：
+            </div>
+            <div class="box-lg-9">
+                <input id="GroupName" type="text" placeholder="请输入圈子名称">
+            </div>
+        </div>
+        <div class="box list-item d-toggle">
+            <!--班级圈-->
+            <div class="d-toggle-box">
+                <div class="box-lg-3 itme-lable">
+                    入学年份：
+                </div>
+                <div class="box-lg-9">
+                    <select id="GradeYear">
+                        {{each GetFullYear as value}}
+                        <option value="{{value}}">{{value}}年</option>
+                        {{/each}}
+                    </select>
+
+                </div>
+            </div>
+            <!--班级圈 end-->
+            <!--同事圈-->
+            <div class="d-toggle-box" style="display: none;">
+                <div class="box-lg-3">
+                    选择学科：
+                </div>
+                <div class="box-lg-9">
+                    <select id="SubjectId">
+                        {{each subjects}}
+                        <option value="{{$index}}">{{$value}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <!--同事圈 end-->
+        </div>
+        <div class="f-tar mr20">
+            <a id="batch-esta-group" class="a01" href="javascript:void(0);">批量创建</a>
+        </div>
+    </div>
+</script>
+<!--批量创建-->
+<script type="text/html" id="pop-batch-create">
+    <div class="pop-batch-create">
+        <div class="box itme-list">
+            <div class="box-lg-2 f-tar item-label">
+                <label>班级数量：</label>
+            </div>
+            <div class="box-lg-10"><input class="input-width" placeholder="最多20" id="groupNum" type="text"></div>
+        </div>
+        <div class="box itme-list">
+            <div class="box-lg-2 f-tar item-label">
+                <label>入学年份：</label>
+            </div>
+            <div class="box-lg-10">
+                <select id="GradeYearCreate">
+                    {{each GetFullYear as value}}
+                    <option value="{{value}}">{{value}}年</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="box itme-list" id="class-name">
+            <div class="box-lg-2 f-tar item-label">
+                <label>创建班级圈：</label>
+            </div>
+            <div class="box-lg-10 itme-input">
+                <input type="text" id="group-start" maxlength="15" value="{{stageText}}{{classNameInit.BeginTime}}级">
+                <span class="amend-on hide">
+                    <input class="classnum" type="text" name="name" value="1" /><span class="equal-one">至</span>
+                    <input type="text" maxlength="15" disabled class="disabled" id="group-begin">
+                </span>
+            </div>
+        </div>
+        <div class="box itme-list">
+            <div class="box-lg-2 f-tar item-label">
+                <label>创建同事圈：</label>
+            </div>
+            <div class="box-lg-10 itme-subjects">
+                <ul class="f-cb item-form">
+                    {{each SubjectId}}
+                    <li>
+                        <label class="checkbox-group group-checkbox">
+                            <input type="checkbox" name="options"><span data-subjectid="{{$index}}">{{stageText}}{{classNameInit.BeginTime}}级{{$value}}组</span>
+
+                            <i class="iconfont dy-icon-checkbox"></i>
+                        </label>
+                    </li>
+                    {{/each}}
+                </ul>
+                <div class="">
+                    <label class="checkbox-group group-checkbox">
+                        <input class="checkall" type="checkbox" name="options"><span>全选</span>
+                        <i class="iconfont dy-icon-checkbox"></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!--批量导入-->
+<script type="text/html" id="batch-group-wrap-pop">
+    <div class="batch-group-pop {{typeClass}}">
+        <div class="tab-nav-item">
+            <ul class="ul-item f-cb">
+                @*<li class="on first-item" data-role="1">添加学生</li>*@
+                <li class="on" data-role="2">添加老师</li>
+            </ul>
+        </div>
+        <div class="tab-con-item">
+            @*<div class="con-item con-item-1" style="display: block;">
+        <p class="p-item">批量粘贴</p>
+        <div class="list-item-1">
+            <textarea id="nameText" class="text-area" name="" rows="5"></textarea>
+            <div class="box">
+                <div class="box-lg-6 f-tal">
+                    共 <span class="js-text-personnel">0</span>人
+                </div>
+                <div class="box-lg-6 f-tar">
+                    <a  class="excel-in a01" href="javascript:void(0);">excel导入</a>
+                </div>
+            </div>
+        </div>
+        <div class="list-item-2">
+            <p class="p-item">示例：<span class="font-color">请将学生名字按单列粘贴</span></p>
+            <ul class="ul-item f-cb">
+                <li>张三</li>
+                <li>李四</li>
+            </ul>
+        </div>
+    </div>*@
+            <div class="con-item con-item-2" style="display: block;">
+                <div class="input-part">
+                    <input type="text" id="search-member" autocomplete="off" data-delval value="快速搜索">
+                    <button class="iconfont dy-icon-26" id="search-member-btn" type="button"></button>
+                </div>
+                <div class="teacher-list y-teacher-list">
+                    <table class="table-teacher" id="search-member-con">
+                        <colgroup>
+                            <col style="">
+                            <col style="">
+                            <col style="">
+                        </colgroup>
+                        <tbody>
+                            {{if agencyUsers.length==0}}
+                            <div class="dy-nothing"><div class="dy-nothing-content"><i class="iconfont dy-icon-emoji01"></i>该机构、该科目没有教师</div></div>
+                            {{/if}}
+                            {{each agencyUsers as value}}
+                            <tr>
+                                <td>
+                                    <label class="checkbox-group group-checkbox">
+                                        <input type="checkbox" name="options"><span></span>
+                                        <i class="iconfont dy-icon-checkbox"></i>
+                                    </label>
+                                </td>
+                                <td>
+                                    <img width="25" height="25" src="{{value.avatar}}" alt="">
+                                </td>
+                                <td class="value-name" data-teacherid="{{value.id}}">{{value.name}}</td>
+                                <td class="subject-name">{{value.subjectName}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+
+                    </table>
+                </div>
+                <p>已选中<span class="teacher-selected">0</span>位老师</p>
+            </div>
+        </div>
+    </div>
+</script>
+<!--跳过重复圈子，继续创建-->
+<script type="text/html" id="pop-create-confirm">
+    <div class="pop-create-confirm">
+        <div class="m-title">以下圈子已经存在，不能重复创建：</div>
+        <div class="item-title">重复圈子：</div>
+        <ul>
+            {{each $data as value}}
+                <li>{{value}}</li>
+            {{/each}}
+        </ul>
+    </div>
+</script>
+<!--pop 创建圈子 END-->
+@section css{
+    @Html.CombineLink("v3/css/ea/ui-base.css,v3/plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css,v3/css/ea/statistics/page-group-manage.css")
+}
+
+@section js{
+    @Html.CombineLink("v3/plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js,v3/js/artTemplate.min.js,v3/js/ea/statistics/page-group-manage.js")
+}

@@ -1,0 +1,115 @@
+﻿@using DayEasy.Contracts.Management.Dto
+@using DayEasy.Utility.Extend
+@model List<UserAppDto>
+@{
+    var app = (TS_Application)ViewData["App"];
+    ViewBag.Title = "分配权限 - " + app.AppName;
+    
+    int index = 0, total = 0;
+    if (ViewData["Index"] != null)
+    {
+        index = (int)ViewData["Index"];
+    }
+    if (ViewData["Total"] != null)
+    {
+        total = (int) ViewData["Total"];
+    }
+}
+<style>
+    .d-dialog-wrap {
+        width: 560px;
+    }
+
+    .user-item {
+        border: 1px solid #eee;
+        display: inline-block;
+        line-height: 34px;
+        margin-right: 12px;
+        margin-bottom: 5px;
+        padding: 0 28px 0 10px;
+        cursor: pointer;
+        position: relative;
+    }
+
+        .user-item i {
+            position: absolute;
+            right: 7px;
+            top: 10px;
+        }
+
+        .user-item:hover {
+            color: #cd5c5c;
+            border-color: #cd5c5c;
+        }
+
+    .b-user-search {
+        cursor: pointer;
+    }
+</style>
+<div class="d-app-configure" data-appid="@app.Id">
+    <form id="configureForm" method="post" class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-10 b-added-list">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>用户信息</th>
+                            <th>姓名</th>
+                            <th>角色</th>
+                            <th>对应权限机构</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="b-user-list">
+                        @foreach (var userApp in Model)
+                        {
+                            var roles = Enum.GetValues(typeof(UserRole)).Cast<UserRole>().Where(u => ((byte)u & userApp.Role) > 0).ToList();
+                            <tr data-id="@userApp.UserId">
+                                <td>@userApp.Account</td>
+                                <td>@userApp.UserName</td>
+                                <td>
+                                    @if (roles.Count > 0)
+                                    {
+                                        foreach (var role in roles)
+                                        {
+                                            <span class="mr5">@Html.GetEnumText((byte)role, typeof(UserRole))</span>
+                                        }
+                                    }
+                                </td>
+                                <td>@(userApp.AgencyName.IsNotNullOrEmpty() ? userApp.AgencyName : "无")</td>
+                                <td class="dy-operations">
+                                    <span data-t="delete" class="dy-operation dy-danger"><i class="fa fa-trash"></i> 删除</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="d-pager">
+            @Html.ShowPager(index, 15, total, 4)
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-1 control-label">添加用户</label>
+            <div class="col-sm-6">
+                <div class="input-group col-sm-7 pl0">
+                    <input type="text" class="form-control b-agency-key" placeholder="机构名称" />
+                    <i class="fa fa-search input-group-addon b-user-search"></i>
+                    <div class="dy-agencies hide"></div>
+                </div>
+                <div class="input-group col-sm-5 pl0">
+                    <input type="text" class="form-control b-user-code" placeholder="请输入得一号" />
+                    <i class="fa fa-plus input-group-addon b-user-search"></i>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section style{
+    @Html.CombineLink("v3/css/management/page-group.css")
+}
+
+@section script{
+    @Html.CombineLink("v3/js/management/page-configure.js")
+}

@@ -1,0 +1,297 @@
+/**
+ * @Boz
+ * @Name      ui\header
+ * @date      2016-8-25
+ */
+@import url(../less/base.less);
+
+
+//header
+.dy-header-tool {
+  min-width: 1200px;
+  position: relative;
+  z-index: 50;
+  background: white;
+  .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 7px);
+  .site-nav {
+    width: 1200px;
+    margin: 0 auto;
+    position: relative
+  }
+  .dy-nav {
+    height: 60px;
+    right: 5px;
+    line-height: 60px;
+    position: absolute;
+    top: 0;
+    .linkColor(#3bafda);
+    i {
+      background-color: #3bafda;
+      .inline-block;
+      height: 12px;
+      margin: -1px 5px;
+      width: 1px;
+    }
+  }
+  .ul-left {
+    a {
+      color: #333;
+      &:hover {
+        color: #3bafda;
+      }
+    }
+    h1 {
+      &.logo {
+        margin-right: 53px;
+        padding-top: 10px;
+        a {
+          padding: 0;
+          display: block;
+          height: 40px;
+        }
+      }
+    }
+    li {
+      a {
+        &.havechild {
+          display: block;
+          padding: 0 13px;
+          position: relative;
+          z-index: 2;
+          height: 60px;
+          line-height: 60px;
+          font-size: 14px;
+          color: #656d78;
+          &:hover {
+            color: #3bafda;
+            .iconfont {
+              color: #3bafda;
+            }
+          }
+        }
+        i {
+          vertical-align: -2px;
+          margin-right: 5px;
+        }
+        i.dy-icon-49,i.dy-icon-chujuan{
+          position:relative;
+          top:-1px;
+          }
+      }
+      &.menu-1 {
+        float: left;
+        position: relative;
+        &:hover {
+          .g-ul-2 {
+            display: block;
+          }
+          .havechild {
+            color: #3bafda;
+          }
+        }
+      }
+      &.z-crt {
+        & > a {
+          color: #3bafda;
+        }
+        .iconfont {
+          color: #3bafda;
+        }
+      }
+      .iconfont {
+        position: relative;
+        color: #aab2bd;
+      }
+      .dy-icon-shouye {
+        top: 1px;
+      }
+      .dy-icon-liebiao {
+      }
+      .dy-icon-49 {
+        top: 2px;
+      }
+      .dy-icon-yingyong {
+        top: 2px;
+      }
+    }
+    .g-ul-2 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+      display: none;
+      font-size: 14px;
+      line-height: 35px;
+      padding: 50px 0 0;
+      background: @color-default;
+      .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 7px);
+      & > li > a {
+        display: block;
+        padding-left: 40px;
+        font-size: 12px;
+      }
+    }
+    .dy-icon-anglebottom {
+      font-size: 12px;
+    }
+  }
+  .ul-right {
+    > li {
+      float: left;
+      margin-right: 32px;
+    }
+    .soso {
+      margin-top: 13px;
+    }
+    .search-combobox {
+      background: #f5f7fa;
+      width: 248px;
+      height: 32px;
+      .rounded-corners(18px);
+      position: relative;
+      border: 2px solid #f5f7fa;
+      .transition(border 0.5s ease 0s);
+      input.input-box {
+        width: 196px;
+        margin-left: 16px;
+        font-size: 14px;
+        padding: 6px 2px;
+        height: 28px;
+        background-color: #f5f7fa;
+        border: none;
+      }
+      span.pos-box {
+        position: absolute;
+        right: 0;
+        width: 35px;
+        top: 0;
+        height: 28px;
+        &:hover {
+          .dy-icon-26 {
+            color: #3bafda;
+          }
+        }
+        button {
+          position: absolute;
+          width: 100%;
+          z-index: 2;
+          height: 100%;
+          .opacity(0);
+        }
+        i.dy-icon-26 {
+          position: absolute;
+          right: 0;
+          width: 35px;
+          top: 0;
+          height: 28px;
+          text-align: center;
+          line-height: 28px;
+          cursor: pointer;
+        }
+      }
+
+    }
+    .z-sel {
+      border-color: #e6e9ed;
+      background: @color-default;
+      color: #3bafda;
+      input.input-box {
+        background-color: @color-default;
+      }
+    }
+    .info {
+      margin-right: 60px;
+      position: relative;
+      margin-top: 13px;
+      span {
+        position: absolute;
+        right: -10px;
+        top: 0;
+        background: #ed5565;
+        .rounded-corners(50%);
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        line-height: 20px;
+        font-size: 12px;
+        color: @color-default;
+        overflow: hidden;
+      }
+    }
+    .head-user {
+      position: relative;
+      margin-top: 10px;
+      .user-img {
+        position: relative;
+        z-index: 2;
+        img {
+          width: 40px;
+          height: 40px;
+          .rounded-corners(50%);
+        }
+      }
+      .ul-fixed {
+        top: -10px;
+        left: -26px;
+        width: 100px;
+        z-index: 1;
+        position: absolute;
+        display: none;
+        font-size: 14px;
+        padding: 0 15px 30px;
+        background: @color-default;
+        .transition(height 0.5s ease 0s);
+        .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 7px);
+        .mt-padd {
+          margin-top: 70px;
+        }
+        li {
+          margin-bottom: 10px;
+          a {
+            color: #333;
+          }
+          &:hover {
+            a {
+              color: #3bafda;
+            }
+          }
+        }
+      }
+      &:hover {
+        .ul-fixed {
+          display: block;
+        }
+      }
+      .iconfont {
+        font-size: 18px;
+        margin-right: 10px;
+      }
+    }
+    .head-user-notlogged {
+      height: 60px;
+      line-height: 60px;
+      a, b {
+        .inline-block;
+        color: #3bafda;
+      }
+      a {
+        &:hover {
+          color: @color-hover-blue;
+        }
+      }
+      b {
+        margin: 0px 7px;
+      }
+    }
+    .dy-icon-11 {
+      font-size: 32px;
+    }
+  }
+  .d-top-nav {
+    float: left;
+    font-size: 18px;
+    line-height: 60px;
+    color: @d-color-gray;
+  }
+}

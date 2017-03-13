@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>教务管理-圈子管理</title>
+    <meta charset="UTF-8">
+    <link type="image/x-icon" rel="Shortcut Icon" href="/favicon.ico">
+    <!--<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css"/>-->
+    <link rel="stylesheet" href="/v3/source/fonticon/iconfont.css"/>
+    <link rel="stylesheet" href="/v3/source/css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/header-footer.css"/>
+    <link href="/v3/source/css/dialog.css" rel="stylesheet" media="all"/>
+    <script src="/v3/js/singer.min.js" type="text/javascript"></script>
+
+
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="/v3/source/css/ea/ui-data.css"/>
+    <link rel="stylesheet" href="/v3/source/css/ea/statistics/page-group-manage.css"/>
+
+
+    <script>
+        window.DEYI = window.DEYI || {};
+        window.DEYI.sites = {
+            'main': 'http://www.dayeasy.dev',
+            'apps': 'http://apps.dayeasy.dev',
+            'static': '//static.dayeasy.dev',
+            'reg': 'http://account.dayeasy.dev/reg',
+            'login': 'http://account.dayeasy.dev/login',
+            'account': 'http://account.dayeasy.dev',
+            'file': '//file.dayez.net',
+            'open': 'http://open.dayeasy.dev/'
+        };
+    </script>
+</head>
+<body>
+
+
+<div class="dy-wrap">
+    <!--[if lt IE 9]>
+    <style>
+        .dy-header{ border-bottom:1px solid #f0f0f0; }
+        .ul-fixed{ border:1px solid #f0f0f0; }
+        .circle-list .top-one .img-mack{ background:#a0d468; -ms-filter:"alpha(opacity=1)"; filter:alpha(opacity=100); zoom:1; }
+    </style>
+    <![endif]-->
+
+    <div class="dy-header">
+        <div class="site-nav  f-cb">
+            <ul class="ul-left f-fl">
+                <li class="menu-1">
+                    <h1 class="logo">
+                        <a href="http://www.dayeasy.dev">
+                            <img width="130" height="40" src="/v3/image/logo.png" alt="">
+                        </a>
+                    </h1>
+                </li>
+                <li class="z-crt menu-1">
+                    <a class="havechild" href="http://www.dayeasy.dev"><i class="iconfont dy-icon-shouye"></i>首页</a>
+                </li>
+                <li class=" menu-1">
+                    <a href="javascript:void(0)" class="havechild" data-menu="">
+                        <i class="iconfont dy-icon-liebiao"></i>
+                        分类浏览
+                    </a>
+                    <ul class="g-ul-2" style="width: 106px;">
+                        <li class="">
+                            <a href="http://www.dayeasy.dev/topic/100">爱学习</a>
+                        </li>
+                        <li class="">
+                            <a href="http://www.dayeasy.dev/topic/200">先知道</a>
+                        </li>
+                        <li class="">
+                            <a href="http://www.dayeasy.dev/topic/300">感兴趣</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" menu-1">
+                    <a class="havechild" href="http://www.dayeasy.dev/group"><i class="iconfont dy-icon-49"></i>我的圈子</a>
+                </li>
+                <li class="menu-1 ">
+                    <a class="havechild" href="javascript:void(0);" data-menu="">
+                        <i class="iconfont dy-icon-yingyong"></i>应用中心
+                    </a>
+                    <ul class="g-ul-2" style="width: 106px;">
+                        <li class="">
+                            <a href="http://www.dayeasy.dev/work">批阅中心</a>
+                        </li>
+                        <li class="">
+                            <a href="http://www.dayeasy.dev/paper">试卷库</a>
+                        </li>
+                        <li class="">
+                            <a href="http://www.dayeasy.dev/paper/choosepapertype">在线出卷</a>
+                        </li>
+                        <li class="">
+                            <a href="http://www.dayeasy.dev/report">报表</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="ul-right f-fr">
+                <li class="soso">
+                    <div class="search-combobox ">
+                        <input class="input-box" placeholder="搜索" type="text" name="" id=""/>
+                    <span class="pos-box">
+                        <button type="submit"></button>
+                        <i class="iconfont dy-icon-26"></i>
+                     </span>
+                    </div>
+                </li>
+                <li class="info">
+                    <a href="">
+                        <i class="iconfont dy-icon-11"></i>
+                        <span class="po-detail-ba">12</span>
+                    </a>
+                </li>
+                <!--已登录-->
+                <li class="head-user">
+                    <a class="user-img" href="">
+                        <img src="../../image/default/user_s40x40.jpg" alt=""/>
+                    </a>
+                    <ul class="ul-fixed">
+                        <li class="mt-padd"><a href=""><i class="iconfont dy-icon-9"></i>设置</a></li>
+                        <li><a href=""><i class="iconfont dy-icon-56"></i>退出</a></li>
+                    </ul>
+                </li>
+                <!--未登录登录-->
+                <!--<li class="head-user-notlogged">-->
+                <!--<a href="">登录</a><b>/</b><a href="">注册</a>-->
+                <!--</li>-->
+
+
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="dy-main">
+        <!--pop 创建圈子-->
+        <div class="esta-group">
+            <div class="box list-item">
+                <div class="box-lg-3">圈子类型：</div>
+                <div class="box-lg-9">
+                    <label class="checkbox-group group-radio">
+                        <input type="radio" name="options"><span>班级圈</span>
+                        <i class="iconfont dy-icon-radio"></i>
+                    </label>
+                    <label class="checkbox-group group-radio">
+                        <input type="radio" name="options"><span>同事圈</span>
+                        <i class="iconfont dy-icon-radio"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="box list-item">
+                <div class="box-lg-3">
+                    圈子名称：
+                </div>
+                <div class="box-lg-9">
+                    <input type="text" data-delval value="请输入圈子名称">
+                </div>
+            </div>
+            <div class="box list-item">
+                <div class="box-lg-3">
+                    入学年份：
+                </div>
+                <div class="box-lg-9">
+                    <select name="" id="">
+                        <option value="">2014年</option>
+                        <option value="">2014年</option>
+                        <option value="">2014年</option>
+                        <option value="">2014年</option>
+                        <option value="">2014年</option>
+                    </select>
+
+                </div>
+            </div>
+            <button class="dy-btn dy-btn-info">确认创建</button>
+        </div>
+        <!--pop 创建圈子 END-->
+    </div>
+</div>
+<div class="dy-footer">
+    <div class="container">
+        <div class="copy-left">
+            <p>客服热线： 400 - 123456</p>
+            <p class="footer-tag-list">
+                <a href="">关于我们</a>
+                <a href="">联系我们</a>
+                <a href="">产品中心</a>
+                <a href="">常见问题</a>
+                <a href="http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandalone_46.0.2490.80_Setup.1445829883.exe">建议使用
+                    chrome 进行访问</a>
+            </p>
+            <p>
+                Copyright © <a href="">得一科技责任有限公司dayeasy.net </a>
+                <a href="http://www.miitbeian.gov.cn/" target="_blank"> 蜀ICP备14013147号</a> 2013-2015
+            </p>
+        </div>
+        <div class="copy-right">
+            <ul>
+                <!--安卓下载-->
+                <li class="bg-android-download">
+                    <a class="android" href="javascript:void(0)">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-30"></i>
+                        <div class="app-qrcode">
+                            <img width="132" height="132" src="../../image/qrcode/android.png" alt=""/>
+                        </div>
+                    </a>
+                </li>
+                <!--app-->
+                <li class="bg-app-qrcode">
+                    <a class="android" href="javascript:void(0)">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-38"></i>
+                        <div class="app-qrcode">
+                            <img width="132" height="132" src="../../image/qrcode/android.png" alt=""/>
+                        </div>
+                    </a>
+                </li>
+                <!--QQ-->
+                <li class="bg-qq">
+                    <a class="android" href="javascript:void(0)">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-41"></i>
+                    </a>
+                </li>
+                <!--微博-->
+                <li class="bg-weibo">
+                    <a class="android" href="javascript:void(0)">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-57"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="/v3/js/jquery-1.10.2.min.js"></script>
+<script src="http://static.dayeasy.dev/plugs/artDialog/dist/dialog-plus.min.js?t=20150511"
+        type="text/javascript"></script>
+<script src="/v3/js/artTemplate.min.js?t=20150511" type="text/javascript"></script>
+<script src="/v3/source/js/base/common.js?t=20160830_001" type="text/javascript"></script>
+<script src="/v3/source/js/base.js"></script>
+
+
+<script src="/v3/plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
+<!--<script src="/v3/plugs/mCustomScrollbar/jquery.mousewheel.min.js"></script>-->
+
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
+
+
+<script src="/v3/source/js/ea/statistics/page-group-manage.js"></script>
+</body>
+</html>

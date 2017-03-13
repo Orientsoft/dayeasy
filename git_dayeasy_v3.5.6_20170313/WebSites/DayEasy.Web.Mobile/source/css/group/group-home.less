@@ -1,0 +1,354 @@
+@import "../base";
+
+#right-panel {
+  width: 170px;
+  padding: 0;
+  min-height: 300px;
+  background: @color-default;
+}
+
+.d-ui-panelslider{min-height: 300px;    padding:10px 20px 20px;}
+// 圈子列表页-列表
+.d-group-list {
+  dt {
+    padding: 5px 0;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0;
+  }
+  dd {
+    height: 72px;
+    margin: 0 0 8px 0;
+    border-bottom: 1px solid #f1f1f1;
+    padding: 8px 0;
+    position: relative;
+    &:last-child{border-bottom:none;}
+    a{ display: block;}
+    img {
+      float: left;
+      margin-right: 16px;
+      width: 60px;
+      height: 60px;
+      border: 4px;
+    }
+    .group-name {
+      display: block;
+      height: 21px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 16px;
+      line-height: 16px;
+      color: #333;
+    }
+    .group-count {
+      font-size: 12px;
+      line-height: 18px;
+      color: #999;
+      width: 40%;
+    }
+    .group-member {
+      color: #666;
+      font-size: 14px;
+    }
+    .d-message-count {
+      width: 80px;
+      height: 30px;
+      line-height: 30px;
+      .rounded-corners(4px);
+      color: @base-color;
+      border: 1px solid @base-color;
+      font-size: 14px;
+      position: absolute;
+      bottom: 10px;
+      right: 0;
+      text-align: center;
+    }
+    //圈内消息数量
+    .group-number {
+      height: 21px;
+      span.group-name {
+        .inline-block;
+        max-width: 176px;
+      }
+      .number {
+        font-style: normal;
+        font-size: 12px;
+        color: white;
+        background-color: #ed5565;
+        height: 16px;
+        width: 16px;
+        line-height: 16px;
+        text-align: center;
+        .rounded-corners(8px);
+        .inline-block;
+        position: relative;
+        top: -7px;
+        right: -7px;
+      }
+    }
+  }
+}
+
+// 圈子搜索列表
+.d-group-list-lookup {
+  padding: 10px;
+  a {
+    color: @color-default;
+    font-size: 12px;
+    .inline-block;
+    padding: 4px 6px;
+    margin-bottom: 5px;
+    &.bg-group-class {
+      border: 1px solid #a0d468;
+    }
+    &.bg-group-share {
+      border: 1px solid #ffce54;
+    }
+  }
+}
+
+//没有班级圈
+.d-group-no-class {
+  color: #ccc;
+  text-align: center;
+  .dy-icon-classcircle {
+    font-size: 100px;
+    margin-bottom: 20px;
+  }
+  .g-text {
+    font-size: 16px;
+    margin: 0px;
+    text-align: center;
+  }
+}
+//没有搜索到相关的圈子
+.d-group-no-soso {
+  color: #ccc;
+  text-align: center;
+  .dy-icon-classcircle {
+    font-size: 100px;
+    margin-bottom: 20px;
+  }
+  .g-text {
+    font-size: 16px;
+    margin: 0px;
+    text-align: center;
+  }
+}
+
+// group  Icon
+.stitches-group(@x: 0, @y: 0, @width: 0, @height: 0) {
+  background-position: @x @y;
+  width: @width;
+  height: @height;
+}
+
+.group {
+  .background-image('group.png', no-repeat, #fff);
+  .inline-block;
+  .rounded-corners(50%);
+  margin-right: 5px;
+  vertical-align: text-bottom;
+
+  &.group-g-avatar01 {
+    .stitches-group(-5px, -5px, 20px, 20px);
+  }
+
+  &.group-g-avatar02 {
+    .stitches-group(-35px, -5px, 20px, 20px);
+  }
+
+  &.group-g-avatar03 {
+    .stitches-group(-5px, -35px, 20px, 20px);
+  }
+
+  &.group-g-avatar04 {
+    .stitches-group(-35px, -35px, 20px, 20px);
+  }
+
+  &.group-g-avatar05 {
+    .stitches-group(-65px, -5px, 20px, 20px);
+  }
+
+  &.group-g-avatar06 {
+    .stitches-group(-65px, -35px, 20px, 20px);
+  }
+}
+
+// 搜索圈子列表-列表
+
+.d-group-soso-list {
+  li {
+    height: 72px;
+    margin: 8px 0;
+    border-bottom: 1px solid #f1f1f1;
+    padding: 8px 0;
+    position: relative;
+    img {
+      float: left;
+      margin-right: 16px;
+      width: 60px;
+      height: 60px;
+      border: 4px;
+      }
+    .group-name {
+      display: block;
+      height: 21px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 16px;
+      line-height: 16px;
+      color: #333;
+      }
+    .group-count {
+      font-size: 12px;
+      line-height: 18px;
+      color: #999;
+      width: 40%;
+      }
+    .group-member {
+      color: #666;
+      font-size: 14px;
+      }
+    .d-message-count {
+      width: 80px;
+      height: 30px;
+      line-height: 30px;
+      .rounded-corners(4px);
+      border: 1px solid @base-color;
+      font-size: 14px;
+      position: absolute;
+      bottom: 10px;
+      right: 0;
+      text-align: center;
+      a{color: @base-color;}
+      }
+    //圈内消息数量
+    .group-number {
+      height: 21px;
+      span.group-name {
+        .inline-block;
+        max-width: 176px;
+        }
+      .number {
+        font-style: normal;
+        font-size: 12px;
+        color: white;
+        background-color: #ed5565;
+        height: 16px;
+        width: 16px;
+        line-height: 16px;
+        text-align: center;
+        .rounded-corners(8px);
+        .inline-block;
+        position: relative;
+        top: -7px;
+        right: -7px;
+        }
+      }
+    }
+  }
+.d-soso-one{
+  position: relative;
+  z-index: 100;
+  .dy-form-field{
+    padding-left: 60px;
+    font-size: 14px;
+    }
+  }
+.select-main{
+  width: 56px;
+  height: 40px;
+  line-height: 41px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  position: absolute;
+  color: #3bafda;
+  .dy-icon-anglebottom{
+    font-size: 12px;
+    margin-left: 5px;
+    }
+  &:after{
+    content: '';
+    width: 1px;
+    height: 15px;
+    background: #e6e9ed;
+    position: absolute;
+    top: 13px;
+    right: 1px;
+    }
+  }
+ul.select-option{
+  width: 56px;
+  text-align: center;
+  border: 1px solid #e6e9ed;
+  border-top: none;
+  display: none;
+  position: absolute;
+  font-size: 14px;
+  left: -1px;
+  top: 40px;
+  margin: 0;
+  li{
+    height: 32px;
+    line-height: 32px;
+    background: white;
+    cursor: pointer;
+    &:hover{
+      background: #e6e9ed;
+      }
+    }
+  }
+
+/* media */
+/* 横屏 */
+@media screen and (orientation: landscape) {
+
+  }
+
+/* 竖屏 */
+@media screen and (orientation: portrait) {
+
+  }
+
+/* 窗口宽度<960,设计宽度=768 */
+@media screen and (max-width: 959px) {
+  .d-group-list li .group-number span.group-name {
+    max-width: 628px;
+    }
+  }
+
+/* 窗口宽度<768,设计宽度=640 */
+@media screen and (max-width: 767px) {
+  .d-group-list li .group-number span.group-name {
+    max-width: 500px;
+    }
+  }
+
+/* 窗口宽度<640,设计宽度=480 */
+@media screen and (max-width: 639px) {
+  .d-group-list li .group-number span.group-name {
+    max-width: 338px;
+    }
+  }
+
+/* 窗口宽度<480,设计宽度=320 */
+@media screen and (max-width: 479px) {
+  .d-group-list li .group-number span.group-name {
+    max-width: 176px;
+    }
+  }
+
+
+.dy-load-bata {
+  background: #eee;
+  color: #999;
+  height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  }

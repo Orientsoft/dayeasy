@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayEasy.Web.Application", "DayEasy.Web.Application\DayEasy.Web.Application.csproj", "{048631B8-5869-4AF4-9AE8-610531FFA0C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{870B0E97-9BEC-4D36-9A26-64C12C612E91}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayEasy.Application.Services", "DayEasy.Application.Services\DayEasy.Application.Services.csproj", "{1C8CD1D9-0961-4C6A-9239-3F5E163C702E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{048631B8-5869-4AF4-9AE8-610531FFA0C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{048631B8-5869-4AF4-9AE8-610531FFA0C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{048631B8-5869-4AF4-9AE8-610531FFA0C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{048631B8-5869-4AF4-9AE8-610531FFA0C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C8CD1D9-0961-4C6A-9239-3F5E163C702E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C8CD1D9-0961-4C6A-9239-3F5E163C702E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C8CD1D9-0961-4C6A-9239-3F5E163C702E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C8CD1D9-0961-4C6A-9239-3F5E163C702E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

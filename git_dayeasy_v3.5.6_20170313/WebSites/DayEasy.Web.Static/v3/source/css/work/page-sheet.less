@@ -1,0 +1,71 @@
+/**
+ * 答题卡
+ * Created by shay on 2017/7/13.
+ */
+@import "../../less/base";
+
+.d-sections {
+  height: 45px;
+  line-height: 45px;
+  margin: 0 auto;
+  width: 780px;
+}
+
+.d-picture-wrap {
+  position: relative;
+  width: 780px;
+  margin: 0 auto;
+  .icon {
+    position: absolute;
+    .score {
+      background-color: #fa8989;
+      border: 1px solid #fa8989;
+      border-radius: 6px;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      left: 48px;
+      padding: 1px 2px;
+      position: absolute;
+      text-align: center;
+      top: 0;
+    }
+    img {
+      max-width: none;
+    }
+  }
+}
+
+.d-score-wrap {
+  width: 240px;
+  position: absolute;
+  right: 320px;
+  top: 10px;
+  z-index: 20;
+  .p-score {
+    color: @d-color-red;
+    font-family: georgia, serif;
+    font-size: 35px;
+    margin-bottom: 15px;
+    text-align: center;
+    span {
+      font-size: 24px;
+      font-family: "Microsoft YaHei", serif;
+    }
+  }
+  .p-objective-score {
+    color: @d-color-red;
+    font-size: 16px;
+    text-align: center;
+    line-height: 28px;
+  }
+  .p-objective-error {
+    font-family: arial, sans-serif;
+    color: @d-color-red;
+    font-size: 16px;
+    text-align: center;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+}

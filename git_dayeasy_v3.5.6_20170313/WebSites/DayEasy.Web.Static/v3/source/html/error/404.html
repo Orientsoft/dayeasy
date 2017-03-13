@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>404</title>
+    @@include('./link.html')
+    <!--<link rel="stylesheet" href="../../css/site-base.css"/>-->
+    <style>
+        .dy-header{ margin-bottom:200px; }
+        .error-box{ position:absolute; top:50%; left:50%; width:666px; height:200px; margin-left:-333px; margin-top:-167.5px; }
+        .error-box-one{ text-align:center; font-size:24px; margin-top:50px; color:#333; }
+        .error-box-two{ text-align:center; margin-top:20px; color:#999; font-size:14px; }
+        .error-box-two a{ color:#999; }
+        .error-box-two a:hover{ color:#4fc1e9; }
+    </style>
+</head>
+<body>
+
+<div class="dy-wrap f-pr ">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="w1200 f-cb ">
+            <div class="error-box">
+
+                <div class="error-box-one">
+                    抱歉！找不到该页面......
+                </div>
+                <div class="error-box-two">
+                    <span id="totalSecond">6</span>
+                    秒后自动返回 <a title="返回首页" href="http://www.dayeasy.net">首页</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+@@include('./footer.html')
+<script type="text/javascript">
+    (function (S){
+        S._mix(S, {
+            /**
+             * 倒计时-跳转页面
+             * @param id
+             * @param href
+             * @param callback
+             */
+            automaticReturn: function (id, href, callback){
+                var second   = document.getElementById(id).textContent,
+                    Explorer = navigator.appName.indexOf("Explorer") > -1,
+                    _this    = this;
+                Explorer && (second = document.getElementById(id).innerText || 60); //默认时间值
+                setInterval(function (){
+                            callback && callback.call(_this, second);               //second 当前时间
+                            if(second < 0){
+                                location.href = href || "http://www.baidu.com"; //跳转页面
+                                return !!0
+                            }
+                            Explorer ? (document.getElementById(id).innerText = second--) : (document.getElementById(id).textContent = second--)
+                        },
+                        1000);
+            }
+        })
+        S.automaticReturn('totalSecond', 'http://www.dayeasy.net');
+
+//        (function ($, S) {
+//            var $time = $('#totalSecond'),
+//                second = ~~$time.html() || 5,
+//                timer = S.later(function () {
+//                    second--;
+//                    if (second <= 0) {
+//                        location.href = $time.next().attr('href');
+//                        timer.cancel();
+//                    } else {
+//                        $('#totalSecond').html(second);
+//                    }
+//                }, 1000, true);
+//        })(jQuery, SINGER);
+
+    })(SINGER);
+
+</script>
+</body>
+</html>

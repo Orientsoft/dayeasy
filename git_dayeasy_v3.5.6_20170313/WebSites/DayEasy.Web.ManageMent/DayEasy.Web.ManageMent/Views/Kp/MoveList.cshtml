@@ -1,0 +1,126 @@
+﻿@using DayEasy.Utility.Timing
+@model List<DayEasy.Contracts.Management.Mongo.MKnowledgeMover>
+
+@{
+    ViewBag.Title = "转移队列";
+}
+<div class="d-main">
+    <div>
+        <div class="d-total">
+            共<em>@ViewData["totalCount"]</em>条转移记录
+        </div>
+    </div>
+    <table class="table table-hover table-bordered">
+        <colgroup>
+            <col />
+            <col />
+            <col style="width: 10em" />
+            <col style="width: 5em" />
+            <col style="width: 10em" />
+            <col style="width: 10em" />
+            <col style="width: 8em" />
+            <col style="width: 4em" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>源知识点</th>
+                <th>目标知识点</th>
+                <th>提交时间</th>
+                <th>状态</th>
+                <th>开始时间</th>
+                <th>完成时间</th>
+                <th>耗时</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr data-code="@item.Code">
+                    <td>@item.Name<small>[@item.Code]</small></td>
+                    <td>@item.TargetName<small>[@item.TargetCode]</small></td>
+                    <td>@Clock.Normalize(item.Creation).ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>
+                        @if (item.Status == (byte)NormalStatus.Delete)
+                        {
+                            <label class="label label-success">已完成</label>
+                        }
+                        else
+                        {
+                            if (item.StartTime.HasValue)
+                            {
+                                <label class="label label-info">转移中</label>
+                            }
+                            else
+                            {
+                                <label class="label label-default">待转移</label>
+                            }
+                        }
+                    </td>
+                    <td>@(item.StartTime.HasValue ? Clock.Normalize(item.StartTime.Value).ToString("yyyy-MM-dd HH:mm") : "")</td>
+                    <td>@(item.FinishedTime.HasValue ? Clock.Normalize(item.FinishedTime.Value).ToString("yyyy-MM-dd HH:mm") : "")</td>
+                    <td>@(item.FinishedTime.HasValue ? ((item.FinishedTime.Value - item.StartTime.Value).TotalMilliseconds) / 1000 + "s" : "")</td>
+                    <td>
+                        @if (item.Status == (byte)NormalStatus.Delete)
+                        {
+                            <a href="javascript:void(0);" class="a-reset" title="重新转移">
+                                <i class="fa fa-repeat"></i>
+                            </a>
+                        }
+                        @if (!item.StartTime.HasValue)
+                        {
+                            <a href="javascript:void(0);" class="a-cancel" title="取消转移">
+                                <i class="fa fa-times text-danger"></i>
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 15, Convert.ToInt32(ViewData["totalCount"]), 4)
+    </div>
+</div>
+@section script{
+    <script>
+        (function ($, S) {
+            $('.a-reset').bind('click', function () {
+                var $t = $(this),
+                    code = $t.parents('tr').data('code');
+                S.confirm('确认要重新转移该知识点？', function () {
+                    $.post('/sys/kps/reset-mover', {
+                        code: code
+                    }, function (json) {
+                        if (!json.status) {
+                            S.alert(json.message);
+                            return false;
+                        }
+                        S.msg('重置成功！', 2000, function () {
+                            $t.remove();
+                        });
+                        return true;
+                    });
+                });
+            });
+            $('.a-cancel').bind('click', function () {
+                var $t = $(this),
+                    code = $t.parents('tr').data('code');
+                S.confirm('确认要取消转移该知识点？', function () {
+                    $.post('/sys/kps/cancel-mover', {
+                        code: code
+                    }, function (json) {
+                        if (!json.status) {
+                            S.alert(json.message);
+                            return false;
+                        }
+                        S.msg('取消成功！', 2000, function () {
+                            $t.remove();
+                        });
+                        return true;
+                    });
+                });
+            });
+        })(jQuery, SINGER);
+    </script>
+}

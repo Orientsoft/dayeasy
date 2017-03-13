@@ -1,0 +1,194 @@
+@import "../../less/base";
+@import "_full-base";
+
+/* Style for our header texts
+	* --------------------------------------- */
+.dy-wrap {
+  .background-image('index/bg0.jpg', repeat-y, transparent);
+  position: relative;
+}
+
+input[type="text"], input[type="password"], input[type="email"], textarea, select {
+  border-width: 2px;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #e6e9ed;
+}
+
+.page-checkbox-school {
+  .absolute-center(560px, 580px);
+  .head-title {
+    margin-bottom: 40px;
+    text-align: center;
+    h1 {
+      font-size: 30px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+      color: #999;
+    }
+  }
+}
+
+.form-group {
+  width: 100%;
+  position: relative;
+  margin-bottom: 15px;
+  .form-label {
+    .inline-block;
+    width: 8em;
+    text-align: right;
+    margin-right: 5px;
+  }
+  .col-6 {
+    float: left;
+    width: 60%;
+  }
+  .col-4 {
+    float: left;
+    width: 40%;
+  }
+}
+
+.form-actions {
+  text-align: center;
+  padding: 15px 0;
+  margin-bottom: 20px;
+}
+
+.checkbox-school-text {
+  position: relative;
+  select {
+    width: 100px;
+  }
+  input {
+    width: 300px;
+  }
+  label {
+    height: 40px;
+    line-height: 40px;
+    color: #666;
+    width: 100px;
+    text-align: right;
+    .inline-block;
+  }
+  .li-1 {
+    margin-bottom: 20px;
+
+  }
+  .li-2 {
+    margin-bottom: 30px;
+    float: left;
+  }
+  .li-3 {
+    float: left;
+    margin-left: -4px;
+  }
+  .li-4 {
+    text-align: center;
+    margin-bottom: 50px;
+    clear: both;
+  }
+  .li-5 {
+    color: #999;
+    font-size: 16px;
+    text-align: center;
+  }
+  .li-6, .li-7, .li-8, .li-9 {
+    a {
+      color: #999;
+    }
+    position: absolute;
+    padding-left: 60px;
+    width: 180px;
+    img {
+      display: block;
+      .rounded-corners(50%);
+      position: absolute;
+      top: -5px;
+      left: 0;
+    }
+    strong {
+      display: block;
+      margin-bottom: 8px;
+      .f-toe;
+    }
+    p {
+      .f-toe;
+    }
+  }
+  .li-6 {
+    bottom: -80px;
+    left: 11px;
+  }
+  .li-7 {
+    bottom: -60px;
+    right: 11px;
+  }
+  .li-8 {
+    bottom: -196px;
+    left: 64px;
+  }
+  .li-9 {
+    bottom: -162px;
+    right: 50px;
+  }
+}
+
+.agency-list {
+  background-color: @color-default;
+  border: 1px solid @border-color;
+  left: 199px;
+  position: absolute;
+  top: 38px;
+  width: 280px;
+  z-index: 99;
+  li {
+    border-bottom: 1px solid @border-color;
+    line-height: 32px;
+    padding: 0 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: @d-color-light-gray;
+    cursor: not-allowed;
+    &.item {
+      color: @d-color-gray;
+      cursor: pointer;
+    }
+    &.item:hover {
+      background-color: @d-color-blue;
+      color: @color-default;
+    }
+  }
+}
+
+.agency-checked {
+  background-color: @color-default;
+  border: 2px solid #e6e9ed;
+  .inline-block;
+  padding: 0 25px 0 8px;
+  position: relative;
+  vertical-align: top;
+  .agency-item {
+    line-height: 36px;
+    width: 17em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  i {
+    color: #999;
+    cursor: pointer;
+    font-size: 12px;
+    position: absolute;
+    right: 5px;
+    top: 12px;
+    &:hover {
+      color: @d-color-orange;
+    }
+  }
+}

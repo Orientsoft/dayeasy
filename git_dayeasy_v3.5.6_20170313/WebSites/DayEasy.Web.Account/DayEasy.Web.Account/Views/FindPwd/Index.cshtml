@@ -1,0 +1,208 @@
+﻿@using DayEasy.Core
+@{
+    ViewBag.Title = "找回密码";
+}
+
+<div class="dy-main">
+    <div class="form-main w1200 mt30">
+        <div class="form-tab">
+            <div class="form-menu on">
+                <i class="iconfont dy-icon-37"></i>
+                验证身份
+            </div>
+            <div class="form-menu">
+                <i class="iconfont dy-icon-36"></i>
+                重置密码
+            </div>
+            <div class="form-menu">
+                <i class="iconfont dy-icon-radiohv"></i>
+                修改完成
+            </div>
+        </div>
+        <div class="form-list form-main-list f-cb">
+            <!--TAB-->
+            <div class="mobile-text">
+                <div class="form-group">
+                    <label class="form-label">账号：</label>
+                    <div class="form-item">
+                        <div class="form-textbox">
+                            <input class="form-input-w300 " type="text" placeholder="邮箱地址/手机号" name="" id="txtAccount" />
+                        </div>
+                    </div>
+                    <p class="msg-error hide"></p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">验证码：</label>
+                    <div class="form-item">
+                        <div class="form-textbox mr10">
+                            <input class="form-input-w180" type="text" placeholder="输入验证码" id="checkCode" />
+                        </div>
+                        <img class="form-code-img mr10" src="@Url.Action("GetIdentifyingCode", "Reg")" alt="点击刷新" id="identityCode" title="点击刷新">
+                        <span class="form-look ml10">看不清?<a href="javascript:void(0);" id="changeOne" class="pointer a01">换一张</a></span>
+                    </div>
+                    <p class="msg-error hide"></p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">动态验证码：</label>
+                    <div class="form-item">
+                        <div class="form-textbox mr10">
+                            <input class="form-input-w180" type="text" placeholder="输入动态码" id="txtDyCode" />
+                        </div>
+                        <button class="form-again-send mr10" id="btnSendCode" title="点击发送">发送验证码</button>
+                    </div>
+                    <p class="msg-error hide"></p>
+                </div>
+                <div class="form-group">
+                    <div class="form-item">
+                        <button class="dy-btn dy-btn-info" id="btnNext">下一步</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/user/ucenter.css")
+}
+
+@section js{
+    <script type="text/javascript">
+        $(function () {
+            var timerObj;
+            var secondsCount = 60;
+            var curCount = secondsCount;
+
+            $("#identityCode").click(function () {
+                $(this).attr("src", $(this).attr("src") + "?t=" + Math.random());
+            });
+
+            $("#changeOne").click(function () {
+                $("#identityCode").click();
+                return false;
+            });
+
+            $("#txtAccount").change(function () {
+                var $this = $(this);
+                var account = $this.val();
+
+                var isSuccess = account && account.length && (/^1[3|5|7|8][0-9]{9}$/.test(account) || /^[\w]+@@[\w]+.[a-zA-Z]+$/.test(account));
+
+                if (!isSuccess) {
+                    showError($this, "请输入正确的邮箱或者手机！");
+                    return false;
+                }
+
+                $.post("@Url.Action("CheckEmail", "FindPwd")", { account: account }, function (res) {
+                    if (!res.Status) {
+                        showError($this, res.Message);
+                        return false;
+                    }
+                    return false;
+                });
+
+                showRight($this);
+                return false;
+            });
+
+            $("#checkCode").change(function () {
+                var checkCode = $(this).val();
+                if (!(checkCode && checkCode.length)) {
+                    showError($(this), "请输入验证码！");
+                    return false;
+                }
+                else if (!/^[a-zA-Z0-9]{4}$/.test(checkCode)) {
+                    showError($(this), "输入的验证码明显错误！");
+                    return false;
+                }
+                else {
+                    showRight($(this));
+                }
+                return false;
+            });
+
+            $("#txtDyCode").change(function () {
+                var checkCode = $(this).val();
+                if (!(checkCode && checkCode.length)) {
+                    showError($(this), "请输入动态验证码！");
+                    return false;
+                }
+                else {
+                    showRight($(this));
+                }
+                return false;
+            });
+
+            //发送验证码
+            $("#btnSendCode").click(function () {
+                $("#txtAccount").change();
+                $("#checkCode").change();
+
+                if ($("#txtAccount").parent().hasClass("error-input") || $("#checkCode").parent().hasClass("error-input")) {
+                    return false;
+                }
+
+                var $this = $(this);
+                $this.attr("disabled", "disabled").addClass("selected").text("重新发送(" + curCount + "s)");
+                timerObj = window.setInterval(function () {
+                    if (curCount == 0) {
+                        window.clearInterval(timerObj);
+                        $this.removeAttr("disabled").removeClass("selected").text("重新发送");
+
+                        curCount = secondsCount;
+                    } else {
+                        curCount--;
+                        $this.text("重新发送(" + curCount + "s)");
+                    }
+                }, 1000);
+
+                $.post('@Url.Action("SendCode","FindPwd")', { code: $("#checkCode").val(), account: $("#txtAccount").val() }, function (res) {
+                    $("#identityCode").click();
+                    $("#checkCode").val('');
+                    if (res.Status) {
+                        $("#identityCode").click();
+                        $("#checkCode").val('').parent().removeClass('success-input');
+                    } else {
+                        singer.msg(res.Message);
+
+                        window.clearInterval(timerObj);
+                        $this.removeAttr("disabled").removeClass("selected").text("重新发送");
+                        curCount = secondsCount;
+                    }
+                });
+
+                return false;
+            });
+
+            $("#btnNext").click(function () {
+                $("#txtAccount").change();
+                $("#txtDyCode").change();
+
+                if ($("#txtAccount").parent().hasClass("error-input") || $("#txtDyCode").parent().hasClass("error-input")) {
+                    return false;
+                }
+
+                $.post('@Url.Action("CheckDynamicCode","FindPwd")', { code: $("#txtDyCode").val(), account: $("#txtAccount").val() }, function (res) {
+                    if (res.Status) {
+                        window.location = '@Url.Action("ChangePwd","FindPwd")';
+                    } else {
+                        singer.msg(res.Message);
+                    }
+                });
+
+                return false;
+            });
+        });
+
+        var showError = function (obj, errorMsg) {
+            obj.parent().removeClass("success-input").addClass("error-input");
+            obj.parent().parent().next('p.msg-error').removeClass('hide').text(errorMsg);
+        }
+
+        var showRight = function (obj) {
+            obj.parent().removeClass("error-input").addClass("success-input");
+            obj.parent().parent().next('p.msg-error').addClass('hide').text("");
+        }
+
+    </script>
+}

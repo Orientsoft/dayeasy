@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EED4A91C-D9C8-43D9-9E84-12C929579E18}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DayEasy.ThirdPlatform</RootNamespace>
+    <AssemblyName>DayEasy.ThirdPlatform</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\_service\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\..\_service\DayEasy.ThirdPlatform.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entity\Config\PlatformConfig.cs" />
+    <Compile Include="Entity\Config\PlatformType.cs" />
+    <Compile Include="Entity\Config\SmsType.cs" />
+    <Compile Include="Entity\Result\TencentResult.cs" />
+    <Compile Include="Entity\Result\YunpianResult.cs" />
+    <Compile Include="Entity\UserResult.cs" />
+    <Compile Include="Helper\Alipay.cs" />
+    <Compile Include="Helper\HelperBase.cs" />
+    <Compile Include="Helper\Sms\SmsBase.cs" />
+    <Compile Include="Helper\Sms\Yunpian.cs" />
+    <Compile Include="Helper\Tencent.cs" />
+    <Compile Include="Helper\TencentWeibo.cs" />
+    <Compile Include="Helper\Weibo.cs" />
+    <Compile Include="Helper\Weixin.cs" />
+    <Compile Include="PlatformFactory.cs" />
+    <Compile Include="PlatformUtility.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmsHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DayEasy.Core\DayEasy.Core.csproj">
+      <Project>{E7B154D5-F72E-4EFD-A228-325941125AE3}</Project>
+      <Name>DayEasy.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DayEasy.Utility\DayEasy.Utility.csproj">
+      <Project>{5f4e96d9-894a-4da7-b831-034632007b4e}</Project>
+      <Name>DayEasy.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="platform.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

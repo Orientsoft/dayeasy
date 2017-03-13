@@ -1,0 +1,85 @@
+{
+  "joint": "",
+  "isAb": true,
+  "questions": {
+    "id001": {
+      "type": 1,
+      "sort": 16,
+      "score": 5,
+      "area": {
+        "x": 30,
+        "y": 35,
+        "w": 230,
+        "h": 40
+      }
+    },
+    "id002": {
+      "type": 1,
+      "sort": 18,
+      "score": 5,
+      "area": {
+        "x": 320,
+        "y": 36,
+        "w": 230,
+        "h": 40
+      }
+    },
+    "id003": {
+      "type": 8,
+      "sort": 22,
+      "score": 15,
+      "area": {
+        "x": 30,
+        "y": 75,
+        "w": 620,
+        "h": 60
+      }
+    },
+    "id004": {
+      "type": 8,
+      "sort": 23,
+      "score": 60,
+      "area": {
+        "x": 30,
+        "y": 75,
+        "w": 620,
+        "h": 60
+      }
+    }
+  },
+  "groups": [
+    {
+      "section": 1,
+      "questionIds": [
+        "id001",
+        "id002"
+      ],
+      "region": {
+        "x": 0,
+        "y": 20,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "section": 2,
+      "questionIds": ["id003"],
+      "region": {
+        "x": 0,
+        "y": 50,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "section": 2,
+      "questionIds": ["id004"],
+      "region": {
+        "x": 0,
+        "y": 50,
+        "w": 0,
+        "h": 0
+      }
+    }
+  ]
+}

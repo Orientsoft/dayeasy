@@ -1,0 +1,43 @@
+/*--------------------------------------------------------------
+                        Product Name 错题医院-UI-BASE
+      Author:Plato
+      Create Date:2017/01/19  Last Mondify Date:2017/01/19
+      ===================================================
+--------------------------------------------------------------*/
+@import "../../less/base";
+@page-color-base:#3bafda; //版块风格基础样式
+.dy-wrap{ background:#f5f5f5;}
+.dy-header{ margin-bottom:30px;}
+// 左侧通用导航
+.sidebar-question-error{
+  background:white;
+  width:200px;
+  .h2-title{ margin:20px 0 24px; font-size:20px; padding-left:25px; border-left:5px solid @page-color-base; }
+  .nva-menu{
+    .ul-menu{
+      li{ margin-bottom:25px;
+        text-align:center;
+        &.on{
+            a{ color:#3bafda;}
+          }
+        a{
+          .inline-block;
+          white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;
+          max-width: 174px;
+          &:hover{
+            color:#4fc1e9;
+            }
+          }
+        }
+      }
+    }
+  }
+// 主体基础
+.main-qu-error{
+  width:980px;
+  }
+// 下载成功
+.pop-success{
+  color:@color-blue;
+  .iconfont{ margin-right:5px;    vertical-align: sub;}
+  }

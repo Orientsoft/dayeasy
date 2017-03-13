@@ -1,0 +1,130 @@
+﻿@import "../base";
+@import "base-center";
+.base-style {
+  margin-top: 30px;
+  background: @color-bule;
+  border-top-left-radius: 6px;
+  margin-bottom: 30px;
+}
+.base-style .btn {
+  .border-radius(3px);
+}
+.login-side {
+  width: 162px;
+}
+@import "side-left-menu";             //左侧-菜单栏
+.login-main {
+  position: relative;
+  background: #f7f7f7;
+  padding-top: 30px;
+  text-align: left;
+  width: 1000-162px;
+  min-height: 500px;
+  .history-go {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: inline-block;
+    .border-radius(3px);
+    background: #e1e1e1;
+    padding: 7px 14px;
+    color: #79848a;
+    text-decoration: none;
+    &:hover {
+      background: #d1cfcf;
+    }
+
+  }
+  .conter-warp {
+    width: 687px;
+    margin: 0 auto;
+
+    .main-title {
+      position: relative;
+      height: 30px;
+      margin: 0 0 30px 0;
+      b {
+        position: absolute;
+        font-size: 24px;
+        font-weight: normal;
+      }
+      .btn {
+        .border-radius(3px);
+      }
+      .class-director {
+        .class-give-up {
+          table {
+            img {
+              width: 50px;
+              height: 50px;
+              margin-right: 10px;
+            }
+            .with-ie8 {
+              width: 60px;
+            }
+            margin-bottom: 5px;
+          }
+          .btn-danger {
+            background: #fc9797;
+            border: 1px solid #fc9797;
+            &:hover {
+              background: #e44e4e;
+              border: 1px solid #e44e4e;
+            }
+          }
+        }
+      }
+    }
+
+  }
+  .mt50 {
+    margin-top: 50px;
+  }
+}
+//组件 title header 信息
+.g-conter {
+  .public {
+    border-top: 1px solid #b1e3fc;
+    position: relative;
+    margin-bottom: 25px;
+    h2 {
+      width: 118px;
+      font-size: 20px;
+      text-align: center;
+      background: #f7f7f7;
+      position: relative;
+      top: -10px;
+      margin: 0 auto 10px;
+
+    }
+  }
+}
+@import "personal-setting-info";       //个人设置 基本信息
+@import "personal-setting-account";    //个人设置-账户关联
+@import "personal-setting-pwd";        //个人设置-密码修改
+@import "class-list";                  //班级管理-班级列表
+@import "personal-mechanism-info";     //机构管理-基本信息
+@import "personal-mechanism-emce"; //机构管理- "教师职工" "认证审核"
+//添加弹出框
+.pop-frame {
+  background: white;
+  border: 1px solid #ededed;
+  padding: 20px 15px;
+  h2 {
+    font-size: 18px;
+    color: #454a4c;
+    margin-bottom: 15px;
+  }
+  .btn {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+  }
+  .bottom-btn {
+    text-align: right;
+  }
+}
+
+
+

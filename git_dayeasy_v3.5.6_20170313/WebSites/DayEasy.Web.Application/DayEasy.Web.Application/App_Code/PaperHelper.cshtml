@@ -1,0 +1,270 @@
+﻿@using System.Web.Mvc
+@using DayEasy.Contracts.Dtos.Question
+@using DayEasy.Contracts.Enum
+@using DayEasy.Paper.Services.Helper;
+
+@helper ShowQuestion(QuestionDto qItem, decimal score = 0, int sortNo = -1, bool isShowThumb = true, bool isAnswer = false, byte paperSectionType = (byte)PaperSectionType.PaperA, PaperSortType sortType = PaperSortType.PassRow)
+{
+    var hasImg = qItem.Images != null && qItem.Images.Any();
+    var smallRow = sortType.SmallRow(paperSectionType);
+    var isEnglish = qItem.SubjectId == 3;
+
+    <div class="q-item">
+        <div class="q-main" data-qid="@qItem.Id">
+            <div class="q-body">
+                @if (sortNo > 0)
+                {
+                    if (smallRow && qItem.Details != null && qItem.Details.Count > 0)
+                    {
+                        if (isEnglish)
+                        {
+                            <b>@((char) (65 + sortNo - 1)).</b>
+                        }
+                    }
+                    else
+                    {
+                        <b>@(sortNo).</b>
+                    }
+                }
+                @ChangeBr(qItem.Body)
+                @if (score > 0)
+                {
+                    <span class="p-score">@(score.ToString("0.#分"))</span>
+                }
+            </div>
+            @if (hasImg)
+            {
+                <div class="q-image">
+                    @GetThumb(qItem.Images[0], "150xauto", isShowThumb)
+                </div>
+            }
+
+            @if (qItem.Answers != null && qItem.Answers.Count > 1 && qItem.ShowOption) //选择题
+            {
+                if (isAnswer)
+                {
+                    @MakeChooseItem(qItem.Answers, qItem.AnswerCount > 1, isShowThumb, qItem.Type, qItem.Id, true)
+                }
+                else
+                {
+                    @MakeChooseItem(qItem.Answers, qItem.AnswerCount > 1, isShowThumb)
+                }
+            }
+            else if (qItem.Details != null && qItem.Details.Count > 0) //有小问的
+            {
+                if (isAnswer)
+                {
+                    @MakeSmallQuestion(qItem.Details, qItem.AnswerCount > 1, isShowThumb, qItem.Id, true, smallRow)
+                }
+                else
+                {
+                    @MakeSmallQuestion(qItem.Details, qItem.AnswerCount > 1, isShowThumb, isShowOption: qItem.ShowOption, smallRow: smallRow)
+                }
+            }
+            else //类似填空题
+            {
+                if (isAnswer)
+                {
+                    @MakeAnswerText()
+                }
+            }
+        </div>
+    </div>
+}
+
+@helper MakeSmallQuestion(List<SmallQuestionDto> details, bool hasMultiAnswer, bool isShowThumb, string qid = "", bool isAnswer = false, bool isShowOption = true, bool smallRow = false)
+{
+    if (details != null && details.Count > 0)
+    {
+        var smallQuList = details.OrderBy(u => u.Sort);
+
+        <div class="q-details smallquestion">
+            @foreach (var smallQu in smallQuList)
+            {
+                <div class="q-detail" data-qid="@smallQu.Id">
+                    <div class="q-body">
+                        @if (smallRow && smallQu.Sort > 0 && !string.IsNullOrEmpty(smallQu.Body))
+                        {
+                            <b>@(smallQu.Sort).</b>
+                        }
+                        @ChangeBr(smallQu.Body)
+                    </div>
+
+                    @if (smallQu.Images != null && smallQu.Images.Any())
+                    {
+                        <div class="q-image">
+                            @GetThumb(smallQu.Images[0], "150xauto", isShowThumb)
+                        </div>
+                    }
+                    @if (smallQu.IsObjective && isShowOption)
+                    {
+                        @MakeChooseItem(smallQu.Answers, hasMultiAnswer, isShowThumb, 2, smallQu.Id, isAnswer)
+                    }
+                </div>
+            }
+        </div>
+
+        if (!string.IsNullOrEmpty(qid) && smallQuList.Any(u => !u.IsObjective))
+        {
+            @MakeAnswerText()
+        }
+    }
+}
+
+@helper MakeChooseItem(List<AnswerDto> answers, bool hasMultiAnswer, bool isShowThumb, int qType = -1, string qid = "", bool isAnswer = false)
+{
+    if (answers != null && answers.Count > 0)
+    {
+        var answerList = answers.OrderBy(u => u.Sort);
+
+        var m = answerList.Any(a => ((a.Images != null && a.Images.Length > 0) ? 8 : 0) + a.Body.Length > 15);
+
+        //if (!isAnswer)
+        //{
+        //    var exists = answerList.ToList().Exists(u => (u.Images != null && u.Images.Any()) || (!string.IsNullOrEmpty(u.Body)));//判断没有内容的选项
+        //    if (!exists)
+        //    {
+        //        return;
+        //    }
+        //}
+
+        <div class="q-options @(m ? "" : "q-options-horizontal")">
+            @foreach (var answerItem in answerList)
+            {
+                bool hasImg = answerItem.Images != null && answerItem.Images.Any();
+
+                <div class="q-option">
+                    <div class="q-body">
+                        @if (qType > -1 && !string.IsNullOrEmpty(qid) && isAnswer)
+                        {
+                            if (qType == 1 || !hasMultiAnswer) //单选题
+                            {
+                                <label class="radio-inline">
+                                    <input type="radio" value="@answerItem.Id" name="n_@qid" data-sortcode="@((char) (65 + answerItem.Sort))"/>
+                                    <span class="q-option-word">@((char) (65 + answerItem.Sort)).</span>
+                                    <div class="q-option-body">@ChangeBr(answerItem.Body, false)</div>
+                                </label>
+                            }
+                            else
+                            {
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="@answerItem.Id" name="n_@qid" data-sortcode="@((char) (65 + answerItem.Sort))"/>
+                                    <span class="q-option-word">@((char) (65 + answerItem.Sort)).</span>
+                                    <div class="q-option-body">@ChangeBr(answerItem.Body, false)</div>
+                                </label>
+                            }
+                        }
+                        else
+                        {
+                            <span class="q-option-word ">@((char) (65 + answerItem.Sort)).</span>
+                            <div class="q-option-body ">@ChangeBr(answerItem.Body, false)</div>
+                        }
+                    </div>
+                    @if (hasImg)
+                    {
+                        <div class="q-image">
+                            @GetThumb(answerItem.Images[0], "150xauto", isShowThumb)
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+}
+
+@helper MakeAnswerText()
+{
+    <div class="q-answer row">
+        <div class="col-sm-1"><button class="btn btn-info btn-sm" disabled="disabled">作答：</button>
+        </div>
+        <div class="col-sm-6 pl0">
+            <textarea class="form-control" rows="2"></textarea>
+        </div>
+    </div>
+}
+
+@helper ShowAnswer(QuestionDto qItem)
+{
+    var hasAnswer = false;
+    if (!qItem.IsObjective)
+    {
+        <text>
+            @if (qItem.Answers.Count > 0 && !string.IsNullOrEmpty(qItem.Answers[0].Body))
+            {
+                hasAnswer = true;
+                @ChangeBr(qItem.Answers[0].Body)
+            }
+            @if (qItem.Answers.Count > 0 && qItem.Answers[0].Images != null && qItem.Answers[0].Images.Any())
+            {
+                <br/>
+                hasAnswer = true;
+                @GetThumb(qItem.Answers[0].Images[0], "150xauto", true)
+            }
+        </text>
+    }
+    else
+    {
+        if (qItem.HasSmall)
+        {
+            int i = 1;
+            foreach (var detail in qItem.Details)
+            {
+                var answerList = detail.Answers.Where(u => u.IsCorrect).OrderBy(u => u.Sort).ToList();
+                hasAnswer = answerList.Any();
+                <text>
+                    (@(detail.Sort))
+                    @foreach (var answerItem in answerList)
+                    {
+                        @((char) (65 + answerItem.Sort))
+                    }
+                    <br/>
+                </text>
+            }
+        }
+        else
+        {
+            var answerList = qItem.Answers.Where(u => u.IsCorrect).OrderBy(u => u.Sort).ToList();
+            hasAnswer = answerList.Any();
+            <text>
+                @foreach (var answerItem in answerList)
+                {
+                    @((char) (65 + answerItem.Sort))
+                }
+            </text>
+        }
+    }
+    if (!hasAnswer)
+    {
+        <span>略</span>
+    }
+}
+
+@helper GetThumb(string imgUrl, string size, bool isShowThumb)
+{
+    string thumbUrl = string.Empty;
+
+    if (!string.IsNullOrEmpty(imgUrl))
+    {
+        var ext = Path.GetExtension(imgUrl);
+        if (isShowThumb && !string.IsNullOrEmpty(ext))
+        {
+            thumbUrl = imgUrl.Replace(ext, "_s" + size + ext);
+        }
+        else
+        {
+            thumbUrl = imgUrl;
+        }
+    }
+
+    <img src="@thumbUrl" class="qImg" style="cursor: zoom-in;"/>
+}
+
+
+@helper ChangeBr(string content, bool isReplaceBr = true)
+{
+    if (isReplaceBr)
+    {
+        content = string.IsNullOrEmpty(content) ? content : content.Trim().Replace("\n", "<br/>");
+    }
+    @MvcHtmlString.Create(content)
+}

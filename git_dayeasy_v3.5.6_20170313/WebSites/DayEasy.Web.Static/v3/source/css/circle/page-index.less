@@ -1,0 +1,603 @@
+/*--------------------------------------------------------------
+                        我的圈子 - 圈子主页
+
+      Author:Plato
+      Create Date:2015/10/28 11:30  Last Mondify Date:2015/10/28 11:30
+      ===================================================
+
+--------------------------------------------------------------*/
+@import "ui-base";
+@import "../../less/ui-bbs";
+
+//评论框
+//*--------------------   Part ui    -----------------------
+.dy-wrap {
+  .bg-grey();
+}
+
+//*--------------------  main Style  -----------------------
+.home-circles {
+  //background: #fff;
+  padding-bottom: 50px;
+  font-size: 14px;
+  .top-img {
+    height: 120px;
+    overflow: hidden;
+  }
+  .top-title {
+    background: @color-default;
+    height: 132px;
+    padding-top: 10px;
+    margin-bottom: 30px;
+    position: relative;
+    .group-avatar {
+      position: absolute;
+      z-index: 2;
+      top: -50px;
+      left: 30px;
+      .inline-block;
+      img {
+        margin-bottom: 30px;
+        width: 150px;
+        height: 150px;
+      }
+    }
+    .dy-btn-danger {
+      padding: 0 22px;
+      height: 35px;
+      line-height: 35px;
+    }
+    .dg-info {
+      float: left;
+      margin-left: 200px;
+      width: 800px;
+      .dg-name {
+        font-size: 20px;
+        margin-bottom: 15px;
+        strong {
+          color: #999;
+          font-size: 14px;
+          margin-left: 10px;
+          position: relative;
+          top: -2px;
+        }
+        .dg-name-wrap {
+          .inline-block;
+          vertical-align: middle;
+          line-height: 30px;
+        }
+        .dg-type {
+          .inline-block;
+          color: #aab2bd;
+          padding: 5px 10px;
+          font-size: 14px;
+          .rounded-corners(2px);
+          cursor: default;
+          background: #f5f7fa;
+          margin-left: 15px;
+        }
+      }
+
+      .dg-summary {
+        color: #bbb;
+        line-height: 24px;
+      }
+    }
+    //工具栏
+    .dg-tools {
+      float: right;
+      .dt-item {
+        margin-right: 20px;
+        font-size: 17px;
+        width: 35px;
+        line-height: 35px;
+        text-align: center;
+        .inline-block;
+        .rounded-corners(50%);
+        i {
+          color: @color-default;
+        }
+      }
+      .dt-share {
+        background-color: @color-02;
+        &:hover {
+          background-color: darken(@color-02, 10%);
+        }
+      }
+      .dt-member {
+        background-color: @color-04;
+        &:hover {
+          background-color: darken(@color-04, 10%);
+        }
+      }
+      .dt-setting {
+        background-color: @color-05;
+        &:hover {
+          background-color: darken(@color-05, 10%);
+        }
+      }
+      .dt-join {
+        margin: 30px 30px 0 0;
+      }
+    }
+  }
+  .mian-conter {
+    .mainc {
+      float: left;
+      width: 870px;
+      min-height: 500px;
+      background: white;
+      overflow: hidden;
+      .title {
+        h2 {
+          .inline-block;
+          border-top: 2px solid @color-default;
+          color: #999;
+          font-size: 18px;
+          font-family: "Microsoft YaHei", serif;
+          position: relative;
+          line-height: 45px;
+          padding: 0 15px;
+          cursor: pointer;
+          &.active {
+            border-top-color: @color-active;
+            color: @color-active;
+            cursor: default;
+          }
+        }
+      }
+    }
+    .side {
+      float: right;
+      width: 300px;
+    }
+  }
+}
+
+//*--------------------   ui Style   -----------------------
+//动态列表
+.dynamic-list {
+  position: relative;
+  bottom: -1px;
+  .box-list {
+    position: relative;
+    width: 870-60px;
+    margin: 0 auto;
+    border-bottom: 1px solid @border-color;
+    padding: 30px 0 0 95px;
+    .head-img {
+      position: absolute;
+      top: 30px;
+      left: 0;
+      img {
+        width: 64px;
+        height: 64px;
+        .rounded-corners(50%);
+      }
+    }
+    li {
+      position: relative;
+      .tab-box-2 {
+        position: absolute;
+        top: 0;
+        right: 5px;
+        width: auto;
+        .dy-btn {
+          float: left;
+          margin-right: 5px;
+        }
+        &.d-joint-box {
+          top: 28px;
+          z-index: 20;
+        }
+      }
+    }
+  }
+  .tab-box-1, .tab-box-2, .tab-box-3 {
+    margin-bottom: 20px;
+    .inline-block;
+  }
+  .tab-box-1 {
+    font-size: 18px;
+    height: 21px;
+    overflow: hidden;
+    strong {
+      padding: 0 10px;
+      .inline-block;
+      color: white;
+      margin-right: 10px;
+      font-size: 14px;
+      .rounded-corners(2px);
+      height: 20px;
+      line-height: 20px;
+      position: relative;
+      top: -1px;
+    }
+    a:hover {
+      color: @color-hover-blue;
+    }
+  }
+  .tab-box-2 {
+    text-align: right;
+    span {
+      cursor: pointer;
+      color: #bbb;
+      margin-left: 25px;
+      &:hover {
+        color: #3bafda;
+      }
+      a {
+        color: #bbb;
+        .dy-icon-fenxiang2 {
+          font-size: 22px;
+        }
+        &:hover {
+          color: #3bafda;
+        }
+      }
+      .iconfont {
+        margin-right: 5px;
+        font-size: 18px;
+      }
+    }
+    span.z-crt {
+      color: @color-active;;
+    }
+  }
+  .tab-box-3 {
+    color: @color-gray;
+    a {
+      width: 70px;
+      display: block;
+      overflow: hidden;
+      float: left;
+      height: 15px;
+      padding-right: 5px;
+      cursor: text;
+    }
+  }
+  .tab-box-4 {
+    line-height: 1.4em;
+    padding-bottom: 15px;
+    color: #999;
+  }
+  .d-like-list {
+    color: @color-gray;
+    font-size: 85%;
+    line-height: 24px;
+    margin-bottom: 12px;
+    i {
+      margin-right: 5px;
+    }
+    span {
+      padding-right: 3px;
+    }
+  }
+
+  .color-bg-blue {
+    background: @color-01;
+  }
+  //作业
+  .color-bg-green {
+    background: @color-02;
+  }
+  //辅导
+  .color-bg-yellow {
+    background: @color-04;
+  }
+  //通知
+  .color-bg-orange {
+    background: @color-03;
+  }
+  //放假通知
+}
+
+//侧边栏
+.side-item {
+  background: @color-default;
+  padding: 20px 0;
+  margin-bottom: 30px;
+  h2 {
+    font-size: 20px;
+    border-left: 3px solid @color-active;;
+    padding-left: 25px;
+    margin-bottom: 15px;
+  }
+  .side-content {
+    min-height: 80px;
+    padding: 15px 30px;
+  }
+  .side-notice {
+    color: #bbb;
+    line-height: 24px;
+    .dy-nothing {
+      background-color: @color-default;
+      height: 80px;
+      line-height: 80px;
+    }
+  }
+  .side-action {
+    text-align: center;
+    margin-top: 18px;
+    .dy-btn {
+      width: 80%;
+    }
+  }
+}
+
+.side-left,
+.side-right {
+  .inline-block;
+  text-align: center;
+  width: 148px;
+  span {
+    display: block;
+  }
+  .side-number {
+    font-size: 22px;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  .side-title {
+    color: #bbb;
+  }
+}
+
+.side-left {
+  border-right: solid 1px #ccc;
+}
+
+//加圈申请
+.apply-circle {
+  ul {
+    padding: 0 15px;
+    li {
+      position: relative;
+      padding: 12px 0 30px 65px;
+      .transition(all 0.5s ease 0s);
+      &:hover {
+        .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 7px);
+        .posa-box {
+          display: block;
+        }
+      }
+      img {
+        position: absolute;
+        top: 13px;
+        left: 15px;
+        .rounded-corners(50%);
+        width: 40px;
+        height: 40px;
+      }
+      .tab-box-1 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        position: relative;
+        span {
+          padding: 0 6px;
+          height: 20px;
+          line-height: 20px;
+          font-size: 14px;
+          margin-left: 10px;
+          background: #f5f7fa;
+          color: #aab2bd;
+          cursor: text;
+          .inline-block;
+          .rounded-corners(2px);
+        }
+        abbr {
+          position: absolute;
+          right: 2px;
+          top: 4px;
+          font-size: 13px;
+          color: @d-color-light-gray;
+          cursor: pointer;
+        }
+      }
+      .tab-box-2 {
+        color: #bbb;
+      }
+      .tab-box-1, .tab-box-2 {
+        padding-right: 15px;
+      }
+      .posa-box {
+        position: absolute;
+        bottom: 5px;
+        right: 14px;
+        button {
+          font-size: 12px;
+          height: 22px;
+          line-height: 16px;
+          padding: 2px 5px;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
+
+//圈成员
+.du-member {
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 60px;
+  padding: 5px 10px;
+  .du-avatar {
+    float: left;
+    height: 60px;
+    overflow: hidden;
+    text-align: right;
+    width: 60px;
+    margin-right: 15px;
+    img {
+      width: 32px;
+      .rounded-corners(50%);
+      height: 32px;
+      margin-top: 10px;
+    }
+  }
+  .du-name {
+    margin-top: 10px;
+    h3 {
+      font-size: 16px;
+      max-width: 6em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .du-role {
+      position: absolute;
+      top: 15px;
+      left: 160px;
+      font-size: 13px;
+      background-color: #f5f7fa;
+      padding: 2px 6px;
+      color: #aab2bd;
+      &.du-role-teacher {
+        background-color: #e6e9ed;
+        color: #656d78;
+      }
+      .du-code {
+        display: none;
+      }
+      .du-role-desc {
+        .rounded-corners(2px);
+      }
+    }
+    .du-parents {
+      display: none;
+      img {
+        float: left;
+        .rounded-corners(50%);
+        width: 30px;
+        height: 30px;
+        margin-left: 5px;
+      }
+    }
+  }
+  .du-group-role {
+    color: #bbb;
+    margin-top: 5px;
+  }
+  &.hover,
+  &:hover {
+    background-color: #f5f7fa;
+    height: 80px;
+    .dy-icon-close {
+      display: block;
+    }
+    .du-avatar {
+      width: 80px;
+      height: 80px;
+      img {
+        width: 60px;
+        height: 60px;
+        margin-top: 6px;
+      }
+    }
+    .du-name {
+      h3 {
+        font-size: 18px;
+        .inline-block;
+      }
+      .du-role {
+        position: static;
+        margin-top: 8px;
+        background-color: transparent;
+        .du-code {
+          .inline-block;
+        }
+      }
+      .du-parents {
+        .inline-block;
+        vertical-align: -7px;
+        margin-left: 15px;
+      }
+    }
+    .du-group-role {
+      display: none;
+    }
+  }
+}
+
+.member-circle {
+  .ove-y {
+    overflow-y: auto;
+    height: 480px;
+  }
+  ul {
+    li {
+      .transition(all 0.5s ease 0s);
+      .dy-icon-close {
+        color: @color-danger;
+        display: none;
+        font-size: 10px;
+        position: absolute;
+        right: 7px;
+        top: 5px;
+        cursor: pointer;
+      }
+      &.z-crt {
+        color: @color-danger;
+      }
+    }
+  }
+}
+
+.du-manager {
+  overflow: hidden;
+  .du-member {
+    background-color: @color-default;
+    .du-name h3 {
+      max-width: 10em;
+    }
+  }
+}
+
+.d-share-wrap {
+  position: absolute;
+  top: 55px;
+  right: 80px;
+  z-index: 980;
+  .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 7px);
+}
+
+@import "../../less/ui-share";
+//弹框
+
+.pop-notice, .pop-refuse {
+  .box-shadow(rgba(0, 0, 0, 0.3) 0px 0px 7px);
+  background: #fff;
+  padding: 20px 30px;
+  .checkbox-group {
+    margin-right: 30px;
+  }
+}
+
+.pop-notice {
+  width: 440px;
+}
+
+.pop-refuse {
+  width: 440px;
+}
+
+.d-comment-box {
+  width: 800px;
+  background: @color-default;
+  font-size: 14px;
+  padding: 0
+}
+
+.ui-dialog-body {
+  max-height: 520px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: block;
+  padding-right: 35px;
+}
+
+.d-comment-all {
+  display: none;
+}

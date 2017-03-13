@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+</head>
+<body>
+<input type="button" id="btnDialog" value="show me the money"/>
+<script src="http://static.dayeasy.dev/source/demo/seajs/1.3.1/sea.js"></script>
+<!-- <script src="../../demo.js.js"></script> -->
+<script type="text/javascript">
+seajs.config({
+    debug: true,
+    charset: 'utf-8',
+    'map': [
+    [ /^(.*\.(?:css|js))(.*)$/i, '$1?20150119' ]
+  ]
+});
+
+    // seajs.use("../../app/demo/index/src/index.js")
+    seajs.use(['http://static.dayeasy.dev/source/demo/js/app/v1/demo/src/index.js'],function(ex){
+
+    })
+
+
+</script>
+
+</body>
+</html>

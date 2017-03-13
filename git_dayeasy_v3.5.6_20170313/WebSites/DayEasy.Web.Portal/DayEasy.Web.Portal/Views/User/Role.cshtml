@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "选择身份";
+}
+
+<div class="dy-main">
+    <div class="portrait w1200">
+        <p class="title-font">亲，为了让我们更好为您提供服务，请完善资料：</p>
+        <div class="cont-min">
+            <h2 class="h2-circle">选择您的身份</h2>
+            <ul class="f-cb ul-list role-list">
+                <li data-role="2" data-text="学生">
+                    <i class="iconfont dy-icon-40 icon-base-pos">
+                        <span>
+                            <i class="iconfont dy-icon-31"></i>
+                            <i class="iconfont dy-icon-13"></i>
+                        </span>
+                    </i>
+                    <p>我是学生</p>
+                </li>
+                <li data-role="4" data-text="教师">
+                    <i class="iconfont dy-icon-29 icon-base-pos">
+                        <span>
+                            <i class="iconfont dy-icon-31"></i>
+                            <i class="iconfont dy-icon-13"></i>
+                        </span>
+                    </i>
+                    <p>我是老师</p>
+                    <div class="be-teacher">
+                        <p>请选择任教学科</p>
+                        <select name="ddlSubject" id="ddlSubject">
+                            <option value="-1">选择科目</option>
+                            @{
+                                var subjects = (IDictionary<int, string>)ViewData["subjects"];
+                                if (subjects != null && subjects.Any())
+                                {
+                                    foreach (var subject in subjects)
+                                    {
+                                        <option value="@subject.Key">@subject.Value</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="0">没有查询到学科</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </li>
+                <!--<li data-role="1" data-text="家长" class="hide">
+                    <i class="iconfont dy-icon-39 icon-base-pos">
+                        <span>
+                            <i class="iconfont dy-icon-31"></i>
+                            <i class="iconfont dy-icon-13"></i>
+                        </span>
+                    </i>
+                    <p>我是家长</p>
+                </li>-->
+            </ul>
+            <div class="f-tac mb50">
+                <button type="button" id="btnSubmit" class="dy-btn dy-btn-info Success-disabled" disabled="disabled">完成</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/circle/portrait.css")
+}
+@section js
+{
+    @Html.CombineLink("v3/js/user/page-role.js")
+}

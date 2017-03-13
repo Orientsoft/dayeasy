@@ -1,0 +1,263 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2016/8/17 14:23
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+@import "../../../less/base";
+
+/* Style for our header texts
+	* --------------------------------------- */
+.dy-wrap {
+  .background-image('index/bg0.jpg', repeat-y, transparent);
+  }
+.page-index-teacher { }
+
+.g-top-teacher {
+  @h: 150px;
+  height: @h;
+  margin-bottom: 20px;
+  .background-image('index/bg-top-student.png', no-repeat, transparent);
+  background-position: center center;
+  .teacher-introduce { position: absolute; top: 0; left: 0; width: 500px; height: @h; color: @color-default;
+    .box-left {
+      width: 120px;
+      height: 150px;
+      position: relative;
+      img { .inline-block; .rounded-corners(50%); }
+      }
+    .box-right {
+      padding-top: 40px;
+      .box1 {
+        margin-bottom: 20px;
+        text-align: left;
+        strong, span, em { .inline-block; margin-right: 10px; }
+        strong { font-weight: bold; font-size: 24px; }
+        span { }
+        em { font-size: 12px; }
+        }
+      .autograph { position: relative;
+        float: left;
+        //@w: 300px;
+        @h: 20px;
+        height: @h;
+        //width: @w;
+        span, input {
+          height: @h;
+          //width: @w;
+          .inline-block;
+          }
+        span {
+          }
+        input {
+          width: 350px;
+          background: transparent;
+          color: white;
+          border: none;
+          border-bottom: 1px transparent solid;
+          &.on{
+            border-bottom: 1px white solid;
+            }
+          }
+        .iconfont { position: absolute; top: 0; right: -20px; }
+        &.on {
+          input { .opacity(1); background: transparent; color: white; border-top: none; border-left: none; border-right: none;
+            &:focus { border-bottom: 1px solid white; }
+            }
+          span { .opacity(0); }
+          }
+        }
+      .box2 { }
+      }
+    }
+  .lick { position: absolute;  color: white; top: 30px; right: 30px;
+    width: 116px;
+    dt, dd { float: left; margin-bottom: 7px; height: 25px; line-height: 25px; }
+    dt { font-size: 22px; border-right: 10px; width: 22px; margin-right: 10px; }
+    dd { width: 80px; text-align: left; overflow: hidden; font-weight: bold; }
+    }
+  }
+
+.g-content-teacher {
+  .m-mainc { width: 700px; }
+  .m-side { width: 280px; }
+  }
+
+// 猜你喜欢
+.recommend-like {
+  background: white; padding: 15px 20px; position: relative; margin-bottom: 20px;
+  .titile {
+    margin-bottom: 20px;
+    h2 { .inline-block; font-size: 16px; font-weight: bold; margin-right: 20px; color: #666; }
+    .text { color: #999999; }
+    }
+  .pop-text { float: right; }
+  .like-list {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    &:last-child { border-bottom: none; }
+    .img { width: 170px; }
+    .con-text { width: 660-170px; }
+    .head-title {
+      margin-bottom: 15px;
+      a { color: #666; font-size: 16px;
+        &:hover{ color: @color-hover-blue;}
+        }
+      }
+    .text { color: #999; line-height: 1.6em; height: 66px; overflow: hidden; }
+    }
+  .like-btn {
+    text-align: center;
+    a { color: #3bafda;
+      &:hover { color: @color-hover-blue; }
+      i.iconfont { margin-left: 5px; }
+      }
+    }
+  }
+
+/*相关人气老师*/
+.famous-teacher {
+  }
+
+.new-actives { width: 250px; height: 234px; margin-top: 10px; position: relative; zoom: 1; }
+
+.new-actives .tab-hd { height: 29px; margin-bottom: -1px; color: #404040; position: absolute; top: -42px; right: -55px; }
+
+.new-actives .step { right: 54px; float: right; margin-top: 7px; }
+
+.new-actives .step a { background-color: #fff }
+
+.new-actives .tab-bd { height: 167px; overflow: hidden }
+
+.tab-bd-in .last-li li {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  &:last-child { border-bottom: none; }
+&:hover{
+  .m-group .box1 p{ color: @color-hover-blue;}
+  }
+  }
+
+.new-actives .tab-bd {
+  li {
+    .teacher-list {
+      height: 55px; overflow: hidden; float: left; width: 100%; position: relative;
+      padding-top: 14px;
+      .transition(all 0.5s ease 0s);
+      &:hover {
+        .box2 {
+          strong, em, p { color: #3bafda; }
+          }
+        }
+      & > div { float: left; }
+      .box1 { width: 46px; position: relative; float: left;
+        img { display: block; margin-bottom: 10px; .rounded-corners(50%); }
+        .vip-icon{ top: 20px;}
+        b { color: #ef6757; font-weight: bold; }
+        }
+      .box2 { width: 202px; float: left;
+        margin-top: -4px;
+        strong { color: #666; overflow: hidden; height: 25px; line-height: 25px; .inline-block; float: left; margin-right: 8px; }
+        em { font-size: 12px; color: #666; .inline-block; height: 25px; float: left; line-height: 25px; }
+        p { color: #999; }
+        }
+      .box3 { width: 194px;
+        }
+      }
+    .m-group {
+      .box1 {
+        margin-bottom: 15px;
+        position: relative;
+        strong { .inline-block; float: left;
+          .rounded-corners(4px);
+          height: 20px;
+          line-height: 20px;
+          background: #666;
+          color: white;
+          width: 40px;
+          text-align: center;
+          margin-right: 10px;
+          &.bg0 { background: #a0d468; }
+          // 班级
+          &.bg1 { background: #4fc1e9; }
+          // 同事
+          &.bg2 { background: #ffce54; }
+          // 分享
+          }
+        p {
+          position: relative;
+          color: #333;
+          max-width: 169px;
+          float: left;
+          .inline-block;
+          height: 20px;
+          line-height: 20px;
+          margin-right: 10px;
+          }
+        span.num {
+          width: 20px;
+          height: 20px;
+          .rounded-corners(50%);
+          .inline-block;
+          font-weight: bold;
+          color: white;
+          background: #ed5565; text-align: center;
+          line-height: 20px;
+          }
+        }
+      .box2 {
+        color: #9b9b9b;
+        .iconfont { margin-right: 5px; }
+        .num { .inline-block;     width: 32px;
+          display: inline-block;
+          margin-right: 10px;
+          white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;
+          position: relative;
+          top: 2px;}
+        .name{white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;                 width: 153px;
+          .inline-block;
+          display: inline-block;
+          position: relative;
+          top: 2px;}
+        }
+      }
+    }
+  }
+
+.new-actives .tab-bd ul { height: 167px; overflow: hidden }
+
+.new-actives .tab-bd li a { height: 50px; display: block; }
+
+.new-actives .arrow, .arrow s { position: absolute; display: inline-block; font-size: 0; line-height: 0; width: 0; height: 0; border: dashed 8px; }
+
+.new-actives .arrow-rthin, .arrow-rthin s { border-color: transparent transparent transparent #666; border-left-style: solid; }
+
+.new-actives .arrow-rthin s { border-left-color: #FAFAFA; left: -10px; top: -8px; }
+
+.new-actives .arrow-lthin, .arrow-lthin s { border-color: transparent #666 transparent transparent; border-right-style: solid; }
+
+.new-actives .arrow-lthin s { border-right-color: #fff; right: -10px; top: -8px; }
+
+.new-actives .step { position: absolute; padding-left: 1px; }
+
+.new-actives .step a { float: left; width: 14px; height: 12px; margin-left: 36px; }
+
+.new-actives .step .arrow-rthin { right: 2px; top: 3px; }
+
+.new-actives .step .arrow-lthin { left: 2px; top: 3px; }
+
+.new-actives .step s { cursor: pointer; }
+
+.new-actives .step a:hover .arrow-rthin { border-left-color: #3bafda; }
+
+.new-actives .step a:hover .arrow-lthin { border-right-color: #3bafda; }
+
+.new-actives .step a.prevStop,
+.new-actives .step a.nextStop { filter: alpha(opacity=60); opacity: 0.6; cursor: auto }
+

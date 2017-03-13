@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-cn">
+<head><!-- 公共基础样式 -->
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <link href="//static.dayeasy.net" rel="dns-prefetch">
+    <link href="//file.dayeasy.net" rel="dns-prefetch">
+    <link href="//file01.dayeasy.net" rel="dns-prefetch">
+    <link href="//file02.dayeasy.net" rel="dns-prefetch">
+    <link rel="apple-touch-icon-precomposed" href="/image/logo_114x114.png">
+    <link type="image/x-icon" rel="Shortcut Icon" href="/image/logo_114x114.png">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/amazeui.min.css">
+    <link rel="stylesheet" href="/css/site-base.min.css">
+    <link rel="stylesheet" href="/css/ui-dialog.min.css">
+    <link rel="stylesheet" href="/fonts/iconfont.css">
+    <title>名师搜神记-教师活动-分享界面-05</title>
+    <link rel="stylesheet" href="/css/teachersday/ui-base.min.css">
+    <link rel="stylesheet" href="/css/teachersday/page-information.min.css">
+</head>
+<body>
+<div class="wrap-teacher-day">
+    <div class="page-title"><!--名师搜“神”记-->
+        <div class="title-img-1"><img src="../../image/teachersday/information-1.png" alt=""></div>
+        <div class="title-img-saying"><img
+                src="http://www.atool.org/placeholder.png?size=350x525&text=分享生成图片&&bg=836&fg=fff" alt=""></div>
+        <div class="teacher-submit-phone"><img class="img1" src="../../image/teachersday/share-input.png"
+                                               alt="我的得一教师语录"> <img class="img2"
+                                                                    src="../../image/teachersday/share-ok.png"
+                                                                    alt="我的得一教师语录确认"> <input class="cell-phone"
+                                                                                             type="text"></div>
+        <p class="share-text">注：用于派奖时与老师联系</p>
+
+        <div class="share-btn-text"><img class="img1" src="../../image/teachersday/share-again.png" alt="在做一张"> <img
+                class="img2 sharefriend" src="../../image/teachersday/share-btn.png" alt="分享给朋友"></div>
+    </div>
+</div>
+
+<!--分享-->
+<div class="dy-sharebuttonbox">
+    <!--<a href="javascript:void(0);" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>-->
+    <!--<a href="javascript:void(0);" class="bds_tsina" data-cmd="tsina" title="分享到朋友圈"></a>-->
+    <!--<a href="javascript:void(0);" class="bds_sqq" data-cmd="sqq" title="分享到手机QQ"></a>-->
+    <!--<a href="javascript:void(0);" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>-->
+    <input type="text"/>
+    <ul class="dy-g-share f-cb">
+        <li>
+            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+            <span class="share-text">分享到微信</span>
+        </li>
+        <li>
+            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到朋友圈"></a>
+            <span class="share-text">分享到朋友圈</span>
+        </li>
+        <li>
+            <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到手机QQ"></a>
+            <span class="share-text">分享到 <br/>手机QQ</span>
+        </li>
+        <li class="last-box">
+            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+            <span class="share-text">分享到<br/>QQ空间</span>
+        </li>
+    </ul>
+    <div class="cancel-off">取消</div>
+</div>
+
+<!-- 基础脚本 -->
+<script src="/js/site-base.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+<script>
+
+    $(function (){
+
+        var $share     = $('.dy-sharebuttonbox'),
+            $shareOff  = $('.cancel-off'),
+            $shareBtn  = $('.share-btn-text').find('.img2'),
+            shareSlide = function (pixel){
+                $share.animate({
+                    bottom: pixel
+                }, 500);
+            };
+        $shareBtn.click(function(){shareSlide('0')});
+        $shareOff.click(function(){shareSlide('-147px')});
+    });
+//分享弹框帮助
+    (function(){
+          $('.sharefriend').click(function() {
+              var htmlSharePop='<div class="share-pop"></div>'
+              $('body').append(htmlSharePop);
+          });
+        $('body').on('click','.share-pop',function(){
+            $(this).remove();
+        });
+
+    })();
+</script>
+<style>
+    .share-pop{
+        width:100%;
+        height:100%;
+        opacity:0.5;
+        /*background:#000;*/
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:10000;
+        background: url('http://xiuxiu.huodong.meitu.com/boyfriend/dist/images/sharemask.png') no-repeat rgba(0,0,0,.5);
+        background-size: 100% auto;
+        }
+
+</style>
+</body>
+</html>

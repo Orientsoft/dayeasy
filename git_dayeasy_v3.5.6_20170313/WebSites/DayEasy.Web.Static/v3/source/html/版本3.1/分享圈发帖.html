@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>分享圈发帖</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/home/comment-post-page.css"/>
+    <link rel="stylesheet" href="/v3/source/css/home/ui-base.css"/>
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="comment-post w1200">
+            <div class="h-title"><i class="iconfont dy-icon-edit2"></i>发布帖子 <span>到</span><strong>得一资料分享圈</strong></div>
+            <div class="box-input"><input type="text" placeholder="请输入帖子标题"/></div>
+            <!--请输入文章正文-->
+            <div class="mb20">请输入文章正文</div>
+
+            <!--请输入文章正文-End-->
+            <div class="mb20">
+                <button  class="dy-btn dy-btn-default demo-pop">添加投票</button>
+            </div>
+            <div class="comment-vote">
+                <div class="edit-vote">
+                    <span>删除</span>
+                    <span>编辑</span>
+                </div>
+                <div class="box">
+                    <div class="box-lg-12 vote-title">【投票】学习不好是自己原因吗？</div>
+                    <div class="box-lg-12">
+                        <div class="box-lg-3 vote-checkbox">
+                            <ul>
+                                <li>
+                                    <label>是</label><em style="background: #fc6e51;"></em> 0
+                                </li>
+                                <li>
+                                    <label>不是</label><em style="background: #ffce54;"></em> 0
+                                </li>
+                                <li>
+                                    <label>不知道</label><em style="background: #ccd1d9;"></em> 0
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="box-lg-3"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--标签扩展-->
+            <div>
+                添加标签
+            </div>
+            <!--标签扩展 End-->
+            <div class="box f-tac">
+                <button class="dy-btn dy-btn-info">发布</button>
+            </div>
+        </div>
+        <!--添加投票-->
+
+    </div>
+</div>
+@@include('./footer.html')
+<script type="text/html" id="pop-vote">
+    <!--添加投票弹框-->
+    <div class="pop-vote">
+        <ul class="ul-layer">
+            <li>
+                <label class="box-label">投票主题：</label>
+                <input class="w400" type="text" placeholder="请输入投票主题"/>
+            </li>
+            <li>
+                <div class="box">
+                    <div class="box-lg-2"><label class="box-label">投票选项：</label></div>
+                    <div class="box-lg-10">
+                        <ol class="option">
+                            <li>
+                                <input type="text" placeholder="选项1"/><i class="iconfont dy-icon-close"></i>
+                            </li>
+                            <li>
+                                <input type="text" placeholder="选项2"/><i class="iconfont dy-icon-close"></i>
+                            </li>
+                            <li>
+                                <input type="text" placeholder="选项3"/><i class="iconfont dy-icon-close"></i>
+                            </li>
+                            <li>
+                                <span class="font-color">添加选项</span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <label class="box-label">选择模式：</label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options"><span>单选</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options"><span>多选</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+            </li>
+            <li>
+                <label class="box-label">截止时间：</label>
+                <input class="w240" type="text" placeholder="选择时间"/>
+            </li>
+            <li>
+                <label class="box-label">投票隐私：</label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options"><span>公开</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options"><span>匿名</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <span class="font2">（发布者可查看投票人）</span>
+            </li>
+        </ul>
+        <!--<div class="box f-tar">-->
+            <!--<button class="dy-btn dy-btn-default">取消</button>-->
+            <!--<button class="dy-btn dy-btn-info">完成</button>-->
+        <!--</div>-->
+    </div>
+</script>
+<script>
+    (function($,S){
+        var demoHtml=template('pop-vote',{});
+        $('.demo-pop').click(function(){
+            S.confirm(demoHtml,function(){
+                S.msg('添加成功');
+            },function(){
+                S.msg('取消成功');
+            },['完成','取消']);
+        });
+    })(jQuery,SINGER);
+</script>
+</body>
+</html>

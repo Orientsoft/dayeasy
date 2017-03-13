@@ -1,0 +1,86 @@
+<script type="text/html" id="global-header">
+    <div class="top-nav">
+        <div class="top-user">
+            <div class="top-menu">
+                <span class="m-outline"></span>
+                <span class="m-blank"></span>
+                {{email}}
+                <i></i>
+
+                <div class="menu-list-wrap">
+                    <div class="menu-list user-info-wrap">
+                        <div class="d-avatar">
+                            <a href="{{sites.main}}/manage" title="设置/管理">
+                                <img src="{{profile}}" alt=""/>
+                            </a>
+                        </div>
+                        <div class="d-user-info">
+                            <div class="d-user-text">
+                                <div class="d-user-name text-ellipsis">
+                                    {{realName}}
+                                </div>
+                                <div class="d-user-role">
+                                    {{role}}
+                                </div>
+                            </div>
+                            <div class="d-user-link">
+                                <a href="{{sites.main}}/manage">设置/管理</a>
+                                <s></s>
+                                <a href="#" class="b_logout">退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="top-link">
+                <s></s>
+                <a href="{{sites.main}}/user/msg">消息中心</a>
+                <i class="dy-count">{{messageCount||0}}</i>
+            </div>
+        </div>
+        <div class="top-menus">
+            {{if !isHome}}
+            <div class="top-link important">
+                <a href="{{sites.main}}">
+                    <span class="fa fa-home"></span>
+                    得一首页
+                </a>
+            </div>
+            {{/if}}
+            <div class="top-link">
+                {{if !isHome}}
+                <s></s>
+                {{/if}}
+                <a target="_blank" href="{{sites.main}}/helper">帮助中心</a>
+            </div>
+            {{if !hasAgency}}
+            <div class="top-link">
+                <s></s>
+                未认证
+            </div>
+            {{else}}
+            <div class="top-menu">
+                <s></s>
+                <span class="m-outline"></span>
+                <span class="m-blank"></span>
+                机构信息
+                <i></i>
+
+                <div class="menu-list-wrap">
+                    <div class="menu-list d-agency">
+                        <div class="d-avatar">
+                            <img src="{{agencyLogo}}" alt="{{agencyName}}"/>
+                        </div>
+                        <div class="d-agency-info">
+                            <div class="d-agency-text">
+                                <div class="d-agency-name text-ellipsis" title="{{agencyName}}">{{agencyName}}</div>
+                                <div class="d-agency-type" title="{{agencyMotto}}">{{agencyMotto}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</script>

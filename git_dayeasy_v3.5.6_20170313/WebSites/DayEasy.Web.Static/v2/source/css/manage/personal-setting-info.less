@@ -1,0 +1,212 @@
+﻿@import "../base";
+@import "base-center";
+//<!--**
+//  个人设置 基本信息
+//**-->
+
+//个人信息
+.login-setup {
+  .head-img {
+    width: 125px;
+    text-align: center;
+    .btn-info {
+      .border-radius(3px);
+    }
+    .head-portrait {
+      display: inline-block;
+      width: 110px;
+      .border-radius(50%);
+      border: 1px solid @color-bule;
+      padding: 5px;
+      margin-bottom: 15px;
+      -webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s;
+      img {
+        width: 100px;
+        height: 100px;
+        -webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s;
+        .border-radius(50%);
+      }
+    }
+    &:hover{
+      .head-portrait{
+        .border-radius(0);
+        -webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s;
+        img{
+          .border-radius(0);
+          -webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s;
+        }
+      }
+
+    }
+  }
+  .input-list {
+    width: 687-125-20px;
+    padding-left: 20px;
+    .ul-list-3 > li {
+      float: left;
+      width: 100%;
+      position: relative;
+      label {
+        .ellipsis;
+        color: #79848a;
+        font-size: 14px;
+        float: left;
+        height: 30px;
+        line-height: 30px;
+        width: 100px;
+        height: 30px;
+        text-align: right;
+        margin-right: 15px;
+        margin-bottom: 20px;
+      }
+      li:after {
+        content: " ";
+        display: block;
+        clear: both;
+        height: 0;
+      }
+
+    }
+    .ul-list-3 > li > p{   color: #919699;
+      float: left;
+      margin: 0;
+      font-size: 14px;
+      height: 30px;
+      line-height: 30px;}
+
+    .ul-list-3 > input ,.ul-list-3 >li> p> input  {
+      padding: 0 5px;
+      width: 360px;
+      height: 34px;
+    }
+
+    .btn-warning {
+      margin-right: 66px;
+    }
+  }
+}
+
+
+//任教信息
+.teaching-information {
+  .fz14;
+  margin-top: 30px;
+  .col-title {
+    color: #79848a;
+    width: 415px;
+    margin: 0 auto;
+    b.f-fl {
+      width: 70px;
+    }
+    b.line-height {
+      height: 32px;
+      line-height: 32px;
+    }
+    .f-class {
+      width: 345px;
+      .btn-danger {
+        .border-radius(3px);
+        background: #fc9797;
+        border: none;
+        &:hover {
+          background: #e44e4e;
+        }
+      }
+      a{
+        color: #428bca;}
+    }
+    span {
+      color: #919699;
+      margin-bottom: 5px;
+      display: inline-block;
+      padding: 8px 20px 8px 10px;
+      position: relative;
+    }
+    span.no-box {
+      background: none;
+      .f-close {
+        background: none;
+
+      }
+    }
+    .f-close {
+      position: absolute;
+      display: none;
+      right: 3px;
+      top: 2px;
+      font-style: normal;
+      cursor: pointer;
+    }
+  }
+  .col-coner {
+    .fz14;
+    position: relative;
+    margin-bottom: 15px;
+    padding: 30px 35px;
+    background: white;
+    .teacher-class {
+      color: #919699;
+    }
+    .col-1 {
+      width: 90px;
+      font-size: 18px;
+      line-height: 36px;
+    }
+    .col-2 {
+      width: 527px;
+    }
+    .note-class {
+      border-top: 1px solid #e6e6e6;
+      padding: 10px 0 5px 20px;
+      a {
+        color: #65cafc;
+        margin-left: 5px;
+      }
+    }
+
+    .ul-list {
+      li {
+        float: left;
+        padding: 10px 20px;
+        .border-radius(3px);
+        margin: 0 5px 5px;
+        cursor: pointer;
+        //&:hover {
+        //  background: #7ed2fc;
+        //  color: white;
+        //}
+      }
+      li.z-crt {
+        background: #7ed2fc;
+        color: white;
+      }
+    }
+  }
+}
+
+//教师-个人设置弹出
+.pop-add-class {
+  .border-radius(6px);
+  width: 392px;
+  .ul-list-pop {
+    li {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: normal;
+      font-size: 14px;
+      color: #79848a;
+      //margin-right: 5px;
+      display: inline-block;
+    }
+    select {
+      padding: 5px;
+      //width: 280px;
+    }
+    input {
+      padding: 5px;
+      width: 280px;
+    }
+  }
+}
+

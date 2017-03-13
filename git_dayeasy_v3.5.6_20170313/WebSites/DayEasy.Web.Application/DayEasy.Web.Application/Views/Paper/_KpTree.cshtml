@@ -1,0 +1,106 @@
+﻿<div class="g-tree kp-tree f-fl after">
+    <ul></ul>
+    <input type="hidden" value="" id="kp" />
+</div>
+
+<script type="text/html" id="level_1">
+    <li class="menu-1">
+        <p data-level="1">
+            {slideDownStr}
+            <a href="javascript:void(0);" title="{title}" data-kpid="{kpId}" data-code="{code}">{kpName}</a>
+        </p>
+        <ul></ul>
+    </li>
+</script>
+
+<script type="text/html" id="level_2">
+    <li class="menu-2">
+        <p data-level="2">
+            {slideDownStr}
+            <a href="javascript:void(0);" title="{title}" data-kpid="{kpId}" data-code="{code}">{kpName}</a>
+        </p>
+        <ul class="menu-3"></ul>
+    </li>
+</script>
+
+<script type="text/html" id="level_3">
+    <li>
+        <p data-level="3">
+            <a href="javascript:void(0);" title="{title}" data-kpid="{kpId}" data-code="{code}">{kpName}</a>
+        </p>
+    </li>
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        getKp($(".kp-tree").children('ul'), 0, 0);//获取顶级
+
+        $('.kp-tree').delegate(".menu-1 p i", "click", function (event) {
+            event.preventDefault();
+
+            var level = $(this).parent('p').data("level");
+            if (level < 3) {
+                var obj = $(this).parent('p').next('ul');
+                if (!obj.hasClass("hasAjax")) {
+                    var kpId = $(this).next('a').data("kpid");
+                    getKp(obj, level, kpId);//获取顶级
+                }
+            }
+
+            if ($(this).parents('p').next().is(":visible")) {
+                $(this).removeClass('g-icon_6')
+				.parents('p').removeClass('boder-a')
+				.next().hide();
+            } else {
+                $(this).addClass('g-icon_6')
+		    	.parents('p').addClass('boder-a')
+		    	.next().show();
+            }
+        });
+
+        $('.kp-tree').delegate("a", "click", function (event) {
+            event.preventDefault();
+            var objP = $(this).parents('p');
+            if (objP.hasClass("z-crt")) {
+                objP.removeClass("z-crt");
+
+                $("#kp").val('');
+            } else {
+                $('.kp-tree').find('ul li p').removeClass("z-crt");
+                objP.addClass('z-crt');
+
+                $("#kp").val($(this).data("code"));
+            }
+
+            if ($(".topic-tab-content-1").hasClass('show')) {
+                $('#btn_Search').click();//处理事件
+            } else {
+                $("#choosePaperDiv").removeClass("hide");
+                $("#paperDetails").empty();
+                $("#btn_PaperSearch").click();
+            }
+        });
+    });
+
+    var getKp = function (obj, level, parentId) {
+        var slideDownStr = '<i class="sprite-2 g-icon_3"></i>';
+
+        $.post('@Url.Action("Kpoints", "System")', { stage: $("#stage").val(), subject_id: $("#subjectId").val(), parent_id: parentId }, function (res) {
+            if (res) {
+                obj.empty();
+                $.each(res, function (index, item) {
+                    var slideDStr = slideDownStr;
+                    var tempStr = $("#level_" + (level + 1)).html();
+                    if (!item.isParent) {
+                        slideDStr = '';
+                    }
+                    tempStr = tempStr.replace("{kpId}", item.id).replace("{kpName}", item.text).replace("{slideDownStr}", slideDStr).replace("{title}", item.text).replace("{code}", item.li_attr.title);
+
+                    obj.append(tempStr);
+                });
+                obj.addClass('hasAjax');
+                obj.find('li:first-child').addClass('boder-n');
+            }
+        });
+    }
+</script>

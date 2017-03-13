@@ -1,0 +1,152 @@
+﻿@using DayEasy.Utility.Extend
+@model DayEasy.Contracts.Management.Dto.UserActiveDto
+<div class="dy-user-active">
+    @if (Model == null)
+    {
+        <div class="color-gray fs16">没有查询到用户资料，可能用户已被删除</div>
+    }
+    else
+    {
+        <div class="row mb20">
+            <div class="col-md-3 dy-active-user">
+                @if (Model.Avatar.IsNullOrEmpty())
+                {
+                    var headName = Model.Name.IsNullOrEmpty()
+                        ? (Model.Nick.IsNullOrEmpty() ? "未填写" : Model.Nick)
+                        : Model.Name;
+                    <h1 class="d-text-avatar d-text-avatar-large">@headName</h1>
+                }
+                else
+                {
+                    <img alt="用户头像" width="150" height="150" src="@Html.MakeThumb(Model.Avatar, "150x150")" />
+                }
+                <p style="padding-left: 42px"><span>No.@Model.Code</span></p>
+                <p>姓名：<span>@(Model.Name.IsNullOrEmpty() ? "未填写" : Model.Name)</span></p>
+                <p>昵称：<span>@(Model.Nick.IsNullOrEmpty() ? "未填写" : Model.Nick)</span></p>
+                @if (Model.IsStudent())
+                {
+                    <p>学号：<span>@(Model.StudentNum.IsNullOrEmpty() ? "未填写" : Model.StudentNum)</span></p>
+                }
+                <p>手机：<span>@(Model.Mobile.IsNullOrEmpty() ? "未填写" : Model.Mobile)</span></p>
+                <p>邮箱：<span>@(Model.Email.IsNullOrEmpty() ? "未绑定" : Model.Email)</span></p>
+                <p>注册IP：<span>@Model.RegistIp</span></p>
+                <p>注册时间：<span>@Model.RegistTime.ToString("yyyy年MM月dd日")</span></p>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">活跃信息</div>
+                    <div class="panel-body">
+                        <div>
+                            <span>绑定状况：</span>
+                            <span><i title="邮箱验证" class="fa fa-envelope-o @((Model.ValidationType & (byte) ValidationType.Email) > 0 ? "text-success" : "text-gray")"></i></span>&nbsp;
+                            <span><i title="第三方登录" class="fa fa-qq @((Model.ValidationType & (byte) ValidationType.Third) > 0 ? "text-success" : "text-gray")"></i></span>&nbsp;
+                            <span><i title="手机绑定" class="fa fa-mobile fs18 @((Model.ValidationType & (byte)ValidationType.Mobile) > 0 ? "text-success" : "text-gray")"></i></span>
+                        </div>
+                        @if (Model.Tokens != null && Model.Tokens.Any())
+                        {
+                            <hr />
+                            <div>最后登录：</div>
+                            foreach (var token in Model.Tokens)
+                            {
+                                <div class="mt5">
+                                    @switch (token.Comefrom)
+                                    {
+                                        case Comefrom.Web:
+                                            <i class="fa fa-internet-explorer"></i>@:&nbsp;网页登录
+                                    break;
+                                        case Comefrom.Android:
+                                            <i class="fa fa-android"></i>@:&nbsp;Android
+                                    break;
+                                        case Comefrom.MarkingTool:
+                                            <i class="fa fa-photo"></i>@:&nbsp;扫描工具
+                                    break;
+                                        case Comefrom.Ios:
+                                            <i class="fa fa-book"></i>@:&nbsp;IOS
+                                    break;
+                                        case Comefrom.Mobile:
+                                            <i class="fa fa-mobile"></i>@:&nbsp;Mobile
+                                    break;
+                                    }
+                                    &nbsp;&nbsp;<i class="fa fa-pinterest-p" title="最后登录IP"></i>&nbsp;@token.Ip
+                                    &nbsp;&nbsp;<i class="fa fa-clock-o" title="最后登录时间"></i>&nbsp;@token.Time.ToString("yyyy-MM-dd HH:mm:ss")
+                                </div>
+                            }
+                        }
+                        <hr />
+                        <p>
+                            月内登录成功：<label class="text-success">@Model.LoginCountInMonth</label> 次，
+                            失败 <label class="text-danger">@Model.LoginErrorCountInMonth</label> 次。
+                        </p>
+                        <p>
+                            累计登录成功：<label class="text-success">@Model.LoginCount</label> 次，
+                            失败 <label class="text-danger">@Model.LoginErrorCount</label> 次。
+                        </p>
+                        @if (Model.LastLoginTime.HasValue)
+                        {
+                            <p>
+                                最后登录时间：<label class="text-success">@Model.LastLoginTime.Value.ToString("yyyy年MM月dd日 HH时mm分")</label>
+                            </p>
+                        }
+                        <p>
+                            @(Model.IsTeacher() ? "累积发布作业：" : "累积完成作业：") <label class="text-primary">@Model.WorkCount</label> 次。
+                        </p>
+                        <p>
+                            加入圈子个数：<label class="text-primary">@Model.Groups.Count</label> 个。
+                        </p>
+                        @if (Model.LoginErrors != null && Model.LoginErrors.Any())
+                        {
+                            <hr />
+                            <div>最近登录失败：</div>
+                            foreach (var info in Model.LoginErrors)
+                            {
+                                var idx = info.ErrorMsg.IndexOf("原因", StringComparison.Ordinal);
+                                var msg = idx > -1 ? info.ErrorMsg.Substring(idx) : info.ErrorMsg;
+                                <div class="mt5">
+                                    @msg
+                                    &nbsp;&nbsp;<i class="fa fa-pinterest-p" title="IP"></i>&nbsp;@info.Ip
+                                    &nbsp;&nbsp;<i class="fa fa-clock-o" title="时间"></i>&nbsp;@info.Time.ToString("yyyy-MM-dd HH:mm")
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                @if ((Model.WorkCount == 0 && Model.Groups.Count == 0) || ViewBag.IsSupper == true)
+                {
+                    <div class="from-actions" style="text-align:center;padding:15px 0">
+                        <button class="btn btn-danger j-release" data-uid="@Model.Id">释放帐号</button>
+                    </div>
+                }
+            </div>
+            @if (Model.Groups != null && Model.Groups.Any())
+            {
+                <div class="col-md-9 fr">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">圈子信息</div>
+                        <div class="panel-body">
+                            @foreach (var group in Model.Groups)
+                            {
+                                <div class="group-item" title="@group.Name">
+                                    <div class="group-name">
+                                        <em class="group-type group-@(((GroupType)group.Type).ToString().ToLower())">@(group.Type.GetEnumText<GroupType, byte>())</em>
+                                        <span>@group.Name</span>
+                                    </div>
+                                    <div class="group-agency">
+                                        <i class="fa fa-graduation-cap"></i>
+                                        @group.AgencyName
+                                    </div>
+                                    <div class="group-info">
+                                        <small>[ NO.@group.Code ]</small>
+                                        <div class="fr">
+                                            <strong><i class="fa fa-user"></i>@group.Owner</strong>
+                                            <span><i class="fa fa-users"></i>@group.Count</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

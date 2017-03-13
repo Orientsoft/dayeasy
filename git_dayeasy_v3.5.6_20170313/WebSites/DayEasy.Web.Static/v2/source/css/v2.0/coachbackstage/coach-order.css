@@ -1,0 +1,115 @@
+/*--------------------------------------------------------------
+                        题目统计 推送
+
+      Author:Plato
+      Create Date:15.09.01    Last Mondify Date:15.09.01
+      ===================================================
+
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+                        辅导后台
+
+      Author:Plato
+      Create Date:15.09.01    Last Mondify Date:15.09.01
+      ===================================================
+
+--------------------------------------------------------------*/
+* {
+  outline: none;
+}
+.dy-body .dy-container {
+  width: auto;
+  background: #f5f5f5;
+}
+a {
+  color: #999999;
+}
+a:hover {
+  text-decoration: none;
+}
+h2 {
+  margin: 0;
+  line-height: 1em;
+}
+dl {
+  margin-bottom: 0;
+}
+/*--------------------------------------------------------------
+                         ui Style
+--------------------------------------------------------------*/
+.coach-center {
+  background: #f5f5f5;
+  padding-top: 40px;
+  padding-bottom: 95px;
+}
+.ui-top-title {
+  background: white;
+}
+.ui-top-title .navigation {
+  height: 40px;
+  line-height: 40px;
+  font-size: 12px;
+}
+.ui-top-title .navigation li {
+  float: left;
+}
+.ui-top-title .navigation li a {
+  display: block;
+  margin-right: 6px;
+}
+.ui-top-title .navigation li span {
+  padding-left: 6px;
+  position: relative;
+  top: -1px;
+}
+/*--------------------------------------------------------------
+                         IMG url
+--------------------------------------------------------------*/
+/*--------------------  main Style  -----------------------*/
+.coach-order .title-hd {
+  margin-bottom: 15px;
+}
+.coach-order .title-hd h2 {
+  font-size: 24px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin-right: 32px;
+}
+.coach-order .title-hd span {
+  color: #999;
+}
+.coach-order .title-hd span em {
+  font-style: normal;
+  color: #555;
+}
+/*--------------------------------------------------------------
+                         ui Style
+--------------------------------------------------------------*/
+.table-cover {
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+.table-cover tr th {
+  background: #e5e5e5;
+  color: #999;
+}
+.table-cover tr th:nth-child(1) {
+  text-indent: 80px;
+}
+.table-cover tr td:nth-child(1) {
+  text-indent: 80px;
+}
+.table-cover tr th:nth-child(4),
+.table-cover tr td:nth-child(4) {
+  text-align: right;
+  padding-right: 46px;
+}
+.table-cover tr:hover {
+  background: white;
+}
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 15px 8px;
+}

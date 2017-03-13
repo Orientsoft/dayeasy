@@ -1,0 +1,138 @@
+﻿@using DayEasy.Utility.Extend
+@model List<DayEasy.Contracts.Dtos.Examination.ExamDto>
+
+@{
+    ViewBag.Title = "大型考试管理";
+    ViewBag.Title = "大型考试管理";
+}
+@helper ExamStatusHelper(byte status)
+{
+switch (status)
+{
+    case (byte)ExamStatus.Normal:
+            @Html.LabelText("未推送", 0)
+        break;
+    case (byte)ExamStatus.Sended:
+            @Html.LabelText("推送教务", 1)
+        break;
+    case (byte)ExamStatus.Delete:
+            @Html.LabelText("已删除", 5)
+        break;
+    default:
+        var word = string.Empty;
+        var index = 2;
+        if ((status & (byte)ExamStatus.SendToTeacher) > 0)
+        {
+            word = "推送教师";
+        }
+        if ((status & (byte)ExamStatus.Published) > 0)
+        {
+            if (string.IsNullOrWhiteSpace(word))
+            {
+                word = "发布成绩";
+            }
+            else
+            {
+                index++;
+                word = "推送&发布";
+            }
+        }
+        @Html.LabelText(word, index)
+        break;
+}
+}
+<div class="row mt20">
+    <form method="GET" id="searchForm">
+        <div class="col-md-2">
+            @Html.DropDownList("status", ViewData["status"] as List<SelectListItem>, new { @class = "form-control" })
+        </div>
+        <div class="col-md-offset-6 col-md-4" style="text-align: right">
+            <a href="@Url.Action("Unions")" class="btn btn-info">
+                <i class="fa fa-object-group"></i>
+                报表关联
+            </a>
+            <a href="@Url.Action("Create")" class="btn btn-primary">
+                <i class="fa fa-plus"></i>
+                创建考试
+            </a>
+        </div>
+    </form>
+</div>
+<div class="row mt20">
+    <table class="table table-bordered table-hover">
+        <colgroup>
+            <col />
+            <col style="width: 12em" />
+            <col style="width: 15em" />
+            <col style="width: 8em" />
+            <col style="width: 6em" />
+            <col style="width: 12em" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>考试名称</th>
+                <th>所属机构</th>
+                <th>涉及科目</th>
+                <th>推送时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.IsNullOrEmpty())
+            {
+                <tr>
+                    <td colspan="6" style="padding: 0">
+                        <div class="dy-nothing">
+                            还没有大型考试，<a href="@Url.Action("Create")">现在创建</a> ?
+                        </div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr data-eid="@item.Id">
+                        <td>
+                            <a href="javascript:void(0)" class="b-details">@item.Name</a>
+                        </td>
+                        <td>@item.AgencyName</td>
+                        <td>@item.Subjects</td>
+                        <td>
+                            @if (item.CreationTime.HasValue && (item.Status & (byte)ExamStatus.Sended) > 0)
+                            {
+                                <abbr title="@item.CreationTime.Value.ToString("yyyy年MM月dd日HH时mm分")">@item.CreationTime.Value.ToString("yyyy-MM-dd")</abbr>
+                            }
+                        </td>
+                        <td>
+                            @ExamStatusHelper(item.Status)
+                        </td>
+                        <td class="dy-table-actions">
+                            <a href="#" class="b-details" title="查看详情"><i class="fa fa-th"></i></a>
+                            @if (item.Status == (byte)ExamStatus.Normal)
+                            {
+                                <a href="#" class="action-split b-send" title="推送"><i class="fa fa-location-arrow"></i></a>
+                                <a href="#" class="action-split text-danger b-delete" title="删除"><i class="fa fa-times"></i></a>
+                            }
+                            else if ((item.Status & (byte)ExamStatus.Sended) > 0)
+                            {
+                                <a href="#" class="action-split b-export" title="下载"><i class="fa fa-cloud-download"></i></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 15, (int)ViewBag.TotalCount, 4)
+    </div>
+</div>
+@section style{
+    @Html.CombineLink("v3/css/management/page-exam.css")
+}
+@section script
+{
+    @Html.CombineLink("v3/js/management/page-exam.js")
+}

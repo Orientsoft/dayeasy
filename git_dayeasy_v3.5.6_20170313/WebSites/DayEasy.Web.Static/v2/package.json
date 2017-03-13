@@ -1,0 +1,20 @@
+{
+  "name": "dayeasy.static",
+  "version": "1.1.1",
+  "devDependencies": {
+    "gulp": "~3.9.0",
+    "gulp-load-plugins": "latest",
+    "gulp-watch": "latest",
+    "gulp-concat": "latest",
+    "gulp-clean": "latest",
+    "gulp-less": "latest",
+    "gulp-uglify": "latest",
+    "gulp-minify-css": "latest",
+    "gulp-rename": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-jshint": "latest",
+    "gulp-htmlmin": "latest",
+    "browser-sync": "~2.7.5",
+    "gulp-file-include": "latest"
+  }
+}

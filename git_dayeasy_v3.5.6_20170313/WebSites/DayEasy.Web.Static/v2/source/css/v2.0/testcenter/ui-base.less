@@ -1,0 +1,67 @@
+@import "../../base";
+@import "ui-variables.less";
+
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+em {
+  font-style: normal;
+}
+
+//font-color
+.font-color-bule {
+  color: @testc-color-bule;
+}
+
+.font-color-grey {
+  color: @color-font-grey;
+}
+
+.color-grey {
+  color: @color-font-grey;
+
+}
+
+.test-center-bg {
+  padding: 20px 0;
+  background: @grey-body-bg;
+}
+
+//试卷详情-ui.tab
+.paper-details-tab {
+  .ul-list {
+    .inline-block();
+    li {
+      margin: 0 25px;
+      float: left;
+      a {
+        .inline-block;
+        height: 30px;
+        line-height: 30px;
+        color: @linkColor;
+        &:hover {
+          color: @linkColor;
+        }
+      }
+      b {
+        color: @testc-color-bule;
+        margin-right: 5px;
+      }
+      &.disabled {
+        cursor: not-allowed;
+        a, b {
+          color: gray !important;
+          cursor: not-allowed;
+        }
+      }
+    }
+    li.f-crt {
+      border-bottom: 3px solid @testc-color-bule;
+    }
+  }
+}
+

@@ -1,0 +1,115 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Core
+@using DayEasy.Services.Helper
+@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Timing
+@model List<TP_Paper>
+
+@{
+    ViewBag.Title = "试卷管理";
+    var creators = (List<UserDto>)(ViewData["creators"] ?? new List<UserDto>());
+}
+
+<div>
+    <div class="row mt20">
+        <form method="GET" action="@Url.Action("Index","Paper")" id="searchForm">
+            <div class="col-sm-4 pl0 d-selects">
+                @Html.DropDownList("subject", ViewData["subject"] as List<SelectListItem>, new { @class = "form-control" })
+                @Html.DropDownList("shareRange", ViewData["shareRange"] as List<SelectListItem>, new { @class = "form-control" })
+                @Html.DropDownList("status", ViewData["status"] as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-3 pl0">
+                <div class="input-group">
+                    <input type="text" value="@Request["keyword"]" placeholder="试卷标题/试卷编号" class="form-control" name="keyword">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit" id="btn_submit"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="d-total">
+                    共<em>@ViewData["totalCount"]</em>套试卷
+                </div>
+            </div>
+            <div class="col-sm-2" style="line-height: 34px">
+                <a href="@Url.Action("Sheet")" target="_blank">制作答题卡</a>
+            </div>
+        </form>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover table-bordered">
+            <colgroup>
+                <col style="width: 5em" />
+                <col />
+                <col style="width: 8em" />
+                <col style="width: 12em" />
+                <col style="width: 8em" />
+                <col style="width: 8em" />
+                <col style="width: 8em" />
+                <col style="width: 4em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>科目</th>
+                    <th>试卷信息</th>
+                    <th>分享范围</th>
+                    <th>出卷人</th>
+                    <th>出卷时间</th>
+                    <th>使用次数</th>
+                    <th>试卷状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var paper in Model)
+                    {
+                        <tr data-pid="@paper.Id">
+                            <td>
+                                @Html.LabelText(SystemCache.Instance.SubjectName(paper.SubjectID), paper.SubjectID)
+                            </td>
+                            <td>
+                                <a href="@Consts.Config.AppSite/paper/detail/@paper.Id" target="_blank">
+                                    @paper.PaperTitle
+                                </a><br/>
+                                <small style="color:#999">No. @paper.PaperNo</small>
+                            </td>
+                            <td>@Html.LabelText(((ShareRange) paper.ShareRange).GetText(), paper.ShareRange)</td>
+                            <td>
+                                @{
+                                    var user = creators.FirstOrDefault(u => u.Id == paper.AddedBy);
+                                    if (user != null)
+                                    {
+                                        <div class="dy-user-wrap">
+                                            <a class="dy-user-avatar b-user-active" href="javascript:void(0);">
+                                                <img width="35" height="35" src="@Html.MakeThumb(user.Avatar, "35x35")"/>
+                                            </a>
+                                            <div class="dy-user-info">
+                                                <p class="dy-user-name">@user.Name</p>
+                                                <p>No.@user.Code</p>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </td>
+                            <td><abbr title="@paper.AddedAt.ToString("yyyy年MM月dd日 HH时mm分ss秒")">@paper.AddedAt.ShowTime()</abbr></td>
+                            <td>@paper.UseCount</td>
+                            <td>@(Html.EnumText<PaperStatus, byte>(paper.Status, new[] {3, 0, 0, 0, 5}))</td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8">没有找到相关信息！</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 25, Convert.ToInt32(ViewData["totalCount"]), 4)
+    </div>
+</div>

@@ -1,0 +1,164 @@
+﻿@using System.Text.RegularExpressions
+@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Utility.Extend
+@{
+    ViewBag.Title = "基本信息 - 个人设置";
+    var user = (UserDto)ViewData["User"];
+    var roles = (List<UserRole>)ViewData["Roles"];
+    var relations = (List<RelationUserDto>)(ViewData["relations"] ?? new List<RelationUserDto>());
+    var plat = ViewData["plat"] as PlatformDto;
+}
+<div class="page-personal-setting w1200 f-cb">
+    <div class="top-title">
+        <div class="user-img">
+            <!-- colored -->
+            <div class="ih-item circle colored effect13 from_left_and_right">
+                <a href="javascript:void(0)" id="bu-update-avatar">
+                    <div class="img">
+                        <img src="@Html.MakeThumb(user.Avatar, "160x160")" width="160" height="160" alt="img">
+                        <input id="avatar" type="hidden" value="@user.Avatar" />
+                    </div>
+                    <div class="info">
+                        <div class="info-back">
+                            <h3>更换头像</h3>
+                            <p>头像大小160*160</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <p class="setting-user-name f-tac">@user.Name</p>
+            <!-- end colored -->
+        </div>
+    </div>
+    <ul class="mian-cont f-cbli">
+        <li data-param="email">
+            <label>登陆邮箱</label>
+            <p>
+                @if (user.Email.IsNullOrEmpty())
+                {
+                    <span class="d-bind-warning">为了您的帐号安全，请绑定邮箱</span>
+                }
+                else
+                {
+                    <label>@user.Email</label>
+                }
+                <i title="绑定邮箱" class="iconfont dy-icon-edit2"></i>
+                <input type="hidden" value="@ViewBag.HasPwd" id="hasPwd" />
+            </p>
+        </li>
+        <li data-param="nick">
+            <label>昵　　称</label>
+            <p>
+                <input type="text" readonly disabled maxlength="20" value="@user.Nick" />
+                <i title="编辑昵称" class="iconfont dy-icon-edit2"></i>
+                <i title="确认提交" class="iconfont dy-icon-13"></i>
+            </p>
+        </li>
+        <li data-param="name">
+            <label>真实姓名</label>
+            <p>
+                @if (!string.IsNullOrWhiteSpace(user.Name) && Regex.IsMatch(user.Name, "^[\u4e00-\u9fa5]{2,5}$"))
+                {
+                    <label>@user.Name</label>
+                }
+                else
+                {
+                    <input type="text" readonly disabled maxlength="5" value="@user.Name" />
+                    <i title="编辑姓名" class="iconfont dy-icon-edit2"></i>
+                    <i title="确认提交" class="iconfont dy-icon-13"></i>
+                }
+            </p>
+        </li>
+        @if (user.IsStudent())
+        {
+            <li data-param="studentNo">
+                <label>学　　号</label>
+                <p>
+                    <input type="text" readonly disabled maxlength="15" value="@user.StudentNum" />
+@*                    <i title="编辑学号" class="iconfont dy-icon-edit2"></i>*@
+@*                    <i title="确认提交" class="iconfont dy-icon-13"></i>*@
+                </p>
+            </li>
+        }
+        <li data-param="mobile">
+            <label>手　　机</label>
+            <p>
+                @if (user.Mobile.IsNullOrEmpty())
+                {
+                    <span class="d-bind-warning">为了您的帐号安全，请绑定手机号</span>
+                }
+                else
+                {
+                    <label>@user.Mobile</label>
+                }
+                <i title="绑定手机" class="iconfont dy-icon-edit2"></i>
+                <input type="hidden" value="@user.Mobile" id="txtMobile" />
+            </p>
+        </li>
+        <li>
+            <label>得 一 号</label>
+            <p>
+                <label>@user.Code</label>
+            </p>
+        </li>
+        <li>
+            <label>角　　色</label>
+            <p>
+                <label>@(string.Join(",", roles.Select(r => r.GetText())))</label>
+            </p>
+        </li>
+        <li data-param="password">
+            <label>密　　码</label>
+            <p>
+                <label>@(!ViewBag.HasPwd ? "未设置密码" : "********")</label>
+                <i title="修改密码" class="iconfont dy-icon-edit2" id="editPwd"></i>
+            </p>
+        </li>
+        <li>
+            <label>Q Q 帐号</label>
+            <p class="dy-third amd-patd" data-type="0">
+                @if (plat == null)
+                {
+                    <!--无绑定-->
+                    <a href="javascript:void(0)" class="b-plat-bind"><i class="iconfont dy-icon-41"></i><span>绑定QQ</span></a>
+                }
+                else
+                {
+                    <!--已绑定-->
+                    <img src="@plat.Profile" width="30" height="30" />
+                    <em>@plat.Nick</em><a href="javascript:void(0)" class="b-plat-unbind"><span></span>取消绑定</a>
+                }
+        </li>
+        @if (relations.Any())
+        {
+            <li class="family-setup">
+                <label>家庭关联账号</label>
+                <p class="padding">
+                    @foreach (var relation in relations)
+                    {
+                        <span data-id="@relation.Id">
+                            <b>@(relation.RelationType <= 0 ? "孩子" : relation.RelationType.GetEnumText<FamilyRelationType, byte>())</b>
+                            <em>@relation.Account</em>
+                            @if (user.IsParents())
+                            {
+                                <a href="javascript:void(0);" class="b-unbind-relation">解除关联</a>
+                            }
+                        </span>
+                    }
+                </p>
+            </li>
+        }
+    </ul>
+</div>
+<!--上传头像-->
+<div class="hidden">
+    <div id="btn-upload"></div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/setting/page-personal-setting.css")
+    <!--<script>window.DEYI = { pageLoading: true };</script>-->
+}
+@section js{
+    @Html.CombineLink("plugs/webuploader/webuploader.js,js/base/utils.js,v3/js/account/page-setting.js,js/jquery-validate.js")
+}

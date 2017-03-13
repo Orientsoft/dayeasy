@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>客观题得分率UI</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/marking/page-mission.css">
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="w1200">
+            <div class="d-box m-object-marking">
+                <h2 class="d-title f-cb">
+                    客观题得分率
+                       <span class="top-tit">( 如发现客观题答案有误，请在结束阅卷前及时 <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1773670794&amp;site=qq&amp;menu=yes" class="a01" target="_blank" title="点击联系QQ">
+                           联系客服
+                       </a>)</span>
+                    <span class="top-right-tab hide">
+                        <span data-showtab="low" class="on">仅查看得分率低的题目</span>
+                        <b>|</b>
+                        <span data-showtab="all">查看全部</span>
+                    </span>
+                </h2>
+                <div class="m-object-con">
+                    <div class="box j-contents hide">
+                        <div class="box-lg-10 j-tab-con">
+                            <!--<dl class="m-object-list f-cb">-->
+                            <!--<dt>-->
+                            <!--<span class="paper-a">A卷</span>已上传<span class="paper-b">412</span>份-->
+                            <!--</dt>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C,D,E</em></span>-->
+                            <!--<span class="obj-b">0%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd>-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C</em></span>-->
+                            <!--<span class="obj-b">50%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C,D,E</em></span>-->
+                            <!--<span class="obj-b">0%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd>-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C</em></span>-->
+                            <!--<span class="obj-b">50%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C,D,E</em></span>-->
+                            <!--<span class="obj-b">0%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd>-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C</em></span>-->
+                            <!--<span class="obj-b">50%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+
+                            <!--</dl>-->
+                            <!--<dl class="m-object-list f-cb">-->
+                            <!--<dt>-->
+                            <!--<span class="paper-a">B卷</span>已上传<span class="paper-b">412</span>份-->
+                            <!--</dt>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C,D,E</em></span>-->
+                            <!--<span class="obj-b">0%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd>-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C</em></span>-->
+                            <!--<span class="obj-b">50%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C,D,E</em></span>-->
+                            <!--<span class="obj-b">0%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd>-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C</em></span>-->
+                            <!--<span class="obj-b">50%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C,D,E</em></span>-->
+                            <!--<span class="obj-b">0%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd>-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="no-qua">-->
+                            <!--<span class="obj-t"><b>1</b><em>A,B,C</em></span>-->
+                            <!--<span class="obj-b">50%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+                            <!--<dd class="qua">-->
+                            <!--<span class="obj-t"><b>10</b><em>A,B,C,D</em></span>-->
+                            <!--<span class="obj-b">100%</span>-->
+                            <!--</dd>-->
+
+                            <!--</dl>-->
+
+                        </div>
+                        <div class="box-lg-2">
+                            <dl class="m-object-list f-cb dl-demo">
+                                <dt>
+                                    图例说明
+                                </dt>
+                                <dd class="dd">
+                                    <span class="obj-t"><b>题号</b><em>正确答案</em></span>
+                                    <span class="obj-b">得分率</span>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@@include('./footer.html')
+<script>
+    (function ($, S){
+        var
+                BindObjectiveshow,
+                initialnum = 0;
+        /**
+         * 客观UI版块效果
+         * @constructor
+         */
+        BindObjectiveshow = function (){
+            //查看全部切换效果
+            var EffectObjectiveshow,
+                    BindObjectiveshow,
+                    $objectspan = $('.top-right-tab'),
+                    $parent = $('.m-object-con'),
+                    $boxcon = $('.j-contents'),
+                    $TabCon = $('.j-tab-con'),
+                    $tabnav = $('.top-right-tab');
+
+            S.loading.start($parent);
+            /**
+             * 绑定效果
+             */
+            EffectObjectiveshow = function (){
+                var timer;
+                //初始化页面客观题低于{50%.length==0}
+                $('.j-object-list').each(function (){
+                    var $t = $(this);
+                    if($t.find('dd').hasClass('nothing')){
+                        return false;
+                    }
+                    if(!($t.find('dd').hasClass('no-qua'))){
+                        var text = $t.find('.paper-a').text();
+                        var html = '';
+                        html+='<dd class="nothing">';
+                        html += S.showNothing({
+                            word: text + '没有低于50%',
+                            icon:'dy-icon-emoji02',
+                            css: {
+                                margin: ' 0px 20px',
+                                width: '940px'
+                            }
+                        });
+                        html+='</dd>';
+                        $t.addClass('asdasd');
+                        $t.append(html);
+                    }
+                });
+                $objectspan.on('click', 'span', function (event){
+                    event.stopPropagation();
+
+                    var $t = $(this),
+                            dataval = $t.data('showtab');
+                    timer && timer.cancel();
+                    $t.addClass('on').siblings('span').removeClass('on');
+                    if(dataval == 'low'){
+                        $TabCon.addClass('animation');
+                        if(S.UA.ie){
+                            $TabCon.removeClass('current');
+                        } else {
+                            timer = S.later(function (){
+                                $TabCon.removeClass('current');
+                                timer.cancel();
+                            }, 1500, false);
+                        }
+                        return false;
+                    }
+                    if(dataval == 'all'){
+                        $TabCon.addClass('current').removeClass('animation');
+                        return false;
+                    }
+                });
+            };
+            /**
+             * 绑定数据
+             */
+            BindObjectiveshow = function (data, callback){
+                var
+                        html,
+                        bindhtml,
+                        DataScoreRate;
+                S.loading.done($parent);
+                $boxcon.removeClass('hide');
+                $tabnav.removeClass('hide');
+                /**
+                 *
+                 * return html
+                 */
+                bindhtml = function (data){
+                    var html = '';
+                    var bindab;
+                    var paperAQuestions = data.list.paperAQuestions;
+                    var paperACount = data.list.paperACount;
+                    var paperBQuestions = data.list.paperBQuestions;
+                    var paperBCount = data.list.paperBCount;
+                    /**
+                     *
+                     * @param questions
+                     * @param num 上传份数
+                     * @param ab   AB卷
+                     */
+                    bindab = function (questions, num, ab){
+                        html += '<dl class="m-object-list j-object-list f-cb">';
+                        html += '<dt>';
+                        html += '<span class="paper-a">' + ab + '卷</span>已上传<span class="paper-b">' + num + '</span>份';
+                        html += '</dt>';
+                        if(questions.length > 0){
+                            for (var i = 0; i < questions.length; i++) {
+                                html += '<dd class="dd'+' '+ (questions[i].scoreRate < 50 ? 'no-qua' : 'qua') + '">';
+                                html += '<span class="obj-t"><b>' + questions[i].sort + '</b><em>' + questions[i].rightKey + '</em></span>';
+                                html += '<span class="obj-b">' + questions[i].scoreRate + '%</span>';
+                                html += '</dd>';
+                            }
+                        } else {
+                            html +='<dd class="nothing base-node">';
+                            html += S.showNothing({
+                                word: ab + '卷没有客观题',
+                                css: {
+                                    margin: ' 0px 20px',
+                                    width: '940px'
+                                }
+                            });
+                            html +='</dd>';
+                        }
+                        html += '</dl>';
+                    };
+                    bindab(paperAQuestions, paperACount, data.text);
+                    data.type == 2 && bindab(paperBQuestions, paperBCount, 'B');
+                    return html;
+                };
+                //是否是AB卷
+                if(data.isAb){
+                    DataScoreRate = {
+                        type: 2,
+                        text: 'A',
+                        list: data
+                    };
+                } else {
+                    DataScoreRate = {
+                        type: 1,
+                        text: '试',
+                        list: data
+                    };
+                }
+                html = bindhtml(DataScoreRate);
+                $TabCon.append(html);
+                callback && callback.call(this);
+            };
+            /**
+             * 请求数据
+             */
+            $.ajax({
+                type: 'GET',
+                url: '/V3/data/marking-mission-ui.json',
+                data: {joinBatch: '72c20d98b5e6475da18534656da44b65'},
+                dataType: 'json',
+                success: function (json){
+                    if(json.status){
+                        BindObjectiveshow(json.data, function (){
+                            EffectObjectiveshow();
+                        });
+                    } else {
+                        var html = S.showNothing({
+                            word: json.message,
+                            css: {
+                                margin: ' 0px 20px',
+                                width: '1160px'
+                            }
+                        });
+                        $parent.html(html);
+                    }
+                }
+            });
+        };
+        BindObjectiveshow();
+
+
+    })(jQuery, SINGER);
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+/*--------------------------------------------------------------
+                        教师 推批阅中心 Variables
+
+      Author:Plato
+      Create Date:15.08.20    Last Mondify Date:15.08.20
+      ===================================================
+
+--------------------------------------------------------------*/
+* {
+  outline: none;
+}
+.dy-body .dy-container {
+  width: auto;
+  background: #f5f5f5;
+}
+a:hover {
+  text-decoration: none;
+}
+em {
+  font-style: normal;
+}
+.font-color-bule {
+  color: #7ed2fc;
+}
+.bg-grey {
+  padding: 20px 0;
+  background: #f5f5f5;
+}
+.bg-default {
+  background: #ffffff;
+}
+/*=-----ui.tab -----=*/
+.paper-details-tab .ul-list {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.paper-details-tab .ul-list li {
+  margin: 0 25px;
+  float: left;
+}
+.paper-details-tab .ul-list li a {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  height: 30px;
+  line-height: 30px;
+  color: #555555;
+}
+.paper-details-tab .ul-list li a:hover {
+  color: #555555;
+}
+.paper-details-tab .ul-list li b {
+  color: #7ed2fc;
+  margin-right: 5px;
+}
+.paper-details-tab .ul-list li.f-crt {
+  border-bottom: 3px solid #7ED2FC;
+}
+.topic-head {
+  font-size: 14px;
+  background: white;
+  overflow: hidden;
+}
+.topic-head h2 {
+  font-size: 24px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  position: relative;
+}
+.head-h2 h2 {
+  font-size: 16px;
+  border-bottom: 2px solid #aaa;
+  margin-bottom: 0;
+  height: 30px;
+  line-height: 30px;
+  font-weight: bold;
+  position: relative;
+  top: 1px;
+  padding-right: 20px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.topic-content {
+  background: #f5f5f5;
+}
+.topic-content .border_b {
+  border-bottom-color: #aaa;
+}
+.tables tr:nth-child(odd) {
+  background: #edf1f2;
+}
+.tables tr:nth-child(even) {
+  background: white;
+}
+.tables {
+  width: 100%;
+  border: 1px solid #dbdbdb;
+}
+.tables td,
+.tables th {
+  text-align: center;
+  padding: 12px 10px;
+  border-right: 1px solid #dbdbdb;
+}
+.hider-y {
+  height: auto!important;
+  width: 1000px;
+  max-height: 1000px;
+  overflow-x: auto;
+}
+.tables-canyi-1 td {
+  text-align: right;
+  padding: 12px 20px;
+}
+.tables-canyi-1 .thead th {
+  background: #5a6568;
+  color: white;
+  border-right: none;
+  text-align: right;
+  padding: 9.5px 20px;
+}
+.tables-canyi-1 tr > td:nth-child(1),
+.tables-canyi-1 tr > th:nth-child(1) {
+  text-align: center;
+}
+.tables-canyi-1 tr.thead > th:nth-child(1) {
+  background: #5a6568 url("../../../../image/v2.0/score-ranking-icon.png") 0 0 no-repeat;
+  overflow: hidden;
+  text-indent: -9999px;
+  border-right: 1px solid #dbdbdb;
+}
+.two-bg tr.thead > th:nth-child(1) {
+  background: #5a6568 url("../../../../image/v2.0/score-ranking-icon2.png") 0 0 no-repeat;
+}
+.tablesorter tr td {
+  font-size: 14px;
+}

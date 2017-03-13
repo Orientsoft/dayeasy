@@ -1,0 +1,130 @@
+.u-container {
+  border: 1px dashed #cccccc;
+  margin: 20px auto;
+  padding: 0 55px 25px;
+  width: 850px;
+}
+.u-base-wrap {
+  margin-top: 20px;
+  line-height: 35px;
+  overflow: hidden;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #cccccc;
+}
+.u-base-wrap .u-login-info {
+  float: right;
+}
+.u-base-wrap .u-login-info .control {
+  margin-right: 0;
+}
+.u-base-wrap .u-login-info .u-last-login > span {
+  margin-left: 5px;
+}
+.control-label,
+.control {
+  float: left;
+}
+.control-label {
+  padding-right: 1em;
+}
+.control {
+  color: #999;
+  margin-right: 25px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.u-edit-wrap {
+  margin-top: 25px;
+  line-height: 32px;
+}
+.u-edit-wrap .u-edit-item {
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 25px;
+  position: relative;
+}
+.u-edit-wrap .u-edit-item .u-head-photo img {
+  width: 50px;
+  height: 50px;
+  display: block;
+}
+.u-edit-wrap .u-action {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.u-edit-wrap .u-action a:link,
+.u-edit-wrap .u-action a:active,
+.u-edit-wrap .u-action a:visited {
+  color: #428bca;
+  text-decoration: none;
+}
+.u-edit-wrap .u-action a:hover {
+  color: #d9534f;
+  text-decoration: underline;
+}
+.u-agency-wrap {
+  max-width: 100%;
+  width: 660px;
+  margin-right: 0;
+}
+.u-agency-wrap .u-agency-logo {
+  float: left;
+  width: 75px;
+  height: 75px;
+  margin-right: 20px;
+}
+.u-agency-wrap .u-agency {
+  float: left;
+  width: 560px;
+}
+.u-agency-wrap .u-agency h5 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 0;
+}
+.u-agency-wrap .u-agency .u-agency-desc {
+  line-height: 26px;
+  max-height: 52px;
+  overflow: hidden;
+}
+.u-agency-wrap .u-agency-action {
+  float: left;
+  margin-top: 20px;
+  padding-left: 95px;
+  overflow: hidden;
+  width: 100%;
+}
+.u-agency-wrap .u-agency-action .btn {
+  width: 160px;
+  height: 42px;
+}
+.u-edit-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+.u-edit-content {
+  margin-top: 15px;
+  padding-left: 35px;
+}
+.u-edit-content .u-edit-group {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.u-edit-content .u-edit-group .control-label {
+  text-align: right;
+  width: 120px;
+}
+.u-edit-content .u-edit-group .control {
+  width: 220px;
+  margin-right: 20px;
+}
+.u-edit-content .u-edit-group .help-inline {
+  color: #999;
+}
+.u-edit-content .u-edit-actions {
+  padding-left: 120px;
+  margin-top: 15px;
+}

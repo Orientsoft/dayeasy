@@ -1,0 +1,252 @@
+﻿@using DayEasy.Contracts.Dtos.Tutor
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model TutorDetailDto
+@{
+    ViewBag.Title = Model.Tutor.Title + "- 得一辅导";
+    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+    //封面
+    var face = string.IsNullOrEmpty(Model.Tutor.Profile)
+        ? Consts.Config.FileSite + "/image/default/group/01.png"
+        : Model.Tutor.Profile;
+
+
+    //学生的评价
+    byte type = 0;
+    TutorCommentDto comment = null;
+    if (ViewData["comment"] != null)
+    {
+        comment = ViewData["comment"] as TutorCommentDto;
+        if (comment != null)
+        {
+            type = comment.ChooseComment ?? 0;
+        }
+    }
+
+    var sort = 1;
+}
+<script>var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true; deyi.loadFormula = true;</script>
+<input type="hidden" id="txtCommentId" value="@Model.Tutor.Id" />
+<input type="hidden" id="txtCommentEd" value="@(comment != null ? 1 : 0)" />
+<div class="clear_float"></div>
+<!-- content -->
+<div id="content" showid="0">
+    <strong class="sl"></strong>
+    <strong class="sr"></strong>
+    <span class="left"></span>
+    <span class="right"></span>
+    <ul>
+        <li class="cont_1">
+            <!-- 每一个li代表一个页面 -->
+            <!-- 这里是内容左边 -->
+            <div class="conter-1 f-cb">
+                <div class="conter-left">
+                    <img src="@Html.MakeThumb(face, "300x400")" alt="封面" />
+                </div>
+                <div class="conter-right">
+                    <div class="cont_word">
+                        <h2>@Model.Tutor.Title</h2>
+                        <ul>
+                            <li><label>难度：</label> @(((DiffLevel)Model.Tutor.Difficulty).GetText())</li>
+                            <li><label>作者：</label>@Model.Tutor.Author</li>
+                            <li><label>适用年级：</label>@(((Grade)Model.Tutor.Grade).GetText())</li>
+                            <li>
+                                <label>知识点：</label>
+                                @if (Model.Tutor.Knowledges != null && Model.Tutor.Knowledges.Any())
+                                {
+                                    foreach (var knowledge in Model.Tutor.Knowledges)
+                                    {
+                                        <span>@knowledge.Value</span>
+                                    }
+                                }
+                            </li>
+                            <li class="mb40">
+                                <label>标签：</label>
+                                @if (Model.Tutor.Tags != null && Model.Tutor.Tags.Any())
+                                {
+                                    foreach (var tag in Model.Tutor.Tags)
+                                    {
+                                        <span>@tag</span>
+                                    }
+                                }
+                            </li>
+                            <li class="mb40"><label>简介：</label>@Model.Tutor.Summary</li>
+                            <li><a class="btn btn-warning" href="">开始课程 〉</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <!-- 特性与解决方案 -->
+        @if (!string.IsNullOrEmpty(Model.Feature))
+        {
+            <li class="cont_2">
+                <div class="cont_left">
+                    <div class="user_pig">
+                        <div class="user_name user_name_title"><b>01</b>知识点特征与常见解法</div>
+                    </div>
+                </div>
+                <div class="cont_right">
+                    <div class="cont_word">@Html.Raw(Model.Feature)</div>
+                </div>
+            </li>
+        }
+
+        @if (Model.Contents != null && Model.Contents.Count > 0)
+        {
+            foreach (var content in Model.Contents.OrderBy(u => u.Sort))
+            {
+                var classStr = content.ContentType == (byte)TutorContentType.Question ? "cont_4" : "cont_3";
+
+                <li class="@classStr hider-y">
+                    @if ((sort++) == 1)
+                    {
+                        <div class="cont_left">
+                            <div class="user_pig">
+                                <div class="user_name user_name_title"><b>02</b>讲解与练习</div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (content.ContentType == (byte)TutorContentType.Question)
+                    {
+                        <div class="cont_right">
+                            <div class="cont_word">
+                                <div class="f-topic">
+                                    <p class="teacher-motto"><b>名师寄语：</b>“@content.Remarks”</p>
+                                    <div>@PaperHelper.ShowQuestion(content.QItem)</div>
+                                </div>
+                                <div class="reference-answer row">
+                                    <div class="col-md-12 ">
+                                        <p class="f-block bold f-click-slideToggle">
+                                            <span class="pointer"><i class="icon-test-center icon-test-center-right"></i>参考答案</span>
+                                        </p>
+                                        <div class="q-item">@PaperHelper.ShowAnswer(content.QItem)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (content.ContentType == (byte)TutorContentType.Video && content.VideoItem != null)
+                    {
+                        <div class="cont_right">
+                            <div class="cont_word">
+                                <p class="teacher-motto"><b>名师寄语：</b>“@content.Remarks”</p>
+                                <div id="deyiVideo@(sort)" class="deyi-player" data-url="@content.VideoItem.VideoUrl"></div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="cont_right">
+                            <div class="cont_word">
+                                <p class="teacher-motto"><b>名师寄语：</b>“@content.Remarks”</p>
+                                <div>@Html.Raw(content.Content)</div>
+                            </div>
+                        </div>
+                    }
+                </li>
+            }
+        }
+
+        <li class="cont_5">
+            <div class="cont_left">
+                <div class="user_pig">
+                    <div class="user_name user_name_title"><b>03</b>课程反馈</div>
+                </div>
+            </div>
+            <div class="cont_right tickling-box">
+                @if (comment == null)
+                {
+                    <div class="cont_word">
+                        <h3>恭喜您，完成了本次辅导！您对本次辅导的评价如何</h3>
+                        <ul class="ul-list">
+                            <li>
+                                <span class="f-checkbox default-input icon-checkbox-default @((type & 2) > 0 ? "icon-checkbox" : "")">
+                                    <input type="checkbox" value="2" name="cbxCommentType" @((type & 2) > 0 ? "checked=checked" : "") />
+                                </span>
+                                很有帮助，针对性很强
+                            </li>
+                            <li>
+                                <span class="f-checkbox default-input icon-checkbox-default @((type & 4) > 0 ? "icon-checkbox" : "")">
+                                    <input type="checkbox" value="4" name="cbxCommentType" @((type & 4) > 0 ? "checked=checked" : "") />
+                                </span>
+                                需要更多配套练习
+                            </li>
+                            <li>
+                                <span class="f-checkbox default-input icon-checkbox-default @((type & 8) > 0 ? "icon-checkbox" : "")">
+                                    <input type="checkbox" value="8" name="cbxCommentType" @((type & 8) > 0 ? "checked=checked" : "") />
+                                </span>
+                                需要更多例题讲解
+                            </li>
+                            <li>
+                                <span class="f-checkbox default-input icon-checkbox-default @((type & 16) > 0 ? "icon-checkbox" : "")">
+                                    <input type="checkbox" value="16" name="cbxCommentType" @((type & 16) > 0 ? "checked=checked" : "") />
+                                </span>
+                                需要名校老师的针对性点拨
+                            </li>
+                            <li>
+                                <span class="f-checkbox default-input icon-checkbox-default @((type & 32) > 0 ? "icon-checkbox" : "")">
+                                    <input type="checkbox" value="32" name="cbxCommentType" @((type & 32) > 0 ? "checked=checked" : "") />
+                                </span>
+                                帮助不大，形式不喜欢
+                            </li>
+                        </ul>
+                        <div class="bottom-box">
+                            <p>其他建议：</p>
+                            <textarea id="txtComment" cols="30" rows="4"></textarea>
+                            @if (ViewData["isStudent"] != null)
+                            {
+                                <button id="btnComment" class="btn btn-warning">完成</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-warning disabled" disabled="disabled">预览，不能操作</button>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="cont_right">
+                        <div class="cont_word f-tac" style="padding: 0;">
+                            <img class="mb30" src="@Consts.Config.StaticSite/image/prompt/img_hippo01.png" alt="" />
+                            <p class="p-box-1 mb40">谢谢你的建议，得一与您一同进步！</p>
+                            <a href="@Url.Action("TutorItem", "StudentWork", new { id =Model.Tutor.Id})">「 再看一遍 」</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- footer -->
+<div id="footer">
+    <ul>
+        <li step="0"><a class="active" href="#">封</a></li>
+        <li step="last"><a href="#">尾</a></li>
+    </ul>
+</div>
+
+@if (comment == null)
+{
+    <script type="text/html" id="tacklingTemplate">
+        <div class="cont_right">
+            <div class="cont_word f-tac" style="padding: 0;">
+                <img class="mb30" src="@Consts.Config.StaticSite/image/prompt/img_hippo01.png" alt="" />
+                <p class="p-box-1 mb40">谢谢你的建议，得一与您一同进步！</p>
+                <a href="@Url.Action("TutorItem", "StudentWork", new { id =Model.Tutor.Id})">「 再看一遍 」</a>
+            </div>
+        </div>
+    </script>
+}
+
+@section Style{
+    @Html.CombineLink("css/portal/question/list.css,css/v2.0/testcenter/paper-counselling.css,css/v2.0/testcenter/ui-base.css,v3/css/tutor/page-item.css")
+}
+
+@section Script{
+    @Html.CombineLink("js/portal/question/formula.js,js/base/utils.js,js/portal/question/base.js,js/v2.0/plug/jquery.rent.js,plugs/ckplayer/ckplayer.js,js/classroom/player.js,v3/js/tutor/page-item.js")
+}

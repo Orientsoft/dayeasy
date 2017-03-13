@@ -1,0 +1,262 @@
+﻿@using DayEasy.Contracts.Management.Dto
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Timing
+@model List<JointMarkingDto>
+@{
+    ViewBag.Title = "协同阅卷列表";
+}
+<div>
+    <div class="row mt20">
+        <form method="GET" action="@Url.Action("Index", "Joint")" id="searchForm">
+            <div class="col-sm-3 pl0 d-selects" style="width: 235px">
+                @Html.DropDownList("subjectId", ViewData["subjects"] as List<SelectListItem>, new { @class = "form-control" })
+                @Html.DropDownList("status", ViewData["status"] as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+            <div class="dy-agency-wrap hide">
+                <input type="hidden" name="agencyId" id="agencyId" value="@("agencyId".Query(string.Empty))" />
+                <div class="dy-agency-item">
+                </div>
+            </div>
+            <div class="col-sm-3 pl0">
+                <div class="dy-keyword-wrap">
+                    <div class="input-group">
+                        <input type="text"
+                               value="@Request["keyword"]"
+                               id="keyword"
+                               placeholder="机构名称/试卷标题/编号"
+                               class="form-control"
+                               autocomplete="off"
+                               name="keyword">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit" id="btn_submit"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                    <div class="dy-agencies hide">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <label class="checkbox">
+                    <input type="checkbox" name="IsAuth" value="1" />
+                    认证
+                </label>
+            </div>
+            <div class="fl">
+                <div class="d-total">
+                    共<em>@ViewBag.TotalCount</em>次协同阅卷
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover table-bordered">
+            <colgroup>
+                <col style="width: 5em" />
+                <col />
+                <col style="width: 12em" />
+                <col style="width: 9em" />
+                <col style="width: 6em" />
+                <col style="width: 7em" />
+                <col style="width: 5.5em" />
+                <col style="width: 5em" />
+                <col style="width: 13em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>科目</th>
+                    <th>试卷信息</th>
+                    <th>同事圈</th>
+                    <th>发起人</th>
+                    <th class="text-center">人数</th>
+                    <th>发起时间</th>
+                    <th>异常申报</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var joint in Model)
+                    {
+                        <tr data-jid="@joint.Id">
+                            <td>@Html.LabelText(joint.SubjectName, joint.SubjectId)</td>
+                            <td>
+                                <a href="@Consts.Config.AppSite/paper/detail/@joint.PaperId" target="_blank">@joint.PaperTitle</a><br />
+                                <small style="color:#999">No. @joint.PaperNo</small>
+                            </td>
+                            <td>
+                                <div class="dy-user-wrap" title="@joint.Group.Name">
+                                    <div class="dy-user-avatar b-user-active">
+                                        @if (!string.IsNullOrWhiteSpace(joint.Group.Logo))
+                                        {
+                                            <img width="35" height="35" src="@Html.MakeThumb(joint.Group.Logo, "35x35")" />
+                                        }
+                                        else
+                                        {
+                                            <h3 class="d-text-avatar d-text-avatar-round d-text-avatar-small">
+                                                @joint.Group.Name
+                                            </h3>
+                                        }
+                                    </div>
+                                    <div class="dy-user-info">
+                                        <p class="dy-user-name" style="max-width: 8em">
+                                            @joint.Group.Name
+                                        </p>
+                                        <p>No.@joint.Group.Code</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dy-user-wrap" title="@joint.User.Name">
+                                    <div class="dy-user-avatar b-user-active">
+                                        @if (!string.IsNullOrWhiteSpace(joint.User.Avatar))
+                                        {
+                                            <img width="35" height="35" src="@Html.MakeThumb(joint.User.Avatar, "35x35")" />
+                                        }
+                                        else
+                                        {
+                                            <h3 class="d-text-avatar d-text-avatar-round d-text-avatar-small">
+                                                @joint.User.Name
+                                            </h3>
+                                        }
+                                    </div>
+                                    <div class="dy-user-info">
+                                        <p class="dy-user-name">
+                                            @joint.User.Name
+                                        </p>
+                                        <p>No.@joint.User.Code</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                @if (joint.PaperACount > 0)
+                                {
+                                    <a href="@Url.Action("Pictures", new { joint = joint.Id, type = 1 })" target="_blank" title="查看试卷">@joint.PaperACount</a>
+                                }
+                                else
+                                {
+                                    <span>0</span>
+                                }
+                                <i class="sj-split">|</i>
+                                @if (joint.PaperBCount > 0)
+                                {
+                                    <a href="@Url.Action("Pictures", new { joint = joint.Id, type = 2 })" target="_blank" title="查看试卷">@joint.PaperBCount</a>
+                                }
+                                else
+                                {
+                                    <span>0</span>
+                                }
+                            </td>
+                            <td><abbr title="@joint.AddedAt.ToString("yyyy年MM月dd日 HH时mm分ss秒")">@joint.AddedAt.ToString("yyyy-MM-dd")</abbr></td>
+                            <td>
+                                <a href="/joint/exceptions/@joint.Id">@joint.ExceptionCount</a>
+                            </td>
+                            <td>
+                                @(Html.EnumText<JointStatus, byte>(joint.Status))
+                            </td>
+                            <td class="dy-actions" style="text-align: right">
+                                @if (joint.Status == (byte)JointStatus.Finished)
+                                {
+                                    <a href="@Url.Action("ExportJoint", new {jointBatch = joint.Id})" title="统计下载" target="_blank">
+                                        <i class="fa fa-cloud-download"></i>
+                                    </a>
+                                    if (joint.FinishedTime.HasValue && joint.FinishedTime.Value > Clock.Now.AddDays(-10))
+                                    {
+                                        <a title="重置协同" href="#" class="j-reset text-danger">
+                                            <i class="fa fa-undo"></i>
+                                        </a>
+                                    }
+                                }
+                                else if (joint.Status != (byte)JointStatus.Delete)
+                                {
+                                    var url = Consts.Config.MainSite + "/marking/marking-area?batch=" + joint.Id + "&type={0}&isJoint=true";
+                                    <a href="javascript:void(0);" class="a-unsubmits text-danger" title="未交">
+                                        <i class="fa fa-users"></i>
+                                    </a>
+                                    if (joint.PaperACount > 0)
+                                    {
+                                        <a href="@(url.FormatWith(1))" class="d-mark-icon" target="_blank" title="标记A卷">
+                                            <i>A</i>
+                                        </a>
+                                    }
+                                    if (joint.PaperBCount > 0)
+                                    {
+                                        <a href="@(url.FormatWith(2))" class="d-mark-icon" target="_blank" title="标记B卷">
+                                            <i>B</i>
+                                        </a>
+                                    }
+                                    <a href="@(Consts.Config.MainSite+"/marking/mission_v2/"+joint.Id)" target="_blank" title="协同任务">
+                                        <i class="fa fa-tasks"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" class="a-recall text-danger" title="撤回">
+                                        <i class="fa fa-undo"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="10" style="padding: 0">
+                            <div class="dy-nothing">没有找到相关信息！</div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(Request["pageIndex"]), 15, (int)ViewBag.TotalCount, 4)
+    </div>
+</div>
+
+<script type="text/html" id="unsubmit-template">
+    <div class="unsubmit-box">
+        {{each unSubmits as g}}
+        <div class="uns-item">
+            <div class="unsi-title">
+                {{g.groupName}}
+                <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="unsi-data" data-open="1">
+                <div>
+                    {{if isAb}} <div class="unsi-tag">A卷</div> {{/if}}
+                    {{if g.unsA && g.unsA.length}}
+                    {{each g.unsA as stu}}
+                    <span data-uid="{{stu.id}}">{{stu.name}}</span>
+                    {{/each}}
+                    {{/if}}
+                    {{if !g.unsA || !g.unsA.length}}
+                    <span>无</span>
+                    {{/if}}
+                </div>
+                {{if isAb}}
+                <div class="unsi-box-b">
+                    <div class="unsi-tag unsi-tag-b">B卷</div>
+                    {{if g.unsB && g.unsB.length}}
+                    {{each g.unsB as stu}}
+                    <span data-uid="{{stu.id}}">{{stu.name}}</span>
+                    {{/each}}
+                    {{/if}}
+                    {{if !g.unsB || !g.unsB.length}}
+                    <span>无</span>
+                    {{/if}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</script>
+
+@section style{
+    @Html.CombineLink("v3/css/management/page-group.css", "v3/css/management/page-joint.css")
+}
+
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js,v3/js/management/agency-helper.js,v3/js/management/page-joint.js")
+}

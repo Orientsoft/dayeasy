@@ -1,0 +1,230 @@
+.base-style a {
+  color: #919699;
+}
+.base-style a:hover {
+  text-decoration: none;
+}
+input,
+button,
+select,
+textarea {
+  outline: none;
+}
+.fz14 {
+  font-size: 14px;
+}
+.ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
+input,
+button,
+select,
+textarea {
+  outline: none;
+}
+a.color-bule {
+  color: #65cafc;
+}
+a.color-bule:hover {
+  text-decoration: none;
+  color: #5cb8e5;
+}
+.w1000 {
+  width: 1000px;
+  margin: 0 auto;
+}
+i.f-close,
+i.col-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-style: normal;
+  background: #ffffff;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  line-height: 10px;
+  border: 1px solid #e6e6e6;
+  color: #b3b3b3;
+  display: inline-block;
+}
+i.f-close:hover,
+i.col-close:hover {
+  background: #ffa64c;
+  color: #ffffff;
+}
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 30px solid white;
+}
+.login-reg-icon {
+  background-image: url("../../../image/loginreg/login-reg-icon.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.login-reg-1 {
+  width: 16px;
+  height: 16px;
+  background-position: 0 0;
+  vertical-align: middle;
+  margin-left: 15px;
+  cursor: pointer;
+  text-indent: 99999px;
+  overflow: hidden;
+}
+.login-reg-1:hover {
+  background-position: 0 -57px;
+}
+.posa-icon {
+  position: absolute;
+  left: 18px;
+  top: 0;
+}
+.login-reg-2 {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  width: 15px;
+  height: 14px;
+  background-position: 0 -16px;
+}
+.login-reg-3 {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  background-position: 0 -30px;
+}
+.login-reg-4 {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  width: 15px;
+  height: 12px;
+  background-position: 0 -45px;
+}
+.audit-icon {
+  background-image: url("../../../image/loginreg/audit-icon.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.certification-audit {
+  width: 60px;
+  height: 60px;
+  background-position: 0 0;
+}
+.certification-audit-delete {
+  width: 60px;
+  height: 60px;
+  background-position: 0 -60px;
+}
+.associated-account .p1 {
+  margin-bottom: 35px;
+}
+.associated-account .account-qq,
+.associated-account .account-sina {
+  width: 300px;
+  height: 90px;
+  background: white;
+  padding: 17px 30px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.associated-account .account-qq .f-posr {
+  position: relative;
+  margin: 0 22px;
+}
+.associated-account .account-qq .f-posr button {
+  position: absolute;
+  top: 11px;
+  left: -3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.associated-account .account-qq .f-posr em.to-associate {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: -3px;
+  width: 82px;
+  text-align: center;
+  height: 34px;
+  line-height: 34px;
+  font-style: normal;
+  font-size: 16px;
+}
+.associated-account .account-sina .f-posr {
+  position: relative;
+  margin: 0 22px;
+}
+.associated-account .account-sina .f-posr button {
+  position: absolute;
+  top: 11px;
+  left: -3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.associated-account .account-sina .f-posr em.to-associate {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: -3px;
+  width: 82px;
+  text-align: center;
+  height: 34px;
+  line-height: 34px;
+  font-style: normal;
+  font-size: 16px;
+}
+.icon-related {
+  background-image: url(../../../image/loginreg/icon-related.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.icon-related.icon-about {
+  background-position: 0 0;
+  width: 74px;
+  height: 56px;
+}
+.icon-related.icon-deyi {
+  background-position: -74px 0;
+  width: 56px;
+  height: 56px;
+}
+.icon-related.icon-qq {
+  background-position: -130px 0;
+  width: 56px;
+  height: 56px;
+}
+.icon-related.icon-qqhv {
+  background-position: -186px 0;
+  width: 56px;
+  height: 56px;
+}
+.icon-related.icon-xina {
+  background-position: -242px 0;
+  width: 56px;
+  height: 56px;
+}
+.icon-related.icon-xinahv {
+  background-position: -298px 0;
+  width: 56px;
+  height: 56px;
+}

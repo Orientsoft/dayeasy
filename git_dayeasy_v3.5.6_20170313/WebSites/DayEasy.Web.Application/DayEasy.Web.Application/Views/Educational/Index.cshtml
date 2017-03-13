@@ -1,0 +1,84 @@
+﻿@using DayEasy.Core;
+@{
+    ViewBag.Title = "学校概况";
+}
+
+<div class="dy-main-wrap">
+    @Html.Partial("_Navigation", 0)
+    <div class="dy-list" data-aid="@ViewBag.AgencyId">
+        <div class="page-header">
+            <h3 class="font-color-tit">
+                @ViewBag.Agency
+            </h3>
+            <div class="last-refresh">
+                <span></span>
+                <i class="iconfont dy-icon-f5" title="刷新缓存"></i>
+            </div>
+        </div>
+        <div class="page-elective-course">
+            <ul class="m-course-top f-cb">
+                <li class="bg-bearing1">
+                    <span class="title">注册学生</span>
+                    <span class="num-data f-toe" id="studentCount"></span>
+                </li>
+                <li class="bg-bearing2">
+                    <span class="title">注册老师</span>
+                    <span class="num-data f-toe" id="teacherCount"></span>
+                </li>
+                <li class="bg-bearing3">
+                    <span class="title">班级圈</span>
+                    <span class="num-data f-toe" id="classCount"></span>
+                </li>
+                <li class="bg-bearing4 last-child">
+                    <span class="title">同事圈</span>
+                    <span class="num-data f-toe" id="colleagueCount"></span>
+                </li>
+            </ul>
+            <div class="m-course-main f-cb">
+                <div class="come">
+                    <a href="@(Consts.Config.MainSite + "/agency/"+ViewBag.AgencyId)" target="_blank">
+                        <i class="iconfont dy-icon-eye"></i>
+                        <span class="box-span-1">学校主页来访</span>
+                        <span class="box-span-2 f-toe" id="visitCount"></span>
+                    </a>
+                </div>
+                <div class="target">
+                    <i class="iconfont dy-icon-index-zan"></i>
+                    <span class="box-span-1">将我校设为目标学校</span>
+                    <span class="box-span-2" id="targetCount"></span>
+                </div>
+            </div>
+            <div class="m-course-bottom f-cb mb20">
+                <div class="box-people class-people">
+                    <div class="m-title f-cb">
+                        <strong>各班学生人数</strong>
+                        <select name="" id="container-tab-left"></select>
+                    </div>
+                    <!--数据类型替换-->
+                    <div class="container-box-x">
+                        <div id="container-left" style="height:220px;"></div>
+                    </div>
+
+                </div>
+                <div class="box-people teacher-people">
+                    <div class="m-title">
+                        <strong>各科教师人数</strong>
+                        <!--数据类型替换-->
+                        <select name="" id="container-tab-right"></select>
+                    </div>
+                    <div class="container-box-y">
+                        <div id="container-right" style="width: 440px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/ea/ui-base.css,v3/plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css,v3/css/ea/statistics/page-elective-course.css")
+}
+
+@section js{
+    @Html.CombineLink("v3/plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js", "js/highcharts.min.js", "v3/js/ea/statistics/page-elective-course.js")
+}

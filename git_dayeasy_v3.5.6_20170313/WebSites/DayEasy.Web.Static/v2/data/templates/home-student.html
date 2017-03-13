@@ -1,0 +1,481 @@
+<!--=================学生动态模版=======================-->
+<script id="lead" type="text/html">
+    <!--首次默认推送模块-->
+    <div class="s-wpar">
+        <div class="dy-system-4 dy-base s-tiont-1">
+            <img src="{{sites.static}}/image/home/dft-s.png" alt="我们为您准备了日常学习中的4种利器" />
+        </div>
+    </div>
+</script>
+<!--布置作业-->
+<script id="t2-000-0" type="text/html">
+    <div class="dy-system-7 dy-base">
+        <h3 class="dy-h3">
+            {{Details.SubjectName}}作业已布置：
+            <a class="blues" target="_blank" href="/work/student/pub-paper/{{Details.Batch}}">{{Details.SourceName}}</a>
+            <a class="blue f-fr iconp" target="_blank" href="/work/student/pub-paper/{{Details.Batch}}"><i class="icon_pen"></i>马上完成~</a>
+        </h3>
+        <div class="whole-school after">
+            <div class="topic after">
+                <ul>
+                    <li class="padd-lr40 boder bg-grey">
+                        <ul class="ul after">
+                            <li class="time-li" style="width:auto;">附加消息：{{Details.Remarks}}</li>
+                        </ul>
+                    </li>
+                    <!--<li class=" padd-lr40 boder bg-grey">
+                        <ul class="ul after">
+                            <li class="time-li">截止时间：{{Details.ExpireTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                        </ul>
+                    </li>-->
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<!--完成课堂-->
+<script id="t2-0010-1" type="text/html">
+    <div class="dy-system-3 dy-base">
+        <h3 class="dy-h3">
+            完成{{Details.SubjectName}}课堂：<a target="_blank" href="{{sites.class}}/student?done="
+                                           class="blues">{{Details.SourceName}}</a>
+        </h3>
+
+        <div class="classroom">
+            <ul class="ul1">
+                <li>
+                    <div class="testing padd-lr40 bg-grey after ">
+                        <div class="f-fl mr10">
+                            <img style="width:100px; height:100px;" src="{{Details.FrontCover}}"
+                                 alt="">
+                        </div>
+                        <div class="f-fl">
+                            <p>本次课堂，第{{Details.Rank}}名提交！</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <ul class="ul after mt10">
+                        <li class="time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<!--布置课堂-->
+<script id="t2-000-1" type="text/html">
+    <div class="dy-system-3 dy-base">
+        <h3 class="dy-h3">
+            {{Details.SubjectName}}课堂已布置：<a class="blues" target="_blank" href="{{sites.class}}/student">{{Details.SourceName}}</a>
+            <a class="blue f-fr iconp" href="{{sites.class}}/student" target="_blank"><i class="icon_pen"></i>马上完成~</a>
+        </h3>
+
+        <div class="classroom">
+            <ul class="ul1">
+                <li>
+                    <div class="testing padd-lr40 bg-grey after ">
+                        <div class="f-fl mr10">
+                            <img src="{{Details.FrontCover}}" style="width:100px; height:100px;"
+                                 alt="">
+                        </div>
+                        <div>
+                            <p class="time-li">截止时间：{{Details.ExpireTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <ul class="ul after">
+                        <li class="time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</script>
+<!--提交作业-->
+<script id="t2-005-0" type="text/html">
+    <div class="dy-system-7 dy-base">
+        <h3 class="dy-h3">
+            完成{{Details.SubjectName}}作业： <a class="blues" target="_blank" href="/work/student/answer-paper/{{Details.Batch}}">{{Details.SourceName}}</a>
+        </h3>
+
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class=" padd-lr40 boder bg-grey">
+                        <ul class="ul after">
+                            <li>本次作业，第 {{Details.Rank}} 名提交</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<!--提交作业前10名 学生-->
+<script id="t2-006-0" type="text/html">
+    <div class="dy-system-7 dy-base">
+        <h3 class="dy-h3">
+            {{Details.SubjectName}}作业10人已完成： <a target="_blank"  href="/work/student/answer-paper/{{Details.Batch}}"
+   class="blues">【{{Details.SourceName}}】</a>
+        </h3>
+
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class=" padd-lr40 bg-grey">
+                        <p>
+                            {{each Details.UserNames as value i}}
+                            <span>{{value}}</span>&emsp;
+                            {{if i==4}}
+                            <br />
+                            {{/if}}
+                            {{/each}}
+                        </p>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                            <li class="f-tar mt10 yellow">
+                                <a href="javascript:void(0);" data-newid="{{NewsId}}"
+                                   class="thumbs iconm">
+                                    <i class="icon_mb"></i> {{ NewsId |
+                                    supportFormat:NewsId }}（<b>{{GoodCount}}</b>）
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="t2-006-1" type="text/html">
+    <div class="dy-system-7 dy-base">
+        <h3 class="dy-h3">
+            {{Details.SubjectName}}课堂10人已完成： <a target="_blank" href="{{sites.class}}/student"
+                                                class="blues">【{{Details.SourceName}}】</a>
+        </h3>
+
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class=" padd-lr40 bg-grey">
+                        <p>
+                            {{each Details.UserNames as value i}}
+                            <span>{{value}}</span>&emsp;
+                            {{if i==4}}
+                            <br />
+                            {{/if}}
+                            {{/each}}
+                        </p>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                            <li class="f-tar mt10 yellow">
+                                <a href="javascript:void(0);" data-newid="{{NewsId}}"
+                                   class="thumbs iconm">
+                                    <i class="icon_mb"></i> {{ NewsId |
+                                    supportFormat:NewsId }}（<b>{{GoodCount}}</b>）
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<!--*** 批改作业 ***-->
+<!--试卷-->
+<script id="t2-002-0" type="text/html">
+    <div class="dy-system-7 dy-base">
+        <h3 class="dy-h3">
+            {{Details.SubjectName}}作业已批改： <a class="blues" target="_blank" href="/work/student/answer-paper/{{Details.Batch}}">{{Details.SourceName}}</a>
+            <a class="blue iconv f-fr" href="/work/student/answer-paper/{{Details.Batch}}" target="_blank">
+                <i class="icon_view"></i>马上查看~
+            </a>
+        </h3>
+
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class=" padd-lr40 boder bg-grey">
+                        <ul class="ul after">
+                            <li>
+                                名次:
+                                {{if Details.Rank > 0}}
+                                {{Details.Rank}}
+                                {{else}}
+                                未交卷
+                                {{/if}}
+                            </li>
+                            <li>教师：{{Details.TeacherName}}</li>
+                            {{if Details.Score > 0 || Details.AverageScore > 0}}
+                            <li>
+                                分数：{{Details.Score}}分
+                            </li>
+                            <li>
+                                班级平均分：{{Details.AverageScore}}分
+                            </li>
+                            {{/if}}
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<!--课堂-->
+<script id="t2-002-1" type="text/html">
+    <div class="dy-system-3 dy-base">
+        <h3 class="dy-h3">
+            {{Details.SubjectName}}随堂检测已批改： <a class="blues" target="_blank"
+   href="/work/student/answer-paper/{{Details.Batch}}/{{Details.SourceId}}?app=classroom">{{Details.SourceName}}</a>
+            <a class="blue iconv f-fr" href="/work/student/answer-paper/{{Details.Batch}}/{{Details.SourceId}}?app=classroom"
+               target="_blank"><i class="icon_view"></i>马上查看~</a>
+        </h3>
+
+        <div class="classroom">
+            <ul class="ul1">
+                <li>
+                    <div class="testing padd-lr40 bg-grey after ">
+                        <div class="f-fl mr10">
+                            <img style="width:100px; height:100px;" src="{{Details.FrontCover}}"
+                                 alt="">
+                        </div>
+                        <div class="f-fl">
+                            <p>
+                                名次:
+                                {{if Details.Rank>0}}
+                                {{Details.Rank}}
+                                {{else}}
+                                未交卷
+                                {{/if}}
+                            </p>
+
+                            <p>教师：{{Details.TeacherName}}</p>
+
+                            <p>
+                                {{if Details.Rank==0 || Details.Score>0}}
+                                分数：{{Details.Score}}分
+                                {{/if}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <ul class="ul after mt10">
+                        <li class="time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</script>
+<!--*** Top10 ***-->
+<!--新增错题-->
+<script id="t2-009-2" type="text/html">
+    <div class="dy-system-7 dy-base">
+        <h3 class="dy-h3">
+            上周新增错题：
+            <a target="_blank" href="{{sites.main}}/errorbook" class="blues">
+                {{Details.TotalCount}}道
+            </a>
+            <a class="blue iconv f-fr" href="{{sites.main}}/errorbook" target="_blank">
+                <i class="icon_view"></i>马上查看~
+            </a>
+        </h3>
+
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class=" padd-lr40 boder bg-grey">
+                        <ul class="ul after">
+                            {{each Details.SubjectCount as value i}}
+                            <li>{{i}}：{{value}}</li>
+                            {{/each}}
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<!--*** 作业全对 7 ***-->
+<!--试卷-->
+<script id="t2-007-0" type="text/html">
+    <div class="dy-system-7 dy-base">
+        <h3 class="dy-h3">
+            {{Details.SubjectName}}作业{{Details.UserNames.length}}人全对：<a target="_blank" href="/work/student/answer-paper/{{Details.Batch}}"
+   class="blues">{{Details.SourceName}}</a>
+        </h3>
+
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class=" padd-lr40 bg-grey">
+                        <p>
+                            {{each Details.UserNames as value i}}
+                            <span>{{value}}</span>&emsp;
+                            {{if i==4}}
+                            <br />
+                            {{/if}}
+                            {{/each}}
+                        </p>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                            <li class="f-tar mt10 yellow">
+                                <a target="_blank" href="javascript:void(0);"
+                                   data-newid="{{NewsId}}" class="thumbs iconm">
+                                    <i class="icon_mb"></i> {{ NewsId | supportFormat:NewsId }}（<b>{{GoodCount}}</b>）
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="t2-007-1" type="text/html">
+    <div class="dy-system-7 dy-base">
+        <h3 class="dy-h3">
+            {{Details.SubjectName}}随堂检测{{Details.UserNames.length}}人全对：<a target="_blank"  href="/work/student/answer-paper/{{Details.Batch}}/{{Details.SourceId}}?app=classroom" class="blues">{{Details.SourceName}}</a>
+        </h3>
+
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class=" padd-lr40 bg-grey">
+                        <p>
+                            {{each Details.UserNames as value i}}
+                            <span>{{value}}</span>&emsp;
+                            {{if i==4}}
+                            <br />
+                            {{/if}}
+                            {{/each}}
+                        </p>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                            <li class="f-tar mt10 yellow">
+                                <a href="javascript:void(0);" data-newid="{{NewsId}}"
+                                   class="thumbs iconm">
+                                    <i class="icon_mb"></i> {{ NewsId |
+                                    supportFormat:NewsId }}（<b>{{GoodCount}}</b>）
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<!--***作业第一名 8***-->
+<!--试卷-->
+<script id="t2-008-0" type="text/html">
+    <div class="dy-system-7 dy-base">
+        <h3 class="dy-h3">
+            {{Details.SubjectName}}作业: <a target="_blank" href="/work/student/answer-paper/{{Details.Batch}}"
+   class="blues">{{Details.SourceName}}</a>
+        </h3>
+
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class=" padd-lr40 bg-grey">
+                        <p>
+                            {{each Details.UserNames as value i}}
+                            <span>{{value}}</span>&emsp;
+                            {{if i==4}}
+                            <br />
+                            {{/if}}
+                            {{/each}}获得了第 <span style="font-size:16px;color:#ff7f00">1</span> 名！
+                        </p>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                            <li class="f-tar mt10 yellow">
+                                <a href="javascript:void(0);" data-newid="{{NewsId}}"
+                                   class="thumbs iconm">
+                                    <i class="icon_mb"></i> {{ NewsId |
+                                    supportFormat:NewsId }}（<b>{{GoodCount}}</b>）
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<!--课堂-->
+<script id="t2-008-1" type="text/html">
+    <div class="dy-system-7 dy-base">
+        <h3 class="dy-h3">
+            {{Details.SubjectName}}随堂检测：<a target="_blank" href="/work/student/answer-paper/{{Details.Batch}}/{{Details.SourceId}}?app=classroom" class="blues">{{Details.SourceName}}</a>
+        </h3>
+
+        <div class="whole-school  after">
+            <div class="topic after">
+                <ul>
+                    <li class=" padd-lr40 bg-grey">
+                        <p>
+                            {{each Details.UserNames as value i}}
+                            <span>{{value}}</span>&emsp;
+                            {{if i==4}}
+                            <br />
+                            {{/if}}
+                            {{/each}}获得了第 <span style="font-size:16px;color:#ff7f00">1</span> 名！
+                        </p>
+                    </li>
+                    <li>
+                        <ul class="ul after">
+                            <li class="mt10 time-bt">{{SendTime | dateFormat:'yyyy-MM-dd hh:mm:ss'}}</li>
+                            <li class="f-tar mt10 yellow">
+                                <a href="javascript:void(0);" data-newid="{{NewsId}}"
+                                   class="thumbs iconm">
+                                    <i class="icon_mb"></i> {{ NewsId |
+                                    supportFormat:NewsId }}（<b>{{GoodCount}}</b>）
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>

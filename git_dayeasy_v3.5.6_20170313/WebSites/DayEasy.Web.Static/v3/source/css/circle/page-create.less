@@ -1,0 +1,351 @@
+/*--------------------------------------------------------------
+                        创建圈子
+
+      Author:Plato
+      Create Date:2015/10/26 4:40  Last Mondify Date:2015/10/26 4:40
+      ===================================================
+
+--------------------------------------------------------------*/
+@import "ui-base.less";
+
+//public
+.establish {
+  margin: 30px auto;
+}
+
+.dy-wrap {
+  .bg-grey();
+}
+
+.d-title {
+  padding: 12px 0;
+  h3 {
+    border-left: 3px solid #ed5565;
+    font-size: 18px;
+    padding-left: 15px;
+  }
+}
+
+.dg-step {
+  background-color: @color-default;
+  .dg-step-title {
+    padding: 25px 0 0;
+    text-align: center;
+    i, h2 {
+      .inline-block;
+      vertical-align: middle;
+    }
+    i {
+      font-size: 24px;
+      margin-right: 8px;
+      color: #bbb;
+      vertical-align: -2px;
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #999;
+    }
+    .dg-choose-type {
+      margin: 0 auto;
+      position: relative;
+      width: 80px;
+      img {
+        width: 80px;
+        height: 80px;
+        .rounded-corners(50%);
+      }
+      h3 {
+        font-size: 15px;
+        line-height: 35px;
+      }
+      b {
+        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+        .rounded-corners(50%);
+        color: #fff;
+        height: 80px;
+        left: 0;
+        line-height: 80px;
+        position: absolute;
+        top: 0;
+        width: 80px;
+        visibility: hidden;
+        .transition(all 0.35s easy-out-in 0s);
+        cursor: pointer;
+      }
+      &:hover,
+      &.hover {
+        b {
+          visibility: visible;
+        }
+      }
+    }
+  }
+  .dg-step-tab {
+
+  }
+}
+
+.dg-actions {
+  text-align: center;
+  padding: 0 0 30px;
+  .pre-step {
+    color: #3bafda;
+    margin-right: 15px;
+    &:hover {
+      color: @color-hover-blue;
+    }
+  }
+}
+
+//step 1
+.dg-step-01 {
+  text-align: center;
+  padding: 60px 0 0;
+  height: 450px;
+  li {
+    .inline-block;
+    padding: 12px 45px;
+    line-height: 24px;
+    cursor: pointer;
+    position: relative;
+    border: solid 1px @color-default;
+    img {
+      width: 150px;
+      height: 150px;
+      .rounded-corners(50%);
+    }
+    h3 {
+      font-size: 15px;
+      line-height: 35px;
+    }
+    span, em {
+      display: block;
+    }
+    span {
+      color: #666;
+    }
+    em {
+      color: #999;
+    }
+    b {
+      position: absolute;
+      top: 12px;
+      left: 45px;
+      right: 45px;
+      height: 150px;
+      visibility: hidden;
+      .transition(all 0.35s ease-in-out 0s);
+      .rounded-corners(50%)
+    }
+    &:hover,
+    &.hover {
+      background-color: #f9f9f9;
+      border-color: @border-color;
+      b {
+        background: rgba(0, 0, 0, .3);
+        visibility: visible;
+      }
+    }
+  }
+}
+
+//step 2
+.dg-step-02 {
+  width: 484px;
+  margin: 30px auto 10px;
+  color: #999;
+  input:disabled {
+    background: none;
+    cursor: pointer;
+  }
+  li {
+    margin-bottom: 20px;
+  }
+  select, input, textarea {
+    width: 300px;
+
+  }
+  label {
+    .inline-block;
+    width: 85px;
+    text-align: right;
+    em {
+      color: @color-danger;
+      padding-right: 3px;
+      vertical-align: -5px;
+      font-size: 19px;
+    }
+  }
+  //标签
+  .d-tags {
+    .inline-block;
+    vertical-align: middle;
+    .tag-edit {
+      .btn-tag {
+        height: auto;
+        line-height: 28px;
+      }
+      .help-inline {
+        line-height: 32px;
+      }
+      .form-control {
+        width: 10em;
+      }
+    }
+    mark, .d-tag {
+      line-height: 30px;
+      margin-bottom: 0;
+    }
+  }
+  .text-box {
+    textarea {
+      vertical-align: top;
+      width: 380px;
+    }
+    p {
+    }
+  }
+}
+
+//step 3
+.dg-info {
+  border-bottom: solid 1px @border-color;
+  padding: 15px 0 30px;
+  text-align: center;
+  .dg-avatar {
+    margin-bottom: 15px;
+  }
+  .dg-name {
+    font-size: 14px;
+  }
+  .dg-channel, .dg-name-wrap, .dg-type {
+    .inline-block;
+    vertical-align: middle;
+  }
+  .dg-name-wrap {
+    font-size: 20px;
+    strong {
+      color: #999;
+      font-size: 14px;
+      margin-left: 10px;
+      position: relative;
+      top: -2px;
+    }
+  }
+  .dg-type {
+    background: #f5f7fa none repeat scroll 0 0;
+    border-radius: 2px;
+    color: #aab2bd;
+    cursor: default;
+    font-size: 14px;
+    margin-left: 15px;
+    padding: 5px 10px;
+  }
+}
+
+.dg-share {
+  border-bottom: solid 1px @border-color;
+  margin-bottom: 30px;
+  .close-share {
+    display: none;
+  }
+  .font-color-bule {
+    color: #3bafda;
+    &:hover {
+      color: @color-hover-blue;
+    }
+  }
+  @import "../../less/ui-share";
+  //分享插件 Amend
+  .ul-list-letter {
+    li {
+      a.iconfont {
+        -webkit-text-stroke-width: 0px;
+        font-family: "微软雅黑", serif !important;
+        font-size: 16px;
+      }
+      .iconfont:before {
+        font-family: "iconfont", serif !important;
+      }
+    }
+  }
+  .fr-box-share {
+    border: none;
+    margin: 0 auto 15px;
+  }
+  textarea {
+    display: none;
+  }
+}
+
+//机构选择器
+.choose-school {
+  font-size: 14px;
+  background: white;
+  width: 971px;
+  color: #999;
+  padding: 0 25px 25px;
+  .dy-icon-13 {
+    color: #8cc152;
+    font-size: 32px;
+  }
+  .area {
+    position: relative;
+    top: 10px \9;
+    select {
+      background: #fff none;
+      border: 1px solid #e6e9ed;
+      color: #555;
+      .inline-block;
+      font-size: 14px;
+      height: 34px;
+      line-height: 1.42857;
+      margin-right: 5px;
+      padding: 6px 12px;
+    }
+  }
+  .letter {
+    line-height: 32px;
+    a {
+      color: #bbb;
+      font-weight: bold;
+      .inline-block;
+      padding: 0 4px;
+    }
+    a.z-crt {
+      color: #3bafda;
+    }
+    a.z-sel {
+      color: #ed5565;
+    }
+  }
+
+  .school-name {
+    border: 1px solid #e6e9ed;
+    height: 286px;
+    overflow-y: auto;
+    .ul-list-box {
+      li {
+        width: 220px;
+        float: left;
+        padding: 10px 0 10px 20px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        overflow: hidden;
+        cursor: pointer;
+        &:hover {
+          color: #3bafda;
+        }
+      }
+      li.z-sel {
+        color: #3bafda;
+      }
+    }
+    a {
+      .inline-block;
+    }
+  }
+}
+

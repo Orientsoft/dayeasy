@@ -1,0 +1,136 @@
+﻿@import "../base";
+@import "base-center";
+//<!--**
+//  机构管理- "教师职工" "认证审核"
+//**-->
+
+.teacher-staff {
+  .fz14;
+  .staff-title {
+    select, input {
+      border: none;
+    }
+    select.select-box {
+      background: #e6e6e6;
+      color: #919699;
+      padding: 5px;
+    }
+    .input-box {
+      width: 154px;
+      position: relative;
+      input {
+        background: #e6e6e6;
+        color: #919699;
+        padding: 7.5px;
+      }
+      i.glyphicon-search {
+        position: absolute;
+        top: 7px;
+        right: 19px;
+        font-size: 16px;
+        color: #b6b6b6;
+      }
+    }
+    .pagination {
+      margin: 0;
+      .active {
+        a {
+          background: #7ed2fc;
+          color: white;
+        }
+      }
+      & > li > a {
+        background: #e6e6e6;
+        color: #808080;
+      }
+    }
+  }
+  .teacher-name-list {
+    padding: 25px 20px 0;
+    margin-bottom: 40px;
+    background: white;
+    overflow: hidden;
+    .ul-list {
+      li {
+        color: #617783;
+        margin-bottom: 20px;
+        .font-corol-grey {
+          color: #919699;
+          width: 350px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          -o-text-overflow: ellipsis;
+          overflow: hidden;
+          height: 16px;
+        }
+        .font-corol-pink {
+          color: #fc9797;
+          &:hover {
+            color: #f05151;
+            cursor: pointer;
+          }
+        }
+        .font-corol-green {
+          color: #85c744;
+          &:hover {
+            color: #6ba92d;
+            cursor: pointer;
+          }
+        }
+        img {
+          width: 50px;
+          height: 50px;
+          .border-radius(6px);
+        }
+      }
+      .last-boder-none {
+        .border-bottom {
+          border: none;
+        }
+      }
+    }
+    .delete-button {
+      height: 47px;
+      line-height: 47px;
+      display: block;
+
+    }
+    .curp-click {
+      &:hover {
+        color: #7ed2fc;
+        cursor: pointer;
+      }
+    }
+    .left-right-p0 {
+      //padding-bottom:0px;
+      .mb10 > .col-md-2 {
+        width: 60px;
+        margin-right: 5px;
+        height: 16px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      div {
+        padding: 0;
+      }
+    }
+  }
+  .border-bottom {
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 20px;
+    position: relative;
+    s {
+      width: 0;
+      height: 12px;
+      position: absolute;
+      top: 18px;
+      left: 49px;
+      font-weight: normal;
+      border-right: 1px solid #c9c9c9;
+      overflow: hidden;
+      text-indent: 99999px;
+    }
+  }
+}

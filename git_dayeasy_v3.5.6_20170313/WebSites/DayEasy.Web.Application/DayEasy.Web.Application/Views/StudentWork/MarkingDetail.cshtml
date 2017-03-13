@@ -1,0 +1,125 @@
+﻿@using DayEasy.Contracts.Dtos.Paper
+@using DayEasy.Contracts.Enum
+@using ServiceStack.Text
+@model DayEasy.Contracts.Dtos.Marking.MkPictureDto
+@{
+    ViewBag.Title = "批阅详情";
+
+    PaperDto paper = null;
+    if (ViewData["paper"] != null)
+    {
+        paper = ViewData["paper"] as PaperDto;
+    }
+
+    PaperScoresDto paperScores = null;
+    if (ViewData["paperScores"] != null)
+    {
+        paperScores = ViewData["paperScores"] as PaperScoresDto;
+    }
+
+    var score = string.Empty;
+    var isB = false;
+    var batchNo = ViewData["batch"] as string;
+    var studentId = (long)(ViewData["studentId"] ?? 0);
+    var type = string.Empty;
+    if (ViewData["type"] != null)
+    {
+        type = ViewData["type"].ToString();
+    }
+    if (paper != null)
+    {
+        isB = paper.IsAb && !string.IsNullOrEmpty(type) && type.ToLower() == "b";
+        if (paperScores != null)
+        {
+            score = (paper.IsAb ? (isB ? paperScores.TScoreB : paperScores.TScoreA) : paperScores.TScore).ToString("0.#");
+        }
+    }
+}
+@helper SectionTyps(string batchNo, string paperId, long studentId, bool isB)
+{
+var url = "/work/marking-detail?batch={0}&paperId={1}&studentId={2}".FormatWith(batchNo, paperId, studentId);
+    <div class="d-sections">
+        <a href="@url" class="fs16" style="@(isB ? string.Empty : "color:#37aae9")">【A卷】</a>
+        <a href="@(url+"&type=b")" class=" fs16" style="@(isB ? "color:#37aae9" : string.Empty)">【B卷】</a>
+    </div>
+}
+@if (paper != null && paper.PaperType == (byte)PaperType.AB)
+{
+    @SectionTyps(batchNo, paper.Id, studentId, isB)
+}
+
+@if (Model != null)
+{
+    <div class="d-picture-wrap">
+        <div class="d-score-wrap">
+            <div class="p-score"><span>得分：</span>@score</div>
+            @if (ViewData["objscore"] != null)
+            {
+                <div class="p-objective-score">客观题得@(ViewData["objscore"])分</div>
+            }
+            @if (ViewData["objerror"] != null)
+            {
+                <div class="p-objective-error">@(ViewData["objerror"].ToString().Replace("，", ","))</div>
+            }
+        </div>
+        <div class="box" id="imgDiv">
+            <img id="img" src="@Model.PictureUrl" alt="批阅详细图片" />
+        </div>
+        <input type="hidden" id="txtIcons" value="@Model.Icons" />
+        <input type="hidden" id="txtMarks" value="@Model.Marks" />
+    </div>
+}
+else
+{
+    <div class="box dy-nothing">
+        <div class="m-tips-p">
+            <div class="m-ct s-bg-4" style="display:block;">
+                <p class="text-center"><i class="iconfont dy-icon-emoji02"></i>没有找到相关答题信息哦~</p>
+            </div>
+        </div>
+    </div>
+}
+
+@if (paper != null && paper.PaperType == (byte)PaperType.AB)
+{
+    @SectionTyps(batchNo, paper.Id, studentId, isB)
+}
+
+@section style{
+    @Html.CombineLink("v3/css/work/page-sheet.css")
+}
+
+@section script{
+    <script type="text/javascript">
+        (function ($, S) {
+            var path = S.sites.static + "/v1/image/icon/marking/",
+                box = $("#imgDiv"),
+                imgs = ["full.png", "semi.png", "error.png"],
+                icons = S.json($("#txtIcons").val()) || [],
+                marks = S.json($("#txtMarks").val()) || [];
+            if (icons.length) {
+                for (var i = 0; i < icons.length; i++) {
+                    var icon = icons[i];
+                    var html = "<div class='icon' style='left: " + icon.x + "px;top: " + icon.y + "px;'><img src='" + path + imgs[icon.t] + "'/>";
+                    if ((icon.t == 1 || icon.t == 2) && icon.w > 0) {
+                        html += '<div class="score">-' + (icon.w || 0) + '</div>';
+                    }
+                    html += "</div>";
+                    box.append(html);
+                }
+            }
+            if (marks.length) {
+                for (var j = 0; j < marks.length; j++) {
+                    var mark = marks[j];
+                    if (mark.t == 4) {
+                        box.append('<div style="font-size:24px;line-height:1em;font-family: 宋体;font-weight:bold;color:#fa8989;left: ' + mark.x + 'px;top: ' + mark.y + 'px;" class="icon">' + mark.w + '</div>');
+                    } else {
+                        var src = path + mark.w;
+                        if (mark.t == 5) src = path + "brow/" + mark.w;
+                        box.append("<div class='icon' style='left: " + mark.x + "px;top: " + mark.y + "px;'><img src='" + src + "'/></div>");
+                    }
+                }
+            }
+        })(jQuery, SINGER)
+    </script>
+}

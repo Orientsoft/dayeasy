@@ -1,0 +1,430 @@
+﻿input, button, select, textarea {
+    outline: none;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.c000 {
+    color: #000;
+}
+
+.s-work-list li {
+    margin-bottom: 20px;
+    padding: 10px;
+    color: #7B7B7B;
+    border: 1px dashed #ddd;
+}
+
+.s-answer-main {
+    border: 1px solid #ccc;
+    margin: 20px auto;
+    padding: 15px;
+}
+
+.s-paper-answer {
+    font-size: 14px;
+    margin-top: 20px;
+    border-bottom: 1px dashed #999;
+}
+
+.p-title {
+    position: relative;
+}
+
+    .p-title h4 {
+        line-height: 45px;
+        margin-top: 20px;
+        font-weight: 600;
+    }
+
+{
+    position: absolute;
+    right: 70px;
+    top: 25px;
+}
+
+.p-error em {
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    padding: 0 4px;
+}
+
+.totalScore {
+    margin-left: 30px;
+}
+
+    .totalScore em {
+        color: Red;
+        font-family: georgia, serif;
+        font-size: 28px;
+        font-weight: 600;
+        padding: 0 6px;
+    }
+
+.rightAnswer {
+    color: #fa9632;
+    padding-right: 0px;
+}
+
+.f-answerbtn {
+    padding: 2px 4px;
+    border: 1px solid #7ed2fc;
+    color: #7ed2fc;
+    font-size: 12px;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+    .f-answerbtn:hover, .f-answerbtn.active {
+        background: #7ed2fc;
+        color: #ffffff;
+    }
+
+.answerDetailDivs {
+    background: #f7f7f7;
+    margin-top: 10px;
+    padding: 10px 15px;
+}
+
+.f-answerDel {
+    border: 1px solid #e5e5e5;
+    padding: 0 3px;
+    line-height: 16px;
+    cursor: pointer;
+    background: #ffffff;
+    color: #b2b2b2;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.hadWorship {
+    color: #fa9632;
+}
+
+.q-body i {
+    vertical-align: middle;
+    line-height: 20px;
+    margin-left: 15px;
+}
+
+.q-body .i-span {
+    line-height: 20px;
+    margin-left: 15px;
+}
+
+.q-body .glyphicon-ok {
+    color: green;
+}
+
+.q-body .glyphicon-remove {
+    color: red;
+}
+
+.ask-question {
+    right: 119.5px;
+    display: block;
+    bottom: 100px;
+    padding: 6px 13px;
+    border: 1px solid #dcdcdc;
+    cursor: pointer;
+    background-color: #eee;
+    position: fixed;
+    z-index: 2;
+}
+
+    .ask-question i {
+        color: #666;
+        font-size: 28px;
+    }
+
+.askDiv {
+    width: 350px;
+    position: fixed;
+    bottom: 100px;
+    right: -355px;
+    background: #eee;
+    border: 1px solid #dcdcdc;
+    padding: 15px 15px 15px 15px;
+}
+
+    .askDiv textarea {
+        max-width: 318px;
+    }
+
+.bo-font-wu {
+    font-size: 24px;
+    font: 24px/16px "微软雅黑";
+}
+
+.q-item .q-main {
+    padding: 0;
+}
+
+.ed-task-main-border {
+    border: 1px solid #ccc;
+    margin: 20px auto;
+    padding: 5px;
+}
+
+.ed-task-main {
+}
+
+    .ed-task-main h2.h2 {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .ed-task-main h3.h3 {
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    .ed-task-main .u-paper-answer {
+        margin-bottom: 15px;
+        border-bottom: 1px dashed #ccc;
+    }
+
+        .ed-task-main .u-paper-answer .u-more {
+            color: #65cafc;
+        }
+
+            .ed-task-main .u-paper-answer .u-more a {
+                margin-right: 20px;
+            }
+
+                .ed-task-main .u-paper-answer .u-more a.color-bule {
+                    text-decoration: none;
+                    color: #65cafc;
+                }
+
+            .ed-task-main .u-paper-answer .u-more i.glyphicon-exclamation-sign {
+                margin-right: 3px;
+            }
+
+        .ed-task-main .u-paper-answer .u-open {
+            display: none;
+            position: relative;
+            background-color: #f7f7f7;
+            padding: 10px 0px;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+            .ed-task-main .u-paper-answer .u-open i.f-posa-close {
+                font-size: 12px;
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                cursor: pointer;
+                font-style: normal;
+                background: #ffffff;
+                width: 15px;
+                height: 15px;
+                text-align: center;
+                line-height: 13px;
+                border: 1px solid #e6e6e6;
+                float: right;
+                display: inline-block;
+            }
+
+                .ed-task-main .u-paper-answer .u-open i.f-posa-close:hover {
+                    background: #ffa64c;
+                    color: #ffffff;
+                }
+
+.fnowledge-points span {
+    display: inline-block;
+    margin: 0 12px 5px;
+}
+
+.ed-task-main .u-paper-answer .p-title {
+    position: relative;
+}
+
+    .ed-task-main .u-paper-answer .p-title h4 {
+        line-height: 45px;
+        margin-top: 10px;
+        font-weight: 600;
+    }
+
+.ed-task-main .u-paper-answer em {
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    padding: 0 4px;
+}
+
+.ed-task-main .u-paper-answer .totalScore {
+    margin-left: 30px;
+}
+
+    .ed-task-main .u-paper-answer .totalScore em {
+        color: red;
+        font-family: georgia, serif;
+        font-size: 28px;
+        font-weight: 600;
+        padding: 0 6px;
+    }
+
+.ed-task-main .u-paper-answer .u-point {
+    line-height: 25px;
+}
+
+    .ed-task-main .u-paper-answer .u-point span {
+        margin-right: 8px;
+        color: #999;
+    }
+
+.ed-task-main .m-topic .u-number {
+    line-height: 26px;
+    color: #ffa64c;
+}
+
+.ed-task-main .m-topic .span-unified span {
+    cursor: pointer;
+    padding: 4px 10px;
+    margin: 0 10px;
+    border: 1px solid #65cafc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+    .ed-task-main .m-topic .span-unified span.z-crt {
+        background: #65cafc;
+        color: #ffffff;
+        display: inline-block;
+    }
+
+.ed-task-main .m-topic .task-cent-teb {
+    font-size: 14px;
+    position: relative;
+    background: #f7f7f7;
+    padding: 15px;
+    display: none;
+}
+
+    .ed-task-main .m-topic .task-cent-teb i.f-posa-close {
+        font-size: 12px;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        cursor: pointer;
+        font-style: normal;
+        background: #ffffff;
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        line-height: 13px;
+        border: 1px solid #e6e6e6;
+        float: right;
+        display: inline-block;
+    }
+
+        .ed-task-main .m-topic .task-cent-teb i.f-posa-close:hover {
+            background: #ffa64c;
+            color: #ffffff;
+        }
+
+    .ed-task-main .m-topic .task-cent-teb .tab-con {
+        display: none;
+    }
+
+    .ed-task-main .m-topic .task-cent-teb .teb-list-1 .u-share {
+        padding: 5px 10px;
+        color: #ffffff;
+        background: #b3b3b3;
+        text-decoration: none;
+        margin-left: 5px;
+    }
+
+        .ed-task-main .m-topic .task-cent-teb .teb-list-1 .u-share:hover {
+            background: #ffa64c;
+        }
+
+        .ed-task-main .m-topic .task-cent-teb .teb-list-1 .u-share a.z-crt {
+            background: #ffa64c;
+        }
+
+    .ed-task-main .m-topic .task-cent-teb .teb-list-2 .u-list-name li {
+        float: left;
+        cursor: pointer;
+        color: #65cafc;
+        margin-right: 15px;
+        margin-bottom: 5px;
+    }
+
+        .ed-task-main .m-topic .task-cent-teb .teb-list-2 .u-list-name li:hover {
+            color: #fc9797;
+        }
+
+    .ed-task-main .m-topic .task-cent-teb .teb-list-3 {
+        line-height: 1.6em;
+    }
+
+
+/*批阅中心图标*/
+
+.icon-test {
+    background-image: url(/image/markingcenter/icon-test.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+    left: -3px;
+}
+
+.icon-test-1 {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -5px;
+}
+
+    .icon-test-1:hover {
+        width: 16px;
+        height: 16px;
+        background-position: -31px -5px;
+    }
+
+.icon-test-2 {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -5px;
+}
+
+    .icon-test-2:hover {
+        width: 16px;
+        height: 16px;
+        background-position: -83px -5px;
+    }
+
+.icon-test-3 {
+    width: 16px;
+    height: 16px;
+    background-position: -109px -5px;
+}
+
+    .icon-test-3:hover {
+        width: 16px;
+        height: 16px;
+        background-position: -135px -5px;
+    }
+
+.icon-test-4 {
+    width: 16px;
+    height: 16px;
+    background-position: -161px -5px;
+}
+
+    .icon-test-4:hover {
+        width: 16px;
+        height: 16px;
+        background-position: -187px -5px;
+    }

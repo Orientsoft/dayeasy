@@ -1,0 +1,100 @@
+﻿@using DayEasy.Contracts.Enum
+@{
+    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+
+    var roles = (List<UserRole>)ViewData["Roles"];
+}
+
+@section style
+{
+    @Html.CombineLink("css/v1/tablecenter/page.css,css/portal/question/list.css")
+    <style type="text/css">
+        .dy-container {
+            min-width: 1000px;
+            width: 1000px;
+        }
+    </style>
+    @RenderSection("style", false)
+}
+<script>
+    var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true; deyi.loadFormula = true;
+</script>
+<div class="g-bd j-autoHeight" data-left="132"
+     data-min="400"
+     data-type="2">
+    <div class="s-bgi"></div>
+    <!-- side -->
+    <div class="dy-container after">
+        <div class="g-sd f-fl mr10 scoTop">
+            <div class="m-snav">
+                <ul class="m-lst-1">
+                    <!--列表1-->
+                    <li class="lst-li-1  @Html.GetActiveClass("learn", "z-crt")">
+                        <a href="javascript:void(0);" class="lst-a-1"><i class="icon_statistics"></i>学情统计</a>
+                        <ul class="m-lst-2">
+                            @if (roles.Contains(UserRole.Teacher))
+                            {
+                                <li>
+                                    <a href="@Url.Action("ClassReports","Report")" class="lst-a-2 @Html.GetActiveClass("reports", "z-sel")">考试报表</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("ClassScores","Report")" class="lst-a-2 @Html.GetActiveClass("class-score", "z-sel")">班级综合成绩</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("StudentRank", "Report")" class="lst-a-2 @Html.GetActiveClass("stu-rank", "z-sel")">学生成绩排名</a>
+                                </li>
+                            }
+                            <li>
+                                <a href="@Url.Action("KpStatistic", "Report")" class="lst-a-2 @Html.GetActiveClass("kp", "z-sel")">知识点掌握情况</a>
+                            </li>
+                            @if (roles.Contains(UserRole.Student) || roles.Contains(UserRole.Parents))
+                            {
+                                <li>
+                                    <a href="@Url.Action("StudentScores", "Report")" class="lst-a-2 @Html.GetActiveClass("stu-scores", "z-sel")">个人成绩变化</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    <li class="lst-li-1 @Html.GetActiveClass("errortop10", "z-crt")">
+                        <a href="javascript:void(0);" class="lst-a-1"><i class="icon_ranklist"></i>错题统计</a>
+                        <ul class="m-lst-2">
+                            <li>
+                                <a href="@Url.Action("ErrorTopTen","Report")" class="lst-a-2 @Html.GetActiveClass("errortop10", "z-sel")">错题周报告Top10</a>
+                            </li>
+                            <li class="mt10"></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+</div>
+
+<style>
+    .g-sd .m-snav .m-lst-1 .lst-li-1 .m-lst-2 a.lst-a-2 {
+        padding: 10px 50px 10px 63px !important;
+    }
+</style>
+
+
+
+@section script
+{
+    @Html.CombineLink("js/portal/question/formula.js,js/base/common.js,js/report/report-show.js")
+    <script type="text/javascript">
+        $(function () {
+            singer.loadFormula();
+
+            $(".m-lst").delegate("img.qImg", "click", function (e) {
+                e.stopPropagation();
+
+                var srcStr = $(this).prop("src").replace("_s150xauto", "");
+                $.Dayez.showImg(srcStr);
+
+                return false;
+            });
+        });
+    </script>
+    @RenderSection("script", false)
+}

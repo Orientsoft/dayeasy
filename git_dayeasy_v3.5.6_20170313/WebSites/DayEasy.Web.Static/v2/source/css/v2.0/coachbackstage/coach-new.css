@@ -1,0 +1,310 @@
+/*--------------------------------------------------------------
+                        题目统计 推送
+
+      Author:Plato
+      Create Date:15.09.01    Last Mondify Date:15.09.01
+      ===================================================
+
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+                        辅导后台
+
+      Author:Plato
+      Create Date:15.09.01    Last Mondify Date:15.09.01
+      ===================================================
+
+--------------------------------------------------------------*/
+* {
+  outline: none;
+}
+.dy-body .dy-container {
+  width: auto;
+  background: #f5f5f5;
+}
+a {
+  color: #999999;
+}
+a:hover {
+  text-decoration: none;
+}
+h2 {
+  margin: 0;
+  line-height: 1em;
+}
+dl {
+  margin-bottom: 0;
+}
+/*--------------------------------------------------------------
+                         ui Style
+--------------------------------------------------------------*/
+.coach-center {
+  background: #f5f5f5;
+  padding-top: 40px;
+  padding-bottom: 95px;
+}
+.ui-top-title {
+  background: white;
+}
+.ui-top-title .navigation {
+  height: 40px;
+  line-height: 40px;
+  font-size: 12px;
+}
+.ui-top-title .navigation li {
+  float: left;
+}
+.ui-top-title .navigation li a {
+  display: block;
+  margin-right: 6px;
+}
+.ui-top-title .navigation li span {
+  padding-left: 6px;
+  position: relative;
+  top: -1px;
+}
+/*--------------------------------------------------------------
+                         IMG url
+--------------------------------------------------------------*/
+/*--------------------  main Style  -----------------------*/
+/*--------------------------------------------------------------
+                         ui Style
+--------------------------------------------------------------*/
+.coach-backstage .coach-center .center-1 {
+  border-bottom: 1px solid #e6e6e6;
+}
+.coach-backstage .coach-center .center-1 .l-upload {
+  width: 380px;
+}
+.coach-backstage .coach-center .center-1 .l-upload .img-auto {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  text-align: center;
+  line-height: 300px;
+  border: 1px solid #e6e6e6;
+  cursor: pointer;
+  background: white;
+  font-size: 18px;
+}
+.coach-backstage .coach-center .center-1 .l-upload .img-auto:hover {
+  border: 1px solid #7fd4ff;
+  -moz-transition: all 0.5s ease 0s,;
+  -webkit-transition: all 0.5s ease 0s,;
+  -o-transition: all 0.5s ease 0s,;
+  -ms-transition: all 0.5s ease 0s,;
+  transition: all 0.5s ease 0s,;
+  -moz-transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+.coach-backstage .coach-center .center-1 .l-upload .img-auto img {
+  position: absolute;
+  z-index: 2;
+}
+.coach-backstage .coach-center .center-1 .l-upload .img-auto input {
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  cursor: pointer;
+}
+.coach-backstage .coach-center .center-1 .r-list {
+  width: 620px;
+}
+.coach-backstage .coach-center .center-1 .r-list h2.h2-bd {
+  margin-bottom: 20px;
+}
+.coach-backstage .coach-center .center-1 .r-list h2.h2-bd input {
+  font-size: 24px;
+  font-weight: bold;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 13px;
+  border: 1px solid #e6e6e6;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li {
+  margin-bottom: 10px;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li lable {
+  color: #999;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  width: 70px;
+  text-align: right;
+  float: left;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li input {
+  padding: 6px;
+  width: 206px;
+  border: 1px solid #e6e6e6;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li .token-input-input-token input {
+  position: relative;
+  top: 2px;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li select {
+  font-size: 14px;
+  padding: 6px;
+  border: 1px solid #e6e6e6;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li textarea {
+  padding: 6px;
+  font-size: 14px;
+  border: 1px solid #e6e6e6;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li ul.token-input-list {
+  clear: initial;
+  width: 80%;
+  border: none;
+  background: none;
+  position: relative;
+  top: -5px;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li ul.token-input-list li.token-input-token {
+  background: white;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li ul.token-input-list li.token-input-selected-token {
+  color: #3b5998;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li.f-last lable {
+  vertical-align: top;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li.f-last textarea {
+  width: 415px;
+}
+.coach-backstage .coach-center .center-1 .r-list .ul-list li.f-last p {
+  width: 490px;
+  color: #999;
+}
+.coach-backstage .coach-center .center-3 .h2-title {
+  margin-bottom: 30px;
+}
+.coach-backstage .coach-center .center-3 .f-explain {
+  margin-bottom: 20px;
+  position: relative;
+}
+.coach-backstage .coach-center .center-3 .f-explain span.titile-list {
+  position: absolute;
+  display: block;
+  background: #fcb66f;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  top: 5px;
+  left: 0;
+  font-size: 16px;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  color: white;
+}
+.coach-backstage .coach-center .center-3 .f-explain .f-content {
+  position: relative;
+  width: 924px;
+  padding: 20px;
+  background: white;
+}
+.coach-backstage .coach-center .center-3 .f-explain .f-content .f-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  color: #f78383;
+  font-style: normal;
+  cursor: pointer;
+}
+.coach-backstage .coach-center .center-3 .f-explain .f-content .f-close:hover {
+  color: #fcb66f;
+}
+.coach-backstage .coach-center .center-3 .f-explain .f-content input.add-notes {
+  font-size: 14px;
+  padding: 10px;
+  width: 263px;
+  margin-bottom: 15px;
+  border: 1px solid #e6e6e6;
+}
+.coach-backstage .coach-center .center-4 .f-explain {
+  margin-bottom: 20px;
+  position: relative;
+}
+.coach-backstage .coach-center .center-4 .f-explain span.titile-list {
+  position: absolute;
+  display: block;
+  background: #fcb66f;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  top: 12px;
+  left: 0;
+  font-size: 28px;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  line-height: 31px;
+  color: white;
+}
+.coach-backstage .coach-center .center-4 .f-explain .f-content {
+  position: relative;
+  width: 924px;
+  padding: 20px;
+}
+.coach-backstage .coach-center .center-4 .f-explain .f-content a {
+  color: #65cafc;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin-right: 20px;
+}
+.coach-backstage .coach-center .center-5 a.btn {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+  border: none;
+}
+.coach-backstage .coach-center .center-5 .btn-default {
+  background: #ffffff;
+  margin-right: 20px;
+}
+.coach-backstage .coach-center .f-explain:hover span.titile-list {
+  background: #65cafc;
+  -moz-transition: all 0.8s ease 0s,;
+  -webkit-transition: all 0.8s ease 0s,;
+  -o-transition: all 0.8s ease 0s,;
+  -ms-transition: all 0.8s ease 0s,;
+  transition: all 0.8s ease 0s,;
+  -moz-transition: all 0.8s ease 0s;
+  -webkit-transition: all 0.8s ease 0s;
+  -o-transition: all 0.8s ease 0s;
+  -ms-transition: all 0.8s ease 0s;
+  transition: all 0.8s ease 0s;
+}
+.coach-backstage .coach-center .h2-title {
+  margin-top: 30px;
+  font-size: 16px;
+  border-bottom: 3px solid #fcb66f;
+  margin-bottom: 15px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  color: #333;
+}
+.coach-backstage .coach-center .h2-title b {
+  font-size: 36px;
+  color: #fcb66f;
+  position: relative;
+  font-weight: normal;
+  margin-right: 5px;
+  top: 5px;
+}

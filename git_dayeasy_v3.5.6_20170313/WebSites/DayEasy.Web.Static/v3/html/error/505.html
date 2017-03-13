@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>404</title>
+    <meta charset="UTF-8">
+<link type="image/x-icon" rel="Shortcut Icon" href="/favicon.ico">
+<!--<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css"/>-->
+<link rel="stylesheet" href="../../source/fonticon/iconfont.css"/>
+<link rel="stylesheet" href="../../source/css/site-base.css"/>
+
+
+
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <style>
+        .dy-header{ margin-bottom: 200px;}
+        .error-box{position: absolute; top: 50%; left:50%;width: 666px; height:200px; margin-left: -333px;margin-top: -167.5px;}
+        .error-box-one{text-align:center;font-size:24px;margin-top:50px;color:#333;}
+        .error-box-two{text-align:center;margin-top:20px;color:#999;font-size:14px;}
+        .error-box-two a{color: #999;}
+        .error-box-two a:hover{color:#4fc1e9;}
+    </style>
+</head>
+<body>
+
+<div class="dy-wrap f-pr">
+    <!--[if lt IE 9]>
+<style>
+    .dy-header{border-bottom: 1px solid #f0f0f0;}
+    .ul-fixed{border: 1px solid #f0f0f0;}
+    .circle-list .top-one .img-mack{background: #a0d468;-ms-filter:"alpha(opacity=1)";filter:alpha(opacity=100);zoom:1;}
+</style>
+<![endif]-->
+
+<div class="dy-header">
+    <div class="site-nav  f-cb">
+        <ul class="ul-left f-fl">
+            <li>
+                <h1 class="logo">
+                    <a href=""><img width="130" height="40" src="../../image/logo.png" alt=""/></a>
+                </h1>
+            </li>
+            <li class="z-crt">
+                <a href="">圈子</a>
+            </li>
+            <li>
+                <a href="">发现</a>
+            </li>
+        </ul>
+        <ul class="ul-right f-fr">
+            <li class="soso">
+                <div class="search-combobox ">
+                    <input class="input-box" placeholder="搜索" type="text" name="" id=""/>
+                    <span class="pos-box">
+                        <button type="submit"></button>
+                        <i class="iconfont dy-icon-26"></i>
+                     </span>
+                </div>
+            </li>
+            <li class="info">
+                <a href="">
+                    <i class="iconfont dy-icon-11"></i>
+                    <span class="po-detail-ba">12</span>
+                </a>
+            </li>
+            <li class="head-user">
+                <a class="user-img" href="">
+                    <img src="../../image/default/user_s40x40.jpg" alt=""/>
+                </a>
+                <ul class="ul-fixed">
+                    <li class="mt-padd"><a href=""><i class="iconfont dy-icon-9"></i>设置</a></li>
+                    <li><a href=""><i class="iconfont dy-icon-56"></i>退出</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+    <div class="dy-main">
+        <div class="w1200 f-cb ">
+            <div class="error-box">
+
+                <div class="error-box-one" >
+                    505 服务器错误
+                </div>
+                <div class="error-box-two">
+                    <span id="totalSecond">6</span>
+                    秒后自动返回 <a  title="返回首页" href="http://www.dayeasy.net">首页</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="dy-footer">
+    <div class="container">
+        <div class="copy-left">
+            <p>客服热线： 400 - 123456</p>
+            <p class="footer-tag-list">
+                <a href="">关于我们</a>
+                <a href="">联系我们</a>
+                <a href="">产品中心</a>
+                <a href="">常见问题</a>
+                <a href="http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandalone_46.0.2490.80_Setup.1445829883.exe">建议使用 chrome 进行访问</a>
+            </p>
+            <p>
+                Copyright © <a href="">得一科技责任有限公司DayEasy.net </a>
+                <a href="http://www.miitbeian.gov.cn/" target="_blank"> 蜀ICP备14013147号</a> 2013-2015
+            </p>
+        </div>
+        <div class="copy-right">
+            <ul>
+                <li>
+                    <a class="android" href="javascript:void(0)">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-30"></i>
+                        <div class="app-qrcode">
+                            <img  width="132" height="132" src="../../image/qrcode/android.png" alt=""/>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="android" href="javascript:void(0)">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-38"></i>
+                        <div class="app-qrcode">
+                            <img  width="132" height="132" src="../../image/qrcode/android.png" alt=""/>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="android" href="javascript:void(0)">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-41"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="android" href="javascript:void(0)">
+                        <i class="iconfont dy-icon-31"></i>
+                        <i class="iconfont dy-icon-57"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="../../js/jquery-1.10.2.min.js"></script>
+<script src="../../js/base.min.js"></script>
+
+<script  type="text/javascript">
+
+    var second = document.getElementById('totalSecond').textContent;
+    if (navigator.appName.indexOf("Explorer") > -1)
+    {
+        second = document.getElementById('totalSecond').innerText;
+    } else {
+        second = document.getElementById('totalSecond').textContent;
+    }
+    setInterval("redirect()", 1000);
+    function redirect() {
+        if (second < 0) {
+            location.href = 'http://www.dayeasy.net';
+        } else {
+            if (navigator.appName.indexOf("Explorer") > -1) {
+                document.getElementById('totalSecond').innerText = second--;
+            } else {
+                document.getElementById('totalSecond').textContent = second--;
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

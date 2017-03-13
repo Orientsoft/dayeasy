@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>试卷分析_推送的试卷</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="/v3/source/css/testpaper/ui-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/testpaper/page-push-coach.css"/>
+    <link rel="stylesheet" href="/v3/source/css/uihtml/ui.falsebecause.css"/>
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+</head>
+<body>
+
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+           <div class="coach-bxo w1200 f-cb">
+               <!--主体头部-->
+               @@include('./testpaper/header-title.html')
+               <!--主体头部 end-->
+               <div class="page-main-Coach">
+                   <div class="g-main-list">
+                       <strong class="type-title-ab">A卷</strong>
+                       <h2 class="h2-title bold mb30 ">一、填空题</h2>
+                        <div class="dy-questions-list f-cb">
+                            <!--循环列表-->
+                            <div class="box cont-list">
+                                <div class="box-lg-12 title-top f-cb page-h2-coach">
+                                    <h3>01</h3>
+                                    <div class="f-fl f-pr icon-list-box">
+                                        <span class="mark-error font-color-bulue">
+                                            <i class="iconfont dy-icon-flag"></i>
+                                            标为错题
+                                        </span>
+                                        <span class="error-Statistics f-fr bold">
+                                            <i class="iconfont dy-icon-usererror"></i>
+                                            15
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="box-lg-12 questions-con">
+                                    <!--题干-->
+                                    根据拼音在括号里写出正确的汉字。<br/>
+                                    书籍，是知识的来源，是修养的载体。当我们捧起一本书，在静mì（  ）的夜晚守着一盏孤灯阅读的时候，我们便会享受思绪渐入书中无拘无束畅游的从容，内心便会感到无比充盈和温润。读着《紫藤萝瀑布》，我们好像看到宗璞zhù（  ）立在辉煌灿烂的紫藤萝瀑布面前，感受到了生命长河的无止境，增强了生活的勇气；读着《行道树》，我们好像看到行道树立在城市的烟尘之中，在悲凉的点zhuì（  ）中苦熬着，不断制造清新迎接冉冉升起的太阳。
+                                    亲爱的同学们，让我们耐住寂寞，携书而行，你就会在喧xiāo（  ）中找到一份宁静，你心灵的天空就会闪烁着星光的快乐！
+                                    <!--题干 end-->
+                                </div>
+                                <div class="box-lg-12 questions-btn">
+                                    <button class="dy-btn dy-btn-default"><i class="iconfont dy-icon-jiexi"></i> 答案解析</button>
+                                    <button class="dy-btn dy-btn-default"><i class="iconfont dy-icon-ceshi"></i> 错因分析</button>
+                                </div>
+                                <div class="box-lg-12 questions-bottom-cont">
+                                    <div class="box questions-list-cont">
+                                        <div class="box-lg-1 w80">我的答案：</div>
+                                        <div class="box-lg-11">未使用网阅，暂无详情</div>
+                                        <div class="box-lg-1 w80">同学答案：</div>
+                                        <div class="box-lg-11">未使用网阅，暂无详情</div>
+                                        <div class="box-lg-1 w80">参考答案：</div>
+                                        <div class="box-lg-11">
+                                            答案:谧、伫、缀、嚣 <br/>
+                                            解析: <br/>
+                                            试题分析：本题考查学生根据拼音写汉字的能力。解答这道题，要根据拼音提示写出相应汉字。书写汉字时，除了根据具体的语境，还要注意到一些形近字的写法，比如“伫立”中“伫”不能写成“驻”。<br/>
+                                            考点：识记并正确书写现代常用规范汉字。能力层级为识记A。
+                                        </div>
+                                    </div>
+                                    <div class="box questions-list-cont uihtml-false-because">
+                                        <div class="box-lg-1 w80">错因标签：</div>
+                                        <div class="box-lg-11">
+                                            <!--选择组件-->
+                                                计算能力 、审题不仔细、跳步骤、基本概念混淆
+                                            <!--选择组件 end-->
+                                        </div>
+                                        <div class="box-lg-1 w80">错因分析：</div>
+                                        <div class="box-lg-11 textarea-box">
+                                            <textarea placeholder="输入附加信息" name="" class="mb5 wf100" maxlength="140" cols="30" rows="5"></textarea>
+                                            <p class="f-tar dy-result f-db">你还可以输入<em>140</em>个字</p>
+                                            <p class="font-show">
+                                                <input class="dy-btn dy-btn-info" type="submit" value="提交"/>
+                                                <span>已有5人完成分析，<a href="">查看详情</a></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--循环列表 end-->
+
+                        </div>
+                   </div>
+               </div>
+        </div>
+    </div>
+</div>
+@@include('./footer.html')
+<script src="/v3/source/js/testpaper/slider-show.js"></script>
+</body>
+</html>

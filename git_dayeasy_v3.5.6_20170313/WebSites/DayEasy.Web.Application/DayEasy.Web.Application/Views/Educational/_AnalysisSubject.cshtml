@@ -1,0 +1,189 @@
+﻿@model DayEasy.Contracts.Dtos.Examination.ExamRanksDto
+@{
+    ViewBag.Title = "学科分析 - " + Model.Name;
+}
+<div class="dy-ranks">
+    <div class="dy-actions dy-key-actions">
+        <h3>学科重点率分析</h3>
+        <div class="dy-key-rate" id="subjectKeys">
+            <span>学科：</span>
+            <select>
+                @foreach (var subject in Model.Subjects)
+                {
+                    <option value="@subject.Key">@(subject.Value.First().TrimEnd('A'))</option>
+                }
+            </select>
+            <span>重点率：</span>
+            <select class="dy-key-type">
+                <option value="0">分数</option>
+                <option value="1" selected="selected">比例</option>
+            </select>
+            <div class="input-group add-right">
+                <input type="text" value="75" class="w4" />
+                <label>%</label>
+            </div>
+            <label>A卷平均分合格分数：</label>
+            <div class="input-group add-left">
+                <label>≥</label>
+                <input type="text" value="60" class="w4" />
+            </div>
+            <label>A卷平均分不合格分数：</label>
+            <div class="input-group add-left">
+                <label>&lt;</label>
+                <input type="text" value="60" class="w4" />
+            </div>
+            <button class="dy-btn dy-btn-info">
+                <i class="iconfont dy-icon-jisuan" style="margin-right: 4px"></i>
+                计算
+            </button>
+        </div>
+    </div>
+    <div class="dy-table-wrap">
+        <div class="dy-table-head">
+            <table class="dy-table" style="width: 1626px">
+                <colgroup>
+                    <col style="width: 156px" />
+                    <col style="width: 70px" />
+                    <col style="width: 70px" />
+                    <col style="width: 70px" />
+                    <col style="width: 130px" />
+                    <col style="width: 130px" />
+                    <col style="width: 95px" />
+                    <col style="width: 95px" />
+                    <col style="width: 270px" />
+                    <col style="width: 270px" />
+                    <col style="width: 270px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>班级</th>
+                        <th>任课老师</th>
+                        <th>应查人数</th>
+                        <th>实际人数</th>
+                        <th class="th-group">
+                            <div class="d-table-group">
+                                <span>总平均分</span>
+                                <span>差值</span>
+                            </div>
+                        </th>
+                        <th class="th-group">
+                            <div class="d-table-group">
+                                <span>均值比</span>
+                                <span>差值</span>
+                            </div>
+                        </th>
+                        <th>A卷平均分</th>
+                        <th>B卷平均分</th>
+                        <th class="th-group">
+                            <div class="d-table-group">
+                                <span style="width:118px">重点率上线人数</span>
+                                <span style="width:70px">比例</span>
+                                <span style="width:70px">差值</span>
+                            </div>
+                        </th>
+                        <th class="th-group">
+                            <div class="d-table-group col3">
+                                <span style="width:118px">A卷合格人数</span>
+                                <span style="width:70px">比例</span>
+                                <span style="width:70px">差值</span>
+                            </div>
+                        </th>
+                        <th class="th-group">
+                            <div class="d-table-group col3">
+                                <span style="width:118px">A卷不合格人数</span>
+                                <span style="width:70px">比例</span>
+                                <span style="width:70px">差值</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="dy-table-body">
+            <table class="dy-table" style="width: 1626px">
+                <colgroup>
+                    <col style="width: 156px" />
+                    <col style="width: 70px" />
+                    <col style="width: 70px" />
+                    <col style="width: 70px" />
+                    <col style="width: 65px" />
+                    <col style="width: 65px" />
+                    <col style="width: 65px" />
+                    <col style="width: 65px" />
+                    <col style="width: 95px" />
+                    <col style="width: 95px" />
+                    <col style="width: 130px" />
+                    <col style="width: 70px" />
+                    <col style="width: 70px" />
+                    <col style="width: 130px" />
+                    <col style="width: 70px" />
+                    <col style="width: 70px" />
+                    <col style="width: 130px" />
+                    <col style="width: 70px" />
+                    <col style="width: 70px" />
+                </colgroup>
+                <tbody id="subjectKeysBody">
+                <tr>
+                    <td colspan="13">
+                        <div class="dy-loading"><i></i>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot id="subjectKeysFoot"></tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="dy-ranks dy-ranks-split dy-segments">
+    <div class="dy-actions dy-key-actions">
+        <h3>学科分数段总表</h3>
+        <div class="dy-key-rate">
+            <select id="segmentSections">
+                <option value="0" selected="selected">AB卷</option>
+                <option value="1">A卷</option>
+                <option value="2">B卷</option>
+            </select>
+        </div>
+    </div>
+    <div class="dy-table-wrap">
+        <div class="dy-table-head">
+            <table class="dy-table" id="segmentsHeader">
+                <colgroup>
+                    <col style="width: 156px" />
+                    <col style="width: 100px" />
+                    <col style="width: 70px" />
+                    <col style="width: 70px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>班级</th>
+                        <th>任课老师</th>
+                        <th>应查人数</th>
+                        <th>实际人数</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="dy-table-body">
+            <table class="dy-table">
+                <colgroup>
+                    <col style="width: 156px" />
+                    <col style="width: 100px" />
+                    <col style="width: 70px" />
+                    <col style="width: 70px" />
+                </colgroup>
+                <tbody id="subjectSegmentsBody">
+                    <tr>
+                        <td colspan="9">
+                            <div class="dy-loading">
+                                <i></i>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot id="subjectSegmentsFoot"></tfoot>
+            </table>
+        </div>
+    </div>
+</div>

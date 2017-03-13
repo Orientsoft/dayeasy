@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>个人设置</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="../../css/site-base.css"/>
+    <link rel="stylesheet" href="/v3/source/css/setting/page-personal-setting.css"/>
+</head>
+<body>
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="page-personal-setting w1200 f-cb">
+            <div class="top-title">
+                <div class="user-img">
+                    <!-- colored -->
+                    <div class="ih-item circle colored effect13 from_left_and_right">
+                        <a href="#">
+                            <div class="img">
+                                <img src="/v3/image/temp/header.png" width="160" height="160" alt="img">
+                                <input class="file-input" type="file" name="">
+                            </div>
+                            <div class="info">
+                                <div class="info-back">
+                                    <h3>更换头像</h3>
+                                    <p>头像大小160*160</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <p class="setting-user-name f-tac">甘道夫</p>
+                    <!-- end colored -->
+                </div>
+            </div>
+            <ul class="mian-cont f-cbli">
+                <li>
+                    <label>登陆邮箱</label>
+                    <p>
+                        <input type="text" value="dayeasy@teacher.com"/>
+                        <i class="iconfont dy-icon-edit2"></i>
+                        <i class="iconfont dy-icon-13"></i>
+                    </p>
+                </li>
+                <li>
+                    <label>昵称</label>
+                    <p>
+                        <input type="text" value="maike"/>
+                        <i class="iconfont dy-icon-edit2"></i>
+                        <i class="iconfont dy-icon-13"></i>
+                    </p>
+                </li>
+                <li>
+                    <label>真实姓名</label>
+                    <p>
+                        <input type="text" value="张全蛋"/>
+                        <i class="iconfont dy-icon-edit2"></i>
+                        <i class="iconfont dy-icon-13"></i>
+                    </p>
+                </li>
+                <li>
+                    <label>手机</label>
+                    <p>
+                        <input type="text" value="136 5898 5412"/>
+                        <i class="iconfont dy-icon-edit2"></i>
+                        <i class="iconfont dy-icon-13"></i>
+                    </p>
+                </li>
+                <li>
+                    <label>得一号</label>
+                    <p>
+                        <input type="text" value="7489489"/>
+                    </p>
+                </li>
+                <li>
+                    <label>角色</label>
+                    <p>
+                        <input type="text" disabled="disabled" value="教师"/>
+                    </p>
+                </li>
+                <li>
+                    <label>密码</label>
+                    <p>
+                        <input type="text" value="******"/>
+                        <i class="iconfont dy-icon-edit2"></i>
+                        <i class="iconfont dy-icon-13"></i>
+                    </p>
+                </li>
+                <li>
+                    <label>第三方账号</label>
+                    <p class="padding">
+                        <!--无绑定-->
+                        <a href=""><i class="iconfont dy-icon-41"></i><span>绑定QQ</span></a>
+                        <!--已绑定-->
+                        <!--<em>我是昵称</em><a href=""> <span></span>绑定QQ</a>-->
+                </li>
+
+
+
+            </ul>
+        </div>
+
+        <!--修改密码-->
+        <div class="pop-password mb20">
+            <ul class="password-list f-cbli">
+                <li class="old-pswd z-true">
+                    <label>原密码 ：</label>
+                    <p>
+                        <input  type="text" value="*****"/>
+                        <i class="iconfont dy-icon-gou"></i>
+                        <span>密码错误</span>
+                    </p>
+                </li>
+                <li class="new-pswd z-true">
+                    <label>新密码：</label>
+                    <p>
+                        <input type="text" value="*****"/>
+                        <span>两次输入的密码不一致</span>
+                        <i class="iconfont dy-icon-gou"></i>
+                    </p>
+                </li>
+                <li class="confirm-pswd z-false">
+                    <label>确认密码：</label>
+                    <p>
+                        <input type="text" value="*****"/>
+                        <span>两次输入的密码不一致</span>
+                        <i class="iconfont dy-icon-cha"></i>
+                    </p>
+                </li>
+                <li>
+                    <div class="dy-btn dy-btn-info ml82">绑定</div>
+                </li>
+            </ul>
+        </div>
+        <!--修改密码end-->
+
+        <!--更改邮箱-->
+        <div class="pop-e-mail mb20">
+            <div class="box">
+                <div class="box-lg-2 height-lh">输入新邮箱：</div>
+                <div class="box-lg-10">
+                    <ul class="e-mail-list">
+                        <li><input type="text" placeholder="dayeasy@dayeasy.com"/></li>
+                        <li class="lis-box-1">
+                            <a class="dy-btn dy-btn-info" href="javascript:void(0);">发送验证码</a>
+                            <!--<a class="dy-btn dy-btn-grey" href="javascript:void(0);">重新发送(56)</a>-->
+                            <span class="e-mail-success">发送成功</span> <a class="color-bule" href="">去邮箱验证</a>
+                        </li>
+                        <li><input type="text" placeholder="请输入验证码"/></li>
+                        <li>
+                            <a class="dy-btn dy-btn-info" href="javascript:void(0);">确认</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--更改邮箱 END-->
+
+
+
+    </div>
+</div>
+@@include('./footer.html')
+<script src="/v3/source/js/setting/ui-setting.js"></script>
+</body>
+</html>

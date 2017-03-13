@@ -1,0 +1,35 @@
+<ul class="am-nav am-nav-pills am-nav-justify">
+</ul>
+<div class="am-panel am-panel-default">
+    <div class="am-panel-bd">
+        <div class="d-icons">
+        </div>
+    </div>
+</div>
+<script type="text/template" id="d-icon-template">
+    <img class="d-image" src="{{f}}" alt=""/>
+
+    <div class="d-score">
+        <span>得分：<strong>{{i}}</strong></span>
+    </div>
+    <div class="d-error">
+        {{j}}
+    </div>
+    {{each m as item index}}
+    <div class="d-icon" style="{{'top:'+item.p.x+'px;left:'+item.p.y+'px'}}">
+        <img src="{{item | iconImage}}" alt=""/>
+        {{if item.w}}
+        <i>-{{item.w}}</i>
+        {{/if}}
+    </div>
+    {{/each}}
+    {{each n as item index}}
+    <div class="d-icon" style="{{'top:'+item.p.x+'px;left:'+item.p.y+'px'}}">
+        {{if item.t==6}}
+        <div class="d-icon-word">{{item.w}}</div>
+        {{else}}
+        <img src="{{item | iconImage}}" alt=""/>
+        {{/if}}
+    </div>
+    {{/each}}
+</script>

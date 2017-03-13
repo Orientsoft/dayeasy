@@ -1,0 +1,112 @@
+/*--------------------------------------------------------------
+                       错因标签 错因分析 组件
+
+      Author:Plato
+      Create Date:15.08.28    Last Mondify Date:15.08.28
+      ===================================================
+
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+                          ui style
+--------------------------------------------------------------*/
+.reason-box {
+  line-height: 1.6em;
+  padding: 20px 0;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+}
+.reason-box .hd-title-sd {
+  font-weight: bold;
+}
+.reason-box .hd-title-sd span {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  width: 17px;
+  height: 17px;
+  font-size: 12px;
+  color: white;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  background: #fcb66f;
+  font-weight: bold;
+  text-align: center;
+  line-height: 17px;
+  margin-right: 10px;
+}
+.reason-box .error-tag .ul-list-1 li,
+.reason-box .error-tag .ul-list-2 li {
+  float: left;
+}
+.reason-box .error-tag .color-grey {
+  color: #999;
+}
+.reason-box .error-tag .ul-list-1 li {
+  margin-right: 10px;
+}
+.reason-box .error-tag .ul-list-1 span {
+  padding: 7px 10px;
+  background: #ffcd9b;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+}
+.reason-box .error-tag .ul-list-1 input[type="text"] {
+  border: 1px solid #7ed2fc;
+  padding: 4px;
+  position: relative;
+  top: -5px;
+}
+.reason-box .error-tag .ul-list-1 button {
+  position: relative;
+  top: -5px;
+}
+.reason-box .error-tag .ul-list-1 .btn-info {
+  padding: 3px 9px;
+}
+.reason-box .error-tag .ul-list-2 li {
+  margin-right: 22px;
+  color: #65cafc;
+  cursor: pointer;
+}
+.reason-box .error-tag textarea {
+  width: 100%;
+  padding: 0 5px;
+  border: 1px solid #7ed2fc;
+  font-size: 14px;
+  line-height: 1.6em;
+}
+.reason-box .error-tag .corol-lenth {
+  color: #999;
+  font-size: 12px;
+}
+.reason-box .error-tag .corol-lenth strong {
+  font-size: 14px;
+}
+.reason-box .error-tag .f-open {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  width: 120px;
+}
+.reason-box .error-tag .f-open span {
+  width: 120px;
+  padding: 0 5px;
+  position: absolute;
+  top: 19px;
+  left: 0;
+  border: 1px solid #e6e6e6;
+  display: none;
+  text-align: right;
+}
+.reason-box .error-tag .f-open:hover span {
+  display: block;
+}
+/*--------------------------------------------------------------
+                          html 依赖
+--------------------------------------------------------------*/

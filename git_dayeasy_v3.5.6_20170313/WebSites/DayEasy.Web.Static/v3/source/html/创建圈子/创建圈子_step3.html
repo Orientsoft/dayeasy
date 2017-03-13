@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>创建圈子_step3</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="/v3/source/css/circle/establish.css"/>
+</head>
+<body>
+
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="establish w1200 f-cb">
+            <div class="cont-min">
+                <div class="tab-menu">
+                    <ul class="ul-list f-cb">
+                        <li class="bg z-crt">
+                            <i class="iconfont dy-icon-37"></i>
+                            <b>Step 1</b>
+                            <p>选择圈子类型</p>
+                        </li>
+                        <li class="bg z-crt">
+                            <i class="iconfont dy-icon-36"></i>
+                            <b>Step 2</b>
+                            <p>填写圈信息</p>
+                        </li>
+                        <li class="z-crt">
+                            <i class="iconfont dy-icon-35"></i>
+                            <b>Step 3</b>
+                            <p>完成</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-con">
+                    <div class="create-success">
+                        <p class="p-font-box"><i class="iconfont dy-icon-13"></i>恭喜您，圈子创建成功！</p>
+                        <div class="cont-box mb30 f-cb">
+                            <div class="f-fl fl-box">
+                                <div class="boder-style mb20">
+                                    <table class="tables mb20" width="100%" >
+                                        <tr>
+                                            <td class="font-color-bule f-tac" rowspan="2">
+                                                <i class="iconfont dy-icon-46"></i>
+                                                <p>班级圈</p>
+                                            </td>
+                                            <td><label>圈名称：</label> <em>得一测试班级群</em></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>圈&nbsp;&nbsp;&nbsp;号：</label> <em>41321416</em></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <p class="f-tar mb20"> <span class="font-color-bule f-csp">预先设置班内学生</span></p>
+                                <p class="icon-size  p-posa"><i class="iconfont dy-icon-13"></i>已成功添加 46 人，学生申请时输入真实姓名，
+                                    自动加入圈子</p>
+                            </div>
+                            <div class="f-fr fr-box-share">
+                                <textarea class="mb10 wf100" name=""cols="30" rows="5"></textarea>
+                                <p class="font-color-bule mb25"><i class="iconfont dy-icon-42"></i><span class="f-csp">复制加圈链接</span></p>
+                                <p class="mb20">选择以下方式，与大家分享这个圈子，让更多人加入！</p>
+                                <ul class="f-cb ul-list-letter">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <i class="iconfont dy-icon-44"></i>
+                                            <span>微信</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <i class="iconfont dy-icon-47"></i>
+                                            <span>微博</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <i class="iconfont dy-icon-45"></i>
+                                            <span>QQ</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="f-tar">
+                            <a class="dy-btn  dy-btn-info" href="javascript:void(0);">完成</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--弹框-->
+        <!--**预设置学生**-->
+        <div class="set-students" style="display:none;">
+            <p class="f-tar mb10">已添加 <b>40</b> 人</p>
+            <textarea name="" class="wf100 mb30"  cols="30" rows="5" placeholder="输入学生真实姓名"></textarea>
+            <div class="btn-box f-tar">
+                <a class="dy-btn dy-btn-default mr20" href="javascript:void(0);">取消</a>
+                <a class="dy-btn dy-btn-info" href="javascript:void(0);">确认</a>
+            </div>
+        </div>
+        <!--弹框end-->
+
+
+
+    </div>
+</div>
+@@include('./footer.html')
+<script src="/v3/source/js/circle/establish.js"></script>
+</body>
+</html>

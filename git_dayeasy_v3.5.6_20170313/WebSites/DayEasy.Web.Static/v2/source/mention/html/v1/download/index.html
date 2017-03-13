@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>工具下载</title>
+
+
+<link href="http://static.dayeasy.dev/source/css/bootstrap.css" rel="stylesheet" media="all" />
+<link href="http://static.dayeasy.dev/source/css/site-base.css" rel="stylesheet" media="all" />
+<link rel="stylesheet" href="http://static.dayeasy.dev/css/download/page.min.css">
+<!-- <link rel="stylesheet" href="/source/mention/style/css/v1/download/page.css"> -->
+<!-- <link rel="stylesheet" href="/v1/css/thevolume/thevolume.min.css"> -->
+
+</head>
+<body>
+<div class="g-bd g-download">
+	<div class="m-t after">
+		<h2 class="h2">工具下载</h2>
+	</div>
+
+	<div class="m-g">
+		<div class="m-1 m-x after"> 
+			<div class="f-fl m-a"><img src="/v1/image/icon/download/logo1.png" alt="我的得一"></div>
+			<div class="f-fr m-b">
+				<div class="u-1 after">
+					<h3>扫描工具</h3>
+					<a href="###">WIN下载</a>
+				</div>
+				<p class="p1">
+					试卷扫描套打，一键完成;<br>
+					试卷同步云端，随时随地都可以阅卷！
+				</p>
+			</div>
+		</div>
+		<div class="m-2 m-x after">
+			<div class="f-fl m-a"><img src="/v1/image/icon/download/logo2.png" alt="我的得一安卓版本"></div>
+			<div class="f-fr m-b">
+				<div class="u-1 after">
+					<h3>得一作业宝</h3>
+					<a href="###">For Android下载</a>
+					<img class="f-fr u-img" src="/v1/image/icon/download/icon-code.png" title="/v1/image/icon/download/icon-code-l.png" alt="我的得一安卓版本二维码扫描">
+				</div>
+				<p class="p1">
+					Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec. Donec viverra eleifend lacu,Sed sollicitudin ipsum
+					quis nunc sollicitudin ultrices. Donec  vitae ullamcorper metus. Sed sollicitudin ipsum quis nunc sollicitudin 
+					ultrices. Donec euismod scelerisque ligula. Maecenas eu varius risus, eu aliquet arcu. Curabitur
+				</p>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<!-- <link rel="stylesheet" href="http://static.dayeasy.dev/source/mention/style/css/v1/download/page.css"> -->
+<script src="http://static.dayeasy.dev/v1/js/jquery/jquery-1.8.0.min.js"></script>
+<script>
+
+		
+
+	$(function(){
+	var x = 10;
+	var y = 20;
+	$("img.u-img").mouseover(function(e){
+
+		this.myTitle = this.title;
+		this.title = "";	
+		var tooltip = "<div id='tooltip'><img src='"+ this.myTitle +"' alt='二维码预览'/><\/div>"; 
+		
+		$("body").append(tooltip);							 
+		$("#tooltip")
+			.css({
+				"top": (e.pageY+y) + "px",
+				"left":  (e.pageX+x)  + "px"
+			}).show("fast");	  
+    }).mouseout(function(){
+		this.title = this.myTitle;	
+		$("#tooltip").remove();	 
+    }).mousemove(function(e){
+		$("#tooltip")
+			.css({
+				"top": (e.pageY+y) + "px",
+				"left":  (e.pageX+x)  + "px"
+			});
+	});
+})
+
+
+</script>
+</body>
+</html>
+
+

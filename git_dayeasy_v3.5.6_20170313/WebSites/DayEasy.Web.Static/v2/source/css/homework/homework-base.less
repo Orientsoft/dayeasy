@@ -1,0 +1,189 @@
+@active: #4288ca;
+@highL: #ffab00;
+@succ: #5cb85c;
+
+/*后台管理通用样式*/
+.j-autoHeight {
+  position: relative;
+}
+.dy-body{
+  background-color: #f7f3ee;
+}
+.v-empty {
+  color: #7b7b7b;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 45px;
+}
+.title-icon {
+  background-color: @highL;
+  width: 2px;
+  margin-right:5px;
+}
+
+.work-list{
+  padding: 30px 0;
+  .content{
+    margin-top:20px;
+    border: 1px solid #7b7b7b;
+    background-color: #fff;
+    color: #7b7b7b;
+    .item{
+      width:100%;
+      height:120px;
+      border-bottom:1px solid #7b7b7b;
+      padding: 10px;
+      .Wdate{
+        width:186px;
+      }
+      img{
+        height:100px;
+        max-width:113px;
+      }
+      .info{
+        div{
+          margin: 10px 0;
+          width: 306px;
+          white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;
+        }
+        .title{
+          font-weight: bold;
+          font-size: 15px;
+          .d-joint {
+            background-color: #d9534f;
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 3px;
+          }
+          span{
+            cursor: default;
+          }
+          a:hover{
+            color: @active;
+          }
+        }
+        .edit{
+          color: @active;
+          font-size: 16px;
+          cursor: pointer;
+          margin-left: 5px;
+        }
+        .stu-alt{
+          color: @succ;
+          font-size: 15px;
+          cursor: default;
+          margin-left: 5px;
+        }
+        .stu-done{
+          color: #555555;
+        }
+      }
+
+
+
+      .student-count{
+        font-weight: bold;
+        width: 252px;
+        height: 82px;
+        font-size: 14px;
+        line-height: 80px;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+        -o-text-overflow:ellipsis;
+        overflow: hidden;
+        .submit-count{
+          color: #ff9933;
+          font-size: 18px;
+          margin-right: 7px;
+        }
+        span{
+          cursor: default;
+        }
+        
+      }
+      .operations{
+        div{
+          margin: 15px 10px 0 0;
+        }
+        .danger{
+          color: #ffffff;
+          font-size: 16px;
+          span{
+            cursor: pointer;
+          }
+        }
+        a{
+          color: #fff;
+        }
+        .stu-status{
+          font-size: 15px;
+          color: @succ;
+          margin: 10px 0;
+        }
+      }
+      &:hover{
+        .operations > .danger{
+          color: #d9534f;
+        }
+      }
+    }
+    .item-last{
+      border-bottom:0;
+    }
+  }
+}
+
+/*作业中心列表*/
+.t-work-list{
+  padding: 50px 0;
+  .top{
+    .bar{
+      font-size: 16px;
+      font-weight: bold;
+      span{
+        margin-right:20px;
+        padding:5px 0;
+        cursor: pointer;
+      }
+      .active{
+        border-bottom: 2px solid @highL;
+      }
+    }
+  }
+  .content{
+    color:#7b7b7b;
+    .item{
+      margin:20px 0;
+      padding:5px;
+      border:1px dashed #ddd;
+      .title{
+        font-size: 14px;
+        a{
+          color:#000;
+          font-weight: bold;
+        }
+        span{
+          margin-left:10px;
+          cursor: default;
+        }
+      }
+      .row{
+        margin:10px -15px;
+      }
+      .oper{
+        line-height: 60px;
+        span{
+          cursor: pointer;
+        }
+      }
+      .label-default{
+        background-color: #fff;
+        border:1px solid #ddd;
+        border-radius: 0;
+        margin-right:0;
+        cursor: pointer;
+        color: #7b7b7b;
+      }
+    }
+  }
+}

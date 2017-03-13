@@ -1,0 +1,170 @@
+/*--------------------------------------------------------------
+                        题目统计 推送
+
+      Author:Plato
+      Create Date:15.08.25    Last Mondify Date:15.08.26
+      ===================================================
+
+--------------------------------------------------------------*/
+@import "ui-variables";
+@import "theme.default.less";
+@import      (reference)"../../icon-base.less";
+/*--------------------------------------------------------------
+                         IMG url
+--------------------------------------------------------------*/
+.icon-markingcenter {
+  .icon-markingcenter();
+}
+//推送 小气泡
+.icon-markingcenter.marking-center-bubble {
+  .marking-center-bubble();
+  text-align: center;
+  line-height: 15px;
+  font-size: 12px;
+  font-style: normal;
+  position: absolute;
+  border-bottom: 0;
+  right: -37px;
+  color: @color-default;
+}
+
+.icon-test-center{
+  .icon-test-center();
+}
+
+
+.icon-test-center.icon-test-center-downloadbule{
+.icon-test-center-downloadbule();
+  vertical-align: bottom;
+  margin-right: 3px;
+}
+
+/*--------------------  main Style  -----------------------*/
+.score-ranking{
+  margin-top: 30px;
+}
+
+/*--------------------------------------------------------------
+                         ui Style
+--------------------------------------------------------------*/
+.tables{
+  width: 100%;
+  border: 1px solid #dbdbdb;
+}
+.tables td{
+  text-align: center;
+  padding: 10px 5px;
+  border-right: 1px solid #dbdbdb;
+}
+
+//隔行变色
+.tables tr:nth-child(odd){background: #edf1f2;}
+.tables tr:nth-child(even){background: #fafcfc;}
+
+
+
+//选项卡
+.tac-wrap{
+  .tab-menu{
+    position: relative;
+    border-bottom: 1px solid #dbdbdb;
+    li{
+      font-weight: bold;
+      padding: 7px 15px;
+      font-size: 16px;
+      float: left;
+      border: 1px solid #f5f5f5;
+      border-top: 2px solid #f5f5f5;
+      cursor: pointer;
+    }
+    li.z-crt{
+      border-top: 2px solid #7ed2fc;
+      border-right: 1px solid #dbdbdb;
+      border-left: 1px solid #dbdbdb;
+      position: relative;
+      top: 1px;
+    }
+    a.downloadbule{
+      position: absolute;
+      top:5px;
+      right: 5px;
+      color: #7ccffb;
+    }
+  }
+  .tab-con{
+    .tab-list{
+      display: none;}
+    .tab-1{
+      display: block;
+      a{
+        color: #7ccffb;}
+    }
+    .tab-2{
+      select{
+        background: #dbdbdb;
+        .rounded-corners(3px);
+        padding:5px;
+        border: none;
+      }
+    }
+  }
+}
+
+thead{
+  background:#555555;
+  //color:#ff0000;
+}
+
+/*降序时样式：*/
+
+th.headerSortDown{
+  color:#00ff00;
+}
+
+/*升序时样式：*/
+
+th.headerSortUp{
+  color:#0000ff;
+}
+
+
+.tablesorter{
+  width: 100%;
+  thead{
+    tr{}
+    th{
+      background: #5a6568;
+      font-size: 14px;
+      color: white;
+      padding: 12px 0;
+      text-align: center;
+    }
+  }
+}
+
+.tablesorter thead .sorter-false {
+  background: #5a6568;
+  font-size: 14px;
+  color: white;
+  padding: 9px 10px;
+}
+.tablesorter thead th:nth-child(1),.tablesorter thead th:nth-child(2){text-align: center;}
+.tablesorter tbody td{text-align: right;padding-right: 20px;}
+.tablesorter tbody td:nth-child(1),.tablesorter tbody td:nth-child(2){  text-align: center;}
+.tablesorter thead{
+  th{text-align: right;}
+}
+.tablesorter{
+  td{
+    padding: 12px 10px;
+    text-align: center;
+    border-right: 1px solid #dbdbdb;
+    border-bottom:none;
+  }
+}
+.tablesorter tr.odd > td{
+  background: #edf1f2;
+}
+.tablesorter tr.even > td{
+  background: #fff;
+}

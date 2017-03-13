@@ -1,0 +1,341 @@
+.base-style a {
+  color: #919699;
+}
+.base-style a:hover {
+  text-decoration: none;
+}
+input,
+button,
+select,
+textarea {
+  outline: none;
+}
+.fz14 {
+  font-size: 14px;
+}
+.ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
+input,
+button,
+select,
+textarea {
+  outline: none;
+}
+a.color-bule {
+  color: #65cafc;
+}
+a.color-bule:hover {
+  text-decoration: none;
+  color: #5cb8e5;
+}
+.w1000 {
+  width: 1000px;
+  margin: 0 auto;
+}
+i.f-close,
+i.col-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-style: normal;
+  background: #ffffff;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  line-height: 10px;
+  border: 1px solid #e6e6e6;
+  color: #b3b3b3;
+  display: inline-block;
+}
+i.f-close:hover,
+i.col-close:hover {
+  background: #ffa64c;
+  color: #ffffff;
+}
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 30px solid white;
+}
+.login-reg-icon {
+  background-image: url("../../../image/loginreg/login-reg-icon.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.login-reg-1 {
+  width: 16px;
+  height: 16px;
+  background-position: 0 0;
+  vertical-align: middle;
+  margin-left: 15px;
+  cursor: pointer;
+  text-indent: 99999px;
+  overflow: hidden;
+}
+.login-reg-1:hover {
+  background-position: 0 -57px;
+}
+.posa-icon {
+  position: absolute;
+  left: 18px;
+  top: 0;
+}
+.login-reg-2 {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  width: 15px;
+  height: 14px;
+  background-position: 0 -16px;
+}
+.login-reg-3 {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  background-position: 0 -30px;
+}
+.login-reg-4 {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  width: 15px;
+  height: 12px;
+  background-position: 0 -45px;
+}
+.audit-icon {
+  background-image: url("../../../image/loginreg/audit-icon.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.certification-audit {
+  width: 60px;
+  height: 60px;
+  background-position: 0 0;
+}
+.certification-audit-delete {
+  width: 60px;
+  height: 60px;
+  background-position: 0 -60px;
+}
+.login-setup .head-img {
+  width: 125px;
+  text-align: center;
+}
+.login-setup .head-img .btn-info {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.login-setup .head-img .head-portrait {
+  display: inline-block;
+  width: 110px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 1px solid #c8e9fa;
+  padding: 5px;
+  margin-bottom: 15px;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.login-setup .head-img .head-portrait img {
+  width: 100px;
+  height: 100px;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.login-setup .head-img:hover .head-portrait {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.login-setup .head-img:hover .head-portrait img {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.login-setup .input-list {
+  width: 542px;
+  padding-left: 20px;
+}
+.login-setup .input-list .ul-list-3 > li {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+.login-setup .input-list .ul-list-3 > li label {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  color: #79848a;
+  font-size: 14px;
+  float: left;
+  line-height: 30px;
+  width: 100px;
+  height: 30px;
+  text-align: right;
+  margin-right: 15px;
+  margin-bottom: 20px;
+}
+.login-setup .input-list .ul-list-3 > li li:after {
+  content: " ";
+  display: block;
+  clear: both;
+  height: 0;
+}
+.login-setup .input-list .ul-list-3 > li > p {
+  color: #919699;
+  float: left;
+  margin: 0;
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+}
+.login-setup .input-list .ul-list-3 > input,
+.login-setup .input-list .ul-list-3 > li > p > input {
+  padding: 0 5px;
+  width: 360px;
+  height: 34px;
+}
+.login-setup .input-list .btn-warning {
+  margin-right: 66px;
+}
+.teaching-information {
+  font-size: 14px;
+  margin-top: 30px;
+}
+.teaching-information .col-title {
+  color: #79848a;
+  width: 415px;
+  margin: 0 auto;
+}
+.teaching-information .col-title b.f-fl {
+  width: 70px;
+}
+.teaching-information .col-title b.line-height {
+  height: 32px;
+  line-height: 32px;
+}
+.teaching-information .col-title .f-class {
+  width: 345px;
+}
+.teaching-information .col-title .f-class .btn-danger {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #fc9797;
+  border: none;
+}
+.teaching-information .col-title .f-class .btn-danger:hover {
+  background: #e44e4e;
+}
+.teaching-information .col-title .f-class a {
+  color: #428bca;
+}
+.teaching-information .col-title span {
+  color: #919699;
+  margin-bottom: 5px;
+  display: inline-block;
+  padding: 8px 20px 8px 10px;
+  position: relative;
+}
+.teaching-information .col-title span.no-box {
+  background: none;
+}
+.teaching-information .col-title span.no-box .f-close {
+  background: none;
+}
+.teaching-information .col-title .f-close {
+  position: absolute;
+  display: none;
+  right: 3px;
+  top: 2px;
+  font-style: normal;
+  cursor: pointer;
+}
+.teaching-information .col-coner {
+  font-size: 14px;
+  position: relative;
+  margin-bottom: 15px;
+  padding: 30px 35px;
+  background: white;
+}
+.teaching-information .col-coner .teacher-class {
+  color: #919699;
+}
+.teaching-information .col-coner .col-1 {
+  width: 90px;
+  font-size: 18px;
+  line-height: 36px;
+}
+.teaching-information .col-coner .col-2 {
+  width: 527px;
+}
+.teaching-information .col-coner .note-class {
+  border-top: 1px solid #e6e6e6;
+  padding: 10px 0 5px 20px;
+}
+.teaching-information .col-coner .note-class a {
+  color: #65cafc;
+  margin-left: 5px;
+}
+.teaching-information .col-coner .ul-list li {
+  float: left;
+  padding: 10px 20px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  margin: 0 5px 5px;
+  cursor: pointer;
+}
+.teaching-information .col-coner .ul-list li.z-crt {
+  background: #7ed2fc;
+  color: white;
+}
+.pop-add-class {
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  width: 392px;
+}
+.pop-add-class .ul-list-pop li {
+  margin-bottom: 20px;
+}
+.pop-add-class .ul-list-pop label {
+  font-weight: normal;
+  font-size: 14px;
+  color: #79848a;
+  display: inline-block;
+}
+.pop-add-class .ul-list-pop select {
+  padding: 5px;
+}
+.pop-add-class .ul-list-pop input {
+  padding: 5px;
+  width: 280px;
+}

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    <meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<link href="//static.dayeasy.net" rel="dns-prefetch">
+<link href="//file.dayeasy.net" rel="dns-prefetch">
+<link href="//file01.dayeasy.net" rel="dns-prefetch">
+<link href="//file02.dayeasy.net" rel="dns-prefetch">
+<link rel="apple-touch-icon-precomposed" href="/image/logo_114x114.png">
+<link type="image/x-icon" rel="Shortcut Icon" href="/image/logo_114x114.png">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/css/amazeui.min.css"/>
+<link rel="stylesheet" href="/css/site-base.min.css"/>
+<link rel="stylesheet" href="/css/ui-dialog.min.css"/>
+<link rel="stylesheet" href="/fonts/iconfont.css"/>
+    <title> 变式相关-我的得一 - 触屏版</title>
+    <link rel="stylesheet" href="/css/question/list.min.css"/>
+    <link rel="stylesheet" href="/css/page/ui-work.min.css"/>
+    <link rel="stylesheet" href="/css/page/work-variant-pass.min.css"/>
+    <link rel="stylesheet" href="/plugs/zoom/zoom.css"/>
+</head>
+<body data-role="3">
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf work-back">
+            <h1 class="hp-h1 d-work-name"></h1>
+        </div>
+    </div>
+</header>
+<section class="work-variant-pass">
+    <!--成绩分析-->
+    <div class="head-nav-wrap">
+        <div class="head-href-list" id="headhref">
+            <a href="/page/work/answer-paper.html"><span>试卷分析</span></a>
+            <a href="/page/work/score-analysis.html"><span>成绩分析</span></a>
+            <a class="on" href="/page/work/variant-pass.html"><span>相关变式</span></a>
+        </div>
+    </div>
+    <!--变试题内容-->
+    <div class="dy-questions-cont">
+    </div>
+</section>
+<!--题干-->
+<script type="text/template" id="q-template">
+    <div class="q-item">
+        <div class="q-main">
+            <!--题干-->
+            <div class="q-body">
+                {{if sort}}
+                <span class="q-sort">{{sort}}.</span>
+                {{/if}}
+                {{#body}}
+            </div>
+            {{include 'q-image'}}
+            {{include 'q-detail'}}
+            {{include 'q-option'}}
+        </div>
+    </div>
+</script>
+<script type="text/template" id="q-detail">
+    {{if details && details.length}}
+    <!--小问-->
+    <div class="q-details">
+        {{each details as detail i}}
+        <div class="q-detail">
+            <div class="q-body">{{#detail.body}}</div>
+            {{include 'q-image' detail}}
+            {{include 'q-option' detail}}
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-option">
+    {{if answers && answers.length>1}}
+    <!--选项-->
+    <div class="q-options clearfix {{answers | optionModel}}">
+        {{each answers as answer j}}
+        {{if answer.body != '' || answer.images.length>0}}
+        <div class="q-option">
+            <div class="q-body">
+                <span class="q-option-word">{{answer.sort | optionWord}}.</span>
+
+                <div class="q-option-body">{{#answer.body}}</div>
+            </div>
+            {{include 'q-image' answer}}
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<script type="text/template" id="q-image">
+        {{if images && images.length}}
+    <div class="q-image">
+        {{each images as img j}}
+        <img src="{{img}}" alt=""/>
+        {{/each}}
+    </div>
+    {{/if}}
+</script>
+<!-- 基础脚本 -->
+<script src="/js/site-base.min.js"></script>
+<script src="/js/page/work/work-base.min.js"></script>
+<script src="/js/page/ui-work-questions.min.js"></script>
+<script src="/js/page/work/variant-passr.min.js"></script>
+<script src="/plugs/zoom/zoom.js"></script>
+</body>
+</html>

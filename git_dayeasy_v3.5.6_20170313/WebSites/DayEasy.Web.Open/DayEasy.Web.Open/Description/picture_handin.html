@@ -1,0 +1,31 @@
+﻿<div class="hero-unit">
+    <h4 class="api_main_intro">扫描试卷提交数据结构</h4>
+
+    <div class="data well">
+    </div>
+</div>
+<script>
+    var data = {
+        "userId": "上传用户ID",
+        "paperId": "试卷ID",
+        "paperNum": "试卷编号",
+        "jointBatch": "协同批次号",
+        "groupId": "同事圈ID",
+        "subjectId": "科目ID",
+        "pictures": [
+            {
+                id: "图片ID",
+                index: "排序",
+                sectionType: "扫描类型:0,常规；1，A卷；2，B卷",
+                imagePath: "图片地址",
+                studentId: "学生ID",
+                studentName: "学生名字",
+                groupId: "班级ID",
+                pageCount: "图片页数",
+                IsSingle: "是否单面",
+                sheetAnwers: [[0], [1]]
+            }
+        ]
+    };
+    $(".data").html((new JsonFormat(data)).toString());
+</script>

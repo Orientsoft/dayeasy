@@ -1,0 +1,97 @@
+@import "../../less/base";
+
+.dy-keyword-wrap {
+  position: relative;
+}
+
+.dy-operations {
+  a, span {
+    cursor: pointer;
+  }
+  .dy-success {
+    color: @color-success;
+  }
+  .dy-danger {
+    color: @color-danger;
+  }
+}
+
+.add-member {
+  border: 1px solid @border-color;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+  float: left;
+  margin: 15px 10px;
+  height: 45px;
+  line-height: 45px;
+  font-size: 16px;
+  width: 150px;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  i {
+    font-size: 24px;
+    padding-right: 8px;
+    vertical-align: middle;
+  }
+  &:hover, &.hover {
+    border-color: @color-info-border;
+    background-color: @color-info;
+    .linkColor(@color-default, @color-default);
+  }
+}
+
+.g-members {
+  border-bottom: 1px solid @border-color;
+  padding: 0 0 20px;
+}
+
+.search-form {
+  .user-list {
+    max-height: 148px;
+    padding: 0 10px;
+  }
+  .user-item {
+    cursor: pointer;
+  }
+}
+
+.d-users-joint {
+  .user-list {
+    max-height: 162px;
+  }
+  .user-item {
+    font-size: 12px;
+    width: 95px;
+    padding: 6px 4px;
+    margin: 5px;
+    cursor: pointer;
+    .dy-user-info {
+      margin-left: 5px;
+    }
+    .user-avatar {
+      width: 30px;
+      height: 30px;
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    .user-name {
+      font-size: 12px;
+      line-height: 15px;
+      span {
+        max-width: 4em;
+      }
+      small {
+        display: none;
+      }
+    }
+    .user-code {
+      font-size: 10px;
+      line-height: 10px;
+      margin-top: 3px;
+      max-width: 5em;
+    }
+  }
+}

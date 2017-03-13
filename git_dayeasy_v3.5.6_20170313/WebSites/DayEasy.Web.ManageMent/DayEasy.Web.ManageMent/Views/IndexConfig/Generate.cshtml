@@ -1,0 +1,292 @@
+﻿@using System.Web.Mvc
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model DayEasy.Contracts.Management.Dto.IndexAdvertDto
+@{
+    ViewBag.Title = "首页";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="home-index f-cb">
+    <div class="top-title">
+        <div class="home-slider">
+            <div class="bd">
+                <ul>
+                    @foreach (var c in Model.Carousels)
+                    {
+                        <li><a target="_blank" href="@c.TextLink"><img src="@Html.MakeThumb(c.ImageUrl,"1200X300")" alt="@c.Text" /></a></li>
+                    }
+                </ul>
+            </div>
+            <div class="hd"><ul></ul></div>
+            <div class="pnBtn prev">
+                <span class="blackBg"></span>
+                <a class="arrow" href="javascript:void(0)"></a>
+            </div>
+            <div class="pnBtn next">
+                <span class="blackBg"></span>
+                <a class="arrow" href="javascript:void(0)"></a>
+            </div>
+        </div>
+    </div>
+    <ul class="showimg-list f-cb w1200 fixed-box">
+        @foreach (var c in Model.Fixeds)
+        {
+            <li><a target="_blank" href="@c.TextLink"><img src="@Html.MakeThumb(c.ImageUrl,"300X185")" alt="@c.Text" /><p class="f-toe">@c.Text</p></a></li>
+        }
+    </ul>
+    <div class="main-conter w1200 f-cb">
+        <div class="main-home f-fl section-box">
+            @{ var i = 0;}
+            @foreach (var section in Model.Sections)
+            {
+                <div class="snBrand bg@(++i) @(i < Model.Sections.Count ? "mb30" : "")">
+                    <h2 class="h2-list icon-homelis">
+                        @if (section.Sources != null && section.Sources.Any())
+                        {
+                            foreach (var source in section.Sources)
+                            {
+                                <a href="@(source.TextLink.IsNotNullOrEmpty() ? source.TextLink : "javascript:void(0);")" target="_blank">
+                                    <img src="@Html.MakeThumb(source.ImageUrl, "200X50")" alt="@source.Text" />
+                                </a>
+                            }
+                        }
+                    </h2>
+                    @if (section.Tabs != null && section.Tabs.Any())
+                    {
+                        <ol>
+                            @foreach (var tab in section.Tabs)
+                            {
+                                if (tab.Sources != null && tab.Sources.Any())
+                                {
+                                    foreach (var source in tab.Sources)
+                                    {
+                                        <li>
+                                            <a href="@(source.TextLink.IsNotNullOrEmpty() ? source.TextLink : "javascript:void(0);")" target="_blank">@source.Text</a>
+                                        </li>
+                                    }
+                                }
+                            }
+                        </ol>
+                        <ul class="ul-list-title ulbe-interested ulbrother-said">
+                            @foreach (var tab in section.Tabs)
+                            {
+                                <li>
+                                    @if (tab.Adverts != null && tab.Adverts.Count > 2 && tab.Groups!=null && tab.Groups.Any())
+                                    {
+                                        <div class="m-slide mt20">
+                                            <ul class="img">
+                                                @foreach (var item in tab.Adverts)
+                                                {
+                                                    <li>
+                                                        <a href="@(item.TextLink.IsNotNullOrEmpty() ? item.TextLink : "javascript:void(0);")" target="_blank">
+                                                            <img src="@Html.MakeThumb(item.ImageUrl, "290X160")" alt="@item.Text" width="290" height="160" />
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                            <h3 class="h3-mdy">
+                                                @if (tab.Sources != null && tab.Sources.Any())
+                                                {
+                                                    foreach (var source in tab.Sources)
+                                                    {
+                                                        @source.Text
+                                                    }
+                                                }
+                                            </h3>
+                                            <ul class="tab">
+                                                @if (tab.Adverts != null && tab.Adverts.Any())
+                                                {
+                                                    foreach (var item in tab.Adverts)
+                                                    {
+                                                        <li><a class="f-toe" href="@(item.TextLink.IsNotNullOrEmpty() ? item.TextLink : "javascript:void(0);")" target="_blank" title="@item.Text">@item.Text</a></li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                    @if (tab.Adverts != null && (tab.Adverts.Count < 3 || tab.Groups == null || !tab.Groups.Any()))
+                                    {
+                                        var j = 0;
+                                        <div class="interested f-cb">
+                                            @foreach (var item in tab.Adverts)
+                                            {
+                                                <a class="@((j++ % 2) == 0 ? "ali-left" : "ali-right")" href="@(item.TextLink.IsNotNullOrEmpty() ? item.TextLink : "javascript:void(0);")" target="_blank">
+                                                    <dl>
+                                                        <dt><img src="@Html.MakeThumb(item.ImageUrl, "290X160")" alt="@item.Text" width="290" height="160" /></dt>
+                                                        <dd class="f-toe" title="@item.Text">@item.Text</dd>
+                                                    </dl>
+                                                </a>
+                                            }
+                                        </div>
+                                    }
+                                    @if (tab.Groups != null && tab.Groups.Any())
+                                    {
+                                        <div class="popular-circle">
+                                            <h3 class="h3-title">人气圈子</h3>
+                                            <ul class="ul-list f-cb">
+                                                @foreach (var g in tab.Groups)
+                                                {
+                                                    <li data-code="@g.Code" class="li-group">
+                                                        <a href="@Consts.Config.MainSite/group/@g.Id" target="_blank">
+                                                            <img width="64" height="64" alt="" src="@Html.MakeThumb(g.Logo, "64X64")" style="display: block;">
+                                                            <p class="f-toe" title="@g.Name">@g.Name</p>
+                                                            <span>圈主：@g.Owner</span>
+                                                            <strong>成员：@g.Count 人</strong>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (i == 1)
+                    {
+                        <img class="house" src="@Consts.Config.StaticSite/v3/image/home/house.png" alt="" />
+                    }
+                    else if (i == 2)
+                    {
+                        <img class="house" src="@Consts.Config.StaticSite/v3/image/home/house-parent.png" alt="" />
+                    }
+                    else if (i == 3)
+                    {
+                        <img class="house" src="@Consts.Config.StaticSite/v3/image/home/house-classmate.png" alt="" />
+                    }
+                </div>
+            }
+        </div>
+        <div class="side-comment f-fr">
+            <div class="layer-block diffe1">
+                <h2 class="h2-title"><i class="iconfont dy-icon-jiangbei"></i>热帖排行榜</h2>
+                <ul class="hot-list hot-topic-box">
+                    <li class="loading">帖子加载中...</li>
+                </ul>
+            </div>
+            <div class="layer-block diffe2 f-cb">
+                <h2 class="h2-title"><i class="iconfont dy-icon-paixingbang"></i>热门圈子</h2>
+                <div class="hot-circle">
+                    <ul class="ul-list f-cb hot-group-box">
+                        <li class="loading">圈子加载中...</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layer-block diffe3">
+                <div class="box">
+                    <div class="box-lg-12 f-tac mt30 mb20">
+                        <img class="f-ib" src="@Consts.Config.StaticSite/v3/image/qrcode/wechat.png" width="160" height="160" alt="" />
+                    </div>
+                    <div class="box-lg-12 f-tac mb30">关注得一，微信扫一扫</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/home/home-page.css,v3/css/home/ui-base.css")
+}
+@section js{
+    @Html.CombineLink("v3/plugs/jauqery-superslide/jquery.SuperSlide.2.1.js")
+    <script type="text/javascript">
+        $(function () {
+            var S = SINGER, isReload = false;
+            var groupHtml, findGroup, reLoadGroup, hotGroup, hotTopic;
+
+            findGroup = function (code, list) {
+                if (!list || !list.length || !code) return 0;
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].code == code) return list[i];
+                }
+                return 0;
+            };
+            groupHtml = function (group) {
+                if (!group) return "";
+                return '<a target="_blank" href="/group/' + group.id + '">' +
+                    '<img src="' + group.logo + '" width="64" height="64" alt=""/>' +
+                    '<p class="f-toe" title="' + group.name + '">' + group.name + '</p>' +
+                    '<span>圈主：' + group.owner + '</span>' +
+                    '<strong>成员：' + group.count + '人</strong>' +
+                    '</a>';
+            };
+            hotGroup = function (groups) {
+                if (!groups || !groups.length) return;
+                var $box = $(".hot-group-box");
+                $box.html('');
+                for (var i = 0; i < groups.length; i++) {
+                    var html = groupHtml(groups[i]);
+                    $box.append('<li>' + html + '</li>');
+                }
+            };
+            hotTopic = function (topics) {
+                if (!topics || !topics.length) return;
+                var $box = $(".hot-topic-box");
+                $box.html('');
+                for (var i = 0; i < topics.length; i++) {
+                    var t = topics[i];
+                    var liClass = '';
+                    if (i == 0) liClass = ' class="bg1"';
+                    if (i == 1) liClass = ' class="bg2"';
+                    if (i == 2) liClass = ' class="bg3"';
+                    var html =
+                        '<li' + liClass + '>' +
+                        '<span>' + (i + 1) + '</span>' +
+                        '<p><a class="f-toe" href="/topic/detail/' + t.id + '" target="_blank"  title="' + t.title + '">' + t.title + '</a></p>' +
+                        '<div class="box font-color">' +
+                        '<div class="box-lg-4"><i class="iconfont dy-icon-viewline"></i>' + t.readNum + '</div>' +
+                        '<div class="box-lg-4"><i class="iconfont dy-icon-messageline"></i>' + t.replyNum + '</div>' +
+                        '</div></li>';
+                    $box.append(html);
+                }
+            };
+            reLoadGroup = function () {
+                var codes = [];
+                var $lis = $(".li-group");
+                $lis.each(function (i, li) {
+                    codes.push($(li).data("code"));
+                });
+                if (!codes || !codes.length) return;
+                $.post("/search-groups", { codes: S.json(codes) }, function (json) {
+                    if (!json || !json.groups || !json.groups.length) return;
+                    $lis.each(function (i, li) {
+                        var $li = $(li);
+                        var group = findGroup($li.data("code"), json.groups);
+                        $li.html(groupHtml(group));
+                    });
+                });
+            };
+
+            $.ajax({
+                type: "GET",
+                url: S.sites.main + "/hot",
+                dataType: "jsonp",
+                success: function(json) {
+                    hotTopic(json.topics);
+                    hotGroup(json.groups);
+                }
+            });
+            $(window).bind("scroll.loadGroup", function() {
+                if (isReload) return;
+                if ($(document).scrollTop() > 500) {
+                    isReload = true;
+                    reLoadGroup();
+                    $(window).unbind('scroll.loadGroup');
+                }
+            });
+
+            $(".home-slider").slide({
+                interTime: 6000,
+                titCell: ".hd ul",
+                mainCell: ".bd ul",
+                effect: "fold",
+                autoPlay: true,
+                autoPage: true,
+                trigger: "click"
+            }).find('.hd').css('margin-left', -($(".home-slider").find('.hd').width() / 2));
+            $(".snBrand").slide({effect:"fade", titCell: "ol li", mainCell: "ul", delayTime: 500, triggerTime: 150 });
+            $(".m-slide").slide({ titCell: ".tab li", mainCell: ".img", effect: "fold", autoPlay: false });
+        });
+</script>
+}

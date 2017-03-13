@@ -1,0 +1,116 @@
+@import "ui-variables.less";
+.color-font-grey{color: #aaa;}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td
+{border-top:none;  }
+.table > thead > tr > th ,.table > tbody > tr > th ,.table > tfoot > tr > th{
+  background:#8a999c;
+  color: @color-default;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+.table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+  padding-top: 12.5px;
+  padding-bottom: 12.5px;
+}
+.table > thead > tr > th:last-child ,
+.table > tbody > tr > th:last-child ,
+.table > tfoot > tr > th:last-child
+{text-align: right;  }
+
+.table > thead > tr > td:last-child ,
+.table > tbody > tr > td:last-child ,
+.table > tfoot > tr > td:last-child
+{ text-align: right;}
+
+//隔行变色
+.table tr:nth-child(odd){background: @table-tr-odd-bg; }
+.table tr:nth-child(even){background: @table-tr-even-bg;}
+
+//左右对齐显示
+.table tr > td:nth-child(1),.table tr > th:nth-child(1){  text-align: center;}
+.table tr > td:nth-child(3),.table tr > th:nth-child(3){  text-align: right;}
+.table tr > td:nth-child(4),.table tr > th:nth-child(4){  text-align: right;}
+.table tr > td:nth-child(5),.table tr > th:nth-child(5){  text-align: right;}
+
+.table tr{
+  &:hover{
+    // tr 阴影-设置无效
+    //-moz-box-shadow: 0px 0px 10px rgba(0,0,0,0.16);
+    //-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.16);
+    //box-shadow: 1px 1px 1px rgba(0,0,0,0.16);
+    .box-shadow(0px 0px 10px rgba(0,0,0,0.16));
+    background: @color-default;
+  }
+
+}
+
+//字体颜色
+.test-center-main{
+  .color-td{
+    em{
+      color: @color-danger-border;
+      margin-left: 5px;
+      font-style: normal;
+      }
+  }
+  .table{
+    background:@color-default ;
+    a{
+      color: #65cafc;
+    }
+  }
+}
+
+//todo 左三角气泡
+.push-bubble-0{
+  position: relative;
+  .inline-block;
+  width: 32px;
+  height: 15px;
+  background: #fcb66f;
+  line-height: 15px;
+  color: white;
+  font-size: 12px;
+  top: 2px;
+  left: 8px;
+  text-align: center;
+  .rounded-corners(3px);
+  .angle-left{
+    .angle-left(4px,#fcb66f,3px);
+    position: absolute;
+    top: 4px;
+    left: -3px;
+    }
+  }
+
+@-webkit-keyframes rubberBand {
+  0% { -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1) }
+  30% { -webkit-transform: scale3d(1.25, .75, 1); transform: scale3d(1.25, .75, 1) }
+  40% { -webkit-transform: scale3d(0.75, 1.25, 1); transform: scale3d(0.75, 1.25, 1) }
+  50% { -webkit-transform: scale3d(1.15, .85, 1); transform: scale3d(1.15, .85, 1) }
+  65% { -webkit-transform: scale3d(.95, 1.05, 1); transform: scale3d(.95, 1.05, 1) }
+  75% { -webkit-transform: scale3d(1.05, .95, 1); transform: scale3d(1.05, .95, 1) }
+  100% { -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1) }
+  }
+@keyframes rubberBand {
+  0% { -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1) }
+  30% { -webkit-transform: scale3d(1.25, .75, 1); transform: scale3d(1.25, .75, 1) }
+  40% { -webkit-transform: scale3d(0.75, 1.25, 1); transform: scale3d(0.75, 1.25, 1) }
+  50% { -webkit-transform: scale3d(1.15, .85, 1); transform: scale3d(1.15, .85, 1) }
+  65% { -webkit-transform: scale3d(.95, 1.05, 1); transform: scale3d(.95, 1.05, 1) }
+  75% { -webkit-transform: scale3d(1.05, .95, 1); transform: scale3d(1.05, .95, 1) }
+  100% { -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1) }
+  }
+.animation-css3:hover .push-bubble-0 {
+  -webkit-animation-name: rubberBand;
+  animation-name: rubberBand ;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both}

@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "新版首页配置";
+}
+
+<div class="ic-btns">
+    <button id="btnSave" class="btn btn-primary">保存</button>
+    &nbsp;&nbsp;
+    <a id="btnPreview" target="_blank" href="/operate/home-config/generate?preview=true" class="btn btn-success">预览</a>
+</div>
+
+<div class="ic-box">
+    <div class="ic-item ic-coverages">
+        <div class="ic-text fs18">
+            数据覆盖 （已选 <span class="num coverages-num">0</span>）
+        </div>
+        <div class="ic-desc">
+            120x40 [6-30张图]
+        </div>
+        <div data-type="coverages">
+            <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+        </div>
+    </div>
+    <div class="ic-item ic-resources">
+        <div class="ic-text fs18">
+            得一精选 （已选 <span class="num resources-num">0</span>）
+        </div>
+        <div class="ic-desc">
+            280x450 [3-9张图]
+        </div>
+        <div data-type="resources">
+            <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+        </div>
+    </div>
+    <div class="ic-item" style="overflow: hidden; height: auto">
+        <div class="ic-text fs18">
+            榜样力量
+        </div>
+        <div class="col-md-8 ic-left">
+            左则（已选 <span class="num left-num">0</span>）
+            <div class="ic-desc">
+                250x250 [4张图]
+            </div>
+            <div data-type="left">
+                <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+            </div>
+        </div>
+        <div class="col-md-4 ic-right">
+            右则（已选 <span class="num right-num">0</span>）
+            <div class="ic-desc">
+                500x500 [1张图]
+            </div>
+            <div data-type="right">
+                <span class="ic-check" title="选择图文"><i class="fa fa-check-square-o"></i></span>
+            </div>
+        </div>
+    </div>
+</div>
+@section style{
+    @Html.CombineLink("v3/css/management/index-config.css")
+}
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js,v3/js/management/page-home-config.js")
+}

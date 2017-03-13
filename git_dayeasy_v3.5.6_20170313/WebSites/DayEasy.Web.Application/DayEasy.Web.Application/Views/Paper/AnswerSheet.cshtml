@@ -1,0 +1,188 @@
+﻿@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@model DayEasy.Contracts.Dtos.Paper.PaperDetailDto
+
+@{
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "试卷答题卡预览";
+    var sections = Model.PaperSections.GroupBy(s => s.PaperSectionType);
+    var isAb = Model.PaperBaseInfo.IsAb;
+    var paper = Model.PaperBaseInfo;
+}
+@foreach (var section in sections)
+{
+    var objectives = ViewData["objective_" + section.Key] as Dictionary<string, int>;
+    <div class="as-main">
+        <div class="as-header">
+            <div class="as-paper">
+                <h3>@(Model.PaperBaseInfo.PaperTitle + (isAb ? string.Format("[{0}卷]", (char)(section.Key + 64)) : ""))</h3>
+                <div class="as-paper-col">编号：@paper.PaperNo</div>
+                <div class="as-paper-col">总分：@(isAb ? (section.Key == (byte)PaperSectionType.PaperA ? paper.PaperScores.TScoreA : paper.PaperScores.TScoreB) : paper.PaperScores.TScore)分</div>
+                <div class="as-paper-col">班级：</div>
+                <div class="as-paper-col">姓名：</div>
+            </div>
+            <div class="as-codes">
+                <div class="as-codes-tips">填涂得一号</div>
+                <div class="as-codes-area">
+                    @for (var i = 0; i < 5; i++)
+                    {
+                        for (var j = 0; j < 11; j++)
+                        {
+                            if (j == 0)
+                            {
+                                <div class="as-code-item as-code-first @(i < 4 ? "as-code-border" : "")"></div>
+                            }
+                            else
+                            {
+                                <div class="as-code-item @(i < 4 ? "as-code-border" : "")">[ @(j - 1) ]</div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="as-sheets">
+            @if (objectives != null && objectives.Any())
+            {
+                var index = 0;
+                foreach (var item in objectives)
+                {
+                    if ((index + item.Value + 2) > 24)
+                    {
+                        for (var i = 0; i < 24 - index; i++)
+                        {
+                            <div class="as-sheet-item"></div>
+                        }
+                        index = 0;
+                    }
+                    index += item.Value + 2;
+
+                    <div class="as-sheet-item">@item.Key</div>
+                    for (var i = 0; i < item.Value; i++)
+                    {
+                        <div class="as-sheet-item">[ @((char)(i + 65)) ]</div>
+                    }
+                    <div class="as-sheet-item"></div>
+                }
+            }
+            else
+            {
+                <div class="as-sheet-item"></div>
+            }
+        </div>
+        @foreach (var item in section.Where(t => t.Questions.Any(q => !q.Question.IsObjective)))
+        {
+            <h4>@Consts.Chinese[item.Sort]、@item.Description</h4>
+            <div class="as-item">
+
+            </div>
+        }
+    </div>
+}
+@section css{
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #999;
+            background-color: rgba(0, 0, 0, .75);
+        }
+
+        .as-main {
+            width: 780px;
+            padding: 30px;
+            background-color: #fff;
+            margin: 30px auto;
+        }
+
+        .as-header {
+            overflow: hidden;
+        }
+
+        .as-paper {
+            float: left;
+            width: 380px;
+        }
+
+            .as-paper h3 {
+                margin: 0;
+                line-height: 35px;
+            }
+
+        .as-paper-col {
+            float: left;
+            width: 50%;
+            font-size: 14px;
+            line-height: 28px;
+        }
+
+        .as-codes {
+            float: right;
+            padding-left: 25px;
+            position: relative;
+            width: 340px;
+        }
+
+        .as-codes-tips {
+            font-size: 14px;
+            font-weight: 600;
+            left: 0;
+            position: absolute;
+            top: 5px;
+            width: 20px;
+        }
+
+        .as-codes-area {
+            border: 3px solid #000;
+            float: left;
+        }
+
+        .as-code-item {
+            float: left;
+            font-size: 14px;
+            font-family: "Microsoft Himalaya";
+            font-weight: 600;
+            text-align: center;
+            height: 20px;
+            line-height: 20px;
+            width: 28px;
+        }
+
+        .as-code-border {
+            border-bottom: dashed 1px #000;
+        }
+
+        .as-code-first {
+            border-right: solid 1px #000;
+        }
+
+        .as-sheets,
+        .as-item {
+            border: solid 3px #000;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .as-sheet-item {
+            box-sizing: border-box;
+            float: left;
+            font-size: 14px;
+            font-family: "Microsoft Himalaya";
+            font-weight: 600;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            width: 29.75px;
+        }
+
+        h4 {
+            font-size: 14px;
+        }
+
+        .as-item {
+            padding: 15px;
+        }
+    </style>
+}

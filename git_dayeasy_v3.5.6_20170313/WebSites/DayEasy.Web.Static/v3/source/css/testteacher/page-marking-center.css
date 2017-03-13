@@ -1,0 +1,202 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2017/01/16  Last Mondify Date:2017/01/16
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+.dy-wrap {
+  background: #f5f5f5;
+}
+.dy-header,
+.dy-header-tool {
+  margin-bottom: 30px;
+}
+/** MAIN STYLE **/
+.page-marking-center {
+  margin-bottom: 30px;
+}
+.page-marking-center .main-marking {
+  width: 870px;
+  float: left;
+  background: #fff;
+}
+.page-marking-center .main-marking .dy-loading {
+  padding: 170px 0;
+  clear: both;
+}
+.page-marking-center .main-marking .draft-center-list .dy-loading {
+  padding: 30px 0;
+  clear: both;
+}
+.page-marking-center .sidebar-marking {
+  width: 310px;
+  float: right;
+  background: #fff;
+}
+.page-marking-center .sidebar-marking .h2-title {
+  font-size: 18px;
+  padding-left: 15px;
+  margin: 20px 0;
+  border-left: 5px solid #ed5565;
+}
+.page-marking-center .sidebar-marking .box-text-list {
+  padding: 20px;
+}
+.page-marking-center .sidebar-marking .box-text-list .dy-loading {
+  margin: 15px 0;
+}
+.page-marking-center .sidebar-marking .box-text-list li {
+  margin-bottom: 20px;
+}
+.page-marking-center .sidebar-marking .box-text-list li a {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+}
+.page-marking-center .sidebar-marking .box-text-list li a:hover {
+  color: #4fc1e9;
+}
+/*协同阅卷中部列表*/
+.draft-center-list {
+  padding: 0px 25px;
+}
+.draft-center-list b {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.draft-center-list .draft-list {
+  border-bottom: 1px solid #eee;
+  padding: 30px 0 20px;
+}
+.draft-center-list .draft-list:last-child {
+  border-bottom: none;
+}
+.draft-center-list .font-text p {
+  margin-bottom: 20px;
+}
+.draft-center-list .font-text p a:hover {
+  color: #4fc1e9;
+}
+.draft-center-list .font-text p a:hover .title-name,
+.draft-center-list .font-text p a:hover.class-name em {
+  color: #4fc1e9;
+}
+.draft-center-list .font-text .title-name {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  font-size: 16px;
+  margin: 0px 10px;
+  max-width: 320px;
+  position: relative;
+  top: 5px;
+  left: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
+.draft-center-list .font-text .class-name {
+  color: #666;
+}
+.draft-center-list .font-text .class-name em {
+  color: #666;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  max-width: 130px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  position: relative;
+  top: 4px;
+  left: 0;
+}
+.draft-center-list .font-text .sign-base {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 6px;
+  color: #fff;
+  font-size: 12px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.draft-center-list .font-text .sign-base.sign-1 {
+  background: #3bafda;
+}
+.draft-center-list .font-text .sign-base.sign-2 {
+  background: #ed5565;
+}
+.draft-center-list .font1 {
+  color: #999;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin-left: 20px;
+}
+.draft-center-list .font2 {
+  color: #bbb;
+}
+.draft-center-list .btn-list {
+  position: relative;
+  padding-top: 14px;
+}
+.draft-center-list .btn-list .dy-btn {
+  margin-right: 15px;
+}
+.draft-center-list .btn-list .dy-icon-iconfonthoutui {
+  color: #d9534f;
+}
+/*没有数据*/
+.dy-nothing-marking {
+  clear: both;
+  text-align: center;
+  padding: 85px 0;
+}
+.dy-nothing-marking .iconfont {
+  color: #ccc;
+  font-size: 145px;
+}
+.dy-nothing-marking p {
+  font-weight: bold;
+  font-size: 30px;
+  color: #ccc;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+.dy-nothing-marking span {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  font-size: 18px;
+}
+.dy-nothing-marking span a {
+  color: #3bafda;
+}
+.dy-nothing-marking span a:hover {
+  color: #4fc1e9;
+}
+.not-data {
+  color: #999;
+}
+.not-data .iconfont {
+  vertical-align: text-top;
+  margin-right: 5px;
+}

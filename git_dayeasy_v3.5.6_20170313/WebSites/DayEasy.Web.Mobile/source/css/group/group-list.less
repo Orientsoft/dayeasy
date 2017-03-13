@@ -1,0 +1,124 @@
+/**
+ * Created by Boz on 2016/5/19.
+ * 加入圈子成功-跳转页面
+ */
+@import "../base";
+
+/*班级圈详情列表*/
+.group-list {
+  background: white;
+}
+.group-list-ul {
+  width: 100%;
+  padding: 13px 20px;
+  .box-sm-6 {
+    width: 50%;
+    float: left;
+    margin-bottom: 5px;
+  }
+  li {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  .user-img {
+    img {
+      width: 20px;
+      height: 20px;
+      .rounded-corners(50%);
+      vertical-align: sub;
+      margin-right: 5px;
+      position: relative;
+      top: -5px;
+    }
+    span{
+      word-wrap: normal;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 82%;
+      display: inline-block;
+      }
+    color: #999;
+  }
+  .d-time {
+    color: #999;
+  }
+  .base-display {
+    padding: 0 9px;
+    .inline-block;
+    width: 42px;
+    float: left;
+    vertical-align: middle;
+    color: white;
+    font-size: 12px;
+    margin-top: 4px;
+    height: 18px;
+    line-height: 18px;
+    margin-right: 10px;
+    font-weight: normal;
+    .rounded-corners(2px);
+  }
+  //作业
+  .task-display {
+    background-color: #a0d468;
+  }
+  //考试
+  .examination-display {
+    background-color: #ffbf21;
+  }
+  //通知
+  .notice-display {
+    background-color: #fc6e51;
+  }
+  //表扬
+  .praise-display {
+    background-color: #3bafda;
+  }
+  //成绩通知
+  .achievement-display {
+    background-color: #ed5565;
+  }
+
+  .group-list-title {
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+    .inline-block;
+    vertical-align: middle;
+    width: 228px;
+    overflow: hidden;
+    float: left;
+    max-height: 44px;
+    min-height: 22px;
+    position: relative;
+    top: 2px;
+  }
+}
+/*加载更多*/
+.dy-load-bata {
+  background: #eee;
+  color: #999;
+  height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+.dy-load-bata {
+  margin: 5px 20px;
+  display: none;
+}
+.information-contents {
+  color: #999;
+}
+/*js 效果*/
+#f-scroll{
+  width: 100%;
+  &.on {
+    z-index: 100;
+    top: 0;
+    }
+  }

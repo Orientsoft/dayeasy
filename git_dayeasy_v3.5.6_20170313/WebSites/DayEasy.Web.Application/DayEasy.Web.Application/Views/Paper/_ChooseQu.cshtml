@@ -1,0 +1,23 @@
+﻿@model string
+@{
+    string pSection = string.IsNullOrEmpty(Model) || Model == "A" ? "A" : "B";
+}
+
+<div class="m-z-1" id="actionDiv_@(pSection)">
+    <div class="m-z-a">
+        <hr>
+        <span class="btn btn-warning pull-left f-l400 f-posa f-addQuestion" data-atype="@(pSection)"><i class="fa fa-plus"></i> 题库选题</span>
+        <span class="btn btn-warning pull-left f-l410 f-posa f-createQu"><i class="fa fa-plus"></i> 录入新题</span>
+    </div>
+    @*录入新题*@
+    <div class="paper-createQu fa-createQuDiv">
+        <i class="fa fa-angle-up"></i>
+        <i class="fa fa-angle-up up-bg"></i>
+        <span class="dp-loading">
+            <em class="fa fa-spin fa-spinner fs18"></em>
+            <span>正在加载，请稍后...</span>
+        </span>
+        <div></div>
+        <i class="f-success triangle-bottomright pointer" data-atype="@(pSection)"><s>完成</s></i>
+    </div>
+</div>

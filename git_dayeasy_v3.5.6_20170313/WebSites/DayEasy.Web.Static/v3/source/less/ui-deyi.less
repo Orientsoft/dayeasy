@@ -1,0 +1,26 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+      Author:Plato
+      Create Date:2016/09/28  Last Mondify Date:2016/09/28
+       常用基础重复样式--统一管理
+       @import (reference) "ui-deyi";
+       reference：使用Less文件但不输出
+      ===================================================
+--------------------------------------------------------------*/
+/**
+ * @LESS
+ * @NAME  Part ui
+ */
+@import "base";
+// 默认颜色值
+.deyi-bg-base(){
+  .@{dy}wrap {
+    background-color: @color-bg-base;
+    }
+  }
+// 头部距离主体margin-bottom值；
+.deyi-header-bottom(){
+  .@{dy}header, .@{dy}header-tool {
+    margin-bottom: 30px;
+    }
+  }

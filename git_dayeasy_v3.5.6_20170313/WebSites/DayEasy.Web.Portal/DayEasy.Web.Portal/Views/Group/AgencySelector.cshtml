@@ -1,0 +1,131 @@
+﻿@using DayEasy.Contracts.Dtos
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model List<AgencyDto>
+@{
+    var words = Model.Select(m => m.Initials).Distinct().ToArray();
+    var areas = (Dictionary<int, string>)ViewData["Areas"];
+}
+<div class="choose-school" data-stage="@ViewBag.Stage" data-agency="@ViewBag.AgencyId">
+    <div class="input-part mb20">
+        <input type="text" id="keywordText" value="@ViewBag.Keyword" placeholder="搜索学校">
+        <button class="iconfont dy-icon-26"
+                id="searchBtn"
+                type="submit"></button>
+    </div>
+    <div class="f-cb mb20">
+        <div class="area f-fl">
+            <select name="code">
+                <option value="51">四川省</option>
+            </select>
+            <select name="code">
+                <option value="5101">成都市</option>
+            </select>
+            <select name="code">
+                @foreach (var area in areas)
+                {
+                    <option value="@area.Key" @(ViewBag.Code == area.Key ? " selected" : "")>@area.Value</option>
+                }
+            </select>
+        </div>
+        <div class="letter f-fr">
+            @foreach (var w in Consts.OptionWords)
+            {
+                <a class="@(words.Contains(w) ? "z-crt" : "")">@w</a>
+            }
+        </div>
+    </div>
+    <div class="school-name">
+        @if (!Model.IsNullOrEmpty())
+        {
+            <ul class="ul-list-box f-cb">
+                @foreach (var agency in Model)
+                {
+                    <li data-aid="@agency.Id" class="@(ViewBag.AgencyId == agency.Id ? "z-sel" : "")" data-code="@agency.Initials" title="@agency.Name">@agency.Name</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <div class="dy-nothing" style="height: 284px; width: 919px;display: table-cell"><i class="iconfont dy-icon-emoji02"></i>没有找到相关学校！</div>
+        }
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css")
+}
+
+@section js{
+    @Html.CombineLink("v3/plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js")
+    <script type="text/javascript">
+        $(function ($) {
+            $(".school-name").mCustomScrollbar({
+                axis: "y",
+                theme: "rounded-dark",
+                mouseWheel: {
+                    enable: false,
+                    scrollAmount: 1
+                }
+            });
+        });
+    </script>
+}
+
+<script>
+    (function ($) {
+        var loadAgency = function () {
+            var $box = $('.choose-school'),
+                key = $('#keywordText').val(),
+                code = $('select[name="code"]:last').val(),
+                id = $box.data("agency"),
+                stage = $box.data('stage');
+            $.post('/group/agency-selector', {
+                stage: stage,
+                code: code,
+                keyword: key,
+                agencyId: id
+            }, function (html) {
+                $box.parent().html(html);
+            });
+        };
+
+        $('.letter a').bind('click', function () {
+            var $t = $(this);
+            if (!$t.hasClass('z-crt'))
+                return false;
+            var $list = $('.ul-list-box');
+            if ($t.hasClass('z-sel')) {
+                $t.removeClass('z-sel');
+                $list.find('li').show();
+                return false;
+            }
+            var word = $t.html(),
+             $checked = $list.find('li[data-code="' + word + '"]');
+            $list.find('li').not($checked).hide();
+            $checked.show();
+            $t.addClass('z-sel').siblings('a').removeClass('z-sel');
+            return false;
+        });
+        //搜索按钮
+        $('#searchBtn').bind('click', function () {
+            loadAgency();
+            return false;
+        });
+        //回车事件
+        $('#keywordText').bind('keyup', function (e) {
+            if (e.keyCode === 13) {
+                loadAgency();
+                return false;
+            }
+        });
+        //地区联级下拉
+        $('select[name="code"]')
+            .bind('click', function () {
+                return false;
+            })
+            .bind('change', function () {
+                loadAgency();
+                return false;
+            });
+    })(jQuery);
+</script>

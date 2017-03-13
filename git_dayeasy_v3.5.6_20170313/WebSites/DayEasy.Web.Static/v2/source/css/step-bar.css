@@ -1,0 +1,91 @@
+﻿/*步骤条样式起始*/
+.ui-step {
+    color: #ccc;
+    font-size: 14px;
+    list-style: none outside none;
+    overflow: hidden;
+    padding: 0 40px;
+    position: relative;
+}
+
+.ui-step li {
+    float: left;
+    height: 54px;
+    position: relative;
+    width: 50%;
+}
+
+.ui-step-line {
+    background: none repeat scroll 0 0 #ccc;
+    height: 2px;
+    line-height: 2;
+    margin-top: 7px;
+    overflow: hidden;
+    margin-left: 8%;
+    width: 90%;
+}
+
+
+.line-active {
+    background: none repeat scroll 0 0 #ffab00;
+}
+
+.ui-step li .ui-step-icon {
+    font-family: tahoma;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 90px;
+}
+
+.iconfont {
+    background: none repeat scroll 0 0 #ccc;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    font-size: 0;
+    left: 3px;
+    position: absolute;
+}
+
+.active .iconfont {
+    background: none repeat scroll 0 0 #ffab00;
+    border: 1px solid #ffab00;
+}
+
+.ui-step-icon .ui-step-number {
+    color: #fff;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 12px;
+    padding: 0 6px;
+    position: absolute;
+    left: 0;
+}
+
+.ui-step-text {
+    left: -33px;
+    position: relative;
+    top: 30px;
+    font-size: 14px;
+    color: #5e5e5e;
+    font-family: "Microsoft YaHei",Helvetica, Arial, sans-serif;
+}
+
+.active .ui-step-text {
+    color: #ffab00;
+    display: block;
+}
+
+.ui-step li.ui-step-end {
+    position: absolute;
+    right: -110px;
+    top: 0;
+    width: 150px;
+}
+
+.ui-step-end .ui-step-line {
+    display: none;
+}
+/*步骤条样式结束*/

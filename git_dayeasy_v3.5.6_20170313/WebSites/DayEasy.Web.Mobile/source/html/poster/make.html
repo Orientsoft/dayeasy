@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>名师搜"神"记</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <link href="//static.dayeasy.net" rel="dns-prefetch">
+    <link href="//file.dayeasy.net" rel="dns-prefetch">
+    <link rel="apple-touch-icon-precomposed" href="/image/logo_114x114.png">
+    <link type="image/x-icon" rel="Shortcut Icon" href="/image/logo_114x114.png">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="/css/site-base.min.css?t=20160905"/>
+    <link rel="stylesheet" href="/css/ui-dialog.min.css?t=20160905"/>
+    <link rel="stylesheet" href="/css/teachersday/ui-base.min.css?t=20160908"/>
+    <link rel="stylesheet" href="/css/teachersday/page-information.min.css?t=20160908"/>
+</head>
+<body>
+<div class="wrap-teacher-day">
+    <!--==============================录入信息模块=================================-->
+
+    <div class="page-title step01">
+        <!--名师搜“神”记-->
+        <div class="title-img-1">
+            <img src="/image/teachersday/information-1.png" alt=""/>
+        </div>
+        <div class="title-img-2">
+            <img src="/image/teachersday/information-2.png" alt=""/>
+        </div>
+        <div class="input-text">
+            <img src="/image/teachersday/information-input-text.png" alt=""/>
+            <ul>
+                <li class="list-1">
+                    <select class="select1" name="province">
+                        <option value="-1">请选择</option>
+                    </select>
+                    <select class="select2" name="city">
+                        <option value="-1">请选择</option>
+                    </select>
+                </li>
+                <li class="list-2">
+                    <input type="text" id="txtSchool" maxlength="10" placeholder="请输入老师所在学校"/>
+                </li>
+                <li class="list-3">
+                    <input type="text" id="txtName" maxlength="4" placeholder="请输入老师真实姓名"/>
+                </li>
+                <li class="list-4">
+                    <input type="text" id="txtCreator" maxlength="4" placeholder="请输入你的姓名"/>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-text">
+            <a href="#" id="nextStep">
+                <img src="/image/teachersday/information-7.png" alt=""/>
+            </a>
+        </div>
+        <p class="p-text">注：请正确填写校名和老师姓名，确保老师可以收到你的海报哦~</p>
+    </div>
+    <!--==============================录入信息模块 结束=================================-->
+    <div class="teacher-day-tool step02 hide">
+        <div class="contents">
+            <div class="canvas-con d-poster">
+            </div>
+            <!--合成图片 End-->
+            <!--滑动缩放图片-->
+            <div class="scrollbarwrap hide">
+                <span class="scrollbar-add">
+                <img src="/image/teachersday/scrollbar-add.png">
+                </span>
+
+                <div class="scrollbar" style="opacity: 1;">
+                    <div class="scroll_track" style="height: 48%;"></div>
+                    <div class="scroll_thumb" style="top: 50%;"></div>
+                </div>
+                <span class="scrollbar-minus">
+                    <img src="/image/teachersday/scrollbar-minus.png">
+                </span>
+
+            </div>
+            <!--滑动缩放图片 end-->
+            <!--操作区域按钮-->
+            <div class="canvas-btn">
+                <img class="btn-img-text" src="/image/teachersday/tool-text.png" alt="文字"/>
+                <img class="btn-img-photo" src="/image/teachersday/tool-photo.png" alt="选择照片"/>
+                <img class="btn-img-ok" src="/image/teachersday/tool-ok.png" alt="OK"/>
+            </div>
+            <!--操作区域按钮 end-->
+            <!--滑动模板-->
+            <div id="picScroll" class="picScroll">
+                <!--<div class="hd hide">-->
+                <!--<span class="next"></span>-->
+                <!--<ul></ul>-->
+                <!--<span class="prev"></span>-->
+                <!--</div>-->
+                <div class="hd">
+                    <span class="next nextStop hide"></span>
+                    <ul>
+                        <li class="on"></li>
+                        <li class=""></li>
+                    </ul>
+                    <span class="hide" class="prev"></span>
+
+                    <h3 class="hide">我的得一“大神来了”</h3>
+                </div>
+                <div class="bd" id="sceneList">
+                </div>
+            </div>
+            <!--滑动模板end-->
+        </div>
+    </div>
+    <!--pop-input-text-->
+</div>
+<script type="text/html" id="wordTpl">
+    <div class="pop-input-text">
+        <img class="img-title" src="/image/teachersday/pop-title.png" alt=""/>
+        <textarea class="textarea-text" name="" id="" cols="30" rows="5"></textarea>
+
+        <div class="pop-btn">
+            <img i="close" class="img1" src="/image/teachersday/pop-quxiao.png" alt=""/>
+            <img id="editWord" src="/image/teachersday/pop-queding.png" alt=""/>
+        </div>
+    </div>
+</script>
+<script src="/js/site-base.min.js?t=20160905"></script>
+<script src="/plugs/TouchSlide.1.1/TouchSlide.1.1.js?t=20160905_1"></script>
+<script src="/js/poster/exif-js.min.js?t=20160905_1"></script>
+<!--<script src="/js/poster/touch.min.js?t=20160905_1"></script>-->
+<script src="/js/poster/hidpi-canvas.min.js?t=2"></script>
+<!--<script src="/source/js/poster/d-poster.js?t=20160908_8e"></script>-->
+<!--<script src="/source/js/poster/page-poster.js?t=20160908_16"></script>-->
+<script src="/js/poster/d-poster.min.js?t=20160909"></script>
+<script src="/js/poster/page-poster.min.js?t=20160909"></script>
+</body>
+</html>

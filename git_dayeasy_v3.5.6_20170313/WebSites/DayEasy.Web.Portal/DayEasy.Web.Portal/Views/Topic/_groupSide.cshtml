@@ -1,0 +1,23 @@
+﻿@model List<DayEasy.Contracts.Dtos.Group.GroupDto>
+
+<div class="layer-block diffe2 f-cb">
+    <h2 class="h2-title"><i class="iconfont dy-icon-paixingbang"></i>@ViewData["title"]</h2>
+    <div class="hot-circle">
+        <ul class="ul-list f-cb">
+            @if (Model != null)
+            {
+                foreach (var group in Model)
+                {
+                    <li>
+                        <a href="@Url.Action("Item", "Group", new { id = group.Id })">
+                        <img src="@(string.IsNullOrWhiteSpace(group.Logo) ? Url.StaticLink("/v3/image/temp/cat.png") : Html.MakeThumb(group.Logo, "64x64"))" width="64" height="64" alt="" />
+                         <p class="f-toe" title="@group.Name">@group.Name</p>
+                        <span>成员：@group.Count 人</span>
+                        <strong>圈主：@group.Owner </strong>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>

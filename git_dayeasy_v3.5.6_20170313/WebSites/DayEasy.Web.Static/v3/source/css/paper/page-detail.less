@@ -1,0 +1,65 @@
+/**
+  试卷详情页
+**/
+@import "../../less/base";
+
+#paperDetailDiv {
+  font-family: "Microsoft YaHei", serif;
+  h4 {
+    border-bottom: solid 1px @border-color;
+    span {
+      display: block;
+      border-left: 3px solid @d-color-red;
+      color: @d-color-gray;
+      line-height: 28px;
+      margin: 8px 0;
+      padding-left: 15px;
+      small {
+        margin-left: 8px;
+        color: @d-color-light-gray;
+      }
+    }
+  }
+  h5 {
+    padding-left: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 28px;
+    color: @d-color-gray;
+  }
+  .paper-detailline {
+    position: relative;
+    padding: 0 50px 0 20px;
+    .pq-edit {
+      color: @d-color-light-gray;
+      left: -5px;
+      line-height: 100%;
+      position: absolute;
+      top: 2px;
+      font-size: 16px;
+      cursor: pointer;
+      &:hover {
+        color: @d-color-blue;
+      }
+    }
+    .p-score {
+      position: absolute;
+      top: 0;
+      right: -45px;
+      color: @d-color-light-gray;
+      background-color: @border-color;
+      line-height: 150%;
+      padding: 0 4px;
+    }
+  }
+}
+
+.q-edit-body {
+  width: 1000px;
+  height: 400px;
+}
+
+.q-edit-btn {
+  text-align: right;
+  margin: 20px 0 0;
+}

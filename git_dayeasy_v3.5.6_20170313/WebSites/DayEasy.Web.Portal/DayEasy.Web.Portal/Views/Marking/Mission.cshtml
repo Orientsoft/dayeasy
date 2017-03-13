@@ -1,0 +1,221 @@
+﻿@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Helper
+@model DayEasy.Contracts.Dtos.Marking.Joint.JMissionDto
+@using DayEasy.Core
+@{
+    ViewBag.Title = Model.PaperTitle + " - 协同批阅任务";
+    ViewBag.HideMenu = true;
+    var urlHome = Consts.Config.MainSite + "/User";
+}
+<div class="dm-header" data-joint="@(ViewBag.JointBatch)">
+    <div class="header-wrap">
+        <div class="dm-nav">
+         <a class="f-fl" href="@urlHome" class="dm-back">
+                <i class="iconfont dy-icon-fanhui" style="top: 1px;position: relative;"></i>
+                返回主页
+            </a>
+            <h3>《@Model.PaperTitle》协同批阅任务</h3>
+        </div>
+    </div>
+</div>
+@if (!Model.Missions.IsNullOrEmpty())
+{
+    <div class="d-box">
+        <h2 class="d-title">
+            我的批阅任务
+            <small>(可组合批阅)</small>
+        </h2>
+        <div class="d-missions">
+            @foreach (var mission in Model.Missions)
+            {
+                var finished = mission.Marked == 0 && mission.Left == 0;
+                <div class="d-mission@((mission.Markingabel && !finished) ? "" : " disabled")"
+                     data-qids="@(string.Join(",", mission.QuestionIds))"
+                     title="单击选择">
+                    <div class="d-sort-wrap">
+                        <div class="d-types">
+                            @if (Model.IsAb)
+                            {
+                                <span>@(mission.SectionType == 1 ? "A" : "B")</span>
+                            }
+                            <span title="@mission.QuestionType">@(mission.QuestionType.Substring(0, 2))</span>
+                            @if (mission.HasException)
+                            {
+                                <i class="iconfont dy-icon-warningsj" title="存在异常"></i>
+                            }
+                        </div>
+                        <div class="d-sort">
+                            @if (mission.QuestionIds.Count == 1)
+                            {
+                                var sortStr = Model.QuestionSorts[mission.QuestionIds[0]];
+                                <strong class="@(sortStr.Length > 2 ? "d-sort-" + sortStr.Length : "")">@sortStr</strong>
+                            }
+                            else
+                            {
+                                int len = mission.QuestionIds.Count,
+                                    col = len > 9 ? 4 : (len > 4 ? 3 : 2),
+                                    row = (int)Math.Ceiling(len / (double)col);
+
+                                <table class="row@(row) col@(col)">
+                                    @for (var i = 0; i < row; i++)
+                                    {
+                                        <tr>
+                                            @for (var j = 0; j < col; j++)
+                                            {
+                                                var index = i * col + j;
+                                                if (len < index + 1)
+                                                {
+                                                    <td></td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@(Model.QuestionSorts[mission.QuestionIds[index]])</td>
+                                                }
+                                            }
+                                        </tr>
+                                    }
+                                </table>
+                            }
+                        </div>
+                        <div class="d-checkbox">
+                            <i class="iconfont dy-icon-gou"></i>
+                        </div>
+                    </div>
+                    <div class="d-progress-wrap">
+                        @if (mission.Markingabel)
+                        {
+                            if (finished)
+                            {
+                                <div class="d-word">已完成</div>
+                            }
+                            else
+                            {
+                                <div class="d-word hide">
+                                    已阅<em>@(mission.Marked)</em> / 未阅<em>@(mission.Left)</em>
+                                </div>
+                                <div class="d-progress">
+                                    <i style="width: @(mission.Percent)%"></i>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="d-word">等待上传</div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="d-actions">
+            <button id="markingBtn" class="dy-btn dy-btn-info disabled" disabled="disabled">开始批阅</button>
+        </div>
+    </div>
+}
+<div class="d-box">
+    <h2 class="d-title">
+        年级批阅进度
+    </h2>
+    <div class="d-areas">
+        @foreach (var area in Model.QuestionMissions)
+        {
+            var areaCss = Model.IsAb ? (area.Key == 1 ? " d-area-a" : " d-area-b") : string.Empty;
+            <div class="d-area@(areaCss)">
+                @if (Model.IsAb)
+                {
+                    <h3>@(area.Key == 1 ? "A卷" : "B卷")</h3>
+                }
+                @foreach (var type in area.Value)
+                {
+                    <div class="d-mission-type">
+                        <div class="d-mission-title" title="@type.Key">@(type.Key)</div>
+                        @foreach (var item in type.Value)
+                        {
+                            <div class="d-mission-item" title="查看详情">
+                                <div data-rank="@(item.Percent)" class="d-rank">@(Model.QuestionSorts[item.Id])</div>
+                                <div class="hide">
+                                    <div class="d-details">
+                                        <button class="ui-dialog-close" i="close" title="cancel">×</button>
+                                        <h4>已阅<span class="d-marked">@(item.Marked)</span> / 未阅<span class="d-left">@(item.Left)</span></h4>
+                                        <ul class="d-teachers">
+                                            @foreach (var dict in item.Teachers)
+                                            {
+                                                if (!Model.Teachers.ContainsKey(dict.Key))
+                                                {
+                                                    continue;
+                                                }
+                                                var teacher = Model.Teachers[dict.Key];
+                                                <li>
+                                                    <img src="@Html.MakeThumb(teacher.Avatar, "30x30")" alt="@teacher.Name" />
+                                                    <span>@teacher.Name</span>
+                                                    <em>@dict.Value</em>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        @if (Model.IsAb && Model.QuestionMissions.Count > 1)
+        {
+            <div class="d-area-border"></div>
+        }
+    </div>
+    <div class="d-exception-wrap">
+        已解决<em class="d-solve">@Model.SolveCount</em> / 异常总数<em>@Model.ExceptionCount</em>
+    </div>
+
+    @if (Model.IsCreator)
+    {
+        <div class="d-actions">
+            <a class="dy-btn dy-btn-info" href="/marking/allot/@(ViewBag.JointBatch)" target="_blank">调整分配</a>
+            <button class="dy-btn dy-btn-danger b-complete" data-paper="@(Model.PaperId)">结束阅卷</button>
+        </div>
+    }
+</div>
+<div class="d-box m-object-marking">
+    <h2 class="d-title f-cb">
+        客观题得分率
+        <span class="top-tit">( 如发现客观题答案有误，请在结束阅卷前及时 <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1773670794&amp;site=qq&amp;menu=yes" class="a01" target="_blank" title="点击联系QQ">
+    联系客服
+</a>)</span>
+        <span class="top-right-tab hide">
+            <span data-showtab="low" class="on">仅查看得分率低的题目</span>
+            <b>|</b>
+            <span data-showtab="all">查看全部</span>
+        </span>
+    </h2>
+    <div class="m-object-con">
+        <div class="box j-contents hide">
+            <div class="box-lg-10 j-tab-con">
+
+            </div>
+            <div class="box-lg-2">
+                <dl class="m-object-list f-cb dl-demo">
+                    <dt>
+                        图例说明
+                    </dt>
+                    <dd class="dd">
+                        <span class="obj-t"><b>题号</b><em>正确答案</em></span>
+                        <span class="obj-b">得分率</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.IsCreator)
+{
+    @Html.Partial("MarkingComplete")
+}
+
+@section css{
+    @Html.CombineLink("v3/css/marking/page-mission.css")
+}
+@section js{
+    @Html.CombineLink("js/highcharts.min.js,plugs/highcharts/highcharts-more.js,plugs/highcharts/solid-gauge.js,v3/js/marking/page-mission.js")
+}

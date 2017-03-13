@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    @@include('./link-style.html')
+    <title> 圈子详情 - 我的得一 - 触屏版</title>
+    <link rel="stylesheet" href="/css/group/group-list.min.css"/>
+</head>
+<body data-role="3">
+<div class="wrap-group" style="display: block;">
+    <header class="d-base-header" id="f-scroll">
+        <div class="d-login-title">
+            <div class="hp-title hp-cf">
+                <a class="hp-text d-group-home-back" href="/page/group/home.html">
+                    <div class="hp-left hp-back">
+                        <i class="iconfont dy-icon-left"></i>
+                    </div>
+                </a>
+                <h1 class="hp-h1 d-group-name"></h1>
+            </div>
+        </div>
+    </header>
+    <section class="group-list">
+        <!--动态列表-->
+        <ul class="group-list-ul">
+        </ul>
+        <div class="dy-load-bata">莫有动态了</div>
+    </section>
+</div>
+<div class="wrap-pop" style="display: none;">
+    <header class="d-base-header">
+        <div class="d-login-title">
+            <div class="hp-title hp-cf">
+                <a class="hp-text pop-back" href="javascript:void(0);">
+                    <div class="hp-left hp-back">
+                        <i class="iconfont dy-icon-left"></i>
+                    </div>
+                </a>
+                <h1 class="hp-h1 d-pop-name"></h1>
+            </div>
+        </div>
+    </header>
+    <section class="group-information" style="padding: 20px 18px;">
+        <!--通知信息-->
+        <div class="information-contents">
+        </div>
+    </section>
+</div>
+<!-- 基础脚本 -->
+@@include('./link-script.html')
+<script src="/js/page/group/item.min.js"></script>
+</body>
+</html>

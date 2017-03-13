@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>复选框</title>
+    @@include('./link.html')
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1446190755_8411431.css">
+
+
+
+    <style>
+
+        .checkbox-group{ position: relative;  display: inline-block; *display: inline; *zoom: 1; cursor: pointer; line-height: 20px; height: 20px; min-width: 20px; }
+        .checkbox-group input{height: 20px; width: 20px; position: absolute; top: 0; left: 0; z-index: 20;display: inline-block; *display: inline; *zoom: 20;cursor: pointer;opacity:0; -ms-filter:"alpha(opacity=60)";filter:alpha(opacity=60);zoom:1;}
+        .checkbox-group .iconfont{ position: absolute; top: 0; left: 0; z-index: 1; cursor: pointer; font-size: 20px; }
+        .checkbox-group .dy-icon-checkbox,.checkbox-group .dy-icon-radio{color: #e6e9ed;}
+        .checkbox-group .dy-icon-checkboxhv ,.checkbox-group .dy-icon-radiohv{color: #3bafda;}
+        .checkbox-group span{ margin-left: 30px; display: inline-block; *display: inline; *zoom: 1;}
+
+
+    </style>
+</head>
+<body>
+
+<div class="dy-wrap">
+    @@include('./header.html')
+    <div class="dy-main">
+        <div class="home-circles w1200 f-cb">
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <div>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options" ><span>Radio 1 (preselected)</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options" > <span>Radio 1 (preselected)</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options" > <span>Radio 1 (preselected)</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+
+            </div>
+            <div class="mt20">
+
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options" >
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options" >
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options" >
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" name="options" >
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+            </div>
+            <div class="mt20">
+
+                <label class="checkbox-group group-checkbox">
+                    <input type="checkbox" name="options" ><span>Radio 1 (preselected)</span>
+                    <i class="iconfont dy-icon-checkbox"></i>
+                </label>
+                <label class="checkbox-group group-checkbox">
+                    <input type="checkbox" name="options" ><span>Radio 1 (preselected)</span>
+                    <i class="iconfont dy-icon-checkbox"></i>
+                </label>
+                <label class="checkbox-group group-checkbox">
+                    <input type="checkbox" name="options" ><span>Radio 1 (preselected)</span>
+                    <i class="iconfont dy-icon-checkbox"></i>
+                </label>
+
+
+            </div>
+            <div class="mt20">
+
+                <label class="checkbox-group group-checkbox">
+                    <input type="checkbox" name="options" >
+                    <i class="iconfont dy-icon-checkbox"></i>
+                </label>
+                <label class="checkbox-group group-checkbox">
+                    <input type="checkbox" name="options" >
+                    <i class="iconfont dy-icon-checkbox"></i>
+                </label>
+                <label class="checkbox-group group-checkbox">
+                    <input type="checkbox" name="options" >
+                    <i class="iconfont dy-icon-checkbox"></i>
+                </label>
+
+
+            </div>
+
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <i class="iconfont dy-icon-checkboxhv"></i>
+            <i class="iconfont dy-icon-checkbox"></i>
+            <i class="iconfont dy-icon-radiohv"></i>
+            <i class="iconfont dy-icon-radio"></i>
+
+            <input type="radio" name="" id=""/>
+            <input type="checkbox" name="" id=""/>
+
+
+        </div>
+
+    </div>
+</div>
+@@include('./footer.html')
+<script>
+
+    $(function(){
+
+//
+//
+//        //初始化多选框
+//        $('.group-checkbox').on('click', 'input', function(event) {
+//            $(this).siblings('.iconfont').toggleClass('dy-icon-checkboxhv');
+//        });
+//        //初始化单选框
+//        $('.group-radio').on('click', 'input', function(event) {
+//            $(this).siblings('.iconfont').addClass('dy-icon-radiohv');
+//            $(this).addClass('dy-icon-radiohv').parents('.group-radio').siblings('.group-radio').children('.dy-icon-radio').removeClass('dy-icon-radiohv');
+//        });
+//
+//
+
+
+
+    });
+
+</script>
+</body>
+</html>

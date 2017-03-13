@@ -1,0 +1,73 @@
+﻿@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@model DayEasy.Application.Services.Dto.VWorkDto
+@{
+    var isPush = Model.PublishType == (byte)PublishType.Test;
+    var routeData = new { batch = Model.Batch, paper_id = Model.PaperId };
+    var menus = new Dictionary<string, string>
+    {
+        {Url.Action("StatisticsSurvey", "TeacherWork", routeData), "考试概况"},
+        {Url.Action("StatisticsQuestion", "TeacherWork", routeData), "题目分析"},
+        {Url.Action("StatisticsScore", "TeacherWork", routeData), "分数排名"},
+        //{Url.Action("StatisticsUnSubmit", "TeacherWork", routeData), isPush ? "未标名单" : "未交名单"},
+        {Url.Action("PaperVariant", "TeacherWork", routeData), "考后补救"}
+    };
+    var icons = new[] { "dy-icon-zhenduan", "dy-icon-weibiaoti1", "dy-icon-shujufenxi", "dy-icon-jiuyuan" };
+}
+<div class="coach-base-title">
+    <div class="dp-title">
+        <h2 id="paperName">
+            @Model.PaperTitle
+        </h2>
+        @if (isPush)
+        {
+            <span class="free-bubble free-bg-yellow">推送试卷<i></i></span>
+        }
+        else
+        {
+            <span class="free-bubble free-bg-green">考试试卷<i></i></span>
+        }
+    </div>
+    <ul class="dp-nav">
+        @{
+            var i = 0;
+            foreach (var menu in menus)
+            {
+                var isCurrent = (Model.Step == i++);
+                var css = (i == menus.Count ? "dp-nav-last" : "");
+                if (isCurrent)
+                {
+                    <li class="@css z-crt">
+                        <a href="javascript:void(0);">
+                            <i class="iconfont @icons[i-1]"></i>
+                            @menu.Value
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="@css">
+                        <a href="@menu.Key">
+                            <i class="iconfont @icons[i-1]"></i>
+                            @menu.Value
+                        </a>
+                    </li>
+                }
+            }
+        }
+        <li class="dp-slide-bar"></li>
+    </ul>
+    <div class="dp-actions">
+        <div class="box-lg-7">
+            <a class="f-toe show" href="@(Consts.Config.MainSite+"/group/"+Model.ClassId)" target="_blank" title="进入圈子">
+                @Model.ClassName
+            </a>
+        </div>
+        <div class="box-lg-5">
+            <a href="@Url.Action("Detail", "Paper", new {id = Model.PaperId})" title="查看试卷详情">
+                <i class="iconfont dy-icon-warning"></i>
+                试卷详情
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,264 @@
+﻿@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@using DayEasy.Utility.Helper
+@model List<string[]>
+@{
+    ViewBag.Title = "组合批阅";
+}
+<script>
+    (function (S) {
+        S.mix(S, {
+            joint: '@ViewBag.JointBatch',
+            groups: S.json('@Html.Raw(JsonHelper.ToJson(Model))')
+        });
+    })(SINGER);
+</script>
+<div class="dm-header">
+    <div class="header-wrap">
+        <div class="dm-nav">
+            <a href="@Url.Action("Mission", new {jointBatch = ViewBag.JointBatch})" class="dm-back">
+                <i class="iconfont dy-icon-fanhui"></i>
+                返回
+            </a>
+            <em></em>
+            <h3></h3>
+        </div>
+        <div class="dm-reminder">
+            <div class="dm-reminder-wrap">
+                <div class="dm-reminder-item">
+                    <i class="iconfont dy-icon-warning"></i>
+                    切换试卷时，系统将自动保存
+                </div>
+                <div class="dm-reminder-item">
+                    <span class="b-jump jump-first disabled" disabled data-step="first" title="第一份">跳至首页</span>
+                    <span class="b-jump jump-last disabled" disabled data-step="0" title="最后一份">跳至末页</span>
+                </div>
+            </div>
+            <button id="saveBtn" type="button" class="dy-btn dy-btn-info">保存批阅</button>
+        </div>
+    </div>
+</div>
+<div class="dm-body">
+    <!--阅卷区域-->
+    <div class="dm-areas"></div>
+    <!--阅卷设置-->
+    <div class="dm-setting dm-fixed">
+        <div class="m-tools">
+            <ul>
+                <li title="擦除">
+                    <div data-t="clear" class="tool tool-clear active">
+                        <i></i>
+                    </div>
+                </li>
+                <li>
+                    <div data-t="0" class="tool tool-full">
+                        <i></i>
+                    </div>
+                </li>
+                <li>
+                    <div data-t="1" class="tool tool-semi">
+                        <i></i>
+                    </div>
+                </li>
+                <li>
+                    <div data-t="2" class="tool tool-error">
+                        <i></i>
+                    </div>
+                </li>
+                <!--<li title="批注">
+                    <div data-t="remark" class="tool tool-remark">
+                        <i></i>
+                    </div>
+                </li>-->
+                <li title="设置">
+                    <div data-t="setting" class="tool tool-setting">
+                        <i></i>
+                    </div>
+                </li>
+                <li title="放大">
+                    <div data-t="zoom" class="tool tool-zoom">
+                        <i></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--阅卷控制-->
+    <div class="dm-control">
+        <div class="dm-prev dm-fixed">
+            <i class="iconfont dy-icon-pre"></i>
+        </div>
+        <div class="dm-next dm-fixed">
+            <i class="iconfont dy-icon-next"></i>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="pictureTemp">
+    <div class="dm-item">
+        <div class="dm-score-box{{list.length==1?' dm-single':''}}">
+            {{each list as item}}
+            <div class="dm-score-item">
+                <div class="dm-sort">{{section>0? (section==1?'A':'B'):''}} {{item.sort}}</div>
+                <div class="dm-input">
+                    <input data-qid="{{item.id}}" maxlength="6" value="{{item.score}}"/>分
+                </div>
+                <div class="dm-score">
+                    <em>/</em>
+                    <span>{{item.score}}</span>
+                    <i class="fa fa-caret-right"></i>
+                </div>
+            </div>
+            {{/each}}
+            <div class="dm-all">全扣</div>
+        </div>
+        <div class="dm-picture-box">
+            <div class="dm-picture">
+                <img src="{{picture}}"/>
+                <div class="dm-areas-wrap">
+                    {{each list as item}}
+                    <div class="dm-area" data-qid="{{item.id}}" data-offset="{{item.area}}">
+                        <span class="sort">{{item.sort}}</span>
+                    </div>
+                    {{/each}}
+                </div>
+                <div class="dm-marks-wrap"></div>
+            </div>
+            <div class="dm-picture-bottom">
+                <span class="dm-exception">
+                    <i class="iconfont dy-icon-warningsj"></i>
+                    报告异常
+                </span>
+                <div class="dm-picture-history hide">
+                    历史记录<em></em>
+                    <i class="left"></i>
+                    <i class="right"></i>
+                </div>
+                <div class="dm-progress">
+                    已阅<em>0</em> / 未阅<em class="left">0</em>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="scoreBox">
+    <div class="dm-scores-wrap">
+        <div class="dm-scores">
+            {{if quick && quick.length}}
+            <div class="d-quick">
+                {{each quick as item}}
+                <span class="d-score quick" data-score="{{item.score}}">{{item.text}}</span>
+                {{/each}}
+            </div>
+            {{/if}}
+            {{each scores as score}}
+            <span class="d-score" data-score="{{score}}">{{score}}</span>
+            {{/each}}
+            <span class="d-revoke" title="撤销">
+                <i class="fa fa-reply"></i>
+            </span>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="settingBox">
+    <div class="dm-setting-wrap">
+        <div class="d-setting">
+            <div class="d-label">最小分值</div>
+            <div class="d-control">
+                <label class="checkbox-group group-radio">
+                    <input type="radio" value="1" name="minScore">
+                    <span>1分</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" value="0.5" name="minScore">
+                    <span>0.5分</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+            </div>
+        </div>
+        <div class="d-setting">
+            <div class="d-label">
+                <img src="@Url.StaticLink("/v1/image/icon/marking/semi.png")" alt="半对图标" />
+            </div>
+            <div class="d-control">
+                <label class="checkbox-group group-radio block">
+                    <input type="radio" value="0" name="semiAuto">
+                    <span>手动扣分</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" value="1" name="semiAuto">
+                    <span>自动扣分</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <select class="d-semi disabled" disabled="disabled">
+                    <option value="50%">扣一半</option>
+                    <option value="-1">-1分</option>
+                    <option value="-2">-2分</option>
+                    <option value="-3">-3分</option>
+                    <option value="-4">-4分</option>
+                    <option value="-5">-5分</option>
+                    <option value="100%">全扣</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-setting">
+            <div class="d-label">
+                <img src="@Url.StaticLink("/v1/image/icon/marking/error.png")" alt="错误图标" />
+            </div>
+            <div class="d-control">
+                <label class="checkbox-group group-radio block">
+                    <input type="radio" value="0" name="errorAuto">
+                    <span>手动扣分</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <label class="checkbox-group group-radio">
+                    <input type="radio" value="1" name="errorAuto">
+                    <span>自动扣分</span>
+                    <i class="iconfont dy-icon-radio"></i>
+                </label>
+                <select class="d-error disabled" disabled="disabled">
+                    <option value="100%">全扣</option>
+                    <option value="-1">-1分</option>
+                    <option value="-2">-2分</option>
+                    <option value="-3">-3分</option>
+                    <option value="-4">-4分</option>
+                    <option value="-5">-5分</option>
+                    <option value="50%">扣一半</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="exceptionTemp">
+    <div class="exception-box">
+        @foreach (JointExceptionType type in Enum.GetValues(typeof(JointExceptionType)))
+        {
+            if (type == JointExceptionType.Other)
+            {
+                continue;
+            }
+            <label class="checkbox-group group-radio block">
+                <input type="radio" value="@((byte)type)" name="exception">
+                <span>@(type.GetText())</span>
+                <i class="iconfont dy-icon-radio"></i>
+            </label>
+        }
+        <label class="checkbox-group group-radio block">
+            <input type="radio" value="0" name="exception">
+            <span>其他</span>
+            <i class="iconfont dy-icon-radio"></i>
+        </label>
+        <div class="exception-other hide">
+            <input type="text" maxlength="50" placeholder="请输入异常信息，50字以内" />
+        </div>
+    </div>
+</script>
+@section css{
+    @Html.CombineLink("css/font-awesome.css,v3/css/marking/page-combine.css")
+}
+@section js{
+    @Html.CombineLink("js/artTemplate.min.js,v3/js/marking/page-combine.js")
+}

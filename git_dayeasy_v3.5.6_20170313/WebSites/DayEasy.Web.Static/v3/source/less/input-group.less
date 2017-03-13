@@ -1,0 +1,179 @@
+/**
+ * @Boz
+ * @Name      Input group
+ * @date    2015-11-26 10:12:31
+ */
+@import "../../source/less/base";
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+  border: 1px solid #e6e9ed;
+  font-size: 14px;
+  overflow: hidden;
+  color: #666;
+  padding: 6px 8px;
+  .transition(border .2s ease);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: @activeColor;
+  //border-color: transparent;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  height: 40px;
+}
+
+select {
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  overflow: visible; //只有设置这个属性IE下padding才能生效
+  padding: 6px 8px;
+}
+
+textarea {
+  overflow-y: auto;
+}
+
+/* all */
+::-webkit-input-placeholder {
+  color: #bbb;
+}
+
+::-moz-placeholder {
+  color: #bbb;
+}
+
+/* firefox 19+ */
+:-ms-input-placeholder {
+  color: #bbb;
+}
+
+/* ie */
+input:-moz-placeholder {
+  color: #bbb;
+}
+
+/*头部输入搜索框*/
+.dy-soso-two {
+  height: 46px;
+  position: relative;
+  display: inline-block;
+  select {
+    height: 42px;
+  }
+  .input-box {
+    .rounded-corners(3px);
+    border-width: 2px;
+    width: 490px;
+    height: 46px;
+    padding: 6px 12px;
+  }
+  .span-box {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+    height: 46px;
+    line-height: 46px;
+    background: #3bafda;
+    color: white;
+    font-size: 16px;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    text-align: center;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    &:hover {
+      background: @color-hover-blue;
+    }
+    button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      .opacity(0);
+    }
+  }
+}
+
+.input-part {
+  width: 227px;
+  position: relative;
+  input {
+    width: 100%;
+  }
+  button {
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    border: none;
+    background: white;
+    text-align: center;
+  }
+}
+
+/*单选多选输入操作框*/
+.checkbox-group {
+  position: relative;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  cursor: pointer;
+  line-height: 20px;
+  min-width: 20px;
+  //margin-bottom: 10px;
+}
+
+.checkbox-group input {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  display: inline-block;
+  *display: inline;
+  *zoom: 20;
+  cursor: pointer;
+  opacity: 0;
+  -ms-filter: "alpha(opacity=60)";
+  filter: alpha(opacity=60);
+  zoom: 1;
+}
+
+.checkbox-group .iconfont {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.checkbox-group .dy-icon-checkbox, .checkbox-group .dy-icon-radio {
+  color: #e6e9ed;
+}
+
+.checkbox-group .dy-icon-checkboxhv, .checkbox-group .dy-icon-radiohv {
+  color: #3bafda;
+}
+
+.checkbox-group span {
+  margin-left: 25px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}

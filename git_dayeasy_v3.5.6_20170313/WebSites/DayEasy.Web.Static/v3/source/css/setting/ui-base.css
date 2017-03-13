@@ -1,0 +1,9 @@
+.bg-grey {
+  background: #f5f5f5;
+}
+.h2-circle {
+  font-weight: normal;
+  font-size: 20px;
+  border-left: 5px solid #ed5565;
+  padding-left: 25px;
+}

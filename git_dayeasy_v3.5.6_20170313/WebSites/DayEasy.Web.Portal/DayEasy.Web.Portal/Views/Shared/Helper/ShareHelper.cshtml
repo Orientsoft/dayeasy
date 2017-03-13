@@ -1,0 +1,87 @@
+﻿@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@model DayEasy.Contracts.Dtos.Group.GroupDto
+@{
+    var url = string.Concat(Consts.Config.MainSite, "/group/apply/", Model.Id);
+    var logo = (string.IsNullOrWhiteSpace(Model.Logo)
+        ? Url.StaticLink("v3/image/temp/header.png")
+        : Html.MakeThumb(Model.Logo, "180x135")).ToString();
+    string nick;
+    switch (Model.Type)
+    {
+        case (byte) GroupType.Class:
+            nick = "同学们";
+            break;
+        case (byte) GroupType.Colleague:
+            nick = "同事们";
+            break;
+        default:
+            nick = "伙伴们";
+            break;
+    }
+}
+<!--分享组件-->
+<div class="fr-box-share">
+    <span class="close-share iconfont dy-icon-close"></span>
+    <input type="hidden" id="txtUrl" value="@url" />
+    <input type="hidden" id="txtCode" value="@Model.Code" />
+    <input type="hidden" id="txtLogo" value="@logo" />
+    <textarea class="mb10 wf100" id="txtText" cols="30" rows="5">
+        @nick，我已在得一平台(dayeasy.net)上创建了圈子【@Model.Name】，圈号：@Model.Code，赶快加入吧！
+    </textarea>
+    <p class="font-color-bule mb25">
+        <i class="iconfont dy-icon-42"></i>
+        <span class="f-csp" id="btnCopyText" data-clipboard-target="txtText" data-clipboard-text="">复制加圈链接</span>
+    </p>
+    <p class="mb20">选择以下方式，与大家分享这个圈子，让更多人加入！</p>
+    <div class="bdsharebuttonbox">
+        <ul class="f-cb ul-list-letter">
+            <li>
+                <a class="bds_weixin iconfont dy-icon-44" data-cmd="weixin" title="分享到微信" href="#">微信</a>
+            </li>
+            <li>
+                <a class="bds_tsina iconfont dy-icon-47" data-cmd="tsina" title="分享到新浪微博" href="#">微博</a>
+            </li>
+            <li>
+                <a class="bds_sqq iconfont dy-icon-45" data-cmd="sqq" title="分享到QQ好友" href="#">QQ</a>
+            </li>
+        </ul>
+    </div>
+</div>
+@Html.CombineLink("v3/plugs/ZeroClipboard/ZeroClipboard.min.js")
+<script>
+    (function ($) {
+        //复制到剪贴板
+        var loadZeroClipboard = function() {
+            var clip = new ZeroClipboard($('#btnCopyText'), {
+                moviePath: singer.sites.static + '/v3/plugs/ZeroClipboard/ZeroClipboard.swf'
+            });
+            clip.on('ready', function() {
+                this.on('aftercopy', function() {
+                    singer.msg('复制成功');
+                });
+            });
+        };
+        loadZeroClipboard();
+
+        window._bd_share_config = {
+            "common": {
+                "bdText": $("#txtText").val(),
+                "bdDesc": $('#txtText').val(),
+                "bdUrl": $("#txtUrl").val(),
+                "bdPic": $("#txtLogo").val(),
+                "bdStyle": 0,
+                'onBeforeClick': function (cmd, config) {
+                    config.bdText = config.bdDesc = $("#txtText").val();
+                    return config;
+                }
+            },
+            "share": [{
+                //"bdSize": 24,
+                //随便给一个地址：避免使用插件自带样式
+//                "bdCustomStyle": ''
+            }]
+        }
+        with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+    })(jQuery);
+</script>

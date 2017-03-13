@@ -1,0 +1,157 @@
+﻿@using DayEasy.Contracts.Dtos
+
+@model List<AdvertCategoryDto>
+@{
+    ViewBag.Title = "图文分类";
+}
+
+<h4 class="ad-title">
+    <span>图文分类列表</span>
+</h4>
+<div class="categorys">
+    <div class="category">
+        <input type="text" value="" placeholder="分类名称" />
+        <span class="c-edit" title="添加分类"><i class="fa fa-plus-square"></i></span>
+    </div>
+    <div class="categorys-box">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var category in Model)
+            {
+                <div class="category">
+                    <input type="text" value="@category.CategoryName" data-id="@category.Id" data-text="@category.CategoryName" />
+                    <span class="c-edit" title="保存修改"><i class="fa fa-edit"></i></span>
+                    <span class="c-remove" title="删除分类"><i class="fa fa-remove"></i></span>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<script type="text/html" id="item-category">
+    <div class="category">
+        <input type="text" value="{{text}}" data-id="{{id}}" data-text="{{text}}" />
+        <span class="c-edit" title="保存修改"><i class="fa fa-edit"></i></span>
+        <span class="c-remove" title="删除分类"><i class="fa fa-remove"></i></span>
+    </div>
+</script>
+
+@section style{
+    <style type="text/css">
+        .ad-title {
+            margin: 15px 0 20px;
+            padding: 0 20px;
+        }
+        .ad-title span {
+            border-left: 8px solid #ed5565;
+            display: inline-block;
+            height: 22px;
+            padding-left: 8px;
+        }
+        .categorys {
+            padding: 0 20px;
+        }
+        .category {
+            width: 600px;
+            border-bottom: 1px solid #65cafc;
+            margin: 5px 0;
+            padding: 0 15px;
+        }
+        .category input {
+            max-width: 500px;
+            width: 500px;
+            color: #555555;
+            border: 0;
+        }
+        .category .c-edit {
+            cursor: pointer;
+            color: #65cafc;
+            font-size: 20px;
+        }
+        .category .c-edit:hover {
+            color: #28b779;
+        }
+        .category .c-remove {
+            cursor: pointer;
+            color: #8d8d8d;
+            font-size: 22px;
+            margin-left: 15px;
+        }
+        .category .c-remove:hover {
+            color: #ed5565;
+        }
+    </style>
+}
+@section script{
+    @Html.CombineLink("js/artTemplate.min.js")
+    <script type="text/javascript">
+        (function ($, S) {
+            $(".categorys")
+                .delegate(".c-edit", "click", function() {
+                    var $input = $(this).siblings("input");
+
+                    var isPush = true,
+                        value = $input.val().trim(),
+                        id = $input.data("id") || "";
+
+                    if (!value || !value.length) {
+                        S.msg("分类名称不能为空");
+                        return;
+                    }
+
+                    if (id && id.length) {
+                        //修改
+                        isPush = false;
+                        var text = $input.data("text") || "";
+                        if (text == value) {
+                            S.msg("没有变化，无须保存修改");
+                            return;
+                        }
+                    }
+
+                    $.post("/operate/advert/category-edit", { id: id, name: value }, function(json) {
+                        if (!json.status) {
+                            S.msg(json.message);
+                            return;
+                        }
+                        if (isPush) {
+                            $input.val("");
+                            var $box = $(".categorys-box");
+                            var oHtml = $box.html();
+                            var tHtml = template('item-category', { text: value, id: json.data.id });
+                            $box.html("").append(tHtml).append(oHtml);
+                            return;
+                        }
+                        $input.data("text", value);
+                        S.msg("已保存");
+                    });
+                })
+                .delegate(".c-remove", "click", function() {
+                    var $input = $(this).siblings("input");
+                    var $parent = $input.parent(),
+                        id = $input.data("id") || "",
+                        text = $input.data("text") || "";
+
+                    if (!id || !id.length) {
+                        S.msg("参数错误，请刷新重试");
+                        return;
+                    }
+
+                    var msg = "确认删除分类 “<span style='color:#ed5565;'>" + text + "</span>”？<br/>删除后，该分类下的图文将设置为默认分类。";
+                    S.confirm(msg, function() {
+                        $.post("/operate/advert/category-delete", { id: id }, function(json) {
+                            if (!json.status) {
+                                S.msg(json.message);
+                                return;
+                            }
+                            $parent.remove();
+                        });
+                    });
+                });
+        })(jQuery, SINGER)
+    </script>
+}
+
+
+
+

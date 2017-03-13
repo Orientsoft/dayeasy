@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+<script>DEYI.goTop = false;</script>
+<section class="dy-body">
+    <div ng-app="dayeasyApp" ng-cloak>
+        @RenderBody()
+    </div>
+</section>
+@section css{
+    @Html.CombineLink("css/font-awesome.css,css/bootstrap.css,css/site-base.css,v3/css/site-compatible.css")
+    @RenderSection("css", false)
+}
+@section js{
+    @Html.CombineLink("plugs/Angular/angular.min.js,plugs/Angular/angular-route.min.js,js/Jq-common.js,js/base/app.js")
+    @RenderSection("js", false)
+}

@@ -1,0 +1,26 @@
+﻿@model List<DayEasy.Contracts.Dtos.Topic.TopicDto>
+
+<div class="layer-block diffe1">
+    <h2 class="h2-title"><i class="iconfont @(ViewData["iconClass"] ?? "dy-icon-jiangbei") "></i>@ViewData["title"]</h2>
+    <ul class="hot-list">
+        @if (Model != null)
+        {
+            int index = 1;
+            foreach (var topic in Model)
+            {
+                var classStr = index <= 3 ? "class=bg" + index : "";
+
+                <li @classStr>
+                    <span>@index</span>
+                    <p><a class="f-toe" title="@topic.Title" href="@Url.Action("TopicDetail", "Topic", new { id = topic.Id })">@topic.Title</a></p>
+                    <div class="box font-color">
+                        <div class="box-lg-4"><i class="iconfont dy-icon-viewline"></i>@topic.ReadNum</div>
+                        <div class="box-lg-4"><i class="iconfont dy-icon-messageline"></i>@topic.ReplyNum</div>
+                    </div>
+                </li>
+
+                index++;
+            }
+        }
+    </ul>
+</div>

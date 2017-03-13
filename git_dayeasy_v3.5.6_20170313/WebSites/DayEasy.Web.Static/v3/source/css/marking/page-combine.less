@@ -1,0 +1,428 @@
+/**
+ * 组合/单题批阅页
+ * Created by shay on 2016/4/18.
+ */
+@import "ui-base";
+
+@page-width: 1040px;
+@border-color: #ccc;
+@d-color-active: #4fc1e9;
+body {
+  .background-image('marking/marking-bg.png', repeat, #f9f9f9);
+}
+
+//隐藏头部
+.dy-header,
+.dy-header-tool,
+.dy-footer {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.dy-main {
+  padding-bottom: 0;
+}
+
+.page-loading.page-loaded {
+  .transform(none);
+}
+
+.page-loading {
+  top: 50px;
+  .opacity(.5);
+  background: #000;
+  .spinner {
+    .transform(scale(2));
+  }
+}
+
+.center-box {
+  width: @page-width;
+  margin: 0 auto;
+}
+
+/*头部*/
+.dm-header {
+  background: white none repeat scroll 0 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  height: 50px;
+  left: 0;
+  line-height: 48px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  .header-wrap {
+    .center-box;
+    position: relative;
+  }
+  .dm-nav {
+    height: 50px;
+    font-size: 18px;
+    em {
+      background-color: @d-color-gray;
+      width: 1px;
+      .inline-block;
+      vertical-align: middle;
+      height: 18px;
+      margin: 0 15px;
+    }
+    h3 {
+      .inline-block;
+      vertical-align: middle;
+    }
+  }
+  .dm-back {
+    color: @d-color-blue;
+    .inline-block;
+    vertical-align: middle;
+    line-height: 50px;
+    i {
+      font-size: 24px;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+  }
+  .dm-reminder {
+    color: @d-color-light-gray;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 12px;
+    .dm-reminder-wrap {
+      float: left;
+    }
+    .dm-reminder-item {
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+      .b-jump {
+        margin: 0 8px;
+        color: @d-color-blue;
+        cursor: pointer;
+      }
+      .b-jump[disabled],
+      .b-jump.disabled {
+        color: @d-color-light-gray;
+        cursor: not-allowed;
+      }
+    }
+    i {
+      vertical-align: middle;
+      padding: 0 2px 0 0;
+    }
+    button {
+      height: 35px;
+      line-height: 150%;
+      margin-left: 15px;
+    }
+  }
+}
+
+.dm-body {
+  .center-box;
+  min-height: 400px;
+  padding: 65px 45px 0 0;
+  position: relative;
+  margin-bottom: 45px;
+}
+
+/*设置*/
+.dm-setting {
+  position: absolute;
+  right: 0;
+  top: 65px;
+  width: 45px;
+}
+
+@import "ui-tools";
+
+/*控制器*/
+.dm-control {
+  .dm-prev,
+  .dm-next {
+    position: absolute;
+    top: 260px;
+    width: 65px;
+    height: 65px;
+    line-height: 64px;
+    text-align: center;
+    color: #bbb;
+    cursor: pointer;
+    i {
+      font-size: 40px;
+      .transition(all 0.15s ease 0s);
+      &:hover {
+        font-size: 64px;
+        color: @d-color-active;
+      }
+    }
+  }
+  .dm-prev {
+    left: -75px;
+  }
+  .dm-next {
+    right: -75px;
+  }
+}
+
+/*阅卷区域*/
+.dm-areas {
+}
+
+.dm-score-box,
+.dm-picture-box {
+  .inline-block;
+  vertical-align: top;
+}
+
+@import "ui-score-card";
+.dm-item {
+  margin-bottom: 15px;
+  position: relative;
+  &.disabled {
+    .dm-score-box {
+      border-color: #eee;
+      .dm-score-item {
+        border-bottom-color: #eee;
+      }
+      .dm-sort {
+        border-color: #eee;
+      }
+      .dm-all {
+        background-color: #f5f5f5 !important;
+        color: @border-color !important;
+      }
+      input {
+        color: @border-color !important;
+        text-shadow: none !important;
+      }
+    }
+  }
+}
+
+/*试卷区域*/
+.dm-picture-box {
+  width: 782px;
+  .dm-picture {
+    position: relative;
+    border: 1px solid @border-color;
+    .inline-block;
+    vertical-align: top;
+    img {
+      border: none;
+      max-width: 100%;
+      display: block;
+    }
+    .dm-marks {
+
+    }
+  }
+  .dm-area {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(79, 193, 233, 0.3);
+    color: @color-default;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 66;
+    .sort {
+      position: absolute;
+      .opacity(.3);
+      background-color: @d-color-active;
+      border-color: @d-color-active;
+      color: @color-default;
+      height: 22px;
+      line-height: 20px;
+      padding: 0 5px;
+      text-align: center;
+      cursor: default;
+      .transition(all 0.25s ease-out 0s);
+    }
+    &:hover,
+    &.active {
+      border-color: @d-color-active;
+      .sort {
+        .opacity(1);
+        top: -22px;
+        left: -2px;
+      }
+    }
+  }
+  .dm-mark {
+    position: absolute;
+    z-index: 88;
+    img {
+      border: none;
+      max-width: 100%;
+    }
+    .sub-score {
+      background-color: #fa8989;
+      border: 1px solid #fa8989;
+      .rounded-corners(6px);
+      color: @color-default;
+      font-size: 14px;
+      font-weight: bold;
+      left: 48px;
+      padding: 1px 2px;
+      position: absolute;
+      text-align: center;
+      top: 0;
+    }
+    &.mark-word {
+      color: #fa8989;
+      font-family: 宋体, serif;
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1em;
+      white-space: nowrap;
+    }
+  }
+  .dm-picture-bottom {
+    position: relative;
+    line-height: 35px;
+    height: 35px;
+    color: @d-color-light-gray;
+    font-size: 12px;
+    text-align: center;
+    .dm-exception {
+      cursor: pointer;
+      position: absolute;
+      left: 0;
+      i {
+        font-size: 14px;
+        margin-right: 5px;
+      }
+      &:hover {
+        color: @d-color-red;
+      }
+    }
+    .dm-progress {
+      position: absolute;
+      right: 0;
+      top: 0;
+      em {
+        font-size: 20px;
+        font-weight: 600;
+        color: @d-color-blue;
+        padding: 0 3px;
+        letter-spacing: 2px;
+        &.left {
+          color: @d-color-light-gray;
+          font-size: 14px;
+        }
+        small {
+          font-size: 85%;
+          color: @d-color-orange;
+        }
+      }
+    }
+    .dm-picture-history {
+      color: @color-default;
+      background-color: #ff6e6e;
+      font-size: 12px;
+      text-align: center;
+      font-weight: 600;
+      .inline-block;
+      line-height: 18px;
+      height: 20px;
+      padding: 0 18px;
+      position: relative;
+      font-family: "Microsoft YaHei", serif;
+      & > em {
+        font-size: 14px;
+        margin-left: 3px;
+        letter-spacing: 1px;
+      }
+      i {
+        position: absolute;
+        top: 0;
+      }
+      .left {
+        .angle-right(10px, @color-default, 5px);
+        left: 0;
+      }
+      .right {
+        .angle-left(10px, @color-default, 5px);
+        right: 0;
+      }
+    }
+  }
+  .dm-picture-finished {
+    border: 1px solid #eee;
+    color: #6ebc45;
+    font-size: 24px;
+    font-weight: bold;
+    height: 150px;
+    text-align: center;
+    .background-image('marking/finished-bg.png', repeat, #f9f9f9);
+    .d-message {
+      margin: 32px 0 20px;
+      i {
+        font-size: 38px;
+        margin-right: 12px;
+        vertical-align: middle;
+      }
+      &.nothing {
+        color: @d-color-light-gray;
+        margin-top: 65px;
+      }
+    }
+    .d-actions {
+      .dy-btn {
+        margin-left: 15px;
+        height: 32px;
+        line-height: 150%;
+      }
+    }
+  }
+}
+
+/*异常申报*/
+.exception-box {
+  width: 300px;
+  color: @d-color-gray;
+  .checkbox-group {
+    display: block;
+    line-height: 28px;
+  }
+  .exception-other {
+    margin-top: 10px;
+    input {
+      max-width: 300px;
+      width: 300px;
+    }
+  }
+}
+
+.picture-error {
+  height: 150px;
+  line-height: 150px;
+  width: 780px;
+  text-align: center;
+  color: @d-color-gray;
+  span {
+    cursor: pointer;
+    color: @d-color-blue;
+  }
+  .dy-loading {
+    margin-top: 0;
+    line-height: 150px;
+    height: 150px;
+    padding-top: 35px;
+  }
+}
+
+.checkbox {
+  cursor: pointer;
+  input {
+    margin-right: 5px;
+    vertical-align: -2px;
+  }
+}
+
+@media screen and (max-width: 1040px) {
+  .dm-header .header-wrap {
+    width: auto;
+  }
+}

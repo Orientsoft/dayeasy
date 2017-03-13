@@ -1,0 +1,252 @@
+/*--------------------------------------------------------------
+                        Product Name Style
+
+      Author:Plato
+      Create Date:2016/03/17   Last Mondify Date:2016/02/1 10:14
+      ===================================================
+
+--------------------------------------------------------------*/
+.dy-wrap {
+  background: #f5f5f5;
+}
+.page-contact-us {
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 606px;
+  background: url(/v3/image/helper/bg-contact.png) no-repeat transparent;
+}
+.conus-title,
+.conus-content,
+.conus-weixin {
+  position: absolute;
+}
+.conus-title {
+  top: 30px;
+  left: 30px;
+  width: 150px;
+  height: 68px;
+  border-top: 4px solid #4fc1e9;
+  padding-top: 15px;
+}
+.conus-title h2 {
+  color: #647580;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.conus-title span {
+  font-size: 14px;
+  font-family: "Arial";
+  color: #4fc1e9;
+}
+.conus-content {
+  top: 135px;
+  left: 132px;
+}
+.conus-content-dl dt {
+  min-width: 118px;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 11px;
+  background: #3bafda;
+  font-size: 16px;
+  color: white;
+  margin-bottom: 20px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.conus-content-dl dd {
+  margin-bottom: 25px;
+}
+.conus-content-dl dd .iconfont {
+  font-size: 20px;
+}
+.conus-content-dl .conus-tab-1,
+.conus-content-dl .conus-tab-2 {
+  color: #999;
+}
+.conus-content-dl .conus-tab-1 {
+  margin-bottom: 15px;
+}
+.conus-content-dl .conus-font-1 {
+  color: #666;
+  margin-left: 25px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.conus-content-dl .conus-font-2 {
+  color: #3bafda;
+  font-size: 16px;
+  margin-left: 10px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.conus-weixin {
+  top: 75px;
+  right: 245px;
+}
+.conus-weixin .conus-so {
+  color: #666;
+  font-size: 24px;
+  margin-bottom: 60px;
+}
+.conus-weixin .conus-so b {
+  color: white;
+  background: #3bafda;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  height: 48px;
+  width: 48px;
+  line-height: 48px;
+  text-align: center;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.conus-weixin .conus-code {
+  margin-left: 100px;
+  width: 220px;
+}
+.conus-weixin .conus-code-text {
+  text-align: center;
+  color: #666;
+  margin-top: 77px;
+  position: absolute;
+  top: 266px;
+  width: 200px;
+}
+.dyanmic-button {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  top: 19px;
+  left: 0;
+}
+.buy-ticket {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  color: #fff;
+  font-size: 24px;
+  text-decoration: none;
+}
+.round {
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-color: #3bafda;
+}
+.one-bg {
+  -webkit-animation: dyamiuc_round 2.5s linear 0s infinite normal;
+  animation: dyamiuc_round 2.5s linear 0s infinite normal;
+}
+.two-bg {
+  -webkit-animation: dyamiuc_round 2.5s linear 625ms infinite normal;
+  animation: dyamiuc_round 2.5s linear 625ms infinite normal;
+}
+.three-bg {
+  -webkit-animation: dyamiuc_round 2.5s linear 1.25s infinite normal;
+  animation: dyamiuc_round 2.5s linear 1.25s infinite normal;
+}
+.four-bg {
+  -webkit-animation: dyamiuc_round 2.5s linear 1.875s infinite normal;
+  animation: dyamiuc_round 2.5s linear 1.875s infinite normal;
+}
+@-webkit-keyframes dyamiuc_round {
+  0% {
+    -webkit-transform: scale(0.3);
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    -webkit-transform: scale(0.7);
+    transform: scale(0.7);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+@keyframes dyamiuc_round {
+  0% {
+    -webkit-transform: scale(0.3);
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    -webkit-transform: scale(0.7);
+    transform: scale(0.7);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+.container-desc {
+  position: relative;
+  z-index: 5;
+}
+.container-desc .bb,
+.bb::before,
+.bb::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.container-desc .bb {
+  width: 200px;
+  height: 200px;
+  background: no-repeat 0.71428571% rgba(0, 0, 0, 0.1);
+  color: #3bafda;
+}
+.container-desc .bb::before,
+.bb::after {
+  content: '';
+  z-index: -1;
+  margin: -5%;
+  box-shadow: inset 0 0 0 3px;
+  animation: clipMe 10s linear infinite;
+}
+.container-desc .bb::before {
+  animation-delay: -5s;
+}
+@keyframes clipMe {
+  0%,
+  100% {
+    clip: rect(0px, 220px, 2px, 0px);
+  }
+  25% {
+    clip: rect(0px, 2px, 220px, 0px);
+  }
+  50% {
+    clip: rect(218px, 220px, 220px, 0px);
+  }
+  75% {
+    clip: rect(0px, 220px, 220px, 218px);
+  }
+}

@@ -1,0 +1,41 @@
+.not-support {
+  background-color: #f6f6b4;
+  height: 85px;
+  color: #000;
+  font-size: 15px;
+}
+.not-support .browser-info {
+  margin: 0 auto;
+  width: 1000px;
+  padding-top: 17px;
+}
+.not-support .notice-info,
+.not-support .browser-list {
+  float: left;
+  width: 50%;
+}
+.not-support .notice-info {
+  position: relative;
+  margin-top: 5px;
+}
+.not-support .notice-info p {
+  text-align: left;
+  line-height: 25px;
+}
+.not-support .notice-info p strong {
+  font-weight: bold;
+  font-size: 105%;
+  padding: 0 2px;
+}
+.not-support .browser-list {
+  position: relative;
+}
+.not-support .browser-list img {
+  width: 40px;
+  height: 40px;
+}
+.not-support .browser-list span {
+  text-align: center;
+  width: 80px;
+  display: inline-block;
+}

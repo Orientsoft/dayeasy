@@ -1,0 +1,36 @@
+﻿@using DayEasy.Core
+@{
+    ViewBag.Title = "找回密码";
+}
+
+<div class="dy-main">
+    <div class="form-main w1200">
+        <div class="form-tab">
+            <div class="form-menu">
+                <i class="iconfont dy-icon-37"></i>
+                验证身份
+            </div>
+            <div class="form-menu">
+                <i class="iconfont dy-icon-36"></i>
+                重置密码
+            </div>
+            <div class="form-menu on">
+                <i class="iconfont dy-icon-radiohv"></i>
+                修改完成
+            </div>
+        </div>
+        <div class="form-list form-main-list f-cb">
+            <!--修改完成-->
+            <div class="amend-success">
+                <div class="f-tac amend-text"><i class="iconfont dy-icon-radiohv"></i>恭喜您，密码重置成功</div>
+            </div>
+            <div class="f-tac">
+                <button class="dy-btn dy-btn-info" onclick="javascript: window.location = '@Consts.Config.LoginSite';">重新登录</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    @Html.CombineLink("v3/css/user/ucenter.css")
+}

@@ -1,0 +1,194 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Contracts.Enum
+@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model GroupDto
+@{
+    ViewBag.Title = "圈子设置";
+    var user = (UserDto)ViewData["User"];
+    var isManager = (Model.ManagerId == user.Id) || (ViewBag.IsManager ?? false);
+    var summary = Model.GroupSummary ?? string.Empty;
+}
+<div class="home-circles w1200 f-cb" data-gid="@Model.Id" data-manager="@isManager">
+    <div class="top-img">
+        <img width="1200" height="120" src="@Model.GroupBanner" alt="" />
+        @if (isManager)
+        {
+            <span class="dg-change-bg" title="更换背景"></span>
+        }
+    </div>
+    <div class="top-title">
+        <a class="f-pa" href="/group/@Model.Id">
+            <i class="iconfont dy-icon-fanhui"></i>返回
+        </a>
+        <div class="group-avatar">
+            <div class="dg-avatar" title="更换logo">
+                <input id="avatar" type="hidden" value="@Model.Logo" />
+                <img width="150" height="150" src="@(string.IsNullOrWhiteSpace(Model.Logo) ? Url.StaticLink("v3/image/temp/header.png") : Html.MakeThumb(Model.Logo, "150x150"))" alt="" />
+            </div>
+            @if (isManager)
+            {
+                <div class="dg-info">
+                    <div class="dg-info-back">
+                        <h3>更换Logo</h3>
+                        <p>Logo大小150*150</p>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="dg-name">
+            <strong>@Model.Name</strong>
+            <span> [ @Model.Code ]</span>
+        </div>
+        <div class="dg-nav-list">
+            <ul>
+                <li class="active">设置</li>
+                <li><a href="/group/members/@Model.Id">成员</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="dg-page">
+        <ul class="mian-cont f-cbli">
+            @if (Model.Type == (byte)GroupType.Share)
+            {
+                var share = (ShareGroupDto)Model;
+                <li>
+                    <div class="form-label">所属频道</div>
+                    <div class="form-area no-border">
+                        <div class="dg-channel dg-channel@((share.ChannelId%100)%5)">@Consts.Channel(share.ChannelId)</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-label">加圈权限</div>
+                    <div class="form-area no-border">
+                        <span class="span">@(share.JoinAuth.GetEnumText<GroupJoinAuth, byte>())</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-label">发帖权限</div>
+                    <div class="form-area no-border">
+                        @if (isManager)
+                        {
+                            <select class="post-auth">
+                                @foreach (GroupPostAuth auth in Enum.GetValues(typeof(GroupPostAuth)))
+                                {
+                                    if (share.PostAuth == (byte)auth)
+                                    {
+                                        <option value="@((int) auth)" selected="selected">@auth.GetText()</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@((int) auth)">@auth.GetText()</option>
+                                    }
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <span class="span">@(share.PostAuth.GetEnumText<GroupPostAuth, byte>())</span>
+                        }
+                    </div>
+                </li>
+                <li>
+                    <div class="form-label">圈子标签</div>
+                    <div class="form-area no-border">
+                        <div class="d-tags" data-list="@share.TagList.ToJson()"></div>
+                    </div>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <div class="form-label">学校信息</div>
+                    <div class="form-area">
+                        <span class="span">@Model.AgencyName</span>
+                    </div>
+                </li>
+            }
+            @if (Model.Type == (byte)GroupType.Class)
+            {
+                var classGroup = (ClassGroupDto)Model;
+                <li>
+                    <div class="form-label">入学年份</div>
+                    <div class="form-area">
+                        <span class="span">@classGroup.GradeYear 年</span>
+                    </div>
+                </li>
+            }
+            <li data-param="owner">
+                <div class="form-label">圈 主</div>
+                <div class="form-area">
+                    <input type="hidden" value="@Model.ManagerId" />
+                    <span class="span">@Model.Owner</span>
+                    @if (isManager)
+                    {
+                        <i class="iconfont dy-icon-edit2" title="转让圈主"></i>
+                    }
+                </div>
+            </li>
+            <li data-param="name">
+                <div class="form-label">圈&nbsp;&nbsp;名&nbsp;&nbsp;称</div>
+                <div class="form-area">
+                    <input type="text" maxlength="20" disabled readonly value="@Model.Name" />
+                    @if (isManager)
+                    {
+                        <i class="iconfont dy-icon-edit2" title="修改圈名"></i>
+                        <i class="iconfont dy-icon-13" title="保存圈名"></i>
+                    }
+                </div>
+            </li>
+            <li data-param="summary">
+                <div class="form-label">圈子简介</div>
+                <div class="form-area">
+                    <textarea disabled readonly cols="30" rows="6" maxlength="140">@summary</textarea>
+                    @if (isManager)
+                    {
+                        <i class="iconfont dy-icon-edit2" title="修改简介"></i>
+                        <i class="iconfont dy-icon-13" title="保存简介"></i>
+                    }
+                </div>
+            </li>
+            @if (Model.Type == (byte)GroupType.Share)
+            {
+                var share = (ShareGroupDto)Model;
+                var notice = share.Notice ?? string.Empty;
+                <li data-param="notice">
+                    <div class="form-label">圈子公告</div>
+                    <div class="form-area">
+                        <textarea disabled readonly cols="30" rows="6" maxlength="100">@notice</textarea>
+                        @if (isManager)
+                        {
+                            <i class="iconfont dy-icon-edit2" title="修改公告"></i>
+                            <i class="iconfont dy-icon-13" title="保存公告"></i>
+                        }
+                    </div>
+                </li>
+            }
+        </ul>
+        @if (ViewBag.IsManager == null)
+        {
+            var canQuit = (Model.Type == (byte)GroupType.Share) || user.IsTeacher();
+            <div class="pml">
+                @if (isManager)
+                {
+                    <input class="dy-btn dy-btn-danger" id="dissolution" type="button" value="解散圈子" />
+                }
+                else if (canQuit)
+                {
+                    <input class="dy-btn dy-btn-danger" id="quitBtn" type="button" value="退出圈子" />
+                }
+            </div>
+        }
+    </div>
+</div>
+<!--上传头像-->
+<div class="hidden">
+    <div id="btn-upload"></div>
+</div>
+@section css{
+    @Html.CombineLink("css/font-awesome.css,v3/css/circle/page-setting.css")
+}
+@section js{
+    @Html.CombineLink("plugs/webuploader/webuploader.js,js/base/utils.js,v3/js/group/page-setting.js")
+}

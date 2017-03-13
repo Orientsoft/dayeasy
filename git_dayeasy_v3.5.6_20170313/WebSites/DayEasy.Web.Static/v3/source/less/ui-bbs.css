@@ -1,0 +1,188 @@
+.d-comment-box {
+  padding: 0 30px;
+}
+.d-comment-all {
+  font-size: 16px;
+  border-bottom: solid 1px #dddddd;
+  padding: 12px 0;
+}
+.d-comment-all small {
+  font-size: 85%;
+  margin-left: 5px;
+  color: #999;
+}
+.comment-bxo {
+  padding: 15px 0;
+}
+.comment-bxo .parents-conter {
+  overflow: hidden;
+}
+.comment-bxo .parents-conter .ul-list-one {
+  position: relative;
+  bottom: -1px;
+}
+.comment-bxo .parents-conter .ul-list-one > li {
+  border-bottom: 1px solid #eee;
+}
+.comment-bxo .boder-focus-color {
+  border-color: #4fc1e9;
+  -moz-transform: all 0.5s ease 0s;
+  -webkit-transform: all 0.5s ease 0s;
+  -o-transform: all 0.5s ease 0s;
+  -ms-transform: all 0.5s ease 0s;
+  transform: all 0.5s ease 0s;
+}
+.comment-bxo .comment-input {
+  position: relative;
+  margin-top: 15px;
+  padding: 20px 0 0 60px;
+  border-top: dashed 1px #dddddd;
+}
+.comment-bxo .comment-input .du-avatar {
+  background-color: #f9f9f9;
+  border: 1px solid #dddddd;
+  border-radius: 50%;
+  color: #999;
+  font-size: 12px;
+  height: 40px;
+  left: 0;
+  line-height: 40px;
+  position: absolute;
+  text-align: center;
+  top: 30px;
+  width: 40px;
+}
+.comment-bxo .comment-input textarea {
+  margin-bottom: 15px;
+  display: block;
+  line-height: 1.6em;
+  width: 100%;
+  resize: vertical;
+}
+.comment-bxo .comment-input > img {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  height: 40px;
+  width: 40px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+.comment-bxo .comment-input .show-height {
+  height: 23px;
+}
+.comment-bxo .comment-text .comment-list {
+  color: #999;
+}
+.comment-bxo .comment-text .comment-list > li {
+  position: relative;
+  padding-left: 40px;
+  margin-top: 12px;
+}
+.comment-bxo .comment-text .comment-list > li > img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+.comment-bxo .comment-text .comment-list > li .box {
+  margin-left: 15px;
+}
+.comment-bxo .comment-text .comment-list .name-color {
+  color: #888;
+}
+.comment-bxo .comment-text .comment-list .comment-time {
+  margin-left: 12px;
+  font-size: 85%;
+  color: #9d9d9d;
+}
+.comment-bxo .comment-text .comment-list .d-comment-floor {
+  float: right;
+  font-size: 12px;
+}
+.comment-bxo .comment-text .comment-list .d-comment-floor span {
+  color: #ffffff;
+  padding: 2px 6px;
+}
+.comment-bxo .comment-text .comment-list .d-floor-first {
+  background-color: #fc6e51;
+}
+.comment-bxo .comment-text .comment-list .d-floor-second {
+  background-color: #f6bb42;
+}
+.comment-bxo .comment-text .comment-list .d-floor-third {
+  background-color: #4fc1e9;
+}
+.comment-bxo .comment-text .comment-list .d-floor-four {
+  background-color: #eeeeee;
+  color: #888 !important;
+}
+.comment-bxo .comment-children {
+  margin: 12px 0 8px;
+}
+.comment-bxo .comment-children .comment-input {
+  margin-bottom: 12px;
+}
+.comment-bxo .comment-children .comment-text .comment-list {
+  padding: 8px 0;
+}
+.comment-bxo .comment-children .comment-text .comment-list li {
+  margin-top: 5px;
+  border-top: dashed 1px #dddddd;
+  padding-top: 12px;
+  padding-bottom: 6px;
+}
+.comment-bxo .comment-children .comment-text .comment-list li img {
+  top: 12px;
+}
+.comment-bxo .comment-children .comment-message {
+  margin: 8px 0 12px;
+}
+.comment-bxo .b-comment-to,
+.comment-bxo .b-comment-delete {
+  font-size: 12px;
+  cursor: pointer;
+}
+.comment-bxo .b-comment-to:hover,
+.comment-bxo .b-comment-delete:hover {
+  color: #333;
+}
+.comment-bxo .b-comment-to i,
+.comment-bxo .b-comment-delete i {
+  vertical-align: 1px;
+  margin-right: 4px;
+  font-size: 12px;
+}
+.comment-bxo .b-comment-to {
+  margin-left: 15px;
+}
+.comment-bxo .comment-message {
+  word-wrap: break-word;
+  word-break: break-all;
+  margin: 12px 0 15px 0;
+  color: #333;
+  line-height: 25px;
+}
+.d-comment-actions {
+  text-align: right;
+}
+.d-comment-send {
+  text-align: right;
+}
+.d-comment-send .dy-btn {
+  height: 36px;
+  width: 140px;
+  line-height: 150%;
+}
+.d-comment-send .d-comment-helper {
+  font-size: 12px;
+  color: #999;
+  margin-top: 15px;
+}

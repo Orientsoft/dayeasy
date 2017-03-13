@@ -1,0 +1,268 @@
+@import "../../less/base";
+
+.dy-wrap {
+  background: #f5f5f5;
+}
+
+.h2-circle {
+  font-weight: normal;
+  font-size: 20px;
+  border-left: 5px solid #ed5565;
+  padding-left: 25px;
+  height: 20px;
+  line-height: 20px;
+}
+
+//评论侧边栏
+
+.hot-circle {
+  padding: 0px 20px;
+  float: right;
+  .h3-title {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  ul.ul-list {
+    li {
+      height: 65px;
+      margin-bottom: 20px;
+      margin-right: 40px;
+      a {
+        display: block;
+        position: relative;
+        padding-left: 85px;
+        width: 220px;
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+        p {
+          color: #333;
+          overflow: hidden;
+          height: 16px;
+        }
+        p, span, strong {
+          display: block;
+          margin-bottom: 10px;
+        }
+        span {
+          color: #666;
+        }
+        strong {
+          color: #999;
+        }
+      }
+      &:hover {
+        a {
+          color: #4fc1e9;
+          p, span, strong {
+            color: #4fc1e9;
+          }
+        }
+      }
+    }
+  }
+}
+
+.side-comment {
+  width: 300px;
+  min-height: 800px;
+  .layer-block {
+    background: white;
+    border-top-style: solid;
+    border-top-width: 1px;
+    margin-bottom: 30px;
+    h2.h2-title {
+      font-size: 18px;
+      padding: 0 20px;
+      margin-bottom: 25px;
+    }
+  }
+  .diffe1, .diffe2 {
+    padding: 20px 0;
+    .iconfont {
+      margin-right: 10px;
+    }
+  }
+  .diffe1 {
+    border-top-color: #fc6e51;
+    .dy-icon-jiangbei {
+      font-size: 24px;
+      color: #fc6e51;
+    }
+    //相关文章
+    .dy-icon-article {
+      font-size: 24px;
+      color: #9cdcf3;
+    }
+    .hot-list {
+      position: relative;
+      li {
+        position: relative;
+        padding: 0 20px 0 56px;
+        margin-bottom: 20px;
+        &.loading {
+          position: absolute;
+          top: 0;
+          left: 0;
+          .inline-block;
+        }
+        p {
+          margin-bottom: 5px;
+          width: 224px;
+          height: 15px;
+          overflow: hidden;
+          a {
+            width: 224px;
+            height: 15px;
+            display: block;
+            &:hover {
+              color: #4fc1e9;
+            }
+          }
+
+        }
+        span {
+          background: #eee;
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: inline-block;
+          *display: inline;
+          *zoom: 1;
+          height: 20px;
+          width: 20px;
+          line-height: 20px;
+          text-align: center;
+          .rounded-corners(50%);
+          top: -3px;
+          left: 23px;
+        }
+        &.bg1 span {
+          background: #fc6e51;
+          color: #fff;
+        }
+        &.bg2 span {
+          background: #f6bb42;
+          color: #fff;
+        }
+        &.bg3 span {
+          background: #4fc1e9;
+          color: #fff;
+        }
+      }
+      .font-color {
+        color: #999;
+      }
+      .iconfont {
+        margin-right: 10px;
+        font-size: 20px;
+      }
+      .dy-icon-messageline {
+        font-size: 16px;
+        height: 22px;
+        line-height: 22px;
+      }
+    }
+  }
+  .diffe2 {
+    border-top-color: #4fc1e9;
+    .dy-icon-paixingbang {
+      font-size: 24px;
+      color: #4fc1e9;
+    }
+    .hot-group-box {
+      li.loading {
+        position: relative;
+        top: 0;
+        left: -99px;
+        display: inline-block;
+      }
+    }
+  }
+  .diffe3 {
+    border: none;
+    background: #fafbfc;
+    //.h2-copy-code{ width: 300px; height: 60px; line-height: 60px; text-align: center; color: #fff; background: #aab2bd; font-size: 20px;}
+    .box-paddig {
+      padding: 30px 15px;
+    }
+  }
+  //加入圈子
+  .diffe4 {
+    padding: 20px;
+    border-top: none;
+    .communi-cation {
+      position: relative;
+      margin-bottom: 20px;
+      img {
+        width: 64px;
+        height: 64px;
+      }
+      .font-title {
+        font-size: 18px;
+        width: 180px;
+        height: 20px;
+        overflow: hidden;
+        margin-bottom: 8px;
+        a {
+          display: block;
+        }
+      }
+      .font-member {
+        width: 180px;
+        color: #666;
+        height: 15px;
+        overflow: hidden;
+        margin-bottom: 5px;
+      }
+    }
+    .communi-content {
+      margin-bottom: 20px;
+      line-height: 1.4em;
+      color: #999;
+    }
+    .label-list {
+      span {
+        .inline-block;
+        padding: 8px 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        background: #e6e9ed;
+        .rounded-corners(2px);
+      }
+    }
+    .dy-btn-default {
+      color: #3bafda;
+      border-color: #3bafda;
+      .iconfont-jia {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      &:hover {
+        color: #3bafda;
+        color: @color-hover-blue;
+        border-color: @color-hover-blue;
+        //.iconfont-jia{ color: #3bafda; }
+      }
+    }
+  }
+  //公告
+  .diffe5 {
+    background: white;
+    margin-bottom: 30px;
+    padding-top: 20px;
+    .h2-title {
+      font-size: 20px;
+      margin-bottom: 20px;
+      padding: 0 20px;
+    }
+    .notice-contens {
+      color: #bbb;
+      padding: 0 20px 30px 30px;
+      line-height: 1.4em;
+    }
+  }
+}

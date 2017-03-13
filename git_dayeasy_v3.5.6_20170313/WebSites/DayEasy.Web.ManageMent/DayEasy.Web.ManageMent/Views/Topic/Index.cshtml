@@ -1,0 +1,205 @@
+﻿@using DayEasy.Core
+@using DayEasy.Utility.Extend
+@model List<TB_Topic>
+
+@{
+    ViewBag.Title = "帖子管理";
+
+    List<TU_User> users = null;
+    if (ViewData["users"] != null)
+    {
+        users = ViewData["users"] as List<TU_User>;
+    }
+
+    List<TG_Group> groups = null;
+    if (ViewData["groups"] != null)
+    {
+        groups = ViewData["groups"] as List<TG_Group>;
+    }
+
+    List<TG_Share> shares = null;
+    if (ViewData["shares"] != null)
+    {
+        shares = ViewData["shares"] as List<TG_Share>;
+    }
+
+    var ct = "ct".Query(-1);
+    var sort = "sort".Query("time");
+
+    var IsTime = string.IsNullOrEmpty(sort) || sort == "time" || (sort != "time" && sort != "praise" && sort != "read" && sort != "reply");
+}
+
+<div>
+    <div class="row mt20">
+        <form method="GET" action="@Url.Action("Index", "Topic")" id="searchForm">
+            @*<div class="col-sm-2">
+                    <select class="form-control"><option>举报</option></select>
+                </div>*@
+            <input type="hidden" value="" id="sortValue" name="sort" />
+            <div class="col-sm-2" style="width: 150px;">
+                <select class="form-control" id="ct" name="ct">
+                    <option value="-1" selected="@(ct==-1)">所属频道</option>
+                    @if (Consts.Channels != null)
+                    {
+                        foreach (var channel in Consts.Channels)
+                        {
+                            <option value="@channel.Id" selected="@(ct == channel.Id)">
+                                @(channel.IsLeaf ? Html.Raw("&emsp;") : null) @channel.Name
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-sm-2 pl0" style="width: 120px;">
+                @Html.DropDownList("auth", ViewData["joinAuths"] as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-2 pl0" style="width: 120px;">
+                @Html.DropDownList("ts", ViewData["topicStas"] as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-3 pl0">
+                <div class="dy-keyword-wrap">
+                    <div class="input-group">
+                        <input type="text" value="@Request["keyword"]" id="keyword" autocomplete="off" placeholder="帖子标题" class="form-control" name="keyword">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit" id="btn_submit"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="d-total">
+                    共<em>@ViewData["TotalCount"]</em>篇帖子
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row mt20">
+        <table class="table table-hover">
+            <colgroup>
+                <col />
+                <col style="width: 6em" />
+                <col style="width: 8em" />
+                <col style="width: 8em" />
+                <col style="width: 5em" />
+                <col style="width: 5em" />
+                <col style="width: 5em" />
+                <col style="width: 10em" />
+                <col style="width: 6em" />
+                @*<col style="width: 4em" />*@
+                @*<col style="width: 4em" />*@
+                <col style="width: 4em" />
+                <col style="width: 4em" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>帖子名称</th>
+                    @*<th>帖子Id</th>*@
+                    <th>所属频道</th>
+                    <th>发帖者</th>
+                    <th class="@(IsTime ? "text-danger" : "text-info") pointer f-sort-act" data-sort="time">发帖时间 <i class="fa fa-long-arrow-down"></i></th>
+                    <th class="@(sort == "read" ? "text-danger" : "text-info") pointer f-sort-act" data-sort="read">浏览 <i class="fa fa-long-arrow-down"></i></th>
+                    <th class="@(sort == "praise" ? "text-danger" : "text-info") pointer f-sort-act" data-sort="praise">赞 <i class="fa fa-long-arrow-down"></i></th>
+                    <th class="@(sort == "reply" ? "text-danger" : "text-info") pointer f-sort-act" data-sort="reply">评论 <i class="fa fa-long-arrow-down"></i></th>
+                    <th>所在圈子</th>
+                    <th>圈子权限</th>
+                    @*<th>圈主</th>*@
+                    @*<th>举报</th>*@
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var topic in Model)
+                    {
+                        var user = users == null ? null : users.SingleOrDefault(u => u.Id == topic.AddedBy);
+                        var group = groups == null ? null : groups.SingleOrDefault(u => u.Id == topic.GroupId);
+                        var share = shares == null ? null : shares.SingleOrDefault(u => u.Id == topic.GroupId);
+
+                        <tr>
+                            <td>
+                                @if ((topic.State & ((byte)TopicState.Pick)) > 0)
+                                {
+                                    <label class="label label-success">精</label>
+                                }
+
+                                @if ((topic.State & ((byte)TopicState.Recommend)) > 0)
+                                {
+                                    <label class="label label-warning">顶</label>
+                                }
+
+                                <a target="_blank" href="@Consts.Config.MainSite/topic/detail/@topic.Id?from=f494f34bdf594bad8af5336a3d38812b">@topic.Title</a>
+                            </td>
+                            <td><label class="label label-info">@Consts.Channel(topic.ClassType)</label></td>
+                            <td>@(user == null ? "" : user.TrueName)</td>
+                            <td>@topic.AddedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@topic.ReadNum</td>
+                            <td>@topic.PraiseNum</td>
+                            <td>@topic.ReplyNum</td>
+                            <td>@(group == null ? "" : group.GroupName)</td>
+                            <td>
+                                @if (share != null)
+                                {
+                                    @(Html.EnumText<GroupJoinAuth, byte>(share.JoinAuth))
+                                }
+                            </td>
+                            <td>@(Html.EnumText<TopicStatus, byte>(topic.Status))</td>
+                            <td data-id="@topic.Id">
+                                @if (topic.Status == (byte)TopicStatus.Delete)
+                                {
+                                    <a class="f-status-act pointer" data-status="@((byte)TopicStatus.Normal)">恢复</a>
+                                }
+                                else
+                                {
+                                    <a class="f-status-act pointer" data-status="@((byte)TopicStatus.Delete)">删除</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="11" style="text-align: center">没有找到相关信息！</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-pager">
+        @Html.ShowPager(Convert.ToInt32(ViewData["pageIndex"]), 15, Convert.ToInt32(ViewData["TotalCount"]), 4, false)
+    </div>
+</div>
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            $("#ct,#auth,#ts").change(function () {
+                $("#searchForm").submit();
+            });
+
+            $(".f-sort-act").click(function () {
+                var sortValue = $(this).data('sort');
+                $("#sortValue").val(sortValue);
+                $("#searchForm").submit();
+            });
+
+            $(".f-status-act").click(function () {
+                var status = $(this).data("status");
+                var id = $(this).parent().data("id");
+
+                singer.confirm("您确定要改变该帖子状态？", function () {
+                    $.post('@Url.Action("UpdateTopicStatus","Topic")', { status: status, id: id }, function (res) {
+                        if (res.Status) {
+                            window.location.reload();
+                        } else {
+                            singer.msg(res.Message);
+                        }
+                    });
+                }, function () { });
+            });
+
+        });
+    </script>
+}

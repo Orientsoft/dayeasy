@@ -1,0 +1,256 @@
+﻿@using DayEasy.Contracts.Dtos.Group
+@using DayEasy.Contracts.Dtos.Statistic
+@using ServiceStack.Common
+@model ViewDataDictionary
+@{
+    ViewBag.Title = "分数排名";
+
+    var paperTitle = string.Empty;
+    if (Model["paperTitle"] != null)
+    {
+        paperTitle = Model["paperTitle"].ToString();
+    }
+}
+
+<script>var deyi = window.DEYI = window.DEYI || {}; deyi.goTop = true;</script>
+
+
+<div class="testteacher-box w1200 f-cb bg-color-grey">
+    @if (Model == null || Model["batch"] == null || Model["paperId"] == null || Model["ranks"] == null)
+    {
+        <div class="dy-nothing">参数错误，请刷新重试！</div>
+    }
+    else
+    {
+        var ranks = (List<StudentRankInfoDto>)Model["ranks"];
+        var groups = ((List<ClassGroupDto>)Model["groups"]);
+        var batches = (Dictionary<string, string>)ViewData["batches"];
+        var agencies = groups.Select(g => g.AgencyId).Distinct().ToList();
+
+        var isAb = (bool)Model["isAb"];
+        string batch = Model["batch"].ToString(),
+            paperId = Model["paperId"].ToString(),
+            jointBatch = Model["jointBatch"].ToString(),
+            groupId = Model["groupId"].ToString();
+
+        <input type="hidden" id="txtBatch" value="@batch" />
+        <input type="hidden" id="txtJointBatch" value="@jointBatch" />
+        <input type="hidden" id="txtPaperId" value="@paperId" />
+        <input type="hidden" id="txtIsAb" value="@(isAb ? 1 : 0)" />
+        <input type="hidden" id="txtScoreT" value="@Model["scoreT"]" />
+        <input type="hidden" id="txtScoreA" value="@Model["scoreA"]" />
+        <input type="hidden" id="txtScoreB" value="@Model["scoreB"]" />
+
+        <div class="coach-base-title">
+            <div class="box  coach-subnav">
+                <div class="box-lg-12">
+                    <h2 class="box-paper-title">@paperTitle</h2>
+                    <a class="dy-test-details" href="/paper/detail/@Model["paperId"]">
+                        <i class="iconfont dy-icon-warning"></i>
+                        试卷详情
+                    </a>
+                </div>
+            </div>
+        </div>
+        if (!ranks.Any())
+        {
+            <div class="dy-nothing"><i class="iconfont dy-icon-emoji02"></i>没有学生提交！</div>
+        }
+        else
+        {
+            <div class="page-stats">
+                <div class="htmleaf-containers" data-dytab="100">
+                    <div class="htmleaf-content bgcolor-3 amend-ul-stats">
+                        <ul class="dy-tab-nav">
+                            <li class="z-crt"><a href="javascript:void(0);">排名统计</a></li>
+                            <li><a href="javascript:void(0);" id="aLoadAvge">分数段统计</a></li>
+                            <li class="slider"><span></span></li>
+                        </ul>
+                        <div class="btn-posr">
+                            <a class="dy-btn dy-btn-info" href="export-joint?joint_batch=@jointBatch&paper_id=@paperId"><i class="iconfont dy-icon-download"></i> 导出成绩</a>
+                        </div>
+                    </div>
+                    <div class="tab-con">
+                        <div class="dy-tab-con">
+                            <div class="tab-con-item slide-table" style="display: block;">
+                                <div class="box btn-stats">
+                                    <select id="ddlGroups">
+                                        <option value="" @(groupId == string.Empty ? "selected=selected" : "")>全部班级</option>
+                                        @if (groups.Any())
+                                        {
+                                            foreach (var g in groups)
+                                            {
+                                                <option value="@g.Id" @(groupId == g.Id ? "selected=selected" : "")>
+                                                    @if (agencies.Count > 1)
+                                                    {
+                                                        @(g.AgencyName + " - " + g.Name)
+                                                    }
+                                                    else
+                                                    {
+                                                        @g.Name
+                                                    }
+                                                </option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <table class="dy-table amend-table-stats" id="tabScore">
+                                    <tr>
+                                        <th class="tab1">排名</th>
+                                        @if (groupId.IsNullOrEmpty())
+                                        {
+                                            <th class="tab2">所在班级</th>
+                                        }
+                                        @if (agencies.Count > 1)
+                                        {
+                                            <th class="tab2">学校</th>
+                                        }
+                                        <th class="tab2">姓名</th>
+                                        <th class="tab3">总分</th>
+                                        @if (isAb)
+                                        {
+                                            <th class="tab4">A卷总分</th>
+                                            <th class="tab5">B卷总分</th>
+                                        }
+                                    </tr>
+                                    @foreach (var rank in ranks)
+                                    {
+                                        var group = groups.First(g => g.Id == rank.GroupId);
+                                        <tr data-id="@rank.Id">
+                                            <td>@rank.Rank</td>
+                                            @if (groupId.IsNullOrEmpty())
+                                            {
+                                                <td>@rank.GroupName</td>
+                                            }
+                                            @if (agencies.Count > 1)
+                                            {
+                                                <td>@group.AgencyName</td>
+                                            }
+                                            <td>
+                                                <a target="_blank" href="@Url.Action("MarkingDetail", "StudentWork", new {batch = batches[rank.GroupId], paperId, studentId = rank.StudentId})">@rank.StudentName</a>
+                                            </td>
+                                            <td class="f-tac">@(rank.TotalScore.HasValue ? rank.TotalScore.Value.ToString("0.#") : "-")</td>
+                                            @if (isAb)
+                                            {
+                                                <td class="f-tac">@(rank.SectionAScore.HasValue ? rank.SectionAScore.Value.ToString("0.#") : "-")</td>
+                                                <td class="f-tac">@(rank.SectionBScore.HasValue ? rank.SectionBScore.Value.ToString("0.#") : "-")</td>
+                                            }
+                                        </tr>
+                                    }
+
+                                </table>
+                                <div class="Total-number">总人数 <b>@ranks.Count</b> </div>
+                            </div>
+                            <div class="tab-con-item stats-list">
+                                <div id="boxAvgLoading">
+                                    <i class="fa fa-spin fa-spinner fa-2x"></i>&nbsp;&nbsp;正在加载，请稍后...
+                                </div>
+                                <div id="boxAvgData" style="display: none;">
+                                    <div class="off-stats box f-cb">
+                                        @if (isAb)
+                                        {
+                                            <div class="f-fr">
+                                                <select id="ddlChangeTab">
+                                                    <option value="0">总分</option>
+                                                    <option value="1">A卷总分</option>
+                                                    <option value="2">B卷总分</option>
+                                                </select>
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <div class="avg-wrap"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+<script type="text/html" id="segmentTpl">
+    <div class="table-th">
+        <table class="dy-table" id="tabAvgTh">
+
+            {{if isUnion}}
+            <tr>
+                <th class="table-th-td">&nbsp;</th>
+            </tr>
+            {{/if}}
+            <tr>
+                <th class="table-th-td">分数段</th>                
+            </tr>
+            {{each segments as segment}}
+            <tr>
+                <th class="table-th-td">{{segment}}</th>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+    <div class="ove-x">
+        <table class="dy-table" id="tabAvg">
+            <thead>
+                {{if isUnion}}
+                    <tr>
+                        {{each groups as group}}
+                        <th style="width:190px">{{group.agency}}</th>
+                        {{/each}}
+                    </tr>
+
+                {{/if}}
+                <tr>
+                    {{each groups as group}}
+                    <th style="width:190px">
+                        {{group.name}}
+                    </th>
+                    {{/each}}
+                </tr>
+            </thead>
+            <tbody>
+                {{each segments as segment}}
+                <tr>
+                    {{each counts as count}}
+                    <td>{{count[segment]}}</td>
+                    {{/each}}
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</script>
+
+@section css{
+    @Html.CombineLink(
+    "plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css",
+    "css/v2.0/markingcenter/ui-base.css",
+    "v3/css/testteacher/ui-base.css",
+    "v3/css/utils/bootstrap-switch.css",
+    "v3/plugs/jquery-tab/jquery.tab.3.0.css",
+    "v3/css/testteacher/page-stats.css")
+    <style type="text/css">
+        .page-stats {
+            padding: 0 30px 30px;
+        }
+
+        .amend-table-stats {
+            margin-bottom: 0;
+        }
+    </style>
+}
+
+@section js{
+    @Html.CombineLink(
+    "plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js",
+    "v3/plugs/jquery-tab/jquery.tab.3.0.js",
+    "v3/plugs/jquery-tablesorter/jquery.tablesorter.js",
+    "js/artTemplate.min.js",
+    "v3/js/homework/st-score.js")
+    <script type="text/javascript">
+        $(function ($) {
+            $('.stats-list .dy-table tr')
+                .find('th:not(:first)').addClass('f-tac')
+                .end().find('td:not(:first)').addClass('f-tac');
+        });
+    </script>
+}

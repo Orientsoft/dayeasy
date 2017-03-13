@@ -1,0 +1,159 @@
+﻿@using DayEasy.Contracts.Dtos.User
+@using DayEasy.Core
+@using DayEasy.Core.Config
+@{
+    ViewBag.Title = "创建圈子";
+    var user = (UserDto)ViewData["User"];
+}
+<div class="establish w1200 f-cb"
+     ng-app="dayeasyApp" ng-cloak>
+    <div class="dg-step"
+         ng-controller="createCtrl">
+        <input type="hidden" id="needName" value="@(string.IsNullOrWhiteSpace(user.Name) ? 1 : 0)" />
+        <div class="d-title">
+            <h3>创建圈子</h3>
+        </div>
+        <div class="tab-menu">
+            <div class="dg-step-title" ng-if="step==1">
+                <h2>选择圈子类型</h2>
+            </div>
+            <div class="dg-step-title" ng-if="step==2">
+                <div class="dg-choose-type">
+                    <img width="80" height="80" ng-src="{{currentType.img}}" alt="{{currentType.name}}" />
+                    <h3 ng-bind="currentType.name"></h3>
+                    <b ng-click="setStep(1)">重新选择</b>
+                </div>
+            </div>
+        </div>
+        <!--step 1-->
+        <div class="dg-step-tab" ng-if="step == 1">
+            <ul class="dg-step-01">
+                <li ng-click="setStep(2,0,$event.target)">
+                    <img width="150" height="150" src="@Url.StaticLink("v3/image/circle/g_avatar04.png")" alt="班级圈" />
+                    <h3>班级圈</h3>
+                    <span>老师 - 家长 - 学生</span>
+                    <em>教学互动更高效</em>
+                    <b></b>
+                </li>
+                <li ng-click="setStep(2,1,$event.target)">
+                    <img width="150" height="150" src="@Url.StaticLink("v3/image/circle/g_avatar05.png")" alt="同事圈" />
+                    <h3>同事圈</h3>
+                    <span>老师 - 老师</span>
+                    <em>同事协同教学，资料共享</em>
+                    <b></b>
+                </li>
+                @if (user.Code.HasSpecialAuth(SpecialAccountType.CreateShareGroup))
+                {
+                    <li ng-click="setStep(2,2,$event.target)">
+                        <img width="150" height="150" src="@Url.StaticLink("v3/image/circle/g_avatar06.png")" alt="分享圈" />
+                        <h3>分享圈</h3>
+                        <span>老师 - 家长 - 学生</span>
+                        <em>知识经验更高效的传播</em>
+                        <b></b>
+                    </li>
+                }
+            </ul>
+        </div>
+        <!--step 2-->
+        <div class="dg-step-tab" ng-if="step == 2">
+            <ul class="dg-step-02">
+                <li ng-if="needName">
+                    <label><em>*</em>真实姓名：</label>
+                    <input placeholder="你的姓名" type="text" ng-model="group.userName" />
+                </li>
+                <li ng-if="group.type == 0 || group.type == 1">
+                    <label><em>*</em>学校类型：</label>
+                    <select ng-model="group.stage" ng-change="stageChange()">
+                        <option value="1">小学</option>
+                        <option value="2">初中</option>
+                        <option value="3">高中</option>
+                    </select>
+                </li>
+                <li ng-if="group.type == 1 && group.isManager">
+                    <label><em>*</em>圈子科目：</label>
+                    <select ng-model="group.subjectId">
+                        <option ng-repeat="subject in subjects" value="{{subject.id}}">{{subject.name}}</option>
+                    </select>
+                </li>
+                <li ng-if="group.type == 0">
+                    <label><em>*</em>入学年份：</label>
+                    <select ng-model="group.grade">
+                        <option ng-repeat="year in years" value="{{year}}" ng-bind="{{year}}"></option>
+                    </select>
+                </li>
+                <li ng-if="group.type == 0 || group.type == 1">
+                    <label><em>*</em>所属学校：</label>
+                    <input placeholder="选择学校" type="text"
+                           readonly
+                           ng-click="agencySelector()"
+                           ng-model="group.agencyName" />
+                </li>
+                <li ng-if="group.type == 2">
+                    <label><em>*</em>所属频道：</label>
+                    <select ng-model="group.channelId">
+                        <option value="-1">选择频道</option>
+                        @foreach (var channel in Consts.LeafChannels)
+                        {
+                            <option value="@channel.Id">@channel.Name</option>
+                        }
+                    </select>
+                </li>
+                <li ng-if="group.type == 2">
+                    <label><em>*</em>发帖权限：</label>
+                    <select ng-model="group.postAuth">
+                        <option value="0">仅圈主发帖</option>
+                        <option value="9">成员可发帖</option>
+                    </select>
+                </li>
+                <li ng-if="group.type == 2">
+                    <label><em>*</em>加圈权限：</label>
+                    <select ng-model="group.joinAuth">
+                        <option value="0">开放模式</option>
+                        <option value="1">审核模式</option>
+                    </select>
+                </li>
+                <li ng-if="group.type == 2">
+                    <label>标　　签：</label>
+                    <div class="d-tags"></div>
+                </li>
+                <li>
+                    <label><em>*</em>圈子名称：</label>
+                    <input placeholder="为圈子取一个响亮的群名称吧" type="text" ng-model="group.name" />
+                </li>
+                <li class="text-box">
+                    <label>圈子简介：</label>
+                    <textarea placeholder="请简单介绍下圈子" name=""
+                              ng-model="group.summary"
+                              class="textarea mb5 "
+                              cols="30" rows="6"
+                              maxlength="140"></textarea>
+                    <p class="f-tar dy-result f-db">
+                        你还可以输入<em ng-bind="140-group.summary.length"></em>个字
+                    </p>
+                </li>
+            </ul>
+            <div class="dg-actions">
+                <a href="javascript:void(0)" class="pre-step" ng-click="setStep(1)">上一步</a>
+                <a class="dy-btn dy-btn-info" href="javascript:void(0)"
+                   ng-disabled="submiting"
+                   ng-class="submiting?'disabled':''"
+                   ng-click="setStep(3)"
+                   ng-bind="submiting?'创建中...':'创建圈子'"></a>
+            </div>
+        </div>
+    </div>
+</div>
+@section css{
+    @Html.CombineLink("v3/css/circle/page-create.css,css/font-awesome.css")
+}
+@section js{
+
+    @Html.CombineLink("plugs/Angular/angular.min.js,js/base/app.js,js/base/utils.js,v3/js/group/create-controller.js")
+
+
+
+
+
+
+
+}

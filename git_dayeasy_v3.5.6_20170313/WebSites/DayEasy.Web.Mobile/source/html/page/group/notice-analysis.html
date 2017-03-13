@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <!-- 公共基础样式 -->
+    @@include('./link-style.html')
+    <title> 成绩通知 - 我的得一 - 触屏版</title>
+    <link rel="stylesheet" href="/plugs/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css"/>
+    <link rel="stylesheet" href="/css/group/group-notice-analysis.min.css"/>
+</head>
+<body  data-role="7">
+<header class="d-base-header">
+    <div class="d-login-title">
+        <div class="hp-title hp-cf">
+            <a class="hp-text d-back" href="javascript:void(0);">
+                <div class="hp-left hp-back">
+                    <i class="iconfont dy-icon-left"></i>
+                </div>
+            </a>
+            <h1 class="hp-h1 d-notice-analysis-name"></h1>
+        </div>
+    </div>
+</header>
+<section class="work-notice-analysis">
+    <!--成绩通知-->
+    <!--成绩分数-->
+    <div class="head-title-analysis f-cb">
+    </div>
+    <!--成绩详情 表格-->
+    <h2 class="h2-title">成绩详情</h2>
+    <div class="table-analysis" id="ove-x">
+        <table class="d-analysis-table" id="PerformanceDetails">
+        </table>
+    </div>
+    <!--分数段排名-->
+    <h2 class="h2-title">分数段排名</h2>
+    <ul class="fraction-list">
+    </ul>
+    </div>
+</section>
+<!-- 基础脚本 -->
+@@include('./link-script.html')
+
+
+<script src="/plugs/mCustomScrollbar/jquery.mCustomScrollbar.min.js"></script>
+<script src="/plugs/mCustomScrollbar/jquery.mousewheel.min.js"></script>
+<script src="/js/page/group/notice-analysis.min.js"></script>
+
+</body>
+</html>
