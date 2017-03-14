@@ -72,19 +72,11 @@
     <Reference Include="DayEasy.Examination.Services">
       <HintPath>..\..\..\_service\DayEasy.Examination.Services.dll</HintPath>
     </Reference>
-    <Reference Include="DayEasy.Framework, Version=3.5.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DayEasy.Framework.3.5.5.0\lib\net451\DayEasy.Framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="DayEasy.Group.Services">
       <HintPath>..\..\..\_service\DayEasy.Group.Services.dll</HintPath>
     </Reference>
     <Reference Include="DayEasy.Marking.Services">
       <HintPath>..\..\..\_service\DayEasy.Marking.Services.dll</HintPath>
-    </Reference>
-    <Reference Include="DayEasy.MemoryDb, Version=3.5.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DayEasy.Framework.3.5.5.0\lib\net451\DayEasy.MemoryDb.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="DayEasy.Message.Services">
       <HintPath>..\..\..\_service\DayEasy.Message.Services.dll</HintPath>
@@ -115,9 +107,9 @@
     <Reference Include="DayEasy.User.Services">
       <HintPath>..\..\..\_service\DayEasy.User.Services.dll</HintPath>
     </Reference>
-    <Reference Include="DayEasy.Utility, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DayEasy.Office.3.5.5.0\lib\net451\DayEasy.Utility.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="DayEasy.Utility, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_service\DayEasy.Utility.dll</HintPath>
     </Reference>
     <Reference Include="DayEasy.Web">
       <HintPath>..\..\..\_service\DayEasy.Web.dll</HintPath>

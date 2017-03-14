@@ -97,7 +97,6 @@
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="config.json" />
-    <None Include="Properties\PublishProfiles\dayez.file.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

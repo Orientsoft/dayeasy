@@ -40,6 +40,7 @@ namespace DayEasy.MemoryDb.Redis
                 AutoStart = config.AutoStart,
                 DefaultDb = config.DefaultDb
             };
+            
             _manager = new PooledRedisClientManager(config.ReadAndWriteServers.Select(t => t.ToString()),
                 config.ReadOnlyServers.Select(t => t.ToString()), redisConfig, 0, 50, 5);
             _manager.Start();
