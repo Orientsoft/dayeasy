@@ -52,7 +52,7 @@
     </Reference>
     <Reference Include="DayEasy.ThirdPlatform, Version=3.5.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\_service\DayEasy.ThirdPlatform.dll</HintPath>
+      <HintPath>..\..\..\_service\DayEasy.ThirdPlatform.dll</HintPath>
     </Reference>
     <Reference Include="DayEasy.Utility, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

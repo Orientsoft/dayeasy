@@ -44,7 +44,7 @@
     </Reference>
     <Reference Include="DayEasy.EntityFramework, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\_service\DayEasy.EntityFramework.dll</HintPath>
+      <HintPath>..\..\..\_service\DayEasy.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="DayEasy.MemoryDb, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

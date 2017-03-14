@@ -31,13 +31,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DayEasy.AutoMapper">
-      <HintPath>D:\_service\DayEasy.AutoMapper.dll</HintPath>
+      <HintPath>..\..\..\_service\DayEasy.AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="DayEasy.Core">
       <HintPath>..\..\..\_service\DayEasy.Core.dll</HintPath>
     </Reference>
     <Reference Include="DayEasy.EntityFramework">
-      <HintPath>D:\_service\DayEasy.EntityFramework.dll</HintPath>
+      <HintPath>..\..\..\_service\DayEasy.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="DayEasy.MongoDb, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

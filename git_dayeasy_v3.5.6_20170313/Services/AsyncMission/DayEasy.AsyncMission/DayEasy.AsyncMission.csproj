@@ -31,13 +31,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DayEasy.Core">
-      <HintPath>D:\_service\DayEasy.Core.dll</HintPath>
+      <HintPath>..\..\..\_service\DayEasy.Core.dll</HintPath>
     </Reference>
     <Reference Include="DayEasy.MongoDb">
-      <HintPath>D:\_service\DayEasy.MongoDb.dll</HintPath>
+      <HintPath>..\..\..\_service\DayEasy.MongoDb.dll</HintPath>
     </Reference>
     <Reference Include="DayEasy.Utility">
-      <HintPath>D:\_service\DayEasy.Utility.dll</HintPath>
+      <HintPath>..\..\..\_service\DayEasy.Utility.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Bson, Version=2.1.0.145, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MongoDB.Bson.2.1.0\lib\net45\MongoDB.Bson.dll</HintPath>
