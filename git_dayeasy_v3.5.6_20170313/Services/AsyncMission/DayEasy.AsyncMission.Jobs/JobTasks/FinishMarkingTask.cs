@@ -285,11 +285,13 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
         }
 
         #region 知识点统计
+
         /// <summary> 初始化知识点统计 </summary>
         /// <param name="paper"></param>
         /// <param name="dict">batch-classId对应关系</param>
+        /// <param name="createTime"></param>
         /// <returns></returns>
-        private static KpStatisticsDto InitKpStatistics(PaperDetailDto paper, Dictionary<string, string> dict)
+        public static KpStatisticsDto InitKpStatistics(PaperDetailDto paper, Dictionary<string, string> dict, DateTime? createTime = null)
         {
             if (paper == null || dict == null || dict.Count == 0)
                 return null;
@@ -300,11 +302,11 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
             if (batches.Length == 1)
             {
                 var batch = batches[0];
-                condition = condition.And(d => d.Id == batch);
+                condition = condition.And(d => d.Batch == batch);
             }
             else
             {
-                condition = condition.And(d => batches.Contains(d.Id));
+                condition = condition.And(d => batches.Contains(d.Batch));
             }
             var detailRepository = CurrentIocManager.Resolve<IDayEasyRepository<TP_MarkingDetail>>();
             var details = detailRepository.Where(condition)
@@ -315,6 +317,8 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
                     d.Key.Batch,
                     IsCorrect = d.All(t => t.IsCorrect.HasValue && t.IsCorrect.Value)
                 }).ToList();
+            if (!details.Any())
+                return new KpStatisticsDto();
             //所有知识点
             var kpDicts = questions.ToDictionary(k => k.Id,
                 v => string.IsNullOrWhiteSpace(v.KnowledgeIDs)
@@ -326,8 +330,9 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
             if (!allKps.Any()) return null;
 
             //本周星期一
-            var mondayDate = Clock.Now.AddDays(1 - (int)Clock.Now.DayOfWeek).Date;
-            var sundayDate = Clock.Now; //不能是本周日
+            var time = createTime ?? Clock.Now;
+            var mondayDate = time.AddDays(1 - (int)Clock.Now.DayOfWeek).Date;
+            var sundayDate = time; //不能是本周日
             var searchSunday = mondayDate.AddDays(7);//用于查询的本周星期日
 
             var teacherKpStatisticRepository = CurrentIocManager.Resolve<IDayEasyRepository<TS_TeacherKpStatistic>>();
@@ -366,7 +371,7 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
                         ClassID = item.Value
                     };
 
-                    var kpModel = teacherKps.SingleOrDefault(u => u.KpLayerCode == k.Key);
+                    var kpModel = teacherKps.FirstOrDefault(u => u.KpLayerCode == k.Key);
                     if (kpModel != null) //这周已经有了
                     {
                         kpModel.AnswerCount += teacherStatistic.AnswerCount;
@@ -420,7 +425,7 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
                         SubjectID = subjectId
                     };
 
-                    var kpModel = studentKpCodeList.SingleOrDefault(s => s.KpLayerCode == k.Key);
+                    var kpModel = studentKpCodeList.FirstOrDefault(s => s.KpLayerCode == k.Key);
                     if (kpModel != null)//这周已经有了
                     {
                         kpModel.AnswerCount += studentStatistic.AnswerCount;

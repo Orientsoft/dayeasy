@@ -8,7 +8,6 @@ using DayEasy.Contracts.Dtos.Statistic;
 using DayEasy.Contracts.Dtos.User;
 using DayEasy.Contracts.Enum;
 using DayEasy.Contracts.Models;
-using DayEasy.Core.Domain;
 using DayEasy.EntityFramework;
 using DayEasy.Services;
 using DayEasy.Utility;
@@ -201,97 +200,158 @@ namespace DayEasy.Marking.Services
         /// <returns></returns>
         public DResults<DErrorQuestionDto> ErrorQuestions(SearchErrorQuestionDto dto)
         {
-            List<DErrorQuestionDto> list = null;
-            List<QuestionDto> questions = null;
-            if (string.IsNullOrEmpty(dto.GroupId))
-                return DResult.Errors<DErrorQuestionDto>("圈子ID不能为空");
-            DPage page;
-            if (dto.pageIndex < 0 && dto.pageSize <= 0)
-                page = DPage.NewPage();
-            else
-                page = DPage.NewPage(dto.pageIndex, dto.pageSize);
-            Expression<Func<TP_ErrorQuestion, bool>> condition =
-            u => u.SubjectID == dto.SubjectId;
+            var errors = ErrorQuestionRepository.Where(e => e.SubjectID == dto.SubjectId);
             if (dto.DateRange > 0)
             {
-                var dateNow = Clock.Now;
-                var pastTimes = dateNow.AddDays(-dto.DateRange);
-                condition = condition.And(w => w.AddedAt >= pastTimes && w.AddedAt <= dateNow);
+                var lastTime = Clock.Now.AddDays(-dto.DateRange);
+                errors = errors.Where(e => e.AddedAt >= lastTime);
             }
             if (dto.QuestionType > 0)
             {
-                condition = condition.And(w => w.QType == dto.QuestionType);
+                errors = errors.Where(e => e.QType == dto.QuestionType);
+            }
+            if (!string.IsNullOrWhiteSpace(dto.KnowledgeCode) && dto.KnowledgeCode != "0")
+            {
+                var kqs =
+                    QuestionRepository.Where(q => q.KnowledgeIDs.Contains("\"" + dto.KnowledgeCode)).Select(q => q.Id);
+                errors = errors.Join(kqs, e => e.QuestionID, q => q, (e, q) => e);
             }
             if (dto.UserId > 0)
             {
-                condition = condition.And(w => w.StudentID == dto.UserId);
+                errors = errors.Where(e => e.StudentID == dto.UserId);
             }
             else
             {
-                var groupMembers = GroupContract.GroupMembers(dto.GroupId, UserRole.Student);
-                if (!groupMembers.Status || !groupMembers.Data.Any())
-                    return DResult.Errors<DErrorQuestionDto>("该班级没有学生");
-                var memberIds = groupMembers.Data.Select(w => w.Id).ToList();
-                if (memberIds.Any())
-                    condition = condition.And(w => memberIds.Contains(w.StudentID));
+                var batches =
+                    UsageRepository.Where(
+                            c => c.ClassId == dto.GroupId && c.MarkingStatus == (byte)MarkingStatus.AllFinished)
+                        .Select(c => c.Id);
+                errors = errors.Join(batches, e => e.Batch, u => u, (e, c) => e);
             }
-            var errorQuestions = ErrorQuestionRepository.Where(condition);
-            if (!errorQuestions.Any())
-                return DResult.Errors<DErrorQuestionDto>("没有错题信息");
-            var groups = errorQuestions.GroupBy(w => w.QuestionID)
-                .Select(g => new DErrorQuestionDto
-                {
-                    Id = g.Max(w => w.Id),
-                    ErrUserCount = g.Count(),
-                    PaperTitle = g.Max(w => w.PaperTitle),
-                    Batch = g.Max(w => w.Batch),
-                    PaperId = g.Max(w => w.PaperID),
-                    QuestionId = g.Max(w => w.QuestionID),
-                    CreateTime = g.Max(w => w.AddedAt),
-                });
-            if (dto.OrderOfArr == 1)
-                list = groups.OrderByDescending(w => w.ErrUserCount).ToList();
-            else if (dto.OrderOfArr == 2)
-                list = groups.OrderBy(w => w.ErrUserCount).ToList();
-            else
-                list = groups.OrderByDescending(w => w.CreateTime).ToList();
-            var ids = groups.Select(w => w.QuestionId).Distinct().ToList();
-           
-            questions = PaperContract.LoadQuestions(ids);
-            string[] errorids;
-            if (!string.IsNullOrEmpty(dto.KnowledgeCode) && dto.KnowledgeCode != "0")
+            var models = errors.GroupBy(e => new { e.QuestionID, e.Batch, e.PaperID, e.PaperTitle }).Select(e => new
             {
-                questions = questions.Where(w => w.KnowledgeIDs.Contains(dto.KnowledgeCode)).ToList();
-                if (questions.Any())
-                    errorids = questions.Select(w => w.Id).ToArray();
-                else
-                    errorids = null;
-            }
-            else
-            {
-                errorids = null;
-            }
-            var count = questions.Count;
-            var dic = questions.ToDictionary(k => k.Id, v => v.Body);
-            list = list.Where(w => dic.Keys.Contains(w.QuestionId)).ToList();
-            if (errorids != null)
-                list = list.Where(w => errorids.Contains(w.QuestionId)).ToList();
-            var l = list.DistinctBy(w => w.QuestionId).Skip(page.Page * page.Size).Take(page.Size).ToList();
-            int sort = page.Page * page.Size;
-            l.Foreach(q =>
-            {
-                sort++;
-                q.Sort = sort;
-                if (dic.ContainsKey(q.QuestionId))
-                {
-                    var question = questions.Single(w => w.Id == q.QuestionId);
-                    q.QuestionContent = dic[q.QuestionId];
-                    q.Question= question;
-                }
-                else
-                    q.QuestionContent = "此题目不存在";
+                qid = e.Key.QuestionID,
+                batch = e.Key.Batch,
+                paperId = e.Key.PaperID,
+                title = e.Key.PaperTitle,
+                create = e.Min(t => t.AddedAt),
+                count = e.Count()
             });
-            return DResult.Succ(l, count);
+            var count = models.Count();
+            if (dto.OrderOfArr == 1)
+                models = models.OrderByDescending(w => w.count);
+            else if (dto.OrderOfArr == 2)
+                models = models.OrderBy(w => w.count);
+            else
+                models = models.OrderByDescending(w => w.create);
+            var list = models.Skip(dto.pageIndex * dto.pageSize).Take(dto.pageSize).ToList();
+            var qids = list.Select(t => t.qid).ToList();
+            var questions = PaperContract.LoadQuestions(qids).ToDictionary(k => k.Id, v => v);
+            var sort = (dto.pageIndex * dto.pageSize) + 1;
+            var dtos = list.Select(t => new DErrorQuestionDto
+            {
+                QuestionId = t.qid,
+                Sort = sort++,
+                Batch = t.batch,
+                PaperTitle = t.title,
+                ErrUserCount = t.count,
+                PaperId = t.paperId,
+                CreateTime = Clock.Normalize(t.create),
+                Question = questions.ContainsKey(t.qid) ? questions[t.qid] : null,
+                QuestionContent = questions.ContainsKey(t.qid) ? questions[t.qid].Body : string.Empty
+            }).ToList();
+            return DResult.Succ(dtos, count);
+
+            //List<DErrorQuestionDto> list = null;
+            //List<QuestionDto> questions = null;
+            //if (string.IsNullOrEmpty(dto.GroupId))
+            //    return DResult.Errors<DErrorQuestionDto>("圈子ID不能为空");
+            //DPage page;
+            //if (dto.pageIndex < 0 && dto.pageSize <= 0)
+            //    page = DPage.NewPage();
+            //else
+            //    page = DPage.NewPage(dto.pageIndex, dto.pageSize);
+            //Expression<Func<TP_ErrorQuestion, bool>> condition = u => u.SubjectID == dto.SubjectId;
+            //if (dto.DateRange > 0)
+            //{
+            //    var dateNow = Clock.Now;
+            //    var pastTimes = dateNow.AddDays(-dto.DateRange);
+            //    condition = condition.And(w => w.AddedAt >= pastTimes && w.AddedAt <= dateNow);
+            //}
+            //if (dto.QuestionType > 0)
+            //{
+            //    condition = condition.And(w => w.QType == dto.QuestionType);
+            //}
+            //if (dto.UserId > 0)
+            //{
+            //    condition = condition.And(w => w.StudentID == dto.UserId);
+            //}
+            //else
+            //{
+            //    var groupMembers = GroupContract.GroupMembers(dto.GroupId, UserRole.Student);
+            //    if (!groupMembers.Status || !groupMembers.Data.Any())
+            //        return DResult.Errors<DErrorQuestionDto>("该班级没有学生");
+            //    var memberIds = groupMembers.Data.Select(w => w.Id).ToList();
+            //    if (memberIds.Any())
+            //        condition = condition.And(w => memberIds.Contains(w.StudentID));
+            //}
+            //var errorQuestions = ErrorQuestionRepository.Where(condition);
+            //if (!errorQuestions.Any())
+            //    return DResult.Errors<DErrorQuestionDto>("没有错题信息");
+            //var groups = errorQuestions.GroupBy(w => w.QuestionID)
+            //    .Select(g => new DErrorQuestionDto
+            //    {
+            //        Id = g.Max(w => w.Id),
+            //        ErrUserCount = g.Count(),
+            //        PaperTitle = g.Max(w => w.PaperTitle),
+            //        Batch = g.Max(w => w.Batch),
+            //        PaperId = g.Max(w => w.PaperID),
+            //        QuestionId = g.Max(w => w.QuestionID),
+            //        CreateTime = g.Max(w => w.AddedAt),
+            //    });
+            //if (dto.OrderOfArr == 1)
+            //    list = groups.OrderByDescending(w => w.ErrUserCount).ToList();
+            //else if (dto.OrderOfArr == 2)
+            //    list = groups.OrderBy(w => w.ErrUserCount).ToList();
+            //else
+            //    list = groups.OrderByDescending(w => w.CreateTime).ToList();
+            //var ids = groups.Select(w => w.QuestionId).Distinct().ToList();
+
+            //questions = PaperContract.LoadQuestions(ids);
+            //string[] errorids;
+            //if (!string.IsNullOrEmpty(dto.KnowledgeCode) && dto.KnowledgeCode != "0")
+            //{
+            //    questions = questions.Where(w => w.KnowledgeIDs.Contains(dto.KnowledgeCode)).ToList();
+            //    if (questions.Any())
+            //        errorids = questions.Select(w => w.Id).ToArray();
+            //    else
+            //        errorids = null;
+            //}
+            //else
+            //{
+            //    errorids = null;
+            //}
+            //var count = questions.Count;
+            //var dic = questions.ToDictionary(k => k.Id, v => v.Body);
+            //list = list.Where(w => dic.Keys.Contains(w.QuestionId)).ToList();
+            //if (errorids != null)
+            //    list = list.Where(w => errorids.Contains(w.QuestionId)).ToList();
+            //var l = list.DistinctBy(w => w.QuestionId).Skip(page.Page * page.Size).Take(page.Size).ToList();
+            //int sort = page.Page * page.Size;
+            //l.Foreach(q =>
+            //{
+            //    sort++;
+            //    q.Sort = sort;
+            //    if (dic.ContainsKey(q.QuestionId))
+            //    {
+            //        var question = questions.Single(w => w.Id == q.QuestionId);
+            //        q.QuestionContent = dic[q.QuestionId];
+            //        q.Question= question;
+            //    }
+            //    else
+            //        q.QuestionContent = "此题目不存在";
+            //});
+            //return DResult.Succ(l, count);
         }
 
         /// <summary>

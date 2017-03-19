@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DayEasy.AsyncMission.Jobs;
 using DayEasy.Core;
+using DayEasy.Core.Cache;
 using DayEasy.Framework;
 using DayEasy.Services;
 using System.Reflection;
@@ -27,6 +28,8 @@ namespace DayEasy.TaskService
                 build.RegisterGeneric(typeof(Version3Repository<,>)).As(typeof(IVersion3Repository<,>));
             };
             bootstrap.Initialize(Assembly.GetExecutingAssembly());
+            //去除runtime缓存
+            CacheManager.RemoveProvider(CacheLevel.First);
             Setup.Start();
         }
 

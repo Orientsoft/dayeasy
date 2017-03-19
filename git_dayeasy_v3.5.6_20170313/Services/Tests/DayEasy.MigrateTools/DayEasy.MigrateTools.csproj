@@ -100,6 +100,7 @@
     <Compile Include="Migrate\AgencyMigrate.cs" />
     <Compile Include="Migrate\ClassMigrate.cs" />
     <Compile Include="Migrate\ExportTask.cs" />
+    <Compile Include="Migrate\StatisticMigrate.cs" />
     <Compile Include="Migrate\TxtFileHelper.cs" />
     <Compile Include="Migrate\DynamicMigrate.cs" />
     <Compile Include="Migrate\ErrorQuestionMigrate.cs" />

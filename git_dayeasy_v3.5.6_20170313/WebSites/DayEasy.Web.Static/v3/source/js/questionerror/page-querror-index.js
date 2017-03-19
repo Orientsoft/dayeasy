@@ -1,16 +1,16 @@
 /**
  * Created by Plato on 2017/1/25.
  */
-(function ($, S){
+(function ($, S) {
     S.pageLoading();
     S.mix(S, {
         /**
          * 问题展示
          * @param question
          */
-        showQuestion: function (question){
-            if(!question) return '';
-            if($('#q-template').length == 0)
+        showQuestion: function (question) {
+            if (!question) return '';
+            if ($('#q-template').length == 0)
                 return '缺少q-template模板';
             question.show_option = true;
             return template('q-template', question);
@@ -20,19 +20,19 @@
          * @param options
          * @returns {boolean}
          */
-        optionModelS: function (options){
+        optionModelS: function (options) {
             for (var i = 0; i < options.length; i++) {
                 var item = options[i],
                     len = 0;
                 //有公式
-                if(item.Body.indexOf('\\[') >= 0) return true;
+                if (item.Body.indexOf('\\[') >= 0) return true;
                 len += (item.Images && item.Images.length) ? 18 : 0;
-                if(S.lengthCn(item.Body) + len > 35) return false;
+                if (S.lengthCn(item.Body) + len > 35) return false;
             }
             return true;
-        },
+        }
     });
-    template.helper('optionModel', function (data){
+    template.helper('optionModel', function (data) {
         return S.optionModelS(data) ? 'q-options-horizontal' : '';
     });
     var $window = $(window),
@@ -56,6 +56,9 @@
             },
             data: {
                 errorList: {
+                    /**
+                     * 错题筛选
+                     */
                     navList: {
                         DateRange: -1,      // 日期范围
                         groupid: null,      // 圈子ID
@@ -67,6 +70,9 @@
                         count: 0,              //总共条数
                         UserId: 0              //学生错题信息参数
                     },
+                    /**
+                     * 知识点筛选
+                     */
                     knowledgePoint: {
                         DateRange: -1,
                         groupid: null,
@@ -84,15 +90,15 @@
              * @param id 错题ID
              * @returns {boolean}
              */
-            refresh: function (questionid, id){
+            refresh: function (questionid, id) {
                 for (var i = 0; i < error.data.list.length; i++) {
-                    if(error.data.list[i] == questionid){
+                    if (error.data.list[i] == questionid) {
                         error.data.list.splice(i, 1);
                         error.data.listId.splice(i, 1);
                         return true;
                     }
                 }
-                if(error.data.list.length > 49 && error.data.listId > 49){
+                if (error.data.list.length > 49 && error.data.listId > 49) {
                     S.msg("已经选择了很多错题啦，先下载一份吧~~");
                     return false;
                 }
@@ -103,7 +109,7 @@
             /**
              * 清空下载列表
              */
-            reset: function (){
+            reset: function () {
                 error.data.list = [];
                 error.data.listId = [];
                 $('#txtDwData').val('');
@@ -112,7 +118,7 @@
             /**
              * 刷新下载列表页面
              */
-            refreshHtml: function (){
+            refreshHtml: function () {
                 var total = error.data.list.length,
                     $download = $(".box-fixed-download");
                 $(".in-total").find('b').text(total);
@@ -123,9 +129,9 @@
              * @param json
              * @returns {*}
              */
-            jsonAddRefresh: function (json){
+            jsonAddRefresh: function (json) {
                 for (var i = 0; i < json.data.length; i++) {
-                    if(error.data.list.indexOf(json.data[i].QuestionId) == -1){
+                    if (error.data.list.indexOf(json.data[i].QuestionId) == -1) {
                         json.data[i].refresh = false;
                     } else {
                         json.data[i].refresh = true;
@@ -140,10 +146,9 @@
              * @param options error.data.errorList.navList
              * @param callback
              */
-            getErrorList: function (options, callback){
-                $('.main-qu-error').html('<div class="dy-loading"><i></i></div>');
-                $.get(error.urls.errorList, options, function (json){
-                    if(json.data.length){
+            getErrorList: function (options, callback) {
+                $.get(error.urls.errorList, options, function (json) {
+                    if (json.data.length) {
                         var $html = template('main-box', error.data.errorType);
                         $('.main-qu-error').html($html);
                         S.loadFormula();
@@ -152,7 +157,6 @@
                         callback && callback.call(this);
                     } else {
                         $('.main-qu-error').html(template('class-no-wrong', {}));
-
                     }
                 });
             },
@@ -161,14 +165,14 @@
              * @param options
              * @param callback
              */
-            getErrorListCont: function (options, callback){
+            getErrorListCont: function (options, callback) {
                 var $conSubjectList = $('.con-subject-list');
                 $conSubjectList.html('<div class="dy-loading"><i></i></div>');
-                $.get(error.urls.errorList, options, function (json){
-                    if(json.data.length){
+                $.get(error.urls.errorList, options, function (json) {
+                    if (json.data.length) {
                         $conSubjectList.html(template('con-subject-list', error.jsonAddRefresh(json)));
                         var $jsLoadMore = $('.js-load-more');
-                        if(json.count > error.data.errorList.navList.pagesize){
+                        if (json.count > error.data.errorList.navList.pagesize) {
                             $jsLoadMore.removeClass('hide');
                         } else {
                             $jsLoadMore.addClass('hide');
@@ -186,10 +190,10 @@
             /**
              * 任教班级列表
              */
-            getInClasst: function (callback){
-                $.get(error.urls.inClass, function (json){
-                    S.each(json, function (item, key){
-                        if(key == 0){
+            getInClasst: function (callback) {
+                $.get(error.urls.inClass, function (json) {
+                    S.each(json, function (item, key) {
+                        if (key == 0) {
                             error.data.errorList.navList.groupid = item.Id;
                             error.data.errorList.knowledgePoint.groupid = item.Id;
                         }
@@ -204,12 +208,12 @@
             /**
              * NAV 错题题型列表
              */
-            getErrorType: (function (){
-                if(error.data.errorType.length > 0){
+            getErrorType: (function () {
+                if (error.data.errorType.length > 0) {
                     return false;
                 }
-                $.get(error.urls.errorType, function (json){
-                    S.each(json, function (item, key){
+                $.get(error.urls.errorType, function (json) {
+                    S.each(json, function (item, key) {
                         error.data.errorType.push({
                             Id: item.Id,
                             Name: item.Name
@@ -222,8 +226,8 @@
              * @param options error.data.errorList.knowledgePoint
              * @param callback
              */
-            grtKnowledgePoint: function (options, callback){
-                $.get(error.urls.knowledgePoint, options, function (json){
+            grtKnowledgePoint: function (options, callback) {
+                $.get(error.urls.knowledgePoint, options, function (json) {
                     var
                         showNumber = 5,
                         more = $('.js-more-conten'),
@@ -232,7 +236,7 @@
                     $('.js-more-btn').remove();
                     more.html($html);
                     more.prepend('<li class="on" data-code="0">全部</li>');
-                    if(json.count > showNumber){
+                    if (json.count > showNumber) {
                         more.moreShow({number: showNumber});
                     }
                     callback && callback.call(this, json);
@@ -241,9 +245,9 @@
             /**
              * 学生用户信息列表
              */
-            grtErrorUsers: function (options, callback){
+            grtErrorUsers: function (options, callback) {
                 S.loading.start($('.student-inio'));
-                $.get(error.urls.errorUsers, options, function (json){
+                $.get(error.urls.errorUsers, options, function (json) {
                     var $html = template('student-inio', json);
                     $('.student-inio').html($html);
                     callback && callback.call(this);
@@ -252,27 +256,31 @@
             /**
              * 初次加载数据绑定界面
              */
-            init: function (){
+            init: function () {
                 /**
                  * Bing-错题列表
                  */
-                errorApi.getInClasst(function (){
+                errorApi.getInClasst(function () {
                     S.pageLoaded();
-                    if(error.data.inClass.length){
+                    if (error.data.inClass.length) {
                         var $html = $(template('nva-menu', error.data.inClass));
                         $html.find('li:eq(0)').addClass('on');
                         $('.sidebar-question-error .nva-menu').html($html);
+
+                        $html = template('main-box', error.data.errorType);
+                        $('.main-qu-error').html($html);
                         /**
                          * 错题列表
                          */
-                        errorApi.getErrorList(error.data.errorList.navList, function (){
-                            errorApi.grtKnowledgePoint(error.data.errorList.knowledgePoint, function (){
-                                errorApi.getErrorListCont(error.data.errorList.navList);
-                                $(".htmleaf-containers").tabcont();
-                                //学生列表
-                                errorApi.grtErrorUsers({"groupid": error.data.errorList.navList.groupid})
-                            });
+                        errorApi.grtKnowledgePoint(error.data.errorList.knowledgePoint, function () {
+                            errorApi.getErrorListCont(error.data.errorList.navList);
+                            $(".htmleaf-containers").tabcont();
+                            //学生列表
+                            errorApi.grtErrorUsers({groupid: error.data.errorList.navList.groupid})
                         });
+                        //errorApi.getErrorList(error.data.errorList.navList, function (){
+
+                        //});
                     } else {
                         var $pageQuestionerrorIndex = $('.page-questionerror-index');
                         $pageQuestionerrorIndex.addClass('add-Class-not');
@@ -291,8 +299,8 @@
     });
     S.errorApi.init();
     /*隐藏-展开*/
-    $.fn.moreShow = function (options){
-        if(!this.length){
+    $.fn.moreShow = function (options) {
+        if (!this.length) {
             return this;
         }
         var defaults = {
@@ -300,21 +308,21 @@
                 btn: '.js-more-btn'
             },
             opts = $.extend(true, {}, defaults, options);
-        this.each(function (){
+        this.each(function () {
             var $this = $(this),
                 $category = $this.find('li:gt(' + opts.number + ')'),
                 $body = $('body'),
                 $btn = $(opts.btn);
-            if(!$category.length){
+            if (!$category.length) {
                 $btn.remove();
                 return false;
             }
             $category.hide();
-            if(!($('#list-knowledge').find('.js-more-btn').length)){
+            if (!($('#list-knowledge').find('.js-more-btn').length)) {
                 $('#list-knowledge').prepend('<b class="more js-more-btn">展开 <i class="iconfont dy-icon-anglebottom"></i></b>');
             }
-            $body.on('click', opts.btn, function (){
-                if($category.is(':visible')){
+            $body.on('click', opts.btn, function () {
+                if ($category.is(':visible')) {
                     $category.hide();
                     $btn.html('展开 <i class="iconfont dy-icon-anglebottom"></i>')
                 } else {
@@ -330,7 +338,7 @@
     /**
      * 任教班级切换
      */
-        .on('click', '.nva-menu li', function (){
+        .on('click', '.nva-menu li', function () {
             var $this = $(this),
                 groupid = $this.find('a').data('groupid');
             $this.addClass('on').siblings().removeClass('on');
@@ -356,9 +364,9 @@
             /**
              * 错题列表
              */
-            errorApi.getErrorList(error.data.errorList.navList, function (){
-                errorApi.grtKnowledgePoint(error.data.errorList.knowledgePoint, function (){
-                    errorApi.getErrorListCont(error.data.errorList.navList, function (){
+            errorApi.getErrorList(error.data.errorList.navList, function () {
+                errorApi.grtKnowledgePoint(error.data.errorList.knowledgePoint, function () {
+                    errorApi.getErrorListCont(error.data.errorList.navList, function () {
                         $(".htmleaf-containers").tabcont();
                         //学生列表
                         errorApi.grtErrorUsers({"groupid": error.data.errorList.navList.groupid});
@@ -369,34 +377,34 @@
         /**
          * 知识点筛选-组装
          */
-        .on('click', '.conten-list-text li', function (){
+        .on('click', '.conten-list-text li', function () {
             var $this = $(this);
-            if($this.hasClass('on')){
+            if ($this.hasClass('on')) {
                 return false;
             }
             var type = ~~$this.parents('.conten-list-text').siblings('.data-type').data('type');
             $this.addClass('on').siblings().removeClass('on');
             error.data.errorList.navList.pageindex = 0;
-            if(type == 1){
+            if (type == 1) {
                 error.data.errorList.navList.DateRange = ~~$this.data('value');
                 error.data.errorList.knowledgePoint.DateRange = ~~$this.data('value');
             }
-            if(type == 2){
+            if (type == 2) {
                 error.data.errorList.navList.QuestionType = ~~$this.data('errortypeid');
                 error.data.errorList.knowledgePoint.QuestionType = ~~$this.data('errortypeid');
             }
-            if(type == 3){
+            if (type == 3) {
                 error.data.errorList.navList.OrderOfArr = ~~$this.data('time');
             }
-            if(type == 4){
+            if (type == 4) {
                 error.data.errorList.navList.KnowledgeCode = ~~$this.data('code');
             }
             /*知识点筛选*/
-            if(type == 1 || type == 2){
+            if (type == 1 || type == 2) {
                 error.data.errorList.navList.KnowledgeCode = 0;
-                errorApi.grtKnowledgePoint(error.data.errorList.knowledgePoint, function (json){
+                errorApi.grtKnowledgePoint(error.data.errorList.knowledgePoint, function (json) {
                     var $knowledgePoint = $('.knowledge-point');
-                    if(!json.data.length){
+                    if (!json.data.length) {
                         $knowledgePoint.fadeOut();
                     } else {
                         $knowledgePoint.fadeIn();
@@ -410,7 +418,7 @@
         /**
          * 学生列表跳转
          */
-        .on('click', '.list-inio', function (){
+        .on('click', '.list-inio', function () {
             $window.unbind("scroll.getData");
             var $t = $(this),
                 dataUser = $t.data('user-inio'),
@@ -440,12 +448,12 @@
             /**
              * 错题列表
              */
-            errorApi.getErrorList(error.data.errorList.navList, function (){
+            errorApi.getErrorList(error.data.errorList.navList, function () {
                 $('.htmleaf-content').addClass('hide');
                 var $html = template('user-info', ConfigJSON);
                 $('.main-qu-error').prepend($html);
-                errorApi.grtKnowledgePoint(error.data.errorList.knowledgePoint, function (){
-                    errorApi.getErrorListCont(error.data.errorList.navList, function (){
+                errorApi.grtKnowledgePoint(error.data.errorList.knowledgePoint, function () {
+                    errorApi.getErrorListCont(error.data.errorList.navList, function () {
                         //学生列表
                         errorApi.grtErrorUsers({"groupid": error.data.errorList.navList.groupid});
                     });
@@ -456,7 +464,7 @@
         /**
          * 返回学生列表
          */
-        .on('click', '.user-info .return', function (){
+        .on('click', '.user-info .return', function () {
             /**
              * 学生列表重新更新
              */
@@ -485,12 +493,12 @@
             /**
              * 错题列表
              */
-            errorApi.getErrorList(error.data.errorList.navList, function (){
+            errorApi.getErrorList(error.data.errorList.navList, function () {
                 //                        //学生列表
                 $(".htmleaf-containers").tabcont();
                 $('.htmleaf-content').find('.dy-tab-nav li').eq(1).trigger('click');
                 errorApi.grtErrorUsers({"groupid": error.data.errorList.navList.groupid});
-                errorApi.grtKnowledgePoint(error.data.errorList.knowledgePoint, function (){
+                errorApi.grtKnowledgePoint(error.data.errorList.knowledgePoint, function () {
                     errorApi.getErrorListCont(error.data.errorList.navList);
                 });
             });
@@ -498,12 +506,12 @@
         /**
          * 添加删除下载
          */
-        .on('click', '.in-download', function (){
+        .on('click', '.in-download', function () {
             //下载
             var $t = $(this),
                 questionid = $t.data("questionid"),
                 id = $t.data("id");
-            if(error.refresh(questionid, id)){
+            if (error.refresh(questionid, id)) {
                 error.refreshHtml();
                 $t.hasClass("dw-active") ? $t.removeClass("dw-active").html('+ 加入下载') : $t.addClass("dw-active").html('x 移除下载');
             }
@@ -511,8 +519,8 @@
         /**
          * 下载
          */
-        .on('click', '.btn-question-download', function (){
-            if(error.data.listId.length < 1){
+        .on('click', '.btn-question-download', function () {
+            if (error.data.listId.length < 1) {
                 S.msg("请选择错题");
                 return;
             }
@@ -525,19 +533,19 @@
                 backdropOpacity: .7,
                 okValue: "是的",
                 cancelValue: "还没有",
-                ok: function (){
+                ok: function () {
                     error.reset();
                     error.refreshHtml();
                 },
-                cancel: function (){
+                cancel: function () {
                 }
             }).showModal();
         })
         /**
          * 一键清除储存记忆数据
          */
-        .on('click', '.btn-key-clear', function (){
-            S.confirm('确定<span style="color:#ffab00">清空</span>错题下载列表', function (){
+        .on('click', '.btn-key-clear', function () {
+            S.confirm('确定<span style="color:#ffab00">清空</span>错题下载列表', function () {
                 error.reset();
                 error.refreshHtml();
             })
@@ -545,30 +553,30 @@
         /**
          * 加载更多错题数据
          */
-        .on('click', '.js-load-more', function (){
+        .on('click', '.js-load-more', function () {
             var notData,
                 $conSubjectList = $('.con-subject-list'),
                 length = $conSubjectList.find('.tab-con-subject'),
                 $jsLoadMore = $('.js-load-more');
             $jsLoadMore.addClass('hide');
-            if(!length){
+            if (!length) {
                 return false;
             }
-            if($('.tab-con').find('.student-list-item').is(':hidden')){
+            if ($('.tab-con').find('.student-list-item').is(':hidden')) {
                 error.data.errorList.navList.pageindex = ++error.data.errorList.navList.pageindex;
             }
             $conSubjectList.append('<div class="dy-loading"><i></i></div>');
             //没有更多数据了
-            notData = function (){
+            notData = function () {
                 var lengthList = $('.con-subject-list').find('.tab-con-subject').length,
                     notWarning = $conSubjectList.find('div').hasClass('box-not-warning');
-                if(lengthList > 0 && !notWarning){
+                if (lengthList > 0 && !notWarning) {
                     S.loading.done($conSubjectList);
                     $conSubjectList.append('<div class="f-tac box-not-warning"><i class="iconfont dy-icon-warning"></i>没有更多数据了</div>');
                 }
-            }
-            $.get(error.urls.errorList, error.data.errorList.navList, function (json){
-                if(json.data.length){
+            };
+            $.get(error.urls.errorList, error.data.errorList.navList, function (json) {
+                if (json.data.length) {
                     var
                         count = json.count,
                         pageindex = error.data.errorList.navList.pageindex,
@@ -576,8 +584,11 @@
                         $html = template('con-subject-list', error.jsonAddRefresh(json));
                     S.loading.done($conSubjectList);
                     $conSubjectList.append($html);
-                    S.loadFormula();
-                    if((pageindex + 1) * pagesize >= count){
+                    try {
+                        S.loadFormula();
+                    } catch (e) {
+                    }
+                    if ((pageindex + 1) * pagesize >= count) {
                         notData();
                     } else {
                         $jsLoadMore.removeClass('hide');

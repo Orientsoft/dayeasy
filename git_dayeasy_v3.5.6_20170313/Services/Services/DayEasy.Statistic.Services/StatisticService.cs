@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Linq.Expressions;
-using DayEasy.AutoMapper;
+﻿using DayEasy.AutoMapper;
 using DayEasy.Contracts;
 using DayEasy.Contracts.Dtos.Group;
 using DayEasy.Contracts.Dtos.Paper;
@@ -19,6 +14,11 @@ using DayEasy.Utility.Extend;
 using DayEasy.Utility.Helper;
 using DayEasy.Utility.Logging;
 using DayEasy.Utility.Timing;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Linq.Expressions;
 using PointDto = DayEasy.Contracts.Dtos.Statistic.PointDto;
 using PointInfoDto = DayEasy.Contracts.Dtos.Statistic.PointInfoDto;
 using SeriesDto = DayEasy.Contracts.Dtos.Statistic.SeriesDto;
@@ -76,7 +76,11 @@ namespace DayEasy.Statistic.Services
             if (kps == null) return null;
 
             //当前知识点
-            var currentCodes = kps.Where(u => !string.IsNullOrEmpty(u.KpLayerCode) && u.KpLayerCode.Length >= 5).Select(u => u.KpLayerCode).Distinct().ToList();
+            var currentCodes =
+                kps.Where(u => !string.IsNullOrEmpty(u.KpLayerCode) && u.KpLayerCode.Length >= 5)
+                    .Select(u => u.KpLayerCode)
+                    .Distinct()
+                    .ToList();
             if (currentCodes.Count <= 0) return null;
 
             var resultList = FindParentsKps(currentCodes);
@@ -532,7 +536,7 @@ namespace DayEasy.Statistic.Services
                     kpModel.AnswerCount += kpStatistic.AnswerCount;
                     kpModel.ErrorCount += kpStatistic.ErrorCount;
 
-                    TeacherKpStatisticRepository.Update(k => new {k.AnswerCount, k.ErrorCount}, kpModel);
+                    TeacherKpStatisticRepository.Update(k => new { k.AnswerCount, k.ErrorCount }, kpModel);
                 }
                 else//这周还没有
                 {
@@ -588,7 +592,7 @@ namespace DayEasy.Statistic.Services
                     kpModel.AnswerCount += kpStatistic.AnswerCount;
                     kpModel.ErrorCount += kpStatistic.ErrorCount;
 
-                    StudentKpStatisticRepository.Update(k => new {k.AnswerCount, k.ErrorCount}, kpModel);
+                    StudentKpStatisticRepository.Update(k => new { k.AnswerCount, k.ErrorCount }, kpModel);
                 }
                 else//这周还没有
                 {
@@ -626,57 +630,19 @@ namespace DayEasy.Statistic.Services
         /// <returns></returns>
         public DResult<KpStatisticDataDto> GetKpStatistic(SearchKpStatisticDataDto searchDto)
         {
-            #region 处理时间
-
-            DateTime startTime = Clock.Now;
-            if (string.IsNullOrEmpty(searchDto.StartTimeStr))
+            DateTime startTime, endTime;
+            if (string.IsNullOrWhiteSpace(searchDto.StartTimeStr))
             {
-                if (searchDto.Role == UserRole.Teacher) //老师
-                {
-                    var teacherLastKp = TeacherKpStatisticRepository.Where(u => u.ClassID == searchDto.GroupId && u.SubjectID == searchDto.SubjectId).OrderByDescending(u => u.StartTime).Take(1).ToList();
-
-                    var tsTeacherKpStatistic = teacherLastKp.FirstOrDefault();
-                    if (tsTeacherKpStatistic != null)
-                        startTime = tsTeacherKpStatistic.StartTime;
-                }
-                else if (searchDto.Role == UserRole.Student)//学生
-                {
-                    var studentLastKp = StudentKpStatisticRepository.Where(u => u.StudentID == searchDto.UserId && u.SubjectID == searchDto.SubjectId).OrderByDescending(u => u.StartTime).Take(1).ToList();
-
-                    var tsStudentKpStatistic = studentLastKp.FirstOrDefault();
-                    if (tsStudentKpStatistic != null)
-                        startTime = tsStudentKpStatistic.StartTime;
-                }
+                var day = Clock.Now.DayOfWeek;
+                var days = day == DayOfWeek.Sunday ? -7 : -(int)day;
+                startTime = Clock.Now.AddDays(days + 1).Date;
+                endTime = startTime.AddDays(7).Date;
             }
-
-            //计算日期
-            var week = (Clock.Now - startTime).Days / 7;
-
-            startTime = GetMondayDate(-week);
-            DateTime endTime = startTime.AddDays(6);//本周星期日
-
-            var outStartTimeStr = startTime.ToString("yyyy-MM-dd");
-            var outEndTimeStr = endTime.ToString("yyyy-MM-dd");
-
-            if (!string.IsNullOrEmpty(searchDto.StartTimeStr))
+            else
             {
-                if (DateTime.TryParse(searchDto.StartTimeStr, out startTime))
-                {
-                    outStartTimeStr = startTime.ToString("yyyy-MM-dd");
-                    startTime = startTime.AddDays(1 - (int)startTime.DayOfWeek).Date;
-                }
+                startTime = DateTime.Parse(searchDto.StartTimeStr);
+                endTime = DateTime.Parse(searchDto.EndTimeStr);
             }
-
-            if (!string.IsNullOrEmpty(searchDto.StartTimeStr) && !string.IsNullOrEmpty(searchDto.EndTimeStr))
-            {
-                if (DateTime.TryParse(searchDto.EndTimeStr, out endTime))
-                {
-                    outEndTimeStr = endTime.ToString("yyyy-MM-dd");
-                }
-            }
-            endTime = endTime.AddDays(1);
-
-            #endregion
 
             List<KpDataDto> resultList = null;//结果集
 
@@ -686,7 +652,11 @@ namespace DayEasy.Statistic.Services
                 {
                     #region 老师部分
                     //查询老师的知识点统计数据
-                    var teacherKps = TeacherKpStatisticRepository.Where(u => u.StartTime >= startTime && u.StartTime < endTime && u.ClassID == searchDto.GroupId && u.SubjectID == searchDto.SubjectId).ToList();
+                    var teacherKps =
+                        TeacherKpStatisticRepository.Where(
+                            u =>
+                                u.StartTime >= startTime && u.StartTime < endTime && u.ClassID == searchDto.GroupId &&
+                                u.SubjectID == searchDto.SubjectId).ToList();
 
                     if (teacherKps.Count > 0)
                     {
@@ -724,10 +694,10 @@ namespace DayEasy.Statistic.Services
                 }
             }
 
-            var result = new KpStatisticDataDto()
+            var result = new KpStatisticDataDto
             {
-                OutEndTimeStr = outEndTimeStr,
-                OutStartTimeStr = outStartTimeStr,
+                OutStartTimeStr = startTime.ToString("yyyy-MM-dd"),
+                OutEndTimeStr = endTime.ToString("yyyy-MM-dd"),
                 KpData = resultList
             };
 

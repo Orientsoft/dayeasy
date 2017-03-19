@@ -66,14 +66,14 @@ namespace DayEasy.Web.Application.Controllers
         [Route("learn/kp")]
         public ActionResult KpStatistic()
         {
-            int subjectId = "sub".Query(-1);
+            var subjectId = "sub".Query(-1);
             string groupId = "cid".Query("");
             string startTimeStr = "start".Query("");
             string endTimeStr = "end".Query("");
 
             #region 处理圈子和学科
 
-            if (CurrentUserRoles.Contains(UserRole.Student) || CurrentUserRoles.Contains(UserRole.Parents))
+            if (CurrentUser.IsStudent() || CurrentUser.IsTeacher())
             {
                 var subjects = SystemCache.Instance.Subjects();
                 if (subjects.Count > 0)
@@ -86,9 +86,9 @@ namespace DayEasy.Web.Application.Controllers
                     ViewData["subjects"] = subjects.ToSlectListItemList(u => u.Value, u => u.Key, subjectId);
                 }
             }
-            else if (CurrentUserRoles.Contains(UserRole.Teacher))
+            else if (CurrentUser.IsTeacher())
             {
-                var groups = _groupContract.Groups(ChildOrUserId, (int)GroupType.Class);
+                var groups = _groupContract.Groups(UserId, (int)GroupType.Class);
                 if (groups.Status && groups.Data != null && groups.Data.Any())
                 {
                     if (string.IsNullOrEmpty(groupId))
@@ -109,7 +109,7 @@ namespace DayEasy.Web.Application.Controllers
             {
                 EndTimeStr = endTimeStr,
                 GroupId = groupId,
-                Role = CurrentUserRoles.Contains(UserRole.Student) || CurrentUserRoles.Contains(UserRole.Parents) ? UserRole.Student : UserRole.Teacher,
+                Role = (CurrentUser.IsStudent() || CurrentUser.IsParents()) ? UserRole.Student : UserRole.Teacher,
                 StartTimeStr = startTimeStr,
                 SubjectId = subjectId,
                 UserId = ChildOrUserId,

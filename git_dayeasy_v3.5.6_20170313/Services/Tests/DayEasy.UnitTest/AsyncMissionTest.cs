@@ -1,9 +1,9 @@
 ﻿using DayEasy.AsyncMission;
-using DayEasy.AsyncMission.Jobs;
 using DayEasy.AsyncMission.Jobs.JobTasks;
 using DayEasy.AsyncMission.Models;
+using DayEasy.Contracts;
+using DayEasy.Core.Dependency;
 using DayEasy.UnitTest.TestUtility;
-using DayEasy.Utility.Config;
 using DayEasy.Utility.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -98,6 +98,15 @@ namespace DayEasy.UnitTest
             };
             var result = new FinishMarkingTask(param, Console.WriteLine).Execute();
             Console.WriteLine(JsonHelper.ToJson(result, NamingType.CamelCase, true));
+        }
+
+        [TestMethod]
+        public void KpStatisticTest()
+        {
+            var paperContract = CurrentIocManager.Resolve<IPaperContract>();
+            var paper = paperContract.PaperDetailById("b6888616762e480c9ba1f6969909efea").Data;
+            var dtos = FinishMarkingTask.InitKpStatistics(paper, new Dictionary<string, string> { { "e9d75c37aa7d4370a186fcdaf1d923b1", "f8fcef6d7a9d4833bf0293d2346750b4" } });
+            WriteJson(dtos);
         }
     }
 }
