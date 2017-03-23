@@ -989,7 +989,7 @@ namespace DayEasy.Marking.Services
             }
             var questionArea = dic[questionId];//取得当前题目区域
             var answerPic = LoadPictureDto(batch, paperId, studentNo, paperType);//获得当前答题试卷
-            if (answerPic == null || string.IsNullOrEmpty(answerPic.Data.PictureUrl))
+            if (!answerPic.Status || answerPic.Data == null || string.IsNullOrEmpty(answerPic.Data.PictureUrl))
             {
                 return DResult.Error("未找到该试卷");
             }

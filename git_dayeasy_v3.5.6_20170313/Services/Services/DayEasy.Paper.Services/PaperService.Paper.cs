@@ -7,7 +7,6 @@ using DayEasy.Contracts.Models;
 using DayEasy.Core.Dependency;
 using DayEasy.Core.Domain;
 using DayEasy.Paper.Services.Helper;
-using DayEasy.Paper.Services.Helper.Question;
 using DayEasy.Paper.Services.Model;
 using DayEasy.Services;
 using DayEasy.Utility;
@@ -449,12 +448,14 @@ namespace DayEasy.Paper.Services
                     .ToList();
             PaperTask.Instance.GeneratePaperTaskAsync(paperAnswers, qids, savePaper.Paper.AddedBy,
                 savePaper.Paper.TagIDs);
-            foreach (var item in qids)
-            {
-                ClearQuestionCacheAsync(item);
-               // ClearQuestionByRedis(item);
-            }
-           
+
+            ClearQuestionCacheAsync(qids.ToArray());
+            //foreach (var item in qids)
+            //{
+            //    ClearQuestionCacheAsync(item);
+            //   // ClearQuestionByRedis(item);
+            //}
+
             PaperHelper.ClearPaperCache(savePaper.Paper.Id);
             return DResult.Success;
         }
@@ -749,7 +750,7 @@ namespace DayEasy.Paper.Services
                         q.IsUsed,
                         q.Status
                     }, qItem);
-                  
+
                 }
                 qIDs.AddRange(oldQuestionIds);
                 foreach (var item in qIDs)
@@ -776,7 +777,7 @@ namespace DayEasy.Paper.Services
                 savePaper.Paper.TagIDs);
 
             PaperHelper.ClearPaperCache(paperId);
-            
+
             return DResult.Success;
         }
 

@@ -25,16 +25,5 @@ namespace DayEasy.Contracts
         DResults<TreeDto> KnowledgeTrees(SearchKnowledgeDto knowledgeDto);
 
         Dictionary<string, string> KnowledgePath(string code);
-        /// <summary>
-        /// 根据条件查询知识点信息
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        DResults<ErrorQuestionKnowledgeDto> Knowledges(SearchErrorQuestionDto dto);
-        /// <summary>
-        /// 班级错题学生信息统计
-        /// </summary>
-        /// <returns></returns>
-        DResults<ErrorUserDto> ErrorUsers(string groupId, int subjectId);
     }  
 }

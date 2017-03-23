@@ -187,22 +187,5 @@ namespace DayEasy.UnitTest.ContractTest
                 WriteJson(result);
             }
         }
-        [TestMethod]
-        public void Knowledges()
-        {
-            SearchErrorQuestionDto dto = new SearchErrorQuestionDto();
-            dto.SubjectId =5;
-            dto.GroupId = "4e8eb98d82bf4ceab3dcb08f6b221675";
-            //dto.SubjectId = 3;
-            var result = _systemContract.Knowledges(dto);
-            WriteJson(result);
-        }
-        [TestMethod]
-        public void ErrorUsers()
-        {
-            const string groupid = "b92fb10e96bc4624beea3a12492668c5";
-            var result = _systemContract.ErrorUsers(groupid,2);
-            WriteJson(result);
-        }
     }
 }

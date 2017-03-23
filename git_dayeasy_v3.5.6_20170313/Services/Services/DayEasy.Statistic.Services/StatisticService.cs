@@ -636,13 +636,15 @@ namespace DayEasy.Statistic.Services
                 var day = Clock.Now.DayOfWeek;
                 var days = day == DayOfWeek.Sunday ? -7 : -(int)day;
                 startTime = Clock.Now.AddDays(days + 1).Date;
-                endTime = startTime.AddDays(7).Date;
+                endTime = startTime.AddDays(6).Date;
             }
             else
             {
                 startTime = DateTime.Parse(searchDto.StartTimeStr);
                 endTime = DateTime.Parse(searchDto.EndTimeStr);
             }
+            if (endTime > Clock.Now)
+                endTime = Clock.Now.Date;
 
             List<KpDataDto> resultList = null;//结果集
 

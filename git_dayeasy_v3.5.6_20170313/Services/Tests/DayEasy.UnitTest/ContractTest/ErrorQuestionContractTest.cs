@@ -1,14 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using Autofac;
+﻿using Autofac;
 using DayEasy.Contracts;
 using DayEasy.Contracts.Dtos.ErrorQuestion;
 using DayEasy.Core.Domain;
 using DayEasy.UnitTest.TestUtility;
 using DayEasy.Utility.Extend;
 using DayEasy.Utility.Helper;
-using DayEasy.Utility.Timing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Diagnostics;
 
 namespace DayEasy.UnitTest.ContractTest
 {
@@ -27,7 +26,7 @@ namespace DayEasy.UnitTest.ContractTest
         {
             var search = new ErrorQuestionSearchDto
             {
-                Page = DPage.NewPage(0,10),
+                Page = DPage.NewPage(0, 10),
                 StudentId = 322936262625,
                 SubjectId = 1,
                 QType = 1,
@@ -69,7 +68,7 @@ namespace DayEasy.UnitTest.ContractTest
             var json = _errorBookContract.ErrorAnswer(
                 "aba0f62afe8c46acac8a1ef381f8a582",
                 "24bacffb5a564b71a2a6df41b2207754",
-                "2f8d1b37d8cd4a68bd50ccfe1fd6e004", 
+                "2f8d1b37d8cd4a68bd50ccfe1fd6e004",
                 322936262625);
             Console.Write(JsonHelper.ToJson(json, NamingType.UrlCase, true));
         }
@@ -88,17 +87,35 @@ namespace DayEasy.UnitTest.ContractTest
         public void ErrorQuestions()
         {
             SearchErrorQuestionDto dto = new SearchErrorQuestionDto();
-           // dto.KnowledgeCode = "0";
+            // dto.KnowledgeCode = "0";
             dto.QuestionType = -1;
             dto.DateRange = -1;
             dto.pageIndex = 0;
             dto.pageSize = 8;
-            dto.SubjectId =2;
+            dto.SubjectId = 2;
             dto.UserId = 0;
             dto.GroupId = "f441f5c4f7e546509d2041d3c2afe144";
-             dto.KnowledgeCode = "0";
+            dto.KnowledgeCode = "0";
             dto.OrderOfArr = 0;
-              var result = _errorBookContract.ErrorQuestions(dto);
+            var result = _errorBookContract.ErrorQuestions(dto);
+            WriteJson(result);
+        }
+
+        [TestMethod]
+        public void Knowledges()
+        {
+            SearchErrorQuestionDto dto = new SearchErrorQuestionDto();
+            dto.SubjectId = 5;
+            dto.GroupId = "4e8eb98d82bf4ceab3dcb08f6b221675";
+            //dto.SubjectId = 3;
+            var result = _errorBookContract.Knowledges(dto);
+            WriteJson(result);
+        }
+        [TestMethod]
+        public void ErrorUsers()
+        {
+            const string groupid = "b92fb10e96bc4624beea3a12492668c5";
+            var result = _errorBookContract.ErrorUsers(groupid, 2);
             WriteJson(result);
         }
 

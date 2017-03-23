@@ -73,7 +73,7 @@ namespace DayEasy.Web.Application.Controllers
 
             #region 处理圈子和学科
 
-            if (CurrentUser.IsStudent() || CurrentUser.IsTeacher())
+            if (CurrentUser.IsStudent() || CurrentUser.IsParents())
             {
                 var subjects = SystemCache.Instance.Subjects();
                 if (subjects.Count > 0)
@@ -88,7 +88,7 @@ namespace DayEasy.Web.Application.Controllers
             }
             else if (CurrentUser.IsTeacher())
             {
-                var groups = _groupContract.Groups(UserId, (int)GroupType.Class);
+                var groups = _groupContract.Groups(ChildOrUserId, (int)GroupType.Class);
                 if (groups.Status && groups.Data != null && groups.Data.Any())
                 {
                     if (string.IsNullOrEmpty(groupId))

@@ -1,33 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Linq.Expressions;
-using DayEasy.AutoMapper;
+﻿using DayEasy.AutoMapper;
 using DayEasy.Contracts.Dtos;
 using DayEasy.Contracts.Enum;
 using DayEasy.Contracts.Models;
 using DayEasy.Utility;
 using DayEasy.Utility.Extend;
-using DayEasy.Contracts.Dtos.ErrorQuestion;
-using DayEasy.Utility.Timing;
-using DayEasy.Utility.Helper;
-using DayEasy.Contracts.Dtos.Question;
-using System.Data.Entity;
-using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
-using DayEasy.Core;
+using System.Data.Entity;
+using System.Globalization;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace DayEasy.Services.Services
 {
     public partial class SystemService
     {
         public IDayEasyRepository<TS_Knowledge, int> KnowledgeRepository { private get; set; }
-        public IDayEasyRepository<TP_ErrorQuestion> ErrorQuestionRepository { private get; set; }
-        public IDayEasyRepository<TQ_Question> QuestionRepository { private get; set; }
-        public IDayEasyRepository<TU_User, long> UserRepository { private get; set; }
-        public IVersion3Repository<TG_Member> MemberRepository { private get; set; }
-        public IDayEasyRepository<TG_Group> GroupRepository { private get; set; }
         #region 知识点
 
         public List<KnowledgeDto> Knowledges(SearchKnowledgeDto knowlodgeDto)
@@ -160,84 +149,6 @@ namespace DayEasy.Services.Services
                     .ToDictionary(k => k.Code, v => v.Name);
             }
             return dict;
-        }
-        public DResults<ErrorQuestionKnowledgeDto> Knowledges(SearchErrorQuestionDto dto)
-        {
-            if (string.IsNullOrEmpty(dto.GroupId))
-            {
-                return DResult.Errors<ErrorQuestionKnowledgeDto>("圈子ID不能为空");
-            }
-            var members = MemberRepository.Where(w => w.GroupId == dto.GroupId && w.Status == (byte)NormalStatus.Normal && (w.MemberRole & (byte)UserRole.Student) > 0)
-               .Select(w => w.MemberId).ToList();
-            if (!members.Any())
-                return DResult.Errors<ErrorQuestionKnowledgeDto>("圈子没有学生");
-            Expression<Func<TP_ErrorQuestion, bool>> condition =
-            u => u.SubjectID == dto.SubjectId;
-            if (dto.UserId > 0)
-                condition = condition.And(w => w.StudentID == dto.UserId);
-            else
-                condition = condition.And(w => members.Contains(w.StudentID));
-            if (dto.DateRange > 0)
-            {
-                var dateNow = Clock.Now;
-                var pastTimes = dateNow.AddDays(-dto.DateRange);
-                condition = condition.And(w => w.AddedAt >= pastTimes && w.AddedAt <= dateNow);
-            }
-            if (dto.QuestionType > 0)
-            {
-                condition = condition.And(w => w.QType == dto.QuestionType);
-            }
-            condition = condition.And(w => w.SubjectID == dto.SubjectId);
-            //根据条件获取错题数
-            var errorQuestions = ErrorQuestionRepository.Where(condition);
-            if (!errorQuestions.Any())
-                return DResult.Errors<ErrorQuestionKnowledgeDto>("无错题");
-            var questions = QuestionRepository.Table;
-            var join = errorQuestions.Join(questions, a => a.QuestionID, b => b.Id, (a, b) =>
-            new { b.KnowledgeIDs, b.Id }).DistinctBy(w => w.Id).ToList();
-            if (!join.Any())
-                return DResult.Errors<ErrorQuestionKnowledgeDto>("无知识点");
-            List<ErrorQuestionKnowledgeDto> rlist = new List<ErrorQuestionKnowledgeDto>();//包含重复的知识点
-            //将json转换成对象
-            foreach (var question in join)
-            {
-                var dic = question.KnowledgeIDs.JsonToObject<Dictionary<string, string>>();
-                dic.Foreach(kn =>
-                {
-                    var count = join.Where(w => w.KnowledgeIDs.Contains(kn.Key)).Count();
-                    rlist.Add(new ErrorQuestionKnowledgeDto { Code = kn.Key, Name = kn.Value, ErrCount = count });
-                });
-            }
-            rlist = rlist.DistinctBy(w=>w.Code).OrderByDescending(w => w.ErrCount).ToList();
-            return DResult.Succ(rlist, rlist.Count);
-        }
-        public DResults<ErrorUserDto> ErrorUsers(string groupId, int subjectId)
-        {
-            if (string.IsNullOrEmpty(groupId))
-                return DResult.Errors<ErrorUserDto>("圈子ID不能为空");
-            SqlParameter[] prams = new SqlParameter[2];
-            byte status = (byte)NormalStatus.Normal;
-            var userid = MemberRepository.Where(w => w.GroupId == groupId && w.Status == status).Select(w => w.MemberId).ToList();
-            if (!userid.Any())
-                return DResult.Errors<ErrorUserDto>("该圈子没有学生");
-            string ids = "(";
-            userid.Foreach(t =>
-            {
-                ids += t + ",";
-            });
-            ids = ids.Substring(0, ids.Length - 1) + ")";
-            string sql = @"select u.UserID as Id,COUNT(*) as ErrorCount,max(u.NickName) as Nick  ,max(u.TrueName) as Name, max(u.HeadPhoto) as Avatar from TP_ErrorQuestion q 
-                            join TU_User u on q.StudentID=u.UserID where u.UserID in " + ids + "  and u.Status=@status and q.SubjectID=@subjectId group by u.UserID   order by ErrorCount desc";
-            prams[0] = new SqlParameter("@status", status);
-            prams[1] = new SqlParameter("@subjectId", subjectId);
-            //prams[1] = new SqlParameter("@userIds", ids);
-            var errorUsers = UnitOfWork.SqlQuery<ErrorUserDto>(sql, prams).ToList();
-            errorUsers.ForEach(d =>
-            {
-                if (string.IsNullOrEmpty(d.Avatar))
-                    d.Avatar = Consts.DefaultAvatar();
-            });
-            return DResult.Succ(errorUsers, errorUsers.Count);
         }
         #endregion
     }

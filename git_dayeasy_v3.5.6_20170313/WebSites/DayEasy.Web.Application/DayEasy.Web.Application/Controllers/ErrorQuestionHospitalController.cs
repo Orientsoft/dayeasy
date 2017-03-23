@@ -56,7 +56,7 @@ namespace DayEasy.Web.Application.Controllers
         [Route("errorUsers")]
         public ActionResult ErrorUsers(string groupId)
         {
-            return DJson.Json(_systemContract.ErrorUsers(groupId, CurrentUser.SubjectId));
+            return DJson.Json(_errorBookContract.ErrorUsers(groupId, CurrentUser.SubjectId));
         }
         /// <summary>
         /// 问题类型
@@ -90,7 +90,7 @@ namespace DayEasy.Web.Application.Controllers
         public ActionResult Knowledges(SearchErrorQuestionDto dto)
         {
             dto.SubjectId = CurrentUser.SubjectId;
-            return DJson.Json(_systemContract.Knowledges(dto));
+            return DJson.Json(_errorBookContract.Knowledges(dto));
         }
         /// <summary>
         /// 获取题目信息
