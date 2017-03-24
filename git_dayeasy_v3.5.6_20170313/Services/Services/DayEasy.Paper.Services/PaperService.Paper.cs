@@ -688,6 +688,7 @@ namespace DayEasy.Paper.Services
                 .ToList();
             //将旧问题使用次数减一
             var oldQuestions = QuestionRepository.Where(q => oldQuestionIds.Contains(q.Id)).ToList();
+            var ownQids = new List<string>();
 
             var result = UnitOfWork.Transaction(() =>
             {
@@ -704,8 +705,7 @@ namespace DayEasy.Paper.Services
                     {
                         q.LastModifyTime,
                         q.UsedCount,
-                        q.IsUsed,
-                        q.Status
+                        q.IsUsed
                     }, qItem);
                 }
 
@@ -742,7 +742,10 @@ namespace DayEasy.Paper.Services
                     qItem.UsedCount = qItem.UsedCount + 1;
                     qItem.IsUsed = true;
                     if (qItem.Status == (byte)NormalStatus.Delete && qItem.AddedBy == paper.UserId && !paper.IsTemp)
+                    {
+                        ownQids.Add(qItem.Id);
                         qItem.Status = (byte)NormalStatus.Normal;
+                    }
                     QuestionRepository.Update(q => new
                     {
                         q.LastModifyTime,
@@ -764,17 +767,20 @@ namespace DayEasy.Paper.Services
                 }
             });
 
-
             if (result <= 0)
                 return DResult.Error("操作失败了，请稍后重试！");
             if (paper.IsTemp)
                 return DResult.Success;
-            //            var ids = savePaper.PaperContents.Select(t => t.QuestionID);
-            //            var qids = oldQuestions.Where(q => q.Status == (byte)NormalStatus.Delete && ids.Contains(q.Id))
-            //                .Select(q => q.Id)
-            //                .ToList();
+            //var ids = savePaper.PaperContents.Select(t => t.QuestionID);
+            //var qids = oldQuestions.Where(q => q.Status == (byte)NormalStatus.Delete && ids.Contains(q.Id))
+            //    .Select(q => q.Id)
+            //    .ToList();
             PaperTask.Instance.GeneratePaperTaskAsync(paperAnswers, new List<string>(), savePaper.Paper.AddedBy,
                 savePaper.Paper.TagIDs);
+            if (ownQids.Any())
+            {
+                ClearQuestionCacheAsync(ownQids.ToArray());
+            }
 
             PaperHelper.ClearPaperCache(paperId);
 

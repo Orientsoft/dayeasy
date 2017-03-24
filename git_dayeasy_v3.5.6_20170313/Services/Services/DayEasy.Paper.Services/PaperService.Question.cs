@@ -1,5 +1,4 @@
-﻿using DayEasy.AutoMapper;
-using DayEasy.Contracts.Dtos;
+﻿using DayEasy.Contracts.Dtos;
 using DayEasy.Contracts.Dtos.Question;
 using DayEasy.Contracts.Enum;
 using DayEasy.Contracts.Models;
@@ -101,7 +100,7 @@ namespace DayEasy.Paper.Services
             query.QuestionType = search.QuestionType;
             query.Order = (QuestionOrderType)(byte)search.Order;
             query.TagSortFirstStr = "精选";
-            if (search.Difficulties!=null)
+            if (search.Difficulties != null)
                 query.Difficulties = search.Difficulties.ToArray();
             else
                 query.Difficulties = null;
@@ -311,7 +310,7 @@ namespace DayEasy.Paper.Services
         public List<QuestionDto> Variant(string questionId, int count = 1, List<string> excepArray = null, bool isNullData = false)
         {
             var item = LoadQuestion(questionId);
-            var result = QuestionManager.Instance.Variant(item, count, excepArray,isNullData);
+            var result = QuestionManager.Instance.Variant(item, count, excepArray, isNullData);
             if (result.Status && result.Data != null)
                 return result.Data.ToList();
             return new List<QuestionDto>();
@@ -337,10 +336,10 @@ namespace DayEasy.Paper.Services
                     //清除缓存
                     QuestionCache.Instance.Remove(qid);
                     //删除检索
-                    QuestionManager.Instance.DeleteAsync(qid);
-                    //更新索引
                     QuestionManager.Instance.UpdateAsync(qid);
-                    QuestionManager.Instance.Update(qid);
+                    ////更新索引
+                    //QuestionManager.Instance.UpdateAsync(qid);
+                    //QuestionManager.Instance.Update(qid);
                 }
             });
         }

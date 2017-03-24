@@ -35,10 +35,11 @@ namespace DayEasy.Paper.Services.Helper
             EditMyselfAnswerAsync(answerList, teacherId);
             return Task.Factory.StartNew(() =>
             {
-                Utils.WatchAction("异步任务[生成试卷]", () =>
+                Utils.WatchAction("异步任务[生成试卷]", log =>
                 {
+                    log("qids:" + qids.ToJson());
                     var teacherStatisticRepository =
-                    CurrentIocManager.Resolve<IDayEasyRepository<TS_TeacherStatistic, long>>();
+                        CurrentIocManager.Resolve<IDayEasyRepository<TS_TeacherStatistic, long>>();
                     //出卷统计
                     var statistic = teacherStatisticRepository.Load(teacherId);
                     if (statistic != null)
@@ -67,7 +68,7 @@ namespace DayEasy.Paper.Services.Helper
                     }, q => qids.Contains(q.Id), "Status");
 
                     QuestionManager.Instance.UpdateAsync(qids);
-                });
+                }, msg => { _logger.Info<string>(msg); });
             });
         }
 
@@ -177,6 +178,7 @@ namespace DayEasy.Paper.Services.Helper
                     {
                         //清除缓存
                         QuestionCache.Instance.Remove(id);
+                        QuestionManager.Instance.UpdateAsync(id);
                     }
                 });
             });
