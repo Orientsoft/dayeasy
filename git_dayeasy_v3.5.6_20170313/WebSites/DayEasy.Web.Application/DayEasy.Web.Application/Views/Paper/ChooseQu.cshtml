@@ -36,29 +36,44 @@
         <input type="hidden" value="@paperBase.Stage" id="stage" />
         <input type="hidden" value="@paperBaseStr" id="paperBase" />
         <input type="hidden" value="@(sbooks != null && sbooks.Any() ? 1 : 0)" id="hasSbook" />
-
-        @if (sbooks != null && sbooks.Any())
-        {
-            //已经查询了教材资料 待 二叉树改版后一起修改，取消 _CpTree 中的下拉框教材查询
-            <div class="q-bars">
-                <div>
-                    <span class="q-bar b-kp half active" data-type="0">知识点</span>
-                    <span class="q-bar b-cp half" data-type="1">章节</span>
+        <div class="d-menu-left">
+            @if (sbooks != null && sbooks.Any())
+            {
+                //已经查询了教材资料 待 二叉树改版后一起修改，取消 _CpTree 中的下拉框教材查询
+                <div class="q-bars">
+                    <div>
+                        <span class="q-bar b-kp half active" data-type="0">知识点</span>
+                        <span class="q-bar b-cp half" data-type="1">章节</span>
+                    </div>
+                    <div class="kp-box">
+                        @Html.Partial("_KpTree")
+                    </div>
+                    <div class="cp-box" style="display: none;">
+                        @Html.Partial("_CpTree")
+                    </div>
                 </div>
+            }
+            else
+            {
                 <div class="kp-box">
                     @Html.Partial("_KpTree")
                 </div>
-                <div class="cp-box" style="display: none;">
-                    @Html.Partial("_CpTree")
+            }
+            <div class="clear"></div>
+            <div class="d-menu-links">
+                <h2>其他资源</h2>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="http://www.jyeoo.com" target="_blank">菁优网</a>
+                        </li>
+                        <li>
+                            <a href="http://www.zxxk.com" target="_blank">学科网</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        }
-        else
-        {
-            <div class="kp-box">
-                @Html.Partial("_KpTree")
-            </div>
-        }
+        </div>
 
         <div class="g-bd g-volu f-fr">
             <div class="topic-tab">
@@ -227,6 +242,36 @@
 
 @section css{
     @Html.CombineLink("v3/css/paper/page-choosequ.css")
+    <style>
+        .d-menu-left {
+            float: left;
+            width: 300px;
+        }
+
+        .d-menu-links {
+            margin-top: 30px;
+            background-color: #fff;
+        }
+
+            .d-menu-links h2 {
+                text-align: center;
+                font-size: 16px;
+                padding: 8px 0 0;
+                margin: 0;
+                line-height: 50px;
+                border-bottom: 2px solid #ed5565;
+            }
+
+            .d-menu-links li {
+                line-height: 40px;
+                padding: 0 0 0 20px;
+                border-bottom: solid 1px #eee;
+            }
+
+                .d-menu-links li a {
+                    font-size: 14px;
+                }
+    </style>
 }
 
 @section js{
