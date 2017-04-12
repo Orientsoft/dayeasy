@@ -1258,7 +1258,7 @@ namespace DayEasy.Paper.Services
         /// <param name="isObjective"></param>
         /// <param name="sectionType"></param>
         /// <returns></returns>
-        public Dictionary<string, string> PaperSorts(string paperId, bool isObjective = false, int sectionType = -1)
+        public Dictionary<string, string> PaperSorts(string paperId, bool? isObjective = false, int sectionType = -1)
         {
             var dict = new Dictionary<string, string>();
             var paperResult = PaperDetailById(paperId);
@@ -1273,7 +1273,7 @@ namespace DayEasy.Paper.Services
         /// <param name="isObjective"></param>
         /// <param name="sectionType"></param>
         /// <returns></returns>
-        public Dictionary<string, string> PaperSorts(PaperDetailDto paper, bool isObjective = false, int sectionType = -1)
+        public Dictionary<string, string> PaperSorts(PaperDetailDto paper, bool? isObjective = false, int sectionType = -1)
         {
             var dict = new Dictionary<string, string>();
             if (paper == null || paper.PaperSections.IsNullOrEmpty())
@@ -1285,25 +1285,30 @@ namespace DayEasy.Paper.Services
             if (!sections.Any())
                 return dict;
             var questions =
-                sections.SelectMany(s => s.Questions.Where(q => q.Question.IsObjective == isObjective)).ToList();
+                sections.SelectMany(s => s.Questions.Where(q => !isObjective.HasValue || q.Question.IsObjective == isObjective)).ToList();
             if (!questions.Any())
                 return dict;
             foreach (var dto in questions)
             {
+                var prefix = (paper.PaperBaseInfo.IsAb && !isObjective.HasValue)
+                    ? (dto.PaperSectionType == (byte)PaperSectionType.PaperA ? "A" : "B")
+                    : string.Empty;
                 var smallRow = sortType.SmallRow(dto.PaperSectionType);
-                if (isObjective)
+                if (dto.Question.IsObjective)
                 {
                     if (dto.Question.HasSmall && dto.Question.Details != null)
                     {
                         foreach (var detail in dto.Question.Details)
                         {
                             dict.Add(detail.Id,
-                                smallRow ? detail.Sort.ToString() : string.Concat(dto.Sort, ".", detail.Sort));
+                                smallRow
+                                    ? string.Concat(prefix, detail.Sort)
+                                    : string.Concat(prefix, dto.Sort, ".", detail.Sort));
                         }
                     }
                     else
                     {
-                        dict.Add(dto.Question.Id, dto.Sort.ToString());
+                        dict.Add(dto.Question.Id, string.Concat(prefix, dto.Sort));
                     }
                 }
                 else
@@ -1312,11 +1317,12 @@ namespace DayEasy.Paper.Services
                     {
                         var min = dto.Question.Details.Min(d => d.Sort);
                         var max = dto.Question.Details.Max(d => d.Sort);
-                        dict.Add(dto.Question.Id, (max == min ? min.ToString() : string.Concat(min, "-", max)));
+                        dict.Add(dto.Question.Id,
+                            (max == min ? string.Concat(prefix, min) : string.Concat(prefix, min, "-", max)));
                     }
                     else
                     {
-                        dict.Add(dto.Question.Id, dto.Sort.ToString());
+                        dict.Add(dto.Question.Id, string.Concat(prefix, dto.Sort));
                     }
                 }
             }

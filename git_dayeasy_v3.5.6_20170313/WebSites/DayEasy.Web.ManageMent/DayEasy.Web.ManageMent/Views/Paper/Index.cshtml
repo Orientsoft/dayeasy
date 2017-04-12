@@ -73,7 +73,7 @@
                                 <a href="@Consts.Config.AppSite/paper/detail/@paper.Id" target="_blank">
                                     @paper.PaperTitle
                                 </a><br/>
-                                <small style="color:#999">No. @paper.PaperNo</small>
+                                <small style="color: #999">No. @paper.PaperNo</small>
                             </td>
                             <td>@Html.LabelText(((ShareRange) paper.ShareRange).GetText(), paper.ShareRange)</td>
                             <td>
@@ -96,7 +96,12 @@
                             <td><abbr title="@paper.AddedAt.ToString("yyyy年MM月dd日 HH时mm分ss秒")">@paper.AddedAt.ShowTime()</abbr></td>
                             <td>@paper.UseCount</td>
                             <td>@(Html.EnumText<PaperStatus, byte>(paper.Status, new[] {3, 0, 0, 0, 5}))</td>
-                            <td></td>
+                            <td>
+                                @if (paper.Status != (byte) PaperStatus.Delete)
+                                {
+                                    <a href="@Url.Action("DownloadTemplate", new {paperId = paper.Id})" target="_blank" title="下载模板"><i class="fa fa-cloud-download"></i></a>
+                                }
+                            </td>
                         </tr>
                     }
                 }

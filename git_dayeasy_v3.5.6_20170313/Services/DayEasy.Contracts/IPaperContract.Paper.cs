@@ -1,6 +1,5 @@
 ﻿
 using DayEasy.Contracts.Dtos.Paper;
-using DayEasy.Contracts.Dtos.Question;
 using DayEasy.Contracts.Enum;
 using DayEasy.Core.Domain;
 using DayEasy.Utility;
@@ -127,14 +126,14 @@ namespace DayEasy.Contracts
         /// <param name="isObjective">是否客观题</param>
         /// <param name="sectionType"></param>
         /// <returns></returns>
-        Dictionary<string, string> PaperSorts(string paperId, bool isObjective = false, int sectionType = -1);
+        Dictionary<string, string> PaperSorts(string paperId, bool? isObjective = false, int sectionType = -1);
 
         /// <summary> 试卷题号 </summary>
         /// <param name="paper"></param>
         /// <param name="isObjective">是否客观题</param>
         /// <param name="sectionType"></param>
         /// <returns></returns>
-        Dictionary<string, string> PaperSorts(PaperDetailDto paper, bool isObjective = false, int sectionType = -1);
+        Dictionary<string, string> PaperSorts(PaperDetailDto paper, bool? isObjective = false, int sectionType = -1);
 
         /// <summary> 重置缓存 </summary>
         /// <param name="paperIds"></param>

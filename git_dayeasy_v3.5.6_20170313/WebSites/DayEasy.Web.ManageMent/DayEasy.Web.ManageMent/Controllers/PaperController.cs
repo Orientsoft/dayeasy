@@ -3,20 +3,24 @@ using DayEasy.Contracts.Enum;
 using DayEasy.Contracts.Management;
 using DayEasy.Contracts.Management.Dto;
 using DayEasy.Contracts.Management.Enum;
+using DayEasy.Core.Dependency;
+using DayEasy.Management.Services.Helper;
 using DayEasy.Office;
+using DayEasy.Services.Helper;
 using DayEasy.Utility.Extend;
 using DayEasy.Web.ManageMent.Common;
 using DayEasy.Web.ManageMent.Filters;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Web.Mvc;
-using DayEasy.Services.Helper;
 
 namespace DayEasy.Web.ManageMent.Controllers
 {
     /// <summary> 试卷管理 </summary>
     [ManagerRoles(ManagerRole.OperationManager)]
+    [RoutePrefix("paper")]
     public class PaperController : AdminController
     {
         public PaperController(IUserContract userContract, IManagementContract managementContract)
@@ -69,6 +73,16 @@ namespace DayEasy.Web.ManageMent.Controllers
             rep.Headers.Add("Content-Disposition", "attachment;filename=cart.doc");
             rep.BinaryWrite(stream.ToArray());
             rep.End();
+        }
+
+        /// <summary> 下载模板 </summary>
+        /// <param name="paperId"></param>
+        [Route("download-temp")]
+        public void DownloadTemplate(string paperId)
+        {
+            var dt = ExportHelper.PaperSorts(paperId);
+            var paper = CurrentIocManager.Resolve<IPaperContract>().PaperDetailById(paperId, false);
+            ExcelHelper.Export(new DataSet { Tables = { dt } }, paper.Data.PaperBaseInfo.PaperTitle + "-各题分数模板.xls");
         }
     }
 }

@@ -9,7 +9,6 @@ using DayEasy.Utility.Helper;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DayEasy.Management.Services.Helper
 {
@@ -175,6 +174,30 @@ namespace DayEasy.Management.Services.Helper
                 knowledgeTable.Rows.Add(row.ToArray());
             }
             return knowledgeTable;
+        }
+
+        public static DataTable PaperSorts(string paperId)
+        {
+            var dt = new DataTable();
+            if (string.IsNullOrWhiteSpace(paperId))
+                return dt;
+            var paperContract = CurrentIocManager.Resolve<IPaperContract>();
+
+            var sorts = paperContract.PaperSorts(paperId, null);
+            var headers = new List<object>
+            {
+                "姓名",
+                "班级ID"
+            };
+            dt.Columns.Add("name", typeof(string));
+            dt.Columns.Add("groupCode", typeof(string));
+            headers.AddRange(sorts.Values);
+            foreach (var sort in sorts)
+            {
+                dt.Columns.Add(sort.Key, typeof(string));
+            }
+            dt.Rows.Add(headers.ToArray());
+            return dt;
         }
     }
 }
