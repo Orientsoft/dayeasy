@@ -69,32 +69,27 @@
      */
     publishJoint = function (data, success, error) {
         if (!data || !data.groupId) {
-            S.alert('圈子Id不能为空', function () {
-                error && error.call(this);
-            });
+            toastr.error('圈子Id不能为空');
+            error && error.call(this);
             return false;
         }
         if (!/^[0-9]{11}$/gi.test(data.paperCode)) {
-            S.alert('试卷编号格式不正确,应为11位数字', function () {
-                error && error.call(this);
-            });
+            toastr.error('试卷编号格式不正确,应为11位数字');
+            error && error.call(this);
             return false;
         }
         if (!data.userId || data.userId <= 0) {
-            S.alert('请选择负责人', function () {
-                error && error.call(this);
-            });
+            toastr.error('请选择负责人');
+            error && error.call(this);
             return false;
         }
         $.post('/user/group/publish-joint', data, function (json) {
             if (json.status) {
-                S.alert('发布成功,可到协同列表中查看', function () {
-                    success && success.call(this);
-                });
+                toastr.success('发布成功,可到协同列表中查看');
+                success && success.call(this);
             } else {
-                S.alert(json.message, function () {
-                    error && error.call(this);
-                });
+                toastr.error(json.message);
+                error && error.call(this);
             }
         });
     };
@@ -225,7 +220,7 @@
                                     return false;
                                 }
                             }
-							console.log(postData);
+                            console.log(postData);
                             $btn.disabled('稍后..');
                             $.post('/user/group/update', postData, function (json) {
                                 if (json.status) {

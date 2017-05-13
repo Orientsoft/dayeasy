@@ -52,7 +52,7 @@ namespace DayEasy.UnitTest.ContractTest
         [TestMethod]
         public void CreateGroupTest()
         {
-           
+
             var result = _groupContract.CreateGroup(new ColleagueGroupDto
             {
                 Capacity = 200,
@@ -84,7 +84,7 @@ namespace DayEasy.UnitTest.ContractTest
                 Type = (byte)GroupType.Class,
                 AgencyId = "cjiop76508d34f029c9fc4df03b80302",
                 Stage = 1,
-                GradeYear=2016
+                GradeYear = 2016
             }, status, appid);
             Console.WriteLine(result);
         }
@@ -134,40 +134,44 @@ namespace DayEasy.UnitTest.ContractTest
         [TestMethod]
         public void ColleagueClassesTest()
         {
-            var id = "2ad8ad995e144f8fwwbc5aa3b44294c4d2";
-            var result = _groupContract.ColleagueClasses(id);
-            Console.WriteLine(result);
+            const string id = "95c18d72c8c14b7fa89e39e8e84981aa";
+            //var result = _groupContract.ColleagueClasses(id);
+            //WriteJson(result);
+
+            var dict = _groupContract.ColleagueClassDict(id);
+            WriteJson(dict);
         }
 
         [TestMethod]
         public void LoadByIdTest()
         {
-          var result= _groupContract.LoadById("2d79d3d8f05941579f9a48f9d6532f5a");
+            var result = _groupContract.LoadById("2d79d3d8f05941579f9a48f9d6532f5a");
         }
         [TestMethod]
         public void BatchCreateGroups()
         {
 
             BatchCreateGroupsDto dto = new BatchCreateGroupsDto();
-            dto.ClassGroups.Add(new ClassGroupDto {   Name = "初caijie22019级1班", GradeYear=2016 });
-            dto.ClassGroups.Add(new ClassGroupDto {  Name = "初caijie22019级2班", GradeYear = 2016});
-            dto.ColleagueGroups.Add(new ColleagueGroupDto { Name = "初caijie22019级英语组", SubjectId=3});
-           
+            dto.ClassGroups.Add(new ClassGroupDto { Name = "初caijie22019级1班", GradeYear = 2016 });
+            dto.ClassGroups.Add(new ClassGroupDto { Name = "初caijie22019级2班", GradeYear = 2016 });
+            dto.ColleagueGroups.Add(new ColleagueGroupDto { Name = "初caijie22019级英语组", SubjectId = 3 });
+
             WriteJson(_groupContract.BatchCreateGroups(dto, "0555a5fa82034968a484288d7a97d4d8"));
         }
         [TestMethod]
         public void BatchImportTeacher()
         {
-            long[] ids={988769908616, 757467215117, 694350989072, 692516231514 };
-            var result=_groupContract.BatchImportTeacher(ids, "c94b92df614b4bcfb660859780eae12e");
+            long[] ids = { 988769908616, 757467215117, 694350989072, 692516231514 };
+            var result = _groupContract.BatchImportTeacher(ids, "c94b92df614b4bcfb660859780eae12e");
             WriteJson(result);
         }
         [TestMethod]
-        public void GetGroupRepeatMsg() {
+        public void GetGroupRepeatMsg()
+        {
             BatchCreateGroupsDto dto = new BatchCreateGroupsDto();
             dto.ClassGroups = new List<ClassGroupDto> { new ClassGroupDto { Name = "初caijietes2019级1班" }, new ClassGroupDto { Name = "初caijietes2019级2班" } };
-            dto.ColleagueGroups = new List<ColleagueGroupDto> { new ColleagueGroupDto { Name = "初caijietes2019级英语组" }};
-           WriteJson(_groupContract.GetGroupRepeatMsg(dto, "cjiop76508d34f029c9fc4df03b80302"));
+            dto.ColleagueGroups = new List<ColleagueGroupDto> { new ColleagueGroupDto { Name = "初caijietes2019级英语组" } };
+            WriteJson(_groupContract.GetGroupRepeatMsg(dto, "cjiop76508d34f029c9fc4df03b80302"));
 
         }
         /// <summary>
@@ -180,7 +184,7 @@ namespace DayEasy.UnitTest.ContractTest
             string[] students = { "小明1111死死死死死死死死死死死死死死死死死死死死死死死死死死死嗖嗖嗖死死死死死死", "张三1111死死死死死死死死死死死死死死死死死死死死死死死死死死死嗖嗖嗖死死死死死死" };
             const string agencyId = "cjiop76508d34f029c9fc4df03b80302";
             const int stage = 0;
-            var result=   _groupContract.BatchImportStudent(students, groupid, agencyId, stage);
+            var result = _groupContract.BatchImportStudent(students, groupid, agencyId, stage);
             WriteJson(result);
 
         }

@@ -178,7 +178,7 @@ namespace DayEasy.Management.Services.Helper
 
         public static DataTable PaperSorts(string paperId)
         {
-            var dt = new DataTable();
+            var dt = new DataTable("试卷模板");
             if (string.IsNullOrWhiteSpace(paperId))
                 return dt;
             var paperContract = CurrentIocManager.Resolve<IPaperContract>();
@@ -197,6 +197,15 @@ namespace DayEasy.Management.Services.Helper
                 dt.Columns.Add(sort.Key, typeof(string));
             }
             dt.Rows.Add(headers.ToArray());
+            for (var j = 0; j < 50; j++)
+            {
+                var row = new object[headers.Count];
+                for (var i = 0; i < headers.Count; i++)
+                {
+                    row[i] = string.Empty;
+                }
+                dt.Rows.Add(row);
+            }
             return dt;
         }
     }

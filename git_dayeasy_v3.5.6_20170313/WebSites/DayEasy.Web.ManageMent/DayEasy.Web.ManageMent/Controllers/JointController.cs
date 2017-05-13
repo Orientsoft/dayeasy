@@ -1,17 +1,24 @@
 ﻿using DayEasy.Contracts;
+using DayEasy.Contracts.Dtos.Marking;
 using DayEasy.Contracts.Enum;
 using DayEasy.Contracts.Management;
 using DayEasy.Contracts.Management.Dto;
 using DayEasy.Contracts.Management.Enum;
+using DayEasy.Core.Dependency;
 using DayEasy.Core.Domain;
+using DayEasy.Management.Services.Helper;
+using DayEasy.Office;
 using DayEasy.Services.Helper;
+using DayEasy.Utility;
 using DayEasy.Utility.Extend;
 using DayEasy.Web.Filters;
 using DayEasy.Web.ManageMent.Common;
 using DayEasy.Web.ManageMent.Filters;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using JointMarkingDto = DayEasy.Contracts.Management.Dto.JointMarkingDto;
 
 namespace DayEasy.Web.ManageMent.Controllers
 {
@@ -162,6 +169,41 @@ namespace DayEasy.Web.ManageMent.Controllers
         public ActionResult ResetJoint(string jointBatch)
         {
             return DeyiJson(ManagementContract.ResetJoint(jointBatch, UserId));
+        }
+
+        [HttpPost]
+        [Route("import-data")]
+        public ActionResult ImportFile(string jointBatch)
+        {
+            const string method = "top.window.importCallback";
+            var file = Request.Files.Get(0);
+            if (file == null)
+                return new ScriptResult(DResult.Error("未上传任何文件"), method);
+            var ext = Path.GetExtension(file.FileName);
+            if (!string.Equals(ext, ".xls", System.StringComparison.CurrentCultureIgnoreCase))
+                return new ScriptResult(DResult.Error("只支持xls格式文件"), method);
+            var ds = ExcelHelper.Read(file.InputStream);
+            var dtos = ds.ParseJData();
+            if (dtos == null || !dtos.Any())
+                return new ScriptResult(DResult.Error("没有任何数据"), method);
+            var result = CurrentIocManager.Resolve<IMarkingContract>().ImportJointData(jointBatch, dtos);
+            return new ScriptResult(result, "top.window.importCallback");
+            //return DeyiJson(DResult.Succ(file));
+        }
+
+        [HttpPost]
+        [Route("complete-joint")]
+        public ActionResult CompleteJoint(string jointBatch)
+        {
+            var inputDto = new CompleteMarkingInputDto
+            {
+                Batch = jointBatch,
+                IsJoint = true,
+                SetIcon = false,
+                SetMarks = false,
+                UserId = UserId
+            };
+            return DeyiJson(CurrentIocManager.Resolve<IMarkingContract>().CompleteMarking(inputDto), true);
         }
         #endregion
     }

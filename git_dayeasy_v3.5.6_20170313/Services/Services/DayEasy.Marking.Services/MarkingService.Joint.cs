@@ -18,6 +18,7 @@ using DayEasy.Utility.Helper;
 using DayEasy.Utility.Timing;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,9 +53,12 @@ namespace DayEasy.Marking.Services
                 return DResult.Error<string>("该圈子不存在或者不是同事圈！");
 
             var paper =
-                PaperRepository.FirstOrDefault(p => p.PaperNo == paperNum && p.Status == (byte)PaperStatus.Normal);
+                PaperRepository.FirstOrDefault(p => p.PaperNo == paperNum);
             if (paper == null)
                 return DResult.Error<string>("没有查询到相关试卷信息！");
+            if (paper.Status != (byte)PaperStatus.Normal)
+                return
+                    DResult.Error<string>("该试卷状态为[{0}]，不能发起协同！".FormatWith(paper.Status.GetEnumText<PaperStatus, byte>()));
 
             if (paper.SubjectID != teacher.SubjectId)
                 return DResult.Error<string>("不能发布其他科目的试卷！");
@@ -1002,8 +1006,7 @@ namespace DayEasy.Marking.Services
             }
             if (paperResult.Status && paperResult.Data != null)
             {
-                ObjectQuestionScoreRate result = new ObjectQuestionScoreRate();
-                result = ObjectvieQuestionRate(details, paperResult.Data, dto);
+                var result = ObjectvieQuestionRate(details, paperResult.Data, dto);
                 if (result != null)
                 {
                     dto = result;
@@ -1014,6 +1017,237 @@ namespace DayEasy.Marking.Services
             return DResult.Succ(dto);
         }
 
+        /// <summary> 导入协同数据 </summary>
+        /// <param name="jointBatch"></param>
+        /// <param name="inputs"></param>
+        /// <returns></returns>
+        public DResult<Dictionary<string, string>> ImportJointData(string jointBatch, List<JDataInputDto> inputs)
+        {
+            if (string.IsNullOrWhiteSpace(jointBatch))
+                return DResult.Error<Dictionary<string, string>>("协同批次号异常");
+            if (inputs == null || !inputs.Any())
+                return DResult.Error<Dictionary<string, string>>("协同数据不能为空");
+            var joint = JointMarkingRepository.Where(t => t.Id == jointBatch).Select(t => new
+            {
+                t.Status,
+                t.PaperId,
+                t.GroupId,
+                t.PaperACount,
+                t.PaperBCount
+            }).FirstOrDefault();
+            if (joint == null)
+                return DResult.Error<Dictionary<string, string>>("协同批次不存在");
+            if (joint.Status != (byte)JointStatus.Normal)
+                return DResult.Error<Dictionary<string, string>>("协同状态异常");
+            var paperResult = PaperContract.PaperDetailById(joint.PaperId);
+            if (!paperResult.Status)
+                return DResult.Error<Dictionary<string, string>>(paperResult.Message);
+            var paper = paperResult.Data;
+            var sorts = PaperContract.PaperSorts(paper, null, includeQid: true);
+            var scores = paper.PaperSections.SelectMany(t => t.Questions.Select(q => new { q.Question.Id, q.Score })).ToList();
+            var scoreResult = PaperContract.GetSmallQuScore(joint.PaperId);
+            var detailScores = scoreResult.Data.ToList();
 
+            var classList = GroupContract.ColleagueClassDict(joint.GroupId);
+            if (!classList.Status)
+                return DResult.Error<Dictionary<string, string>>(classList.Message);
+            var classDict = classList.Data;
+            //判断班级圈ID
+            var classCodes = inputs.Select(t => t.GroupCode).Distinct().ToList();
+            var results = new Dictionary<string, string>();
+            var usageList = new List<TC_Usage>();
+            var resultList = new List<TP_MarkingResult>();
+            var detailList = new List<TP_MarkingDetail>();
+            var updateList = new List<TP_MarkingDetail>();
+            foreach (var code in classCodes)
+            {
+                var students = inputs.Where(t => t.GroupCode == code);
+                if (!classDict.ContainsKey(code))
+                {
+                    foreach (var dto in students)
+                    {
+                        results.Add($"{dto.GroupCode}:{dto.Student}", "班级ID不存在或任课老师加入同事圈");
+                    }
+                    continue;
+                }
+                var classDto = classDict[code];
+
+                // 生成批次号
+                var teachers = GroupContract.GroupMembers(classDto.Id, UserRole.Teacher);
+                if (!teachers.Status || teachers.Data == null)
+                {
+                    //班级没有任教老师
+                    foreach (var student in students)
+                    {
+                        results.Add($"{student.GroupCode}:{student.Student}", "班级没有任教老师");
+                    }
+                    continue;
+                }
+                var teacher = teachers.Data.FirstOrDefault(t => t.SubjectId == paper.PaperBaseInfo.SubjectId);
+                if (teacher == null)
+                {
+                    foreach (var student in students)
+                    {
+                        results.Add($"{student.GroupCode}:{student.Student}", "班级没有该科目任教老师");
+                    }
+                    continue;
+                }
+                var batch =
+                    UsageRepository.Where(t => t.JointBatch == jointBatch && t.ClassId == classDto.Id)
+                        .Select(t => t.Id)
+                        .FirstOrDefault();
+                if (string.IsNullOrWhiteSpace(batch))
+                {
+                    batch = IdHelper.Instance.Guid32;
+                    var usage = new TC_Usage
+                    {
+                        Id = batch,
+                        AddedAt = Clock.Now,
+                        SourceID = joint.PaperId,
+                        AddedIP = Utils.GetRealIp(),
+                        ApplyType = (byte)ApplyType.Print,
+                        PrintType = (byte)(paper.PaperBaseInfo.IsAb ? PrintType.PaperAbHomeWork : PrintType.HomeWork),
+                        ClassId = classDto.Id,
+                        ExpireTime = Clock.Now,
+                        IsControlOrder = false,
+                        SourceType = (byte)PublishType.Print,
+                        StartTime = Clock.Now,
+                        SubjectId = paperResult.Data.PaperBaseInfo.SubjectId,
+                        UserId = teacher.Id,
+                        MarkingStatus = (byte)MarkingStatus.NotMarking,
+                        Status = (byte)NormalStatus.Normal,
+                        JointBatch = jointBatch
+                    };
+                    usageList.Add(usage);
+                }
+                var studentDtos = GroupContract.GroupMembers(classDto.Id, UserRole.Student);
+                foreach (var dto in students)
+                {
+                    if (dto.Scores.Count != sorts.Count)
+                    {
+                        results.Add($"{dto.GroupCode}:{dto.Student}", "分数列数不匹配");
+                        continue;
+                    }
+                    var student = studentDtos.Data.FirstOrDefault(t => t.Name == dto.Student);
+                    if (student == null)
+                    {
+                        results.Add($"{dto.GroupCode}:{dto.Student}", "学生不存在");
+                        continue;
+                    }
+                    // 生成MarkingResult,MarkingDetail
+                    var resultId =
+                        MarkingResultRepository.Where(t => t.Batch == batch && t.StudentID == student.Id)
+                            .Select(t => t.Id)
+                            .FirstOrDefault();
+                    if (string.IsNullOrWhiteSpace(resultId))
+                    {
+                        resultId = IdHelper.Instance.Guid32;
+                        var mResult = new TP_MarkingResult
+                        {
+                            Id = resultId,
+                            PaperID = joint.PaperId,
+                            Batch = batch,
+                            StudentID = student.Id,
+                            ClassID = classDto.Id,
+                            IsFinished = false,
+                            AddedAt = DateTime.Now,
+                            AddedIP = Utils.GetRealIp(),
+                            ErrorQuestionCount = 0,
+                            TotalScore = 0
+                        };
+                        resultList.Add(mResult);
+                    }
+                    var index = 0;
+                    foreach (var sort in sorts)
+                    {
+                        //detail
+                        string qid = sort.Key, sid = null;
+                        if (sort.Key.Contains(":"))
+                        {
+                            qid = sort.Key.Split(':')[0];
+                            sid = sort.Key.Split(':')[1];
+                        }
+                        var detailModel =
+                            MarkingDetailRepository.Where(
+                                    t =>
+                                        t.Batch == batch && t.StudentID == student.Id && t.QuestionID == qid &&
+                                        t.SmallQID == sid)
+                                .Select(t => new { t.Id, t.Score, t.CurrentScore })
+                                .FirstOrDefault();
+                        if (detailModel == null)
+                        {
+                            decimal score;
+                            if (!string.IsNullOrWhiteSpace(sid))
+                            {
+                                score = detailScores.FirstOrDefault(t => t.SmallQId == sid)?.Score ?? 0M;
+                            }
+                            else
+                            {
+                                score = scores.FirstOrDefault(t => t.Id == qid)?.Score ?? 0M;
+                            }
+                            var detail = new TP_MarkingDetail
+                            {
+                                Id = IdHelper.Instance.Guid32,
+                                MarkingID = resultId,
+                                PaperID = joint.PaperId,
+                                Batch = batch,
+                                QuestionID = qid,
+                                SmallQID = sid,
+                                StudentID = student.Id,
+                                AnswerTime = Clock.Now,
+                                Score = score, //总分
+                                CurrentScore = dto.Scores[index],
+                                IsCorrect = dto.Scores[index] == score,
+                                MarkingBy = 0,
+                                IsFinished = true,
+                                MarkingAt = Clock.Now
+                            };
+                            detailList.Add(detail);
+                        }
+                        else if (detailModel.CurrentScore != dto.Scores[index])
+                        {
+                            var detail = new TP_MarkingDetail
+                            {
+                                Id = detailModel.Id,
+                                AnswerTime = Clock.Now,
+                                CurrentScore = dto.Scores[index]
+                            };
+                            detail.IsCorrect = (detail.CurrentScore == detail.Score);
+                            updateList.Add(detail);
+                        }
+                        index++;
+                    }
+                }
+            }
+            if (!detailList.Any() && !updateList.Any())
+                return new DResult<Dictionary<string, string>>(true, results)
+                {
+                    Message = "新增:0,更新:0"
+                };
+            //事务操作
+            var result = UnitOfWork.Transaction(() =>
+            {
+                if (usageList.Any())
+                    UsageRepository.Insert(usageList.ToArray());
+                if (resultList.Any())
+                    MarkingResultRepository.Insert(resultList.ToArray());
+                if (detailList.Any())
+                    MarkingDetailRepository.Insert(detailList.ToArray());
+                if (updateList.Any())
+                    MarkingDetailRepository.Update(d => new
+                    {
+                        d.IsCorrect,
+                        d.CurrentScore,
+                        d.AnswerTime,
+                        //d.AnswerContent,
+                        //d.AnswerIDs
+                    }, updateList.ToArray());
+            });
+            //var result = 0;
+            return new DResult<Dictionary<string, string>>(result > 0, results)
+            {
+                Message = $"新增{detailList.Count},更新{updateList.Count}"
+            };
+        }
     }
 }

@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 得一后台管理系统</title>
-    @Html.CombineLink("css/font-awesome.min.css,v3/css/management/bootstrap.css,v3/css/dialog.css,v3/css/management/common.css,v3/css/management/site-base.css")
+    @Html.CombineLink("css/font-awesome.min.css,v3/css/management/bootstrap.css,v3/css/dialog.css,v3/plugs/toastr/toastr.min.css,v3/css/management/common.css,v3/css/management/site-base.css")
     @RenderSection("style", false)
     <!--[if lt IE 9]>
         @Html.CombineLink("js/html5shiv.min.js,js/respond.js")
@@ -66,7 +66,7 @@
         </div>
     </div>
     @Html.Partial("_Footer")
-    @Html.CombineLink("js/jquery.min.js,v3/js/management/bootstrap.js,plugs/artDialog/dist/dialog-plus.min.js,js/Jq-common.js,v3/js/management/common.js,v3/js/management/base.js")
+    @Html.CombineLink("js/jquery.min.js,v3/plugs/toastr/toastr.min.js,v3/js/management/bootstrap.js,plugs/artDialog/dist/dialog-plus.min.js,js/Jq-common.js,v3/js/management/common.js,v3/js/management/base.js")
     @RenderSection("script", false)
     @MiniProfiler.RenderIncludes()
 </body>

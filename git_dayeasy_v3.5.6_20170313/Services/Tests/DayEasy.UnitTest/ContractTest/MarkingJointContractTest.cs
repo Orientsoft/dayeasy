@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Autofac;
+﻿using Autofac;
 using DayEasy.Contracts;
-using DayEasy.Contracts.Dtos.Marking;
 using DayEasy.Contracts.Dtos.Marking.Joint;
 using DayEasy.Contracts.Enum;
 using DayEasy.Core.Dependency;
 using DayEasy.Marking.Services.Helper;
+using DayEasy.Office;
 using DayEasy.UnitTest.TestUtility;
 using DayEasy.Utility.Extend;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace DayEasy.UnitTest.ContractTest
 {
@@ -294,8 +295,8 @@ namespace DayEasy.UnitTest.ContractTest
                 //,new[] {"f4df949196de46e0976544f1525f225a"}
             };
             const long teacherId = 900000000001L;
-//            var result = _markingContract.ChangePictures(joint, groups, teacherId, -5);
-//            WriteJson(result);
+            //            var result = _markingContract.ChangePictures(joint, groups, teacherId, -5);
+            //            WriteJson(result);
         }
 
         [TestMethod]
@@ -323,9 +324,35 @@ namespace DayEasy.UnitTest.ContractTest
         {
             const string batch = "0a75e6aa930841de9f226ec5dfbf2e66";//AB卷
             const string joinBatch = "c5e1f9af37094c988003107bc0c2a4b0";//非AB卷
-            var result= _markingContract.ObjectiveQuestionScore(batch);
+            var result = _markingContract.ObjectiveQuestionScore(batch);
             WriteJson(result.Data);
-           // Console.ReadLine();
+            // Console.ReadLine();
+        }
+
+        [TestMethod]
+        public void ImportJointDataTest()
+        {
+            var dt = ExcelHelper.Read("D:\\ddd.xls").Tables[0];
+            var dtos = new List<JDataInputDto>();
+            foreach (DataRow row in dt.Rows)
+            {
+                var cols = row.ItemArray;
+                if (cols.Length < 3) continue;
+                var name = (cols[0] ?? string.Empty).ToString();
+                if (string.IsNullOrWhiteSpace(name) || name == "姓名")
+                    continue;
+                var groupCode = (cols[1] ?? string.Empty).ToString();
+
+                dtos.Add(new JDataInputDto
+                {
+                    Student = name,
+                    GroupCode = groupCode,
+                    Scores = cols.Skip(2).Select(t => t.CastTo<decimal>()).ToList()
+                });
+            }
+            //WriteJson(dtos);
+            var result = _markingContract.ImportJointData("", dtos);
+            WriteJson(result);
         }
     }
 }

@@ -68,5 +68,11 @@ namespace DayEasy.Contracts
         /// <param name="jointBatch"></param>
         /// <returns></returns>
         DResult<ObjectQuestionScoreRate> ObjectiveQuestionScore(string jointBatch);
+
+        /// <summary> 导入协同数据 </summary>
+        /// <param name="jointBatch"></param>
+        /// <param name="inputs"></param>
+        /// <returns></returns>
+        DResult<Dictionary<string, string>> ImportJointData(string jointBatch, List<JDataInputDto> inputs);
     }
 }

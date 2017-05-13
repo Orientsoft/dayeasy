@@ -14,7 +14,12 @@ namespace DayEasy.Contracts
         /// <returns></returns>
         DResults<string> ColleagueClasses(string colleagueGroupId);
 
-        /// <summary> 科目任课老师 </summary>
+        /// <summary> 同事圈所任教的班级圈 </summary>
+        /// <param name="colleagueGroupId"></param>
+        /// <returns></returns>
+        DResult<Dictionary<string, JGroupInfoDto>> ColleagueClassDict(string colleagueGroupId);
+
+            /// <summary> 科目任课老师 </summary>
         /// <param name="classIds"></param>
         /// <param name="subjectId"></param>
         /// <returns></returns>

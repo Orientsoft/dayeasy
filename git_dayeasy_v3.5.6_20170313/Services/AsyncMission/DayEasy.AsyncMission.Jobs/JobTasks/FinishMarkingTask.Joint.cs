@@ -141,11 +141,15 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
             var batches = dict.Keys;
             //客观题错题、默认标记 & 分数标记
             var pictures = pictureRepository.Where(t => batches.Contains(t.BatchNo)).ToList();
-            //图片标记处理
-            var updatePictures = UpdatePictures(paper, pictures);
-            watcher.Stop();
-            LogAction($"图片标记处理,{updatePictures.Count},耗时：{watcher.ElapsedMilliseconds}ms");
-            watcher.Restart();
+            var updatePictures = new List<TP_MarkingPicture>();
+            if (pictures.Any())
+            {
+                //图片标记处理
+                updatePictures = UpdatePictures(paper, pictures);
+                watcher.Stop();
+                LogAction($"图片标记处理,{updatePictures.Count},耗时：{watcher.ElapsedMilliseconds}ms");
+                watcher.Restart();
+            }
             var result = detailRepository.UnitOfWork.Transaction(unitWork =>
             {
                 if (updatePictures.Any())

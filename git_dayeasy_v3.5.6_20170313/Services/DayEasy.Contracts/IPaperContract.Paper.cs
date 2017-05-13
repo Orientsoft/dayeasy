@@ -133,7 +133,7 @@ namespace DayEasy.Contracts
         /// <param name="isObjective">是否客观题</param>
         /// <param name="sectionType"></param>
         /// <returns></returns>
-        Dictionary<string, string> PaperSorts(PaperDetailDto paper, bool? isObjective = false, int sectionType = -1);
+        Dictionary<string, string> PaperSorts(PaperDetailDto paper, bool? isObjective = false, int sectionType = -1,bool includeQid = false);
 
         /// <summary> 重置缓存 </summary>
         /// <param name="paperIds"></param>

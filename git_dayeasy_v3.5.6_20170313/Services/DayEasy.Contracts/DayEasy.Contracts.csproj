@@ -99,6 +99,7 @@
     <Compile Include="Dtos\Group\DGroupDto.cs" />
     <Compile Include="Dtos\Group\GroupDto.cs" />
     <Compile Include="Dtos\Group\ImportMessageDto.cs" />
+    <Compile Include="Dtos\Group\JGroupInfoDto.cs" />
     <Compile Include="Dtos\Group\MemberDto.cs" />
     <Compile Include="Dtos\Group\ColleagueGroupDto.cs" />
     <Compile Include="Dtos\Group\OutGroupMessage.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Dtos\Marking\JointScheduleDto.cs" />
     <Compile Include="Dtos\Marking\JointUsageDto.cs" />
     <Compile Include="Dtos\Marking\Joint\DArea.cs" />
+    <Compile Include="Dtos\Marking\Joint\JDataInputDto.cs" />
     <Compile Include="Dtos\Marking\Joint\JDistributionDto.cs" />
     <Compile Include="Dtos\Marking\Joint\JAllotDto.cs" />
     <Compile Include="Dtos\Marking\Joint\JCombineDto.cs" />

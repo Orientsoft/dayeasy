@@ -80,7 +80,7 @@
                 {
                     foreach (var joint in Model)
                     {
-                        <tr data-jid="@joint.Id">
+                        <tr data-jid="@joint.Id" data-paper="@joint.PaperId">
                             <td>@Html.LabelText(joint.SubjectName, joint.SubjectId)</td>
                             <td>
                                 <a href="@Consts.Config.AppSite/paper/detail/@joint.PaperId" target="_blank">@joint.PaperTitle</a><br />
@@ -187,6 +187,15 @@
                                             <i>B</i>
                                         </a>
                                     }
+                                    if (joint.PaperACount == 0 && joint.PaperBCount == 0)
+                                    {
+                                        <a href="javascript:void(0);" class="b-complete text-danger" title="结束阅卷">
+                                            <i class="fa fa-power-off"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" class="b-import" title="导入数据">
+                                            <i class="fa fa-cloud-upload"></i>
+                                        </a>
+                                    }
                                     <a href="@(Consts.Config.MainSite+"/marking/mission_v2/"+joint.Id)" target="_blank" title="协同任务">
                                         <i class="fa fa-tasks"></i>
                                     </a>
@@ -214,6 +223,7 @@
     </div>
 </div>
 
+<!--未提交名单-->
 <script type="text/html" id="unsubmit-template">
     <div class="unsubmit-box">
         {{each unSubmits as g}}
@@ -251,6 +261,43 @@
         </div>
         {{/each}}
     </div>
+</script>
+
+<script type="text/html" id="importTemp">
+    <iframe name="importForm" frameborder="0" style="display:none;"></iframe>
+    <form method="post" enctype="multipart/form-data" target="importForm" action="/joint/import-data">
+        <div class="form-group">
+            <div style="line-height: 32px; color: #888" class="d-file hide">
+                <i class="fa fa-gg" style="font-size: 18px"></i>
+                <span id="fileName" style="margin-left: 5px"></span>
+            </div>
+            <input type="hidden" name="jointBatch" value="{{joint}}"/>
+            <input type="file" id="importFile" name="importFile" class="hide" accept="application/vnd.ms-excel" />
+            <button type="button" class="btn btn-info btn-choose">选择文件</button>
+            <button type="submit" class="btn btn-primary btn-import hide" style="margin-left: 12px">确认导入</button>
+        </div>
+        <div class="alert alert-warning">
+            请选择需要导入的协同数据Excel文件，你还可以现在<a href="/paper/download-temp?paperId={{paperId}}" target="_blank">下载模板</a>
+        </div>
+    </form>
+</script>
+<script type="text/html" id="importErrorTemp">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>学生</th>
+                <th>错误信息</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{each $data as item}}
+            <tr>
+                <td>{{item.key}}</td>
+                <td>{{item.value}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
 </script>
 
 @section style{

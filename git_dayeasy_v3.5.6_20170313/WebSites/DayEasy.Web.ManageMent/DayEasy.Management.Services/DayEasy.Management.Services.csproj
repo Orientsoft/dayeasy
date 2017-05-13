@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Helper\DynamicTasks.cs" />
     <Compile Include="Helper\ExportHelper.cs" />
+    <Compile Include="Helper\ImportHelper.cs" />
     <Compile Include="Helper\KnowledgeMover.cs" />
     <Compile Include="ManagementModule.cs" />
     <Compile Include="ManagementService.Agency.cs" />

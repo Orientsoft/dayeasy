@@ -1,4 +1,5 @@
 ﻿
+using DayEasy.Contracts.Dtos.Marking.Joint;
 using DayEasy.Contracts.Management.Dto;
 using DayEasy.Core.Domain;
 using DayEasy.Utility;
@@ -28,8 +29,14 @@ namespace DayEasy.Contracts.Management
         /// <param name="id"></param>
         /// <returns></returns>
         DResult SolveJointException(string id);
-
+        /// <summary> 重置协同 </summary>
+        /// <param name="jointBatch"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         DResult ResetJoint(string jointBatch, long userId);
+        
+        /// <summary> 导出协同数据 </summary>
+        /// <param name="jointBatch"></param>
         void ExportJoint(string jointBatch);
 
         #region 普通阅卷 & 推送

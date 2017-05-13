@@ -21,6 +21,7 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using DayEasy.Contracts.Dtos.Marking.Joint;
 
 namespace DayEasy.Management.Services
 {
@@ -557,6 +558,7 @@ namespace DayEasy.Management.Services
             dataSet.Tables.Add(knowledgeTable);
             ExcelHelper.Export(dataSet, dataSet.DataSetName);
         }
+
         #endregion
     }
 }

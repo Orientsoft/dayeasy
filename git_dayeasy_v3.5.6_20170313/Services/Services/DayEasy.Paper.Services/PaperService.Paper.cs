@@ -1273,7 +1273,7 @@ namespace DayEasy.Paper.Services
         /// <param name="isObjective"></param>
         /// <param name="sectionType"></param>
         /// <returns></returns>
-        public Dictionary<string, string> PaperSorts(PaperDetailDto paper, bool? isObjective = false, int sectionType = -1)
+        public Dictionary<string, string> PaperSorts(PaperDetailDto paper, bool? isObjective = false, int sectionType = -1, bool includeQid = false)
         {
             var dict = new Dictionary<string, string>();
             if (paper == null || paper.PaperSections.IsNullOrEmpty())
@@ -1300,7 +1300,7 @@ namespace DayEasy.Paper.Services
                     {
                         foreach (var detail in dto.Question.Details)
                         {
-                            dict.Add(detail.Id,
+                            dict.Add(includeQid ? $"{dto.Question.Id}:{detail.Id}" : detail.Id,
                                 smallRow
                                     ? string.Concat(prefix, detail.Sort)
                                     : string.Concat(prefix, dto.Sort, ".", detail.Sort));
