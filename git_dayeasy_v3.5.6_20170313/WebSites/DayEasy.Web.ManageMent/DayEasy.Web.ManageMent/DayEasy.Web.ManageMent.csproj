@@ -242,6 +242,7 @@
     <Content Include="Views\Advert\Categorys.cshtml" />
     <Content Include="Views\Advert\PartialList.cshtml" />
     <Content Include="Views\PageConfig\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\back.dayeasy.net.pubxml" />
     <None Include="Properties\PublishProfiles\management.pubxml" />
     <Content Include="Views\Topic\Index.cshtml" />
     <Content Include="Views\PageConfig\Generate.cshtml" />

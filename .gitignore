@@ -154,3 +154,4 @@ _service
 packages
 .vs
 .idea
+node_modules
