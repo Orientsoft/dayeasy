@@ -118,12 +118,13 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
                 classScoreRepository.Delete(t => batches.Contains(t.Batch));
                 //变式
                 var errorIds = errorRepository.Where(t => batches.Contains(t.Batch)).Select(t => t.Id).ToList();
+
                 variantRepository.Delete(t => errorIds.Contains(t.ErrorQID));
                 //错题库
                 errorRepository.Delete(t => errorIds.Contains(t.Id));
 
                 //时间
-                var startTime = jointModel.FinishedTime.Value.AddMinutes(2);
+                var startTime = jointModel.FinishedTime.Value.AddMinutes(-2);
                 var endTime = jointModel.FinishedTime.Value;
 
                 studentKpRepository.Delete(

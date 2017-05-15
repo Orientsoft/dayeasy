@@ -641,10 +641,10 @@ namespace DayEasy.Statistic.Services
             else
             {
                 startTime = DateTime.Parse(searchDto.StartTimeStr);
-                endTime = DateTime.Parse(searchDto.EndTimeStr);
+                endTime = DateTime.Parse(searchDto.EndTimeStr).AddDays(1);
             }
             if (endTime > Clock.Now)
-                endTime = Clock.Now.Date;
+                endTime = Clock.Now;
 
             List<KpDataDto> resultList = null;//结果集
 
@@ -678,7 +678,11 @@ namespace DayEasy.Statistic.Services
                 {
                     #region 学生部分
                     //查询学生的知识点统计数据
-                    var studentKps = StudentKpStatisticRepository.Where(u => u.StartTime >= startTime && u.StartTime < endTime && u.StudentID == searchDto.UserId && u.SubjectID == searchDto.SubjectId).ToList();
+                    var studentKps =
+                        StudentKpStatisticRepository.Where(
+                            u =>
+                                u.StartTime >= startTime && u.StartTime < endTime && u.StudentID == searchDto.UserId &&
+                                u.SubjectID == searchDto.SubjectId).ToList();
 
                     if (studentKps.Count > 0)
                     {
