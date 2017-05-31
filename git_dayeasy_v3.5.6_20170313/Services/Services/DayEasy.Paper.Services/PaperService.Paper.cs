@@ -1272,6 +1272,7 @@ namespace DayEasy.Paper.Services
         /// <param name="paper"></param>
         /// <param name="isObjective"></param>
         /// <param name="sectionType"></param>
+        /// <param name="includeQid"></param>
         /// <returns></returns>
         public Dictionary<string, string> PaperSorts(PaperDetailDto paper, bool? isObjective = false, int sectionType = -1, bool includeQid = false)
         {

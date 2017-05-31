@@ -67,9 +67,9 @@ namespace DayEasy.Web.Application.Controllers
         public ActionResult KpStatistic()
         {
             var subjectId = "sub".Query(-1);
-            string groupId = "cid".Query("");
-            string startTimeStr = "start".Query("");
-            string endTimeStr = "end".Query("");
+            string groupId = "cid".Query(string.Empty),
+                startTimeStr = "start".Query(string.Empty),
+                endTimeStr = "end".Query(string.Empty);
 
             #region 处理圈子和学科
 

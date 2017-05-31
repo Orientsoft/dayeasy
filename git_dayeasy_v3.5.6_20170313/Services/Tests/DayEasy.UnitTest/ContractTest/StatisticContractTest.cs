@@ -90,7 +90,7 @@ namespace DayEasy.UnitTest.ContractTest
                 EndTimeStr = "2017-02-26",
                 StartTimeStr = "2017-02-06",
                 RegistTime = DateTime.Parse("2014/9/19 18:51:32"),
-                Role = UserRole.Teacher,
+                Role = UserRole.Student,
                 SubjectId = 5,
                 UserId = 900000000001
             });

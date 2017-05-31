@@ -641,28 +641,26 @@ namespace DayEasy.Statistic.Services
             else
             {
                 startTime = DateTime.Parse(searchDto.StartTimeStr);
-                endTime = DateTime.Parse(searchDto.EndTimeStr).AddDays(1);
+                endTime = DateTime.Parse(searchDto.EndTimeStr);
             }
             if (endTime > Clock.Now)
                 endTime = Clock.Now;
 
             List<KpDataDto> resultList = null;//结果集
-
-            if (endTime > searchDto.RegistTime)
+            var end = endTime.AddDays(1);
+            switch (searchDto.Role)
             {
-                if (searchDto.Role == UserRole.Teacher)//老师
-                {
-                    #region 老师部分
+                case UserRole.Teacher:
                     //查询老师的知识点统计数据
                     var teacherKps =
                         TeacherKpStatisticRepository.Where(
                             u =>
-                                u.StartTime >= startTime && u.StartTime < endTime && u.ClassID == searchDto.GroupId &&
+                                u.EndTime >= startTime && u.EndTime < end && u.ClassID == searchDto.GroupId &&
                                 u.SubjectID == searchDto.SubjectId).ToList();
 
                     if (teacherKps.Count > 0)
                     {
-                        var kps = teacherKps.Select(u => new Kps()
+                        var kps = teacherKps.Select(u => new Kps
                         {
                             AnswerCount = u.AnswerCount,
                             ErrorCount = u.ErrorCount,
@@ -672,21 +670,19 @@ namespace DayEasy.Statistic.Services
 
                         resultList = MakeKpStatistic(kps);
                     }
-                    #endregion
-                }
-                else if (searchDto.Role == UserRole.Student)//学生
-                {
-                    #region 学生部分
+                    break;
+
+                case UserRole.Student:
                     //查询学生的知识点统计数据
                     var studentKps =
                         StudentKpStatisticRepository.Where(
                             u =>
-                                u.StartTime >= startTime && u.StartTime < endTime && u.StudentID == searchDto.UserId &&
+                                u.EndTime >= startTime && u.EndTime < end && u.StudentID == searchDto.UserId &&
                                 u.SubjectID == searchDto.SubjectId).ToList();
 
                     if (studentKps.Count > 0)
                     {
-                        var kps = studentKps.Select(u => new Kps()
+                        var kps = studentKps.Select(u => new Kps
                         {
                             AnswerCount = u.AnswerCount,
                             ErrorCount = u.ErrorCount,
@@ -696,8 +692,7 @@ namespace DayEasy.Statistic.Services
 
                         resultList = MakeKpStatistic(kps);
                     }
-                    #endregion
-                }
+                    break;
             }
 
             var result = new KpStatisticDataDto

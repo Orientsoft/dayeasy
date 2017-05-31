@@ -1044,7 +1044,19 @@ namespace DayEasy.Marking.Services
                 return DResult.Error<Dictionary<string, string>>(paperResult.Message);
             var paper = paperResult.Data;
             var sorts = PaperContract.PaperSorts(paper, null, includeQid: true);
-            var scores = paper.PaperSections.SelectMany(t => t.Questions.Select(q => new { q.Question.Id, q.Score })).ToList();
+            var scores =
+                paper.PaperSections.SelectMany(
+                        t =>
+                            t.Questions.Select(
+                                q =>
+                                    new
+                                    {
+                                        q.Question.IsObjective,
+                                        q.Question.Id,
+                                        q.Score,
+                                        count = q.Question.Details?.Count ?? 0
+                                    }))
+                    .ToList();
             var scoreResult = PaperContract.GetSmallQuScore(joint.PaperId);
             var detailScores = scoreResult.Data.ToList();
 
@@ -1160,12 +1172,38 @@ namespace DayEasy.Marking.Services
                     var index = 0;
                     foreach (var sort in sorts)
                     {
+                        var currentScore = dto.Scores[index];
                         //detail
                         string qid = sort.Key, sid = null;
                         if (sort.Key.Contains(":"))
                         {
                             qid = sort.Key.Split(':')[0];
                             sid = sort.Key.Split(':')[1];
+                        }
+                        decimal score;
+                        if (!string.IsNullOrWhiteSpace(sid))
+                        {
+                            score = detailScores.FirstOrDefault(t => t.SmallQId == sid)?.Score ?? 0M;
+                            if (score == 0)
+                            {
+                                var item = scores.FirstOrDefault(t => t.Id == qid);
+                                if (item != null && item.count > 0 && item.IsObjective)
+                                    score = Math.Round(item.Score / item.count, 1,
+                                        MidpointRounding.AwayFromZero);
+                            }
+                        }
+                        else
+                        {
+                            score = scores.FirstOrDefault(t => t.Id == qid)?.Score ?? 0M;
+                        }
+                        if (currentScore < 0 || currentScore > score)
+                        {
+                            results.Add($"{dto.GroupCode}:{dto.Student}",
+                                $"题{sort.Value}:得分[{currentScore}],总分[{score}]");
+                            resultList = resultList.Where(t => t.StudentID != student.Id).ToList();
+                            detailList = detailList.Where(t => t.StudentID != student.Id).ToList();
+                            updateList = updateList.Where(t => t.StudentID != student.Id).ToList();
+                            break;
                         }
                         var detailModel =
                             MarkingDetailRepository.Where(
@@ -1176,15 +1214,7 @@ namespace DayEasy.Marking.Services
                                 .FirstOrDefault();
                         if (detailModel == null)
                         {
-                            decimal score;
-                            if (!string.IsNullOrWhiteSpace(sid))
-                            {
-                                score = detailScores.FirstOrDefault(t => t.SmallQId == sid)?.Score ?? 0M;
-                            }
-                            else
-                            {
-                                score = scores.FirstOrDefault(t => t.Id == qid)?.Score ?? 0M;
-                            }
+
                             var detail = new TP_MarkingDetail
                             {
                                 Id = IdHelper.Instance.Guid32,
@@ -1196,23 +1226,23 @@ namespace DayEasy.Marking.Services
                                 StudentID = student.Id,
                                 AnswerTime = Clock.Now,
                                 Score = score, //总分
-                                CurrentScore = dto.Scores[index],
-                                IsCorrect = dto.Scores[index] == score,
+                                CurrentScore = currentScore,
+                                IsCorrect = currentScore == score,
                                 MarkingBy = 0,
                                 IsFinished = true,
                                 MarkingAt = Clock.Now
                             };
                             detailList.Add(detail);
                         }
-                        else if (detailModel.CurrentScore != dto.Scores[index])
+                        else if (detailModel.CurrentScore != currentScore)
                         {
                             var detail = new TP_MarkingDetail
                             {
                                 Id = detailModel.Id,
                                 AnswerTime = Clock.Now,
-                                CurrentScore = dto.Scores[index]
+                                CurrentScore = currentScore,
+                                IsCorrect = detailModel.Score == currentScore
                             };
-                            detail.IsCorrect = (detail.CurrentScore == detail.Score);
                             updateList.Add(detail);
                         }
                         index++;
