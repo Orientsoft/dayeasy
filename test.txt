@@ -1,8 +1,9 @@
-main()
-{
-	print"hello world"
-}
-mathod()
-{
-	print"my name is Gan"
-}
+自动登陆接口说明
+url:http://open.dayeasy.net/auto_login?account={account}&tick={tick}&partner={partner}&sign={sign}
+method:GET
+参数说明：
+sign：Md5_32("account={account}&tick={tick}+{partnerKey}")，中间有个“+”号
+account：帐号，(学生:学籍号,教师:手机号)
+tick：时间戳(毫秒)
+partner：合作商号(得一提供)
+partnerKey：合作商密钥(得一提供)
