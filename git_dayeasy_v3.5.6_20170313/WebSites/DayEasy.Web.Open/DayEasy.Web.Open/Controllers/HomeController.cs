@@ -8,6 +8,7 @@ using DayEasy.Utility.Timing;
 using DayEasy.Web.Api;
 using DayEasy.Web.Api.Attributes;
 using DayEasy.Web.Api.Config;
+using System;
 using System.Web;
 using System.Web.Http;
 
@@ -63,22 +64,34 @@ namespace DayEasy.Web.Open.Controllers
         [Route("~/auto_login")]
         public void AutoLogin(string partner, string account, long tick, string sign)
         {
+            var result = DResult.Success;
             var key = PartnerBusi.Instance.GetKey(partner);
             if (string.IsNullOrWhiteSpace(key))
             {
-                return;
+                result = DResult.Error("合作商户不存在");
             }
-            //:todo 验证签名
-            var result = _openContract.AutoLogin(account);
-            if (!result.Status)
+            if (result.Status)
             {
-                HttpContext.Current.Response.Clear();
-                HttpContext.Current.Response.ContentType = "json/aplication";
-                HttpContext.Current.Response.Write(result.ToJson());
-                HttpContext.Current.Response.End();
+                var currentSign = $"account={account}&tick={tick}+{key}".Md5();
+                if (!string.Equals(currentSign, sign, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    result = DResult.Error("签名验证失败");
+                }
+            }
+            if (result.Status)
+            {
+                result = _openContract.AutoLogin(account);
+            }
+            if (result.Status)
+            {
+                HttpContext.Current.Response.Redirect(Consts.Config.MainSite, true);
                 return;
             }
-            HttpContext.Current.Response.Redirect(Consts.Config.MainSite, true);
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.ContentType = "json/aplication";
+            HttpContext.Current.Response.Write(result.ToJson());
+            HttpContext.Current.Response.End();
+
         }
     }
 }
