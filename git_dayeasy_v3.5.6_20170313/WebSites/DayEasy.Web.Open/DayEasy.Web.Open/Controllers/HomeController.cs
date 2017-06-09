@@ -68,7 +68,6 @@ namespace DayEasy.Web.Open.Controllers
             var result = DResult.Success;
             if (Clock.Now >= tick.FromMillisecondTimestamp().AddMinutes(5))
                 result = DResult.Error("请求已超时");
-            result.Message = Clock.Now.Ticks.ToString();
             var key = PartnerBusi.Instance.GetKey(partner);
             if (result.Status)
             {

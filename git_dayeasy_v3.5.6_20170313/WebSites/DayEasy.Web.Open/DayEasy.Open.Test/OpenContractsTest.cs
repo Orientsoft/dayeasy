@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using DayEasy.Utility.Timing;
 
 namespace DayEasy.Open.Test
 {
@@ -18,17 +19,20 @@ namespace DayEasy.Open.Test
         private IExaminationContract _examinationContract;
 
 
-        public OpenContractsTest()
-        {
-            _openContract = Container.Resolve<IOpenContract>();
-            _examinationContract = Container.Resolve<IExaminationContract>();
-        }
+        //public OpenContractsTest()
+        //{
+        //    _openContract = Container.Resolve<IOpenContract>();
+        //    _examinationContract = Container.Resolve<IExaminationContract>();
+        //}
+
         [TestMethod]
         public void JointPictureTest()
         {
-            var jointBatch = "2a1de2e2d2a840659deb01343799263b";
-            var pictures = new[] { "" };
-            HandinPicturesTask.Instance.InitJointPictures(jointBatch, pictures.ToList());
+            //Console.WriteLine();
+
+            //var jointBatch = "2a1de2e2d2a840659deb01343799263b";
+            //var pictures = new[] { "" };
+            //HandinPicturesTask.Instance.InitJointPictures(jointBatch, pictures.ToList());
         }
 
         [TestMethod]
