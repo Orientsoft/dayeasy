@@ -1,8 +1,10 @@
 ﻿
 using DayEasy.Contract.Open.Helper;
+using DayEasy.Contracts;
 using DayEasy.Contracts.Dtos.Group;
 using DayEasy.Contracts.Enum;
 using DayEasy.Contracts.Models;
+using DayEasy.Core.Dependency;
 using DayEasy.Models.Open.User;
 using DayEasy.Services;
 using DayEasy.Utility;
@@ -119,6 +121,20 @@ namespace DayEasy.Contract.Open.Services
                 }
             }
             return DResult.Succ(dtos, -1);
+        }
+
+        public DResult AutoLogin(string account)
+        {
+            var user =
+                UserRepository.Where(
+                        t => t.StudentNum == account || t.Mobile == account)
+                    .Select(t => new { t.Id, t.Status }).FirstOrDefault();
+            if (user == null)
+                return DResult.Error("用户不存在");
+            if (user.Status == (byte)UserStatus.Delete)
+                return DResult.Error("用户已被禁用");
+            CurrentIocManager.Resolve<IUserContract>().AutoLogin(user.Id, Comefrom.Web);
+            return DResult.Success;
         }
     }
 }

@@ -12,5 +12,10 @@ namespace DayEasy.Contract.Open.Contracts
         DResult<StudentDto> Student(string code);
 
         DResults<StudentClassDto> SearchStudent(string keyword);
+
+        /// <summary> 自动登录 </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        DResult AutoLogin(string account);
     }
 }

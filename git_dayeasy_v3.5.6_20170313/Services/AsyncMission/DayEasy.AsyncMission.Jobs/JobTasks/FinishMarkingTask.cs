@@ -331,7 +331,7 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
 
             //本周星期一
             var time = createTime ?? Clock.Now;
-            var mondayDate = time.AddDays(time.DayOfWeek == DayOfWeek.Sunday ? -7 : -(int)time.DayOfWeek).Date;
+            var mondayDate = time.AddDays(time.DayOfWeek == DayOfWeek.Saturday ? -6 : 1 - (int)time.DayOfWeek).Date;
             var sundayDate = time; //不能是本周日
             var searchSunday = mondayDate.AddDays(7);//用于查询的本周星期日
 
