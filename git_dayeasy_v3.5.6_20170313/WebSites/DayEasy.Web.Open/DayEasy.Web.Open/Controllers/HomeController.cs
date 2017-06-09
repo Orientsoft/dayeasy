@@ -35,6 +35,7 @@ namespace DayEasy.Web.Open.Controllers
         [Route("~/ticks")]
         public long Ticks()
         {
+            //return Clock.Now.MilliTimespan();
             return ApiExtends.ToLong(Clock.Now);
         }
 
@@ -65,10 +66,16 @@ namespace DayEasy.Web.Open.Controllers
         public void AutoLogin(string partner, string account, long tick, string sign)
         {
             var result = DResult.Success;
+            if (Clock.Now >= tick.FromMillisecondTimestamp().AddMinutes(5))
+                result = DResult.Error("请求已超时");
+            result.Message = Clock.Now.Ticks.ToString();
             var key = PartnerBusi.Instance.GetKey(partner);
-            if (string.IsNullOrWhiteSpace(key))
+            if (result.Status)
             {
-                result = DResult.Error("合作商户不存在");
+                if (string.IsNullOrWhiteSpace(key))
+                {
+                    result = DResult.Error("合作商户不存在");
+                }
             }
             if (result.Status)
             {
@@ -88,10 +95,9 @@ namespace DayEasy.Web.Open.Controllers
                 return;
             }
             HttpContext.Current.Response.Clear();
-            HttpContext.Current.Response.ContentType = "json/aplication";
+            HttpContext.Current.Response.ContentType = "application/json";
             HttpContext.Current.Response.Write(result.ToJson());
             HttpContext.Current.Response.End();
-
         }
     }
 }
