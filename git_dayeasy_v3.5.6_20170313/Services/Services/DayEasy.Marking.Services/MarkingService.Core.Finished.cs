@@ -107,6 +107,10 @@ namespace DayEasy.Marking.Services
                     StuScoreStatisticsRepository.Insert(scoreStatistics.StuScoreStatisticses);
                 }
             });
+            if (result > 0)
+            {
+                //:todo 
+            }
             return DResult.FromResult(result);
         }
 
@@ -184,6 +188,10 @@ namespace DayEasy.Marking.Services
                 model.FinishedTime = Clock.Now;
                 JointMarkingRepository.Update(t => new { t.Status, t.FinishedTime }, model);
             });
+            if (result > 0)
+            {
+                //:todo 
+            }
             return DResult.FromResult(result);
         }
 

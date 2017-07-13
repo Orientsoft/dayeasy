@@ -11,6 +11,7 @@ using DayEasy.Contracts.Models;
 using DayEasy.EntityFramework;
 using DayEasy.Marking.Services.Helper;
 using DayEasy.Services;
+using DayEasy.Services.Helper;
 using DayEasy.Utility;
 using DayEasy.Utility.Extend;
 using DayEasy.Utility.Helper;
@@ -756,8 +757,44 @@ namespace DayEasy.Marking.Services
 
             #endregion
 
-            return result > 0 ? DResult.Success : DResult.Error("操作失败，请重试");
+            if (result > 0)
+            {
+                SendStudentScores(batch, usage.AddedAt, paper.PaperTitle, paper.SubjectId);
+                return DResult.Success;
+            }
+            return DResult.Error("操作失败，请重试");
         }
+
+        #region 发送学生成绩
+        /// <summary>
+        /// 发送学生成绩
+        /// </summary>
+        /// <param name="batch"></param>
+        /// <param name="examTime"></param>
+        /// <param name="paperTitle"></param>
+        /// <param name="subjectId"></param>
+        public void SendStudentScores(string batch, DateTime examTime, string paperTitle, int subjectId)
+        {
+            var users = UserRepository.Where(t => t.StudentNum != null && t.StudentNum.Length >= 16);
+            var scores = StuScoreStatisticsRepository.Where(t => t.Batch == batch)
+                .Join(users, s => s.StudentId, u => u.Id, (s, u) => new
+                {
+                    u.StudentNum,
+                    s.CurrentScore
+                });
+            if (!scores.Any())
+                return;
+            var models = scores.Select(t => new StudentScore
+            {
+                StudentNo = t.StudentNum,
+                Score = t.CurrentScore,
+                ExamTime = examTime,
+                PaperTitle = paperTitle,
+                Subject = SystemCache.Instance.SubjectName(subjectId)
+            }).ToList();
+            OtherPlatformHelper.BatchSendScores(models);
+        }
+        #endregion
 
         /// <summary>
         /// 教师录入分数后，初始化统计数据

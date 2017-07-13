@@ -74,6 +74,7 @@
     <Compile Include="Models\MissionStatus.cs" />
     <Compile Include="Models\MissionType.cs" />
     <Compile Include="Models\MAsyncMission.cs" />
+    <Compile Include="Models\StudentScore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -86,6 +86,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -100,6 +101,7 @@
     <Compile Include="Helper\MarkingConsts.cs" />
     <Compile Include="Helper\MarkingHelper.cs" />
     <Compile Include="Helper\MarkingTask.cs" />
+    <Compile Include="Helper\OtherPlatformHelper.cs" />
     <Compile Include="MarkingService.Core.Finished.cs" />
     <Compile Include="MarkingService.Core.Submit.cs" />
     <Compile Include="MarkingService.Core.Update.cs" />

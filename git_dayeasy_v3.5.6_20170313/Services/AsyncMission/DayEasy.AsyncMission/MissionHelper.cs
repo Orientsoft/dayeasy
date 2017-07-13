@@ -10,6 +10,7 @@ using MongoDB.Bson;
 using MongoDB.Driver.Builders;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace DayEasy.AsyncMission

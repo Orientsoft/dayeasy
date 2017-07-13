@@ -236,6 +236,10 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
             CurrentIocManager.Resolve<IMessageContract>().SendDynamics(messages);
             watcher.Stop();
             LogAction($"发送动态消息，耗时：{watcher.ElapsedMilliseconds}ms");
+            foreach (var usage in usages)
+            {
+                SendStudentScores(usage.Id, usage.AddedAt, paper.PaperBaseInfo.PaperTitle, paper.PaperBaseInfo.SubjectId);
+            }
             return DResult.Success;
         }
     }

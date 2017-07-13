@@ -281,6 +281,7 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
             });
             watcher.Stop();
             LogAction($"发送动态消息，耗时：{watcher.ElapsedMilliseconds}ms");
+            SendStudentScores(model.Id, model.AddedAt, paper.PaperBaseInfo.PaperTitle, paper.PaperBaseInfo.SubjectId);
             return DResult.Success;
         }
 
@@ -558,7 +559,7 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
                         if (!scoreDict.ContainsKey(studentId))
                             continue;
                         var scores = scoreDict[studentId];
-                        List<MkComment> marks = picture.Marks.IsNotNullOrEmpty()
+                        var marks = picture.Marks.IsNotNullOrEmpty()
                             ? picture.Marks.Replace("'", "\"").JsonToObject2<List<MkComment>>()
                             : new List<MkComment>();
                         //填空题
@@ -662,5 +663,17 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
         }
 
         #endregion
+
+        /// <summary>
+        /// 发送学生成绩
+        /// </summary>
+        /// <param name="batch"></param>
+        /// <param name="examTime"></param>
+        /// <param name="paperTitle"></param>
+        /// <param name="subjectId"></param>
+        private static void SendStudentScores(string batch, DateTime examTime, string paperTitle, int subjectId)
+        {
+            CurrentIocManager.Resolve<IMarkingContract>().SendStudentScores(batch, examTime, paperTitle, subjectId);
+        }
     }
 }

@@ -3,6 +3,7 @@ using DayEasy.Contracts.Dtos.Statistic;
 using DayEasy.Contracts.Enum;
 using DayEasy.Core;
 using DayEasy.Utility;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -184,5 +185,11 @@ namespace DayEasy.Contracts
         /// <returns></returns>
         bool IsFinished(string batch);
 
+        /// <summary> 发送学生考试成绩 </summary>
+        /// <param name="batch"></param>
+        /// <param name="examTime"></param>
+        /// <param name="paperTitle"></param>
+        /// <param name="subjectId"></param>
+        void SendStudentScores(string batch, DateTime examTime, string paperTitle, int subjectId);
     }
 }

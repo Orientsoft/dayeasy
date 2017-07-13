@@ -3,8 +3,10 @@ using DayEasy.AsyncMission.Jobs.JobTasks;
 using DayEasy.AsyncMission.Models;
 using DayEasy.Contracts;
 using DayEasy.Core.Dependency;
+using DayEasy.Marking.Services.Helper;
 using DayEasy.UnitTest.TestUtility;
 using DayEasy.Utility.Helper;
+using DayEasy.Utility.Timing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -107,6 +109,12 @@ namespace DayEasy.UnitTest
             var paper = paperContract.PaperDetailById("b6888616762e480c9ba1f6969909efea").Data;
             var dtos = FinishMarkingTask.InitKpStatistics(paper, new Dictionary<string, string> { { "e9d75c37aa7d4370a186fcdaf1d923b1", "f8fcef6d7a9d4833bf0293d2346750b4" } });
             WriteJson(dtos);
+        }
+
+        [TestMethod]
+        public void SendScoreTest()
+        {
+            OtherPlatformHelper.SendScore("G000102200210010002", "第一次数学月末测试", "数学", 85M, Clock.Now.AddDays(-5), "期中考试");
         }
     }
 }
