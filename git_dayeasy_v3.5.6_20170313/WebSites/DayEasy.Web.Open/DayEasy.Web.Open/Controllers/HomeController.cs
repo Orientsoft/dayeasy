@@ -4,6 +4,7 @@ using DayEasy.Contracts.Dtos.Question;
 using DayEasy.Core;
 using DayEasy.Utility;
 using DayEasy.Utility.Extend;
+using DayEasy.Utility.Helper;
 using DayEasy.Utility.Timing;
 using DayEasy.Web.Api;
 using DayEasy.Web.Api.Attributes;
@@ -90,7 +91,9 @@ namespace DayEasy.Web.Open.Controllers
             }
             if (result.Status)
             {
-                HttpContext.Current.Response.Redirect(Consts.Config.MainSite, true);
+                CookieHelper.Set("__dayeasy_hide_logo", "1", 0, Consts.Config.CookieDomain);
+                var uri = new Uri(new Uri(Consts.Config.MainSite), "/user");
+                HttpContext.Current.Response.Redirect(uri.AbsoluteUri, true);
                 return;
             }
             HttpContext.Current.Response.Clear();

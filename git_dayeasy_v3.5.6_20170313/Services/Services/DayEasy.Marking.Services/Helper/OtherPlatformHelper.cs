@@ -10,7 +10,6 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DayEasy.Marking.Services.Helper
 {
@@ -78,22 +77,19 @@ namespace DayEasy.Marking.Services.Helper
 
         public static void BatchSendScores(List<StudentScore> scores)
         {
-            Task.Factory.StartNew(() =>
+            foreach (var item in scores)
             {
-                foreach (var item in scores)
+                try
                 {
-                    try
-                    {
-                        SendScore(item.StudentNo, item.PaperTitle, item.Subject, item.Score, item.ExamTime,
-                            string.IsNullOrWhiteSpace(item.Type) ? "期中考试" : item.Type);
-                    }
-                    catch (Exception ex)
-                    {
-                        var logger = LogManager.Logger("SendScore");
-                        logger.Error(ex.Message, ex);
-                    }
+                    SendScore(item.StudentNo, item.PaperTitle, item.Subject, item.Score, item.ExamTime,
+                        string.IsNullOrWhiteSpace(item.Type) ? "期中考试" : item.Type);
                 }
-            });
+                catch (Exception ex)
+                {
+                    var logger = LogManager.Logger("SendScore");
+                    logger.Error(ex.Message, ex);
+                }
+            }
         }
     }
 }

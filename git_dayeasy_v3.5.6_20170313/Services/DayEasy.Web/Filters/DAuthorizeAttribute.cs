@@ -6,6 +6,7 @@ using DayEasy.Contracts.Dtos.User;
 using DayEasy.Contracts.Enum;
 using DayEasy.Core;
 using DayEasy.Utility.Extend;
+using DayEasy.Utility.Helper;
 
 namespace DayEasy.Web.Filters
 {
@@ -72,7 +73,7 @@ namespace DayEasy.Web.Filters
         /// <returns></returns>
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            if (httpContext == null) 
+            if (httpContext == null)
                 return false;
             //用户登录检查
             if (User == null) return false;
@@ -113,6 +114,11 @@ namespace DayEasy.Web.Filters
                         JsonRequestBehavior = JsonRequestBehavior.AllowGet
                     };
                     filterContext.Result = result;
+                    return;
+                }
+                if (CookieHelper.GetValue("__dayeasy_hide_logo") == "1")
+                {
+                    filterContext.Result = new RedirectResult("http://www.bsgxkj.com/main/toManager");
                     return;
                 }
                 if (returnUrl.Contains(Consts.Config.MainSite) && string.IsNullOrWhiteSpace(rawUrl))

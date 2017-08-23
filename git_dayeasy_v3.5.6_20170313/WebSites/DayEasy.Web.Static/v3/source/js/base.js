@@ -1,21 +1,36 @@
 /**
  *整站脚本基类，基于jQuery
  */
-(function ($, S){
+(function ($, S) {
     var showLogin = false,
         $document = $(document);
+    //隐藏Logo
+    var fromPlat = S.cookie.get('__dayeasy_hide_logo') === "1";
+    if (fromPlat) {
+        $('.logo,.dy-footer').hide();
+        $('.dy-main').css('padding-bottom', 0);
+        $('a').each(function (index, ele) {
+            ele.removeAttribute('target');
+            if ('http://www.dayeasy.net/' === ele.href)
+                ele.href = 'http://www.bsgxkj.com/main/toManager';
+        });
+    }
     /**
      * jQuery Ajax过滤器
      */
-    $.ajaxPrefilter(function (options, originalOptions, jqXHR){
+    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         //登录验证过滤
     });
-    $document.ajaxComplete(function (e, jqXHR){
+    $document.ajaxComplete(function (e, jqXHR) {
         var json = jqXHR.responseJSON;
+        if (fromPlat && json && json.login) {
+            window.top.location.href = 'http://www.bsgxkj.com/main/toManager';
+            return false;
+        }
         //json && logger.info(json);
-        if(!showLogin && json && json.login){
+        if (!showLogin && json && json.login) {
             showLogin = true;
-            if(S.alert){
+            if (S.alert) {
                 S.popupLogin();
                 //S.alert('登录已失效，请重新登录！', function () {
                 //    window.top.location.href = json.url;
@@ -25,14 +40,14 @@
             }
             return false;
         }
-        if(json && json.redirect){
+        if (json && json.redirect) {
             window.top.location.href = json.url;
             return false;
         }
     });
     // SINGER 扩展
     S._mix(S, {
-        open: function (url){
+        open: function (url) {
             var $a = $('<a>');
             $a.attr("href", url);
             $a.attr("target", "_blank");
@@ -47,18 +62,18 @@
          * @param callback
          * @param url
          */
-        loadTemplate: function (name, callback, url){
+        loadTemplate: function (name, callback, url) {
             url = url || S.format('{0}/data/templates/{1}.html', S.sites.static, name);
             //var url = S.format('{0}/data/templates/{1}.html', S.sites.static, name);
-            $.get(url, function (data){
+            $.get(url, function (data) {
                 var $list = $(data);
                 for (var i = 0; i < $list.length; i++) {
                     var item = $list.eq(i),
                         id = item.attr("id"),
                         html = (item.html() || "").replace(/^([\s\n]+)|([\s\n]+)$/i, '');
-                    if(id){
+                    if (id) {
                         S.templates[id] = html;
-                        if(typeof (template) !== 'undefined'){
+                        if (typeof (template) !== 'undefined') {
                             template.cache[id] = template.compile(html, {
                                 filename: id
                             });
@@ -74,10 +89,10 @@
          * @param data
          * @returns {*}
          */
-        render: function (name, data){
-            if(!S.templates.hasOwnProperty(name))
+        render: function (name, data) {
+            if (!S.templates.hasOwnProperty(name))
                 return '';
-            if(typeof (template) !== "undefined"){
+            if (typeof (template) !== "undefined") {
                 template.config('compress', true);
                 data.sites = S.sites;
                 return template(name, data);
@@ -85,7 +100,7 @@
             return '';
         },
         /*弹窗登录*/
-        popupLogin: function (){
+        popupLogin: function () {
             document.domain = S.sites.main.substr(S.sites.main.indexOf('.') + 1);
             var url = S.sites.account + "/login/popup";
             var $iframe = $('<iframe id="lgPupFrame" name="lgPupFrame" frameborder="0" scrolling="no" width="335" height="303"></iframe>');
@@ -94,7 +109,7 @@
                 S.dialog({
                     title: '登录',
                     content: $iframe,
-                    onclose: function (){
+                    onclose: function () {
                         showLogin = false;
                     },
                     fixed: true
@@ -106,20 +121,20 @@
     // 对象扩展
     $.fn.extend({
         //按钮禁止
-        disableField: function (word){
+        disableField: function (word) {
             var $t = $(this);
             $t.addClass('disabled').attr('disabled', 'disabled');
-            if(word){
+            if (word) {
                 $t.data('word', $t.html());
                 $t.html(word);
             }
         },
         //解除按钮禁止
-        undisableFieldset: function (){
+        undisableFieldset: function () {
             var $t = $(this);
             $t.removeClass('disabled').removeAttr('disabled');
             var word = $t.data('word');
-            if(word){
+            if (word) {
                 $t.html(word);
             }
         },
@@ -128,14 +143,14 @@
          * @param obj
          * @param maxLength
          */
-        textMax: function (){
+        textMax: function () {
             var $t = $(this),
                 maxLength = ~~$(this).attr('maxlength'),
                 text = $t.val(),
                 len = text.length,
                 left = maxLength - len,
                 oText = $t.siblings('.dy-result').find('em');
-            if(left < 0){
+            if (left < 0) {
                 text = text.substring(0, maxLength);
                 $t.val(text);
                 left = 0;
@@ -163,23 +178,23 @@
         /**
          * 消息数量
          */
-        messageCount: function (){
-            if(!!S.config('isHome')){
+        messageCount: function () {
+            if (!!S.config('isHome')) {
                 return false;
             }
             var $messageCount = $('.dy-message-count');
-            if(!$messageCount || !$messageCount.length)
+            if (!$messageCount || !$messageCount.length)
                 return false;
             $.ajax({
                 type: "GET",
                 url: S.sites.main + "/message/count",
                 dataType: "jsonp",
-                success: function (data){
-                    if(~~data > 99){
+                success: function (data) {
+                    if (~~data > 99) {
                         data = '99+';
                         $messageCount.html(data);
                     }
-                    if(data > 0){
+                    if (data > 0) {
                         $messageCount.addClass('po-detail-ba');
                     }
                 }
@@ -188,21 +203,21 @@
         /**
          * footer 二维码滑动效果
          */
-        qrCode: function (){
+        qrCode: function () {
             //子集浮动撑开
             var $havechild = $("[data-menu]");
             $gul2 = $havechild.siblings('.g-ul-2');
             $gul2.width($havechild.outerWidth());
             //二维码
-            $('.copy-right li').each(function (){
+            $('.copy-right li').each(function () {
                 var $t = $(this),
                     app = $t.find('.app-qrcode');
-                $t.hover(function (){
+                $t.hover(function () {
                     app.stop().css({'opacity': '0', 'top': '-179px'}).show().animate({
                         'opacity': '1',
                         'top': '-145px'
                     }, 600)
-                }, function (){
+                }, function () {
                     app.stop().css({'opacity': '1', 'top': '-145px'}).animate({
                         'opacity': '0',
                         'top': '-179px'
@@ -213,8 +228,8 @@
         /**
          * 退出登录
          */
-        logout: function (){
-            $('.dy-header').delegate('.d-logout', 'click', function (){
+        logout: function () {
+            $('.dy-header').delegate('.d-logout', 'click', function () {
                 $(window).unbind("beforeunload.question");
                 location.href = S.sites.login + '/logout?return_url=' + encodeURIComponent(location.href);
                 return false;
@@ -224,31 +239,31 @@
          * 返回顶部
          * singer.config({global:{goTop:true}})
          */
-        goTop: function (){
+        goTop: function () {
             var globalConfig = S.config('global');
-            if(!globalConfig || !globalConfig.goTop){
+            if (!globalConfig || !globalConfig.goTop) {
                 return false;
             }
             var $goTop = $('.go-top'),
                 right,
                 $window = $(window);
-            if(!$goTop.length){
+            if (!$goTop.length) {
                 $goTop = $('<div class="go-top"><i class="iconfont dy-icon-gotop animated"></i><span>返回顶部</span></div>');
                 $("body").append($goTop);
             }
-            if($window.width() < 1280)
+            if ($window.width() < 1280)
                 right = 10;
             else
                 right = Math.abs(($window.width() - 1200) / 2 - 60);
             $goTop.css("right", right);
-            $goTop.bind("click.goTop", function (){
+            $goTop.bind("click.goTop", function () {
                 $('body,html').animate({scrollTop: 0}, "500");
-            }).hover(function (){
+            }).hover(function () {
                 $(this).toggleClass("go-top-hover");
             });
-            $window.bind("scroll.goTop", function (){
+            $window.bind("scroll.goTop", function () {
                 var top = $(this).scrollTop();
-                if(top > 100){
+                if (top > 100) {
                     $goTop.fadeIn();
                 }
 
@@ -260,30 +275,30 @@
          * @param obj   绑定 document对象上
          *  配合 /v3/html/ui/index.html DOM结构使用
          */
-        bindDocument: function (){
+        bindDocument: function () {
             $document
             // input 模拟选中效果
-                .delegate('.group-checkbox input', 'click', function (){
+                .delegate('.group-checkbox input', 'click', function () {
                     $(this).siblings('.iconfont').toggleClass('dy-icon-checkboxhv');
                 })
                 // input 模拟不选中效果
-                .delegate('.group-radio input', 'click', function (){
+                .delegate('.group-radio input', 'click', function () {
                     $(this).siblings('.iconfont').addClass('dy-icon-radiohv');
                     $(this).addClass('dy-icon-radiohv').parents('.group-radio').siblings('.group-radio').children('.dy-icon-radio').removeClass('dy-icon-radiohv');
                 })
                 // textarea 限制最大字符
-                .delegate('textarea[maxlength]', 'keyup', function (){
+                .delegate('textarea[maxlength]', 'keyup', function () {
                     $(this).textMax();
                 })
                 /**
                  * 文本框得到失去焦点
                  */
                 .on({
-                    focus: function (){
+                    focus: function () {
                         var $t = $(this);
                         $t.addClass("focus").val() == this.defaultValue && $t.val("");
                     },
-                    blur: function (){
+                    blur: function () {
                         var $t = $(this);
                         $t.removeClass("focus").val() == '' && $t.val(this.defaultValue);
                     },
@@ -293,7 +308,7 @@
     /**
      * 执行 bindLoadDyFun下所有函数
      */
-    var initDyFun = function (){
+    var initDyFun = function () {
         for (var attr in bindLoadDyFun) {
             bindLoadDyFun[attr]();
         }

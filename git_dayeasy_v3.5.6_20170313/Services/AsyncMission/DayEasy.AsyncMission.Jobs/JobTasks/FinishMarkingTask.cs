@@ -281,6 +281,7 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
             });
             watcher.Stop();
             LogAction($"发送动态消息，耗时：{watcher.ElapsedMilliseconds}ms");
+            //第三方平台
             SendStudentScores(model.Id, model.AddedAt, paper.PaperBaseInfo.PaperTitle, paper.PaperBaseInfo.SubjectId);
             return DResult.Success;
         }

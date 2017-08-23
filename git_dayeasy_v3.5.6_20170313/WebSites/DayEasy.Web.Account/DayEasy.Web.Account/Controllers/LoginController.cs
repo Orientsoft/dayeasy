@@ -83,6 +83,7 @@ namespace DayEasy.Web.Account.Controllers
             if (result.Status)
             {
                 CookieHelper.Delete(Consts.LoginCountCookieName);
+                CookieHelper.Delete("__dayeasy_hide_logo", Consts.Config.CookieDomain);
             }
             else
             {

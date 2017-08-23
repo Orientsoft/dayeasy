@@ -8,6 +8,7 @@ using DayEasy.Contracts.Dtos.Question;
 using DayEasy.Contracts.Dtos.Statistic;
 using DayEasy.Contracts.Enum;
 using DayEasy.Contracts.Models;
+using DayEasy.Core.Dependency;
 using DayEasy.EntityFramework;
 using DayEasy.Marking.Services.Helper;
 using DayEasy.Services;
@@ -775,24 +776,40 @@ namespace DayEasy.Marking.Services
         /// <param name="subjectId"></param>
         public void SendStudentScores(string batch, DateTime examTime, string paperTitle, int subjectId)
         {
-            var users = UserRepository.Where(t => t.StudentNum != null && t.StudentNum.Length >= 16);
-            var scores = StuScoreStatisticsRepository.Where(t => t.Batch == batch)
-                .Join(users, s => s.StudentId, u => u.Id, (s, u) => new
-                {
-                    u.StudentNum,
-                    s.CurrentScore
-                });
-            if (!scores.Any())
-                return;
-            var models = scores.Select(t => new StudentScore
+            Task.Factory.StartNew(() =>
             {
-                StudentNo = t.StudentNum,
-                Score = t.CurrentScore,
-                ExamTime = examTime,
-                PaperTitle = paperTitle,
-                Subject = SystemCache.Instance.SubjectName(subjectId)
-            }).ToList();
-            OtherPlatformHelper.BatchSendScores(models);
+                var userRepository = CurrentIocManager.Resolve<IDayEasyRepository<TU_User, long>>();
+                var stuScoreStatisticsRepository =
+                    CurrentIocManager.Resolve<IDayEasyRepository<TS_StuScoreStatistics>>();
+
+                var users = userRepository.Where(t => t.StudentNum != null && t.StudentNum.Length == 19);
+                var scores = stuScoreStatisticsRepository.Where(t => t.Batch == batch)
+                    .Join(users, s => s.StudentId, u => u.Id, (s, u) => new
+                    {
+                        u.StudentNum,
+                        s.CurrentScore
+                    });
+
+                if (!scores.Any())
+                    return;
+                try
+                {
+                    var subject = SystemCache.Instance.SubjectName(subjectId);
+                    var models = scores.Select(t => new StudentScore
+                    {
+                        StudentNo = t.StudentNum,
+                        Score = t.CurrentScore,
+                        ExamTime = examTime,
+                        PaperTitle = paperTitle,
+                        Subject = subject
+                    }).ToList();
+                    OtherPlatformHelper.BatchSendScores(models);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex.Message, ex);
+                }
+            });
         }
         #endregion
 
