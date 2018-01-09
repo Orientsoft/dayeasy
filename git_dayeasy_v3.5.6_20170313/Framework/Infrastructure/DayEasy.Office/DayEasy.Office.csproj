@@ -35,14 +35,15 @@
     <DocumentationFile>..\..\..\_service\DayEasy.Office.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DocX">
-      <HintPath>..\..\packages\Docx.1.0.0.20\lib\DocX.dll</HintPath>
+    <Reference Include="DocX, Version=1.0.0.20, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\DocX.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="org.in2bits.MyXls">
-      <HintPath>..\..\packages\org.in2bits.MyXls.0.6.0\lib\org.in2bits.MyXls.dll</HintPath>
+      <HintPath>.\org.in2bits.MyXls.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -68,7 +69,9 @@
     <Compile Include="ZipHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DayEasy.Core\DayEasy.Core.csproj">

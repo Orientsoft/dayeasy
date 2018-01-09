@@ -83,7 +83,7 @@ namespace DayEasy.Web
             {
                 if (_currentUser != null)
                     return _currentUser;
-                var token = "token".QueryOrForm(string.Empty);
+                var token = "";
                 if (string.IsNullOrWhiteSpace(token))
                 {
                     token = CookieHelper.GetValue(Consts.UserCookieName);

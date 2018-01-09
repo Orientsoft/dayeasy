@@ -68,7 +68,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="org.in2bits.MyXls">
-      <HintPath>..\packages\org.in2bits.MyXls.0.6.0\lib\org.in2bits.MyXls.dll</HintPath>
+      <HintPath>..\..\..\library\org.in2bits.MyXls.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -99,7 +99,9 @@
     <Compile Include="Services\ApplicationService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
