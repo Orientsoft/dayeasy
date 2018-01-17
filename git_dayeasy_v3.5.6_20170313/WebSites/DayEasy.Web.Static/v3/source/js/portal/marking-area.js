@@ -24,9 +24,6 @@
         initArea = [],
         mouseMoved = 0,
         paperType;
-    if (uri.isJoint === "true") {
-        $imgMap.append('<div class="image-mask">');
-    }
     var initData = function () {
         //返回列表
         $(".m-back").bind("click", function () {
