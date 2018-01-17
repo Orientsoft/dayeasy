@@ -326,7 +326,7 @@ namespace DayEasy.Web.File
                 y = m.Groups["y"].Value.To(0),
                 w = m.Groups["w"].Value.To(-1),
                 h = m.Groups["h"].Value.To(-1);
-            if (x < 0 || y < 120 || w <= 0 || h <= 0)
+            if (x < 0 || y < 0 || w <= 0 || h <= 0)
             {
                 ResponseImage(context, Contains.DefaultImage);
                 return;
