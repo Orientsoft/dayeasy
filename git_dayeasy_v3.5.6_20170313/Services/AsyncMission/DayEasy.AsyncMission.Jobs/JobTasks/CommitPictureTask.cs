@@ -144,10 +144,22 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
                     //已提交过了 
                     if (questionIds.Exists(d => d == questions[0].Question.Id))
                     {
-                        //:todo 更新客观题
+                        // 更新客观题
+                        // 1. remove detail list first
+                        detailRepository.Delete(d => 
+                        d.MarkingID == result.Id 
+                        && d.PaperID == picture.PaperID 
+                        && d.Batch == batch 
+                        && d.StudentID == picture.StudentID);
+
+                        // 2. add new detail items to detailList
+                        var sts = (picture.SheetAnswers ?? "[]").JsonToObject<List<int[]>>();
+                        FillDetails(result.Id, paperId, batch, picture.StudentID, detailList, sts, questions);
+
                         continue;
                     }
                 }
+
                 var sheets = (picture.SheetAnswers ?? "[]").JsonToObject<List<int[]>>();
                 FillDetails(result.Id, paperId, batch, picture.StudentID, detailList, sheets, questions);
             }
