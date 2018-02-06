@@ -667,17 +667,26 @@ namespace DayEasy.Marking.Services
             var errorResult = new Func<string, DResults<JPictureDto>>(DResult.Errors<JPictureDto>);
             var checkResult = CombineCheck(jointBatch, groups.Select(g => g.Ids).ToList(), teacherId);
             if (!checkResult.Status)
+            {
                 return errorResult(checkResult.Message);
+            }
+                
             var areas = JointHelper.QuestionAreaCache(jointBatch);
             if (areas == null || !areas.Any())
+            {
                 return errorResult("该协同还没有上传试卷！");
+            }
+                
             var dtos = new List<JPictureDto>();
             var helper = JointHelper.Instance(jointBatch);
             var pictureIds = new List<string>();
             foreach (var @group in groups)
             {
                 if (@group.Ids.IsNullOrEmpty())
+                {
                     continue;
+                }
+                
                 var dto = helper.MarkingJointPicture(teacherId, @group.Ids, @group.Step);
                 if (!string.IsNullOrWhiteSpace(dto.Id))
                 {
@@ -707,16 +716,25 @@ namespace DayEasy.Marking.Services
             foreach (var dto in dtos)
             {
                 if (string.IsNullOrWhiteSpace(dto.Id))
+                {
                     continue;
+                }
+                
                 var picture = pictures.FirstOrDefault(p => p.Id == dto.Id);
                 if (picture == null)
+                {
                     continue;
+                }
+                
                 var rects = new List<RectangleF>();
                 var qids = dto.Details.Keys.ToList();
                 foreach (var qid in qids)
                 {
                     if (!areas.ContainsKey(qid))
+                    {
                         continue;
+                    }
+                    
                     var area = areas[qid];
                     rects.Add(new RectangleF(area.X, area.Y, area.Width, area.Height));
                 }
@@ -756,7 +774,10 @@ namespace DayEasy.Marking.Services
                 {
                     var item = MarkingDetailRepository.Load(detail.Id);
                     if (item == null)
+                    {
                         continue;
+                    }
+
                     item.MarkingAt = Clock.Now;
                     item.MarkingBy = dto.TeacherId;
                     item.CurrentScore = (detail.Score > item.Score ? item.Score : detail.Score);
@@ -776,7 +797,10 @@ namespace DayEasy.Marking.Services
                 {
                     var item = MarkingPictureRepository.Load(picture.id);
                     if (item == null)
+                    {
                         continue;
+                    }
+
                     var marks =
                         (JsonHelper.JsonList<MkSymbol>(item.RightAndWrong) ?? new List<MkSymbol>())
                             .ToList();
@@ -787,7 +811,9 @@ namespace DayEasy.Marking.Services
                             //删除
                             var temp = marks.FirstOrDefault(t => t.X == mark.X && t.Y == mark.Y);
                             if (temp != null)
+                            {
                                 marks.Remove(temp);
+                            }    
                         }
                         else
                         {
