@@ -144,17 +144,23 @@ namespace DayEasy.AsyncMission.Jobs.JobTasks
                     //已提交过了 
                     if (questionIds.Exists(d => d == questions[0].Question.Id))
                     {
+                        var objectiveQuestions = questions.Where(q => q.Question.IsObjective);
+
                         // 更新客观题
                         // 1. remove detail list first
-                        detailRepository.Delete(d => 
-                        d.MarkingID == result.Id 
-                        && d.PaperID == picture.PaperID 
-                        && d.Batch == batch 
-                        && d.StudentID == picture.StudentID);
+                        foreach (var oq in objectiveQuestions)
+                        {
+                            detailRepository.Delete(d =>
+                            d.MarkingID == result.Id
+                            && d.PaperID == picture.PaperID
+                            && d.Batch == batch
+                            && d.StudentID == picture.StudentID
+                            && d.QuestionID == oq.Question.Id);
+                        }
 
                         // 2. add new detail items to detailList
                         var sts = (picture.SheetAnswers ?? "[]").JsonToObject<List<int[]>>();
-                        FillDetails(result.Id, paperId, batch, picture.StudentID, detailList, sts, questions);
+                        FillDetails(result.Id, paperId, batch, picture.StudentID, detailList, sts, objectiveQuestions);
 
                         continue;
                     }
